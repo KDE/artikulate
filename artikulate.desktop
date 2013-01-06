@@ -1,0 +1,10 @@
+# KDE Config File
+[Desktop Entry]
+Type=Application
+Exec=artikulate -caption "%c" %i
+Icon=artikulate
+X-DocPath=artikulate/index.html
+GenericName=ArtiKulate Prononciation Trainer
+Terminal=false
+Name=ArtiKulate
+Categories=Qt;KDE;Education;X-KDE-Edu-Misc;
