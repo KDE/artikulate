@@ -18,25 +18,46 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mainwindow.h"
 #include "editorview.h"
 
-#include <KMainWindow>
-#include <KIcon>
+#include <KDebug>
 
-#include <QDeclarativeView>
-#include <QtCore/QCoreApplication>
+#include <QPropertyAnimation>
+#include <QDeclarativeEngine>
+#include <QDeclarativeComponent>
+#include <QDeclarativeItem>
+#include <QCoreApplication>
+#include <QDeclarativeContext>
+#include <QResizeEvent>
 
-MainWindow::MainWindow(const QString &file)
-    : KMainWindow()
-    , m_view(new EditorView(this, file))
+#include <KStandardDirs>
+#include <kdeclarative.h>
+
+EditorView::EditorView(QWidget *parent, const QString &file)
+    : QDeclarativeView(parent)
 {
-    setWindowIcon(KIcon("artikulate")); // FIXME not present yet
-    setWindowTitle(qAppName());
-    setCentralWidget(m_view);
+    setResizeMode(SizeRootObjectToView);
 
-    setAutoSaveSettings();
+    KDeclarative m_kdeclarative;
+    m_kdeclarative.setDeclarativeEngine(engine());
+    m_kdeclarative.initialize();
+
+    // bind kconfig, icons, etc.
+    m_kdeclarative.setupBindings();
+
+
+    setSource(QUrl("qrc:/qml/Editor.qml"));
+    kDebug() << errors();
+//     Q_ASSERT(errors().isEmpty());
+
+    connect(engine(), SIGNAL(quit()), QCoreApplication::instance(), SLOT(quit()));
+
 }
 
-MainWindow::~MainWindow()
+EditorView::~EditorView()
 {}
+
+void EditorView::resizeEvent(QResizeEvent *event)
+{
+    QDeclarativeView::resizeEvent(event);
+}

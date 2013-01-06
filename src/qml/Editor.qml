@@ -18,25 +18,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mainwindow.h"
-#include "editorview.h"
+import QtQuick 1.0
 
-#include <KMainWindow>
-#include <KIcon>
-
-#include <QDeclarativeView>
-#include <QtCore/QCoreApplication>
-
-MainWindow::MainWindow(const QString &file)
-    : KMainWindow()
-    , m_view(new EditorView(this, file))
+Item
 {
-    setWindowIcon(KIcon("artikulate")); // FIXME not present yet
-    setWindowTitle(qAppName());
-    setCentralWidget(m_view);
+    id: editor
 
-    setAutoSaveSettings();
+    Text { text: "Qml View"; }
 }
-
-MainWindow::~MainWindow()
-{}

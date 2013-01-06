@@ -23,6 +23,7 @@
 
 #include <KMainWindow>
 
+class QDeclarativeView;
 
 class MainWindow : public KMainWindow
 {
@@ -39,6 +40,9 @@ public:
     virtual ~MainWindow();
 
     virtual QSize sizeHint() const { return QSize(800,500); }
+
+private:
+    QDeclarativeView *m_view;
 };
 
 #endif // PAIRS_H

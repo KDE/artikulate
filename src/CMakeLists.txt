@@ -13,7 +13,10 @@ include_directories(
 set(artikulate_SRCS
     main.cpp
     mainwindow.cpp
+    editorview.cpp
 )
+
+qt4_add_resources(artikulate_SRCS resources.qrc)
 
 kde4_add_executable(artikulate ${artikulate_SRCS})
 
@@ -27,7 +30,7 @@ target_link_libraries( artikulate
     ${QT_QTSCRIPT_LIBRARY}
     ${QT_QTDECLARATIVE_LIBRARY}
     ${QT_QTXMLPATTERNS_LIBRARY}
-    ${QT_QTSQL_LIBRARY})
+    ${QT_QTSQL_LIBRARY}
+)
 
 install(TARGETS artikulate ${INSTALL_TARGETS_DEFAULT_ARGS})
-

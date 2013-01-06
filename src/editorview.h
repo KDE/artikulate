@@ -18,25 +18,27 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mainwindow.h"
-#include "editorview.h"
-
-#include <KMainWindow>
-#include <KIcon>
+#ifndef EDITORVIEW_H
+#define EDITORVIEW_H
 
 #include <QDeclarativeView>
-#include <QtCore/QCoreApplication>
 
-MainWindow::MainWindow(const QString &file)
-    : KMainWindow()
-    , m_view(new EditorView(this, file))
+class EditorView : public QDeclarativeView
 {
-    setWindowIcon(KIcon("artikulate")); // FIXME not present yet
-    setWindowTitle(qAppName());
-    setCentralWidget(m_view);
+    Q_OBJECT
 
-    setAutoSaveSettings();
-}
+public:
+    /**
+     * Default constructor
+     */
+    EditorView(QWidget *parent, const QString &file = "");
 
-MainWindow::~MainWindow()
-{}
+    /**
+     * Destructor
+     */
+    virtual ~EditorView();
+
+    virtual void resizeEvent(QResizeEvent* event);
+};
+
+#endif
