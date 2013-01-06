@@ -18,38 +18,27 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mainwindow.h"
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
-#include <KApplication>
-#include <KAboutData>
-#include <KCmdLineArgs>
-#include <KLocale>
-#include <KDebug>
+#include <KMainWindow>
 
-static const char description[] =
-    I18N_NOOP("Learn and practice prononciation.");
 
-static const char version[] = "0.0.1";
-
-int main(int argc, char **argv)
+class MainWindow : public KMainWindow
 {
-    KAboutData about("artikulate", 0,
-                ki18n("ArtiKulate Prononciation Trainer"),
-                version,
-                ki18n(description),
-                KAboutData::License_GPL,
-                ki18n("Copyright (C) 2013 by Andreas Cord-Landwehr")
-                );
+    Q_OBJECT
+public:
+    /**
+     * Default Constructor
+     */
+    MainWindow(const QString &file = "");
 
-    about.addAuthor(ki18n("Andreas Cord-Landwehr"), ki18n("Original Author"), "cordlandwehr@gmail.com");
+    /**
+     * Default Destructor
+     */
+    virtual ~MainWindow();
 
-    KCmdLineArgs::init(argc, argv, &about);
-    KApplication::setGraphicsSystem("raster");
+    virtual QSize sizeHint() const { return QSize(800,500); }
+};
 
-    KApplication app;
-
-    MainWindow *widget = new MainWindow;
-    widget->show();
-
-    return app.exec();
-}
+#endif // PAIRS_H

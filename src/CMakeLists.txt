@@ -12,6 +12,7 @@ include_directories(
 # set the source code files from which ArtiKulate is compiled
 set(artikulate_SRCS
     main.cpp
+    mainwindow.cpp
 )
 
 kde4_add_executable(artikulate ${artikulate_SRCS})

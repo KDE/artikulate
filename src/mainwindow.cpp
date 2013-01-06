@@ -20,36 +20,19 @@
 
 #include "mainwindow.h"
 
-#include <KApplication>
-#include <KAboutData>
-#include <KCmdLineArgs>
-#include <KLocale>
-#include <KDebug>
+#include <KMainWindow>
+#include <KIcon>
+#include <QtCore/QCoreApplication>
 
-static const char description[] =
-    I18N_NOOP("Learn and practice prononciation.");
-
-static const char version[] = "0.0.1";
-
-int main(int argc, char **argv)
+MainWindow::MainWindow(const QString &file)
+    : KMainWindow()
 {
-    KAboutData about("artikulate", 0,
-                ki18n("ArtiKulate Prononciation Trainer"),
-                version,
-                ki18n(description),
-                KAboutData::License_GPL,
-                ki18n("Copyright (C) 2013 by Andreas Cord-Landwehr")
-                );
+    setWindowIcon(KIcon("artikulate")); // FIXME not present yet
+    setWindowTitle(qAppName());
+//     setCentralWidget(m_view);
 
-    about.addAuthor(ki18n("Andreas Cord-Landwehr"), ki18n("Original Author"), "cordlandwehr@gmail.com");
-
-    KCmdLineArgs::init(argc, argv, &about);
-    KApplication::setGraphicsSystem("raster");
-
-    KApplication app;
-
-    MainWindow *widget = new MainWindow;
-    widget->show();
-
-    return app.exec();
+    setAutoSaveSettings();
 }
+
+MainWindow::~MainWindow()
+{}
