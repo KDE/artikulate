@@ -23,6 +23,8 @@
 
 #include <KMainWindow>
 
+class KActionCollection;
+class KMenu;
 class QDeclarativeView;
 
 class MainWindow : public KMainWindow
@@ -39,10 +41,14 @@ public:
      */
     virtual ~MainWindow();
 
+    Q_INVOKABLE void showMenu(int xPos, int yPos);
+
     virtual QSize sizeHint() const { return QSize(800,500); }
 
 private:
     QDeclarativeView *m_view;
+    KActionCollection *m_actionCollection;
+    KMenu *m_menu;
 };
 
 #endif // PAIRS_H

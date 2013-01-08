@@ -19,6 +19,8 @@
  */
 
 import QtQuick 1.1
+import org.kde.plasma.core 0.1 as PlasmaCore
+import org.kde.plasma.components 0.1 as PlasmaComponents
 
 Item
 {
@@ -27,5 +29,14 @@ Item
     ApplicationBackground {
         id: background
         anchors.fill: parent
+    }
+
+    PlasmaComponents.ToolButton {
+        id: configureButton
+        iconSource: "configure"
+        onClicked: {
+            var position = mapToItem(null, 0, height)
+            showMenu(position.x, position.y)
+        }
     }
 }

@@ -22,9 +22,15 @@
 #include "editorview.h"
 
 #include <KMainWindow>
+#include <KAction>
+#include <KActionCollection>
+#include <KCmdLineArgs>
 #include <KGlobal>
+#include <KHelpMenu>
 #include <KIcon>
+#include <KLocale>
 #include <kdeclarative.h>
+#include <KMenu>
 
 #include <QDeclarativeView>
 #include <QDeclarativeContext>
@@ -33,6 +39,8 @@
 MainWindow::MainWindow(const QString &file)
     : KMainWindow()
     , m_view(new QDeclarativeView(this))
+    , m_actionCollection(new KActionCollection(this))
+    , m_menu(new KMenu(this))
 {
     setWindowIcon(KIcon("artikulate")); // FIXME not present yet
     setWindowTitle(qAppName());
@@ -44,12 +52,31 @@ MainWindow::MainWindow(const QString &file)
     m_kdeclarative.setDeclarativeEngine(m_view->engine());
     m_kdeclarative.initialize();
 
+    // create menu
+    m_actionCollection->addAssociatedWidget(this);
+    m_menu->addSeparator();
+    KAction *editorAction = new KAction(i18n("Course Editor"), this);
+    connect(editorAction, SIGNAL(triggered()), SLOT(close())); // FIXME
+
+    m_actionCollection->addAction("editor", editorAction);
+    m_menu->addAction(editorAction);
+    m_menu->addSeparator();
+
+    KHelpMenu *helpMenu = new KHelpMenu(m_menu, KCmdLineArgs::aboutData(), false, m_actionCollection);
+    m_menu->addMenu(helpMenu->menu());
+
+    // set view
     m_view->setMinimumSize(1000, 700);
     m_view->setStyleSheet("background-color: transparent;");
-    m_view->rootContext()->setContextObject(m_view);
+    m_view->rootContext()->setContextObject(this);
     m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
     m_view->setSource(QUrl("qrc:/qml/Main.qml"));
 }
 
 MainWindow::~MainWindow()
 {}
+
+void MainWindow::showMenu(int xPos, int yPos)
+{
+    m_menu->popup(m_view->mapToGlobal(QPoint(xPos, yPos)));
+}
