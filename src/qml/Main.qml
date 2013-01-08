@@ -18,38 +18,14 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mainwindow.h"
-#include "editorview.h"
+import QtQuick 1.1
 
-#include <KMainWindow>
-#include <KGlobal>
-#include <KIcon>
-#include <kdeclarative.h>
-
-#include <QDeclarativeView>
-#include <QDeclarativeContext>
-#include <QtCore/QCoreApplication>
-
-MainWindow::MainWindow(const QString &file)
-    : KMainWindow()
-    , m_view(new QDeclarativeView(this))
+Item
 {
-    setWindowIcon(KIcon("artikulate")); // FIXME not present yet
-    setWindowTitle(qAppName());
-    setCentralWidget(m_view);
+    id: main
 
-    setAutoSaveSettings();
-
-    KDeclarative m_kdeclarative;
-    m_kdeclarative.setDeclarativeEngine(m_view->engine());
-    m_kdeclarative.initialize();
-
-    m_view->setMinimumSize(1000, 700);
-    m_view->setStyleSheet("background-color: transparent;");
-    m_view->rootContext()->setContextObject(m_view);
-    m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
-    m_view->setSource(QUrl("qrc:/qml/Main.qml"));
+    ApplicationBackground {
+        id: background
+        anchors.fill: parent
+    }
 }
-
-MainWindow::~MainWindow()
-{}
