@@ -29,6 +29,7 @@
 #include <KHelpMenu>
 #include <KIcon>
 #include <KLocale>
+#include <KStandardDirs>
 #include <kdeclarative.h>
 #include <KMenu>
 
@@ -70,7 +71,7 @@ MainWindow::MainWindow(const QString &file)
     m_view->setStyleSheet("background-color: transparent;");
     m_view->rootContext()->setContextObject(this);
     m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
-    m_view->setSource(QUrl("qrc:/qml/Main.qml"));
+    m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Main.qml")));
 }
 
 MainWindow::~MainWindow()

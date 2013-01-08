@@ -2,6 +2,8 @@ include(MacroLogFeature)
 
 find_package(KDeclarative REQUIRED)
 
+add_subdirectory(qml)
+
 # set include directories
 include_directories(
     ${QT_INCLUDE}
@@ -15,8 +17,6 @@ set(artikulate_SRCS
     mainwindow.cpp
     editorview.cpp
 )
-
-qt4_add_resources(artikulate_SRCS resources.qrc)
 
 kde4_add_executable(artikulate ${artikulate_SRCS})
 
