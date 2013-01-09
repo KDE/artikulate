@@ -18,6 +18,8 @@ set(artikulate_SRCS
     editorview.cpp
     application.cpp
 
+    core/language.cpp
+
     declarativeitems/applicationbackground.cpp
 )
 
