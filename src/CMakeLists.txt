@@ -16,6 +16,9 @@ set(artikulate_SRCS
     main.cpp
     mainwindow.cpp
     editorview.cpp
+    application.cpp
+
+    declarativeitems/applicationbackground.cpp
 )
 
 kde4_add_executable(artikulate ${artikulate_SRCS})

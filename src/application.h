@@ -18,27 +18,23 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
 
-import artikulate 1.0
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+#ifndef APPLICATION_H
+#define APPLICATION_H
 
-Item
+#include <KApplication>
+
+class QDeclarativeEngine;
+
+class Application : public KApplication
 {
-    id: main
+    Q_OBJECT
 
-    ApplicationBackground {
-        id: background
-        anchors.fill: parent
-    }
+public:
+    explicit Application();
 
-    PlasmaComponents.ToolButton {
-        id: configureButton
-        iconSource: "configure"
-        onClicked: {
-            var position = mapToItem(null, 0, height)
-            showMenu(position.x, position.y)
-        }
-    }
-}
+private:
+    void registerQmlTypes();
+};
+
+#endif // APPLICATION_H

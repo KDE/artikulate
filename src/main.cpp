@@ -19,8 +19,8 @@
  */
 
 #include "mainwindow.h"
+#include "application.h"
 
-#include <KApplication>
 #include <KAboutData>
 #include <KCmdLineArgs>
 #include <KLocale>
@@ -46,7 +46,7 @@ int main(int argc, char **argv)
     KCmdLineArgs::init(argc, argv, &about);
     KApplication::setGraphicsSystem("raster");
 
-    KApplication app;
+    Application app;
 
     MainWindow *widget = new MainWindow;
     widget->show();

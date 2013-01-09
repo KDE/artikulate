@@ -18,27 +18,25 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
 
-import artikulate 1.0
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+#include "application.h"
+#include "declarativeitems/applicationbackground.h"
 
-Item
+#include <kdeclarative.h>
+
+#include <qdeclarative.h>
+#include <QGraphicsDropShadowEffect>
+#include <QScriptValue>
+#include <QScriptEngine>
+
+
+Application::Application()
+    : KApplication(true)
 {
-    id: main
+    registerQmlTypes();
+}
 
-    ApplicationBackground {
-        id: background
-        anchors.fill: parent
-    }
-
-    PlasmaComponents.ToolButton {
-        id: configureButton
-        iconSource: "configure"
-        onClicked: {
-            var position = mapToItem(null, 0, height)
-            showMenu(position.x, position.y)
-        }
-    }
+void Application::registerQmlTypes()
+{
+    qmlRegisterType<ApplicationBackground>("artikulate", 1, 0, "ApplicationBackground");
 }
