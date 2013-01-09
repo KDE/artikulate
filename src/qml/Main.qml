@@ -28,17 +28,72 @@ Item
 {
     id: main
 
+    function switchScreen(from, to) {
+        switchScreenAnimation.from = from
+        switchScreenAnimation.to = to
+        switchScreenAnimation.start()
+    }
+
     ApplicationBackground {
         id: background
         anchors.fill: parent
     }
 
-    PlasmaComponents.ToolButton {
-        id: configureButton
-        iconSource: "configure"
-        onClicked: {
-            var position = mapToItem(null, 0, height)
-            showMenu(position.x, position.y)
+    HomeScreen {
+        id: homeScreen
+        anchors.fill: parent
+        visible: false
+        focus: true
+        Component.onCompleted: {
+            homeScreen.reset()
+            homeScreen.visible = true
+        }
+    }
+
+    Rectangle {
+        id: curtain
+        anchors.fill: parent
+        color: "#000"
+        opacity: 0
+    }
+
+    SequentialAnimation
+    {
+        id: switchScreenAnimation
+        property Item from
+        property Item to
+        NumberAnimation {
+            target: curtain
+            property: "opacity"
+            to: 1
+            duration: switchScreenAnimation.to == homeScreen? 250: 750
+            easing.type: Easing.OutQuad
+        }
+        PropertyAction {
+            target: switchScreenAnimation.from
+            property: "visible"
+            value: false
+        }
+        ScriptAction {
+            script: switchScreenAnimation.to.reset()
+        }
+        PropertyAction {
+            target: switchScreenAnimation.to
+            property: "visible"
+            value: true
+        }
+        NumberAnimation {
+            target: curtain
+            property: "opacity"
+            to: 0
+            duration: switchScreenAnimation.to == homeScreen? 250: 750
+            easing.type: Easing.InQuad
+        }
+        ScriptAction {
+            script: {
+                switchScreenAnimation.to.start()
+                switchScreenAnimation.to.forceActiveFocus()
+            }
         }
     }
 }
