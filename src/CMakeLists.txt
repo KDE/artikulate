@@ -19,6 +19,7 @@ set(artikulate_SRCS
     application.cpp
 
     core/language.cpp
+    core/phrase.cpp
     core/tag.cpp
     core/unit.cpp
 

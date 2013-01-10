@@ -18,40 +18,49 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef UNIT_H
-#define UNIT_H
+#ifndef PHRASE_H
+#define PHRASE_H
 
 #include <QObject>
+#include <KUrl>
 #include <QList>
 
 class QString;
-class Phrase;
+class Tag;
+class KUrl;
 
-class Unit : public QObject
+class Phrase : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
-    Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+    Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
+    Q_PROPERTY(KUrl sound READ sound WRITE setSound NOTIFY soundChanged)
 
 public:
-    explicit Unit(QObject *parent = 0);
+    explicit Phrase(QObject *parent = 0);
 
     QString id() const;
     void setId(const QString &id);
-    QString title() const;
-    void setTitle(const QString &title);
-    QList<Phrase *> phraseList() const;
-    void addPhrase(Phrase *phrase);
+    QString text() const;
+    void setText(const QString &title);
+    KUrl sound() const;
+    void setSound(const KUrl &soundFile);
+    QList<Tag *> prononciationTags() const;
+    void addPrononciationTag(Tag *tag);
 
 signals:
     void idChanged();
-    void titleChanged();
+    void unitChanged();
+    void textChanged();
+    void soundChanged();
+    void prononciationTagsChanged();
 
 private:
-    Q_DISABLE_COPY(Unit)
+    Q_DISABLE_COPY(Phrase)
     QString m_id;
-    QString m_title;
-    QList<Phrase *> m_phraseList;
+    QString m_text;
+    KUrl m_sound;
+    QList<Tag *> m_prononciationTags;
 };
 
-#endif // UNIT_H
+#endif // LESSON_H

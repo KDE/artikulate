@@ -18,23 +18,21 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "unit.h"
 #include "phrase.h"
 
 #include <KDebug>
-#include <KUrl>
 
-Unit::Unit(QObject *parent)
+Phrase::Phrase(QObject *parent)
     : QObject(parent)
 {
 }
 
-QString Unit::id() const
+QString Phrase::id() const
 {
     return m_id;
 }
 
-void Unit::setId(const QString &id)
+void Phrase::setId(const QString &id)
 {
     if (id != m_id) {
         m_id = id;
@@ -42,33 +40,26 @@ void Unit::setId(const QString &id)
     }
 }
 
-QString Unit::title() const
+QString Phrase::text() const
 {
-    return m_title;
+    return m_text;
 }
 
-void Unit::setTitle(const QString &title)
+void Phrase::setText(const QString &text)
 {
-    if (QString::compare(title, m_title) != 0) {
-        m_title = title;
-        emit titleChanged();
+    if (QString::compare(text, m_text) != 0) {
+        m_text = text;
+        emit textChanged();
     }
 }
 
-QList< Phrase* > Unit::phraseList() const
+KUrl Phrase::sound() const
 {
-    return m_phraseList;
+    return m_sound;
 }
 
-void Unit::addPhrase(Phrase *phrase)
+void Phrase::setSound(const KUrl &soundFile)
 {
-    QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
-    while (iter != m_phraseList.constEnd()) {
-        if (phrase->id() == (*iter)->id()) {
-            kWarning() << "Phrase is already contained in this unit, aborting";
-            return;
-        }
-    }
-    m_phraseList.append(phrase);
+    m_sound = soundFile;
+    emit soundChanged();
 }
-
