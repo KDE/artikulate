@@ -18,23 +18,22 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "course.h"
 #include "unit.h"
-#include "phrase.h"
 
 #include <KDebug>
-#include <KUrl>
 
-Unit::Unit(QObject *parent)
+Course::Course(QObject *parent)
     : QObject(parent)
 {
 }
 
-QString Unit::id() const
+QString Course::id() const
 {
     return m_id;
 }
 
-void Unit::setId(const QString &id)
+void Course::setId(const QString &id)
 {
     if (id != m_id) {
         m_id = id;
@@ -42,12 +41,12 @@ void Unit::setId(const QString &id)
     }
 }
 
-QString Unit::title() const
+QString Course::title() const
 {
     return m_title;
 }
 
-void Unit::setTitle(const QString &title)
+void Course::setTitle(const QString &title)
 {
     if (QString::compare(title, m_title) != 0) {
         m_title = title;
@@ -55,21 +54,20 @@ void Unit::setTitle(const QString &title)
     }
 }
 
-QList< Phrase* > Unit::phraseList() const
+QList< Unit* > Course::unitList() const
 {
-    return m_phraseList;
+    return m_unitList;
 }
 
-void Unit::addPhrase(Phrase *phrase)
+void Course::addUnit(Unit *unit)
 {
-    QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
-    while (iter != m_phraseList.constEnd()) {
-        if (phrase->id() == (*iter)->id()) {
-            kWarning() << "Phrase is already contained in this unit, aborting";
+    QList<Unit*>::ConstIterator iter = m_unitList.constBegin();
+    while (iter != m_unitList.constEnd()) {
+        if (unit->id() == (*iter)->id()) {
+            kWarning() << "Unit already contained in this course, aborting";
             return;
         }
         ++iter;
     }
-    m_phraseList.append(phrase);
+    m_unitList.append(unit);
 }
-

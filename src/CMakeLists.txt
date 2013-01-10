@@ -18,6 +18,7 @@ set(artikulate_SRCS
     editorview.cpp
     application.cpp
 
+    core/course.cpp
     core/language.cpp
     core/phrase.cpp
     core/tag.cpp

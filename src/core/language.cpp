@@ -71,6 +71,7 @@ void Language::addPrononciationTag(const QString &identifier, const QString &tit
             kWarning() << "Prononciation Tag identifier already registered, aborting";
             return;
         }
+        ++iter;
     }
 
     Tag *newTag = new Tag();

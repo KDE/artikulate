@@ -18,58 +18,40 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "unit.h"
-#include "phrase.h"
+#ifndef COURSE_H
+#define COURSE_H
 
-#include <KDebug>
-#include <KUrl>
+#include <QObject>
+#include <QMap>
 
-Unit::Unit(QObject *parent)
-    : QObject(parent)
+class QString;
+class Language;
+class Unit;
+
+class Course : public QObject
 {
-}
+    Q_OBJECT
+    Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
+    Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
 
-QString Unit::id() const
-{
-    return m_id;
-}
+public:
+    explicit Course(QObject *parent = 0);
+    QString id() const;
+    void setId(const QString &id);
+    QString title() const;
+    void setTitle(const QString &title);
+    QList<Unit *> unitList() const;
+    void addUnit(Unit *unit);
 
-void Unit::setId(const QString &id)
-{
-    if (id != m_id) {
-        m_id = id;
-        emit idChanged();
-    }
-}
+signals:
+    void idChanged();
+    void titleChanged();
 
-QString Unit::title() const
-{
-    return m_title;
-}
+private:
+    Q_DISABLE_COPY(Course)
+    QString m_id;
+    QString m_title;
+    QList<Unit *> m_unitList;
+};
 
-void Unit::setTitle(const QString &title)
-{
-    if (QString::compare(title, m_title) != 0) {
-        m_title = title;
-        emit titleChanged();
-    }
-}
-
-QList< Phrase* > Unit::phraseList() const
-{
-    return m_phraseList;
-}
-
-void Unit::addPhrase(Phrase *phrase)
-{
-    QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
-    while (iter != m_phraseList.constEnd()) {
-        if (phrase->id() == (*iter)->id()) {
-            kWarning() << "Phrase is already contained in this unit, aborting";
-            return;
-        }
-        ++iter;
-    }
-    m_phraseList.append(phrase);
-}
-
+#endif // COURSE_H
