@@ -36,6 +36,8 @@ class Language : public QObject
 
 public:
     explicit Language(QObject *parent = 0);
+    ~Language();
+
     QString id() const;
     void setId(const QString &id);
     QString title() const;

@@ -27,6 +27,11 @@ Language::Language(QObject *parent)
 {
 }
 
+Language::~Language()
+{
+    qDeleteAll(m_prononciationTags);
+}
+
 QString Language::id() const
 {
     return m_id;
