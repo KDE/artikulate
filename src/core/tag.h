@@ -18,45 +18,39 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LANGUAGE_H
-#define LANGUAGE_H
+#ifndef TAG_H
+#define TAG_H
 
 #include <QObject>
 #include <QMap>
-#include <QList>
 
 class QString;
-class Tag;
 
-class Language : public QObject
+/**
+ * \class Tag
+ * Tags are properties that can be assigned to a Phrase to specify its prononciation characteristics.
+ */
+class Tag : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
 
 public:
-    explicit Language(QObject *parent = 0);
+    explicit Tag(QObject *parent = 0);
     QString id() const;
     void setId(const QString &id);
     QString title() const;
     void setTitle(const QString &title);
-    QList<Tag *> prononciationTags() const;
-    void addPrononciationTag(const QString &identifier, const QString &title);
-    QMap<QString,QString> prononciationGroups() const;
-    void addPrononciationGroup(const QString &identifier, const QString &title);
 
 signals:
     void idChanged();
     void titleChanged();
-    void prononciationTagsChanged();
-    void prononciationTagsGroups();
 
 private:
-    Q_DISABLE_COPY(Language)
+    Q_DISABLE_COPY(Tag)
     QString m_id;
     QString m_title;
-    QList<Tag *> m_prononciationTags;
-    QMap<QString,QString> m_prononciationGroups;
 };
 
-#endif // LESSON_H
+#endif // TAG_H

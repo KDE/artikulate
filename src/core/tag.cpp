@@ -18,21 +18,20 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "language.h"
 #include "tag.h"
 #include <KDebug>
 
-Language::Language(QObject *parent)
+Tag::Tag(QObject *parent)
     : QObject(parent)
 {
 }
 
-QString Language::id() const
+QString Tag::id() const
 {
     return m_id;
 }
 
-void Language::setId(const QString &id)
+void Tag::setId(const QString &id)
 {
     if (id != m_id) {
         m_id = id;
@@ -40,50 +39,15 @@ void Language::setId(const QString &id)
     }
 }
 
-QString Language::title() const
+QString Tag::title() const
 {
     return m_title;
 }
 
-void Language::setTitle(const QString &title)
+void Tag::setTitle(const QString &title)
 {
     if (QString::compare(title, m_title) != 0) {
         m_title = title;
         emit titleChanged();
     }
-}
-
-QList<Tag *> Language::prononciationTags() const
-{
-    return m_prononciationTags;
-}
-
-void Language::addPrononciationTag(const QString &identifier, const QString &title)
-{
-    QList<Tag *>::ConstIterator iter = m_prononciationTags.constBegin();
-    while (iter != m_prononciationTags.constEnd()) {
-        if (QString::compare((*iter)->id(), identifier) == 0) {
-            kWarning() << "Prononciation Tag identifier already registered, aborting";
-            return;
-        }
-    }
-
-    Tag *newTag = new Tag();
-    newTag->setId(identifier);
-    newTag->setTitle(title);
-    m_prononciationTags.append(newTag);
-}
-
-QMap< QString, QString > Language::prononciationGroups() const
-{
-    return m_prononciationGroups;
-}
-
-void Language::addPrononciationGroup(const QString &identifier, const QString &title)
-{
-    if (m_prononciationGroups.contains(identifier)) {
-        kWarning() << "Prononciation Group identifier already register, aborting";
-        return;
-    }
-    m_prononciationGroups.insert(identifier, title);
 }
