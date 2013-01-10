@@ -20,6 +20,7 @@ set(artikulate_SRCS
 
     core/language.cpp
     core/tag.cpp
+    core/unit.cpp
 
     declarativeitems/applicationbackground.cpp
 )
