@@ -36,6 +36,13 @@ class Phrase : public QObject
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(KUrl sound READ sound WRITE setSound NOTIFY soundChanged)
 
+    enum {
+        Word,
+        Expression,
+        Sentence,
+        Paragraph
+    } Type;
+
 public:
     explicit Phrase(QObject *parent = 0);
 
