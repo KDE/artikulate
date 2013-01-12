@@ -20,6 +20,7 @@
 
 #include "language.h"
 #include "tag.h"
+#include "taggroup.h"
 #include <KDebug>
 
 Language::Language(QObject *parent)
@@ -73,27 +74,13 @@ QList<Tag *> Language::prononciationTags() const
     return m_prononciationTags;
 }
 
-void Language::addPrononciationTag(Tag *tag)
-{
-    QList<Tag *>::ConstIterator iter = m_prononciationTags.constBegin();
-    while (iter != m_prononciationTags.constEnd()) {
-        if (QString::compare((*iter)->id(), tag->id()) == 0) {
-            kWarning() << "Prononciation Tag identifier already registered, aborting";
-            return;
-        }
-        ++iter;
-    }
-
-    m_prononciationTags.append(tag);
-}
-
-void Language::addPrononciationTag(const QString &identifier, const QString &title)
+Tag * Language::addPrononciationTag(const QString &identifier, const QString &title)
 {
     QList<Tag *>::ConstIterator iter = m_prononciationTags.constBegin();
     while (iter != m_prononciationTags.constEnd()) {
         if (QString::compare((*iter)->id(), identifier) == 0) {
             kWarning() << "Prononciation Tag identifier already registered, aborting";
-            return;
+            return 0;
         }
         ++iter;
     }
@@ -102,18 +89,32 @@ void Language::addPrononciationTag(const QString &identifier, const QString &tit
     newTag->setId(identifier);
     newTag->setTitle(title);
     m_prononciationTags.append(newTag);
+    emit prononciationTagsChanged();
+
+    return newTag;
 }
 
-QMap< QString, QString > Language::prononciationGroups() const
+QList<TagGroup*> Language::prononciationGroups() const
 {
     return m_prononciationGroups;
 }
 
-void Language::addPrononciationGroup(const QString &identifier, const QString &title)
+TagGroup * Language::addPrononciationGroup(const QString &identifier, const QString &title)
 {
-    if (m_prononciationGroups.contains(identifier)) {
-        kWarning() << "Prononciation Group identifier already register, aborting";
-        return;
+    QList<TagGroup *>::ConstIterator iter = m_prononciationGroups.constBegin();
+    while (iter != m_prononciationGroups.constEnd()) {
+        if (QString::compare((*iter)->id(), identifier) == 0) {
+            kWarning() << "Prononciation Group identifier already registered, aborting";
+            return 0;
+        }
+        ++iter;
     }
-    m_prononciationGroups.insert(identifier, title);
+
+    TagGroup *newGroup = new TagGroup();
+    newGroup->setId(identifier);
+    newGroup->setTitle(title);
+    m_prononciationGroups.append(newGroup);
+    emit prononciationGroupsChanged();
+
+    return newGroup;
 }

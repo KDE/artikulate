@@ -23,6 +23,7 @@ set(artikulate_SRCS
     core/language.cpp
     core/phrase.cpp
     core/tag.cpp
+    core/taggroup.cpp
     core/unit.cpp
 
     declarativeitems/applicationbackground.cpp

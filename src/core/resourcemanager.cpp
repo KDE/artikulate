@@ -21,6 +21,7 @@
 #include "resourcemanager.h"
 #include "language.h"
 #include "tag.h"
+#include "taggroup.h"
 
 #include <QIODevice>
 #include <QFile>
@@ -61,15 +62,38 @@ Language * ResourceManager::loadLanguage(const KUrl &languageFile)
     language->setFile(languageFile);
     language->setId(root.firstChildElement("id").text());
     language->setTitle(root.firstChildElement("title").text());
+
+    // create tags
     for (QDomElement tagNode = root.firstChildElement("tags").firstChildElement();
          !tagNode.isNull();
          tagNode = tagNode.nextSiblingElement())
     {
-        Tag *tag = new Tag(language);
-        tag->setId(tagNode.attribute("id"));
-        tag->setTitle(tagNode.attribute("title"));
-        language->addPrononciationTag(tag);
+        language->addPrononciationTag(tagNode.attribute("id"), tagNode.attribute("title"));
     }
+    QList<Tag *> tags = language->prononciationTags();
+
+    // create tag groups
+    for (QDomElement groupNode = root.firstChildElement("tags").firstChildElement();
+         !groupNode.isNull();
+         groupNode = groupNode.nextSiblingElement())
+    {
+        TagGroup *group = language->addPrononciationGroup(groupNode.attribute("id"), groupNode.attribute("title"));
+        group->setDescription(groupNode.attribute("description"));
+        // register tags
+        for (QDomElement tagNode = groupNode.firstChildElement("tags").firstChildElement();
+            !tagNode.isNull();
+            tagNode = tagNode.nextSiblingElement())
+        {
+            QString id = tagNode.attribute("id");
+            foreach (Tag *tag, tags) {
+                if (tag->id() == id) {
+                    group->addTag(tag);
+                    break;
+                }
+            }
+        }
+    }
+
     return language;
 }
 

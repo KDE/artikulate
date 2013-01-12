@@ -18,51 +18,49 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LANGUAGE_H
-#define LANGUAGE_H
+#ifndef TAGGROUP_H
+#define TAGGROUP_H
 
 #include <QObject>
-#include <QList>
-#include <KUrl>
+#include <QMap>
+#include "tag.h"
 
 class QString;
-class Tag;
-class TagGroup;
 
-class Language : public QObject
+/**
+ * \class TagGroup
+ */
+class TagGroup : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
 
 public:
-    explicit Language(QObject *parent = 0);
-    ~Language();
-
+    explicit TagGroup(QObject *parent = 0);
     QString id() const;
     void setId(const QString &id);
     QString title() const;
     void setTitle(const QString &title);
-    KUrl file() const;
-    void setFile(const KUrl &file);
-    QList<Tag *> prononciationTags() const;
-    Tag * addPrononciationTag(const QString &identifier, const QString &title);
-    QList<TagGroup *> prononciationGroups() const;
-    TagGroup * addPrononciationGroup(const QString &identifier, const QString &title);
+    QString description() const;
+    void setDescription(const QString &description);
+    void addTag(Tag *tag);
+    void removeTag(Tag *tag);
+    QList<Tag *> tags() const;
 
 signals:
     void idChanged();
     void titleChanged();
-    void prononciationTagsChanged();
-    void prononciationGroupsChanged();
+    void descriptionChanged();
+    void tagAdded(const Tag&);
+    void tagRemoved(const Tag&);
 
 private:
-    Q_DISABLE_COPY(Language)
+    Q_DISABLE_COPY(TagGroup)
     QString m_id;
     QString m_title;
-    KUrl m_file;
-    QList<Tag *> m_prononciationTags;
-    QList<TagGroup *> m_prononciationGroups;
+    QString m_description;
+    QList<Tag *> m_tags;
 };
 
-#endif // LANGUAGE_H
+#endif // TAGGROUP_H
