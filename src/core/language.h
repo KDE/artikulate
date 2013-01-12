@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QMap>
 #include <QList>
+#include <KUrl>
 
 class QString;
 class Tag;
@@ -42,7 +43,10 @@ public:
     void setId(const QString &id);
     QString title() const;
     void setTitle(const QString &title);
+    KUrl file() const;
+    void setFile(const KUrl &file);
     QList<Tag *> prononciationTags() const;
+    void addPrononciationTag(Tag *tag);
     void addPrononciationTag(const QString &identifier, const QString &title);
     QMap<QString,QString> prononciationGroups() const;
     void addPrononciationGroup(const QString &identifier, const QString &title);
@@ -57,6 +61,7 @@ private:
     Q_DISABLE_COPY(Language)
     QString m_id;
     QString m_title;
+    KUrl m_file;
     QList<Tag *> m_prononciationTags;
     QMap<QString,QString> m_prononciationGroups;
 };

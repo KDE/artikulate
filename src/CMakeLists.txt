@@ -19,6 +19,7 @@ set(artikulate_SRCS
     application.cpp
 
     core/course.cpp
+    core/resourcemanager.cpp
     core/language.cpp
     core/phrase.cpp
     core/tag.cpp

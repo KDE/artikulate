@@ -58,9 +58,33 @@ void Language::setTitle(const QString &title)
     }
 }
 
+KUrl Language::file() const
+{
+    return m_file;
+}
+
+void Language::setFile(const KUrl& file)
+{
+    m_file = file;
+}
+
 QList<Tag *> Language::prononciationTags() const
 {
     return m_prononciationTags;
+}
+
+void Language::addPrononciationTag(Tag *tag)
+{
+    QList<Tag *>::ConstIterator iter = m_prononciationTags.constBegin();
+    while (iter != m_prononciationTags.constEnd()) {
+        if (QString::compare((*iter)->id(), tag->id()) == 0) {
+            kWarning() << "Prononciation Tag identifier already registered, aborting";
+            return;
+        }
+        ++iter;
+    }
+
+    m_prononciationTags.append(tag);
 }
 
 void Language::addPrononciationTag(const QString &identifier, const QString &title)
