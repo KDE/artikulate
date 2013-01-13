@@ -18,6 +18,14 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="unit">
+    <xs:sequence>
+        <xs:element name="id" type="xs:string" />
+        <xs:element name="title" type="xs:string" />
+        <xs:element name="phrases" type="phraseList" />
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="phrase">
     <xs:sequence>
         <xs:element name="id" type="xs:string" />
@@ -33,16 +41,6 @@
       <xs:element name="unit" type="unit" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-
-  <xs:complexType name="unit">
-    <xs:sequence>
-        <xs:element name="id" type="xs:string" />
-        <xs:element name="title" type="xs:string" />
-        <xs:element name="phrases" type="phraseList" />
-    </xs:sequence>
-  </xs:complexType>
-
-
 
   <xs:complexType name="tagList">
     <xs:sequence>
