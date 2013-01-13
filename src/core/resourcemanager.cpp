@@ -39,6 +39,17 @@ ResourceManager::ResourceManager(QObject *parent)
 {
 }
 
+void ResourceManager::loadLocalData()
+{
+    // load local language files
+    QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
+    foreach (const QString& file, languageFiles) {
+        loadLanguage(KUrl::fromLocalFile(file));
+    }
+
+    //TODO read course files
+}
+
 QList< Language* > ResourceManager::languageList() const
 {
     return m_languageList;
@@ -46,7 +57,7 @@ QList< Language* > ResourceManager::languageList() const
 
 bool ResourceManager::loadLanguage(const KUrl &languageFile)
 {
-    if (languageFile.isLocalFile()) {
+    if (!languageFile.isLocalFile()) {
         kWarning() << "Cannot open language file at " << languageFile.toLocalFile() << ", aborting.";
         return false;
     }
@@ -109,24 +120,29 @@ QXmlSchema ResourceManager::loadXmlSchema(const QString &schemeName)
     KUrl file = KUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", relPath));
 
     QXmlSchema schema;
-    if (schema.load(file) == true) {
+    if (schema.load(file) == false) {
         kWarning() << "Schema at file " << file.toLocalFile() << " is invalid.";
     }
     return schema;
 }
 
-QDomDocument ResourceManager::loadDomDocument(const KUrl &file, const QXmlSchema &schema)
+QDomDocument ResourceManager::loadDomDocument(const KUrl &path, const QXmlSchema &schema)
 {
     QDomDocument document;
     QXmlSchemaValidator validator(schema);
-    if (!validator.validate(file)) {
+    if (!validator.validate(path)) {
         kWarning() << "Schema is not valid, aborting loading of XML document.";
         return document;
     }
 
     QString errorMsg;
-    if (!document.setContent(file.toLocalFile(), &errorMsg)) {
-        kWarning() << errorMsg;
+    QFile file(path.toLocalFile());
+    if (file.open(QIODevice::ReadOnly)) {
+        if (!document.setContent(&file, &errorMsg)) {
+            kWarning() << errorMsg;
+        }
+    } else {
+        kWarning() << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
     }
     return document;
 }

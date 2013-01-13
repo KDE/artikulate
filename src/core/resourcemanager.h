@@ -30,13 +30,34 @@ class QDomDocument;
 class QFile;
 class QXmlSchema;
 
+/**
+ * \class ResourceManager
+ * This class loads and stores all data files of the application.
+ */
 class ResourceManager : public QObject
 {
     Q_OBJECT
 public:
     explicit ResourceManager(QObject *parent = 0);
 
+    /**
+     * This method loads all language and course files that are provided in the standard directories
+     * for this application.
+     */
+    void loadLocalData();
+
+    /**
+     * \return list of all loaded language specifications
+     */
     QList<Language *> languageList() const;
+
+    /**
+     * Load language specification from locally stored XML file.
+     * TODO allow loading of remote XML files
+     *
+     * \param path is the local XML file containing the language specification
+     * \return true if loaded successfully, otherwise false
+     */
     bool loadLanguage(const KUrl &path);
 
 private:
@@ -52,11 +73,11 @@ private:
     /**
      * Load XML file given by \p file that confirms with XML schema \p scheme.
      *
-     * \param file is the file to be loaded
+     * \param path is the path to the XML file to be loaded
      * \param scheme is the XML schema describing the DOM
      * \return the loaded DOM document
      */
-    QDomDocument loadDomDocument(const KUrl &file, const QXmlSchema &schema);
+    QDomDocument loadDomDocument(const KUrl &path, const QXmlSchema &schema);
 
     QList<Language *> m_languageList;
 };

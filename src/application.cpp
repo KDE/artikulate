@@ -20,6 +20,8 @@
 
 
 #include "application.h"
+
+#include "core/resourcemanager.h"
 #include "declarativeitems/applicationbackground.h"
 
 #include <kdeclarative.h>
@@ -34,8 +36,8 @@ Application::Application()
     : KApplication(true)
 {
     registerQmlTypes();
-
-    //TODO load files
+    ResourceManager resourceManager;
+    resourceManager.loadLocalData();
 }
 
 void Application::registerQmlTypes()
