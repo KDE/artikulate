@@ -36,7 +36,7 @@ class Phrase : public QObject
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(KUrl sound READ sound WRITE setSound NOTIFY soundChanged)
 
-    enum {
+    typedef enum {
         Word,
         Expression,
         Sentence,
@@ -50,6 +50,10 @@ public:
     void setId(const QString &id);
     QString text() const;
     void setText(const QString &title);
+    Phrase::Type type() const;
+    QString typeString() const;
+    void setType(Phrase::Type type);
+    void setType(const QString &typeString);
     KUrl sound() const;
     void setSound(const KUrl &soundFile);
     QList<Tag *> prononciationTags() const;
@@ -66,6 +70,7 @@ private:
     Q_DISABLE_COPY(Phrase)
     QString m_id;
     QString m_text;
+    Type m_type;
     KUrl m_sound;
     QList<Tag *> m_prononciationTags;
 };

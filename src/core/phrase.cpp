@@ -53,6 +53,54 @@ void Phrase::setText(const QString &text)
     }
 }
 
+Phrase::Type Phrase::type() const
+{
+    return m_type;
+}
+
+QString Phrase::typeString() const
+{
+    switch(m_type) {
+    case Word:
+        return "word";
+    case Expression:
+        return "expression";
+    case Sentence:
+        return "sentence";
+    case Paragraph:
+        return "paragraph";
+    default:
+        return "ERROR_UNKNOWN_TYPE";
+    }
+}
+
+void Phrase::setType(Phrase::Type type)
+{
+    m_type = type;
+}
+
+void Phrase::setType(const QString &typeString)
+{
+    if (typeString == "word") {
+        m_type = Word;
+        return;
+    }
+    if (typeString == "expression") {
+        m_type = Expression;
+        return;
+    }
+    if (typeString == "sentence") {
+        m_type = Sentence;
+        return;
+    }
+    if (typeString == "paragraph") {
+        m_type = Paragraph;
+        return;
+    }
+    kWarning() << "Cannot set type from unknown identifier, aborting";
+    return;
+}
+
 KUrl Phrase::sound() const
 {
     return m_sound;
