@@ -39,26 +39,31 @@ ResourceManager::ResourceManager(QObject *parent)
 {
 }
 
-Language * ResourceManager::loadLanguage(const KUrl &languageFile)
+QList< Language* > ResourceManager::languageList() const
+{
+    return m_languageList;
+}
+
+bool ResourceManager::loadLanguage(const KUrl &languageFile)
 {
     if (languageFile.isLocalFile()) {
         kWarning() << "Cannot open language file at " << languageFile.toLocalFile() << ", aborting.";
-        return 0;
+        return false;
     }
 
     QXmlSchema schema = loadXmlSchema("language");
     if (!schema.isValid()) {
-        return 0;
+        return false;
     }
 
     QDomDocument document = loadDomDocument(languageFile, schema);
     if (document.isNull()) {
         kWarning() << "Could not parse document " << languageFile.toLocalFile() << ", aborting.";
-        return 0;
+        return false;
     }
 
     QDomElement root(document.documentElement());
-    Language *language = new Language();
+    Language *language = new Language(this);
     language->setFile(languageFile);
     language->setId(root.firstChildElement("id").text());
     language->setTitle(root.firstChildElement("title").text());
@@ -94,7 +99,8 @@ Language * ResourceManager::loadLanguage(const KUrl &languageFile)
         }
     }
 
-    return language;
+    m_languageList.append(language);
+    return true;
 }
 
 QXmlSchema ResourceManager::loadXmlSchema(const QString &schemeName)

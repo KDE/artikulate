@@ -35,7 +35,9 @@ class ResourceManager : public QObject
     Q_OBJECT
 public:
     explicit ResourceManager(QObject *parent = 0);
-    static Language * loadLanguage(const KUrl &path);
+
+    QList<Language *> languageList() const;
+    bool loadLanguage(const KUrl &path);
 
 private:
     /**
@@ -45,7 +47,7 @@ private:
      * \param schemeName name of the Xml schema without suffix
      * \return loaded XML Schema
      */
-    static QXmlSchema loadXmlSchema(const QString &schemeName);
+    QXmlSchema loadXmlSchema(const QString &schemeName);
 
     /**
      * Load XML file given by \p file that confirms with XML schema \p scheme.
@@ -54,7 +56,9 @@ private:
      * \param scheme is the XML schema describing the DOM
      * \return the loaded DOM document
      */
-    static QDomDocument loadDomDocument(const KUrl &file, const QXmlSchema &schema);
+    QDomDocument loadDomDocument(const KUrl &file, const QXmlSchema &schema);
+
+    QList<Language *> m_languageList;
 };
 
 #endif // RESOURCEMANAGER_H

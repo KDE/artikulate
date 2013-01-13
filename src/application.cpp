@@ -34,6 +34,8 @@ Application::Application()
     : KApplication(true)
 {
     registerQmlTypes();
+
+    //TODO load files
 }
 
 void Application::registerQmlTypes()
