@@ -111,3 +111,15 @@ void Phrase::setSound(const KUrl &soundFile)
     m_sound = soundFile;
     emit soundChanged();
 }
+
+QList<Tag *> Phrase::tags() const
+{
+    return m_prononciationTags;
+}
+
+void Phrase::addTag(Tag* tag)
+{
+    if (!m_prononciationTags.contains(tag)) {
+        m_prononciationTags.append(tag);
+    }
+}

@@ -20,6 +20,9 @@
 
 #include "resourcemanager.h"
 #include "language.h"
+#include "course.h"
+#include "unit.h"
+#include "phrase.h"
 #include "tag.h"
 #include "taggroup.h"
 
@@ -47,7 +50,11 @@ void ResourceManager::loadLocalData()
         loadLanguage(KUrl::fromLocalFile(file));
     }
 
-    //TODO read course files
+    // load local course files
+    QStringList courseFiles = KGlobal::dirs()->findAllResources("appdata",QString("courses/*.xml"));
+    foreach (const QString &file, courseFiles) {
+        loadCourse(KUrl::fromLocalFile(file));
+    }
 }
 
 QList< Language* > ResourceManager::languageList() const
@@ -111,6 +118,95 @@ bool ResourceManager::loadLanguage(const KUrl &languageFile)
     }
 
     m_languageList.append(language);
+    return true;
+}
+
+QList< Course* > ResourceManager::courseList() const
+{
+    return m_courseList;
+}
+
+bool ResourceManager::loadCourse(const KUrl &courseFile)
+{
+    if (!courseFile.isLocalFile()) {
+        kWarning() << "Cannot open course file at " << courseFile.toLocalFile() << ", aborting.";
+        return false;
+    }
+
+    QXmlSchema schema = loadXmlSchema("course");
+    if (!schema.isValid()) {
+        return false;
+    }
+
+    QDomDocument document = loadDomDocument(courseFile, schema);
+    if (document.isNull()) {
+        kWarning() << "Could not parse document " << courseFile.toLocalFile() << ", aborting.";
+        return false;
+    }
+
+    // create course
+    QDomElement root(document.documentElement());
+    Course *course = new Course(this);
+    course->setFile(courseFile);
+    course->setId(root.firstChildElement("id").text());
+    course->setTitle(root.firstChildElement("title").text());
+    course->setDescription(root.firstChildElement("title").text());
+
+    // set language
+    QString language = root.firstChildElement("language").text();
+    QList<Language*>::ConstIterator iter = m_languageList.constBegin();
+    while (iter != m_languageList.constEnd()) {
+        if ((*iter)->id() == language) {
+            course->setLanguage(*iter);
+            break;
+        }
+        ++iter;
+    }
+    if (course->language() == 0) {
+        kWarning() << "Language ID unknown, could not register any language, aborting";
+        return false;
+    }
+
+    // create units
+    for (QDomElement unitNode = root.firstChildElement("units").firstChildElement();
+         !unitNode.isNull();
+         unitNode = unitNode.nextSiblingElement())
+    {
+        Unit *unit = new Unit(course);
+        course->addUnit(unit);
+        unit->setId(unitNode.firstChildElement("id").text());
+        unit->setTitle(unitNode.firstChildElement("title").text());
+
+        // create phrases
+        for (QDomElement phraseNode = unitNode.firstChildElement("phrases").firstChildElement();
+            !phraseNode.isNull();
+            phraseNode = phraseNode.nextSiblingElement())
+        {
+            Phrase *phrase = new Phrase(unit);
+            unit->addPhrase(phrase);
+            phrase->setId(phraseNode.firstChildElement("id").text());
+            phrase->setText(phraseNode.firstChildElement("text").text());
+            phrase->setSound(KUrl::fromLocalFile(phraseNode.firstChildElement("soundFile").text()));
+            phrase->setType(phraseNode.firstChildElement("type").text());
+
+            // add tags
+            QList<Tag *> tags = course->language()->prononciationTags();
+            for (QDomElement tagNode = phraseNode.firstChildElement("tags").firstChildElement();
+                !tagNode.isNull();
+                tagNode = tagNode.nextSiblingElement())
+            {
+                QString id = tagNode.attribute("id");
+                foreach (Tag *tag, tags) {
+                    if (tag->id() == id) {
+                        phrase->addTag(tag);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    m_courseList.append(course);
     return true;
 }
 

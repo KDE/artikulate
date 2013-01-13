@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QMap>
+#include <KUrl>
 
 class QString;
 class Language;
@@ -33,6 +34,7 @@ class Course : public QObject
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+    Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
 
 public:
     explicit Course(QObject *parent = 0);
@@ -40,17 +42,27 @@ public:
     void setId(const QString &id);
     QString title() const;
     void setTitle(const QString &title);
+    Language * language() const;
+    void setLanguage(Language *language);
+    QString description() const;
+    void setDescription(const QString &description);
+    KUrl file() const;
+    void setFile(const KUrl &file);
     QList<Unit *> unitList() const;
     void addUnit(Unit *unit);
 
 signals:
     void idChanged();
     void titleChanged();
+    void descriptionChanged();
 
 private:
     Q_DISABLE_COPY(Course)
     QString m_id;
     QString m_title;
+    QString m_description;
+    Language *m_language;
+    KUrl m_file;
     QList<Unit *> m_unitList;
 };
 

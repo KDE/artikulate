@@ -20,11 +20,13 @@
 
 #include "course.h"
 #include "unit.h"
+#include "language.h"
 
 #include <KDebug>
 
 Course::Course(QObject *parent)
     : QObject(parent)
+    , m_language(0)
 {
 }
 
@@ -52,6 +54,37 @@ void Course::setTitle(const QString &title)
         m_title = title;
         emit titleChanged();
     }
+}
+
+QString Course::description() const
+{
+    return m_description;
+}
+
+void Course::setDescription(const QString &description)
+{
+    m_description = description;
+    emit descriptionChanged();
+}
+
+Language * Course::language() const
+{
+    return m_language;
+}
+
+void Course::setLanguage(Language *language)
+{
+    m_language = language;
+}
+
+KUrl Course::file() const
+{
+    return m_file;
+}
+
+void Course::setFile(const KUrl &file)
+{
+    m_file = file;
 }
 
 QList< Unit* > Course::unitList() const

@@ -25,6 +25,7 @@
 #include <QObject>
 
 class Language;
+class Course;
 class KUrl;
 class QDomDocument;
 class QFile;
@@ -60,6 +61,20 @@ public:
      */
     bool loadLanguage(const KUrl &path);
 
+    /**
+     * \return list of all loaded courses
+     */
+    QList<Course *> courseList() const;
+
+    /**
+     * Load course from locally stored XML file.
+     * TODO allow loading of remote XML files
+     *
+     * \param path is the local XML file containing the course
+     * \return true if loaded successfully, otherwise false
+     */
+    bool loadCourse(const KUrl &path);
+
 private:
     /**
      * Load XSD file given by its file name (without ".xsd" suffix). The method searches exclusively
@@ -80,6 +95,7 @@ private:
     QDomDocument loadDomDocument(const KUrl &path, const QXmlSchema &schema);
 
     QList<Language *> m_languageList;
+    QList<Course *> m_courseList;
 };
 
 #endif // RESOURCEMANAGER_H

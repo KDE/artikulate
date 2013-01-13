@@ -56,8 +56,8 @@ public:
     void setType(const QString &typeString);
     KUrl sound() const;
     void setSound(const KUrl &soundFile);
-    QList<Tag *> prononciationTags() const;
-    void addPrononciationTag(Tag *tag);
+    QList<Tag *> tags() const;
+    void addTag(Tag *tag);
 
 signals:
     void idChanged();
