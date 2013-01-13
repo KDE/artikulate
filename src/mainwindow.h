@@ -22,6 +22,7 @@
 #define MAINWINDOW_H
 
 #include <KMainWindow>
+#include "core/resourcemanager.h"
 
 class KActionCollection;
 class KMenu;
@@ -30,6 +31,7 @@ class QDeclarativeView;
 class MainWindow : public KMainWindow
 {
     Q_OBJECT
+    Q_PROPERTY(ResourceManager *globalResourceManager READ resourceManager CONSTANT)
 public:
     /**
      * Default Constructor
@@ -41,6 +43,8 @@ public:
      */
     virtual ~MainWindow();
 
+    ResourceManager * resourceManager() const;
+
     Q_INVOKABLE void showMenu(int xPos, int yPos);
 
     virtual QSize sizeHint() const { return QSize(800,500); }
@@ -49,6 +53,7 @@ private:
     QDeclarativeView *m_view;
     KActionCollection *m_actionCollection;
     KMenu *m_menu;
+    ResourceManager *m_resourceManager;
 };
 
 #endif // PAIRS_H

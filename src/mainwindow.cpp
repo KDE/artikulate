@@ -42,12 +42,16 @@ MainWindow::MainWindow(const QString &file)
     , m_view(new QDeclarativeView(this))
     , m_actionCollection(new KActionCollection(this))
     , m_menu(new KMenu(this))
+    , m_resourceManager(new ResourceManager(this))
 {
     setWindowIcon(KIcon("artikulate")); // FIXME not present yet
     setWindowTitle(qAppName());
     setCentralWidget(m_view);
 
     setAutoSaveSettings();
+
+    // load resources
+    m_resourceManager->loadLocalData();
 
     KDeclarative m_kdeclarative;
     m_kdeclarative.setDeclarativeEngine(m_view->engine());
@@ -76,6 +80,11 @@ MainWindow::MainWindow(const QString &file)
 
 MainWindow::~MainWindow()
 {}
+
+ResourceManager* MainWindow::resourceManager() const
+{
+    return m_resourceManager;
+}
 
 void MainWindow::showMenu(int xPos, int yPos)
 {

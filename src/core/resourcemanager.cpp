@@ -43,7 +43,7 @@ void ResourceManager::loadLocalData()
 {
     // load local language files
     QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
-    foreach (const QString& file, languageFiles) {
+    foreach (const QString &file, languageFiles) {
         loadLanguage(KUrl::fromLocalFile(file));
     }
 

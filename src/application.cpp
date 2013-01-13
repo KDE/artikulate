@@ -36,11 +36,11 @@ Application::Application()
     : KApplication(true)
 {
     registerQmlTypes();
-    ResourceManager resourceManager;
-    resourceManager.loadLocalData();
 }
 
 void Application::registerQmlTypes()
 {
+    qmlRegisterType<ResourceManager>("artikulate", 1, 0, "ResourceManager");
+
     qmlRegisterType<ApplicationBackground>("artikulate", 1, 0, "ApplicationBackground");
 }

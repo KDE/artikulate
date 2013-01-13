@@ -28,6 +28,8 @@ Item
 {
     id: main
 
+    property ResourceManager resourceManager: globalResourceManager
+
     function switchScreen(from, to) {
         switchScreenAnimation.from = from
         switchScreenAnimation.to = to
