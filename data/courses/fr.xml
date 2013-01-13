@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<course>
+    <id>fr</id>
+    <title>ArtiKulate Français</title>
+    <description>Course française.</description>
+    <language>fr</language>
+    <units>
+        <unit>
+            <id>1</id>
+            <title>Cuisine Français</title>
+            <phrases>
+                <phrase>
+                    <id>1</id>
+                    <text>Qu'est-ce que vous avez choisi?</text>
+                    <soundFile></soundFile>
+                    <type>sentence</type>
+                    <tags></tags>
+                </phrase>
+                <phrase>
+                    <id>2</id>
+                    <text>Moi, comme entrée, une salade exotique.</text>
+                    <soundFile></soundFile>
+                    <type>sentence</type>
+                    <tags></tags>
+                </phrase>
+            </phrases>
+        </unit>
+    </units>
+</course>

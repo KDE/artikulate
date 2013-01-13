@@ -1,0 +1,65 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="course">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" />
+        <xs:element name="title" type="xs:string" />
+        <xs:element name="description" type="xs:string" />
+        <xs:element name="language" type="xs:string" />
+        <xs:element name="units" type="unitList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="phraseList">
+    <xs:sequence>
+      <xs:element name="phrase" type="phrase" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="phrase">
+    <xs:sequence>
+        <xs:element name="id" type="xs:string" />
+        <xs:element name="text" type="xs:string" />
+        <xs:element name="soundFile" type="xs:string" />
+        <xs:element name="type" type="xs:string" />
+        <xs:element name="tags" type="tagList" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="unitList">
+    <xs:sequence>
+      <xs:element name="unit" type="unit" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="unit">
+    <xs:sequence>
+        <xs:element name="id" type="xs:string" />
+        <xs:element name="title" type="xs:string" />
+        <xs:element name="phrases" type="phraseList" />
+    </xs:sequence>
+  </xs:complexType>
+
+
+
+  <xs:complexType name="tagList">
+    <xs:sequence>
+      <xs:element name="tag" type="tag" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="tag">
+    <xs:sequence>
+        <xs:element name="id" type="xs:string" />
+        <xs:element name="title" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+
+<!--
+kate: space-indent on; indent-width 2; mixedindent off; indent-mode xml;
+-->
+
+</xs:schema>
