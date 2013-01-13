@@ -52,6 +52,8 @@ public:
      */
     QList<Language *> languageList() const;
 
+    Q_INVOKABLE Language * language(int index) const;
+
     /**
      * Load language specification from locally stored XML file.
      * TODO allow loading of remote XML files
@@ -74,6 +76,12 @@ public:
      * \return true if loaded successfully, otherwise false
      */
     bool loadCourse(const KUrl &path);
+
+signals:
+    void languageAdded();
+    void languageAboutToBeAdded(Language*,int);
+    void languageRemoved();
+    void languageAboutToBeRemoved(int,int);
 
 private:
     /**

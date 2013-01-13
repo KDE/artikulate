@@ -62,6 +62,12 @@ QList< Language* > ResourceManager::languageList() const
     return m_languageList;
 }
 
+Language* ResourceManager::language(int index) const
+{
+    Q_ASSERT (index >= 0 && index < m_languageList.count());
+    return m_languageList.at(index);
+}
+
 bool ResourceManager::loadLanguage(const KUrl &languageFile)
 {
     if (!languageFile.isLocalFile()) {
@@ -82,6 +88,8 @@ bool ResourceManager::loadLanguage(const KUrl &languageFile)
 
     QDomElement root(document.documentElement());
     Language *language = new Language(this);
+    m_languageList.append(language);
+    emit languageAboutToBeAdded(language, m_languageList.count()-1);
     language->setFile(languageFile);
     language->setId(root.firstChildElement("id").text());
     language->setTitle(root.firstChildElement("title").text());
@@ -117,7 +125,7 @@ bool ResourceManager::loadLanguage(const KUrl &languageFile)
         }
     }
 
-    m_languageList.append(language);
+    emit languageAdded();
     return true;
 }
 

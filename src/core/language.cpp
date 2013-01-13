@@ -89,7 +89,7 @@ Tag * Language::addPrononciationTag(const QString &identifier, const QString &ti
     newTag->setId(identifier);
     newTag->setTitle(title);
     m_prononciationTags.append(newTag);
-    emit prononciationTagsChanged();
+    emit tagsChanged();
 
     return newTag;
 }
@@ -114,7 +114,7 @@ TagGroup * Language::addPrononciationGroup(const QString &identifier, const QStr
     newGroup->setId(identifier);
     newGroup->setTitle(title);
     m_prononciationGroups.append(newGroup);
-    emit prononciationGroupsChanged();
+    emit groupsChanged();
 
     return newGroup;
 }

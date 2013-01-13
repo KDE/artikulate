@@ -53,8 +53,8 @@ public:
 signals:
     void idChanged();
     void titleChanged();
-    void prononciationTagsChanged();
-    void prononciationGroupsChanged();
+    void tagsChanged();
+    void groupsChanged();
 
 private:
     Q_DISABLE_COPY(Language)

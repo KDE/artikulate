@@ -26,6 +26,8 @@ set(artikulate_SRCS
     core/taggroup.cpp
     core/unit.cpp
 
+    models/languagemodel.cpp
+
     declarativeitems/applicationbackground.cpp
 )
 
