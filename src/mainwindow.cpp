@@ -20,6 +20,7 @@
 
 #include "mainwindow.h"
 #include "editorview.h"
+#include "models/languagemodel.h"
 
 #include <KMainWindow>
 #include <KAction>
@@ -74,6 +75,7 @@ MainWindow::MainWindow(const QString &file)
     m_view->setMinimumSize(1000, 700);
     m_view->setStyleSheet("background-color: transparent;");
     m_view->rootContext()->setContextObject(this);
+
     m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
     m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Main.qml")));
 }
@@ -81,7 +83,7 @@ MainWindow::MainWindow(const QString &file)
 MainWindow::~MainWindow()
 {}
 
-ResourceManager* MainWindow::resourceManager() const
+ResourceManager * MainWindow::resourceManager() const
 {
     return m_resourceManager;
 }

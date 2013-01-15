@@ -27,13 +27,21 @@ class ResourceManager;
 class Language;
 class QSignalMapper;
 
+
 class LanguageModel : public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(ResourceManager *resourceManager READ resourceManager WRITE setResourceManager NOTIFY resourceManagerChanged)
 
 public:
+     enum LanguageRoles {
+         TitleRole = Qt::UserRole + 1,
+         IdRole
+     };
+
     explicit LanguageModel(QObject *parent = 0);
     void setResourceManager(ResourceManager *resourceManager);
+    ResourceManager * resourceManager() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;

@@ -23,49 +23,31 @@ import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
 import artikulate 1.0
 
-FocusScope {
-    id: screen
+Item {
+    id: root
 
     property LanguageModel languageModel
+    signal languageSelected(variant language, int languageIndex)
 
-    QtObject {
-        id: d
-    }
+    Item {
+        id: content
 
-    function start() {}
-    function reset() {
-        //TODO
-    }
-
-
-    Column {
-        anchors.fill: parent
-
-        PlasmaComponents.ToolBar {
-            id: header
-            width: parent.width
-            tools: Row {
-                anchors.leftMargin: 3
-                anchors.rightMargin: 3
-                spacing: 5
-
-                PlasmaComponents.ToolButton {
-                    id: configureButton
-                    iconSource: "configure"
-                    onClicked: {
-                        var position = mapToItem(null, 0, height)
-                        showMenu(position.x, position.y)
-                    }
+        Component {
+            id: myDelegate
+            PlasmaComponents.ToolButton {
+                text : model.title
+                onClicked: {
+                    var newIndex = priv.currentIndex - 1
+                    root.selectLanguage(newIndex, false)
                 }
             }
         }
 
+        ListView {
+            width: 180; height: 200
 
-    }
-    Item {
-        y: 50
-        LanguageSelector {
-            languageModel : screen.languageModel
+            model: screen.languageModel
+            delegate: myDelegate
         }
     }
 }

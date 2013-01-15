@@ -19,6 +19,7 @@
  */
 
 #include "language.h"
+#include "models/languagemodel.h"
 #include "tag.h"
 #include "taggroup.h"
 #include <KDebug>

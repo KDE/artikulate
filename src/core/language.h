@@ -52,6 +52,7 @@ public:
 
 signals:
     void idChanged();
+    void associatedLanguageItemChanged();
     void titleChanged();
     void tagsChanged();
     void groupsChanged();

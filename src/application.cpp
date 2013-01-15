@@ -22,7 +22,9 @@
 #include "application.h"
 
 #include "core/resourcemanager.h"
+#include "core/language.h"
 #include "declarativeitems/applicationbackground.h"
+#include "models/languagemodel.h"
 
 #include <kdeclarative.h>
 
@@ -41,6 +43,9 @@ Application::Application()
 void Application::registerQmlTypes()
 {
     qmlRegisterType<ResourceManager>("artikulate", 1, 0, "ResourceManager");
+    qmlRegisterType<Language>("artikulate", 1, 0, "Language");
+
+    qmlRegisterType<LanguageModel>("artikulate", 1, 0, "LanguageModel");
 
     qmlRegisterType<ApplicationBackground>("artikulate", 1, 0, "ApplicationBackground");
 }

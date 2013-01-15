@@ -41,11 +41,17 @@ Item
         anchors.fill: parent
     }
 
+    LanguageModel {
+        id: availableLanguageModel
+        resourceManager: globalResourceManager
+    }
+
     HomeScreen {
         id: homeScreen
         anchors.fill: parent
         visible: false
         focus: true
+        languageModel: availableLanguageModel
         Component.onCompleted: {
             homeScreen.reset()
             homeScreen.visible = true

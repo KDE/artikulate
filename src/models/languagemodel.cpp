@@ -29,12 +29,20 @@
 #include <QSignalMapper>
 
 #include <KLocale>
+#include <KDebug>
 
 LanguageModel::LanguageModel(QObject* parent)
     : QAbstractListModel(parent)
     , m_resourceManager(0)
     , m_signalMapper(new QSignalMapper(this))
 {
+    kDebug() << "create language model";
+
+    QHash<int, QByteArray> roles;
+    roles[TitleRole] = "title";
+    roles[IdRole] = "id";
+    setRoleNames(roles);
+
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLanguageChanged(int)));
 }
 
@@ -65,6 +73,11 @@ void LanguageModel::setResourceManager(ResourceManager *resourceManager)
     emit resourceManagerChanged();
 }
 
+ResourceManager * LanguageModel::resourceManager() const
+{
+    return m_resourceManager;
+}
+
 QVariant LanguageModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid()) {
@@ -84,6 +97,10 @@ QVariant LanguageModel::data(const QModelIndex& index, int role) const
                 QVariant(language->title()): QVariant(i18n("<No title>"));
     case Qt::ToolTipRole:
         return QVariant(i18n("<p>%1</p>", language->title()));
+    case TitleRole:
+        return language->title();
+    case IdRole:
+        return language->id();
     default:
         return QVariant();
     }
