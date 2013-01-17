@@ -20,7 +20,7 @@
 
 
 
-#include "languagemodel.h"
+#include "coursemodel.h"
 #include "core/language.h"
 #include "core/course.h"
 #include "core/resourcemanager.h"
@@ -31,23 +31,25 @@
 #include <KLocale>
 #include <KDebug>
 
-LanguageModel::LanguageModel(QObject* parent)
+CourseModel::CourseModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_resourceManager(0)
+    , m_language(0)
     , m_signalMapper(new QSignalMapper(this))
 {
-    kDebug() << "create language model";
+    kDebug() << "create course model";
 
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
+    roles[DescriptionRole] = "description";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
     setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLanguageChanged(int)));
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitCourseChanged(int)));
 }
 
-void LanguageModel::setResourceManager(ResourceManager *resourceManager)
+void CourseModel::setResourceManager(ResourceManager *resourceManager)
 {
     if (m_resourceManager == resourceManager) {
         return;
@@ -63,10 +65,10 @@ void LanguageModel::setResourceManager(ResourceManager *resourceManager)
 
     if (m_resourceManager) {
         //FIXME
-        connect(m_resourceManager, SIGNAL(languageAboutToBeAdded(Language*,int)), SLOT(onLanguageAboutToBeAdded(Language*,int)));
-        connect(m_resourceManager, SIGNAL(languageAdded()), SLOT(onLanguageAdded()));
-        connect(m_resourceManager, SIGNAL(languageAboutToBeRemoved(int,int)), SLOT(onLanguagesAboutToBeRemoved(int,int)));
-        connect(m_resourceManager, SIGNAL(languageRemoved()), SLOT(onLanguagesRemoved()));
+        connect(m_resourceManager, SIGNAL(courseAboutToBeAdded(Course*,int)), SLOT(onCourseAboutToBeAdded(Course*,int)));
+        connect(m_resourceManager, SIGNAL(courseAdded()), SLOT(onCourseAdded()));
+        connect(m_resourceManager, SIGNAL(courseAboutToBeRemoved(int,int)), SLOT(onCoursesAboutToBeRemoved(int,int)));
+        connect(m_resourceManager, SIGNAL(courseRemoved()), SLOT(onCoursesRemoved()));
     }
 
     endResetModel();
@@ -74,42 +76,55 @@ void LanguageModel::setResourceManager(ResourceManager *resourceManager)
     emit resourceManagerChanged();
 }
 
-ResourceManager * LanguageModel::resourceManager() const
+ResourceManager * CourseModel::resourceManager() const
 {
     return m_resourceManager;
 }
 
-QVariant LanguageModel::data(const QModelIndex& index, int role) const
+Language * CourseModel::language() const
+{
+    return m_language;
+}
+
+void CourseModel::setLanguage(Language *language)
+{
+    //FIXME do something to update model
+    m_language = language;
+}
+
+QVariant CourseModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid()) {
         return QVariant();
     }
 
-    if (index.row() >= m_resourceManager->languageList().count()) {
+    if (index.row() >= m_resourceManager->courseList().count()) {
         return QVariant();
     }
 
-    Language * const language = m_resourceManager->language(index.row());
+    Course * const course = m_resourceManager->course(index.row());
 
     switch(role)
     {
     case Qt::DisplayRole:
-        return !language->title().isEmpty()?
-                QVariant(language->title()): QVariant(i18n("<No title>"));
+        return !course->title().isEmpty()?
+                QVariant(course->title()): QVariant(i18n("<No title>"));
     case Qt::ToolTipRole:
-        return QVariant(i18n("<p>%1</p>", language->title()));
+        return QVariant(i18n("<p>%1</p>", course->title()));
     case TitleRole:
-        return language->title();
+        return course->title();
+    case DescriptionRole:
+        return course->description();
     case IdRole:
-        return language->id();
+        return course->id();
     case DataRole:
-        return QVariant::fromValue<QObject*>(language);
+        return QVariant::fromValue<QObject*>(course);
     default:
         return QVariant();
     }
 }
 
-int LanguageModel::rowCount(const QModelIndex& parent) const
+int CourseModel::rowCount(const QModelIndex& parent) const
 {
     if (!m_resourceManager) {
         return 0;
@@ -119,40 +134,39 @@ int LanguageModel::rowCount(const QModelIndex& parent) const
         return 0;
     }
 
-    return m_resourceManager->languageList().count();
+    return m_resourceManager->courseList().count();
 }
 
-void LanguageModel::onLanguageAboutToBeAdded(Language *language, int index)
+void CourseModel::onCourseAboutToBeAdded(Course *course, int index)
 {
-    connect(language, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
-    connect(language, SIGNAL(tagsChanged()), m_signalMapper, SLOT(map()));
-    connect(language, SIGNAL(groupsChanged()), m_signalMapper, SLOT(map()));
+    connect(course, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
+    //TODO add missing signals
     beginInsertRows(QModelIndex(), index, index);
 }
 
-void LanguageModel::onLanguageAdded()
+void CourseModel::onCourseAdded()
 {
     updateMappings();
     endInsertRows();
 }
 
-void LanguageModel::onLanguagesAboutToBeRemoved(int first, int last)
+void CourseModel::onCourseAboutToBeRemoved(int first, int last)
 {
     beginRemoveRows(QModelIndex(), first, last);
 }
 
-void LanguageModel::onLanguagesRemoved()
+void CourseModel::onCourseRemoved()
 {
     endRemoveRows();
 }
 
-void LanguageModel::emitLanguageChanged(int row)
+void CourseModel::emitCourseChanged(int row)
 {
-    emit languageChanged(row);
+    emit courseChanged(row);
     emit dataChanged(index(row, 0), index(row, 0));
 }
 
-QVariant LanguageModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant CourseModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role != Qt::DisplayRole) {
         return QVariant();
@@ -163,12 +177,11 @@ QVariant LanguageModel::headerData(int section, Qt::Orientation orientation, int
     return QVariant(i18n("Title"));
 }
 
-void LanguageModel::updateMappings()
+void CourseModel::updateMappings()
 {
-    int languages = m_resourceManager->languageList().count();
-    for (int i = 0; i < languages; i++)
+    int courses = m_resourceManager->courseList().count();
+    for (int i = 0; i < courses; i++)
     {
-        m_signalMapper->setMapping(m_resourceManager->language(i), i);
+        m_signalMapper->setMapping(m_resourceManager->course(i), i);
     }
 }
-

@@ -62,7 +62,7 @@ QList< Language* > ResourceManager::languageList() const
     return m_languageList;
 }
 
-Language* ResourceManager::language(int index) const
+Language * ResourceManager::language(int index) const
 {
     Q_ASSERT (index >= 0 && index < m_languageList.count());
     return m_languageList.at(index);
@@ -134,6 +134,12 @@ QList< Course* > ResourceManager::courseList() const
     return m_courseList;
 }
 
+Course * ResourceManager::course(int index) const
+{
+    Q_ASSERT (index >= 0 && index < m_courseList.count());
+    return m_courseList.at(index);
+}
+
 bool ResourceManager::loadCourse(const KUrl &courseFile)
 {
     if (!courseFile.isLocalFile()) {
@@ -155,6 +161,7 @@ bool ResourceManager::loadCourse(const KUrl &courseFile)
     // create course
     QDomElement root(document.documentElement());
     Course *course = new Course(this);
+    emit courseAboutToBeAdded(course, m_courseList.count()-1);
     course->setFile(courseFile);
     course->setId(root.firstChildElement("id").text());
     course->setTitle(root.firstChildElement("title").text());
@@ -215,6 +222,7 @@ bool ResourceManager::loadCourse(const KUrl &courseFile)
     }
 
     m_courseList.append(course);
+    emit courseAdded();
     return true;
 }
 

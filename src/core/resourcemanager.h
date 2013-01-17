@@ -68,6 +68,8 @@ public:
      */
     QList<Course *> courseList() const;
 
+    Q_INVOKABLE Course * course(int index) const;
+
     /**
      * Load course from locally stored XML file.
      * TODO allow loading of remote XML files
@@ -82,6 +84,10 @@ signals:
     void languageAboutToBeAdded(Language*,int);
     void languageRemoved();
     void languageAboutToBeRemoved(int,int);
+    void courseAdded();
+    void courseAboutToBeAdded(Course*,int);
+    void courseRemoved();
+    void courseAboutToBeRemoved(int,int);
 
 private:
     /**
