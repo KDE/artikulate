@@ -46,12 +46,18 @@ Item
         resourceManager: globalResourceManager
     }
 
+    CourseModel {
+        id: availableCourseModel
+        resourceManager: globalResourceManager
+    }
+
     HomeScreen {
         id: homeScreen
         anchors.fill: parent
         visible: false
         focus: true
         languageModel: availableLanguageModel
+        courseModel: availableCourseModel
         Component.onCompleted: {
             homeScreen.reset()
             homeScreen.visible = true

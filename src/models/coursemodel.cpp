@@ -150,12 +150,12 @@ void CourseModel::onCourseAdded()
     endInsertRows();
 }
 
-void CourseModel::onCourseAboutToBeRemoved(int first, int last)
+void CourseModel::onCoursesAboutToBeRemoved(int first, int last)
 {
     beginRemoveRows(QModelIndex(), first, last);
 }
 
-void CourseModel::onCourseRemoved()
+void CourseModel::onCoursesRemoved()
 {
     endRemoveRows();
 }

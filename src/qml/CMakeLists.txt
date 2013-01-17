@@ -2,6 +2,7 @@ set(artikulate_qml_files
     Main.qml
     Editor.qml
     HomeScreen.qml
+    CourseSelector.qml
     LanguageSelector.qml
 )
 

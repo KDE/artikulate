@@ -60,8 +60,8 @@ signals:
 private slots:
     void onCourseAboutToBeAdded(Course *course, int index);
     void onCourseAdded();
-    void onCourseAboutToBeRemoved(int first, int last);
-    void onCourseRemoved();
+    void onCoursesAboutToBeRemoved(int first, int last);
+    void onCoursesRemoved();
     void emitCourseChanged(int row);
 
 private:
