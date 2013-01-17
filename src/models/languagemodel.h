@@ -34,10 +34,11 @@ class LanguageModel : public QAbstractListModel
     Q_PROPERTY(ResourceManager *resourceManager READ resourceManager WRITE setResourceManager NOTIFY resourceManagerChanged)
 
 public:
-     enum LanguageRoles {
-         TitleRole = Qt::UserRole + 1,
-         IdRole
-     };
+    enum LanguageRoles {
+        TitleRole = Qt::UserRole + 1,
+        IdRole,
+        DataRole
+    };
 
     explicit LanguageModel(QObject *parent = 0);
     void setResourceManager(ResourceManager *resourceManager);

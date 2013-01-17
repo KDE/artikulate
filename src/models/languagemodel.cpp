@@ -41,6 +41,7 @@ LanguageModel::LanguageModel(QObject* parent)
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[IdRole] = "id";
+    roles[DataRole] = "dataRole";
     setRoleNames(roles);
 
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLanguageChanged(int)));
@@ -101,6 +102,8 @@ QVariant LanguageModel::data(const QModelIndex& index, int role) const
         return language->title();
     case IdRole:
         return language->id();
+    case DataRole:
+        return QVariant::fromValue<QObject*>(language);
     default:
         return QVariant();
     }

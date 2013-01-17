@@ -27,6 +27,7 @@ Item {
     id: root
 
     property LanguageModel languageModel
+    property Language currentLanguage
     signal languageSelected(variant language, int languageIndex)
 
     Item {
@@ -34,11 +35,12 @@ Item {
 
         Component {
             id: myDelegate
+
             PlasmaComponents.ToolButton {
                 text : model.title
+                property Language myLanguage: model.dataRole
                 onClicked: {
-                    var newIndex = priv.currentIndex - 1
-                    root.selectLanguage(newIndex, false)
+                    root.currentLanguage = myLanguage
                 }
             }
         }
