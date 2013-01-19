@@ -29,6 +29,7 @@ set(artikulate_SRCS
     models/coursemodel.cpp
     models/languagemodel.cpp
     models/unitmodel.cpp
+    models/phrasemodel.cpp
 
     declarativeitems/applicationbackground.cpp
 )

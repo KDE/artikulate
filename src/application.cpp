@@ -25,10 +25,12 @@
 #include "core/language.h"
 #include "core/resourcemanager.h"
 #include "core/unit.h"
+#include "core/phrase.h"
 #include "declarativeitems/applicationbackground.h"
 #include "models/coursemodel.h"
 #include "models/languagemodel.h"
 #include "models/unitmodel.h"
+#include "models/phrasemodel.h"
 
 #include <kdeclarative.h>
 
@@ -50,10 +52,12 @@ void Application::registerQmlTypes()
     qmlRegisterType<Course>("artikulate", 1, 0, "Course");
     qmlRegisterType<Language>("artikulate", 1, 0, "Language");
     qmlRegisterType<ResourceManager>("artikulate", 1, 0, "ResourceManager");
+    qmlRegisterType<Phrase>("artikulate", 1, 0, "Phrase");
 
     qmlRegisterType<CourseModel>("artikulate", 1, 0, "CourseModel");
     qmlRegisterType<LanguageModel>("artikulate", 1, 0, "LanguageModel");
     qmlRegisterType<UnitModel>("artikulate", 1, 0, "UnitModel");
+    qmlRegisterType<PhraseModel>("artikulate", 1, 0, "PhraseModel");
 
     qmlRegisterType<ApplicationBackground>("artikulate", 1, 0, "ApplicationBackground");
 }
