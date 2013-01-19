@@ -23,6 +23,7 @@
 #define RESOURCEMANAGER_H
 
 #include <QObject>
+#include <QMap>
 
 class Language;
 class Course;
@@ -68,7 +69,12 @@ public:
      */
     QList<Course *> courseList() const;
 
-    Q_INVOKABLE Course * course(int index) const;
+    /**
+     * \return list of all loaded courses for language \p language
+     */
+    QList<Course *> courseList(Language *language) const;
+
+    Q_INVOKABLE Course * course(Language *language, int index) const;
 
     /**
      * Load course from locally stored XML file.
@@ -109,7 +115,7 @@ private:
     QDomDocument loadDomDocument(const KUrl &path, const QXmlSchema &schema);
 
     QList<Language *> m_languageList;
-    QList<Course *> m_courseList;
+    QMap<Language *, QList<Course *> > m_courseList;
 };
 
 #endif // RESOURCEMANAGER_H

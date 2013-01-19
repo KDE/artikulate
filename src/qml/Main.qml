@@ -58,6 +58,11 @@ Item
         focus: true
         languageModel: availableLanguageModel
         courseModel: availableCourseModel
+
+        onLanguageSelected: {
+            availableCourseModel.language = language
+        }
+
         Component.onCompleted: {
             homeScreen.reset()
             homeScreen.visible = true

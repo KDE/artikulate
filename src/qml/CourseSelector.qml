@@ -31,24 +31,32 @@ Item {
     property CourseModel courseModel
     property Language currentLanguage
     property Course currentCourse
-    signal courseSelected(variant course, int languageIndex)
+    signal courseSelected(variant course)
 
     Component {
         id: myDelegate
 
         PlasmaComponents.ToolButton {
             text : model.title
-            property Course myCourse: model.dataRole
+            property Course course: model.dataRole
             onClicked: {
-                root.currentCourse = myCourse
+                root.currentCourse = course
+                root.courseSelected(course)
             }
         }
     }
 
     ListView {
+        id: courseList
         anchors.fill: parent
+        visible: courseList.count > 0
 
         model: screen.courseModel
         delegate: myDelegate
+    }
+
+    Text {
+        visible: courseList.count === 0
+        text: "Please select a language"
     }
 }

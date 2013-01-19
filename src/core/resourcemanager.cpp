@@ -131,13 +131,27 @@ bool ResourceManager::loadLanguage(const KUrl &languageFile)
 
 QList< Course* > ResourceManager::courseList() const
 {
-    return m_courseList;
+    QList< Course* > list;
+    QMap<Language *, QList<Course *> >::ConstIterator iter = m_courseList.begin();
+    while (iter != m_courseList.end()) {
+        list << *iter;
+        ++iter;
+    }
+    return list;
 }
 
-Course * ResourceManager::course(int index) const
+QList< Course* > ResourceManager::courseList(Language *language) const
+{
+    if (!m_courseList.contains(language)) {
+        return QList< Course* >();
+    }
+    return m_courseList[language];
+}
+
+Course * ResourceManager::course(Language *language, int index) const
 {
     Q_ASSERT (index >= 0 && index < m_courseList.count());
-    return m_courseList.at(index);
+    return m_courseList[language].at(index);
 }
 
 bool ResourceManager::loadCourse(const KUrl &courseFile)
@@ -221,7 +235,11 @@ bool ResourceManager::loadCourse(const KUrl &courseFile)
         }
     }
 
-    m_courseList.append(course);
+    if (!m_courseList.contains(course->language())) {
+        kDebug() << "registering " << course->language()->title();
+        m_courseList.insert(course->language(), QList<Course*>());
+    }
+    m_courseList[course->language()].append(course);
     emit courseAdded();
     return true;
 }

@@ -28,6 +28,8 @@ FocusScope {
 
     property LanguageModel languageModel
     property CourseModel courseModel
+    signal languageSelected(variant language)
+    signal courseSelected(variant course)
 
     QtObject {
         id: d
@@ -66,14 +68,21 @@ FocusScope {
             Column {
                 Text { text: "Select Language" }
                 LanguageSelector {
-                    languageModel : screen.languageModel
+                    id: languageSelector
+                    languageModel: screen.languageModel
+                    onLanguageSelected: {
+                        screen.languageSelected(language)
+                    }
                 }
             }
 
             Column {
                 Text { text: "Select Course" }
                 CourseSelector {
-                    courseModel : screen.courseModel
+                    id: courseSelector
+                    onCourseSelected: {
+                        screen.courseSelected(course)
+                    }
                 }
             }
         }

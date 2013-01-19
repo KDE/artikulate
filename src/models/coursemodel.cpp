@@ -88,8 +88,12 @@ Language * CourseModel::language() const
 
 void CourseModel::setLanguage(Language *language)
 {
-    //FIXME do something to update model
+    emit beginResetModel();
+
     m_language = language;
+    emit languageChanged();
+
+    emit endResetModel();
 }
 
 QVariant CourseModel::data(const QModelIndex& index, int role) const
@@ -102,7 +106,7 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    Course * const course = m_resourceManager->course(index.row());
+    Course * const course = m_resourceManager->course(m_language, index.row());
 
     switch(role)
     {
@@ -130,11 +134,15 @@ int CourseModel::rowCount(const QModelIndex& parent) const
         return 0;
     }
 
+    if (!m_language) {
+        return 0;
+    }
+
     if (parent.isValid()) {
         return 0;
     }
 
-    return m_resourceManager->courseList().count();
+    return m_resourceManager->courseList(m_language).count();
 }
 
 void CourseModel::onCourseAboutToBeAdded(Course *course, int index)
@@ -182,6 +190,6 @@ void CourseModel::updateMappings()
     int courses = m_resourceManager->courseList().count();
     for (int i = 0; i < courses; i++)
     {
-        m_signalMapper->setMapping(m_resourceManager->course(i), i);
+        m_signalMapper->setMapping(m_resourceManager->course(m_language, i), i);
     }
 }

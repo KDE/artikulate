@@ -29,16 +29,17 @@ Item {
 
     property LanguageModel languageModel
     property Language currentLanguage
-    signal languageSelected(variant language, int languageIndex)
+    signal languageSelected(variant language)
 
     Component {
-        id: myDelegate
+        id: itemDelegate
 
         PlasmaComponents.ToolButton {
             text : model.title
-            property Language myLanguage: model.dataRole
+            property Language language: model.dataRole
             onClicked: {
-                root.currentLanguage = myLanguage
+                root.currentLanguage = language
+                root.languageSelected(language)
             }
         }
     }
@@ -47,6 +48,6 @@ Item {
         anchors.fill: parent
 
         model: screen.languageModel
-        delegate: myDelegate
+        delegate: itemDelegate
     }
 }
