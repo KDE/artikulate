@@ -51,6 +51,10 @@ Item
         resourceManager: globalResourceManager
     }
 
+    UnitModel {
+        id: availableUnitModel
+    }
+
     HomeScreen {
         id: homeScreen
         anchors.fill: parent

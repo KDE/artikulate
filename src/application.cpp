@@ -27,6 +27,7 @@
 #include "declarativeitems/applicationbackground.h"
 #include "models/coursemodel.h"
 #include "models/languagemodel.h"
+#include "models/unitmodel.h"
 
 #include <kdeclarative.h>
 
@@ -50,6 +51,7 @@ void Application::registerQmlTypes()
 
     qmlRegisterType<CourseModel>("artikulate", 1, 0, "CourseModel");
     qmlRegisterType<LanguageModel>("artikulate", 1, 0, "LanguageModel");
+    qmlRegisterType<UnitModel>("artikulate", 1, 0, "UnitModel");
 
     qmlRegisterType<ApplicationBackground>("artikulate", 1, 0, "ApplicationBackground");
 }
