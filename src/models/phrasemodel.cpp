@@ -38,7 +38,7 @@ PhraseModel::PhraseModel(QObject *parent)
     kDebug() << "create unit model";
 
     QHash<int, QByteArray> roles;
-    roles[TextRole] = "title";
+    roles[TextRole] = "text";
     roles[SoundFileRole] = "soundFile";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
@@ -119,7 +119,6 @@ int PhraseModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid()) {
         return 0;
     }
-
     return m_unit->phraseList().count();
 }
 

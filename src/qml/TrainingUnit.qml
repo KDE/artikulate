@@ -23,20 +23,27 @@ import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
 import artikulate 1.0
 
-FocusScope {
-    id: screen
+Item {
+    id: root
+    width: 100
+    height: 200
 
-    property Unit unit
     property PhraseModel phraseModel
+    property Unit unit
 
-    Column {
+    Component {
+        id: itemDelegate
+
         Text {
-            text: "Training: " + screen.unit.title
+            text: model.text
         }
+    }
 
-        TrainingUnit {
-            phraseModel: screen.phraseModel
-            unit: screen.unit
-        }
+    ListView {
+        id: phraseList
+        anchors.fill: parent
+
+        model: screen.phraseModel
+        delegate: itemDelegate
     }
 }
