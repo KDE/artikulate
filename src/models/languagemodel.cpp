@@ -90,7 +90,6 @@ QVariant LanguageModel::data(const QModelIndex& index, int role) const
     }
 
     Language * const language = m_resourceManager->language(index.row());
-
     switch(role)
     {
     case Qt::DisplayRole:

@@ -25,37 +25,30 @@ import artikulate 1.0
 
 Item {
     id: root
+    width: 100
+    height: 200
 
     property CourseModel courseModel
     property Language currentLanguage
     property Course currentCourse
     signal courseSelected(variant course, int languageIndex)
 
-    Column {
-        y: 200
-        id: content
+    Component {
+        id: myDelegate
 
-        Text {
-            text: "Courses:"
-        }
-
-        Component {
-            id: myDelegate
-
-            PlasmaComponents.ToolButton {
-                text : model.title
-                property Course myCourse: model.dataRole
-                onClicked: {
-                    root.currentCourse = myCourse
-                }
+        PlasmaComponents.ToolButton {
+            text : model.title
+            property Course myCourse: model.dataRole
+            onClicked: {
+                root.currentCourse = myCourse
             }
         }
+    }
 
-        ListView {
-            width: 180; height: 200
+    ListView {
+        anchors.fill: parent
 
-            model: screen.courseModel
-            delegate: myDelegate
-        }
+        model: screen.courseModel
+        delegate: myDelegate
     }
 }

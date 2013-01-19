@@ -25,31 +25,28 @@ import artikulate 1.0
 
 Item {
     id: root
+    width: 180; height: 200
 
     property LanguageModel languageModel
     property Language currentLanguage
     signal languageSelected(variant language, int languageIndex)
 
-    Item {
-        id: content
+    Component {
+        id: myDelegate
 
-        Component {
-            id: myDelegate
-
-            PlasmaComponents.ToolButton {
-                text : model.title
-                property Language myLanguage: model.dataRole
-                onClicked: {
-                    root.currentLanguage = myLanguage
-                }
+        PlasmaComponents.ToolButton {
+            text : model.title
+            property Language myLanguage: model.dataRole
+            onClicked: {
+                root.currentLanguage = myLanguage
             }
         }
+    }
 
-        ListView {
-            width: 180; height: 200
+    ListView {
+        anchors.fill: parent
 
-            model: screen.languageModel
-            delegate: myDelegate
-        }
+        model: screen.languageModel
+        delegate: myDelegate
     }
 }

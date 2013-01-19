@@ -60,17 +60,22 @@ FocusScope {
                 }
             }
         }
-    }
+        Row {
+            spacing: 20
 
-    Column {
-        y: 50
-        spacing: 2
-        LanguageSelector {
-            languageModel : screen.languageModel
-        }
+            Column {
+                Text { text: "Select Language" }
+                LanguageSelector {
+                    languageModel : screen.languageModel
+                }
+            }
 
-        CourseSelector {
-            courseModel : screen.courseModel
+            Column {
+                Text { text: "Select Course" }
+                CourseSelector {
+                    courseModel : screen.courseModel
+                }
+            }
         }
     }
 }
