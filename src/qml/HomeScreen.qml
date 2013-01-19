@@ -28,6 +28,7 @@ FocusScope {
 
     property LanguageModel languageModel
     property CourseModel courseModel
+    property UnitModel unitModel
     signal languageSelected(variant language)
     signal courseSelected(variant course)
 
@@ -84,6 +85,13 @@ FocusScope {
                         screen.courseSelected(course)
                     }
                 }
+            }
+        }
+
+        Row {
+            UnitSelector {
+                id: unitSelector
+                unitModel: screen.unitModel
             }
         }
     }

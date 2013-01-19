@@ -39,14 +39,13 @@ Item {
             text : model.title
             property Unit unit: model.dataRole
             onClicked: {
-                root.currentUnit = unit
                 root.unitSelected(unit)
             }
         }
     }
 
     ListView {
-        id: courseList
+        id: unitList
         anchors.fill: parent
 
         model: screen.unitModel

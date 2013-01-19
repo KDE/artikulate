@@ -24,6 +24,7 @@
 #include "core/course.h"
 #include "core/language.h"
 #include "core/resourcemanager.h"
+#include "core/unit.h"
 #include "declarativeitems/applicationbackground.h"
 #include "models/coursemodel.h"
 #include "models/languagemodel.h"
@@ -45,6 +46,7 @@ Application::Application()
 
 void Application::registerQmlTypes()
 {
+    qmlRegisterType<Unit>("artikulate", 1, 0, "Unit");
     qmlRegisterType<Course>("artikulate", 1, 0, "Course");
     qmlRegisterType<Language>("artikulate", 1, 0, "Language");
     qmlRegisterType<ResourceManager>("artikulate", 1, 0, "ResourceManager");

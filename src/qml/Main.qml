@@ -62,9 +62,14 @@ Item
         focus: true
         languageModel: availableLanguageModel
         courseModel: availableCourseModel
+        unitModel: availableUnitModel
 
         onLanguageSelected: {
             availableCourseModel.language = language
+            availableUnitModel.course = null
+        }
+        onCourseSelected: {
+            availableUnitModel.course = course
         }
 
         Component.onCompleted: {
