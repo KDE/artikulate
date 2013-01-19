@@ -29,6 +29,7 @@ Item
     id: main
 
     property ResourceManager resourceManager: globalResourceManager
+    property Unit selectedUnit;
 
     function switchScreen(from, to) {
         switchScreenAnimation.from = from
@@ -71,11 +72,22 @@ Item
         onCourseSelected: {
             availableUnitModel.course = course
         }
+        onUnitSelected: {
+            selectedUnit = unit
+            switchScreen(homeScreen, trainingScreen)
+        }
 
         Component.onCompleted: {
             homeScreen.reset()
             homeScreen.visible = true
         }
+    }
+
+    TrainingScreen {
+        id: trainingScreen
+        anchors.fill: parent
+        visible: false
+        unit: selectedUnit
     }
 
     Rectangle {
@@ -102,9 +114,6 @@ Item
             property: "visible"
             value: false
         }
-        ScriptAction {
-            script: switchScreenAnimation.to.reset()
-        }
         PropertyAction {
             target: switchScreenAnimation.to
             property: "visible"
@@ -119,7 +128,6 @@ Item
         }
         ScriptAction {
             script: {
-                switchScreenAnimation.to.start()
                 switchScreenAnimation.to.forceActiveFocus()
             }
         }

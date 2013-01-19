@@ -31,6 +31,7 @@ FocusScope {
     property UnitModel unitModel
     signal languageSelected(variant language)
     signal courseSelected(variant course)
+    signal unitSelected(variant unit)
 
     QtObject {
         id: d
@@ -92,6 +93,9 @@ FocusScope {
             UnitSelector {
                 id: unitSelector
                 unitModel: screen.unitModel
+                onUnitSelected: {
+                    screen.unitSelected(unit)
+                }
             }
         }
     }
