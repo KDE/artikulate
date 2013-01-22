@@ -28,8 +28,6 @@ Item {
     width: 100
     height: 200
 
-    property CourseModel courseModel
-    property Language currentLanguage
     property Course currentCourse
     signal courseSelected(variant course)
 
@@ -56,7 +54,19 @@ Item {
     }
 
     Text {
+        property string message
         visible: courseList.count === 0
-        text: "Please select a language"
+        text: message
+        onVisibleChanged: {
+            if (screen.courseModel == null) {
+                return;
+            }
+            if (screen.courseModel.language == null) {
+                message = "Please select a language.";
+            }
+            else {
+                message = "There are no courses for the selected language.";
+            }
+        }
     }
 }

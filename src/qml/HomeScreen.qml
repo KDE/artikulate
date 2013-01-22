@@ -42,9 +42,9 @@ FocusScope {
         //TODO
     }
 
-
     Column {
         anchors.fill: parent
+        spacing: 30
 
         PlasmaComponents.ToolBar {
             id: header
@@ -64,11 +64,17 @@ FocusScope {
                 }
             }
         }
+
+        Text {
+            text: "<h1>ArtiKulate</h1>"
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
         Row {
             spacing: 20
+            anchors.horizontalCenter: parent.horizontalCenter
 
             Column {
-                Text { text: "Select Language" }
+                Text { text: "<h2>Languages</b>" }
                 LanguageSelector {
                     id: languageSelector
                     languageModel: screen.languageModel
@@ -79,7 +85,7 @@ FocusScope {
             }
 
             Column {
-                Text { text: "Select Course" }
+                Text { text: "<h2>Courses</h2>" }
                 CourseSelector {
                     id: courseSelector
                     onCourseSelected: {
@@ -90,6 +96,10 @@ FocusScope {
         }
 
         Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            Text {
+                text: "<h2>Units</h2>"
+            }
             UnitSelector {
                 id: unitSelector
                 unitModel: screen.unitModel
