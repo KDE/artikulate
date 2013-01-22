@@ -28,10 +28,40 @@ FocusScope {
 
     property Unit unit
     property PhraseModel phraseModel
+    property string unitName
+
+    unitName: {
+        if (unit) unit.title
+        else "unselected"
+    }
 
     Column {
+        Row {
+            PlasmaComponents.ToolButton {
+                iconSource: "go-up"
+                text: "Unit Selection"
+                onClicked: {
+                    //TODO
+                }
+            }
+            PlasmaComponents.ToolButton {
+                iconSource: "go-previous-view"
+                text: "Previous Unit"
+                onClicked: {
+                    //TODO
+                }
+            }
+            PlasmaComponents.ToolButton {
+                iconSource: "go-next-view"
+                text: "Next Unit"
+                onClicked: {
+                    //TODO
+                }
+            }
+        }
+
         Text {
-            text: "Training: " + screen.unit.title
+            text: "Current Unit: " + unitName
         }
 
         TrainingUnit {

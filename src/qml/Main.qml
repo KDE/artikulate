@@ -78,6 +78,7 @@ Item
         }
         onUnitSelected: {
             availablePhraseModel.unit = unit
+            selectedUnit = unit
             switchScreen(homeScreen, trainingScreen)
         }
 

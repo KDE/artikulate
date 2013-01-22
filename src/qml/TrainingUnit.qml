@@ -34,8 +34,39 @@ Item {
     Component {
         id: itemDelegate
 
-        Text {
-            text: model.text
+        Item {
+            height: 30
+            Row {
+                PlasmaComponents.ToolButton {
+                    iconSource: "media-playback-start"
+                    property Phrase phrase: model.dataRole
+                    onClicked: {
+                        //TODO
+                    }
+                }
+                Item {
+                    width: 30
+                    height: 20
+                }
+
+                PlasmaComponents.ToolButton {
+                    iconSource: "media-record"
+                    property Phrase phrase: model.dataRole
+                    onClicked: {
+                        iconSource = "media-playback-stop"
+                    }
+                }
+                PlasmaComponents.ToolButton {
+                    iconSource: "media-playback-start"
+                    property Phrase phrase: model.dataRole
+                    onClicked: {
+                        //TODO
+                    }
+                }
+                Text {
+                    text: model.text
+                }
+            }
         }
     }
 
