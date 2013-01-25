@@ -26,47 +26,105 @@ import artikulate 1.0
 FocusScope {
     id: screen
 
-    property Unit unit
-    property PhraseModel phraseModel
+    property Course course
+    property Unit selectedUnit
     property string unitName
 
-    unitName: {
-        if (unit) unit.title
-        else "unselected"
+    signal showHomeScreen()
+
+    UnitModel {
+        id: selectedUnitModel
+        course: screen.course
     }
 
-    Column {
-        Row {
-            PlasmaComponents.ToolButton {
-                iconSource: "go-up"
-                text: "Unit Selection"
-                onClicked: {
-                    //TODO
-                }
+    PhraseModel {
+        id: currentPhrasesModel
+        unit: screen.selectedUnit
+    }
+
+    unitName: {
+        if (selectedUnit) {
+            selectedUnit.title
+        } else {
+            "unselected"
+        }
+    }
+
+    Row {
+        height: 50
+
+        PlasmaComponents.ToolButton {
+            iconSource: "go-up"
+            width: 32
+            height: 32
+            onClicked: {
+                showHomeScreen()
             }
-            PlasmaComponents.ToolButton {
-                iconSource: "go-previous-view"
-                text: "Previous Unit"
-                onClicked: {
-                    //TODO
-                }
-            }
-            PlasmaComponents.ToolButton {
-                iconSource: "go-next-view"
-                text: "Next Unit"
-                onClicked: {
-                    //TODO
-                }
-            }
+        }
+
+        Item { // spacer
+            width: 10
+            height: parent.height
         }
 
         Text {
-            text: "Current Unit: " + unitName
+            text: {
+                if (course == null) {
+                    ""
+                } else {
+                    "<h1>Course: " + course.title + "</h1>";
+                }
+            }
+        }
+    }
+
+    Row {
+        y: 50
+        Column {
+            width: 200
+
+            Text {
+                text: "<h2>Units</h2>"
+            }
+
+            UnitSelector {
+                id: unitSelector
+                unitModel: selectedUnitModel
+                onUnitSelected: {
+                    selectedUnit = unit
+                }
+            }
         }
 
-        TrainingUnit {
-            phraseModel: screen.phraseModel
-            unit: screen.unit
+        Column {
+            Text {
+                text: "<strong>Current Unit</strong> " + unitName
+            }
+
+            TrainingUnit {
+                phraseModel: currentPhrasesModel
+            }
         }
+
+//         Column {
+//             Row {
+//                 PlasmaComponents.ToolButton {
+//                     iconSource: "go-previous-view"
+//                     text: "Previous Unit"
+//                     onClicked: {
+//                         //TODO
+//                     }
+//                 }
+//                 PlasmaComponents.ToolButton {
+//                     iconSource: "go-next-view"
+//                     text: "Next Unit"
+//                     onClicked: {
+//                         //TODO
+//                     }
+//                 }
+//             }
+//
+//
+//         }
     }
 }

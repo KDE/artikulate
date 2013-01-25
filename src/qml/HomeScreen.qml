@@ -28,7 +28,6 @@ FocusScope {
 
     property LanguageModel languageModel
     property CourseModel courseModel
-    property UnitModel unitModel
     signal languageSelected(variant language)
     signal courseSelected(variant course)
     signal unitSelected(variant unit)
@@ -95,18 +94,5 @@ FocusScope {
             }
         }
 
-        Row {
-            anchors.horizontalCenter: parent.horizontalCenter
-            Text {
-                text: "<h2>Units</h2>"
-            }
-            UnitSelector {
-                id: unitSelector
-                unitModel: screen.unitModel
-                onUnitSelected: {
-                    screen.unitSelected(unit)
-                }
-            }
-        }
     }
 }

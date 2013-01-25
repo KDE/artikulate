@@ -29,7 +29,6 @@ Item
     id: main
 
     property ResourceManager resourceManager: globalResourceManager
-    property Unit selectedUnit
 
     function switchScreen(from, to) {
         switchScreenAnimation.from = from
@@ -52,14 +51,6 @@ Item
         resourceManager: globalResourceManager
     }
 
-    UnitModel {
-        id: availableUnitModel
-    }
-
-    PhraseModel {
-        id: availablePhraseModel
-    }
-
     HomeScreen {
         id: homeScreen
         anchors.fill: parent
@@ -67,18 +58,13 @@ Item
         focus: true
         languageModel: availableLanguageModel
         courseModel: availableCourseModel
-        unitModel: availableUnitModel
 
         onLanguageSelected: {
             availableCourseModel.language = language
-            availableUnitModel.course = null
         }
+
         onCourseSelected: {
-            availableUnitModel.course = course
-        }
-        onUnitSelected: {
-            availablePhraseModel.unit = unit
-            selectedUnit = unit
+            trainingScreen.course = course
             switchScreen(homeScreen, trainingScreen)
         }
 
@@ -90,10 +76,13 @@ Item
 
     TrainingScreen {
         id: trainingScreen
-        phraseModel: availablePhraseModel
         anchors.fill: parent
         visible: false
-        unit: main.selectedUnit
+
+        onShowHomeScreen: {
+            trainingScreen.course = null
+            switchScreen(trainingScreen, homeScreen)
+        }
     }
 
     Rectangle {

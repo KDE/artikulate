@@ -25,11 +25,10 @@ import artikulate 1.0
 
 Item {
     id: root
-    width: 100
-    height: 200
+    width: parent.width
+    height: 300
 
     property UnitModel unitModel
-    property Course currentCourse
     signal unitSelected(variant unit)
 
     Component {
@@ -48,7 +47,7 @@ Item {
         id: unitList
         anchors.fill: parent
 
-        model: screen.unitModel
+        model: root.unitModel
         delegate: itemDelegate
     }
 }

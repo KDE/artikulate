@@ -74,7 +74,7 @@ Item {
         id: phraseList
         anchors.fill: parent
 
-        model: screen.phraseModel
+        model: root.phraseModel
         delegate: itemDelegate
     }
 }
