@@ -41,7 +41,8 @@ Item {
                     iconSource: "media-playback-start"
                     property Phrase phrase: model.dataRole
                     onClicked: {
-                        //TODO
+                        model.dataRole.playbackSound();
+                        //TODO add start/stop symbol change
                     }
                 }
                 Item {
@@ -60,7 +61,8 @@ Item {
                     iconSource: "media-playback-start"
                     property Phrase phrase: model.dataRole
                     onClicked: {
-                        //TODO
+                        model.dataRole.playbackUserSound();
+                        //TODO add start/stop symbol change
                     }
                 }
                 Text {

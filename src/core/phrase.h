@@ -24,6 +24,7 @@
 #include <QObject>
 #include <KUrl>
 #include <QList>
+#include <phonon/mediaobject.h>
 
 class QString;
 class Tag;
@@ -35,16 +36,23 @@ class Phrase : public QObject
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(KUrl sound READ sound WRITE setSound NOTIFY soundChanged)
+    Q_PROPERTY(bool isUserSound READ isUserSound NOTIFY userSoundChanged)
+    Q_PROPERTY(Phonon::State playbackSoundState READ playbackSoundState NOTIFY playbackSoundStateChanged)
+    Q_PROPERTY(Phonon::State playbackUserSoundState READ playbackUserSoundState NOTIFY playbackUserSoundStateChanged)
 
-    typedef enum {
+    Q_ENUMS(Type)
+    Q_ENUMS(PlaybackState)
+
+public:
+    enum Type {
         Word,
         Expression,
         Sentence,
         Paragraph
-    } Type;
+    };
 
-public:
     explicit Phrase(QObject *parent = 0);
+    ~Phrase();
 
     QString id() const;
     void setId(const QString &id);
@@ -59,20 +67,35 @@ public:
     QList<Tag *> tags() const;
     void addTag(Tag *tag);
 
+    Q_INVOKABLE void playbackSound();
+    Q_INVOKABLE void playbackUserSound();
+    Phonon::State playbackSoundState() const;
+    Phonon::State playbackUserSoundState() const;
+
+    /**
+     * Return true if a user recorded sound exists, otherwise fals.
+     */
+    bool isUserSound() const;
+
 signals:
     void idChanged();
     void unitChanged();
     void textChanged();
     void soundChanged();
+    void userSoundChanged();
     void prononciationTagsChanged();
+    void playbackSoundStateChanged();
+    void playbackUserSoundStateChanged();
 
 private:
     Q_DISABLE_COPY(Phrase)
     QString m_id;
     QString m_text;
     Type m_type;
-    KUrl m_sound;
+    KUrl m_userSoundFile;
     QList<Tag *> m_prononciationTags;
+    Phonon::MediaObject *m_sound;
+    Phonon::MediaObject *m_userSound;
 };
 
 #endif // LESSON_H

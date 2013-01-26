@@ -38,6 +38,7 @@ kde4_add_executable(artikulate ${artikulate_SRCS})
 
 target_link_libraries( artikulate
     ${KDECLARATIVE_LIBRARIES}
+    ${KDE4_KDEUI_LIBS}
     ${KDE4_PLASMA_LIBS}
     ${KDE4_KIO_LIBS}
     ${KDE4_KCMUTILS_LIBS}
@@ -47,6 +48,7 @@ target_link_libraries( artikulate
     ${QT_QTDECLARATIVE_LIBRARY}
     ${QT_QTXMLPATTERNS_LIBRARY}
     ${QT_QTSQL_LIBRARY}
+    ${PHONON_LIBS}
 )
 
 install(TARGETS artikulate ${INSTALL_TARGETS_DEFAULT_ARGS})

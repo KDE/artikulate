@@ -20,11 +20,28 @@
 
 #include "phrase.h"
 
+
+#include <phonon/audiooutput.h>
+
 #include <KDebug>
 
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
+    , m_sound(new Phonon::MediaObject(this))
+    , m_userSound(new Phonon::MediaObject(this))
 {
+    Phonon::createPath(m_sound, new Phonon::AudioOutput(Phonon::MusicCategory, this));
+    Phonon::createPath(m_userSound, new Phonon::AudioOutput(Phonon::MusicCategory, this));
+    connect(m_sound, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
+            this, SIGNAL(playbackSoundStateChanged()));
+    connect(m_userSound, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
+            this, SIGNAL(playbackUserSoundStateChanged()));
+}
+
+Phrase::~Phrase()
+{
+    delete m_sound;
+    delete m_userSound;
 }
 
 QString Phrase::id() const
@@ -103,13 +120,48 @@ void Phrase::setType(const QString &typeString)
 
 KUrl Phrase::sound() const
 {
-    return m_sound;
+    return m_sound->currentSource().url();
 }
 
 void Phrase::setSound(const KUrl &soundFile)
 {
-    m_sound = soundFile;
+    if (!soundFile.isValid() || soundFile.isEmpty()) {
+        kWarning() << "Not setting empty sound file path.";
+        return;
+    }
+    m_sound->setCurrentSource(soundFile);
     emit soundChanged();
+}
+
+void Phrase::playbackSound()
+{
+    kDebug() << "Playing authentic sound";
+
+    m_sound->play();
+}
+
+void Phrase::playbackUserSound()
+{
+    kDebug() << "Playing user recorded sound";
+
+    m_userSound->setCurrentSource(m_userSoundFile);
+    m_userSound->play();
+    m_userSound->currentSource();
+}
+
+Phonon::State Phrase::playbackSoundState() const
+{
+    return m_sound->state();
+}
+
+Phonon::State Phrase::playbackUserSoundState() const
+{
+    return m_userSound->state();
+}
+
+bool Phrase::isUserSound() const
+{
+    return m_userSoundFile.isValid() && !m_userSoundFile.isEmpty();
 }
 
 QList<Tag *> Phrase::tags() const
@@ -117,7 +169,7 @@ QList<Tag *> Phrase::tags() const
     return m_prononciationTags;
 }
 
-void Phrase::addTag(Tag* tag)
+void Phrase::addTag(Tag *tag)
 {
     if (!m_prononciationTags.contains(tag)) {
         m_prononciationTags.append(tag);
