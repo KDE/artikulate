@@ -3,6 +3,11 @@
 
 project(artikulate)
 
+set ( CMAKE_MODULE_PATH
+     ${CMAKE_SOURCE_DIR}/cmake/modules
+     ${CMAKE_MODULE_PATH}
+)
+
 find_package(KDE4 4.9.0 REQUIRED)
 include(KDE4Defaults)
 
