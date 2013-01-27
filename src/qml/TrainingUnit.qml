@@ -40,11 +40,26 @@ Item {
                 PlasmaComponents.ToolButton {
                     iconSource: "media-playback-start"
                     property Phrase phrase: model.dataRole
+                    property int soundState: phrase.playbackSoundState
                     onClicked: {
-                        model.dataRole.playbackSound();
-                        //TODO add start/stop symbol change
+                        if (soundState == Phrase.PlayingState) {
+                            phrase.stopSound();
+                        }
+                        if (soundState == Phrase.StoppedState) {
+                            phrase.playbackSound();
+                        }
+                    }
+                    onSoundStateChanged: {
+                        // set next possible action icon
+                        if (soundState == Phrase.PlayingState) {
+                            iconSource = "media-playback-stop";
+                        }
+                        if (soundState == Phrase.StoppedState) {
+                            iconSource = "media-playback-start";
+                        }
                     }
                 }
+
                 Item {
                     width: 30
                     height: 20
@@ -54,15 +69,29 @@ Item {
                     iconSource: "media-record"
                     property Phrase phrase: model.dataRole
                     onClicked: {
-                        iconSource = "media-playback-stop"
+                        //TODO
                     }
                 }
                 PlasmaComponents.ToolButton {
                     iconSource: "media-playback-start"
                     property Phrase phrase: model.dataRole
+                    property int userSoundState: phrase.playbackUserSoundState
                     onClicked: {
-                        model.dataRole.playbackUserSound();
-                        //TODO add start/stop symbol change
+                       if (userSoundState == Phrase.PlayingState) {
+                            phrase.stopUserSound();
+                        }
+                        if (userSoundState == Phrase.StoppedState) {
+                            phrase.playbackUserSound();
+                        }
+                    }
+                    onUserSoundStateChanged: {
+                        // set next possible action icon
+                        if (userSoundState == Phrase.PlayingState) {
+                            iconSource = "media-playback-stop";
+                        }
+                        if (userSoundState == Phrase.StoppedState) {
+                            iconSource = "media-playback-start";
+                        }
                     }
                 }
                 Text {

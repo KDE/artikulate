@@ -37,13 +37,17 @@ class Phrase : public QObject
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(KUrl sound READ sound WRITE setSound NOTIFY soundChanged)
     Q_PROPERTY(bool isUserSound READ isUserSound NOTIFY userSoundChanged)
-    Q_PROPERTY(Phonon::State playbackSoundState READ playbackSoundState NOTIFY playbackSoundStateChanged)
-    Q_PROPERTY(Phonon::State playbackUserSoundState READ playbackUserSoundState NOTIFY playbackUserSoundStateChanged)
-
-    Q_ENUMS(Type)
-    Q_ENUMS(PlaybackState)
+    Q_PROPERTY(PlaybackState playbackSoundState READ playbackSoundState NOTIFY playbackSoundStateChanged)
+    Q_PROPERTY(PlaybackState playbackUserSoundState READ playbackUserSoundState NOTIFY playbackUserSoundStateChanged)
 
 public:
+    Q_ENUMS(Type)
+    Q_ENUMS(PlaybackState)
+    enum PlaybackState {
+        StoppedState,
+        PlayingState,
+        PausedState
+    };
     enum Type {
         Word,
         Expression,
@@ -68,9 +72,11 @@ public:
     void addTag(Tag *tag);
 
     Q_INVOKABLE void playbackSound();
+    Q_INVOKABLE void stopSound();
     Q_INVOKABLE void playbackUserSound();
-    Phonon::State playbackSoundState() const;
-    Phonon::State playbackUserSoundState() const;
+    Q_INVOKABLE void stopUserSound();
+    PlaybackState playbackSoundState() const;
+    PlaybackState playbackUserSoundState() const;
 
     /**
      * Return true if a user recorded sound exists, otherwise fals.
@@ -97,5 +103,6 @@ private:
     Phonon::MediaObject *m_sound;
     Phonon::MediaObject *m_userSound;
 };
+Q_DECLARE_METATYPE(Phrase::PlaybackState)
 
 #endif // LESSON_H

@@ -149,14 +149,40 @@ void Phrase::playbackUserSound()
     m_userSound->currentSource();
 }
 
-Phonon::State Phrase::playbackSoundState() const
+Phrase::PlaybackState Phrase::playbackSoundState() const
 {
-    return m_sound->state();
+    switch (m_sound->state())
+    {
+    case Phonon::PlayingState:
+        return Phrase::PlayingState;
+    case Phonon::PausedState:
+        return Phrase::PausedState;
+    default:
+        return Phrase::StoppedState;
+    }
 }
 
-Phonon::State Phrase::playbackUserSoundState() const
+Phrase::PlaybackState Phrase::playbackUserSoundState() const
 {
-    return m_userSound->state();
+    switch (m_userSound->state())
+    {
+    case Phonon::PlayingState:
+        return Phrase::PlayingState;
+    case Phonon::PausedState:
+        return Phrase::PausedState;
+    default:
+        return Phrase::StoppedState;
+    }
+}
+
+void Phrase::stopSound()
+{
+    m_sound->stop();
+}
+
+void Phrase::stopUserSound()
+{
+    m_userSound->stop();
 }
 
 bool Phrase::isUserSound() const
