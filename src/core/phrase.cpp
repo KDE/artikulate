@@ -20,10 +20,12 @@
 
 #include "phrase.h"
 
-
 #include <phonon/audiooutput.h>
-
+#include <QAudioInput>
+#include <QAudioFormat>
+#include <QAudioDeviceInfo>
 #include <KDebug>
+#include <QFile>
 
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
@@ -144,7 +146,7 @@ void Phrase::playbackUserSound()
 {
     kDebug() << "Playing user recorded sound";
 
-    m_userSound->setCurrentSource(m_userSoundFile);
+    m_userSound->setCurrentSource(m_userSoundFileUrl);
     m_userSound->play();
     m_userSound->currentSource();
 }
@@ -180,14 +182,45 @@ void Phrase::stopSound()
     m_sound->stop();
 }
 
-void Phrase::stopUserSound()
+void Phrase::stopPlaybackUserSound()
 {
     m_userSound->stop();
 }
 
+void Phrase::startRecordUserSound()
+{
+    m_userSoundFile.setFileName("/tmp/test.raw");
+    m_userSoundFile.open(QIODevice::WriteOnly | QIODevice::Truncate);
+
+    QAudioFormat format;
+    // set up the format you want, eg.
+    format.setFrequency(8000);
+    format.setChannels(1);
+    format.setSampleSize(8);
+    format.setCodec("audio/pcm");
+    format.setByteOrder(QAudioFormat::LittleEndian);
+    format.setSampleType(QAudioFormat::UnSignedInt);
+
+    QAudioDeviceInfo info = QAudioDeviceInfo::defaultInputDevice();
+    if (!info.isFormatSupported(format)) {
+        qWarning()<<"default format not supported try to use nearest";
+        format = info.nearestFormat(format);
+    }
+
+    m_audioInput = new QAudioInput(format, this);
+    m_audioInput->start(&m_userSoundFile);
+}
+
+void Phrase::stopRecordUserSound()
+{
+    m_audioInput->stop();
+    m_userSoundFile.close();
+    delete m_audioInput;
+}
+
 bool Phrase::isUserSound() const
 {
-    return m_userSoundFile.isValid() && !m_userSoundFile.isEmpty();
+    return m_userSoundFileUrl.isValid() && !m_userSoundFileUrl.isEmpty();
 }
 
 QList<Tag *> Phrase::tags() const

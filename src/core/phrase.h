@@ -24,8 +24,10 @@
 #include <QObject>
 #include <KUrl>
 #include <QList>
+#include <QFile>
 #include <phonon/mediaobject.h>
 
+class QAudioInput;
 class QString;
 class Tag;
 class KUrl;
@@ -74,7 +76,9 @@ public:
     Q_INVOKABLE void playbackSound();
     Q_INVOKABLE void stopSound();
     Q_INVOKABLE void playbackUserSound();
-    Q_INVOKABLE void stopUserSound();
+    Q_INVOKABLE void stopPlaybackUserSound();
+    Q_INVOKABLE void startRecordUserSound();
+    Q_INVOKABLE void stopRecordUserSound();
     PlaybackState playbackSoundState() const;
     PlaybackState playbackUserSoundState() const;
 
@@ -98,10 +102,14 @@ private:
     QString m_id;
     QString m_text;
     Type m_type;
-    KUrl m_userSoundFile;
+
     QList<Tag *> m_prononciationTags;
     Phonon::MediaObject *m_sound;
     Phonon::MediaObject *m_userSound;
+
+    KUrl m_userSoundFileUrl;
+    QFile m_userSoundFile;
+    QAudioInput *m_audioInput;
 };
 Q_DECLARE_METATYPE(Phrase::PlaybackState)
 

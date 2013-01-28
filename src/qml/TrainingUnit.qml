@@ -68,8 +68,17 @@ Item {
                 PlasmaComponents.ToolButton {
                     iconSource: "media-record"
                     property Phrase phrase: model.dataRole
+                    property bool recording: true
+
                     onClicked: {
-                        //TODO
+                       if (recording) {
+                            phrase.startRecordUserSound();
+                            recording = false;
+                        }
+                        else {
+                            phrase.stopRecordUserSound();
+                            recording = true;
+                        }
                     }
                 }
                 PlasmaComponents.ToolButton {
@@ -78,7 +87,7 @@ Item {
                     property int userSoundState: phrase.playbackUserSoundState
                     onClicked: {
                        if (userSoundState == Phrase.PlayingState) {
-                            phrase.stopUserSound();
+                            phrase.stopPlaybackUserSound();
                         }
                         if (userSoundState == Phrase.StoppedState) {
                             phrase.playbackUserSound();
