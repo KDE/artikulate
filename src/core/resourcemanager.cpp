@@ -244,7 +244,7 @@ bool ResourceManager::loadCourse(const KUrl &courseFile)
     return true;
 }
 
-QXmlSchema ResourceManager::loadXmlSchema(const QString &schemeName)
+QXmlSchema ResourceManager::loadXmlSchema(const QString &schemeName) const
 {
     QString relPath = QString("schemes/%1.xsd").arg(schemeName);
     KUrl file = KUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", relPath));

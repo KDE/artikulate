@@ -19,8 +19,16 @@
  */
 
 #include "testcoursefiles.h"
+#include "core/resourcemanager.h"
 
 #include <qtest_kde.h>
+#include <KDebug>
+
+#include <QIODevice>
+#include <QFile>
+#include <QXmlSchema>
+#include <QXmlSchemaValidator>
+#include <QDomDocument>
 
 TestCourseFiles::TestCourseFiles()
 {
@@ -39,7 +47,15 @@ void TestCourseFiles::cleanup()
 
 void TestCourseFiles::courseSchemeValidationTest()
 {
-    // TODO
+    KUrl schemeFile = KUrl::fromLocalFile("schemes/course.xsd");
+    QXmlSchema courseSchema;
+    QVERIFY(courseSchema.load(schemeFile));
+    QVERIFY(courseSchema.isValid());
+
+    KUrl languageFile = KUrl::fromLocalFile("schemes/language.xsd");
+    QXmlSchema languageSchema;
+    QVERIFY(languageSchema.load(languageFile));
+    QVERIFY(languageSchema.isValid());
 }
 
 

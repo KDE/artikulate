@@ -32,6 +32,7 @@ include_directories(
 set (TestAudio_SRCS
     testaudio.cpp
 )
+file(COPY ../schemes/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/schemes) # copy test files
 kde4_add_executable(TestAudio ${TestAudio_SRCS} )
 target_link_libraries(TestAudio
     artikulatecore

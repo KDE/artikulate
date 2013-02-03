@@ -104,7 +104,7 @@ private:
      * \param schemeName name of the Xml schema without suffix
      * \return loaded XML Schema
      */
-    QXmlSchema loadXmlSchema(const QString &schemeName);
+    QXmlSchema loadXmlSchema(const QString &schemeName) const;
 
     /**
      * Load XML file given by \p file that confirms with XML schema \p scheme.
