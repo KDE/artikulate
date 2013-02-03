@@ -21,6 +21,7 @@
 #ifndef TAG_H
 #define TAG_H
 
+#include "artikulatecore_export.h"
 #include <QObject>
 #include <QMap>
 
@@ -30,7 +31,7 @@ class QString;
  * \class Tag
  * Tags are properties that can be assigned to a Phrase to specify its prononciation characteristics.
  */
-class Tag : public QObject
+class ARTIKULATELIB_EXPORT Tag : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)

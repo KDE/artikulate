@@ -19,7 +19,8 @@
  */
 
 #include "testaudio.h"
-#include <qtest_kde.h>
+#include "src/core/phrase.h"
+
 #include <qtest_kde.h>
 
 TestAudio::TestAudio()
@@ -35,6 +36,13 @@ void TestAudio::init()
 void TestAudio::cleanup()
 {
     // TODO cleanup after test run
+}
+
+void TestAudio::recordTest()
+{
+    Phrase phrase;
+    phrase.startRecordUserSound();
+    phrase.stopRecordUserSound();
 }
 
 

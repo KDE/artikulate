@@ -21,6 +21,7 @@
 #ifndef COURSE_H
 #define COURSE_H
 
+#include "artikulatecore_export.h"
 #include <QObject>
 #include <QMap>
 #include <KUrl>
@@ -29,7 +30,7 @@ class QString;
 class Language;
 class Unit;
 
-class Course : public QObject
+class ARTIKULATELIB_EXPORT Course : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)

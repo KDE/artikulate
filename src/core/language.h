@@ -21,6 +21,7 @@
 #ifndef LANGUAGE_H
 #define LANGUAGE_H
 
+#include "artikulatecore_export.h"
 #include <QObject>
 #include <QList>
 #include <KUrl>
@@ -29,7 +30,7 @@ class QString;
 class Tag;
 class TagGroup;
 
-class Language : public QObject
+class ARTIKULATELIB_EXPORT Language : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)

@@ -19,12 +19,7 @@ include_directories(
 )
 
 # set the source code files from which ArtiKulate is compiled
-set(artikulate_SRCS
-    main.cpp
-    mainwindow.cpp
-    editorview.cpp
-    application.cpp
-
+set(artikulateCore_SRCS
     core/course.cpp
     core/resourcemanager.cpp
     core/language.cpp
@@ -32,6 +27,36 @@ set(artikulate_SRCS
     core/tag.cpp
     core/taggroup.cpp
     core/unit.cpp
+)
+
+kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})
+target_link_libraries(artikulatecore
+    ${KDECLARATIVE_LIBRARIES}
+    ${KDE4_KDEUI_LIBS}
+    ${KDE4_PLASMA_LIBS}
+    ${KDE4_KIO_LIBS}
+    ${KDE4_KCMUTILS_LIBS}
+    ${QT_QTCORE_LIBRARY}
+    ${QT_QTOPENGL_LIBRARY}
+    ${QT_QTSCRIPT_LIBRARY}
+    ${QT_QTDECLARATIVE_LIBRARY}
+    ${QT_QTXMLPATTERNS_LIBRARY}
+    ${QT_QTSQL_LIBRARY}
+    ${PHONON_LIBS}
+    QtMultimediaKit
+)
+set_target_properties(artikulatecore
+    PROPERTIES VERSION ${GENERIC_LIB_VERSION}
+    SOVERSION ${GENERIC_LIB_SOVERSION}
+)
+install(TARGETS artikulatecore ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+# set the source code files from which ArtiKulate is compiled
+set(artikulate_SRCS
+    main.cpp
+    mainwindow.cpp
+    editorview.cpp
+    application.cpp
 
     models/coursemodel.cpp
     models/languagemodel.cpp
@@ -40,11 +65,9 @@ set(artikulate_SRCS
 
     declarativeitems/applicationbackground.cpp
 )
-# message("${QT_INCLUDE_DIR}")
-
 kde4_add_executable(artikulate ${artikulate_SRCS})
-
-target_link_libraries( artikulate
+target_link_libraries(artikulate
+    artikulatecore
     ${KDECLARATIVE_LIBRARIES}
     ${KDE4_KDEUI_LIBS}
     ${KDE4_PLASMA_LIBS}

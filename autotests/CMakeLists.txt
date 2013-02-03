@@ -2,7 +2,7 @@
 #
 
 include_directories(
-    ../
+    ../src/
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
@@ -12,6 +12,7 @@ set (TestAudio_SRCS
 )
 kde4_add_executable(TestAudio ${TestAudio_SRCS} )
 target_link_libraries(TestAudio
+    artikulatecore
     ${QT_QTTEST_LIBRARY}
     ${KDECLARATIVE_LIBRARIES}
     ${KDE4_KDEUI_LIBS}

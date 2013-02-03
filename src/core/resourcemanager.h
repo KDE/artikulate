@@ -22,6 +22,7 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
+#include "artikulatecore_export.h"
 #include <QObject>
 #include <QMap>
 
@@ -36,7 +37,7 @@ class QXmlSchema;
  * \class ResourceManager
  * This class loads and stores all data files of the application.
  */
-class ResourceManager : public QObject
+class ARTIKULATELIB_EXPORT ResourceManager : public QObject
 {
     Q_OBJECT
 public:

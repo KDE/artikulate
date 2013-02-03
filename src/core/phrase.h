@@ -21,6 +21,8 @@
 #ifndef PHRASE_H
 #define PHRASE_H
 
+#include "artikulatecore_export.h"
+
 #include <QObject>
 #include <KUrl>
 #include <QList>
@@ -32,7 +34,7 @@ class QString;
 class Tag;
 class KUrl;
 
-class Phrase : public QObject
+class ARTIKULATELIB_EXPORT Phrase : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)

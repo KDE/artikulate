@@ -21,13 +21,14 @@
 #ifndef UNIT_H
 #define UNIT_H
 
+#include "artikulatecore_export.h"
 #include <QObject>
 #include <QList>
 
 class QString;
 class Phrase;
 
-class Unit : public QObject
+class ARTIKULATELIB_EXPORT Unit : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)

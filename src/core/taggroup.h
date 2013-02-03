@@ -21,6 +21,7 @@
 #ifndef TAGGROUP_H
 #define TAGGROUP_H
 
+#include "artikulatecore_export.h"
 #include <QObject>
 #include <QMap>
 #include "tag.h"
@@ -30,7 +31,7 @@ class QString;
 /**
  * \class TagGroup
  */
-class TagGroup : public QObject
+class ARTIKULATELIB_EXPORT TagGroup : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)

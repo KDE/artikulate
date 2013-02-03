@@ -18,34 +18,24 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTAUDIO_H
-#define TESTAUDIO_H
+#ifndef ARTIKULATECORE_EXPORT_H
+#define ARTIKULATECORE_EXPORT_H
 
-#include <QObject>
-#include <QVariant>
+// needed for KDE_EXPORT and KDE_IMPORT macros
+#include <kdemacros.h>
 
-class TestAudio : public QObject
-{
-    Q_OBJECT
+#ifndef ARTIKULATELIB_EXPORT
+# if defined(MAKE_ARTIKULATELIB_LIB)
+// We are building this library
+#  define ARTIKULATELIB_EXPORT KDE_EXPORT
+# else
+// We are using this library
+#  define ARTIKULATELIB_EXPORT KDE_IMPORT
+# endif
+#endif
 
-public:
-    TestAudio();
-
-private slots:
-    /**
-     * Called before every test case.
-     */
-    void init();
-
-    /**
-     * Called after every test case.
-     */
-    void cleanup();
-
-    /**
-     * Test communication with recording interface.
-     */
-    void recordTest();
-};
+# ifndef ARTIKULATELIB_EXPORT_DEPRECATED
+#  define ARTIKULATELIB_EXPORT_DEPRECATED KDE_DEPRECATED ARTIKULATELIB_EXPORT
+# endif
 
 #endif
