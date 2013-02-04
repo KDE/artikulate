@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<course>
+    <id>de</id>
+    <title>ArtiKulate Deutsch</title>
+    <description>Ein Kurs in (hoch-)deutscher Aussprache.</description>
+    <language>de</language>
+    <units>
+        <unit>
+            <id>1</id>
+            <title>Auf der Straße</title>
+            <phrases>
+                <phrase>
+                    <id>1</id>
+                    <text>Guten Tag.</text>
+                    <soundFile></soundFile>
+                    <type>sentence</type>
+                    <tags></tags>
+                </phrase>
+                <phrase>
+                    <id>2</id>
+                    <text>Auf Wiedersehen.</text>
+                    <soundFile></soundFile>
+                    <type>sentence</type>
+                    <tags></tags>
+                </phrase>
+            </phrases>
+        </unit>
+    </units>
+</course>

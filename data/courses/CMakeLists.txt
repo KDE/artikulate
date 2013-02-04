@@ -1,5 +1,6 @@
 FILE(GLOB courses *.xml)
 set(courses
+    de.xml
     fr.xml
 )
 
