@@ -29,8 +29,10 @@
 #include <QFile>
 #include <phonon/mediaobject.h>
 
+class QMediaPlayer;
 class QAudioInput;
 class QString;
+class QMediaRecorder;
 class Tag;
 class KUrl;
 
@@ -57,6 +59,11 @@ public:
         Expression,
         Sentence,
         Paragraph
+    };
+    enum CurrentPlayback {
+        None,
+        Sound,
+        UserSound
     };
 
     explicit Phrase(QObject *parent = 0);
@@ -106,12 +113,11 @@ private:
     Type m_type;
 
     QList<Tag *> m_prononciationTags;
-    Phonon::MediaObject *m_sound;
-    Phonon::MediaObject *m_userSound;
-
-    KUrl m_userSoundFileUrl;
-    QFile m_userSoundFile;
-    QAudioInput *m_audioInput;
+    KUrl m_soundFile;
+    KUrl m_userSoundFile;
+    CurrentPlayback m_currentPlayback;
+    QMediaPlayer *m_audioOutput;
+    QMediaRecorder *m_audioInput;
 };
 Q_DECLARE_METATYPE(Phrase::PlaybackState)
 

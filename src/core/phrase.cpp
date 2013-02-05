@@ -20,30 +20,31 @@
 
 #include "phrase.h"
 
-#include <phonon/audiooutput.h>
 #include <QAudioInput>
 #include <QAudioFormat>
 #include <QAudioDeviceInfo>
+#include <QAudioCaptureSource>
+#include <QMediaPlayer>
+#include <QMediaRecorder>
 #include <KDebug>
 #include <QFile>
 
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
-    , m_sound(new Phonon::MediaObject(this))
-    , m_userSound(new Phonon::MediaObject(this))
+    , m_audioOutput(new QMediaPlayer)
+    , m_audioInput(0)
 {
-    Phonon::createPath(m_sound, new Phonon::AudioOutput(Phonon::MusicCategory, this));
-    Phonon::createPath(m_userSound, new Phonon::AudioOutput(Phonon::MusicCategory, this));
-    connect(m_sound, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
+    m_currentPlayback = None;
+    // TODO too many emits
+    connect(m_audioOutput, SIGNAL(stateChanged(QMediaPlayer::State)),
             this, SIGNAL(playbackSoundStateChanged()));
-    connect(m_userSound, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
+    connect(m_audioOutput, SIGNAL(stateChanged(QMediaPlayer::State)),
             this, SIGNAL(playbackUserSoundStateChanged()));
 }
 
 Phrase::~Phrase()
 {
-    delete m_sound;
-    delete m_userSound;
+    delete m_audioOutput;
 }
 
 QString Phrase::id() const
@@ -122,7 +123,7 @@ void Phrase::setType(const QString &typeString)
 
 KUrl Phrase::sound() const
 {
-    return m_sound->currentSource().url();
+    return KUrl(); //m_sound->currentSource().url();
 }
 
 void Phrase::setSound(const KUrl &soundFile)
@@ -131,33 +132,38 @@ void Phrase::setSound(const KUrl &soundFile)
         kWarning() << "Not setting empty sound file path.";
         return;
     }
-    m_sound->setCurrentSource(soundFile);
+    m_soundFile = soundFile;
     emit soundChanged();
 }
 
 void Phrase::playbackSound()
 {
     kDebug() << "Playing authentic sound";
-
-    m_sound->play();
+    m_audioOutput->setMedia(m_soundFile);
+    m_audioOutput->setVolume(50); //TODO use global config
+    m_audioOutput->play();
+    m_currentPlayback = Sound;
 }
 
 void Phrase::playbackUserSound()
 {
-    kDebug() << "Playing user recorded sound";
-
-    m_userSound->setCurrentSource(m_userSoundFileUrl);
-    m_userSound->play();
-    m_userSound->currentSource();
+    kDebug() << "Playing authentic sound";
+    m_audioOutput->setMedia(m_userSoundFile);
+    m_audioOutput->setVolume(50); //TODO use global config
+    m_audioOutput->play();
+    m_currentPlayback = UserSound;
 }
 
 Phrase::PlaybackState Phrase::playbackSoundState() const
 {
-    switch (m_sound->state())
+    if (m_currentPlayback != Sound) {
+        return Phrase::StoppedState;
+    }
+    switch (m_audioOutput->state())
     {
-    case Phonon::PlayingState:
+    case QMediaPlayer::PlayingState:
         return Phrase::PlayingState;
-    case Phonon::PausedState:
+    case QMediaPlayer::PausedState:
         return Phrase::PausedState;
     default:
         return Phrase::StoppedState;
@@ -166,11 +172,14 @@ Phrase::PlaybackState Phrase::playbackSoundState() const
 
 Phrase::PlaybackState Phrase::playbackUserSoundState() const
 {
-    switch (m_userSound->state())
+    if (m_currentPlayback != UserSound) {
+        return Phrase::StoppedState;
+    }
+    switch (m_audioOutput->state())
     {
-    case Phonon::PlayingState:
+    case QMediaPlayer::PlayingState:
         return Phrase::PlayingState;
-    case Phonon::PausedState:
+    case QMediaPlayer::PausedState:
         return Phrase::PausedState;
     default:
         return Phrase::StoppedState;
@@ -179,48 +188,69 @@ Phrase::PlaybackState Phrase::playbackUserSoundState() const
 
 void Phrase::stopSound()
 {
-    m_sound->stop();
+    m_audioOutput->stop();
 }
 
 void Phrase::stopPlaybackUserSound()
 {
-    m_userSound->stop();
+    m_audioOutput->stop();
 }
 
 void Phrase::startRecordUserSound()
 {
-    m_userSoundFile.setFileName("/tmp/test.raw");
-    m_userSoundFile.open(QIODevice::WriteOnly | QIODevice::Truncate);
+    //TODO find unused temporary file
+    QString file = "/tmp/foobaa.ogg";
+    m_userSoundFile = KUrl::fromLocalFile(file);
 
-    QAudioFormat format;
-    // set up the format you want, eg.
-    format.setFrequency(8000);
-    format.setChannels(1);
-    format.setSampleSize(8);
-    format.setCodec("audio/pcm");
-    format.setByteOrder(QAudioFormat::LittleEndian);
-    format.setSampleType(QAudioFormat::UnSignedInt);
+    if (!m_audioInput) {
+        kDebug() << "Creating audio input device";
 
-    QAudioDeviceInfo info = QAudioDeviceInfo::defaultInputDevice();
-    if (!info.isFormatSupported(format)) {
-        qWarning()<<"default format not supported try to use nearest";
-        format = info.nearestFormat(format);
+        QAudioCaptureSource *audioSource = new QAudioCaptureSource(this);
+        m_audioInput = new QMediaRecorder(audioSource, this);
+
+        kDebug() << "AUDIO-SOURCE";
+        kDebug() << "available : " << audioSource->isAvailable();
+        kDebug() << "inputs : " << audioSource->audioInputs();
+        kDebug() << "active input : " << audioSource->activeAudioInput();
+        kDebug() << "Available codecs : " << m_audioInput->supportedAudioCodecs();
+    }
+    if (m_audioInput->state() == QMediaRecorder::RecordingState) {
+        kWarning() << "Currently recording, aborting record start";
+        return;
     }
 
-    m_audioInput = new QAudioInput(format, this);
-    m_audioInput->start(&m_userSoundFile);
+    // set output location+
+    //FIXME for a really strange reason, only the following notation works to get a correct
+    // ouput file; neither QUrl::fromLocalFile, nor the KUrl equivalents are working
+    // --> investigate why!
+    m_audioInput->setOutputLocation(QUrl(file));
+
+    QAudioEncoderSettings audioSettings;
+    audioSettings.setCodec("audio/vorbis");
+    audioSettings.setSampleRate(0);
+    audioSettings.setBitRate(0);
+    audioSettings.setQuality(QtMultimediaKit::NormalQuality);
+    audioSettings.setEncodingMode(QtMultimediaKit::ConstantQualityEncoding);
+    QString container = "ogg";
+
+    m_audioInput->setEncodingSettings(audioSettings, QVideoEncoderSettings(), container);
+
+    kDebug() << "Start recording";
+    m_audioInput->record();
 }
 
 void Phrase::stopRecordUserSound()
 {
+    kDebug() << "Stop recording sound";
     m_audioInput->stop();
-    m_userSoundFile.close();
+
     delete m_audioInput;
+    m_audioInput = 0;
 }
 
 bool Phrase::isUserSound() const
 {
-    return m_userSoundFileUrl.isValid() && !m_userSoundFileUrl.isEmpty();
+    return m_userSoundFile.isValid() && !m_userSoundFile.isEmpty();
 }
 
 QList<Tag *> Phrase::tags() const

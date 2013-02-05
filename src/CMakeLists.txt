@@ -67,7 +67,6 @@ target_link_libraries(artikulatecore
     ${QT_QTDECLARATIVE_LIBRARY}
     ${QT_QTXMLPATTERNS_LIBRARY}
     ${QT_QTSQL_LIBRARY}
-    ${PHONON_LIBS}
     QtMultimediaKit
 )
 set_target_properties(artikulatecore
@@ -104,7 +103,6 @@ target_link_libraries(artikulate
     ${QT_QTDECLARATIVE_LIBRARY}
     ${QT_QTXMLPATTERNS_LIBRARY}
     ${QT_QTSQL_LIBRARY}
-    ${PHONON_LIBS}
     QtMultimediaKit
 )
 
