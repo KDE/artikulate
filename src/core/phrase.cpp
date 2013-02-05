@@ -27,7 +27,7 @@
 #include <QMediaPlayer>
 #include <QMediaRecorder>
 #include <KDebug>
-#include <QFile>
+#include <KTemporaryFile>
 
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
@@ -45,6 +45,9 @@ Phrase::Phrase(QObject *parent)
 Phrase::~Phrase()
 {
     delete m_audioOutput;
+
+    // clear resources
+    m_userSoundFile.close();
 }
 
 QString Phrase::id() const
@@ -148,7 +151,7 @@ void Phrase::playbackSound()
 void Phrase::playbackUserSound()
 {
     kDebug() << "Playing authentic sound";
-    m_audioOutput->setMedia(m_userSoundFile);
+    m_audioOutput->setMedia(KUrl::fromLocalFile(m_userSoundFile.fileName()));
     m_audioOutput->setVolume(50); //TODO use global config
     m_audioOutput->play();
     m_currentPlayback = UserSound;
@@ -198,9 +201,13 @@ void Phrase::stopPlaybackUserSound()
 
 void Phrase::startRecordUserSound()
 {
-    //TODO find unused temporary file
-    QString file = "/tmp/foobaa.ogg";
-    m_userSoundFile = KUrl::fromLocalFile(file);
+    // create temporary file for user sound
+    if (m_userSoundFile.fileName().isEmpty()) {
+        m_userSoundFile.setSuffix(".ogg");
+        m_userSoundFile.open();
+
+        kDebug() << "Create user sound file at " << m_userSoundFile.fileName();
+    }
 
     if (!m_audioInput) {
         kDebug() << "Creating audio input device";
@@ -219,11 +226,11 @@ void Phrase::startRecordUserSound()
         return;
     }
 
-    // set output location+
+    // set output location
     //FIXME for a really strange reason, only the following notation works to get a correct
     // ouput file; neither QUrl::fromLocalFile, nor the KUrl equivalents are working
     // --> investigate why!
-    m_audioInput->setOutputLocation(QUrl(file));
+    m_audioInput->setOutputLocation(QUrl(m_userSoundFile.fileName()));
 
     QAudioEncoderSettings audioSettings;
     audioSettings.setCodec("audio/vorbis");
@@ -250,7 +257,7 @@ void Phrase::stopRecordUserSound()
 
 bool Phrase::isUserSound() const
 {
-    return m_userSoundFile.isValid() && !m_userSoundFile.isEmpty();
+    return !m_userSoundFile.fileName().isEmpty();
 }
 
 QList<Tag *> Phrase::tags() const

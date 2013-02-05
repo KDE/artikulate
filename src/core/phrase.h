@@ -26,8 +26,7 @@
 #include <QObject>
 #include <KUrl>
 #include <QList>
-#include <QFile>
-#include <phonon/mediaobject.h>
+#include <KTemporaryFile>
 
 class QMediaPlayer;
 class QAudioInput;
@@ -114,7 +113,7 @@ private:
 
     QList<Tag *> m_prononciationTags;
     KUrl m_soundFile;
-    KUrl m_userSoundFile;
+    KTemporaryFile m_userSoundFile;
     CurrentPlayback m_currentPlayback;
     QMediaPlayer *m_audioOutput;
     QMediaRecorder *m_audioInput;
