@@ -75,7 +75,7 @@ void TagGroup::addTag(Tag *tag)
     QList<Tag *>::ConstIterator iter = m_tags.constBegin();
     while (iter != m_tags.constEnd()) {
         if (QString::compare((*iter)->id(), tag->id()) == 0) {
-            kWarning() << "Prononciation Tag identifier already registered, aborting";
+            kWarning() << "Pronunciation Tag identifier already registered, aborting";
             return;
         }
         ++iter;

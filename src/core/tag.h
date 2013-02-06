@@ -29,7 +29,7 @@ class QString;
 
 /**
  * \class Tag
- * Tags are properties that can be assigned to a Phrase to specify its prononciation characteristics.
+ * Tags are properties that can be assigned to a Phrase to specify its pronunciation characteristics.
  */
 class ARTIKULATELIB_EXPORT Tag : public QObject
 {

@@ -27,14 +27,14 @@
 #include <KDebug>
 
 static const char description[] =
-    I18N_NOOP("Learn and practice prononciation.");
+    I18N_NOOP("Learn and practice pronunciation.");
 
 static const char version[] = "0.0.1";
 
 int main(int argc, char **argv)
 {
     KAboutData about("artikulate", 0,
-                ki18n("ArtiKulate Prononciation Trainer"),
+                ki18n("ArtiKulate Pronunciation Trainer"),
                 version,
                 ki18n(description),
                 KAboutData::License_GPL,
