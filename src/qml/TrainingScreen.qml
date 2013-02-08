@@ -72,7 +72,7 @@ FocusScope {
                 if (course == null) {
                     ""
                 } else {
-                    "<h1>" + i18n("Course: ") + course.title + "</h1>";
+                    "<h1>" + i18n("Course: %1", course.title) + "</h1>";
                 }
             }
         }
