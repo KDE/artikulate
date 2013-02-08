@@ -62,10 +62,10 @@ Item {
                 return;
             }
             if (screen.courseModel.language == null) {
-                message = "Please select a language.";
+                message = i18n("Please select a language.");
             }
             else {
-                message = "There are no courses for the selected language.";
+                message = i18n("There are no courses for the selected language.");
             }
         }
     }

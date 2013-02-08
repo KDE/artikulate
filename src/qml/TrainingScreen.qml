@@ -72,7 +72,7 @@ FocusScope {
                 if (course == null) {
                     ""
                 } else {
-                    "<h1>Course: " + course.title + "</h1>";
+                    "<h1>" + i18n("Course: ") + course.title + "</h1>";
                 }
             }
         }
@@ -84,7 +84,7 @@ FocusScope {
             width: 200
 
             Text {
-                text: "<h2>Units</h2>"
+                text: i18n("<h2>Units</h2>")
             }
 
             UnitSelector {
@@ -98,7 +98,7 @@ FocusScope {
 
         Column {
             Text {
-                text: "<strong>Current Unit</strong> " + unitName
+                text: "<strong>" + i18n("Current Unit") + "</strong> " + unitName
             }
 
             TrainingUnit {
@@ -110,14 +110,14 @@ FocusScope {
 //             Row {
 //                 PlasmaComponents.ToolButton {
 //                     iconSource: "go-previous-view"
-//                     text: "Previous Unit"
+//                     text: i18n("Previous Unit")
 //                     onClicked: {
 //                         //TODO
 //                     }
 //                 }
 //                 PlasmaComponents.ToolButton {
 //                     iconSource: "go-next-view"
-//                     text: "Next Unit"
+//                     text: i18n("Next Unit")
 //                     onClicked: {
 //                         //TODO
 //                     }

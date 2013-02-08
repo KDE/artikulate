@@ -65,7 +65,7 @@ FocusScope {
         }
 
         Text {
-            text: "<h1>ArtiKulate</h1>"
+            text: i18n("<h1>ArtiKulate</h1>)"
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Row {
@@ -73,7 +73,7 @@ FocusScope {
             anchors.horizontalCenter: parent.horizontalCenter
 
             Column {
-                Text { text: "<h2>Languages</b>" }
+                Text { text: i18n("<h2>Languages</h2>") }
                 LanguageSelector {
                     id: languageSelector
                     languageModel: screen.languageModel
@@ -84,7 +84,7 @@ FocusScope {
             }
 
             Column {
-                Text { text: "<h2>Courses</h2>" }
+                Text { text: i18n("<h2>Courses</h2>") }
                 CourseSelector {
                     id: courseSelector
                     onCourseSelected: {

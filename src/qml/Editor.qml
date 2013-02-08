@@ -24,5 +24,5 @@ Item
 {
     id: editor
 
-    Text { text: "Qml View"; }
+    Text { text: i18n("Qml View"); }
 }
