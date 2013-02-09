@@ -19,12 +19,59 @@
  */
 
 import QtQuick 1.0
+import artikulate 1.0
+import org.kde.plasma.core 0.1 as PlasmaCore
+import org.kde.plasma.components 0.1 as PlasmaComponents
 
 Item
 {
     id: editor
 
-    Text {
-        text: i18n("<h1>Course Editor</h1>")
+    ApplicationBackground {
+        id: background
+        anchors.fill: parent
+    }
+
+    LanguageModel {
+        id: availableLanguageModel
+        resourceManager: globalResourceManager
+    }
+
+    CourseModel {
+        id: availableCourseModel
+        resourceManager: globalResourceManager
+    }
+
+    Column {
+        Text {
+            text: i18n("<h1>Course Editor</h1>")
+        }
+
+        Row {
+            spacing: 20
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Column {
+                Text { text: i18n("<h2>Languages</h2>") }
+                LanguageSelector {
+                    id: languageSelector
+                    languageModel: availableLanguageModel
+                    onLanguageSelected: {
+                        availableCourseModel.language = language
+                   }
+                }
+            }
+
+            Column {
+                Text { text: i18n("<h2>Courses</h2>") }
+                CourseSelector {
+                    id: courseSelector
+                    courseModel: availableCourseModel
+                    onCourseSelected: {
+                        //TODO select unit
+                    }
+                }
+            }
+        }
     }
 }
