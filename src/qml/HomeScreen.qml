@@ -87,6 +87,7 @@ FocusScope {
                 Text { text: i18n("<h2>Courses</h2>") }
                 CourseSelector {
                     id: courseSelector
+                    courseModel: screen.courseModel
                     onCourseSelected: {
                         screen.courseSelected(course)
                     }

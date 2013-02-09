@@ -28,6 +28,7 @@ Item {
     width: 100
     height: 200
 
+    property CourseModel courseModel
     property Course currentCourse
     signal courseSelected(variant course)
 
@@ -49,7 +50,7 @@ Item {
         anchors.fill: parent
         visible: courseList.count > 0
 
-        model: screen.courseModel
+        model: root.courseModel
         delegate: myDelegate
     }
 
@@ -58,10 +59,10 @@ Item {
         visible: courseList.count === 0
         text: message
         onVisibleChanged: {
-            if (screen.courseModel == null) {
+            if (root.courseModel == null) {
                 return;
             }
-            if (screen.courseModel.language == null) {
+            if (root.courseModel.language == null) {
                 message = i18n("Please select a language.");
             }
             else {

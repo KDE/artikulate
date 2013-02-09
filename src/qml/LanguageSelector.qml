@@ -47,7 +47,7 @@ Item {
     ListView {
         anchors.fill: parent
 
-        model: screen.languageModel
+        model: root.languageModel
         delegate: itemDelegate
     }
 }
