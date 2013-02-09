@@ -52,6 +52,11 @@ set(artikulateCore_SRCS
     core/tag.cpp
     core/taggroup.cpp
     core/unit.cpp
+
+    ui/newcoursedialog.cpp
+)
+kde4_add_ui_files(artikulateCore_SRCS
+    ui/newcoursedialog.ui
 )
 
 kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})

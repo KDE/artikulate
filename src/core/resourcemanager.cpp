@@ -25,9 +25,11 @@
 #include "phrase.h"
 #include "tag.h"
 #include "taggroup.h"
+#include <ui/newcoursedialog.h>
 
 #include <QIODevice>
 #include <QFile>
+#include <QPointer>
 #include <QXmlSchema>
 #include <QXmlSchemaValidator>
 #include <QDomDocument>
@@ -244,6 +246,14 @@ bool ResourceManager::loadCourse(const KUrl &courseFile)
     m_courseList[course->language()].append(course);
     emit courseAdded();
     return true;
+}
+
+void ResourceManager::newCourseDialog()
+{
+    QPointer<NewCourseDialog> dialog = new NewCourseDialog(0);
+    if (dialog) {
+        dialog->exec();
+    }
 }
 
 QXmlSchema ResourceManager::loadXmlSchema(const QString &schemeName) const

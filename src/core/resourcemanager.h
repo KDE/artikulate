@@ -86,6 +86,8 @@ public:
      */
     bool loadCourse(const KUrl &path);
 
+    Q_INVOKABLE void newCourseDialog();
+
 signals:
     void languageAdded();
     void languageAboutToBeAdded(Language*,int);

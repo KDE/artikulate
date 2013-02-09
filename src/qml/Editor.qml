@@ -64,6 +64,16 @@ Item
 
             Column {
                 Text { text: i18n("<h2>Courses</h2>") }
+                PlasmaComponents.ToolButton {
+                    text: i18n("New Course")
+                    iconSource: "document-new"
+                    enabled: {
+                        availableCourseModel.language != null
+                    }
+                    onClicked: {
+                        globalResourceManager.newCourseDialog();
+                    }
+                }
                 CourseSelector {
                     id: courseSelector
                     courseModel: availableCourseModel
