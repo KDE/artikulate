@@ -86,6 +86,14 @@ public:
      */
     bool loadCourse(const KUrl &path);
 
+    /**
+     * Adds course to resource manager. If the course's langauge is not registered, the language
+     * is registered by this method.
+     *
+     * \param course the course to add to resource manager
+     */
+    void addCourse(Course *course);
+
     Q_INVOKABLE void newCourseDialog();
 
 signals:

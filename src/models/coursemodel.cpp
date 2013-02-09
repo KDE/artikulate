@@ -187,9 +187,9 @@ QVariant CourseModel::headerData(int section, Qt::Orientation orientation, int r
 
 void CourseModel::updateMappings()
 {
-    int courses = m_resourceManager->courseList().count();
-    for (int i = 0; i < courses; i++)
-    {
+    Q_ASSERT(m_language);
+    int courses = m_resourceManager->courseList(m_language).count();
+    for (int i = 0; i < courses; i++) {
         m_signalMapper->setMapping(m_resourceManager->course(m_language, i), i);
     }
 }

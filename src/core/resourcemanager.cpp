@@ -152,7 +152,9 @@ QList< Course* > ResourceManager::courseList(Language *language) const
 
 Course * ResourceManager::course(Language *language, int index) const
 {
-    Q_ASSERT (index >= 0 && index < m_courseList.count());
+    Q_ASSERT(m_courseList.contains(language));
+    Q_ASSERT(index >= 0 && index < m_courseList[language].count());
+
     return m_courseList[language].at(index);
 }
 
@@ -240,7 +242,6 @@ bool ResourceManager::loadCourse(const KUrl &courseFile)
     }
 
     if (!m_courseList.contains(course->language())) {
-        kDebug() << "registering " << course->language()->title();
         m_courseList.insert(course->language(), QList<Course*>());
     }
     m_courseList[course->language()].append(course);
@@ -248,11 +249,22 @@ bool ResourceManager::loadCourse(const KUrl &courseFile)
     return true;
 }
 
+void ResourceManager::addCourse(Course *course)
+{
+    emit courseAboutToBeAdded(course, m_courseList.count()-1);
+    if (!m_courseList.contains(course->language())) {
+        m_languageList.append(course->language());
+        m_courseList.insert(course->language(), QList<Course*>());
+    }
+    m_courseList[course->language()].append(course);
+    emit courseAdded();
+}
+
 void ResourceManager::newCourseDialog()
 {
     QPointer<NewCourseDialog> dialog = new NewCourseDialog(this);
-    if (dialog) {
-        dialog->exec();
+    if (dialog->exec() == QDialog::Accepted ) {
+        addCourse(dialog->course());
     }
 }
 

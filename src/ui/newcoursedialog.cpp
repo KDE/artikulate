@@ -21,11 +21,15 @@
 #include "newcoursedialog.h"
 #include "core/resourcemanager.h"
 #include "core/language.h"
-#include <KLocale>
+#include "core/course.h"
 
-NewCourseDialog::NewCourseDialog(ResourceManager *resourceMgr)
+#include <KLocale>
+#include <QUuid>
+
+NewCourseDialog::NewCourseDialog(ResourceManager *m_resourceManager)
     : KDialog(0)
-    , resourceMgr(resourceMgr)
+    , m_resourceManager(m_resourceManager)
+    , m_createdCourse(0)
 {
     setPlainCaption(i18n("Create New Course"));
     setButtons(KDialog::Ok | KDialog::Cancel);
@@ -38,9 +42,10 @@ NewCourseDialog::NewCourseDialog(ResourceManager *resourceMgr)
     setMainWidget(widget);
 
     // add languages
-    foreach (Language *language, resourceMgr->languageList()) {
+    foreach (Language *language, m_resourceManager->languageList()) {
         ui->language->addItem(language->title(), language->id());
     }
+    ui->title->setText(i18n("New Course"));
 
     connect(this, SIGNAL(okClicked()), this, SLOT(createCourse()));
 }
@@ -52,5 +57,26 @@ NewCourseDialog::~NewCourseDialog()
 
 void NewCourseDialog::createCourse()
 {
+    Course *course = new Course(m_resourceManager);
+    course->setId(QUuid::createUuid().toString());
+    course->setTitle(ui->title->text());
+    course->setDescription(ui->description->toHtml());
 
+    // set language
+    QString selectedLanguage = ui->language->itemData(ui->language->currentIndex()).toString();
+    foreach (Language *language, m_resourceManager->languageList()) {
+        if (language->id() == selectedLanguage) {
+            course->setLanguage(language);
+            break;
+        }
+    }
+    // check that language actually exists
+    Q_ASSERT(course->language());
+
+    m_createdCourse = course;
+}
+
+Course * NewCourseDialog::course() const
+{
+    return m_createdCourse;
 }
