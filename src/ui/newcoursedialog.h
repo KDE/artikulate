@@ -24,17 +24,23 @@
 #include "ui_newcoursedialog.h"
 #include <KDialog>
 
+class ResourceManager;
+
 class NewCourseDialog :
     public KDialog
 {
     Q_OBJECT
 
 public:
-    explicit NewCourseDialog(QWidget* parent = 0);
+    explicit NewCourseDialog(ResourceManager *resourceMgr);
     virtual ~NewCourseDialog();
+
+public slots:
+    void createCourse();
 
 private:
     Ui::NewCourseDialog *ui;
+    ResourceManager *resourceMgr;
 };
 
 #endif

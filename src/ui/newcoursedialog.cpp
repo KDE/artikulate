@@ -19,10 +19,13 @@
  */
 
 #include "newcoursedialog.h"
+#include "core/resourcemanager.h"
+#include "core/language.h"
 #include <KLocale>
 
-NewCourseDialog::NewCourseDialog(QWidget *parent)
-    : KDialog(parent)
+NewCourseDialog::NewCourseDialog(ResourceManager *resourceMgr)
+    : KDialog(0)
+    , resourceMgr(resourceMgr)
 {
     setPlainCaption(i18n("Create New Course"));
     setButtons(KDialog::Ok | KDialog::Cancel);
@@ -30,11 +33,24 @@ NewCourseDialog::NewCourseDialog(QWidget *parent)
 
     QWidget *widget = new QWidget(this);
     ui = new Ui::NewCourseDialog;
+
     ui->setupUi(widget);
     setMainWidget(widget);
+
+    // add languages
+    foreach (Language *language, resourceMgr->languageList()) {
+        ui->language->addItem(language->title(), language->id());
+    }
+
+    connect(this, SIGNAL(okClicked()), this, SLOT(createCourse()));
 }
 
 NewCourseDialog::~NewCourseDialog()
 {
     delete ui;
+}
+
+void NewCourseDialog::createCourse()
+{
+
 }

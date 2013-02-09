@@ -250,7 +250,7 @@ bool ResourceManager::loadCourse(const KUrl &courseFile)
 
 void ResourceManager::newCourseDialog()
 {
-    QPointer<NewCourseDialog> dialog = new NewCourseDialog(0);
+    QPointer<NewCourseDialog> dialog = new NewCourseDialog(this);
     if (dialog) {
         dialog->exec();
     }
