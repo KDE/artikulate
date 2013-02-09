@@ -49,6 +49,9 @@ public:
 
     virtual QSize sizeHint() const { return QSize(800,500); }
 
+public slots:
+    void showCourseEditor();
+
 private:
     QDeclarativeView *m_view;
     KActionCollection *m_actionCollection;

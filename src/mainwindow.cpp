@@ -34,6 +34,7 @@
 #include <KStandardDirs>
 #include <kdeclarative.h>
 #include <KMenu>
+#include <KDebug>
 
 #include <QDeclarativeView>
 #include <QDeclarativeContext>
@@ -63,7 +64,7 @@ MainWindow::MainWindow(const QString &file)
     m_actionCollection->addAssociatedWidget(this);
     m_menu->addSeparator();
     KAction *editorAction = new KAction(i18n("Course Editor"), this);
-    connect(editorAction, SIGNAL(triggered()), SLOT(close())); // FIXME
+    connect(editorAction, SIGNAL(triggered()), SLOT(showCourseEditor()));
 
     m_actionCollection->addAction("editor", editorAction);
     m_menu->addAction(editorAction);
@@ -87,6 +88,11 @@ MainWindow::~MainWindow()
 ResourceManager * MainWindow::resourceManager() const
 {
     return m_resourceManager;
+}
+
+void MainWindow::showCourseEditor()
+{
+    m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Editor.qml")));
 }
 
 void MainWindow::showMenu(int xPos, int yPos)
