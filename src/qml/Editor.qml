@@ -73,7 +73,7 @@ Item
                     width: 200
                 }
                 PlasmaComponents.ToolButton {
-                    text: i18n("Ok")
+                    text: i18n("OK")
                     iconSource: "dialog-ok-apply"
                     onClicked: {
                         //TODO save course
