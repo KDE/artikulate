@@ -25,13 +25,50 @@ import artikulate 1.0
 
 Item {
     id: root
-    width: 100
-    height: 200
 
     property Phrase phrase
+    property bool editMode: false
 
+    Row {
+        spacing: 5
+        anchors.centerIn: parent.center
 
-    Text {
-        text: phrase.text
+        PlasmaComponents.ToolButton {
+            id: enableEdit
+            iconSource: "document-properties"
+            enabled: {!root.editMode}
+            onClicked: {
+                root.editMode = !root.editMode
+            }
+        }
+        Text {
+            id: phraseText
+            anchors.verticalCenter: enableEdit.verticalCenter
+            visible: { !root.editMode }
+            text: phrase.text
+        }
+        Row {
+            anchors.verticalCenter: enableEdit.verticalCenter
+            visible: { root.editMode }
+            PlasmaComponents.TextField {
+                id: phraseInput
+                width: phraseText.width + 20
+                text: phrase.text
+            }
+            PlasmaComponents.ToolButton {
+                iconSource: "dialog-ok-apply"
+                onClicked: {
+                    root.editMode = false
+                    phrase.text = phraseInput.text
+                }
+            }
+            PlasmaComponents.ToolButton {
+                iconSource: "dialog-cancel"
+                onClicked: {
+                    root.editMode = false
+                    phraseInput.text = phrase.text
+                }
+            }
+        }
     }
 }
