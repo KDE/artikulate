@@ -28,31 +28,10 @@ Item {
     width: 100
     height: 200
 
-    property Unit unit
+    property Phrase phrase
 
-    PhraseModel {
-        id: phraseModel
-        unit: root.unit
-    }
 
-    Component {
-        id: itemDelegate
-
-        Item {
-            height: 30
-            Row {
-                PhraseEditor {
-                    phrase: model.dataRole
-                }
-            }
-        }
-    }
-
-    ListView {
-        id: phraseList
-        anchors.fill: parent
-
-        model: phraseModel
-        delegate: itemDelegate
+    Text {
+        text: phrase.text
     }
 }
