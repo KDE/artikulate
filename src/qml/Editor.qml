@@ -26,8 +26,11 @@ import org.kde.plasma.components 0.1 as PlasmaComponents
 Item
 {
     id: editor
+    property Language currentLanguage
     property Course currentCourse
     property Unit currentUnit
+    property string currentLanguageName: i18n("Unselected")
+    property string currentCourseName: i18n("Unselected")
 
     ApplicationBackground {
         id: background
@@ -50,27 +53,72 @@ Item
     }
 
     Column {
+        anchors.fill: parent
+
+        PlasmaComponents.ToolBar {
+            id: header
+            width: parent.width
+            height: 20
+            tools: Row {
+                anchors.leftMargin: 3
+                anchors.rightMargin: 3
+                spacing: 5
+
+                Text {
+                    text: i18n("<strong>Language:</strong> %1", editor.currentLanguageName)
+                    width: 200
+                }
+                Text {
+                    text: i18n("<strong>Course:</strong> %1", editor.currentCourseName)
+                    width: 200
+                }
+                PlasmaComponents.ToolButton {
+                    text: i18n("Ok")
+                    iconSource: "dialog-ok-apply"
+                    onClicked: {
+                        //TODO save course
+                    }
+                }
+                PlasmaComponents.ToolButton {
+                    text: i18n("Cancel")
+                    iconSource: "dialog-cancel"
+                    onClicked: {
+                        //TODO abort changes and deselect course
+                    }
+                }
+            }
+        }
+
         Text {
             text: i18n("<h1>Course Editor</h1>")
         }
 
         Row {
             spacing: 20
-            anchors.horizontalCenter: parent.horizontalCenter
 
             Column {
-                Text { text: i18n("<h2>Languages</h2>") }
+                visible: { currentLanguage == null }
+                Text {
+                    text: i18n("<h2>Select Language</h2>")
+                }
                 LanguageSelector {
                     id: languageSelector
                     languageModel: availableLanguageModel
                     onLanguageSelected: {
+                        editor.currentLanguage = language
                         availableCourseModel.language = language
+                        editor.currentLanguageName = language.title
                    }
                 }
             }
 
             Column {
-                Text { text: i18n("<h2>Courses</h2>") }
+                visible: {
+                    if (currentLanguage == null) return false;
+                    if (currentCourse != null) return false
+                    return true
+                }
+                Text { text: i18n("<h2>Select Course</h2>") }
                 PlasmaComponents.ToolButton {
                     text: i18n("New Course")
                     iconSource: "document-new"
@@ -86,12 +134,13 @@ Item
                     courseModel: availableCourseModel
                     onCourseSelected: {
                         editor.currentCourse = course
+                        editor.currentCourseName = course.title
                     }
                 }
             }
         }
         Row {
-            y: 50
+            visible: { currentCourse != null }
             Column {
                 width: 200
 
