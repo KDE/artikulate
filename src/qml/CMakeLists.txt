@@ -33,6 +33,7 @@ set(artikulate_qml_files
     LanguageSelector.qml
     UnitSelector.qml
     TrainingUnit.qml
+    UnitEditor.qml
 )
 
 install(FILES ${artikulate_qml_files} DESTINATION ${DATA_INSTALL_DIR}/artikulate/qml)

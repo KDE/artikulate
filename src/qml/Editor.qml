@@ -26,6 +26,8 @@ import org.kde.plasma.components 0.1 as PlasmaComponents
 Item
 {
     id: editor
+    property Course currentCourse
+    property Unit currentUnit
 
     ApplicationBackground {
         id: background
@@ -40,6 +42,11 @@ Item
     CourseModel {
         id: availableCourseModel
         resourceManager: globalResourceManager
+    }
+
+    UnitModel {
+        id: selectedUnitModel
+        course: editor.currentCourse
     }
 
     Column {
@@ -78,8 +85,36 @@ Item
                     id: courseSelector
                     courseModel: availableCourseModel
                     onCourseSelected: {
-                        //TODO select unit
+                        editor.currentCourse = course
                     }
+                }
+            }
+        }
+        Row {
+            y: 50
+            Column {
+                width: 200
+
+                Text {
+                    text: i18n("<h2>Units</h2>")
+                }
+
+                UnitSelector {
+                    id: unitSelector
+                    unitModel: selectedUnitModel
+                    onUnitSelected: {
+                        editor.currentUnit = unit;
+                    }
+                }
+            }
+
+            Column {
+//                 Text {
+//                     text: "<strong>" + i18n("Current Unit") + "</strong> " + unitName
+//                 }
+
+                UnitEditor {
+                    unit: editor.currentUnit
                 }
             }
         }
