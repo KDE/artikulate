@@ -32,6 +32,19 @@ Item
     property string currentLanguageName: i18n("Unselected")
     property string currentCourseName: i18n("Unselected")
 
+    onCurrentCourseChanged: {
+        currentUnit = null
+        if (editor.currentCourse == null) i18n("Unselected")
+        else editor.currentCourseName = currentCourse.title;
+    }
+
+    onCurrentLanguageChanged: {
+        currentUnit = null
+        currentCourse = null
+        if (editor.currentLanguage == null) i18n("Unselected")
+        else editor.currentLanguageName = currentLanguage.title;
+    }
+
     ApplicationBackground {
         id: background
         anchors.fill: parent
@@ -44,6 +57,7 @@ Item
 
     CourseModel {
         id: availableCourseModel
+        language: editor.currentLanguage
         resourceManager: globalResourceManager
     }
 
@@ -58,21 +72,38 @@ Item
         PlasmaComponents.ToolBar {
             id: header
             width: parent.width
-            height: 20
+            height: 30
             tools: Row {
                 anchors.leftMargin: 3
                 anchors.rightMargin: 3
                 spacing: 5
 
-                Text {
-                    text: i18n("<strong>Language:</strong> %1", editor.currentLanguageName)
+                Row {
                     width: 200
+                    height: parent.height
+                    anchors.verticalCenter: parent.verticalCenter
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: i18n("<strong>Language:</strong> %1", editor.currentLanguageName)
+                    }
+                    PlasmaComponents.ToolButton { // unselect-button for language
+                        anchors.verticalCenter: parent.verticalCenter
+                        iconSource: "dialog-close"
+                        flat: true
+                        enabled: { availableCourseModel.language != null }
+                        onClicked: {
+                            currentCourse = null
+                            currentLanguage = null
+                        }
+                    }
                 }
                 Text {
+                    anchors.verticalCenter: parent.verticalCenter
                     text: i18n("<strong>Course:</strong> %1", editor.currentCourseName)
                     width: 200
                 }
                 PlasmaComponents.ToolButton {
+                    anchors.verticalCenter: parent.verticalCenter
                     text: i18n("OK")
                     iconSource: "dialog-ok-apply"
                     onClicked: {
@@ -80,10 +111,12 @@ Item
                     }
                 }
                 PlasmaComponents.ToolButton {
+                    anchors.verticalCenter: parent.verticalCenter
                     text: i18n("Cancel")
                     iconSource: "dialog-cancel"
                     onClicked: {
-                        //TODO abort changes and deselect course
+                        globalResourceManager.reloadCourse(editor.currentCourse)
+                        editor.currentCourse = null
                     }
                 }
             }
@@ -106,8 +139,6 @@ Item
                     languageModel: availableLanguageModel
                     onLanguageSelected: {
                         editor.currentLanguage = language
-                        availableCourseModel.language = language
-                        editor.currentLanguageName = language.title
                    }
                 }
             }
@@ -134,7 +165,6 @@ Item
                     courseModel: availableCourseModel
                     onCourseSelected: {
                         editor.currentCourse = course
-                        editor.currentCourseName = course.title
                     }
                 }
             }

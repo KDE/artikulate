@@ -81,10 +81,25 @@ public:
      * Load course from locally stored XML file.
      * TODO allow loading of remote XML files
      *
-     * \param path is the local XML file containing the course
+     * \param courseFile is the local XML file containing the course
+     * \return loaded course
+     */
+    Course * loadCourse(const KUrl &courseFile);
+
+    /**
+     * Reset the course from its course file.
+     *
+     * \param course the course to be reloaded
+     */
+    Q_INVOKABLE void reloadCourse(Course *course);
+
+    /**
+     * Adds course to resource manager by parsing the given course specification file.
+     *
+     * \param courseFile is the local XML file containing the course
      * \return true if loaded successfully, otherwise false
      */
-    bool loadCourse(const KUrl &path);
+    bool addCourse(const KUrl &courseFile);
 
     /**
      * Adds course to resource manager. If the course's langauge is not registered, the language
@@ -93,6 +108,14 @@ public:
      * \param course the course to add to resource manager
      */
     void addCourse(Course *course);
+
+    /**
+     * Remove course from resource manager. If the course is modified its changes are NOT
+     * written. For writing changes, the Cousse::sync() method must be called directly.
+     *
+     * \param course is the course to be removed
+     */
+    void removeCourse(Course *course);
 
     Q_INVOKABLE void newCourseDialog();
 
@@ -123,7 +146,7 @@ private:
      * \param scheme is the XML schema describing the DOM
      * \return the loaded DOM document
      */
-    QDomDocument loadDomDocument(const KUrl &path, const QXmlSchema &schema);
+    QDomDocument loadDomDocument(const KUrl &path, const QXmlSchema &schema) const;
 
     QList<Language *> m_languageList;
     QMap<Language *, QList<Course *> > m_courseList;

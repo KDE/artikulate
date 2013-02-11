@@ -55,7 +55,7 @@ void ResourceManager::loadLocalData()
     // load local course files
     QStringList courseFiles = KGlobal::dirs()->findAllResources("appdata",QString("courses/*.xml"));
     foreach (const QString &file, courseFiles) {
-        loadCourse(KUrl::fromLocalFile(file));
+        addCourse(KUrl::fromLocalFile(file));
     }
 }
 
@@ -158,28 +158,28 @@ Course * ResourceManager::course(Language *language, int index) const
     return m_courseList[language].at(index);
 }
 
-bool ResourceManager::loadCourse(const KUrl &courseFile)
+Course * ResourceManager::loadCourse(const KUrl &courseFile)
 {
     if (!courseFile.isLocalFile()) {
         kWarning() << "Cannot open course file at " << courseFile.toLocalFile() << ", aborting.";
-        return false;
+        return 0;
     }
 
     QXmlSchema schema = loadXmlSchema("course");
     if (!schema.isValid()) {
-        return false;
+        return 0;
     }
 
     QDomDocument document = loadDomDocument(courseFile, schema);
     if (document.isNull()) {
         kWarning() << "Could not parse document " << courseFile.toLocalFile() << ", aborting.";
-        return false;
+        return 0;
     }
 
     // create course
     QDomElement root(document.documentElement());
     Course *course = new Course(this);
-    emit courseAboutToBeAdded(course, m_courseList.count()-1);
+
     course->setFile(courseFile);
     course->setId(root.firstChildElement("id").text());
     course->setTitle(root.firstChildElement("title").text());
@@ -197,7 +197,7 @@ bool ResourceManager::loadCourse(const KUrl &courseFile)
     }
     if (course->language() == 0) {
         kWarning() << "Language ID unknown, could not register any language, aborting";
-        return false;
+        return 0;
     }
 
     // create units
@@ -241,23 +241,57 @@ bool ResourceManager::loadCourse(const KUrl &courseFile)
         }
     }
 
-    if (!m_courseList.contains(course->language())) {
-        m_courseList.insert(course->language(), QList<Course*>());
+    return course;
+}
+
+void ResourceManager::reloadCourse(Course *course)
+{
+    if (!course) {
+        kError() << "Cannot reload non-existing course";
+        return;
     }
-    m_courseList[course->language()].append(course);
-    emit courseAdded();
+    if (!course->file().isValid()) {
+        kError() << "Cannot reload temporary file, aborting.";
+        return;
+    }
+    KUrl file = course->file();
+    removeCourse(course);
+    addCourse(file);
+}
+
+bool ResourceManager::addCourse(const KUrl &courseFile)
+{
+    Course *course = loadCourse(courseFile);
+    if (course == 0) {
+        kError() << "Could not load course, aborting";
+        return false;
+    }
+    addCourse(course);
     return true;
 }
 
 void ResourceManager::addCourse(Course *course)
 {
-    emit courseAboutToBeAdded(course, m_courseList.count()-1);
-    if (!m_courseList.contains(course->language())) {
-        m_languageList.append(course->language());
+    Q_ASSERT(m_languageList.contains(course->language()));
+
+    if (m_courseList.contains(course->language())) {
+        emit courseAboutToBeAdded(course, m_courseList[course->language()].count());
+    }
+    else {
+        emit courseAboutToBeAdded(course, 0);
         m_courseList.insert(course->language(), QList<Course*>());
     }
     m_courseList[course->language()].append(course);
     emit courseAdded();
+}
+
+void ResourceManager::removeCourse(Course *course)
+{
+    int index = m_courseList[course->language()].indexOf(course);
+    emit courseAboutToBeRemoved(index, index);
+    m_courseList[course->language()].removeAt(index);
+    emit courseRemoved();
+    course->deleteLater();
 }
 
 void ResourceManager::newCourseDialog()
@@ -280,7 +314,7 @@ QXmlSchema ResourceManager::loadXmlSchema(const QString &schemeName) const
     return schema;
 }
 
-QDomDocument ResourceManager::loadDomDocument(const KUrl &path, const QXmlSchema &schema)
+QDomDocument ResourceManager::loadDomDocument(const KUrl &path, const QXmlSchema &schema) const
 {
     QDomDocument document;
     QXmlSchemaValidator validator(schema);

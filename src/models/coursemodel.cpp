@@ -37,8 +37,6 @@ CourseModel::CourseModel(QObject *parent)
     , m_language(0)
     , m_signalMapper(new QSignalMapper(this))
 {
-    kDebug() << "create course model";
-
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[DescriptionRole] = "description";
