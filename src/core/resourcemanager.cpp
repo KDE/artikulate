@@ -240,6 +240,7 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
             }
         }
     }
+    course->setModified(false);
 
     return course;
 }

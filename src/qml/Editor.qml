@@ -102,20 +102,46 @@ Item
                     text: i18n("<strong>Course:</strong> %1", editor.currentCourseName)
                     width: 200
                 }
-                PlasmaComponents.ToolButton {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: i18n("OK")
-                    iconSource: "dialog-ok-apply"
-                    onClicked: {
-                        //TODO save course
+                Row {
+                    visible: {
+                        if (currentCourse != null) return currentCourse.modified;
+                        else return false;
+                    }
+                    PlasmaComponents.ToolButton {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: i18n("OK")
+                        enabled: {
+                            if (currentCourse != null) return currentCourse.modified;
+                            else return false;
+                        }
+                        iconSource: "dialog-ok-apply"
+                        onClicked: {
+                            //TODO save course
+                        }
+                    }
+                    PlasmaComponents.ToolButton {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: i18n("Cancel")
+                        enabled: {
+                            if (currentCourse != null) return currentCourse.modified;
+                            else return false;
+                        }
+                        iconSource: "dialog-cancel"
+                        onClicked: {
+                            globalResourceManager.reloadCourse(editor.currentCourse)
+                            editor.currentCourse = null
+                        }
                     }
                 }
                 PlasmaComponents.ToolButton {
                     anchors.verticalCenter: parent.verticalCenter
-                    text: i18n("Cancel")
-                    iconSource: "dialog-cancel"
+                    text: i18n("Close")
+                    visible: {
+                        if (currentCourse != null) return !currentCourse.modified;
+                        else return false;
+                    }
+                    iconSource: "dialog-close"
                     onClicked: {
-                        globalResourceManager.reloadCourse(editor.currentCourse)
                         editor.currentCourse = null
                     }
                 }

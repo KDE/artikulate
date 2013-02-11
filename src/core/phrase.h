@@ -104,6 +104,7 @@ signals:
     void prononciationTagsChanged();
     void playbackSoundStateChanged();
     void playbackUserSoundStateChanged();
+    void modified();
 
 private:
     Q_DISABLE_COPY(Phrase)

@@ -47,6 +47,7 @@ public:
 signals:
     void idChanged();
     void titleChanged();
+    void modified();
 
 private:
     Q_DISABLE_COPY(Unit)

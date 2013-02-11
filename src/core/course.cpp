@@ -27,6 +27,7 @@
 Course::Course(QObject *parent)
     : QObject(parent)
     , m_language(0)
+    , m_modified(false)
 {
 }
 
@@ -40,6 +41,7 @@ void Course::setId(const QString &id)
     if (id != m_id) {
         m_id = id;
         emit idChanged();
+        setModified();
     }
 }
 
@@ -53,6 +55,7 @@ void Course::setTitle(const QString &title)
     if (QString::compare(title, m_title) != 0) {
         m_title = title;
         emit titleChanged();
+        setModified();
     }
 }
 
@@ -103,4 +106,20 @@ void Course::addUnit(Unit *unit)
         ++iter;
     }
     m_unitList.append(unit);
+    connect(unit, SIGNAL(modified()), this, SLOT(setModified()));
+    setModified();
+}
+
+bool Course::modified() const
+{
+    return m_modified;
+}
+
+void Course::setModified(bool modified)
+{
+    if (m_modified == modified) {
+        return;
+    }
+    m_modified = modified;
+    emit modifiedChanged();
 }

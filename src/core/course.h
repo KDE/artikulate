@@ -36,6 +36,7 @@ class ARTIKULATELIB_EXPORT Course : public QObject
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
+    Q_PROPERTY(bool modified READ modified WRITE setModified NOTIFY modifiedChanged)
 
 public:
     explicit Course(QObject *parent = 0);
@@ -51,11 +52,14 @@ public:
     void setFile(const KUrl &file);
     QList<Unit *> unitList() const;
     void addUnit(Unit *unit);
+    bool modified() const;
+
 
 signals:
     void idChanged();
     void titleChanged();
     void descriptionChanged();
+    void modifiedChanged();
 
 private:
     Q_DISABLE_COPY(Course)
@@ -64,7 +68,11 @@ private:
     QString m_description;
     Language *m_language;
     KUrl m_file;
+    bool m_modified;
     QList<Unit *> m_unitList;
+
+public slots:
+    void setModified(bool modified = true);
 };
 
 #endif // COURSE_H
