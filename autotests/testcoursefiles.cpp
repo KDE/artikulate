@@ -20,9 +20,15 @@
 
 #include "testcoursefiles.h"
 #include "core/resourcemanager.h"
+#include "core/course.h"
+#include "core/language.h"
+#include "core/unit.h"
+#include "core/phrase.h"
 
 #include <qtest_kde.h>
 #include <KDebug>
+#include <KTemporaryFile>
+#include <KStandardDirs>
 
 #include <QIODevice>
 #include <QFile>
@@ -32,7 +38,7 @@
 
 TestCourseFiles::TestCourseFiles()
 {
-    // TODO prepare
+    KGlobal::dirs()->addResourceDir("appdata" , "./");
 }
 
 void TestCourseFiles::init()
@@ -56,6 +62,58 @@ void TestCourseFiles::courseSchemeValidationTest()
     QXmlSchema languageSchema;
     QVERIFY(languageSchema.load(languageFile));
     QVERIFY(languageSchema.isValid());
+}
+
+void TestCourseFiles::fileLoadSaveCompleteness()
+{
+    ResourceManager manager;
+    manager.loadLanguage(KUrl::fromLocalFile("data/languages/de.xml"));
+    manager.addCourse(KUrl::fromLocalFile("data/courses/de.xml"));
+
+    // test to encure further logic
+    QVERIFY(manager.courseList().count() == 1);
+
+    Course *testCourse = manager.courseList().first();
+    KTemporaryFile outputFile;
+    outputFile.setSuffix(".xml");
+    outputFile.open();
+    KUrl oldFileName = testCourse->file();
+    testCourse->setFile(KUrl::fromLocalFile(outputFile.fileName()));
+    testCourse->sync();
+    testCourse->setFile(oldFileName); // restore for later tests
+
+    QFile file(outputFile.fileName());
+    if (!file.open(QIODevice::ReadOnly)) {
+        kFatal() << "Could not open file to read.";
+    }
+
+    //TODO this only works, since the resource manager not checks uniqueness of course ids!
+    manager.addCourse(KUrl::fromLocalFile(outputFile.fileName()));
+    Course *compareCourse = manager.courseList().last();
+
+    // test that we actually call the different files
+    QVERIFY(testCourse->file().toLocalFile() != compareCourse->file().toLocalFile());
+
+    QVERIFY(testCourse->id() == compareCourse->id());
+    QVERIFY(testCourse->title() == compareCourse->title());
+    QVERIFY(testCourse->description() == compareCourse->description());
+    QVERIFY(testCourse->language()->id() == compareCourse->language()->id());
+    QVERIFY(testCourse->unitList().count() == compareCourse->unitList().count());
+
+    Unit *testUnit = testCourse->unitList().first();
+    Unit *compareUnit = compareCourse->unitList().first();
+    QVERIFY(testUnit->id() == compareUnit->id());
+    QVERIFY(testUnit->title() == compareUnit->title());
+    QVERIFY(testUnit->phraseList().count() == compareUnit->phraseList().count());
+
+    Phrase *testPhrase = testUnit->phraseList().first();
+    Phrase *comparePhrase = compareUnit->phraseList().first();
+    QVERIFY(testPhrase->id() == comparePhrase->id());
+    QVERIFY(testPhrase->text() == comparePhrase->text());
+    QVERIFY(testPhrase->type() == comparePhrase->type());
+    QVERIFY(testPhrase->sound().toLocalFile() == comparePhrase->sound().toLocalFile());
+    QVERIFY(testPhrase->tags().count() == comparePhrase->tags().count());
+    //FIXME implement tag checks after tags are implemented
 }
 
 
