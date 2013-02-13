@@ -119,6 +119,13 @@ public:
 
     Q_INVOKABLE void newCourseDialog();
 
+    /**
+     * Serializes course object to its file. The course must have a valid local file path set.
+     *
+     * \param course is the course to be serialized
+     */
+    static void sync(Course *course);
+
 signals:
     void languageAdded();
     void languageAboutToBeAdded(Language*,int);

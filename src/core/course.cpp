@@ -21,6 +21,7 @@
 #include "course.h"
 #include "unit.h"
 #include "language.h"
+#include "resourcemanager.h"
 
 #include <KDebug>
 
@@ -123,3 +124,16 @@ void Course::setModified(bool modified)
     m_modified = modified;
     emit modifiedChanged();
 }
+
+void Course::sync()
+{
+    if (!m_file.isValid() || m_file.isEmpty()) {
+        kWarning() << "No file path set, aborting sync operation.";
+        return;
+    }
+
+    // call sync operation
+    ResourceManager::sync(this);
+    setModified(false);
+}
+

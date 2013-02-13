@@ -116,7 +116,8 @@ Item
                         }
                         iconSource: "dialog-ok-apply"
                         onClicked: {
-                            //TODO save course
+                            editor.currentCourse.sync();
+                            editor.currentCourse = null
                         }
                     }
                     PlasmaComponents.ToolButton {

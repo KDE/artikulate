@@ -303,6 +303,15 @@ void ResourceManager::newCourseDialog()
     }
 }
 
+void ResourceManager::sync(Course* course)
+{
+    Q_ASSERT(course->file().isValid());
+    Q_ASSERT(course->file().isLocalFile());
+    Q_ASSERT(!course->file().isEmpty());
+
+    kWarning() << "IMPLEMENT WRITE BACK";
+}
+
 QXmlSchema ResourceManager::loadXmlSchema(const QString &schemeName) const
 {
     QString relPath = QString("schemes/%1.xsd").arg(schemeName);
