@@ -303,13 +303,93 @@ void ResourceManager::newCourseDialog()
     }
 }
 
-void ResourceManager::sync(Course* course)
+void ResourceManager::sync(Course *course)
 {
     Q_ASSERT(course->file().isValid());
     Q_ASSERT(course->file().isLocalFile());
     Q_ASSERT(!course->file().isEmpty());
 
-    kWarning() << "IMPLEMENT WRITE BACK";
+
+    QDomDocument document;
+    // prepare xml header
+    QDomProcessingInstruction header = document.createProcessingInstruction("xml", "version=\"1.0\"");
+    document.appendChild(header);
+
+    // create main element
+    QDomElement root = document.createElement("course");
+    document.appendChild(root);
+
+    QDomElement idElement = document.createElement("id");
+    QDomElement titleElement = document.createElement("title");
+    QDomElement descriptionElement = document.createElement("description");
+    QDomElement languageElement = document.createElement("language");
+
+    idElement.appendChild(document.createTextNode(course->id()));
+    titleElement.appendChild(document.createTextNode(course->title()));
+    descriptionElement.appendChild(document.createTextNode(course->description()));
+    languageElement.appendChild(document.createTextNode(course->language()->id()));
+
+    QDomElement unitListElement = document.createElement("units");
+    // create units
+    foreach (Unit *unit, course->unitList()) {
+        QDomElement unitElement = document.createElement("unit");
+
+        QDomElement unitIdElement = document.createElement("id");
+        QDomElement unitTitleElement = document.createElement("title");
+        QDomElement unitPhraseListElement = document.createElement("phrases");
+        unitIdElement.appendChild(document.createTextNode(unit->id()));
+        unitTitleElement.appendChild(document.createTextNode(unit->title()));
+
+        // construct phrases
+        foreach (Phrase *phrase, unit->phraseList()) {
+            QDomElement phraseElement = document.createElement("phrase");
+            QDomElement phraseIdElement = document.createElement("id");
+            QDomElement phraseTextElement = document.createElement("text");
+            QDomElement phraseSoundFileElement = document.createElement("soundFile");
+            QDomElement phraseTypeElement = document.createElement("type");
+            QDomElement phraseTagListElement = document.createElement("tags");
+
+            phraseIdElement.appendChild(document.createTextNode(phrase->id()));
+            phraseTextElement.appendChild(document.createTextNode(phrase->text()));
+            phraseSoundFileElement.appendChild(document.createTextNode(phrase->sound().toLocalFile()));
+            phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
+            //FIXME write back tags, once they are really implemented
+
+            phraseElement.appendChild(phraseIdElement);
+            phraseElement.appendChild(phraseTextElement);
+            phraseElement.appendChild(phraseSoundFileElement);
+            phraseElement.appendChild(phraseTypeElement);
+            phraseElement.appendChild(phraseTagListElement);
+
+            unitPhraseListElement.appendChild(phraseElement);
+        }
+
+        // construct the unit element
+        unitElement.appendChild(unitIdElement);
+        unitElement.appendChild(unitTitleElement);
+        unitElement.appendChild(unitPhraseListElement);
+
+        unitListElement.appendChild(unitElement);
+    }
+
+    root.appendChild(idElement);
+    root.appendChild(titleElement);
+    root.appendChild(descriptionElement);
+    root.appendChild(languageElement);
+    root.appendChild(unitListElement);
+
+
+    // write back to file
+    //TODO port to KSaveFile
+    QFile file;
+    file.setFileName(course->file().toLocalFile());
+    if (!file.open(QIODevice::WriteOnly)) {
+        kWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+        return;
+    }
+
+    file.write(document.toByteArray());
+    return;
 }
 
 QXmlSchema ResourceManager::loadXmlSchema(const QString &schemeName) const
