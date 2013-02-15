@@ -84,7 +84,6 @@ install(TARGETS artikulatecore ${INSTALL_TARGETS_DEFAULT_ARGS})
 set(artikulate_SRCS
     main.cpp
     mainwindow.cpp
-    editorview.cpp
     application.cpp
 
     models/coursemodel.cpp

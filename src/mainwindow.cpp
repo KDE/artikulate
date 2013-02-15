@@ -19,7 +19,6 @@
  */
 
 #include "mainwindow.h"
-#include "editorview.h"
 #include "core/resourcemanager.h"
 #include "models/languagemodel.h"
 
