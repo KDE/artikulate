@@ -94,6 +94,11 @@ void MainWindow::showCourseEditor()
     m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Editor.qml")));
 }
 
+void MainWindow::closeCourseEditor()
+{
+    m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Main.qml")));
+}
+
 void MainWindow::showMenu(int xPos, int yPos)
 {
     m_menu->popup(m_view->mapToGlobal(QPoint(xPos, yPos)));

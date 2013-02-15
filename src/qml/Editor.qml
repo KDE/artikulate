@@ -18,7 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.0
+import QtQuick 1.1
 import artikulate 1.0
 import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
@@ -69,17 +69,20 @@ Item
     Column {
         anchors.fill: parent
 
+        // head toolbar
         PlasmaComponents.ToolBar {
             id: header
             width: parent.width
             height: 30
             tools: Row {
+                width: parent.width
                 anchors.leftMargin: 3
                 anchors.rightMargin: 3
                 spacing: 5
 
                 Row {
-                    width: 200
+                    id: selectorInformation
+                    width: 300
                     height: parent.height
                     anchors.verticalCenter: parent.verticalCenter
                     Text {
@@ -96,59 +99,83 @@ Item
                             currentLanguage = null
                         }
                     }
-                }
-                Text {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: i18n("<strong>Course:</strong> %1", editor.currentCourseName)
-                    width: 200
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: i18n("<strong>Course:</strong> %1", editor.currentCourseName)
+                    }
                 }
                 Row {
-                    visible: {
-                        if (currentCourse != null) return currentCourse.modified;
-                        else return false;
-                    }
-                    PlasmaComponents.ToolButton {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: i18n("OK")
-                        enabled: {
-                            if (currentCourse != null) return currentCourse.modified;
-                            else return false;
+                    width: header.width - selectorInformation.width - 10
+                    layoutDirection: Qt.RightToLeft
+                    Row {
+                        PlasmaComponents.ToolButton {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: i18n("OK")
+                            visible: {
+                                if (currentCourse != null) return currentCourse.modified;
+                                else return false;
+                            }
+                            enabled: {
+                                if (currentCourse != null) return currentCourse.modified;
+                                else return false;
+                            }
+                            iconSource: "dialog-ok-apply"
+                            onClicked: {
+                                editor.currentCourse.sync();
+                                editor.currentCourse = null
+                            }
                         }
-                        iconSource: "dialog-ok-apply"
-                        onClicked: {
-                            editor.currentCourse.sync();
-                            editor.currentCourse = null
+                        PlasmaComponents.ToolButton {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: i18n("Cancel")
+                            visible: {
+                                if (currentCourse != null) return currentCourse.modified;
+                                else return false;
+                            }
+                            enabled: {
+                                if (currentCourse != null) return currentCourse.modified;
+                                else return false;
+                            }
+                            iconSource: "dialog-cancel"
+                            onClicked: {
+                                globalResourceManager.reloadCourse(editor.currentCourse)
+                                editor.currentCourse = null
+                            }
+                        }
+                        PlasmaComponents.ToolButton {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: i18n("Close Course")
+                            visible: {
+                                if (currentCourse != null) return !currentCourse.modified;
+                                else return false;
+                            }
+                            iconSource: "dialog-close"
+                            onClicked: {
+                                editor.currentCourse = null
+                            }
                         }
                     }
-                    PlasmaComponents.ToolButton {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: i18n("Cancel")
-                        enabled: {
-                            if (currentCourse != null) return currentCourse.modified;
-                            else return false;
+                    Row {
+                        PlasmaComponents.ToolButton { // unselect-button for language
+                            anchors.verticalCenter: parent.verticalCenter
+                            iconSource: "go-up"
+                            text: i18n("Close Editor")
+                            visible: {
+                                if (currentCourse != null) return false;
+                                else return true;
+                            }
+                            flat: true
+                            onClicked: {
+                                currentCourse = null
+                                currentLanguage = null
+                            }
                         }
-                        iconSource: "dialog-cancel"
-                        onClicked: {
-                            globalResourceManager.reloadCourse(editor.currentCourse)
-                            editor.currentCourse = null
-                        }
-                    }
-                }
-                PlasmaComponents.ToolButton {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: i18n("Close")
-                    visible: {
-                        if (currentCourse != null) return !currentCourse.modified;
-                        else return false;
-                    }
-                    iconSource: "dialog-close"
-                    onClicked: {
-                        editor.currentCourse = null
                     }
                 }
             }
         }
 
+        // main part
         Text {
             text: i18n("<h1>Course Editor</h1>")
         }

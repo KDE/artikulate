@@ -51,6 +51,7 @@ public:
 
 public slots:
     void showCourseEditor();
+    void closeCourseEditor();
 
 private:
     QDeclarativeView *m_view;
