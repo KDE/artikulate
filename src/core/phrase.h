@@ -121,4 +121,4 @@ private:
 };
 Q_DECLARE_METATYPE(Phrase::PlaybackState)
 
-#endif // LESSON_H
+#endif // PHRASE_H
