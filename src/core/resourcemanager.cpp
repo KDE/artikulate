@@ -220,7 +220,7 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
             phrase->setId(phraseNode.firstChildElement("id").text());
             phrase->setText(phraseNode.firstChildElement("text").text());
             phrase->setSound(KUrl::fromLocalFile(
-                courseFile.directory() + "/" + phraseNode.firstChildElement("soundFile").text())
+                courseFile.directory() + '/' + phraseNode.firstChildElement("soundFile").text())
                 );
             phrase->setType(phraseNode.firstChildElement("type").text());
 
