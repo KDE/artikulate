@@ -39,7 +39,7 @@
 #include <QDeclarativeContext>
 #include <QtCore/QCoreApplication>
 
-MainWindow::MainWindow(const QString &file)
+MainWindow::MainWindow()
     : KMainWindow()
     , m_view(new QDeclarativeView(this))
     , m_actionCollection(new KActionCollection(this))

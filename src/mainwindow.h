@@ -36,7 +36,7 @@ public:
     /**
      * Default Constructor
      */
-    MainWindow(const QString &file = "");
+    MainWindow();
 
     /**
      * Default Destructor
