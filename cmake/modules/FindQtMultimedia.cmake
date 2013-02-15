@@ -26,7 +26,7 @@
 # ABOUT THIS MODULE:
 #
 # This module determines whether QtMultimedia (nowadays in QtMobility is installed.
-# TODO add check wether not found by other module
+# TODO add check whether not found by other module
 
 FIND_PATH( QTMULTIMEDIA_INCLUDE_DIR NAMES qmediaobject.h PATH_SUFFIXES QtMultimediaKit )
 

@@ -10,5 +10,3 @@ set(audioTestfiles
     de_02.ogg
 )
 install(FILES ${audioTestfiles} DESTINATION ${DATA_INSTALL_DIR}/artikulate/courses)
-
-

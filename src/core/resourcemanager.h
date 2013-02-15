@@ -102,7 +102,7 @@ public:
     bool addCourse(const KUrl &courseFile);
 
     /**
-     * Adds course to resource manager. If the course's langauge is not registered, the language
+     * Adds course to resource manager. If the course's language is not registered, the language
      * is registered by this method.
      *
      * \param course the course to add to resource manager

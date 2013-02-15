@@ -228,7 +228,7 @@ void Phrase::startRecordUserSound()
 
     // set output location
     //FIXME for a really strange reason, only the following notation works to get a correct
-    // ouput file; neither QUrl::fromLocalFile, nor the KUrl equivalents are working
+    // output file; neither QUrl::fromLocalFile, nor the KUrl equivalents are working
     // --> investigate why!
     m_audioInput->setOutputLocation(QUrl(m_userSoundFile.fileName()));
 
