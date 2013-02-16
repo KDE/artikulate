@@ -194,6 +194,11 @@ void Phrase::stopSound()
     m_audioOutput->stop();
 }
 
+bool Phrase::isSound() const
+{
+    return !m_soundFile.fileName().isEmpty();
+}
+
 void Phrase::stopPlaybackUserSound()
 {
     m_audioOutput->stop();
@@ -253,6 +258,7 @@ void Phrase::stopRecordUserSound()
 
     delete m_audioInput;
     m_audioInput = 0;
+    emit userSoundChanged();
 }
 
 bool Phrase::isUserSound() const

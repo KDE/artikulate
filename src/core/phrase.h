@@ -41,6 +41,7 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(KUrl sound READ sound WRITE setSound NOTIFY soundChanged)
+    Q_PROPERTY(bool isSound READ isSound NOTIFY soundChanged)
     Q_PROPERTY(bool isUserSound READ isUserSound NOTIFY userSoundChanged)
     Q_PROPERTY(PlaybackState playbackSoundState READ playbackSoundState NOTIFY playbackSoundStateChanged)
     Q_PROPERTY(PlaybackState playbackUserSoundState READ playbackUserSoundState NOTIFY playbackUserSoundStateChanged)
@@ -91,7 +92,12 @@ public:
     PlaybackState playbackUserSoundState() const;
 
     /**
-     * Return true if a user recorded sound exists, otherwise fals.
+     * Return true if a sound file exists, otherwise false.
+     */
+    bool isSound() const;
+
+    /**
+     * Return true if a user recorded sound exists, otherwise false.
      */
     bool isUserSound() const;
 

@@ -37,8 +37,12 @@ Item {
         Item {
             height: 30
             Row {
+                id: phraseLine
+
                 PlasmaComponents.ToolButton {
+                    anchors.verticalCenter: phraseLine.verticalCenter
                     iconSource: "media-playback-start"
+                    enabled: phrase.isSound
                     property Phrase phrase: model.dataRole
                     property int soundState: phrase.playbackSoundState
                     onClicked: {
@@ -66,6 +70,7 @@ Item {
                 }
 
                 PlasmaComponents.ToolButton {
+                    anchors.verticalCenter: phraseLine.verticalCenter
                     iconSource: "media-record"
                     property Phrase phrase: model.dataRole
                     property bool recording: true
@@ -82,7 +87,9 @@ Item {
                     }
                 }
                 PlasmaComponents.ToolButton {
+                    anchors.verticalCenter: phraseLine.verticalCenter
                     iconSource: "media-playback-start"
+                    enabled: phrase.isUserSound
                     property Phrase phrase: model.dataRole
                     property int userSoundState: phrase.playbackUserSoundState
                     onClicked: {
@@ -104,6 +111,7 @@ Item {
                     }
                 }
                 Text {
+                    anchors.verticalCenter: phraseLine.verticalCenter
                     text: model.text
                 }
             }

@@ -219,9 +219,11 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
             unit->addPhrase(phrase);
             phrase->setId(phraseNode.firstChildElement("id").text());
             phrase->setText(phraseNode.firstChildElement("text").text());
-            phrase->setSound(KUrl::fromLocalFile(
-                courseFile.directory() + '/' + phraseNode.firstChildElement("soundFile").text())
-                );
+            if (!phraseNode.firstChildElement("soundFile").text().isEmpty()) {
+                phrase->setSound(KUrl::fromLocalFile(
+                        courseFile.directory() + '/' + phraseNode.firstChildElement("soundFile").text())
+                    );
+            }
             phrase->setType(phraseNode.firstChildElement("type").text());
 
             // add tags
