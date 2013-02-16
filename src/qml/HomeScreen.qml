@@ -44,6 +44,7 @@ FocusScope {
     Column {
         spacing: 30
         height: screen.height
+        width: screen.width
 
         Text {
             text: i18n("<h1>ArtiKulate</h1>")

@@ -55,7 +55,7 @@ Item
     Column {
         width: trainer.width
 
-        PlasmaComponents.ToolBar {
+        PlasmaComponents.ToolBar { // head toolbar
             id: header
             height: 30
             tools: Row {
@@ -69,6 +69,21 @@ Item
                     onClicked: {
                         var position = mapToItem(null, 0, height)
                         showMenu(position.x, position.y)
+                    }
+                }
+                Item { // spanner
+                    width: header.width - configureButton.width - closeButton.width - 20
+                    height: parent.height
+                }
+                PlasmaComponents.ToolButton {
+                    id: closeButton
+                    visible: trainingScreen.visible
+                    iconSource: "go-up"
+                    text: i18n("Close Course")
+                    onClicked: {
+                        // show home screen
+                        trainingScreen.course = null
+                        switchScreen(trainingScreen, homeScreen)
                     }
                 }
             }
@@ -103,11 +118,6 @@ Item
             width: parent.width
             height: trainer.height - header.height
             visible: false
-
-            onShowHomeScreen: {
-                trainingScreen.course = null
-                switchScreen(trainingScreen, homeScreen)
-            }
         }
     }
 

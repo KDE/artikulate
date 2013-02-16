@@ -30,8 +30,6 @@ FocusScope {
     property Unit selectedUnit
     property string unitName
 
-    signal showHomeScreen()
-
     UnitModel {
         id: selectedUnitModel
         course: screen.course
@@ -52,15 +50,6 @@ FocusScope {
 
     Row {
         height: 50
-
-        PlasmaComponents.ToolButton {
-            iconSource: "go-up"
-            width: 32
-            height: 32
-            onClicked: {
-                showHomeScreen()
-            }
-        }
 
         Item { // spacer
             width: 10
