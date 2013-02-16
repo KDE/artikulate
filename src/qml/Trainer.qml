@@ -89,7 +89,7 @@ Item
             }
         }
 
-        HomeScreen {
+        TrainerStart {
             id: homeScreen
             width: parent.width
             height: trainer.height - header.height
@@ -113,7 +113,7 @@ Item
             }
         }
 
-        TrainingScreen {
+        TrainerCourse {
             id: trainingScreen
             width: parent.width
             height: trainer.height - header.height

@@ -28,8 +28,8 @@ set(artikulate_qml_files
     Editor.qml
     Trainer.qml
 
-    HomeScreen.qml
-    TrainingScreen.qml
+    TrainerStart.qml
+    TrainerCourse.qml
 
     CourseSelector.qml
     LanguageSelector.qml
