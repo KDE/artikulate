@@ -30,6 +30,10 @@ FocusScope {
     property Unit selectedUnit
     property string unitName
 
+    onCourseChanged: {
+        screen.selectedUnit = null
+    }
+
     UnitModel {
         id: selectedUnitModel
         course: screen.course
