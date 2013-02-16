@@ -26,7 +26,8 @@ import org.kde.plasma.components 0.1 as PlasmaComponents
 
 Item
 {
-    id: main
+    id: trainer
+    height: parent.height
 
     property ResourceManager resourceManager: globalResourceManager
 
@@ -51,37 +52,62 @@ Item
         resourceManager: globalResourceManager
     }
 
-    HomeScreen {
-        id: homeScreen
-        anchors.fill: parent
-        visible: false
-        focus: true
-        languageModel: availableLanguageModel
-        courseModel: availableCourseModel
+    Column {
+        width: trainer.width
 
-        onLanguageSelected: {
-            availableCourseModel.language = language
+        PlasmaComponents.ToolBar {
+            id: header
+            height: 30
+            tools: Row {
+                anchors.leftMargin: 3
+                anchors.rightMargin: 3
+                spacing: 5
+
+                PlasmaComponents.ToolButton {
+                    id: configureButton
+                    iconSource: "configure"
+                    onClicked: {
+                        var position = mapToItem(null, 0, height)
+                        showMenu(position.x, position.y)
+                    }
+                }
+            }
         }
 
-        onCourseSelected: {
-            trainingScreen.course = course
-            switchScreen(homeScreen, trainingScreen)
+        HomeScreen {
+            id: homeScreen
+            width: parent.width
+            height: trainer.height - header.height
+            visible: false
+            focus: true
+            languageModel: availableLanguageModel
+            courseModel: availableCourseModel
+
+            onLanguageSelected: {
+                availableCourseModel.language = language
+            }
+
+            onCourseSelected: {
+                trainingScreen.course = course
+                switchScreen(homeScreen, trainingScreen)
+            }
+
+            Component.onCompleted: {
+                homeScreen.reset()
+                homeScreen.visible = true
+            }
         }
 
-        Component.onCompleted: {
-            homeScreen.reset()
-            homeScreen.visible = true
-        }
-    }
+        TrainingScreen {
+            id: trainingScreen
+            width: parent.width
+            height: trainer.height - header.height
+            visible: false
 
-    TrainingScreen {
-        id: trainingScreen
-        anchors.fill: parent
-        visible: false
-
-        onShowHomeScreen: {
-            trainingScreen.course = null
-            switchScreen(trainingScreen, homeScreen)
+            onShowHomeScreen: {
+                trainingScreen.course = null
+                switchScreen(trainingScreen, homeScreen)
+            }
         }
     }
 

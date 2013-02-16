@@ -42,27 +42,8 @@ FocusScope {
     }
 
     Column {
-        anchors.fill: parent
         spacing: 30
-
-        PlasmaComponents.ToolBar {
-            id: header
-            width: parent.width
-            tools: Row {
-                anchors.leftMargin: 3
-                anchors.rightMargin: 3
-                spacing: 5
-
-                PlasmaComponents.ToolButton {
-                    id: configureButton
-                    iconSource: "configure"
-                    onClicked: {
-                        var position = mapToItem(null, 0, height)
-                        showMenu(position.x, position.y)
-                    }
-                }
-            }
-        }
+        height: screen.height
 
         Text {
             text: i18n("<h1>ArtiKulate</h1>")
@@ -94,6 +75,5 @@ FocusScope {
                 }
             }
         }
-
     }
 }
