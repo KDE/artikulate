@@ -26,6 +26,8 @@
 set(artikulate_qml_files
     Main.qml
     Editor.qml
+    Trainer.qml
+
     HomeScreen.qml
     TrainingScreen.qml
 

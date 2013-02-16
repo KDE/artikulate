@@ -33,6 +33,12 @@ class MainWindow : public KMainWindow
     Q_OBJECT
     Q_PROPERTY(ResourceManager *globalResourceManager READ resourceManager CONSTANT)
 public:
+    Q_ENUMS(ViewMode)
+    enum ViewMode {
+        Trainer,
+        Editor
+    };
+
     /**
      * Default Constructor
      */

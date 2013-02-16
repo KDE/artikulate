@@ -21,6 +21,7 @@
 
 #include "application.h"
 
+#include "mainwindow.h"
 #include "core/course.h"
 #include "core/language.h"
 #include "core/resourcemanager.h"
@@ -59,5 +60,6 @@ void Application::registerQmlTypes()
     qmlRegisterType<UnitModel>("artikulate", 1, 0, "UnitModel");
     qmlRegisterType<PhraseModel>("artikulate", 1, 0, "PhraseModel");
 
+    qmlRegisterType<MainWindow>("artikulate", 1, 0, "MainWindow");
     qmlRegisterType<ApplicationBackground>("artikulate", 1, 0, "ApplicationBackground");
 }

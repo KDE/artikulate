@@ -31,6 +31,7 @@ Item
     property Unit currentUnit
     property string currentLanguageName: i18n("Unselected")
     property string currentCourseName: i18n("Unselected")
+    signal closeEditor()
 
     onCurrentCourseChanged: {
         currentUnit = null
@@ -168,6 +169,7 @@ Item
                             onClicked: {
                                 currentCourse = null
                                 currentLanguage = null
+                                closeEditor()
                             }
                         }
                     }

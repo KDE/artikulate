@@ -28,103 +28,21 @@ Item
 {
     id: main
 
-    property ResourceManager resourceManager: globalResourceManager
+    property int viewMode
 
-    function switchScreen(from, to) {
-        switchScreenAnimation.from = from
-        switchScreenAnimation.to = to
-        switchScreenAnimation.start()
+    Trainer {
+        visible: { main.viewMode == MainWindow.Trainer }
+        width: parent.width
+        height: parent.height
     }
 
-    ApplicationBackground {
-        id: background
-        anchors.fill: parent
-    }
+    Editor {
+        visible: { main.viewMode == MainWindow.Editor }
+        width: parent.width
+        height: parent.height
 
-    LanguageModel {
-        id: availableLanguageModel
-        resourceManager: globalResourceManager
-    }
-
-    CourseModel {
-        id: availableCourseModel
-        resourceManager: globalResourceManager
-    }
-
-    HomeScreen {
-        id: homeScreen
-        anchors.fill: parent
-        visible: false
-        focus: true
-        languageModel: availableLanguageModel
-        courseModel: availableCourseModel
-
-        onLanguageSelected: {
-            availableCourseModel.language = language
-        }
-
-        onCourseSelected: {
-            trainingScreen.course = course
-            switchScreen(homeScreen, trainingScreen)
-        }
-
-        Component.onCompleted: {
-            homeScreen.reset()
-            homeScreen.visible = true
-        }
-    }
-
-    TrainingScreen {
-        id: trainingScreen
-        anchors.fill: parent
-        visible: false
-
-        onShowHomeScreen: {
-            trainingScreen.course = null
-            switchScreen(trainingScreen, homeScreen)
-        }
-    }
-
-    Rectangle {
-        id: curtain
-        anchors.fill: parent
-        color: "#000"
-        opacity: 0
-    }
-
-    SequentialAnimation
-    {
-        id: switchScreenAnimation
-        property Item from
-        property Item to
-        NumberAnimation {
-            target: curtain
-            property: "opacity"
-            to: 1
-            duration: switchScreenAnimation.to == homeScreen? 250: 750
-            easing.type: Easing.OutQuad
-        }
-        PropertyAction {
-            target: switchScreenAnimation.from
-            property: "visible"
-            value: false
-        }
-        PropertyAction {
-            target: switchScreenAnimation.to
-            property: "visible"
-            value: true
-        }
-        NumberAnimation {
-            target: curtain
-            property: "opacity"
-            to: 0
-            duration: switchScreenAnimation.to == homeScreen? 250: 750
-            easing.type: Easing.InQuad
-        }
-        ScriptAction {
-            script: {
-                switchScreenAnimation.to.forceActiveFocus()
-            }
+        onCloseEditor: {
+            main.viewMode = MainWindow.Trainer
         }
     }
 }

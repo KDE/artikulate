@@ -35,8 +35,11 @@
 #include <KMenu>
 #include <KDebug>
 
+#include <QGraphicsObject>
+#include <QDeclarativeItem>
 #include <QDeclarativeView>
 #include <QDeclarativeContext>
+#include <QDeclarativeProperty>
 #include <QtCore/QCoreApplication>
 
 MainWindow::MainWindow()
@@ -78,7 +81,11 @@ MainWindow::MainWindow()
     m_view->rootContext()->setContextObject(this);
 
     m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    m_view->rootContext()->setContextProperty("viewMode", Trainer);
     m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Main.qml")));
+
+    // set initial view
+    m_view->rootObject()->setProperty("viewMode", Trainer);
 }
 
 MainWindow::~MainWindow()
@@ -91,12 +98,12 @@ ResourceManager * MainWindow::resourceManager() const
 
 void MainWindow::showCourseEditor()
 {
-    m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Editor.qml")));
+    m_view->rootObject()->setProperty("viewMode", Editor);
 }
 
 void MainWindow::closeCourseEditor()
 {
-    m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Main.qml")));
+    m_view->rootObject()->setProperty("viewMode", Trainer);
 }
 
 void MainWindow::showMenu(int xPos, int yPos)
