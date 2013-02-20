@@ -26,27 +26,21 @@ import artikulate 1.0
 FocusScope {
     id: screen
 
-    property Course course
-    property Unit selectedUnit
     property string unitName
-
-    onCourseChanged: {
-        screen.selectedUnit = null
-    }
 
     UnitModel {
         id: selectedUnitModel
-        course: screen.course
+        course: userProfile.course
     }
 
     PhraseModel {
         id: currentPhrasesModel
-        unit: screen.selectedUnit
+        unit: userProfile.unit
     }
 
     unitName: {
-        if (selectedUnit) {
-            selectedUnit.title
+        if (userProfile.unit) {
+            userProfile.unit.title
         } else {
             "unselected"
         }
@@ -62,10 +56,10 @@ FocusScope {
 
         Text {
             text: {
-                if (course == null) {
+                if (userProfile.course == null) {
                     ""
                 } else {
-                    "<h1>" + i18n("Course: %1", course.title) + "</h1>";
+                    "<h1>" + i18n("Course: %1", userProfile.course.title) + "</h1>";
                 }
             }
         }
@@ -84,7 +78,7 @@ FocusScope {
                 id: unitSelector
                 unitModel: selectedUnitModel
                 onUnitSelected: {
-                    selectedUnit = unit
+                    userProfile.unit = unit
                 }
             }
         }

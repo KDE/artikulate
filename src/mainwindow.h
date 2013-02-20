@@ -24,6 +24,7 @@
 #include <KMainWindow>
 #include "core/resourcemanager.h"
 
+class Profile;
 class KActionCollection;
 class KMenu;
 class QDeclarativeView;
@@ -63,6 +64,7 @@ private:
     QDeclarativeView *m_view;
     KActionCollection *m_actionCollection;
     KMenu *m_menu;
+    Profile *m_profile;
     ResourceManager *m_resourceManager;
 };
 

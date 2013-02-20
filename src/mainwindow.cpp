@@ -20,6 +20,7 @@
 
 #include "mainwindow.h"
 #include "core/resourcemanager.h"
+#include "core/profile.h"
 #include "models/languagemodel.h"
 
 #include <KMainWindow>
@@ -47,6 +48,7 @@ MainWindow::MainWindow()
     , m_view(new QDeclarativeView(this))
     , m_actionCollection(new KActionCollection(this))
     , m_menu(new KMenu(this))
+    , m_profile(new Profile(this))
     , m_resourceManager(new ResourceManager(this))
 {
     setWindowIcon(KIcon("artikulate")); // FIXME not present yet
@@ -81,7 +83,11 @@ MainWindow::MainWindow()
     m_view->rootContext()->setContextObject(this);
 
     m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
+
     m_view->rootContext()->setContextProperty("viewMode", Trainer);
+    m_view->rootContext()->setContextProperty("userProfile", m_profile);
+
+    // set starting screen
     m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Main.qml")));
 
     // set initial view

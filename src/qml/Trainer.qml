@@ -82,7 +82,7 @@ Item
                     text: i18n("Close Course")
                     onClicked: {
                         // show home screen
-                        trainingScreen.course = null
+                        userProfile.course = null
                         switchScreen(trainingScreen, homeScreen)
                     }
                 }
@@ -100,10 +100,11 @@ Item
 
             onLanguageSelected: {
                 availableCourseModel.language = language
+                userProfile.language = language
             }
 
             onCourseSelected: {
-                trainingScreen.course = course
+                userProfile.course = course
                 switchScreen(homeScreen, trainingScreen)
             }
 

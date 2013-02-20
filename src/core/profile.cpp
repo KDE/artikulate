@@ -46,6 +46,8 @@ void Profile::setLanguage(Language *language)
     if (m_language == language) {
         return;
     }
+    setCourse(0);
+    setUnit(0);
     m_language = language;
     emit languageChanged();
 }
@@ -60,6 +62,7 @@ void Profile::setCourse(Course *course)
     if (m_course == course) {
         return;
     }
+    setUnit(0);
     m_course = course;
     emit courseChanged();
 }
