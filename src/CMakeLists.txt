@@ -52,6 +52,7 @@ set(artikulateCore_SRCS
     core/tag.cpp
     core/taggroup.cpp
     core/unit.cpp
+    core/profile.cpp
 
     ui/newcoursedialog.cpp
 )

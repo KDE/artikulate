@@ -22,6 +22,7 @@
 #include "application.h"
 
 #include "mainwindow.h"
+#include "core/profile.h"
 #include "core/course.h"
 #include "core/language.h"
 #include "core/resourcemanager.h"
@@ -49,6 +50,7 @@ Application::Application()
 
 void Application::registerQmlTypes()
 {
+    qmlRegisterType<Profile>("artikulate", 1, 0, "Profile");
     qmlRegisterType<Unit>("artikulate", 1, 0, "Unit");
     qmlRegisterType<Course>("artikulate", 1, 0, "Course");
     qmlRegisterType<Language>("artikulate", 1, 0, "Language");
