@@ -34,6 +34,7 @@ set(artikulate_qml_files
     CourseSelector.qml
     LanguageSelector.qml
     UnitSelector.qml
+    PhraseTypeSelector.qml
     TrainingUnit.qml
     UnitEditor.qml
     PhraseEditor.qml

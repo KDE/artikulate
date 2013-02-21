@@ -63,10 +63,23 @@ FocusScope {
                 }
             }
         }
+        Item { // spacer
+            width: 50
+            height: parent.height
+        }
+        PhraseTypeSelector {
+            onTypeSelected: {
+                userProfile.phraseType = type
+            }
+        }
     }
 
     Row {
         y: 50
+        Item { // spacer
+            width: 50
+            height: parent.height
+        }
         Column {
             width: 200
 

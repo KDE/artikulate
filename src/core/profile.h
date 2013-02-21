@@ -23,6 +23,7 @@
 
 #include "artikulatecore_export.h"
 #include "course.h"
+#include "phrase.h"
 #include <QObject>
 #include <QList>
 #include <KUrl>
@@ -45,6 +46,7 @@ class ARTIKULATELIB_EXPORT Profile : public QObject
     Q_PROPERTY(Course* course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit* unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(TagGroup* tagGroup READ tagGroup WRITE setTagGroup NOTIFY tagGroupChanged)
+    Q_PROPERTY(Phrase::Type phraseType READ phraseType WRITE setPhraseType NOTIFY phraseTypeChanged)
 
 public:
     explicit Profile(QObject *parent = 0);
@@ -57,12 +59,15 @@ public:
     void setUnit(Unit *unit);
     TagGroup * tagGroup() const;
     void setTagGroup(TagGroup *tagGroup);
+    Phrase::Type phraseType() const;
+    void setPhraseType(Phrase::Type type);
 
 signals:
     void languageChanged();
     void courseChanged();
     void unitChanged();
     void tagGroupChanged();
+    void phraseTypeChanged();
 
 private:
     Q_DISABLE_COPY(Profile)
@@ -70,6 +75,7 @@ private:
     Course *m_course;
     Unit *m_unit;
     TagGroup *m_tagGroup;
+    Phrase::Type m_type;
 };
 
 #endif // PROFILE_H

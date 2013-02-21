@@ -24,6 +24,7 @@
 #include "core/language.h"
 #include "core/course.h"
 #include "core/unit.h"
+#include "core/phrase.h"
 #include "core/taggroup.h"
 
 Profile::Profile(QObject *parent)
@@ -32,6 +33,7 @@ Profile::Profile(QObject *parent)
     , m_course(0)
     , m_unit(0)
     , m_tagGroup(0)
+    , m_type(Phrase::Word)
 {
 
 }
@@ -93,4 +95,18 @@ void Profile::setTagGroup(TagGroup* tagGroup)
     }
     m_tagGroup = tagGroup;
     emit tagGroupChanged();
+}
+
+Phrase::Type Profile::phraseType() const
+{
+    return m_type;
+}
+
+void Profile::setPhraseType(Phrase::Type type)
+{
+    if (m_type == type) {
+        return;
+    }
+    m_type = type;
+    emit phraseTypeChanged();
 }
