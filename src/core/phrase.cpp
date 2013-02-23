@@ -99,25 +99,29 @@ QString Phrase::typeString() const
 
 void Phrase::setType(Phrase::Type type)
 {
+    if (m_type == type) {
+        return;
+    }
     m_type = type;
+    emit typeChanged();
 }
 
 void Phrase::setType(const QString &typeString)
 {
     if (typeString == "word") {
-        m_type = Word;
+        setType(Word);
         return;
     }
     if (typeString == "expression") {
-        m_type = Expression;
+        setType(Expression);
         return;
     }
     if (typeString == "sentence") {
-        m_type = Sentence;
+        setType(Sentence);
         return;
     }
     if (typeString == "paragraph") {
-        m_type = Paragraph;
+        setType(Paragraph);
         return;
     }
     kWarning() << "Cannot set type from unknown identifier, aborting";

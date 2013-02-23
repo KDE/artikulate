@@ -26,6 +26,7 @@
 #include <QObject>
 #include <QList>
 
+class QSignalMapper;
 class QString;
 class Phrase;
 
@@ -37,6 +38,7 @@ class ARTIKULATELIB_EXPORT Unit : public QObject
 
 public:
     explicit Unit(QObject *parent = 0);
+    ~Unit();
 
     QString id() const;
     void setId(const QString &id);
@@ -51,11 +53,15 @@ signals:
     void displayPhraseTypeChanged();
     void modified();
 
+private slots:
+    void updatePhraseType(const QString &phraseId);
+
 private:
     Q_DISABLE_COPY(Unit)
     QString m_id;
     QString m_title;
     QMultiMap<Phrase::Type, Phrase *> m_phraseList;
+    QSignalMapper *m_phraseSignalMapper;
 };
 
 #endif // UNIT_H

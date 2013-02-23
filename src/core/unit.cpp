@@ -23,14 +23,21 @@
 
 #include <QMap>
 #include <QList>
+#include <QSignalMapper>
 
 #include <KDebug>
 #include <KUrl>
 
 Unit::Unit(QObject *parent)
     : QObject(parent)
+    , m_phraseSignalMapper(new QSignalMapper(this))
 {
+    connect(m_phraseSignalMapper, SIGNAL(mapped(const QString&)), this, SLOT(updatePhraseType(const QString&)));
+}
 
+Unit::~Unit()
+{
+    m_phraseSignalMapper->deleteLater();
 }
 
 QString Unit::id() const
@@ -83,12 +90,33 @@ void Unit::addPhrase(Phrase *phrase)
         ++iter;
     }
     m_phraseList.insert(phrase->type(), phrase);
+    m_phraseSignalMapper->setMapping(phrase, phrase->id());
 
+    connect(phrase, SIGNAL(typeChanged()), m_phraseSignalMapper, SLOT(map()));
     connect(phrase, SIGNAL(idChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(textChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(soundChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(prononciationTagsChanged()), this, SIGNAL(modified()));
-//     connect(phrase, SIGNAL(typeChanged()), this, SLOT(FIXME));
 
     emit modified();
+}
+
+void Unit::updatePhraseType(const QString& phraseId)
+{
+    Phrase *phrase = qobject_cast<Phrase*>(m_phraseSignalMapper->mapping(phraseId));
+    if (!phrase) {
+        kError() << "Could not cast phrase object, aborting update of unit.";
+        return;
+    }
+
+    // remove old entry first
+    QMultiMap<Phrase::Type, Phrase *>::Iterator iter = m_phraseList.begin();
+    while (iter != m_phraseList.end()) {
+        if (phrase == (*iter)) {
+            m_phraseList.erase(iter);
+            break;
+        }
+        ++iter;
+    }
+    m_phraseList.insert(phrase->type(), phrase);
 }
