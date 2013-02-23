@@ -21,18 +21,16 @@
 #include "unit.h"
 #include "phrase.h"
 
+#include <QMap>
+#include <QList>
+
 #include <KDebug>
 #include <KUrl>
 
 Unit::Unit(QObject *parent)
     : QObject(parent)
 {
-    // the overhead for creating lists for all possible Phrase::Type values is small
-    // since it is the default case to have all lists
-    m_phraseList.insert(Phrase::Expression, QList<Phrase*>());
-    m_phraseList.insert(Phrase::Word, QList<Phrase*>());
-    m_phraseList.insert(Phrase::Sentence, QList<Phrase*>());
-    m_phraseList.insert(Phrase::Paragraph, QList<Phrase*>());
+
 }
 
 QString Unit::id() const
@@ -66,34 +64,30 @@ void Unit::setTitle(const QString &title)
 QList< Phrase* > Unit::phraseList(Phrase::Type type) const
 {
     if (type == Phrase::AllTypes) {
-        QList<Phrase*> list;
-        list.append(m_phraseList[Phrase::Word]);
-        list.append(m_phraseList[Phrase::Expression]);
-        list.append(m_phraseList[Phrase::Sentence]);
-        list.append(m_phraseList[Phrase::Paragraph]);
-        return list;
+        return m_phraseList.values();
     } else {
         Q_ASSERT(m_phraseList.contains(type));
-        return m_phraseList[type];
+        return m_phraseList.values(type);
     }
 }
 
 void Unit::addPhrase(Phrase *phrase)
 {
-    QList<Phrase *>::ConstIterator iter = m_phraseList[phrase->type()].constBegin();
-    while (iter != m_phraseList[phrase->type()].constEnd()) {
+    QMultiMap<Phrase::Type, Phrase *>::ConstIterator iter = m_phraseList.constBegin();
+    while (iter != m_phraseList.constEnd()) {
         if (phrase->id() == (*iter)->id()) {
             kWarning() << "Phrase is already contained in this unit, aborting";
             return;
         }
         ++iter;
     }
-    m_phraseList[phrase->type()].append(phrase);
+    m_phraseList.insert(phrase->type(), phrase);
 
     connect(phrase, SIGNAL(idChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(textChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(soundChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(prononciationTagsChanged()), this, SIGNAL(modified()));
+//     connect(phrase, SIGNAL(typeChanged()), this, SLOT(FIXME));
 
     emit modified();
 }

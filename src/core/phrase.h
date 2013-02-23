@@ -40,6 +40,7 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
+    Q_PROPERTY(Phrase::Type type READ type WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(KUrl sound READ sound WRITE setSound NOTIFY soundChanged)
     Q_PROPERTY(bool isSound READ isSound NOTIFY soundChanged)
     Q_PROPERTY(bool isUserSound READ isUserSound NOTIFY userSoundChanged)
@@ -106,6 +107,7 @@ signals:
     void idChanged();
     void unitChanged();
     void textChanged();
+    void typeChanged();
     void soundChanged();
     void userSoundChanged();
     void prononciationTagsChanged();

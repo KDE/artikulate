@@ -51,12 +51,11 @@ signals:
     void displayPhraseTypeChanged();
     void modified();
 
-
 private:
     Q_DISABLE_COPY(Unit)
     QString m_id;
     QString m_title;
-    QMap< Phrase::Type, QList<Phrase *> > m_phraseList;
+    QMultiMap<Phrase::Type, Phrase *> m_phraseList;
 };
 
 #endif // UNIT_H
