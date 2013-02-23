@@ -108,5 +108,5 @@ void Profile::setPhraseType(Phrase::Type type)
         return;
     }
     m_type = type;
-    emit phraseTypeChanged();
+    emit phraseTypeChanged(type);
 }

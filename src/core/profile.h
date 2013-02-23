@@ -42,10 +42,10 @@ class TagGroup;
 class ARTIKULATELIB_EXPORT Profile : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(Language* language READ language WRITE setLanguage NOTIFY languageChanged)
-    Q_PROPERTY(Course* course READ course WRITE setCourse NOTIFY courseChanged)
-    Q_PROPERTY(Unit* unit READ unit WRITE setUnit NOTIFY unitChanged)
-    Q_PROPERTY(TagGroup* tagGroup READ tagGroup WRITE setTagGroup NOTIFY tagGroupChanged)
+    Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
+    Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
+    Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
+    Q_PROPERTY(TagGroup *tagGroup READ tagGroup WRITE setTagGroup NOTIFY tagGroupChanged)
     Q_PROPERTY(Phrase::Type phraseType READ phraseType WRITE setPhraseType NOTIFY phraseTypeChanged)
 
 public:
@@ -67,7 +67,7 @@ signals:
     void courseChanged();
     void unitChanged();
     void tagGroupChanged();
-    void phraseTypeChanged();
+    void phraseTypeChanged(Phrase::Type);
 
 private:
     Q_DISABLE_COPY(Profile)

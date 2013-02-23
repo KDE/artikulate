@@ -26,7 +26,7 @@ import artikulate 1.0
 FocusScope {
     id: screen
 
-    property string unitName
+    property alias unit: currentPhrasesModel.unit
 
     UnitModel {
         id: selectedUnitModel
@@ -36,14 +36,7 @@ FocusScope {
     PhraseModel {
         id: currentPhrasesModel
         unit: userProfile.unit
-    }
-
-    unitName: {
-        if (userProfile.unit) {
-            userProfile.unit.title
-        } else {
-            "unselected"
-        }
+        type: userProfile.phraseType
     }
 
     Row {
@@ -98,7 +91,13 @@ FocusScope {
 
         Column {
             Text {
-                text: "<strong>" + i18n("Current Unit") + "</strong> " + unitName
+                text: {
+                    var title = i18n("unselected")
+                    if (screen.unit != null) {
+                        title = screen.unit.title
+                    }
+                    i18n("<strong>Current Unit:</strong> %1",title)
+                }
             }
 
             TrainingUnit {

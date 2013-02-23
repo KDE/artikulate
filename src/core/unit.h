@@ -22,6 +22,7 @@
 #define UNIT_H
 
 #include "artikulatecore_export.h"
+#include "phrase.h"
 #include <QObject>
 #include <QList>
 
@@ -41,19 +42,21 @@ public:
     void setId(const QString &id);
     QString title() const;
     void setTitle(const QString &title);
-    QList<Phrase *> phraseList() const;
+    QList<Phrase *> phraseList(Phrase::Type type) const;
     void addPhrase(Phrase *phrase);
 
 signals:
     void idChanged();
     void titleChanged();
+    void displayPhraseTypeChanged();
     void modified();
+
 
 private:
     Q_DISABLE_COPY(Unit)
     QString m_id;
     QString m_title;
-    QList<Phrase *> m_phraseList;
+    QMap< Phrase::Type, QList<Phrase *> > m_phraseList;
 };
 
 #endif // UNIT_H

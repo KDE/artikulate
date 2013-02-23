@@ -35,8 +35,6 @@ PhraseModel::PhraseModel(QObject *parent)
     , m_unit(0)
     , m_signalMapper(new QSignalMapper(this))
 {
-    kDebug() << "create unit model";
-
     QHash<int, QByteArray> roles;
     roles[TextRole] = "text";
     roles[SoundFileRole] = "soundFile";
@@ -76,7 +74,7 @@ Unit * PhraseModel::unit() const
     return m_unit;
 }
 
-QVariant PhraseModel::data(const QModelIndex& index, int role) const
+QVariant PhraseModel::data(const QModelIndex &index, int role) const
 {
     Q_ASSERT(m_unit);
 
@@ -84,11 +82,11 @@ QVariant PhraseModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_unit->phraseList().count()) {
+    if (index.row() >= m_unit->phraseList(m_type).count()) {
         return QVariant();
     }
 
-    Phrase * const phrase = m_unit->phraseList().at(index.row());
+    Phrase * const phrase = m_unit->phraseList(m_type).at(index.row());
 
     switch(role)
     {
@@ -110,6 +108,23 @@ QVariant PhraseModel::data(const QModelIndex& index, int role) const
     }
 }
 
+void PhraseModel::setType(Phrase::Type type)
+{
+    if (m_type == type) {
+        return;
+    }
+    beginResetModel();
+    m_type = type;
+    endResetModel();
+
+    emit typeChanged();
+}
+
+Phrase::Type PhraseModel::type() const
+{
+    return m_type;
+}
+
 int PhraseModel::rowCount(const QModelIndex &parent) const
 {
     if (!m_unit) {
@@ -119,7 +134,7 @@ int PhraseModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid()) {
         return 0;
     }
-    return m_unit->phraseList().count();
+    return m_unit->phraseList(m_type).count();
 }
 
 void PhraseModel::onPhraseAboutToBeAdded(Phrase *phrase, int index)
@@ -164,8 +179,8 @@ QVariant PhraseModel::headerData(int section, Qt::Orientation orientation, int r
 
 void PhraseModel::updateMappings()
 {
-    int phrases = m_unit->phraseList().count();
+    int phrases = m_unit->phraseList(m_type).count();
     for (int i = 0; i < phrases; i++) {
-        m_signalMapper->setMapping(m_unit->phraseList().at(i), i);
+        m_signalMapper->setMapping(m_unit->phraseList(m_type).at(i), i);
     }
 }

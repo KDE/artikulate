@@ -35,8 +35,6 @@ UnitModel::UnitModel(QObject *parent)
     , m_course(0)
     , m_signalMapper(new QSignalMapper(this))
 {
-    kDebug() << "create unit model";
-
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[NumberPhrasesRole] = "numberPhrases";
@@ -100,7 +98,7 @@ QVariant UnitModel::data(const QModelIndex& index, int role) const
     case TitleRole:
         return unit->title();
     case NumberPhrasesRole:
-        return unit->phraseList().count();
+        return unit->phraseList(Phrase::AllTypes).count();
     case IdRole:
         return unit->id();
     case DataRole:

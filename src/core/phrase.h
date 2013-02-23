@@ -58,7 +58,8 @@ public:
         Word,
         Expression,
         Sentence,
-        Paragraph
+        Paragraph,
+        AllTypes
     };
     enum CurrentPlayback {
         None,

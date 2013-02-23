@@ -104,10 +104,10 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     Unit *compareUnit = compareCourse->unitList().first();
     QVERIFY(testUnit->id() == compareUnit->id());
     QVERIFY(testUnit->title() == compareUnit->title());
-    QVERIFY(testUnit->phraseList().count() == compareUnit->phraseList().count());
+    QVERIFY(testUnit->phraseList(Phrase::AllTypes).count() == compareUnit->phraseList(Phrase::AllTypes).count());
 
-    Phrase *testPhrase = testUnit->phraseList().first();
-    Phrase *comparePhrase = compareUnit->phraseList().first();
+    Phrase *testPhrase = testUnit->phraseList(Phrase::AllTypes).first();
+    Phrase *comparePhrase = compareUnit->phraseList(Phrase::AllTypes).first();
     QVERIFY(testPhrase->id() == comparePhrase->id());
     QVERIFY(testPhrase->text() == comparePhrase->text());
     QVERIFY(testPhrase->type() == comparePhrase->type());

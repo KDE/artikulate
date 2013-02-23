@@ -22,16 +22,16 @@
 #define PHRASEMODEL_H
 
 #include <QAbstractListModel>
+#include "core/phrase.h"
 
-class Phrase;
 class Unit;
 class QSignalMapper;
-
 
 class PhraseModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
+    Q_PROPERTY(Phrase::Type type READ type WRITE setType NOTIFY typeChanged)
 
 public:
     enum phraseRoles {
@@ -44,6 +44,8 @@ public:
     explicit PhraseModel(QObject *parent = 0);
     void setUnit(Unit *unit);
     Unit * unit() const;
+    void setType(Phrase::Type type = Phrase::AllTypes);
+    Phrase::Type type() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
@@ -51,6 +53,7 @@ public:
 signals:
     void phraseChanged(int index);
     void unitChanged();
+    void typeChanged();
 
 private slots:
     void onPhraseAboutToBeAdded(Phrase *unit, int index);
@@ -62,6 +65,7 @@ private slots:
 private:
     void updateMappings();
     Unit *m_unit;
+    Phrase::Type m_type;
     QSignalMapper *m_signalMapper;
 };
 
