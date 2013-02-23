@@ -51,7 +51,28 @@ A unit consists of
   - according set of sound files
 Further the strings are categorized by
   1. word
-  2. phrase/words
+  2. expression
   3. sentence
   4. paragraph/sentences
 The tags however, are specific for the current language. Though a basic set should be the phonetic alphabet.
+
+
+COLOR CONCEPTS
+
+Difficulty Levels:
+word
+- grün
+  2DE86C
+  RGB 45/232/108
+expression
+- blau
+  327BFF
+  RGB 50/123/255
+sentence
+- gelb
+  FFF13F
+  RGB 255/241/63
+paragraph
+- orange
+  E85A02
+  RGB 232/90/2
