@@ -206,9 +206,9 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
          unitNode = unitNode.nextSiblingElement())
     {
         Unit *unit = new Unit(course);
-        course->addUnit(unit);
         unit->setId(unitNode.firstChildElement("id").text());
         unit->setTitle(unitNode.firstChildElement("title").text());
+        course->addUnit(unit);
 
         // create phrases
         for (QDomElement phraseNode = unitNode.firstChildElement("phrases").firstChildElement();
@@ -216,7 +216,6 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
             phraseNode = phraseNode.nextSiblingElement())
         {
             Phrase *phrase = new Phrase(unit);
-            unit->addPhrase(phrase);
             phrase->setId(phraseNode.firstChildElement("id").text());
             phrase->setText(phraseNode.firstChildElement("text").text());
             if (!phraseNode.firstChildElement("soundFile").text().isEmpty()) {
@@ -225,6 +224,7 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
                     );
             }
             phrase->setType(phraseNode.firstChildElement("type").text());
+            unit->addPhrase(phrase); // add to unit at last step to produce only one signal
 
             // add tags
             QList<Tag *> tags = course->language()->prononciationTags();

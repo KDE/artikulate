@@ -65,10 +65,11 @@ QList< Phrase* > Unit::phraseList(Phrase::Type type) const
 {
     if (type == Phrase::AllTypes) {
         return m_phraseList.values();
-    } else {
-        Q_ASSERT(m_phraseList.contains(type));
-        return m_phraseList.values(type);
     }
+    if (!m_phraseList.contains(type)) {
+        return QList<Phrase*>();
+    }
+    return m_phraseList.values(type);
 }
 
 void Unit::addPhrase(Phrase *phrase)
