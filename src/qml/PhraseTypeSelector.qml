@@ -37,42 +37,66 @@ Item {
         Text {
             text : i18n("<b>Difficulty:</b> %1", typeString)
         }
-        Item {
-            height: 10
-            width: root.width
-            Rectangle {
-                // TODO this is a very simple effect, should be exchanged by real artwork
-                // that better illustrates usage of this slider
-                id: line
-                width: parent.width*0.95
-                height: 1
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: "#000"
+        Image {
+            width: 64
+            height: 64
+            source: "../icons/hicolor/64x64/actions/artikulate-word.png"
+        }
+        Image {
+            width: 64
+            height: 64
+            source: "../icons/hicolor/64x64/actions/artikulate-expression.png"
+        }
+        Image {
+            width: 64
+            height: 64
+            source: "../icons/hicolor/64x64/actions/artikulate-sentence.png"
+        }
+        Image {
+            width: 64
+            height: 64
+            source: "../icons/hicolor/64x64/actions/artikulate-paragraph.png"
+        }
+    }
+    Column {
+        x: 70
+        y: 44
+        PlasmaComponents.ButtonColumn {
+            spacing: 52
+            PlasmaComponents.RadioButton {
+                id: radioWord
+                text: i18n("Word")
+                onCheckedChanged: {
+                    if (!checked) return
+                    root.typeString = i18n("Word")
+                    typeSelected(Phrase.Word)
+                }
             }
-            PlasmaComponents.Slider {
-                id: typeSlider
-                anchors.fill: parent
-                minimumValue: 0
-                maximumValue: 3
-                onValueChanged: {
-                    switch (Math.round(value)) {
-                        case Phrase.Word:
-                            root.typeString = i18n("Word")
-                            break;
-                        case Phrase.Expression:
-                            root.typeString = i18n("Expression")
-                            break;
-                        case Phrase.Sentence:
-                            root.typeString = i18n("Sentence")
-                            break;
-                        case Phrase.Paragraph:
-                            root.typeString = i18n("Paragraph")
-                            break;
-                        default:
-                            root.typeString = i18n("unselected")
-                    }
-                    typeSelected(Math.round(value))
+            PlasmaComponents.RadioButton {
+                id: radioExpression
+                text: i18n("Expression")
+                onCheckedChanged: {
+                    if (!checked) return
+                    root.typeString = i18n("Expression")
+                    typeSelected(Phrase.Expression)
+                }
+            }
+            PlasmaComponents.RadioButton {
+                id: radioSentence
+                text: i18n("Sentence")
+                onCheckedChanged: {
+                    if (!checked) return
+                    root.typeString = i18n("Sentence")
+                    typeSelected(Phrase.Sentence)
+                }
+            }
+            PlasmaComponents.RadioButton {
+                id: radioParagraph
+                text: i18n("Paragraph")
+                onCheckedChanged: {
+                    if (!checked) return
+                    root.typeString = i18n("Paragraph")
+                    typeSelected(Phrase.Paragraph)
                 }
             }
         }

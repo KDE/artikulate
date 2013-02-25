@@ -43,7 +43,7 @@ add_subdirectory(schemes)
 add_subdirectory(src)
 #add_subdirectory(sounds)
 #add_subdirectory(images)
-#add_subdirectory(icons)
+add_subdirectory(icons)
 
 # Build Tests if KDE_TEST is on
 if(KDE4_BUILD_TESTS)

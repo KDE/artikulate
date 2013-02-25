@@ -57,7 +57,7 @@ FocusScope {
             }
         }
         Item { // spacer
-            width: 50
+            width: 300
             height: parent.height
         }
         PhraseTypeSelector {
