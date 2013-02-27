@@ -25,78 +25,76 @@ import artikulate 1.0
 
 Item {
     id: root
-    width: 100
-    height: 30
+    width: 200
+    height: typeIcon.height
 
     property int type
     property string typeString
     signal typeSelected(int type)
 
-    Column {
-        spacing: 10
-        Text {
-            text : i18n("<b>Difficulty:</b> %1", typeString)
-        }
-        Image {
-            width: 64
-            height: 64
-            source: "../icons/hicolor/64x64/actions/artikulate-word.png"
-        }
-        Image {
-            width: 64
-            height: 64
-            source: "../icons/hicolor/64x64/actions/artikulate-expression.png"
-        }
-        Image {
-            width: 64
-            height: 64
-            source: "../icons/hicolor/64x64/actions/artikulate-sentence.png"
-        }
-        Image {
-            width: 64
-            height: 64
-            source: "../icons/hicolor/64x64/actions/artikulate-paragraph.png"
-        }
+    onTypeChanged: {
+        typeSelected(type)
     }
-    Column {
-        x: 70
-        y: 44
-        PlasmaComponents.ButtonColumn {
-            spacing: 52
-            PlasmaComponents.RadioButton {
-                id: radioWord
-                text: i18n("Word")
-                onCheckedChanged: {
-                    if (!checked) return
-                    root.typeString = i18n("Word")
-                    typeSelected(Phrase.Word)
+
+    Row {
+        spacing: 10
+        Image {
+            id: typeIcon
+            width: 64
+            height: 64
+            source: {
+                switch (root.type) {
+                    case Phrase.Word: "../icons/hicolor/64x64/actions/artikulate-word.png"
+                        break;
+                    case Phrase.Expression: "../icons/hicolor/64x64/actions/artikulate-expression.png"
+                        break;
+                    case Phrase.Sentence: "../icons/hicolor/64x64/actions/artikulate-sentence.png"
+                        break;
+                    case Phrase.Paragraph: "../icons/hicolor/64x64/actions/artikulate-paragraph.png"
+                        break;
+                    default:
+                        ""
                 }
             }
-            PlasmaComponents.RadioButton {
-                id: radioExpression
-                text: i18n("Expression")
-                onCheckedChanged: {
-                    if (!checked) return
-                    root.typeString = i18n("Expression")
-                    typeSelected(Phrase.Expression)
+        }
+
+        Column {
+            PlasmaComponents.ButtonColumn {
+                PlasmaComponents.RadioButton {
+                    id: radioWord
+                    text: i18n("Word")
+                    onCheckedChanged: {
+                        if (!checked) return
+                        root.typeString = i18n("Word")
+                        type = Phrase.Word
+                    }
                 }
-            }
-            PlasmaComponents.RadioButton {
-                id: radioSentence
-                text: i18n("Sentence")
-                onCheckedChanged: {
-                    if (!checked) return
-                    root.typeString = i18n("Sentence")
-                    typeSelected(Phrase.Sentence)
+                PlasmaComponents.RadioButton {
+                    id: radioExpression
+                    text: i18n("Expression")
+                    onCheckedChanged: {
+                        if (!checked) return
+                        root.typeString = i18n("Expression")
+                        type = Phrase.Expression
+                    }
                 }
-            }
-            PlasmaComponents.RadioButton {
-                id: radioParagraph
-                text: i18n("Paragraph")
-                onCheckedChanged: {
-                    if (!checked) return
-                    root.typeString = i18n("Paragraph")
-                    typeSelected(Phrase.Paragraph)
+                PlasmaComponents.RadioButton {
+                    id: radioSentence
+                    text: i18n("Sentence")
+                    onCheckedChanged: {
+                        if (!checked) return
+                        root.typeString = i18n("Sentence")
+                        type = Phrase.Sentence
+                    }
+                }
+                PlasmaComponents.RadioButton {
+                    id: radioParagraph
+                    text: i18n("Paragraph")
+                    onCheckedChanged: {
+                        if (!checked) return
+                        root.typeString = i18n("Paragraph")
+                        type = Phrase.Paragraph
+                    }
                 }
             }
         }

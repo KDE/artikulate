@@ -40,14 +40,11 @@ FocusScope {
     }
 
     Row {
+        width: screen.width
         height: 50
 
-        Item { // spacer
-            width: 10
-            height: parent.height
-        }
-
         Text {
+            id: captionCourse
             text: {
                 if (userProfile.course == null) {
                     ""
@@ -56,21 +53,13 @@ FocusScope {
                 }
             }
         }
-        Item { // spacer
-            width: 300
-            height: parent.height
-        }
-        PhraseTypeSelector {
-            onTypeSelected: {
-                userProfile.phraseType = type
-            }
-        }
     }
 
-    Row {
+    Grid {
         y: 50
+        columns: 4
         Item { // spacer
-            width: 50
+            width: 25
             height: parent.height
         }
         Column {
@@ -90,6 +79,7 @@ FocusScope {
         }
 
         Column {
+            width: screen.width - unitSelector.width - difficultySelector.width - 50
             Text {
                 text: {
                     var title = i18n("unselected")
@@ -105,25 +95,17 @@ FocusScope {
             }
         }
 
-//         Column {
-//             Row {
-//                 PlasmaComponents.ToolButton {
-//                     iconSource: "go-previous-view"
-//                     text: i18n("Previous Unit")
-//                     onClicked: {
-//                         //TODO
-//                     }
-//                 }
-//                 PlasmaComponents.ToolButton {
-//                     iconSource: "go-next-view"
-//                     text: i18n("Next Unit")
-//                     onClicked: {
-//                         //TODO
-//                     }
-//                 }
-//             }
-//
-//
-//         }
+        Column {
+            id: difficultySelector
+            spacing: 10
+            Text {
+                text: i18n("<strong>Select Difficulty</strong>")
+            }
+            PhraseTypeSelector {
+                onTypeSelected: {
+                    userProfile.phraseType = type
+                }
+            }
+        }
     }
 }
