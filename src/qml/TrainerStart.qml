@@ -47,7 +47,7 @@ FocusScope {
         width: screen.width
 
         Text {
-            text: i18n("<h1>ArtiKulate</h1>")
+            text: i18n("<h1>Artikulate</h1>")
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Row {

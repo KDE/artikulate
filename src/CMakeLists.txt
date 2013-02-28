@@ -43,7 +43,7 @@ include_directories(
     ${QTMULTIMEDIA_INCLUDE_DIR}
 )
 
-# set the source code files from which ArtiKulate is compiled
+# set the source code files from which Artikulate is compiled
 set(artikulateCore_SRCS
     core/course.cpp
     core/resourcemanager.cpp
@@ -81,7 +81,7 @@ set_target_properties(artikulatecore
 )
 install(TARGETS artikulatecore ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-# set the source code files from which ArtiKulate is compiled
+# set the source code files from which Artikulate is compiled
 set(artikulate_SRCS
     main.cpp
     mainwindow.cpp
