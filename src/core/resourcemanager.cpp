@@ -207,6 +207,7 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
     {
         Unit *unit = new Unit(course);
         unit->setId(unitNode.firstChildElement("id").text());
+        unit->setCourse(course);
         unit->setTitle(unitNode.firstChildElement("title").text());
         course->addUnit(unit);
 

@@ -24,12 +24,22 @@
 #include "resourcemanager.h"
 
 #include <KDebug>
+#include <KLocale>
+#include <QStringList>
+#include <QUuid>
 
 Course::Course(QObject *parent)
     : QObject(parent)
     , m_language(0)
     , m_modified(false)
 {
+}
+
+Course::~Course()
+{
+    foreach (Unit *unit, m_unitList) {
+        unit->deleteLater();
+    }
 }
 
 QString Course::id() const
@@ -106,9 +116,57 @@ void Course::addUnit(Unit *unit)
         }
         ++iter;
     }
+    emit unitAboutToBeAdded(unit, m_unitList.length());
     m_unitList.append(unit);
     connect(unit, SIGNAL(modified()), this, SLOT(setModified()));
+    emit unitAdded();
     setModified();
+}
+
+Unit * Course::createUnit()
+{
+    // find first unused id
+    QStringList unitIds;
+    foreach (Unit *unit, m_unitList) {
+        unitIds.append(unit->id());
+    }
+    QString id = QUuid::createUuid().toString();
+    while (unitIds.contains(id)) {
+        id = QUuid::createUuid();
+        kWarning() << "Unit id generator has found a collision, recreating id.";
+    }
+
+    // create unit
+    Unit *unit = new Unit(this);
+    unit->setCourse(this);
+    unit->setId(id);
+    unit->setTitle(i18n("New Unit"));
+    addUnit(unit);
+    return unit;
+}
+
+Phrase * Course::createPhrase(Unit *unit)
+{
+    // find globally unique phrase id inside course
+    QStringList phraseIds;
+    foreach (Unit *unit, m_unitList) {
+        foreach (Phrase *phrase, unit->phraseList(Phrase::AllTypes)) {
+            phraseIds.append(phrase->id());
+        }
+    }
+    QString id = QUuid::createUuid().toString();
+    while (phraseIds.contains(id)) {
+        id = QUuid::createUuid();
+        kWarning() << "Phrase id generator has found a collision, recreating id.";
+    }
+
+    // create unit
+    Phrase *phrase = new Phrase(this);
+    phrase->setId(id);
+    phrase->setText("");
+    phrase->setType(Phrase::Word);
+    unit->addPhrase(phrase);
+    return phrase;
 }
 
 bool Course::modified() const

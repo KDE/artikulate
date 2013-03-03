@@ -43,6 +43,10 @@ PhraseModel::PhraseModel(QObject *parent)
     setRoleNames(roles);
 
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhraseChanged(int)));
+
+    // connect all phrase number operations to single signal
+    connect(this, SIGNAL(typeChanged()), this, SIGNAL(countChanged()));
+    connect(this, SIGNAL(unitChanged()), this, SIGNAL(countChanged()));
 }
 
 void PhraseModel::setUnit(Unit *unit)
@@ -60,8 +64,10 @@ void PhraseModel::setUnit(Unit *unit)
     m_unit = unit;
 
     if (m_unit) {
-        // TODO currently it is not expected that units are added at runtime
-        // this may change for the future and should be implemented
+        connect(m_unit, SIGNAL(phraseAboutToBeAdded(Phrase*,int)), SLOT(onPhraseAboutToBeAdded(Phrase*,int)));
+        connect(m_unit, SIGNAL(phraseAdded()), SLOT(onPhraseAdded()));
+        connect(m_unit, SIGNAL(phraseAboutToBeRemoved(int,int)), SLOT(onPhrasesAboutToBeRemoved(int,int)));
+        connect(m_unit, SIGNAL(phraseRemoved()), SLOT(onPhrasesRemoved()));
     }
 
     endResetModel();
@@ -139,8 +145,13 @@ int PhraseModel::rowCount(const QModelIndex &parent) const
 
 void PhraseModel::onPhraseAboutToBeAdded(Phrase *phrase, int index)
 {
+    // only connect the phrase if the type is correct
+    // if the type is not the selected type this->m_type, all following operations will have no impact
+    if (phrase->type() != m_type) {
+        beginInsertRows(QModelIndex(), index, index);
+        return;
+    }
     connect(phrase, SIGNAL(textChanged()), m_signalMapper, SLOT(map()));
-    //TODO add missing signals
     beginInsertRows(QModelIndex(), index, index);
 }
 
@@ -148,6 +159,7 @@ void PhraseModel::onPhraseAdded()
 {
     updateMappings();
     endInsertRows();
+    emit countChanged();
 }
 
 void PhraseModel::onPhrasesAboutToBeRemoved(int first, int last)
@@ -158,6 +170,7 @@ void PhraseModel::onPhrasesAboutToBeRemoved(int first, int last)
 void PhraseModel::onPhrasesRemoved()
 {
     endRemoveRows();
+    emit countChanged();
 }
 
 void PhraseModel::emitPhraseChanged(int row)
@@ -175,6 +188,14 @@ QVariant PhraseModel::headerData(int section, Qt::Orientation orientation, int r
         return QVariant(section + 1);
     }
     return QVariant(i18n("Title"));
+}
+
+int PhraseModel::count() const
+{
+    if (!m_unit) {
+        return 0;
+    }
+    return m_unit->phraseList(m_type).count();
 }
 
 void PhraseModel::updateMappings()

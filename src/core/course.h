@@ -29,6 +29,7 @@
 class QString;
 class Language;
 class Unit;
+class Phrase;
 
 class ARTIKULATELIB_EXPORT Course : public QObject
 {
@@ -40,6 +41,7 @@ class ARTIKULATELIB_EXPORT Course : public QObject
 
 public:
     explicit Course(QObject *parent = 0);
+    ~Course();
     QString id() const;
     void setId(const QString &id);
     QString title() const;
@@ -52,6 +54,26 @@ public:
     void setFile(const KUrl &file);
     QList<Unit *> unitList() const;
     void addUnit(Unit *unit);
+
+    /**
+     * Create and add a new unit to course.
+     *
+     * \return pointer to the created unit
+     */
+    Q_INVOKABLE Unit * createUnit();
+
+    /**
+     * Create and add a new phrase and add it to the specified unit. The type of the created phrase
+     * is initially Phrase::Word.
+     *
+     * \param unit the unit to that the created hprase shall be added
+     * \return pointer to the created phrase
+     */
+    Q_INVOKABLE Phrase * createPhrase(Unit *unit);
+
+    /**
+     * \return true if the course was modified after the last sync, otherwise false
+     */
     bool modified() const;
 
     /**
@@ -66,6 +88,10 @@ signals:
     void titleChanged();
     void descriptionChanged();
     void modifiedChanged();
+    void unitAdded();
+    void unitAboutToBeAdded(Unit*,int);
+    void unitRemoved();
+    void unitAboutToBeRemoved(int,int);
 
 private:
     Q_DISABLE_COPY(Course)

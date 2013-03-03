@@ -62,7 +62,6 @@ void CourseModel::setResourceManager(ResourceManager *resourceManager)
     m_resourceManager = resourceManager;
 
     if (m_resourceManager) {
-        //FIXME
         connect(m_resourceManager, SIGNAL(courseAboutToBeAdded(Course*,int)), SLOT(onCourseAboutToBeAdded(Course*,int)));
         connect(m_resourceManager, SIGNAL(courseAdded()), SLOT(onCourseAdded()));
         connect(m_resourceManager, SIGNAL(courseAboutToBeRemoved(int,int)), SLOT(onCoursesAboutToBeRemoved(int,int)));
@@ -185,7 +184,10 @@ QVariant CourseModel::headerData(int section, Qt::Orientation orientation, int r
 
 void CourseModel::updateMappings()
 {
-    Q_ASSERT(m_language);
+    if (!m_language) {
+        kDebug() << "Aborting to update mappings, language not set.";
+        return;
+    }
     int courses = m_resourceManager->courseList(m_language).count();
     for (int i = 0; i < courses; i++) {
         m_signalMapper->setMapping(m_resourceManager->course(m_language, i), i);

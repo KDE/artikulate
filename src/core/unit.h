@@ -29,12 +29,14 @@
 class QSignalMapper;
 class QString;
 class Phrase;
+class Course;
 
 class ARTIKULATELIB_EXPORT Unit : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+    Q_PROPERTY(Course *course READ course WRITE setCourse)
 
 public:
     explicit Unit(QObject *parent = 0);
@@ -42,6 +44,8 @@ public:
 
     QString id() const;
     void setId(const QString &id);
+    Course * course() const;
+    void setCourse(Course* course);
     QString title() const;
     void setTitle(const QString &title);
     QList<Phrase *> phraseList(Phrase::Type type) const;
@@ -52,6 +56,10 @@ signals:
     void titleChanged();
     void displayPhraseTypeChanged();
     void modified();
+    void phraseAdded();
+    void phraseAboutToBeAdded(Phrase*,int);
+    void phraseRemoved();
+    void phraseAboutToBeRemoved(int,int);
 
 private slots:
     void updatePhraseType(const QString &phraseId);
@@ -59,6 +67,7 @@ private slots:
 private:
     Q_DISABLE_COPY(Unit)
     QString m_id;
+    Course *m_course;
     QString m_title;
     QMultiMap<Phrase::Type, Phrase *> m_phraseList;
     QSignalMapper *m_phraseSignalMapper;

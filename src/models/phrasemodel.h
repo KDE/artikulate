@@ -32,6 +32,7 @@ class PhraseModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(Phrase::Type type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
     enum phraseRoles {
@@ -50,10 +51,19 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
+    /**
+     * Count phrases in current model view. If this number is changed, signal
+     * countChanged() is emitted.
+     *
+     * \return number of phrases
+     */
+    int count() const;
+
 signals:
     void phraseChanged(int index);
     void unitChanged();
     void typeChanged();
+    void countChanged();
 
 private slots:
     void onPhraseAboutToBeAdded(Phrase *unit, int index);

@@ -52,7 +52,7 @@ Item {
             visible: { root.editMode }
             PlasmaComponents.TextField {
                 id: phraseInput
-                width: phraseText.width + 20
+                width: Math.max(phraseText.width + 20, 200)
                 text: phrase.text
             }
             PlasmaComponents.ToolButton {

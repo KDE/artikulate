@@ -24,12 +24,16 @@
 #include <QMap>
 #include <QList>
 #include <QSignalMapper>
+#include <QStringList>
+#include <QUuid>
 
 #include <KDebug>
+#include <KLocale>
 #include <KUrl>
 
 Unit::Unit(QObject *parent)
     : QObject(parent)
+    , m_course(0)
     , m_phraseSignalMapper(new QSignalMapper(this))
 {
     connect(m_phraseSignalMapper, SIGNAL(mapped(const QString&)), this, SLOT(updatePhraseType(const QString&)));
@@ -52,6 +56,16 @@ void Unit::setId(const QString &id)
         emit idChanged();
         emit modified();
     }
+}
+
+Course * Unit::course() const
+{
+    return m_course;
+}
+
+void Unit::setCourse(Course *course)
+{
+    m_course = course;
 }
 
 QString Unit::title() const
@@ -89,8 +103,11 @@ void Unit::addPhrase(Phrase *phrase)
         }
         ++iter;
     }
+
+    emit phraseAboutToBeAdded(phrase, m_phraseList.values(phrase->type()).length());
     m_phraseList.insert(phrase->type(), phrase);
     m_phraseSignalMapper->setMapping(phrase, phrase->id());
+    emit phraseAdded();
 
     connect(phrase, SIGNAL(typeChanged()), m_phraseSignalMapper, SLOT(map()));
     connect(phrase, SIGNAL(idChanged()), this, SIGNAL(modified()));

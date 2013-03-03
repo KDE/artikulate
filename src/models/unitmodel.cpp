@@ -60,8 +60,10 @@ void UnitModel::setCourse(Course *course)
     m_course = course;
 
     if (m_course) {
-        // TODO currently it is not expected that units are added at runtime
-        // this may change for the future and should be implemented
+        connect(m_course, SIGNAL(unitAboutToBeAdded(Unit*,int)), SLOT(onUnitAboutToBeAdded(Unit*,int)));
+        connect(m_course, SIGNAL(unitAdded()), SLOT(onUnitAdded()));
+        connect(m_course, SIGNAL(unitAboutToBeRemoved(int,int)), SLOT(onUnitsAboutToBeRemoved(int,int)));
+        connect(m_course, SIGNAL(unitRemoved()), SLOT(onUnitsRemoved()));
     }
 
     endResetModel();

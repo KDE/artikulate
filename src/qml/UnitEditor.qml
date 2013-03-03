@@ -33,6 +33,7 @@ Item {
     PhraseModel {
         id: phraseModel
         unit: root.unit
+        type: Phrase.AllTypes
     }
 
     Component {
@@ -48,11 +49,25 @@ Item {
         }
     }
 
-    ListView {
-        id: phraseList
+    Column {
         anchors.fill: parent
+        PlasmaComponents.ToolButton {
+            text: i18n("Add Phrase")
+            iconSource: "document-new"
+            enabled: {
+                root.unit != null
+            }
+            onClicked: {
+                root.unit.course.createPhrase(unit)
+            }
+        }
+        ListView {
+            id: phraseList
+            height: {30 * phraseModel.count}
+            width: 500
 
-        model: phraseModel
-        delegate: itemDelegate
+            model: phraseModel
+            delegate: itemDelegate
+        }
     }
 }

@@ -31,19 +31,37 @@ Item
     property Unit currentUnit
     property string currentLanguageName: i18n("Unselected")
     property string currentCourseName: i18n("Unselected")
+    property string currentUnitName: i18n("Unselected")
     signal closeEditor()
 
     onCurrentCourseChanged: {
         currentUnit = null
-        if (editor.currentCourse == null) i18n("Unselected")
-        else editor.currentCourseName = currentCourse.title;
+        if (editor.currentCourse == null) {
+            editor.currentCourseName = i18n("Unselected");
+        }
+        else {
+            editor.currentCourseName = currentCourse.title;
+        }
     }
 
     onCurrentLanguageChanged: {
         currentUnit = null
         currentCourse = null
-        if (editor.currentLanguage == null) i18n("Unselected")
-        else editor.currentLanguageName = currentLanguage.title;
+        if (editor.currentLanguage == null) {
+            currentLanguageName = i18n("Unselected");
+        }
+        else {
+            editor.currentLanguageName = currentLanguage.title;
+        }
+    }
+
+    onCurrentUnitChanged: {
+        if (editor.currentUnit == null) {
+            currentUnitName = i18n("Unselected");
+        }
+        else {
+            editor.currentUnitName = currentUnit.title;
+        }
     }
 
     ApplicationBackground {
@@ -233,7 +251,16 @@ Item
                 Text {
                     text: i18n("<h2>Units</h2>")
                 }
-
+                PlasmaComponents.ToolButton {
+                    text: i18n("Add Unit")
+                    iconSource: "document-new"
+                    enabled: {
+                        editor.currentCourse != null
+                    }
+                    onClicked: {
+                        editor.currentCourse.createUnit()
+                    }
+                }
                 UnitSelector {
                     id: unitSelector
                     unitModel: selectedUnitModel
@@ -244,9 +271,11 @@ Item
             }
 
             Column {
-//                 Text {
-//                     text: "<strong>" + i18n("Current Unit") + "</strong> " + unitName
-//                 }
+                Text {
+                    text: {
+                        "<strong>" + i18n("Current Unit:") + "</strong> " + editor.currentUnitName
+                    }
+                }
 
                 UnitEditor {
                     unit: editor.currentUnit
