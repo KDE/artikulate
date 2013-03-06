@@ -56,6 +56,7 @@ public:
     QList<Unit *> unitList() const;
     void addUnit(Unit *unit);
     QList<TagGroup *> tagGroupList() const;
+    void addTagGroup(TagGroup *tagGroup);
 
     /**
      * Create and add a new unit to course.

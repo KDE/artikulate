@@ -22,6 +22,7 @@
 #include "unit.h"
 #include "language.h"
 #include "resourcemanager.h"
+#include "taggroup.h"
 
 #include <KDebug>
 #include <KLocale>
@@ -167,6 +168,23 @@ Phrase * Course::createPhrase(Unit *unit)
     phrase->setType(Phrase::Word);
     unit->addPhrase(phrase);
     return phrase;
+}
+
+void Course::addTagGroup(TagGroup *tagGroup)
+{
+    QList<TagGroup*>::ConstIterator iter = m_tagGroupList.constBegin();
+    while (iter != m_tagGroupList.constEnd()) {
+        if (tagGroup->id() == (*iter)->id()) {
+            kWarning() << "Unit already contained in this course, aborting";
+            return;
+        }
+        ++iter;
+    }
+    emit tagGroupAboutToBeAdded(tagGroup, m_tagGroupList.length());
+    m_tagGroupList.append(tagGroup);
+    connect(tagGroup, SIGNAL(modified()), this, SLOT(setModified()));
+    emit tagGroupAdded();
+    setModified();
 }
 
 QList< TagGroup* > Course::tagGroupList() const
