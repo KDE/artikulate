@@ -167,19 +167,30 @@ Phrase * Course::createPhrase(Unit *unit)
     phrase->setText("");
     phrase->setType(Phrase::Word);
     unit->addPhrase(phrase);
+
     return phrase;
 }
 
+QList< Unit* > Course::syllableUnitList() const
+{
+    return m_syllableUnitList.values();
+}
+
+Unit* Course::syllableUnit(TagGroup* tagGroup) const
+{
+    return m_syllableUnitList[tagGroup];
+}
+
+
 void Course::addTagGroup(TagGroup *tagGroup)
 {
-    QList<TagGroup*>::ConstIterator iter = m_tagGroupList.constBegin();
-    while (iter != m_tagGroupList.constEnd()) {
-        if (tagGroup->id() == (*iter)->id()) {
-            kWarning() << "Unit already contained in this course, aborting";
-            return;
-        }
-        ++iter;
+    if (m_syllableUnitList.contains(tagGroup)) {
+        kWarning() << "Tag group already contained in this course, aborting";
+        return;
     }
+    m_syllableUnitList.insert(tagGroup, new Unit(this));
+    m_tagGroupList.append(tagGroup);
+
     emit tagGroupAboutToBeAdded(tagGroup, m_tagGroupList.length());
     m_tagGroupList.append(tagGroup);
     connect(tagGroup, SIGNAL(modified()), this, SLOT(setModified()));

@@ -54,6 +54,11 @@ public:
     KUrl file() const;
     void setFile(const KUrl &file);
     QList<Unit *> unitList() const;
+    QList<Unit *> syllableUnitList() const;
+    /**
+     * \return the corresponding unit for tag group \p tagGroup
+     */
+    Unit * syllableUnit(TagGroup *tagGroup) const;
     void addUnit(Unit *unit);
     QList<TagGroup *> tagGroupList() const;
     void addTagGroup(TagGroup *tagGroup);
@@ -85,7 +90,6 @@ public:
      */
     Q_INVOKABLE void sync();
 
-
 signals:
     void idChanged();
     void titleChanged();
@@ -109,6 +113,7 @@ private:
     KUrl m_file;
     bool m_modified;
     QList<Unit *> m_unitList;
+    QMap<TagGroup *, Unit *> m_syllableUnitList;
     QList<TagGroup *> m_tagGroupList;
 
 public slots:
