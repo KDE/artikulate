@@ -39,13 +39,8 @@ Item {
     Component {
         id: itemDelegate
 
-        Item {
-            height: 30
-            Row {
-                PhraseEditor {
-                    phrase: model.dataRole
-                }
-            }
+        PhraseEditor {
+            phrase: model.dataRole
         }
     }
 
@@ -63,7 +58,7 @@ Item {
         }
         ListView {
             id: phraseList
-            height: {30 * phraseModel.count}
+            height: {30 * phraseModel.count + 30} // calculate 30 per line plus 30 for extra edit space
             width: 500
 
             model: phraseModel

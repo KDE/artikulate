@@ -25,9 +25,24 @@ import artikulate 1.0
 
 Item {
     id: root
+    height: {
+        if (root.editMode == false) {
+            return 30;
+        } else {
+            return 60;
+        }
+    }
 
     property Phrase phrase
     property bool editMode: false
+
+    property string __originalPhraseText
+    property int __originalPhraseType
+
+    Component.onCompleted: {
+        root.__originalPhraseText = root.phrase.text
+        root.__originalPhraseType = root.phrase.type
+    }
 
     Row {
         spacing: 5
@@ -41,32 +56,99 @@ Item {
                 root.editMode = !root.editMode
             }
         }
+        Image {
+            id: typeIcon
+            width: 20
+            height: 20
+            source: {
+                switch (root.phrase.type) {
+                    case Phrase.Word: "../icons/hicolor/64x64/actions/artikulate-word.png"
+                        break;
+                    case Phrase.Expression: "../icons/hicolor/64x64/actions/artikulate-expression.png"
+                        break;
+                    case Phrase.Sentence: "../icons/hicolor/64x64/actions/artikulate-sentence.png"
+                        break;
+                    case Phrase.Paragraph: "../icons/hicolor/64x64/actions/artikulate-paragraph.png"
+                        break;
+                    default:
+                        ""
+                }
+            }
+        }
         Text {
             id: phraseText
             anchors.verticalCenter: enableEdit.verticalCenter
             visible: { !root.editMode }
-            text: phrase.text
+            text: root.phrase.text
         }
-        Row {
-            anchors.verticalCenter: enableEdit.verticalCenter
+        // line in edit mode
+        Column {
             visible: { root.editMode }
-            PlasmaComponents.TextField {
-                id: phraseInput
-                width: Math.max(phraseText.width + 20, 200)
-                text: phrase.text
-            }
-            PlasmaComponents.ToolButton {
-                iconSource: "dialog-ok-apply"
-                onClicked: {
-                    root.editMode = false
-                    phrase.text = phraseInput.text
+            spacing: 5
+            Row {
+                PlasmaComponents.TextField {
+                    id: phraseInput
+                    width: Math.max(phraseText.width + 20, 200)
+                    text: root.phrase.text
+                    onTextChanged: {
+                        root.phrase.text = text
+                    }
+                }
+                PlasmaComponents.ToolButton {
+                    iconSource: "dialog-ok-apply"
+                    onClicked: {
+                        root.editMode = false
+                        root.__originalPhraseText = phrase.text
+                        root.__originalPhraseType = phrase.type
+                    }
+                }
+                PlasmaComponents.ToolButton {
+                    iconSource: "dialog-cancel"
+                    onClicked: {
+                        root.editMode = false
+                        phrase.text = root.__originalPhraseText
+                        phrase.type = root.__originalPhraseType
+                    }
                 }
             }
-            PlasmaComponents.ToolButton {
-                iconSource: "dialog-cancel"
-                onClicked: {
-                    root.editMode = false
-                    phraseInput.text = phrase.text
+            PlasmaComponents.ButtonRow {
+                id: phraseTypeRow
+                spacing: 30
+                Text {
+                    anchors.verticalCenter: phraseTypeRow.verticalCenter
+                    text: i18n("Type:")
+                }
+                PlasmaComponents.RadioButton {
+                    anchors.verticalCenter: phraseTypeRow.verticalCenter
+                    text: i18n("Word")
+                    checked: {phrase.type == Phrase.Word}
+                    onClicked: {
+                        phrase.type = Phrase.Word
+                    }
+                }
+                PlasmaComponents.RadioButton {
+                    anchors.verticalCenter: phraseTypeRow.verticalCenter
+                    text: i18n("Expression")
+                    checked: {phrase.type == Phrase.Expression}
+                    onClicked: {
+                        phrase.type = Phrase.Expression
+                    }
+                }
+                PlasmaComponents.RadioButton {
+                    anchors.verticalCenter: phraseTypeRow.verticalCenter
+                    text: i18n("Sentence")
+                    checked: {phrase.type == Phrase.Sentence}
+                    onClicked: {
+                        phrase.type = Phrase.Sentence
+                    }
+                }
+                PlasmaComponents.RadioButton {
+                    anchors.verticalCenter: phraseTypeRow.verticalCenter
+                    text: i18n("Paragraph")
+                    checked: {phrase.type == Phrase.Paragraph}
+                    onClicked: {
+                        phrase.type = Phrase.Paragraph
+                    }
                 }
             }
         }
