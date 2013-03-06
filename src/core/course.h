@@ -30,6 +30,7 @@ class QString;
 class Language;
 class Unit;
 class Phrase;
+class TagGroup;
 
 class ARTIKULATELIB_EXPORT Course : public QObject
 {
@@ -54,6 +55,7 @@ public:
     void setFile(const KUrl &file);
     QList<Unit *> unitList() const;
     void addUnit(Unit *unit);
+    QList<TagGroup *> tagGroupList() const;
 
     /**
      * Create and add a new unit to course.
@@ -92,6 +94,10 @@ signals:
     void unitAboutToBeAdded(Unit*,int);
     void unitRemoved();
     void unitAboutToBeRemoved(int,int);
+    void tagGroupAdded();
+    void tagGroupAboutToBeAdded(TagGroup*,int);
+    void tagGroupRemoved();
+    void tagGroupAboutToBeRemoved(int,int);
 
 private:
     Q_DISABLE_COPY(Course)
@@ -102,6 +108,7 @@ private:
     KUrl m_file;
     bool m_modified;
     QList<Unit *> m_unitList;
+    QList<TagGroup *> m_tagGroupList;
 
 public slots:
     void setModified(bool modified = true);

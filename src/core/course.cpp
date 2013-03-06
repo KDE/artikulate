@@ -169,6 +169,11 @@ Phrase * Course::createPhrase(Unit *unit)
     return phrase;
 }
 
+QList< TagGroup* > Course::tagGroupList() const
+{
+    return m_tagGroupList;
+}
+
 bool Course::modified() const
 {
     return m_modified;
@@ -194,4 +199,3 @@ void Course::sync()
     ResourceManager::sync(this);
     setModified(false);
 }
-
