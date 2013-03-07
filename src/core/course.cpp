@@ -27,6 +27,7 @@
 #include <KDebug>
 #include <KLocale>
 #include <QStringList>
+#include <QPair>
 #include <QUuid>
 
 Course::Course(QObject *parent)
@@ -173,26 +174,39 @@ Phrase * Course::createPhrase(Unit *unit)
 
 QList< Unit* > Course::syllableUnitList() const
 {
-    return m_syllableUnitList.values();
+    QList<Unit*> list;
+    QList< QPair<TagGroup*,Unit*> >::ConstIterator iter = m_syllableUnitList.constBegin();
+    while (iter != m_syllableUnitList.end()) {
+        list.append(iter->second);
+        ++iter;
+    }
+    return list;
 }
 
-Unit* Course::syllableUnit(TagGroup* tagGroup) const
+Unit * Course::syllableUnit(TagGroup *tagGroup) const
 {
-    return m_syllableUnitList[tagGroup];
+    QList< QPair<TagGroup*,Unit*> >::ConstIterator iter = m_syllableUnitList.constBegin();
+    while (iter != m_syllableUnitList.end()) {
+        if (iter->first == tagGroup) {
+            return iter->second;
+        }
+        ++iter;
+    }
+    return 0;
 }
-
 
 void Course::addTagGroup(TagGroup *tagGroup)
 {
-    if (m_syllableUnitList.contains(tagGroup)) {
-        kWarning() << "Tag group already contained in this course, aborting";
-        return;
+    QList< QPair<TagGroup*,Unit*> >::ConstIterator iter = m_syllableUnitList.constBegin();
+    while (iter != m_syllableUnitList.end()) {
+        if (iter->first == tagGroup) {
+            kWarning() << "Tag group already contained in this course, aborting";
+            return;
+        }
+        ++iter;
     }
-    m_syllableUnitList.insert(tagGroup, new Unit(this));
-    m_tagGroupList.append(tagGroup);
-
-    emit tagGroupAboutToBeAdded(tagGroup, m_tagGroupList.length());
-    m_tagGroupList.append(tagGroup);
+    emit tagGroupAboutToBeAdded(tagGroup, m_syllableUnitList.length());
+    m_syllableUnitList.append(qMakePair<TagGroup*,Unit*>(tagGroup, new Unit(this)));
     connect(tagGroup, SIGNAL(modified()), this, SLOT(setModified()));
     emit tagGroupAdded();
     setModified();
@@ -200,7 +214,13 @@ void Course::addTagGroup(TagGroup *tagGroup)
 
 QList< TagGroup* > Course::tagGroupList() const
 {
-    return m_tagGroupList;
+    QList<TagGroup*> list;
+    QList< QPair<TagGroup*,Unit*> >::ConstIterator iter = m_syllableUnitList.constBegin();
+    while (iter != m_syllableUnitList.end()) {
+        list.append(iter->first);
+        ++iter;
+    }
+    return list;
 }
 
 bool Course::modified() const

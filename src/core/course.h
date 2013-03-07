@@ -113,8 +113,7 @@ private:
     KUrl m_file;
     bool m_modified;
     QList<Unit *> m_unitList;
-    QMap<TagGroup *, Unit *> m_syllableUnitList;
-    QList<TagGroup *> m_tagGroupList;
+    QList< QPair<TagGroup *, Unit *> > m_syllableUnitList;
 
 public slots:
     void setModified(bool modified = true);
