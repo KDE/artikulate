@@ -59,6 +59,10 @@ public:
      * \return the corresponding unit for tag group \p tagGroup
      */
     Unit * syllableUnit(TagGroup *tagGroup) const;
+    /**
+     * \return the corresponding tag group for unit \p unit
+     */
+    TagGroup * tagGroup(Unit *unit) const;
     void addUnit(Unit *unit);
     QList<TagGroup *> tagGroupList() const;
     void addTagGroup(TagGroup *tagGroup);

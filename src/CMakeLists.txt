@@ -92,6 +92,7 @@ set(artikulate_SRCS
     models/unitmodel.cpp
     models/phrasemodel.cpp
     models/taggroupmodel.cpp
+    models/syllableunitmodel.cpp
 
     declarativeitems/applicationbackground.cpp
 )

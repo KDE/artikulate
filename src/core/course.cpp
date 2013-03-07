@@ -195,6 +195,18 @@ Unit * Course::syllableUnit(TagGroup *tagGroup) const
     return 0;
 }
 
+TagGroup * Course::tagGroup(Unit *unit) const
+{
+    QList< QPair<TagGroup*,Unit*> >::ConstIterator iter = m_syllableUnitList.constBegin();
+    while (iter != m_syllableUnitList.end()) {
+        if (iter->second == unit) {
+            return iter->first;
+        }
+        ++iter;
+    }
+    return 0;
+}
+
 void Course::addTagGroup(TagGroup *tagGroup)
 {
     QList< QPair<TagGroup*,Unit*> >::ConstIterator iter = m_syllableUnitList.constBegin();
