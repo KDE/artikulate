@@ -2,8 +2,163 @@
 <language>
     <id>fr</id>
     <title>Français</title>
-    <tags>
-    </tags>
     <tagGroups>
+        <tagGroup>
+            <id>nasales</id>
+            <title>Nasales</title>
+            <description>Nasales</description>
+            <tags>
+                <tag>
+                    <id>awn</id>
+                    <title>[ã] croissant</title>
+                </tag>
+                <tag>
+                    <id>ahn</id>
+                    <title>[ɛ̃] pain</title>
+                </tag>
+                <tag>
+                    <id>uhn</id>
+                    <title>[œ̃] brun</title>
+                </tag>
+                <tag>
+                    <id>ohn</id>
+                    <title>[ɔ̃] son</title>
+                </tag>
+            </tags>
+        </tagGroup>
+        <tagGroup>
+            <id>voyelles</id>
+            <title>Voyelles</title>
+            <description>Voyelles</description>
+            <tags>
+                <tag>
+                    <id>ah</id>
+                    <title>[a] ami</title>
+                </tag>
+                <tag>
+                    <id>ah-longer</id>
+                    <title>[ɑ] château</title>
+                </tag>
+                <tag>
+                    <id>ee</id>
+                    <title>[i] vie</title>
+                </tag>
+                <tag>
+                    <id>ee-rounded</id>
+                    <title>[y] rue</title>
+                </tag>
+                <tag>
+                    <id>ay</id>
+                    <title>[e] nez</title>
+                </tag>
+                <tag>
+                    <id>ay-rounded</id>
+                    <title>[ø] jeu</title>
+                </tag>
+                <tag>
+                    <id>eh</id>
+                    <title>[ɛ] lait</title>
+                </tag>
+                <tag>
+                    <id>eh-rounded</id>
+                    <title>[œ] fleur</title>
+                </tag>
+                <tag>
+                    <id>oo</id>
+                    <title>[u] cou</title>
+                </tag>
+                <tag>
+                    <id>oh</id>
+                    <title>[o] eau</title>
+                </tag>
+                <tag>
+                    <id>aw</id>
+                    <title>[ɔ] sol</title>
+                </tag>
+                <tag>
+                    <id>uh</id>
+                    <title>[ə] genou</title>
+                </tag>
+            </tags>
+        </tagGroup>
+        <tagGroup>
+            <id>consonnes</id>
+            <title>Consonnes</title>
+            <description>Consonnes</description>
+            <tags>
+                <tag>
+                    <id>jour</id>
+                    <title>[ʒ] jour</title>
+                </tag>
+                <tag>
+                    <id>gu</id>
+                    <title>[g] goût</title>
+                </tag>
+                <tag>
+                    <id>aɲo</id>
+                    <title>[ɲ] agneau</title>
+                </tag>
+                <tag>
+                    <id>su</id>
+                    <title>[s] sous</title>
+                </tag>
+                <tag>
+                    <id>zo</id>
+                    <title>[z] zoo</title>
+                </tag>
+                <tag>
+                    <id>ʃu</id>
+                    <title>[ʃ] chou</title>
+                </tag>
+                <tag>
+                    <id>vu</id>
+                    <title>[v] vous</title>
+                </tag>
+                <tag>
+                    <id>fu</id>
+                    <title>[f] fou</title>
+                </tag>
+                <tag>
+                    <id>ʁu</id>
+                    <title>[ʁ] roue</title>
+                </tag>
+                <tag>
+                    <id>lu</id>
+                    <title>[l] loup</title>
+                </tag>
+                <tag>
+                    <id>ku</id>
+                    <title>[k] cou</title>
+                </tag>
+                <tag>
+                    <id>pu</id>
+                    <title>[p] pou</title>
+                </tag>
+                <tag>
+                    <id>bu</id>
+                    <title>[b] boue</title>
+                </tag>
+                <tag>
+                    <id>du</id>
+                    <title>[d] doux</title>
+                </tag>
+                <tag>
+                    <id>tu</id>
+                    <title>[t] tout</title>
+                </tag>
+                <tag>
+                    <id>paʁkiŋ</id>
+                    <title>[ŋ] parking</title>
+                </tag>
+                <tag>
+                    <id>mu</id>
+                    <title>[m] mou</title>
+                </tag>
+                <tag>
+                    <id>nu</id>
+                    <title>[n] nous</title>
+                </tag>
+            </tags>
+        </tagGroup>
     </tagGroups>
 </language>

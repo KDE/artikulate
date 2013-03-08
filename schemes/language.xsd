@@ -5,7 +5,6 @@
       <xs:sequence>
         <xs:element name="id" type="xs:string" />
         <xs:element name="title" type="xs:string" />
-        <xs:element name="tags" type="tagList" />
         <xs:element name="tagGroups" type="tagGroupList" />
       </xs:sequence>
     </xs:complexType>
