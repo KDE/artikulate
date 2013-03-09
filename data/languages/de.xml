@@ -3,5 +3,202 @@
     <id>de</id>
     <title>Deutsch</title>
     <phonemeGroups>
+        <phonemeGroup>
+            <id>monophthonge</id>
+            <title>Vokalsystem Monophthonge</title>
+            <description>Monophthonge</description>
+            <phonemes>
+                <phoneme>
+                    <id>a</id>
+                    <title>[a] Kamm</title>
+                </phoneme>
+                <phoneme>
+                    <id>ah</id>
+                    <title>[aː] Kamin</title>
+                </phoneme>
+                <phoneme>
+                    <id>ae</id>
+                    <title>[ɛ] Stelle</title>
+                </phoneme>
+                <phoneme>
+                    <id>e</id>
+                    <title>[ə] bitte</title>
+                </phoneme>
+                <phoneme>
+                    <id>ae-lang</id>
+                    <title>[ɛː] Käse</title>
+                </phoneme>
+                <phoneme>
+                    <id>e-lang</id>
+                    <title>[e:] stehlen</title>
+                </phoneme>
+                <phoneme>
+                    <id>i</id>
+                    <title>[ɪ] Mitte</title>
+                </phoneme>
+                <phoneme>
+                    <id>i-lang</id>
+                    <title>[i:] Miete</title>
+                </phoneme>
+                <phoneme>
+                    <id>o</id>
+                    <title>[ɔ] offen</title>
+                </phoneme>
+                <phoneme>
+                    <id>o-lang</id>
+                    <title>[oː] Ofen</title>
+                </phoneme>
+                <phoneme>
+                    <id>oe</id>
+                    <title>[œ] Hölle</title>
+                </phoneme>
+                <phoneme>
+                    <id>oe-lang</id>
+                    <title>[øː] Höhle</title>
+                </phoneme>
+                <phoneme>
+                    <id>u</id>
+                    <title>[ʊ] Mutter</title>
+                </phoneme>
+                <phoneme>
+                    <id>u-lang</id>
+                    <title>[uː] Mut</title>
+                </phoneme>
+                <phoneme>
+                    <id>ue</id>
+                    <title>[ʏ] müssen</title>
+                </phoneme>
+                <phoneme>
+                    <id>ue-lang</id>
+                    <title>[yː] müßig</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+        <phonemeGroup>
+            <id>dipthtonge</id>
+            <title>Vokalsystem Diphtonge</title>
+            <description>Diphtonge</description>
+            <phonemes>
+                <phoneme>
+                    <id>au</id>
+                    <title>[aʊ̯] Haus</title>
+                </phoneme>
+                <phoneme>
+                    <id>ei</id>
+                    <title>[aɪ̯] Heim</title>
+                </phoneme>
+                <phoneme>
+                    <id>eu</id>
+                    <title>[ɔʏ̯] Eule</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+        <phonemeGroup>
+            <id>konsonanten</id>
+            <title>Konsonantensystem</title>
+            <description>Konsonantensystem</description>
+            <phonemes>
+                <phoneme>
+                    <id>b</id>
+                    <title>[b] Biene</title>
+                </phoneme>
+                <phoneme>
+                    <id></id>
+                    <title>[]</title>
+                </phoneme>
+                <phoneme>
+                    <id>ch</id>
+                    <title>[ç] ich</title>
+                </phoneme>
+                <phoneme>
+                    <id>d</id>
+                    <title>[d] dann</title>
+                </phoneme>
+                <phoneme>
+                    <id>dsch</id>
+                    <title>[d͡ʒ] Dschungel</title>
+                </phoneme>
+                <phoneme>
+                    <id>f</id>
+                    <title>[f] Vogel</title>
+                </phoneme>
+                <phoneme>
+                    <id>g</id>
+                    <title>[g] Gang</title>
+                </phoneme>
+                <phoneme>
+                    <id>h</id>
+                    <title>[h] Haus</title>
+                </phoneme>
+                <phoneme>
+                    <id>j</id>
+                    <title>[j] jung</title>
+                </phoneme>
+                <phoneme>
+                    <id>k</id>
+                    <title>[k] Katze</title>
+                </phoneme>
+                <phoneme>
+                    <id>l</id>
+                    <title>[l] Lamm</title>
+                </phoneme>
+                <phoneme>
+                    <id>m</id>
+                    <title>[m] Maus</title>
+                </phoneme>
+                <phoneme>
+                    <id>n</id>
+                    <title>[n] nord</title>
+                </phoneme>
+                <phoneme>
+                    <id>p</id>
+                    <title>[p] Mappe</title>
+                </phoneme>
+                <phoneme>
+                    <id>pf</id>
+                    <title>[p͡f] Apfel</title>
+                </phoneme>
+                <phoneme>
+                    <id>r</id>
+                    <title>[r] rot</title>
+                </phoneme>
+                <phoneme>
+                    <id>s</id>
+                    <title>[s] Last</title>
+                </phoneme>
+                <phoneme>
+                    <id>sch</id>
+                    <title>[ʃ] Schule</title>
+                </phoneme>
+                <phoneme>
+                    <id>t</id>
+                    <title>[t] Tag</title>
+                </phoneme>
+                <phoneme>
+                    <id>ts</id>
+                    <title>[t͡s] Zaun</title>
+                </phoneme>
+                <phoneme>
+                    <id>tsch</id>
+                    <title>[t͡ʃ] deutsch</title>
+                </phoneme>
+                <phoneme>
+                    <id>v</id>
+                    <title>[v] Winter</title>
+                </phoneme>
+                <phoneme>
+                    <id>x</id>
+                    <title>[x] Lachen</title>
+                </phoneme>
+                <phoneme>
+                    <id>z</id>
+                    <title>[z] Wiese</title>
+                </phoneme>
+                <phoneme>
+                    <id>gj</id>
+                    <title>[ʒ] Genie</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
     </phonemeGroups>
 </language>
