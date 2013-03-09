@@ -25,6 +25,8 @@ import artikulate 1.0
 
 FocusScope {
     id: screen
+    height: screen.height
+    width: screen.width
 
     property LanguageModel languageModel
     property CourseModel courseModel
@@ -42,14 +44,30 @@ FocusScope {
     }
 
     Column {
-        spacing: 30
-        height: screen.height
-        width: screen.width
+        id: helloArtikulate
+        anchors.top: screen.top
+        anchors.left: screen.left
+        anchors.topMargin: 30
+        anchors.leftMargin: 30
+        spacing: 10
 
         Text {
-            text: i18n("<h1>Artikulate</h1>")
-            anchors.horizontalCenter: parent.horizontalCenter
+            text: i18n("Welcome to")
+            font.pointSize: 28;
         }
+        Text {
+            text: i18n("Artikulate")
+            font.pointSize: 48;
+        }
+    }
+
+    Column {
+        spacing: 30
+        anchors.top: helloArtikulate.bottom
+        anchors.left: screen.left
+        anchors.topMargin: 60
+        anchors.leftMargin: 30
+
         Row {
             spacing: 20
             anchors.horizontalCenter: parent.horizontalCenter
