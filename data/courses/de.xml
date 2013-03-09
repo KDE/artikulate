@@ -14,14 +14,14 @@
                     <text>Guten Tag.</text>
                     <soundFile>de_01.ogg</soundFile>
                     <type>sentence</type>
-                    <tags></tags>
+                    <phonemes></phonemes>
                 </phrase>
                 <phrase>
                     <id>2</id>
                     <text>Auf Wiedersehen.</text>
                     <soundFile>de_02.ogg</soundFile>
                     <type>sentence</type>
-                    <tags></tags>
+                    <phonemes></phonemes>
                 </phrase>
             </phrases>
         </unit>

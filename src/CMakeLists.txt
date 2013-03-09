@@ -49,8 +49,8 @@ set(artikulateCore_SRCS
     core/resourcemanager.cpp
     core/language.cpp
     core/phrase.cpp
-    core/tag.cpp
-    core/taggroup.cpp
+    core/phoneme.cpp
+    core/phonemegroup.cpp
     core/unit.cpp
     core/profile.cpp
 
@@ -91,8 +91,8 @@ set(artikulate_SRCS
     models/languagemodel.cpp
     models/unitmodel.cpp
     models/phrasemodel.cpp
-    models/taggroupmodel.cpp
-    models/syllableunitmodel.cpp
+    models/phonemegroupmodel.cpp
+    models/phonemeunitmodel.cpp
 
     declarativeitems/applicationbackground.cpp
 )

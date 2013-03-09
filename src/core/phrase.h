@@ -32,7 +32,7 @@ class QMediaPlayer;
 class QAudioInput;
 class QString;
 class QMediaRecorder;
-class Tag;
+class Phoneme;
 class KUrl;
 
 class ARTIKULATELIB_EXPORT Phrase : public QObject
@@ -81,8 +81,8 @@ public:
     void setType(const QString &typeString);
     KUrl sound() const;
     void setSound(const KUrl &soundFile);
-    QList<Tag *> tags() const;
-    void addTag(Tag *tag);
+    QList<Phoneme *> phonemes() const;
+    void addPhoneme(Phoneme *phonome);
 
     Q_INVOKABLE void playbackSound();
     Q_INVOKABLE void stopSound();
@@ -110,7 +110,7 @@ signals:
     void typeChanged();
     void soundChanged();
     void userSoundChanged();
-    void prononciationTagsChanged();
+    void phonomesChanged();
     void playbackSoundStateChanged();
     void playbackUserSoundStateChanged();
     void modified();
@@ -121,7 +121,7 @@ private:
     QString m_text;
     Type m_type;
 
-    QList<Tag *> m_prononciationTags;
+    QList<Phoneme *> m_phonemes;
     KUrl m_soundFile;
     KTemporaryFile m_userSoundFile;
     CurrentPlayback m_currentPlayback;

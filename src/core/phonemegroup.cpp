@@ -18,22 +18,22 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "taggroup.h"
-#include "tag.h"
+#include "phonemegroup.h"
+#include "phoneme.h"
 
 #include <KDebug>
 
-TagGroup::TagGroup(QObject *parent)
+PhonemeGroup::PhonemeGroup(QObject *parent)
     : QObject(parent)
 {
 }
 
-QString TagGroup::id() const
+QString PhonemeGroup::id() const
 {
     return m_id;
 }
 
-void TagGroup::setId(const QString &id)
+void PhonemeGroup::setId(const QString &id)
 {
     if (id != m_id) {
         m_id = id;
@@ -41,12 +41,12 @@ void TagGroup::setId(const QString &id)
     }
 }
 
-QString TagGroup::title() const
+QString PhonemeGroup::title() const
 {
     return m_title;
 }
 
-void TagGroup::setTitle(const QString &title)
+void PhonemeGroup::setTitle(const QString &title)
 {
     if (QString::compare(title, m_title) != 0) {
         m_title = title;
@@ -54,36 +54,36 @@ void TagGroup::setTitle(const QString &title)
     }
 }
 
-QString TagGroup::description() const
+QString PhonemeGroup::description() const
 {
     return m_description;
 }
 
-void TagGroup::setDescription(const QString &description)
+void PhonemeGroup::setDescription(const QString &description)
 {
     m_description = description;
     emit descriptionChanged();
 }
 
-QList< Tag* > TagGroup::tags() const
+QList< Phoneme* > PhonemeGroup::phonomes() const
 {
-    return m_tags;
+    return m_phonomes;
 }
 
-void TagGroup::addTag(Tag *tag)
+void PhonemeGroup::addPhoneme(Phoneme *phonome)
 {
-    QList<Tag *>::ConstIterator iter = m_tags.constBegin();
-    while (iter != m_tags.constEnd()) {
-        if (QString::compare((*iter)->id(), tag->id()) == 0) {
-            kWarning() << "Pronunciation Tag identifier already registered, aborting";
+    QList<Phoneme *>::ConstIterator iter = m_phonomes.constBegin();
+    while (iter != m_phonomes.constEnd()) {
+        if (QString::compare((*iter)->id(), phonome->id()) == 0) {
+            kWarning() << "Phoneme identifier already registered, aborting";
             return;
         }
         ++iter;
     }
-    m_tags.append(tag);
+    m_phonomes.append(phonome);
 }
 
-void TagGroup::removeTag(Tag *tag)
+void PhonemeGroup::removePhoneme(Phoneme *phonome)
 {
-    m_tags.removeOne(tag);
+    m_phonomes.removeOne(phonome);
 }

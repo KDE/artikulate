@@ -18,18 +18,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SYLLABLEUNITMODEL_H
-#define SYLLABLEUNITMODEL_H
+#ifndef PHONEMEGROUPMODEL_H
+#define PHONEMEGROUPMODEL_H
 
 #include <QAbstractListModel>
 
 class Course;
-class Unit;
-class TagGroup;
+class PhonemeGroup;
 class QSignalMapper;
 
 
-class SyllableUnitModel : public QAbstractListModel
+class PhonemeGroupModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
@@ -37,13 +36,11 @@ class SyllableUnitModel : public QAbstractListModel
 public:
     enum unitRoles {
         TitleRole = Qt::UserRole + 1,
-        NumberPhrasesRole,
         IdRole,
-        DataRole,
-        TagGroupRole
+        DataRole
     };
 
-    explicit SyllableUnitModel(QObject *parent = 0);
+    explicit PhonemeGroupModel(QObject *parent = 0);
     void setCourse(Course *course);
     Course * course() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
@@ -51,15 +48,15 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
 signals:
-    void unitChanged(int index);
+    void phonemeGroupChanged(int index);
     void courseChanged();
 
 private slots:
-    void onUnitAboutToBeAdded(TagGroup *tagGroup, int index);
-    void onUnitAdded();
-    void onUnitsAboutToBeRemoved(int first, int last);
-    void onUnitsRemoved();
-    void emitUnitChanged(int row);
+    void onPhonemeGroupAboutToBeAdded(PhonemeGroup *phonemeGroup, int index);
+    void onPhonemeGroupAdded();
+    void onPhonemeGroupsAboutToBeRemoved(int first, int last);
+    void onPhonemeGroupsRemoved();
+    void emitPhonemeGroupChanged(int row);
 
 private:
     void updateMappings();
@@ -67,4 +64,4 @@ private:
     QSignalMapper *m_signalMapper;
 };
 
-#endif // SYLLABLEUNITMODEL_H
+#endif // PHONEMEGROUPMODEL_H

@@ -124,7 +124,7 @@ int LanguageModel::rowCount(const QModelIndex& parent) const
 void LanguageModel::onLanguageAboutToBeAdded(Language *language, int index)
 {
     connect(language, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
-    connect(language, SIGNAL(tagsChanged()), m_signalMapper, SLOT(map()));
+    connect(language, SIGNAL(phonomesChanged()), m_signalMapper, SLOT(map()));
     connect(language, SIGNAL(groupsChanged()), m_signalMapper, SLOT(map()));
     beginInsertRows(QModelIndex(), index, index);
 }

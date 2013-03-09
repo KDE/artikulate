@@ -20,10 +20,10 @@
 
 
 
-#include "syllableunitmodel.h"
+#include "phonemeunitmodel.h"
 #include "core/course.h"
 #include "core/unit.h"
-#include "core/taggroup.h"
+#include "core/phonemegroup.h"
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
@@ -31,7 +31,7 @@
 #include <KLocale>
 #include <KDebug>
 
-SyllableUnitModel::SyllableUnitModel(QObject *parent)
+PhonemeUnitModel::PhonemeUnitModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_course(0)
     , m_signalMapper(new QSignalMapper(this))
@@ -41,13 +41,13 @@ SyllableUnitModel::SyllableUnitModel(QObject *parent)
     roles[NumberPhrasesRole] = "numberPhrases";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
-    roles[TagGroupRole] = "tagGroupRole";
+    roles[PhonemeGroupRole] = "phonemeGroupRole";
     setRoleNames(roles);
 
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
 }
 
-void SyllableUnitModel::setCourse(Course *course)
+void PhonemeUnitModel::setCourse(Course *course)
 {
     if (m_course == course) {
         return;
@@ -62,10 +62,10 @@ void SyllableUnitModel::setCourse(Course *course)
     m_course = course;
 
     if (m_course) {
-        connect(m_course, SIGNAL(tagGroupAboutToBeAdded(TagGroup*,int)), SLOT(onUnitAboutToBeAdded(TagGroup*,int)));
-        connect(m_course, SIGNAL(tagGroupAdded()), SLOT(onUnitAdded()));
-        connect(m_course, SIGNAL(tagGroupAboutToBeRemoved(int,int)), SLOT(onUnitsAboutToBeRemoved(int,int)));
-        connect(m_course, SIGNAL(tagGroupRemoved()), SLOT(onUnitsRemoved()));
+        connect(m_course, SIGNAL(phonemeGroupAboutToBeAdded(PhonemeGroup*,int)), SLOT(onUnitAboutToBeAdded(PhonemeGroup*,int)));
+        connect(m_course, SIGNAL(phonemeGroupAdded()), SLOT(onUnitAdded()));
+        connect(m_course, SIGNAL(phonemeGroupAboutToBeRemoved(int,int)), SLOT(onUnitsAboutToBeRemoved(int,int)));
+        connect(m_course, SIGNAL(phonemeGroupRemoved()), SLOT(onUnitsRemoved()));
     }
 
     endResetModel();
@@ -73,12 +73,12 @@ void SyllableUnitModel::setCourse(Course *course)
     emit courseChanged();
 }
 
-Course * SyllableUnitModel::course() const
+Course * PhonemeUnitModel::course() const
 {
     return m_course;
 }
 
-QVariant SyllableUnitModel::data(const QModelIndex& index, int role) const
+QVariant PhonemeUnitModel::data(const QModelIndex& index, int role) const
 {
     Q_ASSERT(m_course);
 
@@ -86,11 +86,11 @@ QVariant SyllableUnitModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_course->syllableUnitList().count()) {
+    if (index.row() >= m_course->phonemeUnitList().count()) {
         return QVariant();
     }
 
-    Unit * const unit = m_course->syllableUnitList().at(index.row());
+    Unit * const unit = m_course->phonemeUnitList().at(index.row());
 
     switch(role)
     {
@@ -107,14 +107,14 @@ QVariant SyllableUnitModel::data(const QModelIndex& index, int role) const
         return unit->id();
     case DataRole:
         return QVariant::fromValue<QObject*>(unit);
-    case TagGroupRole:
-        return QVariant::fromValue<QObject*>(m_course->tagGroup(unit));
+    case PhonemeGroupRole:
+        return QVariant::fromValue<QObject*>(m_course->phonemeGroup(unit));
     default:
         return QVariant();
     }
 }
 
-int SyllableUnitModel::rowCount(const QModelIndex& parent) const
+int PhonemeUnitModel::rowCount(const QModelIndex& parent) const
 {
     if (!m_course) {
         return 0;
@@ -127,36 +127,36 @@ int SyllableUnitModel::rowCount(const QModelIndex& parent) const
     return m_course->unitList().count();
 }
 
-void SyllableUnitModel::onUnitAboutToBeAdded(TagGroup *tagGroup, int index)
+void PhonemeUnitModel::onUnitAboutToBeAdded(PhonemeGroup *phonemeGroup, int index)
 {
-    connect(tagGroup, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
+    connect(phonemeGroup, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
     //TODO add missing signals
     beginInsertRows(QModelIndex(), index, index);
 }
 
-void SyllableUnitModel::onUnitAdded()
+void PhonemeUnitModel::onUnitAdded()
 {
     updateMappings();
     endInsertRows();
 }
 
-void SyllableUnitModel::onUnitsAboutToBeRemoved(int first, int last)
+void PhonemeUnitModel::onUnitsAboutToBeRemoved(int first, int last)
 {
     beginRemoveRows(QModelIndex(), first, last);
 }
 
-void SyllableUnitModel::onUnitsRemoved()
+void PhonemeUnitModel::onUnitsRemoved()
 {
     endRemoveRows();
 }
 
-void SyllableUnitModel::emitUnitChanged(int row)
+void PhonemeUnitModel::emitUnitChanged(int row)
 {
     emit unitChanged(row);
     emit dataChanged(index(row, 0), index(row, 0));
 }
 
-QVariant SyllableUnitModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant PhonemeUnitModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role != Qt::DisplayRole) {
         return QVariant();
@@ -167,7 +167,7 @@ QVariant SyllableUnitModel::headerData(int section, Qt::Orientation orientation,
     return QVariant(i18n("Title"));
 }
 
-void SyllableUnitModel::updateMappings()
+void PhonemeUnitModel::updateMappings()
 {
     int units = m_course->unitList().count();
     for (int i = 0; i < units; i++) {

@@ -23,8 +23,8 @@
 #include "course.h"
 #include "unit.h"
 #include "phrase.h"
-#include "tag.h"
-#include "taggroup.h"
+#include "phoneme.h"
+#include "phonemegroup.h"
 #include <ui/newcoursedialog.h>
 
 #include <QIODevice>
@@ -96,31 +96,31 @@ bool ResourceManager::loadLanguage(const KUrl &languageFile)
     language->setId(root.firstChildElement("id").text());
     language->setTitle(root.firstChildElement("title").text());
 
-    // create tags
-    for (QDomElement tagNode = root.firstChildElement("tags").firstChildElement();
-         !tagNode.isNull();
-         tagNode = tagNode.nextSiblingElement())
+    // create phonemes
+    for (QDomElement phonemeNode = root.firstChildElement("phonemes").firstChildElement();
+         !phonemeNode.isNull();
+         phonemeNode = phonemeNode.nextSiblingElement())
     {
-        language->addPrononciationTag(tagNode.attribute("id"), tagNode.attribute("title"));
+        language->addPhoneme(phonemeNode.attribute("id"), phonemeNode.attribute("title"));
     }
-    QList<Tag *> tags = language->prononciationTags();
+    QList<Phoneme *> phonemes = language->phonemes();
 
-    // create tag groups
-    for (QDomElement groupNode = root.firstChildElement("tags").firstChildElement();
+    // create phoneme groups
+    for (QDomElement groupNode = root.firstChildElement("phonemes").firstChildElement();
          !groupNode.isNull();
          groupNode = groupNode.nextSiblingElement())
     {
-        TagGroup *group = language->addPrononciationGroup(groupNode.attribute("id"), groupNode.attribute("title"));
+        PhonemeGroup *group = language->addPhonemeGroup(groupNode.attribute("id"), groupNode.attribute("title"));
         group->setDescription(groupNode.attribute("description"));
-        // register tags
-        for (QDomElement tagNode = groupNode.firstChildElement("tags").firstChildElement();
-            !tagNode.isNull();
-            tagNode = tagNode.nextSiblingElement())
+        // register phonemes
+        for (QDomElement phonemeNode = groupNode.firstChildElement("phonemes").firstChildElement();
+            !phonemeNode.isNull();
+            phonemeNode = phonemeNode.nextSiblingElement())
         {
-            QString id = tagNode.attribute("id");
-            foreach (Tag *tag, tags) {
-                if (tag->id() == id) {
-                    group->addTag(tag);
+            QString id = phonemeNode.attribute("id");
+            foreach (Phoneme *phoneme, phonemes) {
+                if (phoneme->id() == id) {
+                    group->addPhoneme(phoneme);
                     break;
                 }
             }
@@ -227,16 +227,16 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
             phrase->setType(phraseNode.firstChildElement("type").text());
             unit->addPhrase(phrase); // add to unit at last step to produce only one signal
 
-            // add tags
-            QList<Tag *> tags = course->language()->prononciationTags();
-            for (QDomElement tagNode = phraseNode.firstChildElement("tags").firstChildElement();
-                !tagNode.isNull();
-                tagNode = tagNode.nextSiblingElement())
+            // add phonemes
+            QList<Phoneme *> phonemes = course->language()->phonemes();
+            for (QDomElement phonemeNode = phraseNode.firstChildElement("phonemes").firstChildElement();
+                !phonemeNode.isNull();
+                phonemeNode = phonemeNode.nextSiblingElement())
             {
-                QString id = tagNode.attribute("id");
-                foreach (Tag *tag, tags) {
-                    if (tag->id() == id) {
-                        phrase->addTag(tag);
+                QString id = phonemeNode.attribute("id");
+                foreach (Phoneme *phoneme, phonemes) {
+                    if (phoneme->id() == id) {
+                        phrase->addPhoneme(phoneme);
                         break;
                     }
                 }
@@ -350,19 +350,19 @@ void ResourceManager::sync(Course *course)
             QDomElement phraseTextElement = document.createElement("text");
             QDomElement phraseSoundFileElement = document.createElement("soundFile");
             QDomElement phraseTypeElement = document.createElement("type");
-            QDomElement phraseTagListElement = document.createElement("tags");
+            QDomElement phrasePhonemeListElement = document.createElement("phonemes");
 
             phraseIdElement.appendChild(document.createTextNode(phrase->id()));
             phraseTextElement.appendChild(document.createTextNode(phrase->text()));
             phraseSoundFileElement.appendChild(document.createTextNode(phrase->sound().toLocalFile()));
             phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
-            //FIXME write back tags, once they are really implemented
+            //FIXME write back phonemes, once they are really implemented
 
             phraseElement.appendChild(phraseIdElement);
             phraseElement.appendChild(phraseTextElement);
             phraseElement.appendChild(phraseSoundFileElement);
             phraseElement.appendChild(phraseTypeElement);
-            phraseElement.appendChild(phraseTagListElement);
+            phraseElement.appendChild(phrasePhonemeListElement);
 
             unitPhraseListElement.appendChild(phraseElement);
         }

@@ -270,14 +270,14 @@ bool Phrase::isUserSound() const
     return !m_userSoundFile.fileName().isEmpty();
 }
 
-QList<Tag *> Phrase::tags() const
+QList<Phoneme *> Phrase::phonemes() const
 {
-    return m_prononciationTags;
+    return m_phonemes;
 }
 
-void Phrase::addTag(Tag *tag)
+void Phrase::addPhoneme(Phoneme *phoneme)
 {
-    if (!m_prononciationTags.contains(tag)) {
-        m_prononciationTags.append(tag);
+    if (!m_phonemes.contains(phoneme)) {
+        m_phonemes.append(phoneme);
     }
 }

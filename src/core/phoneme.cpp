@@ -18,20 +18,20 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "tag.h"
+#include "phoneme.h"
 #include <KDebug>
 
-Tag::Tag(QObject *parent)
+Phoneme::Phoneme(QObject *parent)
     : QObject(parent)
 {
 }
 
-QString Tag::id() const
+QString Phoneme::id() const
 {
     return m_id;
 }
 
-void Tag::setId(const QString &id)
+void Phoneme::setId(const QString &id)
 {
     if (id != m_id) {
         m_id = id;
@@ -39,12 +39,12 @@ void Tag::setId(const QString &id)
     }
 }
 
-QString Tag::title() const
+QString Phoneme::title() const
 {
     return m_title;
 }
 
-void Tag::setTitle(const QString &title)
+void Phoneme::setTitle(const QString &title)
 {
     if (QString::compare(title, m_title) != 0) {
         m_title = title;

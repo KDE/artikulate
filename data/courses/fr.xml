@@ -14,14 +14,14 @@
                     <text>Qu'est-ce que vous avez choisi?</text>
                     <soundFile></soundFile>
                     <type>sentence</type>
-                    <tags></tags>
+                    <phonemes></phonemes>
                 </phrase>
                 <phrase>
                     <id>2</id>
                     <text>Moi, comme entrée, une salade exotique.</text>
                     <soundFile></soundFile>
                     <type>sentence</type>
-                    <tags></tags>
+                    <phonemes></phonemes>
                 </phrase>
             </phrases>
         </unit>

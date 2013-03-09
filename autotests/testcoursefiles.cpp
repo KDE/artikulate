@@ -112,8 +112,8 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     QVERIFY(testPhrase->text() == comparePhrase->text());
     QVERIFY(testPhrase->type() == comparePhrase->type());
     QVERIFY(testPhrase->sound().toLocalFile() == comparePhrase->sound().toLocalFile());
-    QVERIFY(testPhrase->tags().count() == comparePhrase->tags().count());
-    //FIXME implement tag checks after tags are implemented
+    QVERIFY(testPhrase->phonemes().count() == comparePhrase->phonemes().count());
+    //FIXME implement phoneme checks after phonomes are fully implemented
 }
 
 

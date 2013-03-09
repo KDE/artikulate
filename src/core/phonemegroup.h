@@ -18,40 +18,50 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TAG_H
-#define TAG_H
+#ifndef PHONEMEGROUP_H
+#define PHONEMEGROUP_H
 
 #include "artikulatecore_export.h"
 #include <QObject>
 #include <QMap>
+#include "phoneme.h"
 
 class QString;
 
 /**
- * \class Tag
- * Tags are properties that can be assigned to a Phrase to specify its pronunciation characteristics.
+ * \class PhonemeGroup
  */
-class ARTIKULATELIB_EXPORT Tag : public QObject
+class ARTIKULATELIB_EXPORT PhonemeGroup : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
 
 public:
-    explicit Tag(QObject *parent = 0);
+    explicit PhonemeGroup(QObject *parent = 0);
     QString id() const;
     void setId(const QString &id);
     QString title() const;
     void setTitle(const QString &title);
+    QString description() const;
+    void setDescription(const QString &description);
+    void addPhoneme(Phoneme *phonome);
+    void removePhoneme(Phoneme *phonome);
+    QList<Phoneme *> phonomes() const;
 
 signals:
     void idChanged();
     void titleChanged();
+    void descriptionChanged();
+    void phonomeAdded(const Phoneme&);
+    void phonomeRemoved(const Phoneme&);
 
 private:
-    Q_DISABLE_COPY(Tag)
+    Q_DISABLE_COPY(PhonemeGroup)
     QString m_id;
     QString m_title;
+    QString m_description;
+    QList<Phoneme *> m_phonomes;
 };
 
-#endif // TAG_H
+#endif // PHONEMEGROUP_H

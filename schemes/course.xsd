@@ -32,7 +32,7 @@
         <xs:element name="text" type="xs:string" />
         <xs:element name="soundFile" type="xs:string" />
         <xs:element name="type" type="xs:string" />
-        <xs:element name="tags" type="tagList" />
+        <xs:element name="phonemes" type="phonemeList" />
     </xs:sequence>
   </xs:complexType>
 
@@ -42,13 +42,13 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="tagList">
+  <xs:complexType name="phonemeList">
     <xs:sequence>
-      <xs:element name="tag" type="tag" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="phoneme" type="phoneme" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="tag">
+  <xs:complexType name="phoneme">
     <xs:sequence>
         <xs:element name="id" type="xs:string" />
         <xs:element name="title" type="xs:string" />

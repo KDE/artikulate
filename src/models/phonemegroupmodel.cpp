@@ -20,10 +20,10 @@
 
 
 
-#include "taggroupmodel.h"
+#include "phonemegroupmodel.h"
 #include "core/course.h"
 #include "core/unit.h"
-#include "core/taggroup.h"
+#include "core/phonemegroup.h"
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
@@ -31,7 +31,7 @@
 #include <KLocale>
 #include <KDebug>
 
-TagGroupModel::TagGroupModel(QObject *parent)
+PhonemeGroupModel::PhonemeGroupModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_course(0)
     , m_signalMapper(new QSignalMapper(this))
@@ -42,10 +42,10 @@ TagGroupModel::TagGroupModel(QObject *parent)
     roles[DataRole] = "dataRole";
     setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitTagGroupChanged(int)));
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeGroupChanged(int)));
 }
 
-void TagGroupModel::setCourse(Course *course)
+void PhonemeGroupModel::setCourse(Course *course)
 {
     if (m_course == course) {
         return;
@@ -60,10 +60,10 @@ void TagGroupModel::setCourse(Course *course)
     m_course = course;
 
     if (m_course) {
-        connect(m_course, SIGNAL(tagGroupAboutToBeAdded(TagGroup*,int)), SLOT(onTagGroupAboutToBeAdded(TagGroup*,int)));
-        connect(m_course, SIGNAL(tagGroupAdded()), SLOT(onTagGroupAdded()));
-        connect(m_course, SIGNAL(tagGroupAboutToBeRemoved(int,int)), SLOT(onTagGroupsAboutToBeRemoved(int,int)));
-        connect(m_course, SIGNAL(tagGroupRemoved()), SLOT(onTagGroupsRemoved()));
+        connect(m_course, SIGNAL(phonemeGroupAboutToBeAdded(PhonemeGroup*,int)), SLOT(onPhonemeGroupAboutToBeAdded(PhonemeGroup*,int)));
+        connect(m_course, SIGNAL(phonemeGroupAdded()), SLOT(onPhonemeGroupAdded()));
+        connect(m_course, SIGNAL(phonemeGroupAboutToBeRemoved(int,int)), SLOT(onPhonemeGroupsAboutToBeRemoved(int,int)));
+        connect(m_course, SIGNAL(phonemeGroupRemoved()), SLOT(onPhonemeGroupsRemoved()));
     }
 
     endResetModel();
@@ -71,12 +71,12 @@ void TagGroupModel::setCourse(Course *course)
     emit courseChanged();
 }
 
-Course * TagGroupModel::course() const
+Course * PhonemeGroupModel::course() const
 {
     return m_course;
 }
 
-QVariant TagGroupModel::data(const QModelIndex& index, int role) const
+QVariant PhonemeGroupModel::data(const QModelIndex& index, int role) const
 {
     Q_ASSERT(m_course);
 
@@ -88,27 +88,27 @@ QVariant TagGroupModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    TagGroup * const tagGroup = m_course->tagGroupList().at(index.row());
+    PhonemeGroup * const phonemeGroup = m_course->phonemeGroupList().at(index.row());
 
     switch(role)
     {
     case Qt::DisplayRole:
-        return !tagGroup->title().isEmpty()?
-                QVariant(tagGroup->title()): QVariant(i18n("<No title>"));
+        return !phonemeGroup->title().isEmpty()?
+                QVariant(phonemeGroup->title()): QVariant(i18n("<No title>"));
     case Qt::ToolTipRole:
-        return QVariant(i18n("<p>%1</p>", tagGroup->title()));
+        return QVariant(i18n("<p>%1</p>", phonemeGroup->title()));
     case TitleRole:
-        return tagGroup->title();
+        return phonemeGroup->title();
     case IdRole:
-        return tagGroup->id();
+        return phonemeGroup->id();
     case DataRole:
-        return QVariant::fromValue<QObject*>(tagGroup);
+        return QVariant::fromValue<QObject*>(phonemeGroup);
     default:
         return QVariant();
     }
 }
 
-int TagGroupModel::rowCount(const QModelIndex& parent) const
+int PhonemeGroupModel::rowCount(const QModelIndex& parent) const
 {
     if (!m_course) {
         return 0;
@@ -121,36 +121,36 @@ int TagGroupModel::rowCount(const QModelIndex& parent) const
     return m_course->unitList().count();
 }
 
-void TagGroupModel::onTagGroupAboutToBeAdded(TagGroup *tagGroup, int index)
+void PhonemeGroupModel::onPhonemeGroupAboutToBeAdded(PhonemeGroup *phonemeGroup, int index)
 {
-    connect(tagGroup, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
+    connect(phonemeGroup, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
     //TODO add missing signals
     beginInsertRows(QModelIndex(), index, index);
 }
 
-void TagGroupModel::onTagGroupAdded()
+void PhonemeGroupModel::onPhonemeGroupAdded()
 {
     updateMappings();
     endInsertRows();
 }
 
-void TagGroupModel::onTagGroupsAboutToBeRemoved(int first, int last)
+void PhonemeGroupModel::onPhonemeGroupsAboutToBeRemoved(int first, int last)
 {
     beginRemoveRows(QModelIndex(), first, last);
 }
 
-void TagGroupModel::onTagGroupsRemoved()
+void PhonemeGroupModel::onPhonemeGroupsRemoved()
 {
     endRemoveRows();
 }
 
-void TagGroupModel::emitTagGroupChanged(int row)
+void PhonemeGroupModel::emitPhonemeGroupChanged(int row)
 {
-    emit tagGroupChanged(row);
+    emit phonemeGroupChanged(row);
     emit dataChanged(index(row, 0), index(row, 0));
 }
 
-QVariant TagGroupModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant PhonemeGroupModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role != Qt::DisplayRole) {
         return QVariant();
@@ -161,10 +161,10 @@ QVariant TagGroupModel::headerData(int section, Qt::Orientation orientation, int
     return QVariant(i18n("Title"));
 }
 
-void TagGroupModel::updateMappings()
+void PhonemeGroupModel::updateMappings()
 {
-    int tagGroups = m_course->tagGroupList().count();
-    for (int i = 0; i < tagGroups; i++) {
-        m_signalMapper->setMapping(m_course->tagGroupList().at(i), i);
+    int phonemeGroups = m_course->phonemeGroupList().count();
+    for (int i = 0; i < phonemeGroups; i++) {
+        m_signalMapper->setMapping(m_course->phonemeGroupList().at(i), i);
     }
 }

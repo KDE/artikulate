@@ -27,8 +27,8 @@
 #include <KUrl>
 
 class QString;
-class Tag;
-class TagGroup;
+class Phoneme;
+class PhonemeGroup;
 
 class ARTIKULATELIB_EXPORT Language : public QObject
 {
@@ -46,16 +46,16 @@ public:
     void setTitle(const QString &title);
     KUrl file() const;
     void setFile(const KUrl &file);
-    QList<Tag *> prononciationTags() const;
-    Tag * addPrononciationTag(const QString &identifier, const QString &title);
-    QList<TagGroup *> prononciationGroups() const;
-    TagGroup * addPrononciationGroup(const QString &identifier, const QString &title);
+    QList<Phoneme *> phonemes() const;
+    Phoneme * addPhoneme(const QString &identifier, const QString &title);
+    QList<PhonemeGroup *> phonemeGroups() const;
+    PhonemeGroup * addPhonemeGroup(const QString &identifier, const QString &title);
 
 signals:
     void idChanged();
     void associatedLanguageItemChanged();
     void titleChanged();
-    void tagsChanged();
+    void phonomesChanged();
     void groupsChanged();
 
 private:
@@ -63,8 +63,8 @@ private:
     QString m_id;
     QString m_title;
     KUrl m_file;
-    QList<Tag *> m_prononciationTags;
-    QList<TagGroup *> m_prononciationGroups;
+    QList<Phoneme *> m_phonemes;
+    QList<PhonemeGroup *> m_phonemeGroups;
 };
 
 #endif // LANGUAGE_H

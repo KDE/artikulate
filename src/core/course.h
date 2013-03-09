@@ -30,7 +30,7 @@ class QString;
 class Language;
 class Unit;
 class Phrase;
-class TagGroup;
+class PhonemeGroup;
 
 class ARTIKULATELIB_EXPORT Course : public QObject
 {
@@ -54,18 +54,18 @@ public:
     KUrl file() const;
     void setFile(const KUrl &file);
     QList<Unit *> unitList() const;
-    QList<Unit *> syllableUnitList() const;
+    QList<Unit *> phonemeUnitList() const;
     /**
-     * \return the corresponding unit for tag group \p tagGroup
+     * \return the corresponding unit for phoneme group \p phonemeGroup
      */
-    Unit * syllableUnit(TagGroup *tagGroup) const;
+    Unit * phonemeUnit(PhonemeGroup *phonemeGroup) const;
     /**
-     * \return the corresponding tag group for unit \p unit
+     * \return the corresponding phoneme group for unit \p unit
      */
-    TagGroup * tagGroup(Unit *unit) const;
+    PhonemeGroup * phonemeGroup(Unit *unit) const;
     void addUnit(Unit *unit);
-    QList<TagGroup *> tagGroupList() const;
-    void addTagGroup(TagGroup *tagGroup);
+    QList<PhonemeGroup *> phonemeGroupList() const;
+    void addPhonemeGroup(PhonemeGroup *phonemeGroup);
 
     /**
      * Create and add a new unit to course.
@@ -103,10 +103,10 @@ signals:
     void unitAboutToBeAdded(Unit*,int);
     void unitRemoved();
     void unitAboutToBeRemoved(int,int);
-    void tagGroupAdded();
-    void tagGroupAboutToBeAdded(TagGroup*,int);
-    void tagGroupRemoved();
-    void tagGroupAboutToBeRemoved(int,int);
+    void phonemeGroupAdded();
+    void phonemeGroupAboutToBeAdded(PhonemeGroup*,int);
+    void phonemeGroupRemoved();
+    void phonemeGroupAboutToBeRemoved(int,int);
 
 private:
     Q_DISABLE_COPY(Course)
@@ -117,7 +117,7 @@ private:
     KUrl m_file;
     bool m_modified;
     QList<Unit *> m_unitList;
-    QList< QPair<TagGroup *, Unit *> > m_syllableUnitList;
+    QList< QPair<PhonemeGroup *, Unit *> > m_phonemeUnitList;
 
 public slots:
     void setModified(bool modified = true);

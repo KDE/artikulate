@@ -25,14 +25,14 @@
 #include "core/course.h"
 #include "core/unit.h"
 #include "core/phrase.h"
-#include "core/taggroup.h"
+#include "core/phonemegroup.h"
 
 Profile::Profile(QObject *parent)
     : QObject(parent)
     , m_language(0)
     , m_course(0)
     , m_unit(0)
-    , m_tagGroup(0)
+    , m_phonemeGroup(0)
     , m_type(Phrase::Word)
 {
 
@@ -83,18 +83,18 @@ void Profile::setUnit(Unit *unit)
     return unitChanged();
 }
 
-TagGroup * Profile::tagGroup() const
+PhonemeGroup * Profile::phonemeGroup() const
 {
-    return m_tagGroup;
+    return m_phonemeGroup;
 }
 
-void Profile::setTagGroup(TagGroup* tagGroup)
+void Profile::setPhonemeGroup(PhonemeGroup* phonemeGroup)
 {
-    if (m_tagGroup == tagGroup) {
+    if (m_phonemeGroup == phonemeGroup) {
         return;
     }
-    m_tagGroup = tagGroup;
-    emit tagGroupChanged();
+    m_phonemeGroup = phonemeGroup;
+    emit phonemeGroupChanged();
 }
 
 Phrase::Type Profile::phraseType() const

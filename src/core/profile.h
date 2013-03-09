@@ -32,7 +32,7 @@ class QString;
 class Language;
 class Course;
 class Unit;
-class TagGroup;
+class PhonemeGroup;
 
 /**
  * \class Profile
@@ -45,7 +45,7 @@ class ARTIKULATELIB_EXPORT Profile : public QObject
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
-    Q_PROPERTY(TagGroup *tagGroup READ tagGroup WRITE setTagGroup NOTIFY tagGroupChanged)
+    Q_PROPERTY(PhonemeGroup *phonemeGroup READ phonemeGroup WRITE setPhonemeGroup NOTIFY phonemeGroupChanged)
     Q_PROPERTY(Phrase::Type phraseType READ phraseType WRITE setPhraseType NOTIFY phraseTypeChanged)
 
 public:
@@ -57,8 +57,8 @@ public:
     void setCourse(Course *course);
     Unit * unit() const;
     void setUnit(Unit *unit);
-    TagGroup * tagGroup() const;
-    void setTagGroup(TagGroup *tagGroup);
+    PhonemeGroup * phonemeGroup() const;
+    void setPhonemeGroup(PhonemeGroup *phonemeGroup);
     Phrase::Type phraseType() const;
     void setPhraseType(Phrase::Type type);
 
@@ -66,7 +66,7 @@ signals:
     void languageChanged();
     void courseChanged();
     void unitChanged();
-    void tagGroupChanged();
+    void phonemeGroupChanged();
     void phraseTypeChanged(Phrase::Type);
 
 private:
@@ -74,7 +74,7 @@ private:
     Language *m_language;
     Course *m_course;
     Unit *m_unit;
-    TagGroup *m_tagGroup;
+    PhonemeGroup *m_phonemeGroup;
     Phrase::Type m_type;
 };
 

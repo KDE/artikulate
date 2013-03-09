@@ -22,7 +22,7 @@
 #include "unit.h"
 #include "language.h"
 #include "resourcemanager.h"
-#include "taggroup.h"
+#include "phonemegroup.h"
 
 #include <KDebug>
 #include <KLocale>
@@ -44,13 +44,13 @@ Course::~Course()
     }
     m_unitList.clear();
 
-    QList< QPair<TagGroup*,Unit*> >::iterator iter = m_syllableUnitList.begin();
-    while (iter != m_syllableUnitList.end()) {
+    QList< QPair<PhonemeGroup*,Unit*> >::iterator iter = m_phonemeUnitList.begin();
+    while (iter != m_phonemeUnitList.end()) {
         iter->first->deleteLater();
         iter->second->deleteLater();
         ++iter;
     }
-    m_syllableUnitList.clear();
+    m_phonemeUnitList.clear();
 }
 
 QString Course::id() const
@@ -181,22 +181,22 @@ Phrase * Course::createPhrase(Unit *unit)
     return phrase;
 }
 
-QList< Unit* > Course::syllableUnitList() const
+QList< Unit* > Course::phonemeUnitList() const
 {
     QList<Unit*> list;
-    QList< QPair<TagGroup*,Unit*> >::ConstIterator iter = m_syllableUnitList.constBegin();
-    while (iter != m_syllableUnitList.constEnd()) {
+    QList< QPair<PhonemeGroup*,Unit*> >::ConstIterator iter = m_phonemeUnitList.constBegin();
+    while (iter != m_phonemeUnitList.constEnd()) {
         list.append(iter->second);
         ++iter;
     }
     return list;
 }
 
-Unit * Course::syllableUnit(TagGroup *tagGroup) const
+Unit * Course::phonemeUnit(PhonemeGroup *phonemeGroup) const
 {
-    QList< QPair<TagGroup*,Unit*> >::ConstIterator iter = m_syllableUnitList.constBegin();
-    while (iter != m_syllableUnitList.constEnd()) {
-        if (iter->first == tagGroup) {
+    QList< QPair<PhonemeGroup*,Unit*> >::ConstIterator iter = m_phonemeUnitList.constBegin();
+    while (iter != m_phonemeUnitList.constEnd()) {
+        if (iter->first == phonemeGroup) {
             return iter->second;
         }
         ++iter;
@@ -204,10 +204,10 @@ Unit * Course::syllableUnit(TagGroup *tagGroup) const
     return 0;
 }
 
-TagGroup * Course::tagGroup(Unit *unit) const
+PhonemeGroup * Course::phonemeGroup(Unit *unit) const
 {
-    QList< QPair<TagGroup*,Unit*> >::ConstIterator iter = m_syllableUnitList.constBegin();
-    while (iter != m_syllableUnitList.constEnd()) {
+    QList< QPair<PhonemeGroup*,Unit*> >::ConstIterator iter = m_phonemeUnitList.constBegin();
+    while (iter != m_phonemeUnitList.constEnd()) {
         if (iter->second == unit) {
             return iter->first;
         }
@@ -216,36 +216,36 @@ TagGroup * Course::tagGroup(Unit *unit) const
     return 0;
 }
 
-void Course::addTagGroup(TagGroup *tagGroup)
+void Course::addPhonemeGroup(PhonemeGroup *phonemeGroup)
 {
-    QList< QPair<TagGroup*,Unit*> >::ConstIterator iter = m_syllableUnitList.constBegin();
-    while (iter != m_syllableUnitList.constEnd()) {
-        if (iter->first == tagGroup) {
-            kWarning() << "Tag group already contained in this course, aborting";
+    QList< QPair<PhonemeGroup*,Unit*> >::ConstIterator iter = m_phonemeUnitList.constBegin();
+    while (iter != m_phonemeUnitList.constEnd()) {
+        if (iter->first == phonemeGroup) {
+            kWarning() << "Phoneme group already contained in this course, aborting";
             return;
         }
         ++iter;
     }
-    emit tagGroupAboutToBeAdded(tagGroup, m_syllableUnitList.length());
+    emit phonemeGroupAboutToBeAdded(phonemeGroup, m_phonemeUnitList.length());
 
-    // create unit based on the tag group
+    // create unit based on the phoneme group
     Unit *unit = new Unit(this);
-    unit->setId(tagGroup->id());
-    unit->setTitle(tagGroup->title());
+    unit->setId(phonemeGroup->id());
+    unit->setTitle(phonemeGroup->title());
     unit->setCourse(this);
 
-    // add to syllable list
-    m_syllableUnitList.append(qMakePair<TagGroup*,Unit*>(tagGroup, unit));
-    connect(tagGroup, SIGNAL(modified()), this, SLOT(setModified()));
-    emit tagGroupAdded();
+    // add to phoneme list
+    m_phonemeUnitList.append(qMakePair<PhonemeGroup*,Unit*>(phonemeGroup, unit));
+    connect(phonemeGroup, SIGNAL(modified()), this, SLOT(setModified()));
+    emit phonemeGroupAdded();
     setModified();
 }
 
-QList< TagGroup* > Course::tagGroupList() const
+QList< PhonemeGroup* > Course::phonemeGroupList() const
 {
-    QList<TagGroup*> list;
-    QList< QPair<TagGroup*,Unit*> >::ConstIterator iter = m_syllableUnitList.constBegin();
-    while (iter != m_syllableUnitList.constEnd()) {
+    QList<PhonemeGroup*> list;
+    QList< QPair<PhonemeGroup*,Unit*> >::ConstIterator iter = m_phonemeUnitList.constBegin();
+    while (iter != m_phonemeUnitList.constEnd()) {
         list.append(iter->first);
         ++iter;
     }
