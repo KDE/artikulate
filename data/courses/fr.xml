@@ -23,6 +23,15 @@
                     <type>sentence</type>
                     <phonemes></phonemes>
                 </phrase>
+                <phrase>
+                    <id>3</id>
+                    <text>eau</text>
+                    <soundFile></soundFile>
+                    <type>word</type>
+                    <phonemes>
+                        <phoneme>oh</phoneme>
+                    </phonemes>
+                </phrase>
             </phrases>
         </unit>
     </units>

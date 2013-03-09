@@ -44,17 +44,9 @@
 
   <xs:complexType name="phonemeList">
     <xs:sequence>
-      <xs:element name="phoneme" type="phoneme" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="phoneme" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-
-  <xs:complexType name="phoneme">
-    <xs:sequence>
-        <xs:element name="id" type="xs:string" />
-        <xs:element name="title" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-
 
 <!--
 kate: space-indent on; indent-width 2; mixedindent off; indent-mode xml;
