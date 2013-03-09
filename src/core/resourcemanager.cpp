@@ -211,15 +211,18 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
                     );
             }
             phrase->setType(phraseNode.firstChildElement("type").text());
-            unit->addPhrase(phrase); // add to unit at last step to produce only one signal
 
             // add phonemes
             QList<Phoneme *> phonemes = course->language()->phonemes();
-            for (QDomElement phonemeNode = phraseNode.firstChildElement("phonemes").firstChildElement();
-                !phonemeNode.isNull();
-                phonemeNode = phonemeNode.nextSiblingElement())
+            for (QDomElement phonemeID = phraseNode.firstChildElement("phonemes").firstChildElement();
+                !phonemeID.isNull();
+                    phonemeID = phonemeID.nextSiblingElement())
             {
-                QString id = phonemeNode.attribute("id");
+                QString id = phonemeID.text();
+                if (id.isEmpty()) {
+                    kError() << "Phoneme ID string is empty for phrase "<< phrase->id() <<", aborting.";
+                    continue;
+                }
                 foreach (Phoneme *phoneme, phonemes) {
                     if (phoneme->id() == id) {
                         phrase->addPhoneme(phoneme);
@@ -227,6 +230,8 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
                     }
                 }
             }
+            unit->addPhrase(phrase); // add to unit at last step to produce only one signal
+            //FIXME phrase does not cause unit signals that phonemes list is changed
         }
     }
     course->setModified(false);

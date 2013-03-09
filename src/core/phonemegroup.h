@@ -50,6 +50,13 @@ public:
     Phoneme * addPhoneme(const QString &identifier, const QString &title);
     void removePhoneme(Phoneme *phoneme);
     QList<Phoneme *> phonemes() const;
+    /**
+     * Checks by identifier comparison whether phoneme is registered in this group.
+     *
+     * \param poneme is the phoneme to be checked for if registered
+     * \return true if registered, false otherwise
+     */
+    bool contains(Phoneme *phoneme) const;
 
 signals:
     void idChanged();

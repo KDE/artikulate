@@ -107,6 +107,8 @@ void Unit::addPhrase(Phrase *phrase)
     emit phraseAboutToBeAdded(phrase, m_phraseList.values(phrase->type()).length());
     m_phraseList.insert(phrase->type(), phrase);
     m_phraseSignalMapper->setMapping(phrase, phrase->id());
+
+    emit phraseAdded(phrase);
     emit phraseAdded();
 
     connect(phrase, SIGNAL(typeChanged()), m_phraseSignalMapper, SLOT(map()));

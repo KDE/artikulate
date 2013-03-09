@@ -31,6 +31,7 @@ class Language;
 class Unit;
 class Phrase;
 class PhonemeGroup;
+class Phoneme;
 
 class ARTIKULATELIB_EXPORT Course : public QObject
 {
@@ -54,13 +55,13 @@ public:
     KUrl file() const;
     void setFile(const KUrl &file);
     QList<Unit *> unitList() const;
-    QList<Unit *> phonemeUnitList() const;
+    QList<Unit *> phonemeUnitList(PhonemeGroup *phonemeGroup) const;
     /**
-     * \return the corresponding unit for phoneme group \p phonemeGroup
+     * \return the corresponding unit for phoneme \p phoneme
      */
-    Unit * phonemeUnit(PhonemeGroup *phonemeGroup) const;
+    Unit * phonemeUnit(Phoneme *phoneme) const;
     /**
-     * \return the corresponding phoneme group for unit \p unit
+     * \return the phoneme group containing the phoneme corresponding to \p unit
      */
     PhonemeGroup * phonemeGroup(Unit *unit) const;
     void addUnit(Unit *unit);
@@ -117,10 +118,13 @@ private:
     KUrl m_file;
     bool m_modified;
     QList<Unit *> m_unitList;
-    QList< QPair<PhonemeGroup *, Unit *> > m_phonemeUnitList;
+    QList<PhonemeGroup *> m_phonemeGroupList;
+    QMap< PhonemeGroup *, QList< QPair<Phoneme *, Unit *> > >m_phonemeUnitList;
 
 public slots:
     void setModified(bool modified = true);
+    void registerPhrasePhonemes(Phrase *phrase);
+    void removePhrasePhonemes(Phrase *phrase);
 };
 
 #endif // COURSE_H

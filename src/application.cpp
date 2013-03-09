@@ -28,6 +28,8 @@
 #include "core/resourcemanager.h"
 #include "core/unit.h"
 #include "core/phrase.h"
+#include "core/phoneme.h"
+#include "core/phonemegroup.h"
 #include "declarativeitems/applicationbackground.h"
 #include "models/coursemodel.h"
 #include "models/languagemodel.h"
@@ -58,6 +60,8 @@ void Application::registerQmlTypes()
     qmlRegisterType<Language>("artikulate", 1, 0, "Language");
     qmlRegisterType<ResourceManager>("artikulate", 1, 0, "ResourceManager");
     qmlRegisterType<Phrase>("artikulate", 1, 0, "Phrase");
+    qmlRegisterType<Phoneme>("artikulate", 1, 0, "Phoneme");
+    qmlRegisterType<PhonemeGroup>("artikulate", 1, 0, "PhonemeGroup");
 
     qmlRegisterType<CourseModel>("artikulate", 1, 0, "CourseModel");
     qmlRegisterType<LanguageModel>("artikulate", 1, 0, "LanguageModel");

@@ -23,6 +23,7 @@
 
 #include <QAbstractListModel>
 
+class PhonemeGroup;
 class Course;
 class Unit;
 class PhonemeGroup;
@@ -33,6 +34,8 @@ class PhonemeUnitModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
+    Q_PROPERTY(PhonemeGroup *phonemeGroup READ phonemeGroup WRITE setPhonemeGroup NOTIFY phonemeGroupChanged)
+    Q_PROPERTY(int count READ count NOTIFY countChanged);
 
 public:
     enum unitRoles {
@@ -46,13 +49,18 @@ public:
     explicit PhonemeUnitModel(QObject *parent = 0);
     void setCourse(Course *course);
     Course * course() const;
+    void setPhonemeGroup(PhonemeGroup *phonemeGroup);
+    PhonemeGroup * phonemeGroup() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    int count() const;
 
 signals:
     void unitChanged(int index);
     void courseChanged();
+    void phonemeGroupChanged();
+    void countChanged();
 
 private slots:
     void onUnitAboutToBeAdded(PhonemeGroup *phonemeGroup, int index);
@@ -64,6 +72,7 @@ private slots:
 private:
     void updateMappings();
     Course *m_course;
+    PhonemeGroup *m_phonemeGroup;
     QSignalMapper *m_signalMapper;
 };
 

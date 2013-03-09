@@ -18,8 +18,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
 #include "phonemegroupmodel.h"
 #include "core/course.h"
 #include "core/unit.h"
@@ -84,7 +82,7 @@ QVariant PhonemeGroupModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_course->unitList().count()) {
+    if (index.row() >= m_course->phonemeGroupList().count()) {
         return QVariant();
     }
 
@@ -118,7 +116,7 @@ int PhonemeGroupModel::rowCount(const QModelIndex& parent) const
         return 0;
     }
 
-    return m_course->unitList().count();
+    return m_course->phonemeGroupList().count();
 }
 
 void PhonemeGroupModel::onPhonemeGroupAboutToBeAdded(PhonemeGroup *phonemeGroup, int index)

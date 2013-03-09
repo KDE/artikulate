@@ -76,6 +76,18 @@ FocusScope {
                     userProfile.unit = unit
                 }
             }
+            Text {
+                text: i18n("<h2>Phonetic Units</h2>")
+            }
+
+            PhonemeUnitSelector {
+                id: phonemeUnitSelector
+                course: userProfile.course
+                onUnitSelected: {
+                    userProfile.unit = unit
+                }
+            }
+
         }
 
         Column {

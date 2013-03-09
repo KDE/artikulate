@@ -34,6 +34,7 @@
 PhonemeUnitModel::PhonemeUnitModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_course(0)
+    , m_phonemeGroup(0)
     , m_signalMapper(new QSignalMapper(this))
 {
     QHash<int, QByteArray> roles;
@@ -45,6 +46,8 @@ PhonemeUnitModel::PhonemeUnitModel(QObject *parent)
     setRoleNames(roles);
 
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
+    connect(this, SIGNAL(phonemeGroupChanged()), this, SIGNAL(countChanged()));
+    connect(this, SIGNAL(courseChanged()), this, SIGNAL(countChanged()));
 }
 
 void PhonemeUnitModel::setCourse(Course *course)
@@ -73,6 +76,23 @@ void PhonemeUnitModel::setCourse(Course *course)
     emit courseChanged();
 }
 
+void PhonemeUnitModel::setPhonemeGroup(PhonemeGroup* phonemeGroup)
+{
+    if (m_phonemeGroup == phonemeGroup) {
+        return;
+    }
+    beginResetModel();
+    m_phonemeGroup = phonemeGroup;
+    endResetModel();
+
+    emit phonemeGroupChanged();
+}
+
+PhonemeGroup* PhonemeUnitModel::phonemeGroup() const
+{
+    return m_phonemeGroup;
+}
+
 Course * PhonemeUnitModel::course() const
 {
     return m_course;
@@ -81,16 +101,17 @@ Course * PhonemeUnitModel::course() const
 QVariant PhonemeUnitModel::data(const QModelIndex& index, int role) const
 {
     Q_ASSERT(m_course);
+    Q_ASSERT(m_phonemeGroup);
 
     if (!index.isValid()) {
         return QVariant();
     }
 
-    if (index.row() >= m_course->phonemeUnitList().count()) {
+    if (index.row() >= m_course->phonemeUnitList(m_phonemeGroup).count()) {
         return QVariant();
     }
 
-    Unit * const unit = m_course->phonemeUnitList().at(index.row());
+    Unit * const unit = m_course->phonemeUnitList(m_phonemeGroup).at(index.row());
 
     switch(role)
     {
@@ -124,7 +145,7 @@ int PhonemeUnitModel::rowCount(const QModelIndex& parent) const
         return 0;
     }
 
-    return m_course->unitList().count();
+    return m_course->phonemeUnitList(m_phonemeGroup).count();
 }
 
 void PhonemeUnitModel::onUnitAboutToBeAdded(PhonemeGroup *phonemeGroup, int index)
@@ -138,6 +159,7 @@ void PhonemeUnitModel::onUnitAdded()
 {
     updateMappings();
     endInsertRows();
+    emit countChanged();
 }
 
 void PhonemeUnitModel::onUnitsAboutToBeRemoved(int first, int last)
@@ -148,6 +170,7 @@ void PhonemeUnitModel::onUnitsAboutToBeRemoved(int first, int last)
 void PhonemeUnitModel::onUnitsRemoved()
 {
     endRemoveRows();
+    emit countChanged();
 }
 
 void PhonemeUnitModel::emitUnitChanged(int row)
@@ -167,10 +190,15 @@ QVariant PhonemeUnitModel::headerData(int section, Qt::Orientation orientation, 
     return QVariant(i18n("Title"));
 }
 
+int PhonemeUnitModel::count() const
+{
+    return m_course->phonemeUnitList(m_phonemeGroup).count();
+}
+
 void PhonemeUnitModel::updateMappings()
 {
-    int units = m_course->unitList().count();
+    int units = m_course->phonemeUnitList(m_phonemeGroup).count();
     for (int i = 0; i < units; i++) {
-        m_signalMapper->setMapping(m_course->unitList().at(i), i);
+        m_signalMapper->setMapping(m_course->phonemeUnitList(m_phonemeGroup).at(i), i);
     }
 }

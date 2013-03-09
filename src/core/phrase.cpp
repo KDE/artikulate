@@ -279,5 +279,7 @@ void Phrase::addPhoneme(Phoneme *phoneme)
 {
     if (!m_phonemes.contains(phoneme)) {
         m_phonemes.append(phoneme);
+        emit phonemesChanged();
+        //FIXME tell Unit to also send corresponding signal!
     }
 }

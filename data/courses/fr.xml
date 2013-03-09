@@ -29,7 +29,7 @@
                     <soundFile></soundFile>
                     <type>word</type>
                     <phonemes>
-                        <phoneme>oh</phoneme>
+                        <phonemeID>oh</phonemeID>
                     </phonemes>
                 </phrase>
             </phrases>

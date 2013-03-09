@@ -44,13 +44,20 @@ Course::~Course()
     }
     m_unitList.clear();
 
-    QList< QPair<PhonemeGroup*,Unit*> >::iterator iter = m_phonemeUnitList.begin();
-    while (iter != m_phonemeUnitList.end()) {
-        iter->first->deleteLater();
-        iter->second->deleteLater();
-        ++iter;
+    // clear phonom units
+    QMultiMap< PhonemeGroup*, QList< QPair<Phoneme*, Unit*> > >::iterator groupIter = m_phonemeUnitList.begin();
+    while (groupIter != m_phonemeUnitList.end()) {
+        QList< QPair<Phoneme*, Unit*> >::iterator itemIter = groupIter->begin();
+        while (itemIter != groupIter->end()) {
+            itemIter->first->deleteLater();     // delete phoneme
+            itemIter->second->deleteLater();    // delete unit
+            ++itemIter;
+        }
+        groupIter->clear();
+        ++groupIter;
     }
     m_phonemeUnitList.clear();
+    m_phonemeGroupList.clear();
 }
 
 QString Course::id() const
@@ -99,6 +106,11 @@ Language * Course::language() const
 
 void Course::setLanguage(Language *language)
 {
+    Q_ASSERT(language);
+    // TODO this should happen in the ctor
+    foreach (PhonemeGroup *group, language->phonemeGroups()) {
+        addPhonemeGroup(group);
+    }
     m_language = language;
 }
 
@@ -129,7 +141,14 @@ void Course::addUnit(Unit *unit)
     }
     emit unitAboutToBeAdded(unit, m_unitList.length());
     m_unitList.append(unit);
+
     connect(unit, SIGNAL(modified()), this, SLOT(setModified()));
+
+    // these connections are only present for "normal units" and take care to register
+    // there phrases also at phoneme units
+    connect(unit, SIGNAL(phraseAdded(Phrase *)), this, SLOT(registerPhrasePhonemes(Phrase*)));
+    connect(unit, SIGNAL(phraseRemoved(Phrase *)), this, SLOT(removePhrasePhonemes(Phrase*)));
+
     emit unitAdded();
     setModified();
 }
@@ -153,6 +172,7 @@ Unit * Course::createUnit()
     unit->setId(id);
     unit->setTitle(i18n("New Unit"));
     addUnit(unit);
+
     return unit;
 }
 
@@ -176,80 +196,72 @@ Phrase * Course::createPhrase(Unit *unit)
     phrase->setId(id);
     phrase->setText("");
     phrase->setType(Phrase::Word);
+
     unit->addPhrase(phrase);
 
     return phrase;
 }
 
-QList< Unit* > Course::phonemeUnitList() const
+QList< Unit* > Course::phonemeUnitList(PhonemeGroup *phonemeGroup) const
 {
     QList<Unit*> list;
-    QList< QPair<PhonemeGroup*,Unit*> >::ConstIterator iter = m_phonemeUnitList.constBegin();
-    while (iter != m_phonemeUnitList.constEnd()) {
+    QList< QPair<Phoneme*,Unit*> >::ConstIterator iter = m_phonemeUnitList.value(phonemeGroup).constBegin();
+    while (iter != m_phonemeUnitList.value(phonemeGroup).constEnd()) {
         list.append(iter->second);
         ++iter;
     }
     return list;
 }
 
-Unit * Course::phonemeUnit(PhonemeGroup *phonemeGroup) const
+Unit * Course::phonemeUnit(Phoneme *phoneme) const
 {
-    QList< QPair<PhonemeGroup*,Unit*> >::ConstIterator iter = m_phonemeUnitList.constBegin();
-    while (iter != m_phonemeUnitList.constEnd()) {
-        if (iter->first == phonemeGroup) {
-            return iter->second;
+    foreach (PhonemeGroup *group, m_phonemeUnitList.keys()) {
+        m_phonemeUnitList.value(group);
+        QList< QPair<Phoneme*,Unit*> >::ConstIterator iter = m_phonemeUnitList.value(group).constBegin();
+        while (iter != m_phonemeUnitList.value(group).constEnd()) {
+            if (iter->first == phoneme) {
+                return iter->second;
+            }
+            ++iter;
         }
-        ++iter;
     }
     return 0;
 }
 
 PhonemeGroup * Course::phonemeGroup(Unit *unit) const
 {
-    QList< QPair<PhonemeGroup*,Unit*> >::ConstIterator iter = m_phonemeUnitList.constBegin();
-    while (iter != m_phonemeUnitList.constEnd()) {
-        if (iter->second == unit) {
-            return iter->first;
+    foreach (PhonemeGroup *group, m_phonemeUnitList.keys()) {
+        m_phonemeUnitList.value(group);
+        QList< QPair<Phoneme*,Unit*> >::ConstIterator iter = m_phonemeUnitList.value(group).constBegin();
+        while (iter != m_phonemeUnitList.value(group).constEnd()) {
+            if (iter->second == unit) {
+                return group;
+            }
+            ++iter;
         }
-        ++iter;
     }
     return 0;
 }
 
 void Course::addPhonemeGroup(PhonemeGroup *phonemeGroup)
 {
-    QList< QPair<PhonemeGroup*,Unit*> >::ConstIterator iter = m_phonemeUnitList.constBegin();
-    while (iter != m_phonemeUnitList.constEnd()) {
-        if (iter->first == phonemeGroup) {
-            kWarning() << "Phoneme group already contained in this course, aborting";
-            return;
-        }
-        ++iter;
+    if (m_phonemeUnitList.contains(phonemeGroup)) {
+        kWarning() << "Phoneme group already contained in this course, aborting";
+        return;
     }
-    emit phonemeGroupAboutToBeAdded(phonemeGroup, m_phonemeUnitList.length());
-
-    // create unit based on the phoneme group
-    Unit *unit = new Unit(this);
-    unit->setId(phonemeGroup->id());
-    unit->setTitle(phonemeGroup->title());
-    unit->setCourse(this);
+    emit phonemeGroupAboutToBeAdded(phonemeGroup, m_phonemeGroupList.count());
 
     // add to phoneme list
-    m_phonemeUnitList.append(qMakePair<PhonemeGroup*,Unit*>(phonemeGroup, unit));
-    connect(phonemeGroup, SIGNAL(modified()), this, SLOT(setModified()));
+    m_phonemeGroupList.append(phonemeGroup);
+    m_phonemeUnitList.insert(phonemeGroup, QList< QPair<Phoneme *, Unit *> >());
+
     emit phonemeGroupAdded();
     setModified();
 }
 
-QList< PhonemeGroup* > Course::phonemeGroupList() const
+QList<PhonemeGroup *> Course::phonemeGroupList() const
 {
-    QList<PhonemeGroup*> list;
-    QList< QPair<PhonemeGroup*,Unit*> >::ConstIterator iter = m_phonemeUnitList.constBegin();
-    while (iter != m_phonemeUnitList.constEnd()) {
-        list.append(iter->first);
-        ++iter;
-    }
-    return list;
+    return m_phonemeGroupList;
 }
 
 bool Course::modified() const
@@ -276,4 +288,42 @@ void Course::sync()
     // call sync operation
     ResourceManager::sync(this);
     setModified(false);
+}
+
+void Course::registerPhrasePhonemes(Phrase *phrase)
+{
+    // iterate over all phonemes of this phrase
+    foreach (Phoneme *phoneme, phrase->phonemes()) {
+        // try to find corresponding phonem groups (phonem groups are registered on course creation)
+        foreach (PhonemeGroup *group, m_phonemeGroupList) {
+            if (!group->contains(phoneme)) {
+                continue;
+            }
+            // either add phrase to existing unit or register a new one
+            bool phraseRegistered = false;
+            QList< QPair<Phoneme*,Unit*> >::ConstIterator iter = m_phonemeUnitList.value(group).constBegin();
+            while (iter != m_phonemeUnitList.value(group).constEnd()) {
+                if (iter->first->id() == phoneme->id()) {
+                    iter->second->addPhrase(phrase);
+                    phraseRegistered = true;
+                }
+                ++iter;
+            }
+            // otherwise, need to create a new unit
+            if (phraseRegistered == false) {
+                // create unit based on the phoneme group
+                Unit *unit = new Unit(this);
+                unit->setId(phoneme->id());
+                unit->setTitle(phoneme->title());
+                unit->setCourse(this);
+                m_phonemeUnitList[group].append(qMakePair<Phoneme*,Unit*>(phoneme, unit));
+                unit->addPhrase(phrase);
+            }
+        }
+    }
+}
+
+void Course::removePhrasePhonemes(Phrase* phrase)
+{
+    kError() << "Not yet implemented!";
 }

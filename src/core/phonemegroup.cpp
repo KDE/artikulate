@@ -70,6 +70,18 @@ QList< Phoneme* > PhonemeGroup::phonemes() const
     return m_phonemes;
 }
 
+bool PhonemeGroup::contains(Phoneme *phoneme) const
+{
+    QList<Phoneme *>::ConstIterator iter = m_phonemes.constBegin();
+    while (iter != m_phonemes.constEnd()) {
+        if (QString::compare((*iter)->id(), phoneme->id()) == 0) {
+            return true;
+        }
+        ++iter;
+    }
+    return false;
+}
+
 void PhonemeGroup::addPhoneme(Phoneme *phoneme)
 {
     QList<Phoneme *>::ConstIterator iter = m_phonemes.constBegin();
