@@ -113,7 +113,7 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     QVERIFY(testPhrase->type() == comparePhrase->type());
     QVERIFY(testPhrase->sound().toLocalFile() == comparePhrase->sound().toLocalFile());
     QVERIFY(testPhrase->phonemes().count() == comparePhrase->phonemes().count());
-    //FIXME implement phoneme checks after phonomes are fully implemented
+    //FIXME implement phoneme checks after phonemes are fully implemented
 }
 
 

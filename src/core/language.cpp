@@ -31,7 +31,6 @@ Language::Language(QObject *parent)
 
 Language::~Language()
 {
-    qDeleteAll(m_phonemes);
     qDeleteAll(m_phonemeGroups);
 }
 
@@ -73,27 +72,11 @@ void Language::setFile(const KUrl& file)
 
 QList<Phoneme *> Language::phonemes() const
 {
-    return m_phonemes;
-}
-
-Phoneme * Language::addPhoneme(const QString &identifier, const QString &title)
-{
-    QList<Phoneme *>::ConstIterator iter = m_phonemes.constBegin();
-    while (iter != m_phonemes.constEnd()) {
-        if (QString::compare((*iter)->id(), identifier) == 0) {
-            kWarning() << "Phonome identifier already registered, aborting";
-            return 0;
-        }
-        ++iter;
+    QList<Phoneme *> list;
+    foreach (PhonemeGroup *group, m_phonemeGroups) {
+        list.append(group->phonemes());
     }
-
-    Phoneme *newPhoneme = new Phoneme();
-    newPhoneme->setId(identifier);
-    newPhoneme->setTitle(title);
-    m_phonemes.append(newPhoneme);
-    emit phonomesChanged();
-
-    return newPhoneme;
+    return list;
 }
 
 QList<PhonemeGroup*> Language::phonemeGroups() const
@@ -116,7 +99,11 @@ PhonemeGroup * Language::addPhonemeGroup(const QString &identifier, const QStrin
     newGroup->setId(identifier);
     newGroup->setTitle(title);
     m_phonemeGroups.append(newGroup);
-    emit groupsChanged();
+
+    connect(newGroup, SIGNAL(phonemeAdded(Phoneme)), this, SIGNAL(phonemesChanged()));
+    connect(newGroup, SIGNAL(phonemeRemoved(Phoneme)), this, SIGNAL(phonemesChanged()));
+
+    emit phonemeGroupsChanged();
 
     return newGroup;
 }

@@ -95,35 +95,21 @@ bool ResourceManager::loadLanguage(const KUrl &languageFile)
     language->setFile(languageFile);
     language->setId(root.firstChildElement("id").text());
     language->setTitle(root.firstChildElement("title").text());
-
-    // create phonemes
-    for (QDomElement phonemeNode = root.firstChildElement("phonemes").firstChildElement();
-         !phonemeNode.isNull();
-         phonemeNode = phonemeNode.nextSiblingElement())
-    {
-        language->addPhoneme(phonemeNode.attribute("id"), phonemeNode.attribute("title"));
-    }
-    QList<Phoneme *> phonemes = language->phonemes();
-
     // create phoneme groups
-    for (QDomElement groupNode = root.firstChildElement("phonemes").firstChildElement();
+    for (QDomElement groupNode = root.firstChildElement("phonemeGroups").firstChildElement();
          !groupNode.isNull();
          groupNode = groupNode.nextSiblingElement())
     {
-        PhonemeGroup *group = language->addPhonemeGroup(groupNode.attribute("id"), groupNode.attribute("title"));
+        PhonemeGroup *group = language->addPhonemeGroup(
+            groupNode.firstChildElement("id").text(),
+            groupNode.firstChildElement("title").text());
         group->setDescription(groupNode.attribute("description"));
         // register phonemes
         for (QDomElement phonemeNode = groupNode.firstChildElement("phonemes").firstChildElement();
             !phonemeNode.isNull();
             phonemeNode = phonemeNode.nextSiblingElement())
         {
-            QString id = phonemeNode.attribute("id");
-            foreach (Phoneme *phoneme, phonemes) {
-                if (phoneme->id() == id) {
-                    group->addPhoneme(phoneme);
-                    break;
-                }
-            }
+            group->addPhoneme(phonemeNode.firstChildElement("id").text(), phonemeNode.firstChildElement("title").text());
         }
     }
 

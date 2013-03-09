@@ -82,7 +82,7 @@ public:
     KUrl sound() const;
     void setSound(const KUrl &soundFile);
     QList<Phoneme *> phonemes() const;
-    void addPhoneme(Phoneme *phonome);
+    void addPhoneme(Phoneme *phoneme);
 
     Q_INVOKABLE void playbackSound();
     Q_INVOKABLE void stopSound();
@@ -110,7 +110,7 @@ signals:
     void typeChanged();
     void soundChanged();
     void userSoundChanged();
-    void phonomesChanged();
+    void phonemesChanged();
     void playbackSoundStateChanged();
     void playbackUserSoundStateChanged();
     void modified();

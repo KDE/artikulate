@@ -65,25 +65,48 @@ void PhonemeGroup::setDescription(const QString &description)
     emit descriptionChanged();
 }
 
-QList< Phoneme* > PhonemeGroup::phonomes() const
+QList< Phoneme* > PhonemeGroup::phonemes() const
 {
-    return m_phonomes;
+    return m_phonemes;
 }
 
-void PhonemeGroup::addPhoneme(Phoneme *phonome)
+void PhonemeGroup::addPhoneme(Phoneme *phoneme)
 {
-    QList<Phoneme *>::ConstIterator iter = m_phonomes.constBegin();
-    while (iter != m_phonomes.constEnd()) {
-        if (QString::compare((*iter)->id(), phonome->id()) == 0) {
+    QList<Phoneme *>::ConstIterator iter = m_phonemes.constBegin();
+    while (iter != m_phonemes.constEnd()) {
+        if (QString::compare((*iter)->id(), phoneme->id()) == 0) {
             kWarning() << "Phoneme identifier already registered, aborting";
             return;
         }
         ++iter;
     }
-    m_phonomes.append(phonome);
+    m_phonemes.append(phoneme);
 }
 
-void PhonemeGroup::removePhoneme(Phoneme *phonome)
+Phoneme * PhonemeGroup::addPhoneme(const QString &identifier, const QString &title)
 {
-    m_phonomes.removeOne(phonome);
+    Q_ASSERT(!identifier.isEmpty());
+
+    // check that identifier is not used
+    QList<Phoneme *>::ConstIterator iter = m_phonemes.constBegin();
+    while (iter != m_phonemes.constEnd()) {
+        if (QString::compare((*iter)->id(), identifier) == 0) {
+            kWarning() << "Phoneme identifier " << identifier <<" already registered, aborting";
+            return 0;
+        }
+        ++iter;
+    }
+
+    // create phoneme and add it
+    Phoneme *newPhoneme = new Phoneme();
+    newPhoneme->setId(identifier);
+    newPhoneme->setTitle(title);
+    addPhoneme(newPhoneme);
+
+    return newPhoneme;
+}
+
+void PhonemeGroup::removePhoneme(Phoneme *phoneme)
+{
+    m_phonemes.removeOne(phoneme);
 }

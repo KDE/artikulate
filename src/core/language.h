@@ -55,15 +55,14 @@ signals:
     void idChanged();
     void associatedLanguageItemChanged();
     void titleChanged();
-    void phonomesChanged();
-    void groupsChanged();
+    void phonemesChanged();
+    void phonemeGroupsChanged();
 
 private:
     Q_DISABLE_COPY(Language)
     QString m_id;
     QString m_title;
     KUrl m_file;
-    QList<Phoneme *> m_phonemes;
     QList<PhonemeGroup *> m_phonemeGroups;
 };
 

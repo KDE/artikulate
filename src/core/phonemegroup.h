@@ -27,6 +27,7 @@
 #include "phoneme.h"
 
 class QString;
+class Phoneme;
 
 /**
  * \class PhonemeGroup
@@ -45,23 +46,24 @@ public:
     void setTitle(const QString &title);
     QString description() const;
     void setDescription(const QString &description);
-    void addPhoneme(Phoneme *phonome);
-    void removePhoneme(Phoneme *phonome);
-    QList<Phoneme *> phonomes() const;
+    void addPhoneme(Phoneme *phoneme);
+    Phoneme * addPhoneme(const QString &identifier, const QString &title);
+    void removePhoneme(Phoneme *phoneme);
+    QList<Phoneme *> phonemes() const;
 
 signals:
     void idChanged();
     void titleChanged();
     void descriptionChanged();
-    void phonomeAdded(const Phoneme&);
-    void phonomeRemoved(const Phoneme&);
+    void phonemeAdded(const Phoneme&);
+    void phonemeRemoved(const Phoneme&);
 
 private:
     Q_DISABLE_COPY(PhonemeGroup)
     QString m_id;
     QString m_title;
     QString m_description;
-    QList<Phoneme *> m_phonomes;
+    QList<Phoneme *> m_phonemes;
 };
 
 #endif // PHONEMEGROUP_H
