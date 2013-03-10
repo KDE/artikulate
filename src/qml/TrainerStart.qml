@@ -56,42 +56,75 @@ FocusScope {
             font.pointSize: 28;
         }
         Text {
-            text: i18n("Artikulate")
+            text: i18n("Artikulate!")
             font.pointSize: 48;
         }
     }
 
+    Row {
+        id: breadcrumb
+        anchors.top: helloArtikulate.bottom
+        anchors.left: helloArtikulate.left
+        anchors.topMargin: 20
+        spacing: 30
+
+        Text {
+            text: i18n("Language:")
+        }
+        Text {
+            visible: userProfile.language != null
+            text: userProfile.language != null ? userProfile.language.title : ""
+        }
+        Text {
+            text: i18n("Course")
+        }
+        Text {
+            visible: userProfile.course != null
+            text: userProfile.course != null ? userProfile.course.title : ""
+        }
+    }
+
+    Text {
+        id: selectNextTipp
+        anchors.top: screen.verticalCenter
+        anchors.left: helloArtikulate.left
+
+        text: {
+            if (userProfile.language == null) {
+                return i18n("Select a language:");
+            }
+            if (userProfile.language != null && userProfile.course == null) {
+                return i18n("Select a course:");
+            }
+            if (userProfile.course != null && userProfile.unit == null) {
+                return i18n("Select a unit:");
+            }
+        }
+        font.pointSize: 24;
+    }
+
     Column {
         spacing: 30
-        anchors.top: helloArtikulate.bottom
-        anchors.left: screen.left
-        anchors.topMargin: 60
+        anchors.top: selectNextTipp.top
+        anchors.left: selectNextTipp.right
         anchors.leftMargin: 30
+        anchors.topMargin: 10
 
-        Row {
-            spacing: 20
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            Column {
-                Text { text: i18n("<h2>Languages</h2>") }
-                LanguageSelector {
-                    id: languageSelector
-                    languageModel: screen.languageModel
-                    onLanguageSelected: {
-                        screen.languageSelected(language)
-                    }
-                }
+        LanguageSelector {
+            id: languageSelector
+            visible: userProfile.language == null
+            languageModel: screen.languageModel
+            onLanguageSelected: {
+                screen.languageSelected(language)
             }
+        }
 
-            Column {
-                Text { text: i18n("<h2>Courses</h2>") }
-                CourseSelector {
-                    id: courseSelector
-                    courseModel: screen.courseModel
-                    onCourseSelected: {
-                        screen.courseSelected(course)
-                    }
-                }
+        CourseSelector {
+            id: courseSelector
+            visible: userProfile.language != null && userProfile.course == null
+            courseModel: screen.courseModel
+            onCourseSelected: {
+                screen.courseSelected(course)
             }
         }
     }
