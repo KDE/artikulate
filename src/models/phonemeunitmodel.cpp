@@ -192,6 +192,9 @@ QVariant PhonemeUnitModel::headerData(int section, Qt::Orientation orientation, 
 
 int PhonemeUnitModel::count() const
 {
+    if (!m_course || !m_phonemeGroup) {
+        return 0;
+    }
     return m_course->phonemeUnitList(m_phonemeGroup).count();
 }
 

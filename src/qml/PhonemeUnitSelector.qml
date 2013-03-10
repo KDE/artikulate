@@ -43,6 +43,10 @@ Item {
         phonemeGroup: root.currentPhonemeGroup
     }
 
+    onCourseChanged: {
+        root.currentPhonemeGroup = null
+    }
+
     Component {
         id: groupDelegate
 
