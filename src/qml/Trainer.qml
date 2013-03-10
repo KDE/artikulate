@@ -103,8 +103,7 @@ Item
                 userProfile.language = language
             }
 
-            onCourseSelected: {
-                userProfile.course = course
+            onUnitSelected: {
                 switchScreen(homeScreen, trainingScreen)
             }
 

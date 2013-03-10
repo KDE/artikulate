@@ -30,6 +30,8 @@ FocusScope {
 
     property LanguageModel languageModel
     property CourseModel courseModel
+    property bool __showPhonemeUnits: false
+
     signal languageSelected(variant language)
     signal courseSelected(variant course)
     signal unitSelected(variant unit)
@@ -37,6 +39,12 @@ FocusScope {
     QtObject {
         id: d
     }
+
+    UnitModel {
+        id: selectedUnitModel
+        course: userProfile.course
+    }
+
 
     function start() {}
     function reset() {
@@ -122,8 +130,14 @@ FocusScope {
                 return i18n("Select a course:");
             }
             if (userProfile.course != null && userProfile.unit == null) {
-                return i18n("Select a unit:");
+                if (!screen.__showPhonemeUnits) {
+                    return i18n("Select a scenario unit:");
+                }
+                else {
+                    return i18n("Select a phoneme unit:");
+                }
             }
+            return i18n("Training is starting...");
         }
         font.pointSize: 24;
     }
@@ -149,7 +163,56 @@ FocusScope {
             visible: userProfile.language != null && userProfile.course == null
             courseModel: screen.courseModel
             onCourseSelected: {
+                userProfile.course = course
                 screen.courseSelected(course)
+            }
+        }
+
+        Column {
+            visible: userProfile.course != null && userProfile.unit == null && screen.__showPhonemeUnits == false
+            UnitSelector {
+                id: unitSelector
+                unitModel: selectedUnitModel
+                onUnitSelected: {
+                    userProfile.unit = unit
+                    screen.unitSelected(unit)
+                }
+            }
+        }
+
+        Column {
+            visible: userProfile.course != null && userProfile.unit == null && screen.__showPhonemeUnits == true
+            PhonemeUnitSelector {
+                id: phonemeUnitSelector
+                course: userProfile.course
+                onUnitSelected: {
+                    userProfile.unit = unit
+                    screen.unitSelected(unit)
+                }
+            }
+        }
+    }
+
+    // additional information for current selector
+    PlasmaComponents.ButtonColumn {
+        anchors.top: selectNextTipp.bottom
+        anchors.left: selectNextTipp.left
+        anchors.topMargin: 20
+        anchors.leftMargin: 20
+        visible: userProfile.course != null
+
+        PlasmaComponents.RadioButton {
+            text: i18n("Scenario Training Units")
+            checked: !screen.__showPhonemeUnits
+            onClicked : {
+                screen.__showPhonemeUnits = !screen.__showPhonemeUnits
+            }
+        }
+        PlasmaComponents.RadioButton {
+            text: i18n("Phoneme Training Units")
+            checked: screen.__showPhonemeUnits
+            onClicked : {
+                screen.__showPhonemeUnits = !screen.__showPhonemeUnits
             }
         }
     }
