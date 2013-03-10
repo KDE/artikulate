@@ -25,11 +25,12 @@ import artikulate 1.0
 
 Item {
     id: root
-    width: 100
-    height: 200
 
     property PhraseModel phraseModel
     property Unit unit
+
+    width: 100
+    height: 200
 
     Component {
         id: itemDelegate
@@ -40,11 +41,13 @@ Item {
                 id: phraseLine
 
                 PlasmaComponents.ToolButton {
+                    property Phrase phrase: model.dataRole
+                    property int soundState: phrase.playbackSoundState
+
                     anchors.verticalCenter: phraseLine.verticalCenter
                     iconSource: "media-playback-start"
                     enabled: phrase.isSound
-                    property Phrase phrase: model.dataRole
-                    property int soundState: phrase.playbackSoundState
+
                     onClicked: {
                         if (soundState == Phrase.PlayingState) {
                             phrase.stopSound();
@@ -70,10 +73,11 @@ Item {
                 }
 
                 PlasmaComponents.ToolButton {
-                    anchors.verticalCenter: phraseLine.verticalCenter
-                    iconSource: "media-record"
                     property Phrase phrase: model.dataRole
                     property bool recording: true
+
+                    anchors.verticalCenter: phraseLine.verticalCenter
+                    iconSource: "media-record"
 
                     onClicked: {
                        if (recording) {
@@ -87,11 +91,13 @@ Item {
                     }
                 }
                 PlasmaComponents.ToolButton {
+                    property Phrase phrase: model.dataRole
+                    property int userSoundState: phrase.playbackUserSoundState
+
                     anchors.verticalCenter: phraseLine.verticalCenter
                     iconSource: "media-playback-start"
                     enabled: phrase.isUserSound
-                    property Phrase phrase: model.dataRole
-                    property int userSoundState: phrase.playbackUserSoundState
+
                     onClicked: {
                        if (userSoundState == Phrase.PlayingState) {
                             phrase.stopPlaybackUserSound();
@@ -120,8 +126,8 @@ Item {
 
     ListView {
         id: phraseList
-        anchors.fill: parent
 
+        anchors.fill: parent
         model: root.phraseModel
         delegate: itemDelegate
     }

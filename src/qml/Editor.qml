@@ -26,12 +26,14 @@ import org.kde.plasma.components 0.1 as PlasmaComponents
 Item
 {
     id: editor
+
     property Language currentLanguage
     property Course currentCourse
     property Unit currentUnit
     property string currentLanguageName: i18n("Unselected")
     property string currentCourseName: i18n("Unselected")
     property string currentUnitName: i18n("Unselected")
+
     signal closeEditor()
 
     onCurrentCourseChanged: {
@@ -91,12 +93,12 @@ Item
         // head toolbar
         PlasmaComponents.ToolBar {
             id: header
+
             width: parent.width
             height: 30
             tools: Row {
                 width: parent.width
-                anchors.leftMargin: 3
-                anchors.rightMargin: 3
+                anchors { leftMargin: 3; rightMargin: 3 }
                 spacing: 5
 
                 Row {
@@ -112,7 +114,7 @@ Item
                         anchors.verticalCenter: parent.verticalCenter
                         iconSource: "dialog-close"
                         flat: true
-                        enabled: { availableCourseModel.language != null }
+                        enabled: availableCourseModel.language != null
                         onClicked: {
                             currentCourse = null
                             currentLanguage = null
@@ -204,32 +206,33 @@ Item
             spacing: 20
 
             Column {
-                visible: { currentLanguage == null }
+                visible: currentLanguage == null
                 Text {
                     text: i18n("<h2>Select Language</h2>")
                 }
                 LanguageSelector {
                     id: languageSelector
+
                     languageModel: availableLanguageModel
                     onLanguageSelected: {
                         editor.currentLanguage = language
-                   }
+                    }
                 }
             }
 
             Column {
                 visible: {
                     if (currentLanguage == null) return false;
-                    if (currentCourse != null) return false
-                    return true
+                    if (currentCourse != null) return false;
+                    return true;
                 }
-                Text { text: i18n("<h2>Select Course</h2>") }
+                Text {
+                    text: i18n("<h2>Select Course</h2>")
+                }
                 PlasmaComponents.ToolButton {
                     text: i18n("New Course")
                     iconSource: "document-new"
-                    enabled: {
-                        availableCourseModel.language != null
-                    }
+                    enabled: availableCourseModel.language != null
                     onClicked: {
                         globalResourceManager.newCourseDialog();
                     }
@@ -244,7 +247,7 @@ Item
             }
         }
         Row {
-            visible: { currentCourse != null }
+            visible: currentCourse != null
             Column {
                 width: 200
 
@@ -254,9 +257,7 @@ Item
                 PlasmaComponents.ToolButton {
                     text: i18n("Add Unit")
                     iconSource: "document-new"
-                    enabled: {
-                        editor.currentCourse != null
-                    }
+                    enabled: editor.currentCourse != null
                     onClicked: {
                         editor.currentCourse.createUnit()
                     }

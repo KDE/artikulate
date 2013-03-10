@@ -31,13 +31,13 @@ Item
     property int viewMode
 
     Trainer {
-        visible: { main.viewMode == MainWindow.Trainer }
+        visible: main.viewMode == MainWindow.Trainer
         width: parent.width
         height: parent.height
     }
 
     Editor {
-        visible: { main.viewMode == MainWindow.Editor }
+        visible: main.viewMode == MainWindow.Editor
         width: parent.width
         height: parent.height
 

@@ -25,8 +25,6 @@ import artikulate 1.0
 
 FocusScope {
     id: screen
-    height: screen.height
-    width: screen.width
 
     property LanguageModel languageModel
     property CourseModel courseModel
@@ -35,6 +33,9 @@ FocusScope {
     signal languageSelected(variant language)
     signal courseSelected(variant course)
     signal unitSelected(variant unit)
+
+    height: screen.height
+    width: screen.width
 
     QtObject {
         id: d
@@ -53,10 +54,7 @@ FocusScope {
 
     Column {
         id: helloArtikulate
-        anchors.top: screen.top
-        anchors.left: screen.left
-        anchors.topMargin: 30
-        anchors.leftMargin: 30
+        anchors { top: screen.top; left: screen.left; topMargin: 30; leftMargin: 30 }
         spacing: 10
 
         Text {
@@ -71,9 +69,8 @@ FocusScope {
 
     Item {
         id: breadcrumb
-        anchors.top: helloArtikulate.bottom
-        anchors.left: helloArtikulate.left
-        anchors.topMargin: 20
+
+        anchors { top: helloArtikulate.bottom; left: helloArtikulate.left; topMargin: 20 }
         width: parent. width
         height: 150
 
@@ -118,10 +115,8 @@ FocusScope {
 
     Text {
         id: selectNextTipp
-        anchors.top: screen.verticalCenter
-        anchors.left: helloArtikulate.left
-        anchors.topMargin: 20
 
+        anchors { top: screen.verticalCenter; left: helloArtikulate.left; topMargin: 20 }
         text: {
             if (userProfile.language == null) {
                 return i18n("Select a language:");
@@ -144,10 +139,7 @@ FocusScope {
 
     Column {
         spacing: 30
-        anchors.top: selectNextTipp.top
-        anchors.left: selectNextTipp.right
-        anchors.leftMargin: 30
-        anchors.topMargin: 10
+        anchors { top: selectNextTipp.top; left: selectNextTipp.right; leftMargin: 30; topMargin: 10 }
 
         LanguageSelector {
             id: languageSelector
@@ -195,10 +187,7 @@ FocusScope {
 
     // additional information for current selector
     PlasmaComponents.ButtonColumn {
-        anchors.top: selectNextTipp.bottom
-        anchors.left: selectNextTipp.left
-        anchors.topMargin: 20
-        anchors.leftMargin: 20
+        anchors { top: selectNextTipp.bottom; left: selectNextTipp.left; topMargin: 20; leftMargin: 20 }
         visible: userProfile.course != null
 
         PlasmaComponents.RadioButton {

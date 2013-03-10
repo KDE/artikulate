@@ -25,11 +25,13 @@ import artikulate 1.0
 
 Item {
     id: root
-    width: parent.width
-    height: 300
 
     property UnitModel unitModel
+
     signal unitSelected(variant unit)
+
+    width: parent.width
+    height: 300
 
     Component {
         id: itemDelegate
@@ -45,8 +47,8 @@ Item {
 
     ListView {
         id: unitList
-        anchors.fill: parent
 
+        anchors.fill: parent
         model: root.unitModel
         delegate: itemDelegate
     }

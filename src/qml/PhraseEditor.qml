@@ -25,19 +25,13 @@ import artikulate 1.0
 
 Item {
     id: root
-    height: {
-        if (root.editMode == false) {
-            return 30;
-        } else {
-            return 60;
-        }
-    }
 
     property Phrase phrase
     property bool editMode: false
-
     property string __originalPhraseText
     property int __originalPhraseType
+
+    height: root.editMode ? 60 : 30
 
     Component.onCompleted: {
         root.__originalPhraseText = root.phrase.text
@@ -56,8 +50,10 @@ Item {
                 root.editMode = !root.editMode
             }
         }
+
         Image {
             id: typeIcon
+
             width: 20
             height: 20
             source: {
@@ -75,15 +71,17 @@ Item {
                 }
             }
         }
+
         Text {
             id: phraseText
             anchors.verticalCenter: enableEdit.verticalCenter
             visible: { !root.editMode }
             text: root.phrase.text
         }
+
         // line in edit mode
         Column {
-            visible: { root.editMode }
+            visible: root.editMode == true
             spacing: 5
             Row {
                 PlasmaComponents.TextField {

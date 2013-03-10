@@ -25,12 +25,14 @@ import artikulate 1.0
 
 Item {
     id: root
-    width: 200
-    height: typeIcon.height
 
     property int type
     property string typeString
+
     signal typeSelected(int type)
+
+    width: 200
+    height: typeIcon.height
 
     onTypeChanged: {
         typeSelected(type)

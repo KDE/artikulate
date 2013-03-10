@@ -42,10 +42,7 @@ FocusScope {
     Column {
         id: phraseTrainer
         width: screen.width - difficultySelector.width - 50
-        anchors.top: screen.top
-        anchors.left: screen.left
-        anchors.topMargin: 30
-        anchors.leftMargin: 30
+        anchors { top: screen.top; left: screen.left; topMargin: 30; leftMargin: 30 }
 
         Row {
             width: screen.width
@@ -80,9 +77,7 @@ FocusScope {
 
     Column {
         id: difficultySelector
-        anchors.left: phraseTrainer.right
-        anchors.top: phraseTrainer.top
-        anchors.leftMargin: 30
+        anchors { left: phraseTrainer.right; top: phraseTrainer.top; leftMargin: 30 }
         spacing: 10
         Text {
             text: i18n("<strong>Niveau</strong>")
@@ -93,5 +88,4 @@ FocusScope {
             }
         }
     }
-
 }

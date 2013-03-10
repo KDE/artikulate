@@ -24,12 +24,12 @@ import artikulate 1.0
 import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
 
-Item
-{
+Item {
     id: trainer
-    height: parent.height
 
     property ResourceManager resourceManager: globalResourceManager
+
+    height: parent.height
 
     function switchScreen(from, to) {
         switchScreenAnimation.from = from

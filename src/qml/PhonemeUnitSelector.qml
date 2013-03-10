@@ -25,12 +25,14 @@ import artikulate 1.0
 
 Item {
     id: root
-    width: phonemeGroupList.width
-    height: phonemeGroupList.height
 
     property Course course
     property PhonemeGroup currentPhonemeGroup
+
     signal unitSelected(variant unit)
+
+    width: phonemeGroupList.width
+    height: phonemeGroupList.height
 
     PhonemeGroupModel {
         id: phonemeGroupModel
@@ -52,9 +54,11 @@ Item {
 
         Column {
             id: content
+
+            property PhonemeGroup phonemeGroup: model.dataRole
+
             height: groupSelectButton.height + unitList.height
             width: 200
-            property PhonemeGroup phonemeGroup: model.dataRole
 
             PlasmaComponents.ToolButton {
                 id: groupSelectButton
@@ -64,6 +68,7 @@ Item {
                     root.currentPhonemeGroup = phonemeGroup
                 }
             }
+
             ListView {
                 id: unitList
                 visible: root.currentPhonemeGroup == phonemeGroup
@@ -90,9 +95,9 @@ Item {
 
     ListView {
         id: phonemeGroupList
+
         height: 300
         width: 200
-
         model: phonemeGroupModel
         delegate: groupDelegate
     }

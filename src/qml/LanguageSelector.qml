@@ -25,17 +25,20 @@ import artikulate 1.0
 
 Item {
     id: root
-    width: 180; height: 200
 
     property LanguageModel languageModel
     property Language currentLanguage
+
     signal languageSelected(variant language)
+
+    width: 180;
+    height: 200
 
     Component {
         id: itemDelegate
 
         PlasmaComponents.ToolButton {
-            text : model.title
+            text: model.title
             property Language language: model.dataRole
             onClicked: {
                 root.currentLanguage = language

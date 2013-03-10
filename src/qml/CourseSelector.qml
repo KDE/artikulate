@@ -25,19 +25,22 @@ import artikulate 1.0
 
 Item {
     id: root
-    width: 100
-    height: 200
 
     property CourseModel courseModel
     property Course currentCourse
+
     signal courseSelected(variant course)
+
+    width: 100
+    height: 200
 
     Component {
         id: myDelegate
 
         PlasmaComponents.ToolButton {
-            text : model.title
             property Course course: model.dataRole
+
+            text : model.title
             onClicked: {
                 root.currentCourse = course
                 root.courseSelected(course)
@@ -47,16 +50,17 @@ Item {
 
     ListView {
         id: courseList
-        anchors.fill: parent
-        visible: courseList.count > 0
 
+        visible: courseList.count > 0
+        anchors.fill: parent
         model: root.courseModel
         delegate: myDelegate
     }
 
     Text {
         property string message
-        visible: courseList.count === 0
+
+        visible: courseList.count == 0
         text: message
         onVisibleChanged: {
             if (root.courseModel == null) {

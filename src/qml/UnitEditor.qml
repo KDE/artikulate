@@ -25,10 +25,11 @@ import artikulate 1.0
 
 Item {
     id: root
-    width: 100
-    height: 200
 
     property Unit unit
+
+    width: 100
+    height: 200
 
     PhraseModel {
         id: phraseModel
@@ -58,7 +59,7 @@ Item {
         }
         ListView {
             id: phraseList
-            height: {30 * phraseModel.count + 30} // calculate 30 per line plus 30 for extra edit space
+            height: 30 * phraseModel.count + 30 // calculate 30 per line plus 30 for extra edit space
             width: 500
 
             model: phraseModel
