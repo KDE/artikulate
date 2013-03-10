@@ -42,7 +42,7 @@ add_subdirectory(schemes)
 #add_subdirectory(doc)
 add_subdirectory(src)
 #add_subdirectory(sounds)
-#add_subdirectory(images)
+add_subdirectory(images)
 add_subdirectory(icons)
 
 # Build Tests if KDE_TEST is on

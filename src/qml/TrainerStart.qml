@@ -61,26 +61,50 @@ FocusScope {
         }
     }
 
-    Row {
+    Item {
         id: breadcrumb
         anchors.top: helloArtikulate.bottom
         anchors.left: helloArtikulate.left
         anchors.topMargin: 20
-        spacing: 30
+        width: parent. width
+        height: 150
 
-        Text {
-            text: i18n("Language:")
+        Column {
+            Image {
+                width: 128
+                height: 128
+                source: userProfile.language == null ? "../images/language-gray.png" : "../images/language.png"
+            }
+            PlasmaComponents.ToolButton {
+                iconSource: "dialog-close"
+                text: userProfile.language != null ? userProfile.language.title : i18n("No language selected")
+                flat: true
+                enabled: userProfile.language != null
+                onClicked : {
+                    userProfile.language = null
+                    userProfile.course = null
+                    userProfile.unit = null
+                }
+            }
         }
-        Text {
-            visible: userProfile.language != null
-            text: userProfile.language != null ? userProfile.language.title : ""
-        }
-        Text {
-            text: i18n("Course")
-        }
-        Text {
-            visible: userProfile.course != null
-            text: userProfile.course != null ? userProfile.course.title : ""
+
+        Column {
+            x: parent.width / 3
+            Image {
+                width: 128
+                height: 128
+                source: userProfile.course == null ? "../images/course-gray.png" : "../images/course.png"
+            }
+            PlasmaComponents.ToolButton {
+                iconSource: "dialog-close"
+                text: userProfile.course != null ? userProfile.course.title : i18n("No course selected")
+                flat: true
+                enabled: userProfile.course != null
+                onClicked : {
+                    userProfile.course = null
+                    userProfile.unit = null
+                }
+            }
         }
     }
 
@@ -88,6 +112,7 @@ FocusScope {
         id: selectNextTipp
         anchors.top: screen.verticalCenter
         anchors.left: helloArtikulate.left
+        anchors.topMargin: 20
 
         text: {
             if (userProfile.language == null) {
