@@ -39,82 +39,59 @@ FocusScope {
         type: userProfile.phraseType
     }
 
-    Row {
-        width: screen.width
-        height: 50
+    Column {
+        id: phraseTrainer
+        width: screen.width - difficultySelector.width - 50
+        anchors.top: screen.top
+        anchors.left: screen.left
+        anchors.topMargin: 30
+        anchors.leftMargin: 30
+
+        Row {
+            width: screen.width
+            height: 50
+
+            Text {
+                id: captionCourse
+                text: {
+                    if (userProfile.course == null) {
+                        ""
+                    } else {
+                        "<h1>" + i18n("Course: %1", userProfile.course.title) + "</h1>";
+                    }
+                }
+            }
+        }
 
         Text {
-            id: captionCourse
             text: {
-                if (userProfile.course == null) {
-                    ""
-                } else {
-                    "<h1>" + i18n("Course: %1", userProfile.course.title) + "</h1>";
+                var title = i18n("unselected")
+                if (screen.unit != null) {
+                    title = screen.unit.title
                 }
+                i18n("<strong>Current Unit:</strong> %1",title)
+            }
+        }
+
+        TrainingUnit {
+            phraseModel: currentPhrasesModel
+        }
+    }
+
+    Column {
+        id: difficultySelector
+        anchors.left: phraseTrainer.right
+        anchors.top: phraseTrainer.top
+        anchors.leftMargin: 30
+        spacing: 10
+        Text {
+            text: i18n("<strong>Niveau</strong>")
+        }
+        PhraseTypeSelector {
+            onTypeSelected: {
+                userProfile.phraseType = type
             }
         }
     }
 
-    Grid {
-        y: 50
-        columns: 4
-        Item { // spacer
-            width: 25
-            height: parent.height
-        }
-        Column {
-            width: 200
-
-            Text {
-                text: i18n("<h2>Units</h2>")
-            }
-
-            UnitSelector {
-                id: unitSelector
-                unitModel: selectedUnitModel
-                onUnitSelected: {
-                    userProfile.unit = unit
-                }
-            }
-
-            PhonemeUnitSelector {
-                id: phonemeUnitSelector
-                course: userProfile.course
-                onUnitSelected: {
-                    userProfile.unit = unit
-                }
-            }
-
-        }
-
-        Column {
-            width: screen.width - unitSelector.width - difficultySelector.width - 50
-            Text {
-                text: {
-                    var title = i18n("unselected")
-                    if (screen.unit != null) {
-                        title = screen.unit.title
-                    }
-                    i18n("<strong>Current Unit:</strong> %1",title)
-                }
-            }
-
-            TrainingUnit {
-                phraseModel: currentPhrasesModel
-            }
-        }
-
-        Column {
-            id: difficultySelector
-            spacing: 10
-            Text {
-                text: i18n("<strong>Select Difficulty</strong>")
-            }
-            PhraseTypeSelector {
-                onTypeSelected: {
-                    userProfile.phraseType = type
-                }
-            }
-        }
-    }
 }
