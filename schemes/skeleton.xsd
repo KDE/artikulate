@@ -1,13 +1,11 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:element name="course">
+  <xs:element name="skeleton">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="id" type="xs:string" />
-        <xs:element name="foreignId" type="xs:string" minOccurs="0" maxOccurs="1" />
         <xs:element name="title" type="xs:string" />
         <xs:element name="description" type="xs:string" />
-        <xs:element name="language" type="xs:string" />
         <xs:element name="units" type="unitList" />
       </xs:sequence>
     </xs:complexType>
@@ -22,7 +20,6 @@
   <xs:complexType name="unit">
     <xs:sequence>
         <xs:element name="id" type="xs:string" />
-        <xs:element name="foreignId" type="xs:string" minOccurs="0" maxOccurs="1" />
         <xs:element name="title" type="xs:string" />
         <xs:element name="phrases" type="phraseList" />
     </xs:sequence>
@@ -31,23 +28,14 @@
   <xs:complexType name="phrase">
     <xs:sequence>
         <xs:element name="id" type="xs:string" />
-        <xs:element name="foreignId" type="xs:string" minOccurs="0" maxOccurs="1" />
         <xs:element name="text" type="xs:string" />
-        <xs:element name="soundFile" type="xs:string" />
         <xs:element name="type" type="xs:string" />
-        <xs:element name="phonemes" type="phonemeList" />
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="unitList">
     <xs:sequence>
       <xs:element name="unit" type="unit" minOccurs="0" maxOccurs="unbounded" />
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="phonemeList">
-    <xs:sequence>
-      <xs:element name="phonemeID" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 

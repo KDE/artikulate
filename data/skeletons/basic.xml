@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<course>
+  <id>artikulate-basic</id>
+  <title>Artikulate Basic Course</title>
+  <description>This language course is shipped directly by Artikulate.</description>
+  <units>
+    <unit>
+      <id>1</id>
+      <title>On the Street</title>
+      <phrases>
+        <phrase>
+          <id>1</id>
+          <text>Good morning.</text>
+          <type>sentence</type>
+        </phrase>
+        <phrase>
+          <id>2</id>
+          <text>How are you?.</text>
+          <type>sentence</type>
+        </phrase>
+      </phrases>
+    </unit>
+  </units>
+</course>
+
+<!--
+kate: space-indent on; indent-width 2; mixedindent off; indent-mode xml;
+-->
