@@ -117,6 +117,20 @@ public:
      */
     void removeCourse(Course *course);
 
+    /**
+     * Load skeleton from locally stored XML file.
+     * TODO allow loading of remote XML files
+     *
+     * \param skeletonFile is the local XML file containing the skeleton
+     * \return loaded skeleton
+     */
+    Course * loadSkeleton(const KUrl &skeletonFile);
+
+    /**
+     * \return list of all loaded skeletons
+     */
+    QList<Course *> skeletonList() const;
+
     Q_INVOKABLE void newCourseDialog();
 
     /**

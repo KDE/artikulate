@@ -46,6 +46,9 @@ ResourceManager::ResourceManager(QObject *parent)
 
 void ResourceManager::loadLocalData()
 {
+    //TODO in the future loading should only be performed on request!
+    //     this current implementation is extremely resource inefficient...
+
     // load local language files
     QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
     foreach (const QString &file, languageFiles) {
@@ -56,6 +59,12 @@ void ResourceManager::loadLocalData()
     QStringList courseFiles = KGlobal::dirs()->findAllResources("appdata",QString("courses/*.xml"));
     foreach (const QString &file, courseFiles) {
         addCourse(KUrl::fromLocalFile(file));
+    }
+
+    // load local skeleton files
+    QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
+    foreach (const QString &file, skeletonFiles) {
+        loadSkeleton(KUrl::fromLocalFile(file));
     }
 }
 
@@ -295,6 +304,61 @@ void ResourceManager::newCourseDialog()
     if (dialog->exec() == QDialog::Accepted ) {
         addCourse(dialog->course());
     }
+}
+
+Course * ResourceManager::loadSkeleton(const KUrl& skeletonFile)
+{
+    if (!skeletonFile.isLocalFile()) {
+        kWarning() << "Cannot open skeleton file at " << skeletonFile.toLocalFile() << ", aborting.";
+        return 0;
+    }
+
+    QXmlSchema schema = loadXmlSchema("skeleton");
+    if (!schema.isValid()) {
+        return 0;
+    }
+
+    QDomDocument document = loadDomDocument(skeletonFile, schema);
+    if (document.isNull()) {
+        kWarning() << "Could not parse document " << skeletonFile.toLocalFile() << ", aborting.";
+        return 0;
+    }
+
+    // create skeleton
+    QDomElement root(document.documentElement());
+    Course *skeleton = new Course(this);
+
+    skeleton->setFile(skeletonFile);
+    skeleton->setId(root.firstChildElement("id").text());
+    skeleton->setTitle(root.firstChildElement("title").text());
+    skeleton->setDescription(root.firstChildElement("title").text());
+
+    // create units
+    for (QDomElement unitNode = root.firstChildElement("units").firstChildElement();
+         !unitNode.isNull();
+         unitNode = unitNode.nextSiblingElement())
+    {
+        Unit *unit = new Unit(skeleton);
+        unit->setId(unitNode.firstChildElement("id").text());
+        unit->setCourse(skeleton);
+        unit->setTitle(unitNode.firstChildElement("title").text());
+        skeleton->addUnit(unit);
+
+        // create phrases
+        for (QDomElement phraseNode = unitNode.firstChildElement("phrases").firstChildElement();
+            !phraseNode.isNull();
+            phraseNode = phraseNode.nextSiblingElement())
+        {
+            Phrase *phrase = new Phrase(unit);
+            phrase->setId(phraseNode.firstChildElement("id").text());
+            phrase->setText(phraseNode.firstChildElement("text").text());
+            phrase->setType(phraseNode.firstChildElement("type").text());
+
+            unit->addPhrase(phrase);
+        }
+    }
+
+    return skeleton;
 }
 
 void ResourceManager::sync(Course *course)
