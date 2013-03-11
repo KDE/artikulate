@@ -46,6 +46,8 @@ public:
     ~Course();
     QString id() const;
     void setId(const QString &id);
+    QString foreignId() const;
+    void setForeignId(const QString &id);
     QString title() const;
     void setTitle(const QString &title);
     Language * language() const;
@@ -112,6 +114,7 @@ signals:
 private:
     Q_DISABLE_COPY(Course)
     QString m_id;
+    QString m_foreignId;
     QString m_title;
     QString m_description;
     Language *m_language;

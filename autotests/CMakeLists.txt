@@ -33,7 +33,8 @@ set (TestAudio_SRCS
     testaudio.cpp
 )
 file(COPY ../schemes/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/schemes) # copy test files
-file(COPY ../data/courses DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/courses) # copy test files
+file(COPY ../data/courses DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data) # copy test files
+file(COPY ../data/languages DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data) # copy test files
 kde4_add_executable(TestAudio ${TestAudio_SRCS} )
 target_link_libraries(TestAudio
     artikulatecore

@@ -179,6 +179,9 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
     course->setId(root.firstChildElement("id").text());
     course->setTitle(root.firstChildElement("title").text());
     course->setDescription(root.firstChildElement("title").text());
+    if (!root.firstChildElement("foreignId").isNull()) {
+        course->setForeignId(root.firstChildElement("foreignId").text());
+    }
 
     // set language
     QString language = root.firstChildElement("language").text();
@@ -204,6 +207,9 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
         unit->setId(unitNode.firstChildElement("id").text());
         unit->setCourse(course);
         unit->setTitle(unitNode.firstChildElement("title").text());
+        if (!unitNode.firstChildElement("foreignId").isNull()) {
+            unit->setForeignId(unitNode.firstChildElement("foreignId").text());
+        }
         course->addUnit(unit);
 
         // create phrases
@@ -220,6 +226,9 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
                     );
             }
             phrase->setType(phraseNode.firstChildElement("type").text());
+            if (!phraseNode.firstChildElement("foreignId").isNull()) {
+                phrase->setForeignId(phraseNode.firstChildElement("foreignId").text());
+            }
 
             // add phonemes
             QList<Phoneme *> phonemes = course->language()->phonemes();
@@ -414,6 +423,11 @@ void ResourceManager::sync(Course *course)
             //FIXME write back phonemes, once they are really implemented
 
             phraseElement.appendChild(phraseIdElement);
+            if (!phrase->foreignId().isEmpty()) {
+                QDomElement phraseForeignIdElement = document.createElement("foreignId");
+                phraseForeignIdElement.appendChild(document.createTextNode(phrase->foreignId()));
+                phraseElement.appendChild(phraseForeignIdElement);
+            }
             phraseElement.appendChild(phraseTextElement);
             phraseElement.appendChild(phraseSoundFileElement);
             phraseElement.appendChild(phraseTypeElement);
@@ -424,6 +438,11 @@ void ResourceManager::sync(Course *course)
 
         // construct the unit element
         unitElement.appendChild(unitIdElement);
+        if (!unit->foreignId().isEmpty()) {
+            QDomElement unitForeignIdElement = document.createElement("foreignId");
+            unitForeignIdElement.appendChild(document.createTextNode(unit->foreignId()));
+            unitElement.appendChild(unitForeignIdElement);
+        }
         unitElement.appendChild(unitTitleElement);
         unitElement.appendChild(unitPhraseListElement);
 
@@ -431,6 +450,11 @@ void ResourceManager::sync(Course *course)
     }
 
     root.appendChild(idElement);
+    if (!course->foreignId().isEmpty()) {
+        QDomElement courseForeignIdElement = document.createElement("foreignId");
+        courseForeignIdElement.appendChild(document.createTextNode(course->foreignId()));
+        root.appendChild(courseForeignIdElement);
+    }
     root.appendChild(titleElement);
     root.appendChild(descriptionElement);
     root.appendChild(languageElement);
@@ -467,7 +491,7 @@ QDomDocument ResourceManager::loadDomDocument(const KUrl &path, const QXmlSchema
     QDomDocument document;
     QXmlSchemaValidator validator(schema);
     if (!validator.validate(path)) {
-        kWarning() << "Schema is not valid, aborting loading of XML document.";
+        kWarning() << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
         return document;
     }
 

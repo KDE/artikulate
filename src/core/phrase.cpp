@@ -63,6 +63,15 @@ void Phrase::setId(const QString &id)
     }
 }
 
+QString Phrase::foreignId() const
+{
+    return m_foreignId;
+}
+
+void Phrase::setForeignId(const QString &id)
+{
+    m_foreignId = id;
+}
 QString Phrase::text() const
 {
     return m_text;

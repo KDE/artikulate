@@ -73,6 +73,8 @@ public:
 
     QString id() const;
     void setId(const QString &id);
+    QString foreignId() const;
+    void setForeignId(const QString &id);
     QString text() const;
     void setText(const QString &title);
     Phrase::Type type() const;
@@ -118,6 +120,7 @@ signals:
 private:
     Q_DISABLE_COPY(Phrase)
     QString m_id;
+    QString m_foreignId;
     QString m_text;
     Type m_type;
 

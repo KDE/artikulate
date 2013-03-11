@@ -74,6 +74,16 @@ void Course::setId(const QString &id)
     }
 }
 
+QString Course::foreignId() const
+{
+    return m_foreignId;
+}
+
+void Course::setForeignId(const QString &id)
+{
+    m_foreignId = id;
+}
+
 QString Course::title() const
 {
     return m_title;

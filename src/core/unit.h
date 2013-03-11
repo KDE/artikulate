@@ -44,6 +44,8 @@ public:
 
     QString id() const;
     void setId(const QString &id);
+    QString foreignId() const;
+    void setForeignId(const QString &id);
     Course * course() const;
     void setCourse(Course* course);
     QString title() const;
@@ -69,6 +71,7 @@ private slots:
 private:
     Q_DISABLE_COPY(Unit)
     QString m_id;
+    QString m_foreignId;
     Course *m_course;
     QString m_title;
     QMultiMap<Phrase::Type, Phrase *> m_phraseList;

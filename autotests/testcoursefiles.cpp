@@ -95,6 +95,7 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     QVERIFY(testCourse->file().toLocalFile() != compareCourse->file().toLocalFile());
 
     QVERIFY(testCourse->id() == compareCourse->id());
+    QVERIFY(testCourse->foreignId() == compareCourse->foreignId());
     QVERIFY(testCourse->title() == compareCourse->title());
     QVERIFY(testCourse->description() == compareCourse->description());
     QVERIFY(testCourse->language()->id() == compareCourse->language()->id());
@@ -103,12 +104,14 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     Unit *testUnit = testCourse->unitList().first();
     Unit *compareUnit = compareCourse->unitList().first();
     QVERIFY(testUnit->id() == compareUnit->id());
+    QVERIFY(testUnit->foreignId() == compareUnit->foreignId());
     QVERIFY(testUnit->title() == compareUnit->title());
     QVERIFY(testUnit->phraseList(Phrase::AllTypes).count() == compareUnit->phraseList(Phrase::AllTypes).count());
 
     Phrase *testPhrase = testUnit->phraseList(Phrase::AllTypes).first();
     Phrase *comparePhrase = compareUnit->phraseList(Phrase::AllTypes).first();
     QVERIFY(testPhrase->id() == comparePhrase->id());
+    QVERIFY(testPhrase->foreignId() == comparePhrase->foreignId());
     QVERIFY(testPhrase->text() == comparePhrase->text());
     QVERIFY(testPhrase->type() == comparePhrase->type());
     QVERIFY(testPhrase->sound().toLocalFile() == comparePhrase->sound().toLocalFile());
