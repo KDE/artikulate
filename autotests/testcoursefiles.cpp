@@ -109,7 +109,14 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     QVERIFY(testUnit->phraseList(Phrase::AllTypes).count() == compareUnit->phraseList(Phrase::AllTypes).count());
 
     Phrase *testPhrase = testUnit->phraseList(Phrase::AllTypes).first();
-    Phrase *comparePhrase = compareUnit->phraseList(Phrase::AllTypes).first();
+    Phrase *comparePhrase;
+    // Note that this actually means that we DO NOT respect phrase orders by list order!
+    foreach (Phrase *phrase, compareUnit->phraseList(Phrase::AllTypes)) {
+        if (testPhrase->id() == phrase->id()) {
+            comparePhrase = phrase;
+            break;
+        }
+    }
     QVERIFY(testPhrase->id() == comparePhrase->id());
     QVERIFY(testPhrase->foreignId() == comparePhrase->foreignId());
     QVERIFY(testPhrase->text() == comparePhrase->text());
