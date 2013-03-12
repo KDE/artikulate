@@ -36,7 +36,6 @@ Unit::Unit(QObject *parent)
     , m_course(0)
     , m_phraseSignalMapper(new QSignalMapper(this))
 {
-    connect(m_phraseSignalMapper, SIGNAL(mapped(const QString&)), this, SLOT(updatePhraseType(const QString&)));
 }
 
 Unit::~Unit()
@@ -92,20 +91,14 @@ void Unit::setTitle(const QString &title)
     }
 }
 
-QList< Phrase* > Unit::phraseList(Phrase::Type type) const
+QList< Phrase* > Unit::phraseList() const
 {
-    if (type == Phrase::AllTypes) {
-        return m_phraseList.values();
-    }
-    if (!m_phraseList.contains(type)) {
-        return QList<Phrase*>();
-    }
-    return m_phraseList.values(type);
+    return m_phraseList;
 }
 
 void Unit::addPhrase(Phrase *phrase)
 {
-    QMultiMap<Phrase::Type, Phrase *>::ConstIterator iter = m_phraseList.constBegin();
+    QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
     while (iter != m_phraseList.constEnd()) {
         if (phrase->id() == (*iter)->id()) {
             kWarning() << "Phrase is already contained in this unit, aborting";
@@ -114,8 +107,8 @@ void Unit::addPhrase(Phrase *phrase)
         ++iter;
     }
 
-    emit phraseAboutToBeAdded(phrase, m_phraseList.values(phrase->type()).length());
-    m_phraseList.insert(phrase->type(), phrase);
+    emit phraseAboutToBeAdded(phrase, m_phraseList.length());
+    m_phraseList.append(phrase);
     m_phraseSignalMapper->setMapping(phrase, phrase->id());
 
     emit phraseAdded(phrase);
@@ -128,24 +121,4 @@ void Unit::addPhrase(Phrase *phrase)
     connect(phrase, SIGNAL(phonemesChanged()), this, SIGNAL(modified()));
 
     emit modified();
-}
-
-void Unit::updatePhraseType(const QString& phraseId)
-{
-    Phrase *phrase = qobject_cast<Phrase*>(m_phraseSignalMapper->mapping(phraseId));
-    if (!phrase) {
-        kError() << "Could not cast phrase object, aborting update of unit.";
-        return;
-    }
-
-    // remove old entry first
-    QMultiMap<Phrase::Type, Phrase *>::Iterator iter = m_phraseList.begin();
-    while (iter != m_phraseList.end()) {
-        if (phrase == (*iter)) {
-            m_phraseList.erase(iter);
-            break;
-        }
-        ++iter;
-    }
-    m_phraseList.insert(phrase->type(), phrase);
 }

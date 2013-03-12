@@ -36,7 +36,6 @@ FocusScope {
     PhraseModel {
         id: currentPhrasesModel
         unit: userProfile.unit
-        type: userProfile.phraseType
     }
 
     Column {

@@ -191,7 +191,7 @@ Phrase * Course::createPhrase(Unit *unit)
     // find globally unique phrase id inside course
     QStringList phraseIds;
     foreach (Unit *unit, m_unitList) {
-        foreach (Phrase *phrase, unit->phraseList(Phrase::AllTypes)) {
+        foreach (Phrase *phrase, unit->phraseList()) {
             phraseIds.append(phrase->id());
         }
     }

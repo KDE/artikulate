@@ -123,7 +123,7 @@ QVariant PhonemeUnitModel::data(const QModelIndex& index, int role) const
     case TitleRole:
         return unit->title();
     case NumberPhrasesRole:
-        return unit->phraseList(Phrase::AllTypes).count();
+        return unit->phraseList().count();
     case IdRole:
         return unit->id();
     case DataRole:

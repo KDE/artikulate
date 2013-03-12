@@ -50,7 +50,7 @@ public:
     void setCourse(Course* course);
     QString title() const;
     void setTitle(const QString &title);
-    QList<Phrase *> phraseList(Phrase::Type type) const;
+    QList<Phrase *> phraseList() const;
     void addPhrase(Phrase *phrase);
 
 signals:
@@ -65,16 +65,13 @@ signals:
     void phraseRemoved(Phrase *);
     void phraseAboutToBeRemoved(int,int);
 
-private slots:
-    void updatePhraseType(const QString &phraseId);
-
 private:
     Q_DISABLE_COPY(Unit)
     QString m_id;
     QString m_foreignId;
     Course *m_course;
     QString m_title;
-    QMultiMap<Phrase::Type, Phrase *> m_phraseList;
+    QList<Phrase *> m_phraseList;
     QSignalMapper *m_phraseSignalMapper;
 };
 

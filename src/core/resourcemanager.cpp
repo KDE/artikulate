@@ -408,7 +408,7 @@ void ResourceManager::sync(Course *course)
         unitTitleElement.appendChild(document.createTextNode(unit->title()));
 
         // construct phrases
-        foreach (Phrase *phrase, unit->phraseList(Phrase::AllTypes)) {
+        foreach (Phrase *phrase, unit->phraseList()) {
             QDomElement phraseElement = document.createElement("phrase");
             QDomElement phraseIdElement = document.createElement("id");
             QDomElement phraseTextElement = document.createElement("text");

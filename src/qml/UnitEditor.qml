@@ -34,7 +34,6 @@ Item {
     PhraseModel {
         id: phraseModel
         unit: root.unit
-        type: Phrase.AllTypes
     }
 
     Component {

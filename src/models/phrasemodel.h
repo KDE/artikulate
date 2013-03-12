@@ -31,7 +31,6 @@ class PhraseModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
-    Q_PROPERTY(Phrase::Type type READ type WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
@@ -45,8 +44,6 @@ public:
     explicit PhraseModel(QObject *parent = 0);
     void setUnit(Unit *unit);
     Unit * unit() const;
-    void setType(Phrase::Type type = Phrase::AllTypes);
-    Phrase::Type type() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
@@ -75,7 +72,6 @@ private slots:
 private:
     void updateMappings();
     Unit *m_unit;
-    Phrase::Type m_type;
     QSignalMapper *m_signalMapper;
 };
 

@@ -36,7 +36,8 @@ Item {
         id: itemDelegate
 
         Item {
-            height: 30
+            visible: model.dataRole.type == userProfile.phraseType || userProfile.phraseType == Phrase.AllTypes
+            height: visible ? phraseLine.height : 0
             Row {
                 id: phraseLine
 
