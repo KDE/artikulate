@@ -5,17 +5,17 @@
   <description>This language course is shipped directly by Artikulate.</description>
   <units>
     <unit>
-      <id>1</id>
+      <id>{dd60f04a-eb37-44b7-9787-67aaf7d3578d}</id>
       <title>On the Street</title>
       <phrases>
         <phrase>
-          <id>1</id>
-          <text>Good morning.</text>
+          <id>{3a4c1926-60d7-44c6-80d1-03165a641c75}</id>
+          <text>Good day.</text>
           <type>sentence</type>
         </phrase>
         <phrase>
-          <id>2</id>
-          <text>How are you?.</text>
+          <id>{56b0d0a2-8505-4a9e-89f7-a933824fac89}</id>
+          <text>How are you?</text>
           <type>sentence</type>
         </phrase>
       </phrases>

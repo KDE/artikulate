@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
 <course>
     <id>de</id>
+    <foreignId>artikulate-basic</foreignId>
     <title>ArtiKulate Deutsch</title>
     <description>Ein Kurs in (hoch-)deutscher Aussprache.</description>
     <language>de</language>
     <units>
         <unit>
             <id>1</id>
+            <foreignId>{dd60f04a-eb37-44b7-9787-67aaf7d3578d}</foreignId>
             <title>Auf der Straße</title>
             <phrases>
                 <phrase>
                     <id>1</id>
+                    <foreignId>{3a4c1926-60d7-44c6-80d1-03165a641c75}</foreignId>
                     <text>Guten Tag.</text>
                     <soundFile>de_01.ogg</soundFile>
                     <type>sentence</type>
@@ -18,8 +21,17 @@
                 </phrase>
                 <phrase>
                     <id>2</id>
+                    <foreignId></foreignId>
                     <text>Auf Wiedersehen.</text>
                     <soundFile>de_02.ogg</soundFile>
+                    <type>sentence</type>
+                    <phonemes></phonemes>
+                </phrase>
+                <phrase>
+                    <id>3</id>
+                    <foreignId>{56b0d0a2-8505-4a9e-89f7-a933824fac89}</foreignId>
+                    <text>Wie geht es dir?</text>
+                    <soundFile></soundFile>
                     <type>sentence</type>
                     <phonemes></phonemes>
                 </phrase>
