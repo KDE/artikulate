@@ -62,6 +62,11 @@ void TestCourseFiles::courseSchemeValidationTest()
     QXmlSchema languageSchema;
     QVERIFY(languageSchema.load(languageFile));
     QVERIFY(languageSchema.isValid());
+
+    KUrl skeletonFile = KUrl::fromLocalFile("schemes/skeleton.xsd");
+    QXmlSchema skeletonScheme;
+    QVERIFY(skeletonScheme.load(skeletonFile));
+    QVERIFY(skeletonScheme.isValid());
 }
 
 void TestCourseFiles::fileLoadSaveCompleteness()
@@ -109,7 +114,7 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     QVERIFY(testUnit->phraseList(Phrase::AllTypes).count() == compareUnit->phraseList(Phrase::AllTypes).count());
 
     Phrase *testPhrase = testUnit->phraseList(Phrase::AllTypes).first();
-    Phrase *comparePhrase;
+    Phrase *comparePhrase = new Phrase(this);
     // Note that this actually means that we DO NOT respect phrase orders by list order!
     foreach (Phrase *phrase, compareUnit->phraseList(Phrase::AllTypes)) {
         if (testPhrase->id() == phrase->id()) {
