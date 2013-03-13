@@ -27,10 +27,7 @@ include(MacroLogFeature)
 
 find_package(KDeclarative REQUIRED)
 
-# TODO the following selfmade cmake modules are only for now
-#      remove them when official ones are available
-find_package(QtMobility)
-find_package(QtMultimedia)
+find_package(QtMobility COMPONENTS MultimediaKit)
 
 add_subdirectory(qml)
 
@@ -40,7 +37,7 @@ include_directories(
     ${KDE4_INCLUDES}
     ${CMAKE_CURRENT_BINARY_DIR}
     ${QTMOBILITY_INCLUDE_DIR}
-    ${QTMULTIMEDIA_INCLUDE_DIR}
+    ${QTMOBILITY_MULTIMEDIAKIT_INCLUDE_DIR}
 )
 
 # set the source code files from which Artikulate is compiled
@@ -114,3 +111,4 @@ target_link_libraries(artikulate
 )
 
 install(TARGETS artikulate ${INSTALL_TARGETS_DEFAULT_ARGS})
+
