@@ -70,7 +70,7 @@ target_link_libraries(artikulatecore
     ${QT_QTDECLARATIVE_LIBRARY}
     ${QT_QTXMLPATTERNS_LIBRARY}
     ${QT_QTSQL_LIBRARY}
-    QtMultimediaKit
+    ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
 )
 set_target_properties(artikulatecore
     PROPERTIES VERSION ${GENERIC_LIB_VERSION}
@@ -107,7 +107,7 @@ target_link_libraries(artikulate
     ${QT_QTDECLARATIVE_LIBRARY}
     ${QT_QTXMLPATTERNS_LIBRARY}
     ${QT_QTSQL_LIBRARY}
-    QtMultimediaKit
+    ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
 )
 
 install(TARGETS artikulate ${INSTALL_TARGETS_DEFAULT_ARGS})
