@@ -51,7 +51,7 @@ target_link_libraries(TestAudio
     ${QT_QTXMLPATTERNS_LIBRARY}
     ${QT_QTSQL_LIBRARY}
     ${PHONON_LIBS}
-    QtMultimediaKit
+    ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
 )
 add_test(TestAudio TestAudio)
 
