@@ -32,104 +32,19 @@ Item {
     width: 100
     height: 200
 
-    Component {
-        id: itemDelegate
-
-        Item {
-            visible: model.dataRole.type == userProfile.phraseType || userProfile.phraseType == Phrase.AllTypes
-            height: visible ? phraseLine.height : 0
-            Row {
-                id: phraseLine
-
-                PlasmaComponents.ToolButton {
-                    property Phrase phrase: model.dataRole
-                    property int soundState: phrase.playbackSoundState
-
-                    anchors.verticalCenter: phraseLine.verticalCenter
-                    iconSource: "media-playback-start"
-                    enabled: phrase.isSound
-
-                    onClicked: {
-                        if (soundState == Phrase.PlayingState) {
-                            phrase.stopSound();
-                        }
-                        if (soundState == Phrase.StoppedState) {
-                            phrase.playbackSound();
-                        }
-                    }
-                    onSoundStateChanged: {
-                        // set next possible action icon
-                        if (soundState == Phrase.PlayingState) {
-                            iconSource = "media-playback-stop";
-                        }
-                        if (soundState == Phrase.StoppedState) {
-                            iconSource = "media-playback-start";
-                        }
-                    }
-                }
-
-                Item {
-                    width: 30
-                    height: 20
-                }
-
-                PlasmaComponents.ToolButton {
-                    property Phrase phrase: model.dataRole
-                    property bool recording: true
-
-                    anchors.verticalCenter: phraseLine.verticalCenter
-                    iconSource: "media-record"
-
-                    onClicked: {
-                       if (recording) {
-                            phrase.startRecordUserSound();
-                            recording = false;
-                        }
-                        else {
-                            phrase.stopRecordUserSound();
-                            recording = true;
-                        }
-                    }
-                }
-                PlasmaComponents.ToolButton {
-                    property Phrase phrase: model.dataRole
-                    property int userSoundState: phrase.playbackUserSoundState
-
-                    anchors.verticalCenter: phraseLine.verticalCenter
-                    iconSource: "media-playback-start"
-                    enabled: phrase.isUserSound
-
-                    onClicked: {
-                       if (userSoundState == Phrase.PlayingState) {
-                            phrase.stopPlaybackUserSound();
-                        }
-                        if (userSoundState == Phrase.StoppedState) {
-                            phrase.playbackUserSound();
-                        }
-                    }
-                    onUserSoundStateChanged: {
-                        // set next possible action icon
-                        if (userSoundState == Phrase.PlayingState) {
-                            iconSource = "media-playback-stop";
-                        }
-                        if (userSoundState == Phrase.StoppedState) {
-                            iconSource = "media-playback-start";
-                        }
-                    }
-                }
-                Text {
-                    anchors.verticalCenter: phraseLine.verticalCenter
-                    text: model.text
-                }
-            }
-        }
-    }
-
     ListView {
         id: phraseList
 
         anchors.fill: parent
         model: root.phraseModel
-        delegate: itemDelegate
+        delegate:
+            Row {
+                height: phrase.visible ? phrase.height : 0
+                TrainerPhrase {
+                    id: phrase
+                    visible: model.dataRole.type == userProfile.phraseType || userProfile.phraseType == Phrase.AllTypes
+                    phrase: model.dataRole
+                }
+            }
     }
 }
