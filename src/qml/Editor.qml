@@ -129,9 +129,9 @@ Item
                         text: i18n("Update from Course Prototype")
                         iconSource: "svn-update"
                         flat: true
-                        enabled: editor.currentCourse != null && editor.currentCourse.foreignId != ""
+                        enabled: { editor.currentCourse != null }
                         onClicked: {
-                            console.log("updtae from skeleton")
+                            globalResourceManager.updateCourseFromSkeleton(editor.currentCourse);
                         }
                     }
                 }

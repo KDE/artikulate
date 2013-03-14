@@ -94,6 +94,13 @@ public:
     Q_INVOKABLE void reloadCourse(Course *course);
 
     /**
+     * Imports units and phrases from skeleton, deassociates removed ones.
+     *
+     * \param course the course to be update
+     */
+    Q_INVOKABLE void updateCourseFromSkeleton(Course *course);
+
+    /**
      * Adds course to resource manager by parsing the given course specification file.
      *
      * \param courseFile is the local XML file containing the course
@@ -171,6 +178,7 @@ private:
 
     QList<Language *> m_languageList;
     QMap<Language *, QList<Course *> > m_courseList;
+    QList<Course *> m_skeletonList;
 };
 
 #endif // RESOURCEMANAGER_H

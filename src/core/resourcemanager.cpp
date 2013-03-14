@@ -33,6 +33,7 @@
 #include <QXmlSchema>
 #include <QXmlSchemaValidator>
 #include <QDomDocument>
+#include <QUuid>
 
 #include <KGlobal>
 #include <KStandardDirs>
@@ -64,7 +65,7 @@ void ResourceManager::loadLocalData()
     // load local skeleton files
     QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
     foreach (const QString &file, skeletonFiles) {
-        loadSkeleton(KUrl::fromLocalFile(file));
+        m_skeletonList.append(loadSkeleton(KUrl::fromLocalFile(file)));
     }
 }
 
@@ -272,6 +273,72 @@ void ResourceManager::reloadCourse(Course *course)
     addCourse(file);
 }
 
+void ResourceManager::updateCourseFromSkeleton(Course *course)
+{
+    //TODO implement status information that are shown at mainwindow
+    if (course->foreignId().isEmpty())  {
+        kError() << "No skeleton ID specified, aborting update.";
+        return;
+    }
+    Course *skeleton = 0;
+    QList<Course *>::ConstIterator iter = m_skeletonList.constBegin();
+    while (iter != m_skeletonList.constEnd()) {
+        if ((*iter)->id() == course->foreignId()) {
+            skeleton = *iter;
+            break;
+        }
+        ++iter;
+    }
+    if (!skeleton)  {
+        kError() << "Could not find skeleton with id " << course->foreignId() << ", aborting update.";
+        return;
+    }
+
+    // update now
+    foreach (Unit *unitSkeleton, skeleton->unitList()) {
+        // import unit if not exists
+        Unit *currentUnit = 0;
+        bool found = false;
+        foreach (Unit *unit, course->unitList()) {
+            if (unit->foreignId() == unitSkeleton->id()) {
+                found = true;
+                currentUnit = unit;
+                break;
+            }
+        }
+        if (found == false) {
+            currentUnit = new Unit(course);
+            currentUnit->setId(QUuid::createUuid().toString());
+            currentUnit->setForeignId(skeleton->id());
+            currentUnit->setCourse(course);
+            course->addUnit(currentUnit);
+            course->setModified(true);
+        }
+
+        // update phrases
+        foreach (Phrase *phraseSkeleton, unitSkeleton->phraseList()) {
+            bool found = false;
+            foreach (Phrase *phrase, currentUnit->phraseList()) {
+                if (phrase->foreignId() == phraseSkeleton->id()) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found == false) {
+                Phrase *newPhrase = new Phrase(course);
+                newPhrase->setForeignId(phraseSkeleton->id());
+                newPhrase->setId(QUuid::createUuid().toString());
+                newPhrase->setType(phraseSkeleton->type());
+                currentUnit->addPhrase(newPhrase);
+                course->setModified(true);
+            }
+        }
+    }
+    // FIXME deassociate removed phrases
+
+    kDebug() << "Update performed!";
+}
+
 bool ResourceManager::addCourse(const KUrl &courseFile)
 {
     Course *course = loadCourse(courseFile);
@@ -368,6 +435,11 @@ Course * ResourceManager::loadSkeleton(const KUrl& skeletonFile)
     }
 
     return skeleton;
+}
+
+QList< Course* > ResourceManager::skeletonList() const
+{
+    return m_skeletonList;
 }
 
 void ResourceManager::sync(Course *course)
