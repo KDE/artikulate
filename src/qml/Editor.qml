@@ -124,6 +124,16 @@ Item
                         anchors.verticalCenter: parent.verticalCenter
                         text: i18n("<strong>Course:</strong> %1", editor.currentCourseName)
                     }
+                    PlasmaComponents.ToolButton { // sync button for skeleton
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: i18n("Update from Course Prototype")
+                        iconSource: "svn-update"
+                        flat: true
+                        enabled: editor.currentCourse != null && editor.currentCourse.foreignId != ""
+                        onClicked: {
+                            console.log("updtae from skeleton")
+                        }
+                    }
                 }
                 Row {
                     width: header.width - selectorInformation.width - 10
@@ -246,6 +256,7 @@ Item
                 }
             }
         }
+
         Row {
             visible: currentCourse != null
             Column {
