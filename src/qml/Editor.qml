@@ -77,33 +77,31 @@ Item
         course: editor.currentCourse
     }
 
-    Column {
+    PlasmaComponents.ToolBar {
         id: breadcrumb
         anchors { top: editor.top; left: editor.left}
         width: editor.width
         height: 30
 
-        // head toolbar
-        PlasmaComponents.ToolBar {
-            id: header
-
+        tools: Row {
             width: parent.width
-            height: 30
-            tools: Row {
-                width: parent.width
-                anchors { leftMargin: 3; rightMargin: 3 }
-                spacing: 5
+            anchors { leftMargin: 3; rightMargin: 3 }
+            spacing: 5
+
+            Row {
+                id: selectorInformation
+                width: 300
+                height: parent.height
+                anchors.verticalCenter: parent.verticalCenter
 
                 Row {
-                    id: selectorInformation
-                    width: 300
-                    height: parent.height
-                    anchors.verticalCenter: parent.verticalCenter
+                    visible: !editCourseSelector.isSkeleton
                     Text {
                         anchors.verticalCenter: parent.verticalCenter
                         text: i18n("<strong>Language:</strong> %1", editor.currentLanguageName)
                     }
                     PlasmaComponents.ToolButton { // unselect-button for language
+                        id: unselectLanguage
                         anchors.verticalCenter: parent.verticalCenter
                         iconSource: "dialog-close"
                         flat: true
@@ -113,7 +111,7 @@ Item
                         }
                     }
                     Text {
-                        anchors.verticalCenter: parent.verticalCenter
+                        anchors { verticalCenter: parent.verticalCenter }
                         text: i18n("<strong>Course:</strong> %1", editor.currentCourseName)
                     }
                     PlasmaComponents.ToolButton { // sync button for skeleton
@@ -128,76 +126,93 @@ Item
                     }
                 }
                 Row {
-                    width: header.width - selectorInformation.width - 10
-                    layoutDirection: Qt.RightToLeft
-                    Row {
-                        PlasmaComponents.ToolButton {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: i18n("OK")
-                            visible: {
-                                if (currentCourse != null) return currentCourse.modified;
-                                else return false;
-                            }
-                            enabled: {
-                                if (currentCourse != null) return currentCourse.modified;
-                                else return false;
-                            }
-                            iconSource: "dialog-ok-apply"
-                            onClicked: {
-                                editor.currentCourse.sync();
-                                editCourseSelector.unselect()
-                            }
-                        }
-                        PlasmaComponents.ToolButton {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: i18n("Cancel")
-                            visible: {
-                                if (currentCourse != null) return currentCourse.modified;
-                                else return false;
-                            }
-                            enabled: {
-                                if (currentCourse != null) return currentCourse.modified;
-                                else return false;
-                            }
-                            iconSource: "dialog-cancel"
-                            onClicked: {
-                                globalResourceManager.reloadCourseOrSkeleton(editor.currentCourse)
-                                editCourseSelector.unselect()
-                            }
-                        }
-                        PlasmaComponents.ToolButton {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: i18n("Close Course")
-                            visible: {
-                                if (currentCourse != null) return !currentCourse.modified;
-                                else return false;
-                            }
-                            iconSource: "dialog-close"
-                            onClicked: {
-                                editCourseSelector.unselect()
-                            }
+                    visible: editCourseSelector.isSkeleton
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: i18n("<strong>Skeleton:</strong> %1", editor.currentCourseName)
+                    }
+                    PlasmaComponents.ToolButton { // unselect-button for language
+                        anchors.verticalCenter: parent.verticalCenter
+                        iconSource: "dialog-close"
+                        flat: true
+                        enabled: editor.currentCourse != null
+                        onClicked: {
+                            editCourseSelector.unselect()
                         }
                     }
-                    Row {
-                        PlasmaComponents.ToolButton { // unselect-button for language
-                            anchors.verticalCenter: parent.verticalCenter
-                            iconSource: "go-up"
-                            text: i18n("Close Editor")
-                            visible: {
-                                if (currentCourse != null) return false;
-                                else return true;
-                            }
-                            flat: true
-                            onClicked: {
-                                editCourseSelector.unselect()
-                                closeEditor()
-                            }
+                }
+            }
+            Row {
+                width: breadcrumb.width - selectorInformation.width - 10
+                layoutDirection: Qt.RightToLeft
+                Row {
+                    PlasmaComponents.ToolButton {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: i18n("OK")
+                        visible: {
+                            if (currentCourse != null) return currentCourse.modified;
+                            else return false;
+                        }
+                        enabled: {
+                            if (currentCourse != null) return currentCourse.modified;
+                            else return false;
+                        }
+                        iconSource: "dialog-ok-apply"
+                        onClicked: {
+                            editor.currentCourse.sync();
+                            editCourseSelector.unselect()
+                        }
+                    }
+                    PlasmaComponents.ToolButton {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: i18n("Cancel")
+                        visible: {
+                            if (currentCourse != null) return currentCourse.modified;
+                            else return false;
+                        }
+                        enabled: {
+                            if (currentCourse != null) return currentCourse.modified;
+                            else return false;
+                        }
+                        iconSource: "dialog-cancel"
+                        onClicked: {
+                            globalResourceManager.reloadCourseOrSkeleton(editor.currentCourse)
+                            editCourseSelector.unselect()
+                        }
+                    }
+                    PlasmaComponents.ToolButton {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: i18n("Close Course")
+                        visible: {
+                            if (currentCourse != null) return !currentCourse.modified;
+                            else return false;
+                        }
+                        iconSource: "dialog-close"
+                        onClicked: {
+                            editCourseSelector.unselect()
+                        }
+                    }
+                }
+                Row {
+                    PlasmaComponents.ToolButton { // unselect-button for language
+                        anchors.verticalCenter: parent.verticalCenter
+                        iconSource: "go-up"
+                        text: i18n("Close Editor")
+                        visible: {
+                            if (currentCourse != null) return false;
+                            else return true;
+                        }
+                        flat: true
+                        onClicked: {
+                            editCourseSelector.unselect()
+                            closeEditor()
                         }
                     }
                 }
             }
         }
     }
+
     Column {
         id: main
 
