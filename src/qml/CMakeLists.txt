@@ -40,6 +40,7 @@ set(artikulate_qml_files
     UnitEditor.qml
     PhraseEditor.qml
     PhonemeUnitSelector.qml
+    SkeletonSelector.qml
 )
 
 install(FILES ${artikulate_qml_files} DESTINATION ${DATA_INSTALL_DIR}/artikulate/qml)

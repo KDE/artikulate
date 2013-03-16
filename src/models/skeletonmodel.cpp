@@ -130,6 +130,7 @@ void SkeletonModel::onSkeletonAdded()
 {
     updateMappings();
     endInsertRows();
+    emit countChanged();
 }
 
 void SkeletonModel::onSkeletonsAboutToBeRemoved(int first, int last)
@@ -140,6 +141,7 @@ void SkeletonModel::onSkeletonsAboutToBeRemoved(int first, int last)
 void SkeletonModel::onSkeletonsRemoved()
 {
     endRemoveRows();
+    emit countChanged();
 }
 
 void SkeletonModel::emitSkeletonChanged(int row)
@@ -157,6 +159,11 @@ QVariant SkeletonModel::headerData(int section, Qt::Orientation orientation, int
         return QVariant(section + 1);
     }
     return QVariant(i18n("Title"));
+}
+
+int SkeletonModel::count() const
+{
+    return m_resourceManager->skeletonList().count();
 }
 
 void SkeletonModel::updateMappings()

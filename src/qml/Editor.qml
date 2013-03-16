@@ -228,6 +228,13 @@ Item
                         editor.currentLanguage = language
                     }
                 }
+
+
+                SkeletonSelector {
+                    id: skeletonSelector
+
+                    resourceManager: globalResourceManager
+                }
             }
 
             Column {

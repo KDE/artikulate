@@ -34,6 +34,7 @@ class SkeletonModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(ResourceManager *resourceManager READ resourceManager WRITE setResourceManager NOTIFY resourceManagerChanged)
+    Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
     enum courseRoles {
@@ -49,10 +50,12 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    int count() const;
 
 signals:
     void skeletonChanged(int index);
     void resourceManagerChanged();
+    void countChanged();
 
 private slots:
     void onSkeletonAboutToBeAdded(Course *skeleton, int index);
