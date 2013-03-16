@@ -130,8 +130,8 @@ Column {
         SkeletonSelector {
             id: skeletonSelector
             resourceManager: globalResourceManager
-            onSelectedSkeletonChanged: {
-                root.selectedCourse = selectedSkeleton
+            onSkeletonSelected: {
+                root.selectedCourse = skeleton
             }
         }
     }

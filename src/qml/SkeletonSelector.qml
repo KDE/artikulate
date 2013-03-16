@@ -29,6 +29,8 @@ Item {
     property ResourceManager resourceManager
     property Course selectedSkeleton
 
+    signal skeletonSelected(variant skeleton)
+
     width: skeletonList.width
     height: skeletonList.count > 0 ? skeletonList.height : noSkeletonsMessage.height
 
@@ -41,6 +43,7 @@ Item {
             text: model.title
             onClicked: {
                 root.selectedSkeleton = skeleton
+                skeletonSelected(skeleton)
             }
         }
     }
