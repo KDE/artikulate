@@ -30,6 +30,8 @@ Item {
     property Language language
     property Course selectedCourse
 
+    signal courseSelected(variant course)
+
     width: courseList.width
     height: courseList.count > 0 ? courseList.height : noCoursesMessage.height
 
@@ -42,6 +44,7 @@ Item {
             text : model.title
             onClicked: {
                 root.selectedCourse = course
+                courseSelected(course)
             }
         }
     }

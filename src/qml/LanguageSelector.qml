@@ -29,6 +29,8 @@ Item {
     property ResourceManager resourceManager
     property Language selectedLanguage
 
+    signal languageSelected(variant language)
+
     width: languageList.width
     height: languageList.height
 
@@ -40,6 +42,7 @@ Item {
             property Language language: model.dataRole
             onClicked: {
                 root.selectedLanguage = language
+                languageSelected(language)
             }
         }
     }

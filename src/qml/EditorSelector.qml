@@ -23,7 +23,7 @@ import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
 import artikulate 1.0
 
-Row {
+Column {
     id: root
     property Language selectedLanguage
     property Course selectedCourse
@@ -32,62 +32,106 @@ Row {
     function unselect() {
         selectedLanguage = null
         selectedCourse = null
-
-        console.log("unselect")
     }
 
     spacing: 20
+    visible: selectedCourse == null
 
-    Column {
-        visible: selectedLanguage == null
-        Text {
-            text: i18n("<h2>Select Language</h2>")
+    onSelectedLanguageChanged: {
+        if (selectedLanguage != null) {
+            selectedCourse = null
+            isSkeleton = false
         }
-        LanguageSelector {
-            id: languageSelector
+    }
 
-            resourceManager: globalResourceManager
-            onSelectedLanguageChanged: {
-                root.selectedLanguage = selectedLanguage
+    PlasmaComponents.TabBar {
+        width: 400
+        height: 30
+
+        onCurrentTabChanged: {
+            root.selectedLanguage = null
+            root.selectedCourse = null
+        }
+        PlasmaComponents.TabButton {
+            id: editCourses
+            text: i18n("Edit Courses")
+            onCheckedChanged: {
+                if (checked) {
+                    root.isSkeleton = false
+                }
             }
         }
-
-
-        SkeletonSelector {
-            id: skeletonSelector
-
-            resourceManager: globalResourceManager
-            onSelectedSkeletonChanged: {
-                root.selectedCourse = selectedSkeleton
-                root.isSkeleton = true
+        PlasmaComponents.TabButton {
+            id: editSkeletons
+            text: i18n("Edit Skeletons")
+            onCheckedChanged: {
+                if (checked) {
+                    root.isSkeleton = true
+                }
             }
         }
     }
 
     Column {
-        visible: {
-            if (selectedLanguage == null) return false;
-            if (selectedCourse != null) return false;
-            return true;
-        }
-        Text {
-            text: i18n("<h2>Select Course</h2>")
-        }
-        PlasmaComponents.ToolButton {
-            text: i18n("New Course")
-            iconSource: "document-new"
-            enabled: selectedLanguage != null
-            onClicked: {
-                globalResourceManager.newCourseDialog();
+        visible: editCourses.checked
+        Column {
+            visible: selectedLanguage == null
+
+            Text {
+                text: i18n("Select Course Language:")
+                font.pointSize: 20;
+            }
+            LanguageSelector {
+                id: languageSelector
+
+                resourceManager: globalResourceManager
+                onLanguageSelected: {
+                    root.selectedLanguage = language
+                }
             }
         }
-        CourseSelector {
-            id: courseSelector
+
+        Column {
+            visible: {
+                if (selectedLanguage == null) return false;
+                if (selectedCourse != null) return false;
+                return true;
+            }
+            Text {
+                text: i18n("Select Course:")
+                font.pointSize: 20;
+            }
+            PlasmaComponents.ToolButton {
+                text: i18n("New Course")
+                iconSource: "document-new"
+                enabled: selectedLanguage != null
+                onClicked: {
+                    globalResourceManager.newCourseDialog();
+                }
+            }
+            CourseSelector {
+                id: courseSelector
+                resourceManager: globalResourceManager
+                language: selectedLanguage
+                onCourseSelected: {
+                    root.selectedCourse = course
+                }
+            }
+        }
+    }
+
+    Column {
+        visible: editSkeletons.checked
+
+        Text {
+            text: i18n("Select Skeleton:")
+            font.pointSize: 20;
+        }
+        SkeletonSelector {
+            id: skeletonSelector
             resourceManager: globalResourceManager
-            language: selectedLanguage
-            onSelectedCourseChanged: {
-                root.selectedCourse = selectedCourse
-                root.isSkeleton = false
+            onSelectedSkeletonChanged: {
+                root.selectedCourse = selectedSkeleton
             }
         }
     }

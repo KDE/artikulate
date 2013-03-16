@@ -78,7 +78,10 @@ Item
     }
 
     Column {
-        anchors.fill: parent
+        id: breadcrumb
+        anchors { top: editor.top; left: editor.left}
+        width: editor.width
+        height: 30
 
         // head toolbar
         PlasmaComponents.ToolBar {
@@ -186,8 +189,7 @@ Item
                             }
                             flat: true
                             onClicked: {
-                                currentCourse = null
-                                currentLanguage = null
+                                editCourseSelector.unselect()
                                 closeEditor()
                             }
                         }
@@ -195,18 +197,27 @@ Item
                 }
             }
         }
+    }
+    Column {
+        id: main
 
-        // main part
+        anchors { top: breadcrumb.bottom; left: editor.left; topMargin: 30; leftMargin: 30 }
+        spacing: 20
+        width: editor.width
+
         Text {
-            text: i18n("<h1>Course Editor</h1>")
+            text: i18n("Course Editor")
+            font.pointSize: 28;
         }
 
         EditorSelector {
             id: editCourseSelector
+            anchors { horizontalCenter: main.horizontalCenter }
             onSelectedLanguageChanged: {
                 editor.currentLanguage = selectedLanguage
             }
             onSelectedCourseChanged: {
+                editor.currentLanguage = selectedLanguage
                 editor.currentCourse = selectedCourse
             }
         }
@@ -217,7 +228,8 @@ Item
                 width: 200
 
                 Text {
-                    text: i18n("<h2>Units</h2>")
+                    text: i18n("Units")
+                    font.pointSize: 20;
                 }
                 PlasmaComponents.ToolButton {
                     text: i18n("Add Unit")
