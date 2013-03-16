@@ -65,7 +65,10 @@ void ResourceManager::loadLocalData()
     // load local skeleton files
     QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
     foreach (const QString &file, skeletonFiles) {
-        m_skeletonList.append(loadSkeleton(KUrl::fromLocalFile(file)));
+        Course *skeleton = loadSkeleton(KUrl::fromLocalFile(file));
+        emit skeletonAboutToBeAdded(skeleton, m_skeletonList.count());
+        m_skeletonList.append(skeleton);
+        emit skeletonAdded();
     }
 }
 

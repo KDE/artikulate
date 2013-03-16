@@ -90,6 +90,7 @@ set(artikulate_SRCS
     models/phrasemodel.cpp
     models/phonemegroupmodel.cpp
     models/phonemeunitmodel.cpp
+    models/skeletonmodel.cpp
 
     declarativeitems/applicationbackground.cpp
 )

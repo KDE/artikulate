@@ -156,6 +156,10 @@ signals:
     void courseAboutToBeAdded(Course*,int);
     void courseRemoved();
     void courseAboutToBeRemoved(int,int);
+    void skeletonAdded();
+    void skeletonAboutToBeAdded(Course*,int);
+    void skeletonRemoved();
+    void skeletonAboutToBeRemoved(int,int);
 
 private:
     /**
