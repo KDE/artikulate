@@ -26,17 +26,17 @@ import artikulate 1.0
 Item {
     id: root
 
-    property PhraseModel phraseModel
+    property ResourceManager resourceManager
     property Unit unit
 
-    width: 100
+    width: 400
     height: 200
 
     ListView {
         id: phraseList
 
         anchors.fill: parent
-        model: root.phraseModel
+        model: PhraseModel { unit: root.unit }
         delegate:
             Row {
                 height: phrase.visible ? phrase.height : 0

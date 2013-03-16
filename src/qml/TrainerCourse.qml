@@ -26,24 +26,13 @@ import artikulate 1.0
 FocusScope {
     id: screen
 
-    property alias unit: currentPhrasesModel.unit
-
-    UnitModel {
-        id: selectedUnitModel
-        course: userProfile.course
-    }
-
-    PhraseModel {
-        id: currentPhrasesModel
-        unit: userProfile.unit
-    }
-
-    Column {
-        id: phraseTrainer
-        width: screen.width - difficultySelector.width - 50
+    Row {
+        id: unitHeader
+        height: 100
         anchors { top: screen.top; left: screen.left; topMargin: 30; leftMargin: 30 }
+        spacing: 15
 
-        Row {
+        Column {
             width: screen.width
             height: 50
 
@@ -53,37 +42,76 @@ FocusScope {
                     if (userProfile.course == null) {
                         ""
                     } else {
-                        "<h1>" + i18n("Course: %1", userProfile.course.title) + "</h1>";
+                        i18n("Course: %1", userProfile.course.title);
+                    }
+                }
+                font.pointSize: 28
+            }
+            Row {
+                Text {
+                    text: {
+                        var title = i18n("unselected")
+                        if (userProfile.unit != null) {
+                            title = userProfile.unit.title
+                        }
+                        i18n("Unit: %1", title)
+                    }
+                    font.pointSize: 20
+                }
+                PlasmaComponents.ToolButton { // unselect-button for language
+                    id: unselectUnit
+                    iconSource: "dialog-close"
+                    onClicked: {
+                        unitSelector.visible = true
                     }
                 }
             }
         }
+    }
 
-        Text {
-            text: {
-                var title = i18n("unselected")
-                if (screen.unit != null) {
-                    title = screen.unit.title
+    Row {
+        anchors { top: unitHeader.bottom; left: unitHeader.left }
+
+        Column {
+            id: unitSelector
+            width: 200
+            visible: false
+            Text {
+                text: i18n("Change Unit")
+                font.pointSize: 20
+            }
+            UnitSelector {
+                unitModel: UnitModel { course: userProfile.course }
+                onUnitSelected: {
+                    userProfile.unit = unit
+                    unitSelector.visible = false
                 }
-                i18n("<strong>Current Unit:</strong> %1",title)
             }
         }
 
         TrainingUnit {
-            phraseModel: currentPhrasesModel
+            height: 300
+            width: {
+                if (unitSelector.visible) {
+                    screen.width - difficultySelector.width - unitSelector.width - 60
+                } else {
+                    screen.width - difficultySelector.width - 60
+                }
+            }
+            unit: userProfile.unit
         }
-    }
 
-    Column {
-        id: difficultySelector
-        anchors { left: phraseTrainer.right; top: phraseTrainer.top; leftMargin: 30 }
-        spacing: 10
-        Text {
-            text: i18n("<strong>Niveau</strong>")
-        }
-        PhraseTypeSelector {
-            onTypeSelected: {
-                userProfile.phraseType = type
+        Column {
+            id: difficultySelector
+
+            spacing: 10
+            Text {
+                text: i18n("<strong>Niveau</strong>")
+            }
+            PhraseTypeSelector {
+                onTypeSelected: {
+                    userProfile.phraseType = type
+                }
             }
         }
     }

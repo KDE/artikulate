@@ -153,9 +153,9 @@ FocusScope {
             visible: userProfile.language != null && userProfile.course == null
             resourceManager: globalResourceManager
             language: userProfile.language
-            onSelectedCourseChanged: {
-                userProfile.course = selectedCourse
-                screen.courseSelected(selectedCourse)
+            onCourseSelected: {
+                userProfile.course = course
+                screen.courseSelected(course)
             }
         }
 
