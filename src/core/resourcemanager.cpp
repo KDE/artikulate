@@ -444,6 +444,7 @@ Course * ResourceManager::loadSkeleton(const KUrl& skeletonFile)
             unit->addPhrase(phrase);
         }
     }
+    skeleton->setModified(false);
 
     return skeleton;
 }
