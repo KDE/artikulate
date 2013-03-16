@@ -116,6 +116,7 @@ void Unit::addPhrase(Phrase *phrase)
 
     connect(phrase, SIGNAL(typeChanged()), m_phraseSignalMapper, SLOT(map()));
     connect(phrase, SIGNAL(idChanged()), this, SIGNAL(modified()));
+    connect(phrase, SIGNAL(typeChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(textChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(soundChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(phonemesChanged()), this, SIGNAL(modified()));
