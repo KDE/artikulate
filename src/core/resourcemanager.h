@@ -87,11 +87,11 @@ public:
     Course * loadCourse(const KUrl &courseFile);
 
     /**
-     * Reset the course from its course file.
+     * Reset the file for this course or skeleton.
      *
      * \param course the course to be reloaded
      */
-    Q_INVOKABLE void reloadCourse(Course *course);
+    Q_INVOKABLE void reloadCourseOrSkeleton(Course *course);
 
     /**
      * Imports units and phrases from skeleton, deassociates removed ones.
@@ -118,7 +118,7 @@ public:
 
     /**
      * Remove course from resource manager. If the course is modified its changes are NOT
-     * written. For writing changes, the Cousse::sync() method must be called directly.
+     * written. For writing changes, the Course::sync() method must be called directly.
      *
      * \param course is the course to be removed
      */
@@ -132,6 +132,21 @@ public:
      * \return loaded skeleton
      */
     Course * loadSkeleton(const KUrl &skeletonFile);
+
+    /**
+     * Adds skeleton to resource manager
+     *
+     * \param skeleton the skeleton to add to resource manager
+     */
+    void addSkeleton(Course *skeleton);
+
+    /**
+     * Remove skeleton from resource manager. If the skeleton is modified its changes are NOT
+     * written. For writing changes, the Course::sync() method must be called directly.
+     *
+     * \param skeleton is the skeleton to be removed
+     */
+    void removeSkeleton(Course *skeleton);
 
     /**
      * \return list of all loaded skeletons

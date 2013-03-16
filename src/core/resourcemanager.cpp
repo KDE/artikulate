@@ -65,10 +65,7 @@ void ResourceManager::loadLocalData()
     // load local skeleton files
     QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
     foreach (const QString &file, skeletonFiles) {
-        Course *skeleton = loadSkeleton(KUrl::fromLocalFile(file));
-        emit skeletonAboutToBeAdded(skeleton, m_skeletonList.count());
-        m_skeletonList.append(skeleton);
-        emit skeletonAdded();
+        addSkeleton(loadSkeleton(KUrl::fromLocalFile(file)));
     }
 }
 
@@ -261,19 +258,30 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
     return course;
 }
 
-void ResourceManager::reloadCourse(Course *course)
+void ResourceManager::reloadCourseOrSkeleton(Course *courseOrSkeleton)
 {
-    if (!course) {
+    if (!courseOrSkeleton) {
         kError() << "Cannot reload non-existing course";
         return;
     }
-    if (!course->file().isValid()) {
+    if (!courseOrSkeleton->file().isValid()) {
         kError() << "Cannot reload temporary file, aborting.";
         return;
     }
-    KUrl file = course->file();
-    removeCourse(course);
-    addCourse(file);
+
+    // figure out if this is a course or a skeleton
+    if (courseOrSkeleton->language()) { // only course files have a language
+        //TODO better add a check if this is contained in the course list
+        // to catch possible errors
+        KUrl file = courseOrSkeleton->file();
+        removeCourse(courseOrSkeleton);
+        addCourse(file);
+    } else {
+        KUrl file = courseOrSkeleton->file();
+        removeSkeleton(courseOrSkeleton);
+        addSkeleton(loadSkeleton(file));
+    }
+
 }
 
 void ResourceManager::updateCourseFromSkeleton(Course *course)
@@ -438,6 +446,22 @@ Course * ResourceManager::loadSkeleton(const KUrl& skeletonFile)
     }
 
     return skeleton;
+}
+
+void ResourceManager::addSkeleton(Course* skeleton)
+{
+    emit skeletonAboutToBeAdded(skeleton, m_skeletonList.count());
+    m_skeletonList.append(skeleton);
+    emit skeletonAdded();
+}
+
+void ResourceManager::removeSkeleton(Course *skeleton)
+{
+    int index = m_skeletonList.indexOf(skeleton);
+    emit skeletonAboutToBeRemoved(index, index);
+    m_skeletonList.removeAt(index);
+    emit skeletonRemoved();
+    skeleton->deleteLater();
 }
 
 QList< Course* > ResourceManager::skeletonList() const

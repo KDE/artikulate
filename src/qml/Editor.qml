@@ -158,7 +158,7 @@ Item
                             }
                             iconSource: "dialog-cancel"
                             onClicked: {
-                                globalResourceManager.reloadCourse(editor.currentCourse)
+                                globalResourceManager.reloadCourseOrSkeleton(editor.currentCourse)
                                 editCourseSelector.unselect()
                             }
                         }
