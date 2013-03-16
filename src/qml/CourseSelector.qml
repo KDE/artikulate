@@ -26,7 +26,8 @@ import artikulate 1.0
 Item {
     id: root
 
-    property CourseModel courseModel
+    property ResourceManager resourceManager
+    property Language language
     property Course selectedCourse
 
     width: courseList.width
@@ -52,7 +53,10 @@ Item {
         height: 30 * courseList.count
         visible: courseList.count > 0
         anchors.fill: parent
-        model: root.courseModel
+        model: CourseModel {
+            resourceManager: root.resourceManager
+            language: root.language
+        }
         delegate: courseDelegate
     }
 

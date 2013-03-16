@@ -26,7 +26,6 @@ import artikulate 1.0
 FocusScope {
     id: screen
 
-    property CourseModel courseModel
     property bool __showPhonemeUnits: false
 
     signal languageSelected(variant language)
@@ -152,7 +151,8 @@ FocusScope {
         CourseSelector {
             id: courseSelector
             visible: userProfile.language != null && userProfile.course == null
-            courseModel: screen.courseModel
+            resourceManager: globalResourceManager
+            language: userProfile.language
             onSelectedCourseChanged: {
                 userProfile.course = selectedCourse
                 screen.courseSelected(selectedCourse)

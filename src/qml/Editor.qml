@@ -30,6 +30,7 @@ Item
     property Language currentLanguage
     property Course currentCourse
     property Unit currentUnit
+    property Course currentSkeleton
     property string currentLanguageName: i18n("Unselected")
     property string currentCourseName: i18n("Unselected")
     property string currentUnitName: i18n("Unselected")
@@ -71,12 +72,6 @@ Item
         anchors.fill: parent
     }
 
-    CourseModel {
-        id: availableCourseModel
-        language: editor.currentLanguage
-        resourceManager: globalResourceManager
-    }
-
     UnitModel {
         id: selectedUnitModel
         course: editor.currentCourse
@@ -109,10 +104,9 @@ Item
                         anchors.verticalCenter: parent.verticalCenter
                         iconSource: "dialog-close"
                         flat: true
-                        enabled: availableCourseModel.language != null
+                        enabled: editor.currentLanguage != null
                         onClicked: {
-                            currentCourse = null
-                            currentLanguage = null
+                            editCourseSelector.unselect()
                         }
                     }
                     Text {
@@ -148,7 +142,7 @@ Item
                             iconSource: "dialog-ok-apply"
                             onClicked: {
                                 editor.currentCourse.sync();
-                                editor.currentCourse = null
+                                editCourseSelector.unselect()
                             }
                         }
                         PlasmaComponents.ToolButton {
@@ -165,7 +159,7 @@ Item
                             iconSource: "dialog-cancel"
                             onClicked: {
                                 globalResourceManager.reloadCourse(editor.currentCourse)
-                                editor.currentCourse = null
+                                editCourseSelector.unselect()
                             }
                         }
                         PlasmaComponents.ToolButton {
@@ -177,7 +171,7 @@ Item
                             }
                             iconSource: "dialog-close"
                             onClicked: {
-                                editor.currentCourse = null
+                                editCourseSelector.unselect()
                             }
                         }
                     }
@@ -207,55 +201,13 @@ Item
             text: i18n("<h1>Course Editor</h1>")
         }
 
-        Row {
-            spacing: 20
-
-            Column {
-                visible: currentLanguage == null
-                Text {
-                    text: i18n("<h2>Select Language</h2>")
-                }
-                LanguageSelector {
-                    id: languageSelector
-
-                    resourceManager: globalResourceManager
-                    onSelectedLanguageChanged: {
-                        editor.currentLanguage = selectedLanguage
-                    }
-                }
-
-
-                SkeletonSelector {
-                    id: skeletonSelector
-
-                    resourceManager: globalResourceManager
-                }
+        EditorSelector {
+            id: editCourseSelector
+            onSelectedLanguageChanged: {
+                editor.currentLanguage = selectedLanguage
             }
-
-            Column {
-                visible: {
-                    if (currentLanguage == null) return false;
-                    if (currentCourse != null) return false;
-                    return true;
-                }
-                Text {
-                    text: i18n("<h2>Select Course</h2>")
-                }
-                PlasmaComponents.ToolButton {
-                    text: i18n("New Course")
-                    iconSource: "document-new"
-                    enabled: availableCourseModel.language != null
-                    onClicked: {
-                        globalResourceManager.newCourseDialog();
-                    }
-                }
-                CourseSelector {
-                    id: courseSelector
-                    courseModel: availableCourseModel
-                    onSelectedCourseChanged: {
-                        editor.currentCourse = selectedCourse
-                    }
-                }
+            onSelectedCourseChanged: {
+                editor.currentCourse = selectedCourse
             }
         }
 

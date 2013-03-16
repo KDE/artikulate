@@ -90,7 +90,6 @@ Item {
             height: trainer.height - header.height
             visible: false
             focus: true
-            courseModel: availableCourseModel
 
             onLanguageSelected: {
                 availableCourseModel.language = language

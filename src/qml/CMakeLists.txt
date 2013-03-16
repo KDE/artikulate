@@ -32,6 +32,8 @@ set(artikulate_qml_files
     TrainerCourse.qml
     TrainerPhrase.qml
 
+    EditorSelector.qml
+
     CourseSelector.qml
     LanguageSelector.qml
     UnitSelector.qml
