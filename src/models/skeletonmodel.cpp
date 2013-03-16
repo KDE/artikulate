@@ -21,6 +21,7 @@
 #include "skeletonmodel.h"
 #include "core/course.h"
 #include "core/resourcemanager.h"
+#include "core/skeleton.h"
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
@@ -84,7 +85,7 @@ QVariant SkeletonModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    Course * const skeleton = m_resourceManager->skeletonList().at(index.row());
+    Skeleton * const skeleton = m_resourceManager->skeletonList().at(index.row());
 
     switch(role)
     {

@@ -21,6 +21,7 @@
 #include "resourcemanager.h"
 #include "language.h"
 #include "course.h"
+#include "skeleton.h"
 #include "unit.h"
 #include "phrase.h"
 #include "phoneme.h"
@@ -278,10 +279,10 @@ void ResourceManager::reloadCourseOrSkeleton(Course *courseOrSkeleton)
         addCourse(file);
     } else {
         KUrl file = courseOrSkeleton->file();
-        removeSkeleton(courseOrSkeleton);
+        Skeleton *skeleton = qobject_cast<Skeleton*>(courseOrSkeleton);
+        removeSkeleton(skeleton);
         addSkeleton(loadSkeleton(file));
     }
-
 }
 
 void ResourceManager::updateCourseFromSkeleton(Course *course)
@@ -292,7 +293,7 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
         return;
     }
     Course *skeleton = 0;
-    QList<Course *>::ConstIterator iter = m_skeletonList.constBegin();
+    QList<Skeleton *>::ConstIterator iter = m_skeletonList.constBegin();
     while (iter != m_skeletonList.constEnd()) {
         if ((*iter)->id() == course->foreignId()) {
             skeleton = *iter;
@@ -393,7 +394,7 @@ void ResourceManager::newCourseDialog()
     }
 }
 
-Course * ResourceManager::loadSkeleton(const KUrl& skeletonFile)
+Skeleton * ResourceManager::loadSkeleton(const KUrl& skeletonFile)
 {
     if (!skeletonFile.isLocalFile()) {
         kWarning() << "Cannot open skeleton file at " << skeletonFile.toLocalFile() << ", aborting.";
@@ -413,7 +414,7 @@ Course * ResourceManager::loadSkeleton(const KUrl& skeletonFile)
 
     // create skeleton
     QDomElement root(document.documentElement());
-    Course *skeleton = new Course(this);
+    Skeleton *skeleton = new Skeleton(this);
 
     skeleton->setFile(skeletonFile);
     skeleton->setId(root.firstChildElement("id").text());
@@ -449,14 +450,14 @@ Course * ResourceManager::loadSkeleton(const KUrl& skeletonFile)
     return skeleton;
 }
 
-void ResourceManager::addSkeleton(Course* skeleton)
+void ResourceManager::addSkeleton(Skeleton* skeleton)
 {
     emit skeletonAboutToBeAdded(skeleton, m_skeletonList.count());
     m_skeletonList.append(skeleton);
     emit skeletonAdded();
 }
 
-void ResourceManager::removeSkeleton(Course *skeleton)
+void ResourceManager::removeSkeleton(Skeleton *skeleton)
 {
     int index = m_skeletonList.indexOf(skeleton);
     emit skeletonAboutToBeRemoved(index, index);
@@ -465,12 +466,12 @@ void ResourceManager::removeSkeleton(Course *skeleton)
     skeleton->deleteLater();
 }
 
-QList< Course* > ResourceManager::skeletonList() const
+QList< Skeleton* > ResourceManager::skeletonList() const
 {
     return m_skeletonList;
 }
 
-void ResourceManager::sync(Course *course)
+void ResourceManager::syncCourse(Course *course)
 {
     Q_ASSERT(course->file().isValid());
     Q_ASSERT(course->file().isLocalFile());
@@ -565,6 +566,86 @@ void ResourceManager::sync(Course *course)
     //TODO port to KSaveFile
     QFile file;
     file.setFileName(course->file().toLocalFile());
+    if (!file.open(QIODevice::WriteOnly)) {
+        kWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+        return;
+    }
+
+    file.write(document.toByteArray());
+    return;
+}
+
+void ResourceManager::syncSkeleton(Skeleton *skeleton)
+{
+    Q_ASSERT(skeleton->file().isValid());
+    Q_ASSERT(skeleton->file().isLocalFile());
+    Q_ASSERT(!skeleton->file().isEmpty());
+
+
+    QDomDocument document;
+    // prepare xml header
+    QDomProcessingInstruction header = document.createProcessingInstruction("xml", "version=\"1.0\"");
+    document.appendChild(header);
+
+    // create main element
+    QDomElement root = document.createElement("skeleton");
+    document.appendChild(root);
+
+    QDomElement idElement = document.createElement("id");
+    QDomElement titleElement = document.createElement("title");
+    QDomElement descriptionElement = document.createElement("description");
+
+    idElement.appendChild(document.createTextNode(skeleton->id()));
+    titleElement.appendChild(document.createTextNode(skeleton->title()));
+    descriptionElement.appendChild(document.createTextNode(skeleton->description()));
+
+    QDomElement unitListElement = document.createElement("units");
+    // create units
+    foreach (Unit *unit, skeleton->unitList()) {
+        QDomElement unitElement = document.createElement("unit");
+
+        QDomElement unitIdElement = document.createElement("id");
+        QDomElement unitTitleElement = document.createElement("title");
+        QDomElement unitPhraseListElement = document.createElement("phrases");
+        unitIdElement.appendChild(document.createTextNode(unit->id()));
+        unitTitleElement.appendChild(document.createTextNode(unit->title()));
+
+        // construct phrases
+        foreach (Phrase *phrase, unit->phraseList()) {
+            QDomElement phraseElement = document.createElement("phrase");
+            QDomElement phraseIdElement = document.createElement("id");
+            QDomElement phraseTextElement = document.createElement("text");
+            QDomElement phraseTypeElement = document.createElement("type");
+
+            phraseIdElement.appendChild(document.createTextNode(phrase->id()));
+            phraseTextElement.appendChild(document.createTextNode(phrase->text()));
+            phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
+
+            phraseElement.appendChild(phraseIdElement);
+            phraseElement.appendChild(phraseTextElement);
+            phraseElement.appendChild(phraseTypeElement);
+
+            unitPhraseListElement.appendChild(phraseElement);
+        }
+
+        // construct the unit element
+        unitElement.appendChild(unitIdElement);
+        unitElement.appendChild(unitTitleElement);
+        unitElement.appendChild(unitPhraseListElement);
+
+        unitListElement.appendChild(unitElement);
+    }
+
+    root.appendChild(idElement);
+    root.appendChild(titleElement);
+    root.appendChild(descriptionElement);
+    root.appendChild(unitListElement);
+
+
+    // write back to file
+    //TODO port to KSaveFile
+    QFile file;
+    file.setFileName(skeleton->file().toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         kWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;

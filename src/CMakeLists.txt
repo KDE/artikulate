@@ -50,6 +50,7 @@ set(artikulateCore_SRCS
     core/phonemegroup.cpp
     core/unit.cpp
     core/profile.cpp
+    core/skeleton.cpp
 
     ui/newcoursedialog.cpp
 )

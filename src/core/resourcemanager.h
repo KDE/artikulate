@@ -26,6 +26,7 @@
 #include <QObject>
 #include <QMap>
 
+class Skeleton;
 class Language;
 class Course;
 class KUrl;
@@ -131,27 +132,27 @@ public:
      * \param skeletonFile is the local XML file containing the skeleton
      * \return loaded skeleton
      */
-    Course * loadSkeleton(const KUrl &skeletonFile);
+    Skeleton * loadSkeleton(const KUrl &skeletonFile);
 
     /**
      * Adds skeleton to resource manager
      *
      * \param skeleton the skeleton to add to resource manager
      */
-    void addSkeleton(Course *skeleton);
+    void addSkeleton(Skeleton *skeleton);
 
     /**
      * Remove skeleton from resource manager. If the skeleton is modified its changes are NOT
-     * written. For writing changes, the Course::sync() method must be called directly.
+     * written. For writing changes, the Skeleton::sync() method must be called directly.
      *
      * \param skeleton is the skeleton to be removed
      */
-    void removeSkeleton(Course *skeleton);
+    void removeSkeleton(Skeleton *skeleton);
 
     /**
      * \return list of all loaded skeletons
      */
-    QList<Course *> skeletonList() const;
+    QList<Skeleton *> skeletonList() const;
 
     Q_INVOKABLE void newCourseDialog();
 
@@ -160,7 +161,14 @@ public:
      *
      * \param course is the course to be serialized
      */
-    static void sync(Course *course);
+    static void syncCourse(Course *course);
+
+    /**
+     * Serializes skeleton to its file. The skeleton must have a valid local file path set.
+     *
+     * \param skeleton is the course skeleton to be serialized
+     */
+    static void syncSkeleton(Skeleton *skeleton);
 
 signals:
     void languageAdded();
@@ -197,7 +205,7 @@ private:
 
     QList<Language *> m_languageList;
     QMap<Language *, QList<Course *> > m_courseList;
-    QList<Course *> m_skeletonList;
+    QList<Skeleton *> m_skeletonList;
 };
 
 #endif // RESOURCEMANAGER_H

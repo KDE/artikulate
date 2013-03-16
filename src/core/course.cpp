@@ -296,7 +296,7 @@ void Course::sync()
     }
 
     // call sync operation
-    ResourceManager::sync(this);
+    ResourceManager::syncCourse(this);
     setModified(false);
 }
 
