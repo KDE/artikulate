@@ -59,10 +59,10 @@ signals:
     void displayPhraseTypeChanged();
     void modified();
     void phraseAdded();
-    void phraseAdded(Phrase *);
+    void phraseAdded(Phrase*);
     void phraseAboutToBeAdded(Phrase*,int);
     void phraseRemoved();
-    void phraseRemoved(Phrase *);
+    void phraseRemoved(Phrase*);
     void phraseAboutToBeRemoved(int,int);
 
 private:

@@ -156,8 +156,8 @@ void Course::addUnit(Unit *unit)
 
     // these connections are only present for "normal units" and take care to register
     // there phrases also at phoneme units
-    connect(unit, SIGNAL(phraseAdded(Phrase *)), this, SLOT(registerPhrasePhonemes(Phrase*)));
-    connect(unit, SIGNAL(phraseRemoved(Phrase *)), this, SLOT(removePhrasePhonemes(Phrase*)));
+    connect(unit, SIGNAL(phraseAdded(Phrase*)), this, SLOT(registerPhrasePhonemes(Phrase*)));
+    connect(unit, SIGNAL(phraseRemoved(Phrase*)), this, SLOT(removePhrasePhonemes(Phrase*)));
 
     emit unitAdded();
     setModified();
