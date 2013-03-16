@@ -257,8 +257,8 @@ Item
                 CourseSelector {
                     id: courseSelector
                     courseModel: availableCourseModel
-                    onCourseSelected: {
-                        editor.currentCourse = course
+                    onSelectedCourseChanged: {
+                        editor.currentCourse = selectedCourse
                     }
                 }
             }

@@ -154,9 +154,9 @@ FocusScope {
             id: courseSelector
             visible: userProfile.language != null && userProfile.course == null
             courseModel: screen.courseModel
-            onCourseSelected: {
-                userProfile.course = course
-                screen.courseSelected(course)
+            onSelectedCourseChanged: {
+                userProfile.course = selectedCourse
+                screen.courseSelected(selectedCourse)
             }
         }
 

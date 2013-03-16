@@ -27,23 +27,20 @@ Item {
     id: root
 
     property CourseModel courseModel
-    property Course currentCourse
+    property Course selectedCourse
 
-    signal courseSelected(variant course)
-
-    width: 100
-    height: 200
+    width: courseList.width
+    height: courseList.count > 0 ? courseList.height : noCoursesMessage.height
 
     Component {
-        id: myDelegate
+        id: courseDelegate
 
         PlasmaComponents.ToolButton {
             property Course course: model.dataRole
 
             text : model.title
             onClicked: {
-                root.currentCourse = course
-                root.courseSelected(course)
+                root.selectedCourse = course
             }
         }
     }
@@ -51,13 +48,16 @@ Item {
     ListView {
         id: courseList
 
+        width: 100
+        height: 30 * courseList.count
         visible: courseList.count > 0
         anchors.fill: parent
         model: root.courseModel
-        delegate: myDelegate
+        delegate: courseDelegate
     }
 
     Text {
+        id: noCoursesMessage
         property string message
 
         visible: courseList.count == 0
