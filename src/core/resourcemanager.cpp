@@ -321,7 +321,8 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
         if (found == false) {
             currentUnit = new Unit(course);
             currentUnit->setId(QUuid::createUuid().toString());
-            currentUnit->setForeignId(skeleton->id());
+            currentUnit->setTitle(unitSkeleton->title());
+            currentUnit->setForeignId(unitSkeleton->id());
             currentUnit->setCourse(course);
             course->addUnit(currentUnit);
             course->setModified(true);
@@ -340,6 +341,7 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
                 Phrase *newPhrase = new Phrase(course);
                 newPhrase->setForeignId(phraseSkeleton->id());
                 newPhrase->setId(QUuid::createUuid().toString());
+                newPhrase->setText(phraseSkeleton->text());
                 newPhrase->setType(phraseSkeleton->type());
                 currentUnit->addPhrase(newPhrase);
                 course->setModified(true);
