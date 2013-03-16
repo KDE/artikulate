@@ -36,8 +36,6 @@ LanguageModel::LanguageModel(QObject* parent)
     , m_resourceManager(0)
     , m_signalMapper(new QSignalMapper(this))
 {
-    kDebug() << "create language model";
-
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[IdRole] = "id";

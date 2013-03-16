@@ -26,13 +26,11 @@ import artikulate 1.0
 Item {
     id: root
 
-    property LanguageModel languageModel
-    property Language currentLanguage
+    property ResourceManager resourceManager
+    property Language selectedLanguage
 
-    signal languageSelected(variant language)
-
-    width: 180;
-    height: 200
+    width: languageList.width
+    height: languageList.height
 
     Component {
         id: itemDelegate
@@ -41,16 +39,18 @@ Item {
             text: model.title
             property Language language: model.dataRole
             onClicked: {
-                root.currentLanguage = language
-                root.languageSelected(language)
+                root.selectedLanguage = language
             }
         }
     }
 
     ListView {
-        anchors.fill: parent
+        id: languageList
 
-        model: root.languageModel
+        width: 100
+        height: languageList.count * 30
+        anchors.fill: parent
+        model: LanguageModel { resourceManager: root.resourceManager }
         delegate: itemDelegate
     }
 }

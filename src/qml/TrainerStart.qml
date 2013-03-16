@@ -26,7 +26,6 @@ import artikulate 1.0
 FocusScope {
     id: screen
 
-    property LanguageModel languageModel
     property CourseModel courseModel
     property bool __showPhonemeUnits: false
 
@@ -144,9 +143,9 @@ FocusScope {
         LanguageSelector {
             id: languageSelector
             visible: userProfile.language == null
-            languageModel: screen.languageModel
-            onLanguageSelected: {
-                screen.languageSelected(language)
+            resourceManager: globalResourceManager
+            onSelectedLanguageChanged: {
+                screen.languageSelected(selectedLanguage)
             }
         }
 

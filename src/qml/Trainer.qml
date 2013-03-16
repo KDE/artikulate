@@ -42,11 +42,6 @@ Item {
         anchors.fill: parent
     }
 
-    LanguageModel {
-        id: availableLanguageModel
-        resourceManager: globalResourceManager
-    }
-
     CourseModel {
         id: availableCourseModel
         resourceManager: globalResourceManager
@@ -95,7 +90,6 @@ Item {
             height: trainer.height - header.height
             visible: false
             focus: true
-            languageModel: availableLanguageModel
             courseModel: availableCourseModel
 
             onLanguageSelected: {

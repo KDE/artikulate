@@ -71,11 +71,6 @@ Item
         anchors.fill: parent
     }
 
-    LanguageModel {
-        id: availableLanguageModel
-        resourceManager: globalResourceManager
-    }
-
     CourseModel {
         id: availableCourseModel
         language: editor.currentLanguage
@@ -223,9 +218,9 @@ Item
                 LanguageSelector {
                     id: languageSelector
 
-                    languageModel: availableLanguageModel
-                    onLanguageSelected: {
-                        editor.currentLanguage = language
+                    resourceManager: globalResourceManager
+                    onSelectedLanguageChanged: {
+                        editor.currentLanguage = selectedLanguage
                     }
                 }
 
