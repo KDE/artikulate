@@ -91,6 +91,11 @@ Item {
                     onTextChanged: {
                         root.phrase.text = text
                     }
+                    onAccepted: {
+                        root.editMode = false
+                        root.__originalPhraseText = phrase.text
+                        root.__originalPhraseType = phrase.type
+                    }
                 }
                 PlasmaComponents.ToolButton {
                     iconSource: "dialog-ok-apply"
