@@ -33,6 +33,7 @@ FocusScope {
         spacing: 15
 
         Column {
+            id: breadcrumb
             width: screen.width
             height: 50
 
@@ -90,7 +91,6 @@ FocusScope {
         }
 
         TrainingUnit {
-            height: 300
             width: {
                 if (unitSelector.visible) {
                     screen.width - difficultySelector.width - unitSelector.width - 60
@@ -98,6 +98,7 @@ FocusScope {
                     screen.width - difficultySelector.width - 60
                 }
             }
+            height: screen.height - breadcrumb.height
             unit: userProfile.unit
         }
 

@@ -37,6 +37,9 @@ Item
 
     signal closeEditor()
 
+    width: 400 //parent.width
+    height: 400 //parent.height
+
     onCurrentCourseChanged: {
         currentUnit = null
         if (editor.currentCourse == null) {
@@ -217,17 +220,18 @@ Item
         id: main
 
         anchors { top: breadcrumb.bottom; left: editor.left; topMargin: 30; leftMargin: 30 }
+        width: editor.width - 60
+        height: editor.height - breadcrumb.height - 60
         spacing: 20
-        width: editor.width
 
         Text {
+            id: editorTitle
             text: i18n("Course Editor")
             font.pointSize: 28;
         }
-
         EditorSelector {
             id: editCourseSelector
-            anchors { horizontalCenter: main.horizontalCenter }
+            anchors { horizontalCenter: parent.horizontalCenter }
             onSelectedLanguageChanged: {
                 editor.currentLanguage = selectedLanguage
             }
@@ -239,7 +243,11 @@ Item
 
         Row {
             visible: currentCourse != null
+            width: parent.width
+            height: parent.height - editorTitle.height - 50
+
             Column {
+                id: unitSelectorColumn
                 width: 200
 
                 Text {
@@ -264,13 +272,19 @@ Item
             }
 
             Column {
+                width: main.width - unitSelectorColumn.width
+                height: parent.height
                 Text {
+                    id: currentUnitInformation
+                    height: 30
                     text: {
                         "<strong>" + i18n("Current Unit:") + "</strong> " + editor.currentUnitName
                     }
                 }
 
                 UnitEditor {
+                    width: parent.width
+                    height: parent.height - currentUnitInformation.height
                     unit: editor.currentUnit
                 }
             }

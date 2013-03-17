@@ -21,6 +21,7 @@
 import QtQuick 1.1
 import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
+import org.kde.plasma.extras 0.1 as PlasmaExtras
 import artikulate 1.0
 
 Item {
@@ -28,8 +29,8 @@ Item {
 
     property Unit unit
 
-    width: 100
-    height: 200
+    width: 500
+    height: 400
 
     PhraseModel {
         id: phraseModel
@@ -44,25 +45,29 @@ Item {
         }
     }
 
-    Column {
-        anchors.fill: parent
-        PlasmaComponents.ToolButton {
-            text: i18n("Add Phrase")
-            iconSource: "document-new"
-            enabled: {
-                root.unit != null
-            }
-            onClicked: {
-                root.unit.course.createPhrase(unit)
-            }
+    PlasmaComponents.ToolButton {
+        id: addPhraseButton
+        text: i18n("Add Phrase")
+        iconSource: "document-new"
+        enabled: {
+            root.unit != null
         }
-        ListView {
-            id: phraseList
-            height: 30 * phraseModel.count + 30 // calculate 30 per line plus 30 for extra edit space
-            width: 500
+        onClicked: {
+            root.unit.course.createPhrase(unit)
+        }
+    }
+    Item {
+        anchors.top: addPhraseButton.bottom
+        width: root.width
+        height: root.height
+        PlasmaExtras.ScrollArea {
+            anchors.fill: parent
 
-            model: phraseModel
-            delegate: itemDelegate
+            ListView {
+                anchors.fill: parent
+                model: phraseModel
+                delegate: itemDelegate
+            }
         }
     }
 }
