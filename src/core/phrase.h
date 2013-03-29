@@ -88,8 +88,10 @@ public:
     KUrl sound() const;
     void setSound(const KUrl &soundFile);
     QList<Phoneme *> phonemes() const;
-    void addPhoneme(Phoneme *phoneme);
 
+    Q_INVOKABLE bool hasPhoneme(Phoneme *phoneme);
+    Q_INVOKABLE void addPhoneme(Phoneme *phoneme);
+    Q_INVOKABLE void removePhoneme(Phoneme *phoneme);
     Q_INVOKABLE void playbackSound();
     Q_INVOKABLE void stopSound();
     Q_INVOKABLE void playbackUserSound();

@@ -298,10 +298,23 @@ QList<Phoneme *> Phrase::phonemes() const
     return m_phonemes;
 }
 
+bool Phrase::hasPhoneme(Phoneme* phoneme)
+{
+    return m_phonemes.contains(phoneme);
+}
+
 void Phrase::addPhoneme(Phoneme *phoneme)
 {
     if (!m_phonemes.contains(phoneme)) {
         m_phonemes.append(phoneme);
+        emit phonemesChanged();
+        //FIXME tell Unit to also send corresponding signal!
+    }
+}
+
+void Phrase::removePhoneme(Phoneme *phoneme)
+{
+    if (m_phonemes.removeOne(phoneme)) {
         emit phonemesChanged();
         //FIXME tell Unit to also send corresponding signal!
     }

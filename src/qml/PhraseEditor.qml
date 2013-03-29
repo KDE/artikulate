@@ -122,7 +122,19 @@ Item {
                 Component {
                     id: phonemeItem
                     Text {
-                        text: model.title
+                        PlasmaComponents.Button {
+                            width: 100
+                            text: model.title
+                            checkable: true
+                            checked: phrase.hasPhoneme(model.dataRole)
+                            onClicked: { //TODO this button has no undo operation yet
+                                if (checked) {
+                                    phrase.addPhoneme(model.dataRole)
+                                } else {
+                                    phrase.removePhoneme(model.dataRole)
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -137,7 +149,6 @@ Item {
                     delegate: phonemeItem
                 }
             }
-
         }
     }
 
