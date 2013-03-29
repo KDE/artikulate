@@ -137,6 +137,16 @@ void Phrase::setType(const QString &typeString)
     return;
 }
 
+Unit * Phrase::unit() const
+{
+    return m_unit;
+}
+
+void Phrase::setUnit(Unit *unit)
+{
+    m_unit = unit;
+}
+
 KUrl Phrase::sound() const
 {
     return KUrl(); //m_sound->currentSource().url();

@@ -106,6 +106,7 @@ void Unit::addPhrase(Phrase *phrase)
         }
         ++iter;
     }
+    phrase->setUnit(this);
 
     emit phraseAboutToBeAdded(phrase, m_phraseList.length());
     m_phraseList.append(phrase);

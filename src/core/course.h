@@ -40,6 +40,7 @@ class ARTIKULATELIB_EXPORT Course : public QObject
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
     Q_PROPERTY(bool modified READ modified WRITE setModified NOTIFY modifiedChanged)
+    Q_PROPERTY(Language * language READ language)
 
 public:
     explicit Course(QObject *parent = 0);

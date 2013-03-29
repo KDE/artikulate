@@ -222,6 +222,7 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
             Phrase *phrase = new Phrase(unit);
             phrase->setId(phraseNode.firstChildElement("id").text());
             phrase->setText(phraseNode.firstChildElement("text").text());
+            phrase->setUnit(unit);
             if (!phraseNode.firstChildElement("soundFile").text().isEmpty()) {
                 phrase->setSound(KUrl::fromLocalFile(
                         courseFile.directory() + '/' + phraseNode.firstChildElement("soundFile").text())
@@ -343,6 +344,7 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
                 newPhrase->setId(QUuid::createUuid().toString());
                 newPhrase->setText(phraseSkeleton->text());
                 newPhrase->setType(phraseSkeleton->type());
+                newPhrase->setUnit(currentUnit);
                 currentUnit->addPhrase(newPhrase);
                 course->setModified(true);
             }
@@ -443,6 +445,7 @@ Skeleton * ResourceManager::loadSkeleton(const KUrl& skeletonFile)
             phrase->setId(phraseNode.firstChildElement("id").text());
             phrase->setText(phraseNode.firstChildElement("text").text());
             phrase->setType(phraseNode.firstChildElement("type").text());
+            phrase->setUnit(unit);
 
             unit->addPhrase(phrase);
         }
