@@ -526,7 +526,13 @@ void ResourceManager::syncCourse(Course *course)
             phraseTextElement.appendChild(document.createTextNode(phrase->text()));
             phraseSoundFileElement.appendChild(document.createTextNode(phrase->sound().toLocalFile()));
             phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
-            //FIXME write back phonemes, once they are really implemented
+
+            // add phonemes
+            foreach (Phoneme *phoneme, phrase->phonemes()) {
+                QDomElement phonemeElement = document.createElement("phonemeID");
+                phonemeElement.appendChild(document.createTextNode(phoneme->id()));
+                phrasePhonemeListElement.appendChild(phonemeElement);
+            }
 
             phraseElement.appendChild(phraseIdElement);
             if (!phrase->foreignId().isEmpty()) {
