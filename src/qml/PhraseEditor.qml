@@ -31,7 +31,7 @@ Item {
     property string __originalPhraseText
     property int __originalPhraseType
 
-    height: root.editMode ? 60 : 30
+    height: 30 + editLoader.height
 
     Component.onCompleted: {
         root.__originalPhraseText = root.phrase.text
@@ -41,83 +41,108 @@ Item {
     Component {
         id: editComponent
 
-        Column {
-            spacing: 5
-            Row {
-                PlasmaComponents.TextField {
-                    id: phraseInput
-                    width: Math.max(phraseText.width + 20, 200)
-                    text: root.phrase.text
-                    onTextChanged: {
-                        root.phrase.text = text
+        Row {
+            height: textEdit.height + phonemeGrid.height
+            Column {
+                id: textEdit
+                height: 30
+                spacing: 5
+                Row {
+                    PlasmaComponents.TextField {
+                        id: phraseInput
+                        width: Math.max(phraseText.width + 20, 200)
+                        text: root.phrase.text
+                        onTextChanged: {
+                            root.phrase.text = text
+                        }
+                        onAccepted: {
+                            root.editMode = false
+                            root.__originalPhraseText = phrase.text
+                            root.__originalPhraseType = phrase.type
+                        }
                     }
-                    onAccepted: {
-                        root.editMode = false
-                        root.__originalPhraseText = phrase.text
-                        root.__originalPhraseType = phrase.type
+                    PlasmaComponents.ToolButton {
+                        iconSource: "dialog-ok-apply"
+                        onClicked: {
+                            root.editMode = false
+                            root.__originalPhraseText = phrase.text
+                            root.__originalPhraseType = phrase.type
+                        }
+                    }
+                    PlasmaComponents.ToolButton {
+                        iconSource: "dialog-cancel"
+                        onClicked: {
+                            root.editMode = false
+                            phrase.text = root.__originalPhraseText
+                            phrase.type = root.__originalPhraseType
+                        }
                     }
                 }
-                PlasmaComponents.ToolButton {
-                    iconSource: "dialog-ok-apply"
-                    onClicked: {
-                        root.editMode = false
-                        root.__originalPhraseText = phrase.text
-                        root.__originalPhraseType = phrase.type
+                PlasmaComponents.ButtonRow {
+                    id: phraseTypeRow
+                    spacing: 30
+                    Text {
+                        anchors.verticalCenter: phraseTypeRow.verticalCenter
+                        text: i18n("Type:")
+                    }
+                    PlasmaComponents.RadioButton {
+                        anchors.verticalCenter: phraseTypeRow.verticalCenter
+                        text: i18n("Word")
+                        checked: {phrase.type == Phrase.Word}
+                        onClicked: {
+                            phrase.type = Phrase.Word
+                        }
+                    }
+                    PlasmaComponents.RadioButton {
+                        anchors.verticalCenter: phraseTypeRow.verticalCenter
+                        text: i18n("Expression")
+                        checked: {phrase.type == Phrase.Expression}
+                        onClicked: {
+                            phrase.type = Phrase.Expression
+                        }
+                    }
+                    PlasmaComponents.RadioButton {
+                        anchors.verticalCenter: phraseTypeRow.verticalCenter
+                        text: i18n("Sentence")
+                        checked: {phrase.type == Phrase.Sentence}
+                        onClicked: {
+                            phrase.type = Phrase.Sentence
+                        }
+                    }
+                    PlasmaComponents.RadioButton {
+                        anchors.verticalCenter: phraseTypeRow.verticalCenter
+                        text: i18n("Paragraph")
+                        checked: {phrase.type == Phrase.Paragraph}
+                        onClicked: {
+                            phrase.type = Phrase.Paragraph
+                        }
                     }
                 }
-                PlasmaComponents.ToolButton {
-                    iconSource: "dialog-cancel"
-                    onClicked: {
-                        root.editMode = false
-                        phrase.text = root.__originalPhraseText
-                        phrase.type = root.__originalPhraseType
+
+                Component {
+                    id: phonemeItem
+                    Text {
+                        text: model.title
                     }
+                }
+
+                GridView {
+                    id: phonemeGrid
+                    property int columns : width / cellWidth
+                    width: parent.width
+                    height: 30 * count / columns + 60
+                    cellWidth: 100
+                    cellHeight: 30
+                    model: PhonemeModel { language: root.phrase.unit.course.language }
+                    delegate: phonemeItem
                 }
             }
-            PlasmaComponents.ButtonRow {
-                id: phraseTypeRow
-                spacing: 30
-                Text {
-                    anchors.verticalCenter: phraseTypeRow.verticalCenter
-                    text: i18n("Type:")
-                }
-                PlasmaComponents.RadioButton {
-                    anchors.verticalCenter: phraseTypeRow.verticalCenter
-                    text: i18n("Word")
-                    checked: {phrase.type == Phrase.Word}
-                    onClicked: {
-                        phrase.type = Phrase.Word
-                    }
-                }
-                PlasmaComponents.RadioButton {
-                    anchors.verticalCenter: phraseTypeRow.verticalCenter
-                    text: i18n("Expression")
-                    checked: {phrase.type == Phrase.Expression}
-                    onClicked: {
-                        phrase.type = Phrase.Expression
-                    }
-                }
-                PlasmaComponents.RadioButton {
-                    anchors.verticalCenter: phraseTypeRow.verticalCenter
-                    text: i18n("Sentence")
-                    checked: {phrase.type == Phrase.Sentence}
-                    onClicked: {
-                        phrase.type = Phrase.Sentence
-                    }
-                }
-                PlasmaComponents.RadioButton {
-                    anchors.verticalCenter: phraseTypeRow.verticalCenter
-                    text: i18n("Paragraph")
-                    checked: {phrase.type == Phrase.Paragraph}
-                    onClicked: {
-                        phrase.type = Phrase.Paragraph
-                    }
-                }
-            }
+
         }
     }
 
     Row {
+        id: phraseRow
         spacing: 5
         anchors.centerIn: parent.center
 
@@ -159,7 +184,12 @@ Item {
         }
 
         Loader {
+            id: editLoader
             sourceComponent: editMode ? editComponent : undefined
+            onSourceComponentChanged: {
+                if (sourceComponent == undefined) height = 0
+                else height = editComponent.height
+            }
         }
     }
 }

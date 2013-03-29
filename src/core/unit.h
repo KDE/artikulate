@@ -36,7 +36,7 @@ class ARTIKULATELIB_EXPORT Unit : public QObject
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
-    Q_PROPERTY(Course *course READ course WRITE setCourse)
+    Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
 
 public:
     explicit Unit(QObject *parent = 0);
@@ -56,6 +56,7 @@ public:
 signals:
     void idChanged();
     void titleChanged();
+    void courseChanged();
     void displayPhraseTypeChanged();
     void modified();
     void phraseAdded();

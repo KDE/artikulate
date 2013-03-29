@@ -74,7 +74,11 @@ Course * Unit::course() const
 
 void Unit::setCourse(Course *course)
 {
+    if (course == m_course) {
+        return;
+    }
     m_course = course;
+    emit courseChanged();
 }
 
 QString Unit::title() const

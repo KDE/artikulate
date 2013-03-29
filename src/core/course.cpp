@@ -122,6 +122,7 @@ void Course::setLanguage(Language *language)
         addPhonemeGroup(group);
     }
     m_language = language;
+    emit languageChanged();
 }
 
 KUrl Course::file() const

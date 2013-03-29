@@ -39,7 +39,7 @@ PhonemeModel::PhonemeModel(QObject *parent)
     roles[DataRole] = "dataRole";
     setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitCourseChanged(int)));
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeChanged(int)));
 }
 
 Language * PhonemeModel::language() const
@@ -96,7 +96,6 @@ int PhonemeModel::rowCount(const QModelIndex& parent) const
     if (parent.isValid()) {
         return 0;
     }
-
     return m_language->phonemes().count();
 }
 
@@ -145,8 +144,8 @@ void PhonemeModel::updateMappings()
         kDebug() << "Aborting to update mappings, language not set.";
         return;
     }
-    int courses = m_language->phonemes().count();
-    for (int i = 0; i < courses; i++) {
+    int phonemes = m_language->phonemes().count();
+    for (int i = 0; i < phonemes; i++) {
         m_signalMapper->setMapping(m_language->phonemes().at(i), i);
     }
 }

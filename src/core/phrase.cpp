@@ -144,7 +144,11 @@ Unit * Phrase::unit() const
 
 void Phrase::setUnit(Unit *unit)
 {
+    if (unit == m_unit) {
+        return;
+    }
     m_unit = unit;
+    emit unitChanged();
 }
 
 KUrl Phrase::sound() const
