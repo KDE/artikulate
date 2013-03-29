@@ -38,50 +38,10 @@ Item {
         root.__originalPhraseType = root.phrase.type
     }
 
-    Row {
-        spacing: 5
-        anchors.centerIn: parent.center
+    Component {
+        id: editComponent
 
-        PlasmaComponents.ToolButton {
-            id: enableEdit
-            iconSource: "document-properties"
-            enabled: {!root.editMode}
-            onClicked: {
-                root.editMode = !root.editMode
-            }
-        }
-
-        Image {
-            id: typeIcon
-
-            width: 20
-            height: 20
-            source: {
-                switch (root.phrase.type) {
-                    case Phrase.Word: "../icons/hicolor/64x64/actions/artikulate-word.png"
-                        break;
-                    case Phrase.Expression: "../icons/hicolor/64x64/actions/artikulate-expression.png"
-                        break;
-                    case Phrase.Sentence: "../icons/hicolor/64x64/actions/artikulate-sentence.png"
-                        break;
-                    case Phrase.Paragraph: "../icons/hicolor/64x64/actions/artikulate-paragraph.png"
-                        break;
-                    default:
-                        ""
-                }
-            }
-        }
-
-        Text {
-            id: phraseText
-            anchors.verticalCenter: enableEdit.verticalCenter
-            visible: { !root.editMode }
-            text: root.phrase.text
-        }
-
-        // line in edit mode
         Column {
-            visible: root.editMode == true
             spacing: 5
             Row {
                 PlasmaComponents.TextField {
@@ -154,6 +114,52 @@ Item {
                     }
                 }
             }
+        }
+    }
+
+    Row {
+        spacing: 5
+        anchors.centerIn: parent.center
+
+        PlasmaComponents.ToolButton {
+            id: enableEdit
+            iconSource: "document-properties"
+            enabled: {!root.editMode}
+            onClicked: {
+                root.editMode = !root.editMode
+            }
+        }
+
+        Image {
+            id: typeIcon
+
+            width: 20
+            height: 20
+            source: {
+                switch (root.phrase.type) {
+                    case Phrase.Word: "../icons/hicolor/64x64/actions/artikulate-word.png"
+                        break;
+                    case Phrase.Expression: "../icons/hicolor/64x64/actions/artikulate-expression.png"
+                        break;
+                    case Phrase.Sentence: "../icons/hicolor/64x64/actions/artikulate-sentence.png"
+                        break;
+                    case Phrase.Paragraph: "../icons/hicolor/64x64/actions/artikulate-paragraph.png"
+                        break;
+                    default:
+                        ""
+                }
+            }
+        }
+
+        Text {
+            id: phraseText
+            anchors.verticalCenter: enableEdit.verticalCenter
+            visible: { !root.editMode }
+            text: root.phrase.text
+        }
+
+        Loader {
+            sourceComponent: editMode ? editComponent : undefined
         }
     }
 }
