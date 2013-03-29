@@ -89,6 +89,7 @@ set(artikulate_SRCS
     models/languagemodel.cpp
     models/unitmodel.cpp
     models/phrasemodel.cpp
+    models/phonememodel.cpp
     models/phonemegroupmodel.cpp
     models/phonemeunitmodel.cpp
     models/skeletonmodel.cpp

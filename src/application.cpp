@@ -35,6 +35,7 @@
 #include "models/languagemodel.h"
 #include "models/unitmodel.h"
 #include "models/phrasemodel.h"
+#include "models/phonememodel.h"
 #include "models/phonemegroupmodel.h"
 #include "models/phonemeunitmodel.h"
 #include "models/skeletonmodel.h"
@@ -68,6 +69,7 @@ void Application::registerQmlTypes()
     qmlRegisterType<LanguageModel>("artikulate", 1, 0, "LanguageModel");
     qmlRegisterType<UnitModel>("artikulate", 1, 0, "UnitModel");
     qmlRegisterType<PhraseModel>("artikulate", 1, 0, "PhraseModel");
+    qmlRegisterType<PhonemeModel>("artikulate", 1, 0, "PhonemeModel");
     qmlRegisterType<PhonemeGroupModel>("artikulate", 1, 0, "PhonemeGroupModel");
     qmlRegisterType<PhonemeUnitModel>("artikulate", 1, 0, "PhonemeUnitModel");
     qmlRegisterType<SkeletonModel>("artikulate", 1, 0, "SkeletonModel");
