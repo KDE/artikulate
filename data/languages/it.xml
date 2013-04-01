@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<language>
+    <id>it</id>
+    <title>Italiano</title>
+    <phonemeGroups>
+        <phonemeGroup>
+            <id>consonanti</id>
+            <title>Consonanti</title>
+            <description>Consonanti</description>
+            <phonemes>
+                <phoneme>
+                    <id>p</id>
+                    <title>[p] Papà</title>
+                </phoneme>
+                <phoneme>
+                    <id>b</id>
+                    <title>[b] Bile</title>
+                </phoneme>
+                <phoneme>
+                    <id>k</id>
+                    <title>[k] Casa</title>
+                </phoneme>
+                <phoneme>
+                    <id>g</id>
+                    <title>[g] Gare</title>
+                </phoneme>
+                <phoneme>
+                    <id>ts</id>
+                    <title>[t͡s] Grazia</title>
+                </phoneme>
+                <phoneme>
+                    <id>dz</id>
+                    <title>[d͡z] Zero</title>
+                </phoneme>
+                <phoneme>
+                    <id>ch</id>
+                    <title>[t͡ʃ] Ciao</title>
+                </phoneme>
+                <phoneme>
+                    <id>j</id>
+                    <title>[d͡ʒ] Gemma</title>
+                </phoneme>
+                <phoneme>
+                    <id>f</id>
+                    <title>[f] Fantasma</title>
+                </phoneme>
+                <phoneme>
+                    <id>v</id>
+                    <title>[v] Avare</title>
+                </phoneme>
+                <phoneme>
+                    <id>s</id>
+                    <title>[s] Sali</title>
+                </phoneme>
+                <phoneme>
+                    <id>z</id>
+                    <title>[z] Caso</title>
+                </phoneme>
+                <phoneme>
+                    <id>sh</id>
+                    <title>[ʃ] Fasce</title>
+                </phoneme>
+		<phoneme>
+                    <id>r</id>
+                    <title>[r] Terra</title>
+                </phoneme>
+		<phoneme>
+                    <id>l</id>
+                    <title>[l] Letto</title>
+                </phoneme>
+		<phoneme>
+                    <id>m</id>
+                    <title>[m] Mamma</title>
+                </phoneme>
+		<phoneme>
+                    <id>n</id>
+                    <title>[n] Nano</title>
+                </phoneme>
+		<phoneme>
+                    <id>ng</id>
+                    <title>[ŋ] Bagno</title>
+                </phoneme>
+		<phoneme>
+                    <id>y</id>
+                    <title>[ʎ] Figlio</title>
+                </phoneme>
+		<phoneme>
+                    <id>j</id>
+                    <title>[j] Ione</title>
+                </phoneme>
+		<phoneme>
+                    <id>w</id>
+                    <title>[w] Uomo</title>
+                </phoneme>
+            </phonemes>
+	</phonemeGroup>
+        <phonemeGroup>
+            <id>vocali</id>
+            <title>Vocali</title>
+            <description>Vocali</description>
+            <phonemes>
+                <phoneme>
+                    <id>a</id>
+                    <title>[a] Casa</title>
+                </phoneme>
+                <phoneme>
+                    <id>e</id>
+                    <title>[e] Stelle</title>
+                </phoneme>
+                <phoneme>
+                    <id>eue</id>
+                    <title>[ɛ] Bene</title>
+                </phoneme>
+                <phoneme>
+                    <id>i</id>
+                    <title>[i] Bile</title>
+                </phoneme>
+                <phoneme>
+                    <id>o</id>
+                    <title>[o] Foro</title>
+                </phoneme>
+                <phoneme>
+                    <id>eu</id>
+                    <title>[ɔ] Parola</title>
+                </phoneme>
+                <phoneme>
+                    <id>u</id>
+                    <title>[u] Tutta</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+    </phonemeGroups>
+</language>
