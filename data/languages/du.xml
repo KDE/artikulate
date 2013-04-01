@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+<language>
+    <id>du</id>
+    <title>Nederlands</title>
+    <phonemeGroups>
+        <phonemeGroup>
+            <id>medeklinkers stemloos</id>
+            <title>Medeklinkers Stemloos</title>
+            <description>Medeklinkers Stemloos</description>
+            <phonemes>
+                <phoneme>
+                    <id>p</id>
+                    <title>[p] Pot</title>
+                </phoneme>
+                <phoneme>
+                    <id>t</id>
+                    <title>[t] Tam</title>
+                </phoneme>
+                <phoneme>
+                    <id>k</id>
+                    <title>[k] Kar</title>
+                </phoneme>
+                <phoneme>
+                    <id>f</id>
+                    <title>[f] Fiets</title>
+                </phoneme>
+                <phoneme>
+                    <id>s</id>
+                    <title>[s] Samen</title>
+                </phoneme>
+                <phoneme>
+                    <id>sh</id>
+                    <title>[ʃ] Chef</title>
+                </phoneme>
+		<phoneme>
+                    <id>x</id>
+                    <title>[x] Chaos</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+	<phonemeGroup>
+            <id>medeklinkers stemhebbend</id>
+            <title>Medeklinkers Stemhebbend</title>
+            <description>Medeklinkers Stemhebbend</description>
+            <phonemes>
+                <phoneme>
+                    <id>b</id>
+                    <title>[b] Bot</title>
+                </phoneme>
+                <phoneme>
+                    <id>d</id>
+                    <title>[d] Dam</title>
+                </phoneme>
+                <phoneme>
+                    <id>g</id>
+                    <title>[g] Garçon</title>
+                </phoneme>
+                <phoneme>
+                    <id>v</id>
+                    <title>[v] Vier</title>
+                </phoneme>
+                <phoneme>
+                    <id>z</id>
+                    <title>[z] Zaad</title>
+                </phoneme>
+                <phoneme>
+		    <id>Z</id>
+                    <title>[ʒ] Journal</title>
+                </phoneme>
+		<phoneme>
+                    <id>G</id>
+                    <title>[ɣ] Gat</title>
+                </phoneme>
+		<phoneme>
+                    <id>h\</id>
+                    <title>[ɦ] Hand</title>
+                </phoneme>
+		<phoneme>
+                    <id>m</id>
+                    <title>[m] Maan</title>
+                </phoneme>
+		<phoneme>
+                    <id>l</id>
+                    <title>[l] La</title>
+                </phoneme>
+		<phoneme>
+                    <id>n</id>
+                    <title>[n] Na</title>
+                </phoneme>
+		<phoneme>
+                    <id>r</id>
+                    <title>[r] Rij</title>
+                </phoneme>
+		<phoneme>
+                    <id>N</id>
+                    <title>[ŋ] Slang</title>
+                </phoneme>
+		<phoneme>
+                    <id>j</id>
+                    <title>[j] Jas</title>
+                </phoneme>
+                <phoneme>
+                    <id>v\</id>
+                    <title>[ʋ] Wie</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+	<phonemeGroup>
+            <id>affricaten stemloos</id>
+            <title>Affricaten Stemloos</title>
+            <description>Affricaten Stemloos</description>
+            <phonemes>
+                <phoneme>
+                    <id>tS</id>
+                    <title>[tʃ] Tsjonge</title>
+                </phoneme>
+                <phoneme>
+                    <id>sx</id>
+                    <title>[sx] School</title>
+                </phoneme>
+                <phoneme>
+                    <id>ps</id>
+                    <title>[ps] Psycholoog</title>
+                </phoneme>
+                <phoneme>
+                    <id>ks</id>
+                    <title>[ks] Xylofoon</title>
+                </phoneme>
+                <phoneme>
+                    <id>ts</id>
+                    <title>[ts] Tsaar</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+	<phonemeGroup>
+            <id>affricaten stemhebbend</id>
+            <title>Affricaten Stemhebbend</title>
+            <description>Affricaten Stemhebbend</description>
+            <phonemes>
+                <phoneme>
+                    <id>dZ</id>
+                    <title>[dʒ] Jazz</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+        <phonemeGroup>
+            <id>klinkers ongespannen</id>
+            <title>Klinkers Ongespannen</title>
+            <description>Klinkers Ongespannen</description>
+            <phonemes>
+		<phoneme>
+                    <id>A</id>
+                    <title>[ɑ] Kat</title>
+                </phoneme>
+		<phoneme>
+                    <id>E</id>
+                    <title>[ɛ] Pet</title>
+                </phoneme>
+		<phoneme>
+                    <id>I</id>
+                    <title>[ɪ] Pit</title>
+                </phoneme>
+		<phoneme>
+                    <id>O</id>
+                    <title>[ɔ] Op</title>
+                </phoneme>
+                <phoneme>
+                    <id>Y</id>
+                    <title>[ʏ] Put</title>
+                </phoneme>
+		<phoneme>
+                    <id>@</id>
+                    <title>[ə] Spade</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+        <phonemeGroup>
+            <id>klinkers gespannen</id>
+            <title>Klinkers Gespannen</title>
+            <description>Klinkers Gespannen</description>
+            <phonemes>
+		<phoneme>
+                    <id>a:</id>
+                    <title>[aː] Kaas</title>
+                </phoneme>
+		<phoneme>
+                    <id>e:</id>
+                    <title>[eː] Pees</title>
+                </phoneme>
+		<phoneme>
+                    <id>i</id>
+                    <title>[i] Piet</title>
+                </phoneme>
+		<phoneme>
+                    <id>o:</id>
+                    <title>[oː] Hoop</title>
+                </phoneme>
+		<phoneme>
+                    <id>y</id>
+                    <title>[y] Fuut</title>
+                </phoneme>
+		<phoneme>
+                    <id>2:</id>
+                    <title>[øː] Reus</title>
+                </phoneme>
+		<phoneme>
+                    <id>u</id>
+                    <title>[u] Boek</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+	<phonemeGroup>
+            <id>tweeklanken</id>
+            <title>Tweeklanken</title>
+            <description>Tweeklanken</description>
+            <phonemes>
+		<phoneme>
+                    <id>E:</id>
+                    <title>[ɛː] Scène</title>
+                </phoneme>
+		<phoneme>
+                    <id>9:</id>
+                    <title>[œː] Freule</title>
+                </phoneme>
+		<phoneme>
+                    <id>i:</id>
+                    <title>[iː] Analyse</title>
+                </phoneme>
+		<phoneme>
+                    <id>y:</id>
+                    <title>[yː] Centrifuge</title>
+                </phoneme>
+		<phoneme>
+                    <id>O:</id>
+                    <title>[ɔː] Zone</title>
+                </phoneme>
+		<phoneme>
+                    <id>u:</id>
+                    <title>[uː] Blues</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ei</id>
+                    <title>[ɛi] Tijd</title>
+                </phoneme>
+		<phoneme>
+                    <id>9y</id>
+                    <title>[œy] Huis</title>
+                </phoneme>
+		<phoneme>
+                    <id>vu</id>
+                    <title>[ʌu] Koud</title>
+                </phoneme>
+		<phoneme>
+                    <id>ai</id>
+                    <title>[ɑi] Detail</title>
+                </phoneme>
+		<phoneme>
+                    <id>oi</id>
+                    <title>[ɔi] Hoi</title>
+                </phoneme>
+		<phoneme>
+                    <id>a:i</id>
+                    <title>[aːi] Haai</title>
+                </phoneme>
+		<phoneme>
+                    <id>e:u</id>
+                    <title>[eːu] Leeuw</title>
+                </phoneme>
+		<phoneme>
+                    <id>iu</id>
+                    <title>[iu] Nieuw</title>
+                </phoneme>
+		<phoneme>
+                    <id>o:i</id>
+                    <title>[oːi] Mooi</title>
+                </phoneme>
+		<phoneme>
+                    <id>ui</id>
+                    <title>[ui] Moeilijk</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+    </phonemeGroups>
+</language>
