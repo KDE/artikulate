@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<language>
+    <id>sp</id>
+    <title>Español</title>
+    <phonemeGroups>
+        <phonemeGroup>
+            <id>consonánticos</id>
+            <title>Consonánticos</title>
+            <description>Consonánticos</description>
+            <phonemes>
+                <phoneme>
+                    <id>p</id>
+                    <title>[p] Peso</title>
+                </phoneme>
+                <phoneme>
+                    <id>b</id>
+                    <title>[b] Invertir</title>
+                </phoneme>
+                <phoneme>
+                    <id>k</id>
+                    <title>[k] Casa</title>
+                </phoneme>
+                <phoneme>
+                    <id>g</id>
+                    <title>[g] Gato</title>
+                </phoneme>
+                <phoneme>
+                    <id>ch</id>
+                    <title>[tʃ] Muchacho</title>
+                </phoneme>
+		<phoneme>
+                    <id>m</id>
+                    <title>[m] Grumete</title>
+                </phoneme>
+                <phoneme>
+                    <id>mn</id>
+                    <title>[(ɱ)] Influencia</title>
+                </phoneme>
+		<phoneme>
+                    <id>n</id>
+                    <title>[n] Nada</title>
+                </phoneme>
+		<phoneme>
+                    <id>ng</id>
+                    <title>[ŋ] Enseñar</title>
+                </phoneme>
+		<phoneme>
+                    <id>ngn</id>
+                    <title>[(ŋ)] Domingo</title>
+                </phoneme>
+		<phoneme>
+                    <id>n*</id>
+                    <title>[(*ɴ)] Enjuto</title>
+                </phoneme>
+                <phoneme>
+                    <id>f</id>
+                    <title>[f] Fantasma</title>
+                </phoneme>
+                <phoneme>
+                    <id>v</id>
+                    <title>[(v)] Afgano</title>
+                </phoneme>
+                <phoneme>
+                    <id>th</id>
+                    <title>[*θ] Cazar</title>
+                </phoneme>
+                <phoneme>
+                    <id>th-heavy</id>
+                    <title>[(*ð)] Dedo</title>
+                </phoneme>
+                <phoneme>
+                    <id>s</id>
+                    <title>[s] Saltador</title>
+                </phoneme>
+                <phoneme>
+                    <id>z</id>
+                    <title>[(z)] Comunismo</title>
+                </phoneme>
+                <phoneme>
+                    <id>sh</id>
+                    <title>[*ʃ] Echador</title>
+                </phoneme>
+		<phoneme>
+                    <id>kh</id>
+                    <title>[x] Ojo</title>
+                </phoneme>
+		<phoneme>
+                    <id>h</id>
+                    <title>[*h] Obispo</title>
+                </phoneme>
+		<phoneme>
+                    <id>l</id>
+                    <title>[l] Hablar</title>
+                </phoneme>
+		<phoneme>
+                    <id>r</id>
+                    <title>[r] Perro</title>
+                </phoneme>
+		<phoneme>
+                    <id>rh</id>
+                    <title>[ɾ] Caro</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+        <phonemeGroup>
+            <id>vocálicos</id>
+            <title>Vocálicos</title>
+            <description>Vocálicos</description>
+            <phonemes>
+                <phoneme>
+                    <id>a</id>
+                    <title>[ä] Paso</title>
+                </phoneme>
+                <phoneme>
+                    <id>e</id>
+                    <title>[e̞̯] Peso</title>
+                </phoneme>
+		<phoneme>
+                    <id>i</id>
+                    <title>[i] Piso</title>
+                </phoneme>
+		<phoneme>
+                    <id>o</id>
+                    <title>[o̞] Poso</title>
+                </phoneme>
+		<phoneme>
+                    <id>u</id>
+                    <title>[u] Pujo</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+	<phonemeGroup>
+            <id>diptongos</id>
+            <title>Diptongos</title>
+            <description>Diptongos</description>
+            <phonemes>
+	        <phoneme>
+                    <id>ei</id>
+                    <title>[ei] Rey</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ai</id>
+                    <title>[ai] Aire</title>
+                </phoneme>
+	        <phoneme>
+                    <id>oi</id>
+                    <title>[oi] Hoy</title>
+                </phoneme>
+	        <phoneme>
+		    <id>ui</id>
+                    <title>[ui] Mui</title>
+                </phoneme>
+	        <phoneme>
+                    <id>eu</id>
+                    <title>[eu] Neutro</title>
+                </phoneme>
+	        <phoneme>
+                    <id>au</id>
+                    <title>[au] Pausa</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ou</id>
+                    <title>[ou] Bou</title>
+                </phoneme>
+	        <phoneme>
+                    <id>je</id>
+                    <title>[je] Tierra</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ja</id>
+                    <title>[ja] Hacia</title>
+                </phoneme>
+	        <phoneme>
+                    <id>jo</id>
+                    <title>[jo] Radio</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ju</id>
+                    <title>[ju] Viuda</title>
+                </phoneme>
+	        <phoneme>
+                    <id>wi</id>
+                    <title>[wi] Fuimos</title>
+                </phoneme>
+	        <phoneme>
+                    <id>we</id>
+                    <title>[we] Fuego</title>
+                </phoneme>
+	        <phoneme>
+                    <id>wa</id>
+                    <title>[wa] Cuadro</title>
+                </phoneme>
+	        <phoneme>
+                    <id>wo</id>
+                    <title>[wo] Cuota</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+    </phonemeGroups>
+</language>

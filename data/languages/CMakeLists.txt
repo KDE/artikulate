@@ -5,6 +5,7 @@ set(languages
     en_US.xml
     du.xml
     it.xml
+    sp.xml
 )
 
 install(FILES ${languages} DESTINATION ${DATA_INSTALL_DIR}/artikulate/languages)
