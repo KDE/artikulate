@@ -21,6 +21,7 @@
 #include "newcoursedialog.h"
 #include "core/resourcemanager.h"
 #include "core/language.h"
+#include "core/skeleton.h"
 #include "core/course.h"
 
 #include <KLocale>
@@ -45,6 +46,13 @@ NewCourseDialog::NewCourseDialog(ResourceManager *m_resourceManager)
     foreach (Language *language, m_resourceManager->languageList()) {
         ui->language->addItem(language->title(), language->id());
     }
+
+    // add skeletons
+    ui->skeletonSelector->addItem(i18n("< no skeleton >"), "");
+    foreach (Skeleton *skeleton, m_resourceManager->skeletonList()) {
+        ui->skeletonSelector->addItem(skeleton->title(), skeleton->id());
+    }
+
     ui->title->setText(i18n("New Course"));
 
     connect(this, SIGNAL(okClicked()), this, SLOT(createCourse()));
@@ -61,6 +69,10 @@ void NewCourseDialog::createCourse()
     course->setId(QUuid::createUuid().toString());
     course->setTitle(ui->title->text());
     course->setDescription(ui->description->toHtml());
+
+    // set skeleton
+    QString skeletonId = ui->skeletonSelector->itemData(ui->skeletonSelector->currentIndex()).toString();
+    course->setForeignId(skeletonId);
 
     // set language
     QString selectedLanguage = ui->language->itemData(ui->language->currentIndex()).toString();
