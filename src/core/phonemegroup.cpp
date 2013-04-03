@@ -87,7 +87,7 @@ void PhonemeGroup::addPhoneme(Phoneme *phoneme)
     QList<Phoneme *>::ConstIterator iter = m_phonemes.constBegin();
     while (iter != m_phonemes.constEnd()) {
         if (QString::compare((*iter)->id(), phoneme->id()) == 0) {
-            kWarning() << "Phoneme identifier already registered, aborting";
+            kWarning() << "Phoneme identifier already registered in group "<< m_title <<", aborting";
             return;
         }
         ++iter;
@@ -103,7 +103,8 @@ Phoneme * PhonemeGroup::addPhoneme(const QString &identifier, const QString &tit
     QList<Phoneme *>::ConstIterator iter = m_phonemes.constBegin();
     while (iter != m_phonemes.constEnd()) {
         if (QString::compare((*iter)->id(), identifier) == 0) {
-            kWarning() << "Phoneme identifier " << identifier <<" already registered, aborting";
+            kWarning() << "Phoneme identifier " << identifier <<" already registered in group "
+                << m_title <<", aborting";
             return 0;
         }
         ++iter;
