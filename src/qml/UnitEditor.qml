@@ -60,13 +60,16 @@ Item {
         anchors.top: addPhraseButton.bottom
         width: root.width
         height: root.height
-        PlasmaExtras.ScrollArea {
-            anchors.fill: parent
 
-            ListView {
-                anchors.fill: parent
-                model: phraseModel
-                delegate: itemDelegate
+        ListView {
+            id: phraseList
+            anchors.fill: parent
+            clip: true
+            model: phraseModel
+            delegate: itemDelegate
+
+            PlasmaComponents.ScrollBar {
+                flickableItem: phraseList
             }
         }
     }
