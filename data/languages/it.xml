@@ -17,6 +17,14 @@
                     <title>[b] Bile</title>
                 </phoneme>
                 <phoneme>
+                    <id>t</id>
+                    <title>[t] Tale</title>
+                </phoneme>
+                <phoneme>
+                    <id>d</id>
+                    <title>[d] Dare</title>
+                </phoneme>
+                <phoneme>
                     <id>k</id>
                     <title>[k] Casa</title>
                 </phoneme>

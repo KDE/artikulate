@@ -17,6 +17,14 @@
                     <title>[b] Invertir</title>
                 </phoneme>
                 <phoneme>
+                    <id>t</id>
+                    <title>[t] Tango</title>
+                </phoneme>
+                <phoneme>
+                    <id>d</id>
+                    <title>[d] Hundido</title>
+                </phoneme>
+                <phoneme>
                     <id>k</id>
                     <title>[k] Casa</title>
                 </phoneme>
