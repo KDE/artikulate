@@ -1,0 +1,310 @@
+<?xml version="1.0"?>
+<language>
+    <id>ca</id>
+    <title>Català</title>
+    <phonemeGroups>
+        <phonemeGroup>
+            <id>consonànti</id>
+            <title>Consonànti</title>
+            <description>Consonànti</description>
+            <phonemes>
+                <phoneme>
+                    <id>p</id>
+                    <title>[p] Parlar</title>
+                </phoneme>
+                <phoneme>
+                    <id>b</id>
+                    <title>[b] Bèstia</title>
+                </phoneme>
+                <phoneme>
+                    <id>t</id>
+                    <title>[t] Tothom</title>
+                </phoneme>
+                <phoneme>
+                    <id>d</id>
+                    <title>[d] Dit</title>
+                </phoneme>
+                <phoneme>
+                    <id>cj</id>
+                    <title>[(c)] Mags</title>
+                </phoneme>
+                <phoneme>
+                    <id>J\</id>
+                    <title>[(ɟ)] Guix</title>
+                </phoneme>
+                <phoneme>
+                    <id>k</id>
+                    <title>[k] Quinze</title>
+                </phoneme>
+                <phoneme>
+                    <id>g</id>
+                    <title>[g] Gros</title>
+                </phoneme>
+		<phoneme>
+                    <id>m</id>
+                    <title>[m] Mare</title>
+                </phoneme>
+		<phoneme>
+                    <id>mn</id>
+                    <title>[ɱ] Càmfora</title>
+                </phoneme>
+		<phoneme>
+                    <id>n</id>
+                    <title>[n] Nou</title>
+                </phoneme>
+		<phoneme>
+                    <id>N</id>
+                    <title>[ŋ] Sang</title>
+                </phoneme>
+		<phoneme>
+                    <id>ll</id>
+                    <title>[ɫ] Alt</title>
+                </phoneme>
+		<phoneme>
+                    <id>r</id>
+                    <title>[r] Roba</title>
+                </phoneme>
+		<phoneme>
+                    <id>R\</id>
+                    <title>[ɾ] Mira</title>
+                </phoneme>
+                <phoneme>
+                    <id>f</id>
+                    <title>[f] Fase</title>
+                </phoneme>
+                <phoneme>
+                    <id>v</id>
+                    <title>[(v)] Viu</title>
+                </phoneme>
+                <phoneme>
+                    <id>cee</id>
+                    <title>[ʃ] Caixa</title>
+                </phoneme>
+                <phoneme>
+		    <id>Z</id>
+                    <title>[ʒ] ajut</title>
+                </phoneme>
+                <phoneme>
+                    <id>ts</id>
+                    <title>[t͡s] Potser</title>
+                </phoneme>
+                <phoneme>
+                    <id>dz</id>
+                    <title>[d͡z] Dotze</title>
+                </phoneme>
+                <phoneme>
+                    <id>ch</id>
+                    <title>[t͡ʃ] Fletxa</title>
+                </phoneme>
+                <phoneme>
+                    <id>dj</id>
+                    <title>[d͡ʒ] Metge</title>
+                </phoneme>
+		<phoneme>
+                    <id>B\</id>
+                    <title>[β] Rebost</title>
+                </phoneme>
+		<phoneme>
+                    <id>D\</id>
+                    <title>[ð] Fada</title>
+                </phoneme>
+		<phoneme>
+                    <id>j</id>
+                    <title>[j] Sient</title>
+                </phoneme>
+		<phoneme>
+                    <id>G\</id>
+                    <title>[ɣ] Figuera</title>
+                </phoneme>
+                <phoneme>
+                    <id>v\</id>
+                    <title>[w] Creuar</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+        <phonemeGroup>
+            <id>vocàlic</id>
+            <title>Vocàlic</title>
+	    <description>Vocàlic</description>
+            <phonemes>
+                <phoneme>
+                    <id>a</id>
+                    <title>[a] Sac</title>
+                </phoneme>
+                <phoneme>
+                    <id>e</id>
+                    <title>[e] Séc</title>
+                </phoneme>
+                <phoneme>
+                    <id>E</id>
+                    <title>[ɛ] Mel</title>
+                </phoneme>
+		<phoneme>
+                    <id>@</id>
+                    <title>[(ə)] Amb</title>
+                </phoneme>
+                <phoneme>
+                    <id>i</id>
+                    <title>[i] Sis</title>
+                </phoneme>
+                <phoneme>
+                    <id>o</id>
+                    <title>[o] Sóc</title>
+                </phoneme>
+                <phoneme>
+                    <id>eu</id>
+                    <title>[ɔ] Soc</title>
+                </phoneme>
+                <phoneme>
+                    <id>u</id>
+                    <title>[u] Suc</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+        <phonemeGroup>
+            <id>diftongs decreixents</id>
+            <title>Diftongs Decreixents</title>
+            <description>Diftongs Decreixents</description>
+            <phonemes>
+	        <phoneme>
+                    <id>aj</id>
+                    <title>[aj] Aigua</title>
+                </phoneme>
+	        <phoneme>
+                    <id>əj</id>
+                    <title>[əj] Mainada</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ɛj</id>
+                    <title>[ɛj] Remei</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ej</id>
+                    <title>[ej] Rei</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ɔj</id>
+                    <title>[ɔj] Noi</title>
+                </phoneme>
+	        <phoneme>
+                    <id>uj</id>
+                    <title>[uj] Avui</title>
+                </phoneme>
+	        <phoneme>
+                    <id>aw</id>
+                    <title>[aw] Taula</title>
+                </phoneme>
+	        <phoneme>
+                    <id>əw</id>
+                    <title>[əw] Caurem</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ɛw</id>
+                    <title>[ɛw] Peu</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ew</id>
+                    <title>[ew] Seu</title>
+                </phoneme>
+	        <phoneme>
+                    <id>iw</id>
+                    <title>[iw] Niu</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ɔw</id>
+                    <title>[ɔw] Nou</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ow</id>
+                    <title>[ow] Jou</title>
+                </phoneme>
+	        <phoneme>
+                    <id>uw</id>
+                    <title>[uw] Duu</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+	<phonemeGroup>
+            <id>diftongs creixents</id>
+            <title>Diftongs Creixents</title>
+            <description>Diftongs Creixents</description>
+            <phonemes>
+	        <phoneme>
+                    <id>ja</id>
+                    <title>[ja] Iaia</title>
+                </phoneme>
+	        <phoneme>
+                    <id>jɛ</id>
+                    <title>[jɛ] Veiem</title>
+                </phoneme>
+	        <phoneme>
+                    <id>je</id>
+                    <title>[je] Seient</title>
+                </phoneme>
+	        <phoneme>
+                    <id>jə</id>
+                    <title>[jə] Feia</title>
+                </phoneme>
+	        <phoneme>
+                    <id>jɔ</id>
+                    <title>[jɔ] Iode</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ju</id>
+                    <title>[ju] Iogurt</title>
+                </phoneme>
+	        <phoneme>
+                    <id>wa</id>
+                    <title>[wa] Guant</title>
+                </phoneme>
+	        <phoneme>
+                    <id>wɛ</id>
+                    <title>[wɛ] Seqüència</title>
+                </phoneme>
+	        <phoneme>
+                    <id>we</id>
+                    <title>[we] Ungüent</title>
+                </phoneme>
+	        <phoneme>
+                    <id>wə</id>
+                    <title>[wə] Qüestió</title>
+                </phoneme>
+	        <phoneme>
+                    <id>wi</id>
+                    <title>[wi] Pingüí</title>
+                </phoneme>
+	        <phoneme>
+                    <id>wɔ</id>
+                    <title>[wɔ] Quota</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+	<phonemeGroup>
+            <id>triftongs</id>
+            <title>Triftongs</title>
+            <description>Triftongs</description>
+            <phonemes>
+	        <phoneme>
+                    <id>jəw</id>
+                    <title>[jəw] Dúieu</title>
+                </phoneme>
+	        <phoneme>
+                    <id>jɛw</id>
+                    <title>[jɛw] Creiue</title>
+                </phoneme>
+	        <phoneme>
+                    <id>wɛw</id>
+                    <title>[wɛw] Liqüeu</title>
+                </phoneme>
+	        <phoneme>
+                    <id>waj</id>
+                    <title>[waj] Guaita</title>
+                </phoneme>
+	        <phoneme>
+                    <id>wəj</id>
+                    <title>[wəj] Guaitar</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+    </phonemeGroups>
+</language>
