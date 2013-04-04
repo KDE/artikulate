@@ -5,6 +5,7 @@ set(languages
     du.xml
     en_US.xml
     fr.xml
+    gr.xml
     it.xml
     sp.xml
 )

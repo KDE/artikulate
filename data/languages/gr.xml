@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<language>
+    <id>gr</id>
+    <title>Ελληνικά</title>
+    <phonemeGroups>
+        <phonemeGroup>
+            <id>συμφώνων</id>
+            <title>συμφώνων</title>
+            <description>συμφώνων</description>
+            <phonemes>
+                <phoneme>
+                    <id>p</id>
+                    <title>[p] πόδι</title>
+                </phoneme>
+                <phoneme>
+                    <id>b</id>
+                    <title>[b] μπόχα</title>
+                </phoneme>
+                <phoneme>
+                    <id>t</id>
+                    <title>[t] τρία</title>
+                </phoneme>
+                <phoneme>
+                    <id>d</id>
+                    <title>[d] ντροπή</title>
+                </phoneme>
+                <phoneme>
+                    <id>cj</id>
+                    <title>[c] καί</title>
+                </phoneme>
+                <phoneme>
+                    <id>J\</id>
+                    <title>[ɟ] μετάγγιση</title>
+                </phoneme>
+                <phoneme>
+                    <id>k</id>
+                    <title>[k] καλόγερος</title>
+                </phoneme>
+                <phoneme>
+                    <id>g</id>
+                    <title>[g] γκάρισμα</title>
+                </phoneme>
+		<phoneme>
+                    <id>m</id>
+                    <title>[m] μάζα</title>
+                </phoneme>
+		<phoneme>
+                    <id>mn</id>
+                    <title>[ɱ] έμβρυο</title>
+                </phoneme>
+		<phoneme>
+                    <id>n</id>
+                    <title>[n] νάμα</title>
+                </phoneme>
+		<phoneme>
+                    <id>N</id>
+                    <title>[ɲ] πρωτοχρονιά</title>
+                </phoneme>
+		<phoneme>
+                    <id>ng</id>
+                    <title>[ŋ] αποτυγχάνω</title>
+                </phoneme>
+		<phoneme>
+                    <id>ll</id>
+                    <title>[ɫ] μπάλα</title>
+                </phoneme>
+		<phoneme>
+                    <id>r</id>
+                    <title>[r] ρώγα</title>
+                </phoneme>
+                <phoneme>
+                    <id>f</id>
+                    <title>[f] φύση</title>
+                </phoneme>
+                <phoneme>
+                    <id>v</id>
+                    <title>[v] βερνίκι</title>
+                </phoneme>
+                <phoneme>
+                    <id>s</id>
+                    <title>[s] σαν</title>
+                </phoneme>
+                <phoneme>
+                    <id>z</id>
+                    <title>[z] ζάλη</title>
+                </phoneme>
+                <phoneme>
+                    <id>cee</id>
+                    <title>[ʃ] ασ̌σ̌ήμια</title>
+                </phoneme>
+                <phoneme>
+		    <id>Z</id>
+                    <title>[ʒ] γαλάζ̌ο</title>
+                </phoneme>
+                <phoneme>
+                    <id>ts</id>
+                    <title>[t͡s] κορίτσι</title>
+                </phoneme>
+                <phoneme>
+                    <id>dz</id>
+                    <title>[d͡z] τζάμι</title>
+                </phoneme>
+                <phoneme>
+                    <id>ch</id>
+                    <title>[t͡ʃ] τζ̌αι</title>
+                </phoneme>
+		<phoneme>
+                    <id>θ</id>
+                    <title>[θ] θάλασσα</title>
+                </phoneme>
+		<phoneme>
+                    <id>D\</id>
+                    <title>[ð] δάφνη</title>
+                </phoneme>
+		<phoneme>
+                    <id>G\</id>
+                    <title>[ɣ] γάλα</title>
+                </phoneme>
+		<phoneme>
+                    <id>x</id>
+                    <title>[x] χαρά</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+        <phonemeGroup>
+            <id>φωνήεντα</id>
+            <title>φωνήεντα</title>
+	    <description>φωνήεντα</description>
+            <phonemes>
+                <phoneme>
+                    <id>a</id>
+                    <title>[a] ακακία</title>
+                </phoneme>
+                <phoneme>
+                    <id>e</id>
+                    <title>[e] μέλι</title>
+                </phoneme>
+                <phoneme>
+                    <id>i</id>
+                    <title>[i] κήπος</title>
+                </phoneme>
+                <phoneme>
+                    <id>o</id>
+                    <title>[o] ωκεανός</title>
+                </phoneme>
+                <phoneme>
+                    <id>u</id>
+                    <title>[u] ουρανός</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+    </phonemeGroups>
+</language>
