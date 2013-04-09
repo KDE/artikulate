@@ -170,21 +170,6 @@ public:
      */
     static void syncSkeleton(Skeleton *skeleton);
 
-signals:
-    void languageAdded();
-    void languageAboutToBeAdded(Language*,int);
-    void languageRemoved();
-    void languageAboutToBeRemoved(int,int);
-    void courseAdded();
-    void courseAboutToBeAdded(Course*,int);
-    void courseRemoved();
-    void courseAboutToBeRemoved(int,int);
-    void skeletonAdded();
-    void skeletonAboutToBeAdded(Course*,int);
-    void skeletonRemoved();
-    void skeletonAboutToBeRemoved(int,int);
-
-private:
     /**
      * Load XSD file given by its file name (without ".xsd" suffix). The method searches exclusively
      * the standard install dir for XSD files in subdirectory "schemes/".
@@ -203,6 +188,21 @@ private:
      */
     QDomDocument loadDomDocument(const KUrl &path, const QXmlSchema &schema) const;
 
+signals:
+    void languageAdded();
+    void languageAboutToBeAdded(Language*,int);
+    void languageRemoved();
+    void languageAboutToBeRemoved(int,int);
+    void courseAdded();
+    void courseAboutToBeAdded(Course*,int);
+    void courseRemoved();
+    void courseAboutToBeRemoved(int,int);
+    void skeletonAdded();
+    void skeletonAboutToBeAdded(Course*,int);
+    void skeletonRemoved();
+    void skeletonAboutToBeRemoved(int,int);
+
+private:
     QList<Language *> m_languageList;
     QMap<Language *, QList<Course *> > m_courseList;
     QList<Skeleton *> m_skeletonList;

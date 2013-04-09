@@ -58,11 +58,6 @@ void TestCourseFiles::courseSchemeValidationTest()
     QVERIFY(courseSchema.load(schemeFile));
     QVERIFY(courseSchema.isValid());
 
-    KUrl languageFile = KUrl::fromLocalFile("schemes/language.xsd");
-    QXmlSchema languageSchema;
-    QVERIFY(languageSchema.load(languageFile));
-    QVERIFY(languageSchema.isValid());
-
     KUrl skeletonFile = KUrl::fromLocalFile("schemes/skeleton.xsd");
     QXmlSchema skeletonScheme;
     QVERIFY(skeletonScheme.load(skeletonFile));

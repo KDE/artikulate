@@ -68,40 +68,40 @@
                     <id>sh</id>
                     <title>[ʃ] Fasce</title>
                 </phoneme>
-		<phoneme>
+                <phoneme>
                     <id>r</id>
                     <title>[r] Terra</title>
                 </phoneme>
-		<phoneme>
+                <phoneme>
                     <id>l</id>
                     <title>[l] Letto</title>
                 </phoneme>
-		<phoneme>
+                <phoneme>
                     <id>m</id>
                     <title>[m] Mamma</title>
                 </phoneme>
-		<phoneme>
+                <phoneme>
                     <id>n</id>
                     <title>[n] Nano</title>
                 </phoneme>
-		<phoneme>
+                <phoneme>
                     <id>ng</id>
                     <title>[ŋ] Bagno</title>
                 </phoneme>
-		<phoneme>
+                <phoneme>
                     <id>y</id>
                     <title>[ʎ] Figlio</title>
                 </phoneme>
-		<phoneme>
-                    <id>j</id>
+                <phoneme>
+                    <id>jy</id>
                     <title>[j] Ione</title>
                 </phoneme>
-		<phoneme>
+                <phoneme>
                     <id>w</id>
                     <title>[w] Uomo</title>
                 </phoneme>
             </phonemes>
-	</phonemeGroup>
+        </phonemeGroup>
         <phonemeGroup>
             <id>vocali</id>
             <title>Vocali</title>

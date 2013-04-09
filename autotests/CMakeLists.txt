@@ -77,3 +77,25 @@ target_link_libraries(TestCourseFiles
     ${QT_QTSQL_LIBRARY}
 )
 add_test(TestCourseFiles TestCourseFiles)
+
+# basic tests language files (input/output)
+set (TestLanguageFiles_SRCS
+    testlanguagefiles.cpp
+)
+kde4_add_executable(TestLanguageFiles ${TestLanguageFiles_SRCS} )
+target_link_libraries(TestLanguageFiles
+    artikulatecore
+    ${QT_QTTEST_LIBRARY}
+    ${KDECLARATIVE_LIBRARIES}
+    ${KDE4_KDEUI_LIBS}
+    ${KDE4_PLASMA_LIBS}
+    ${KDE4_KIO_LIBS}
+    ${KDE4_KCMUTILS_LIBS}
+    ${QT_QTCORE_LIBRARY}
+    ${QT_QTOPENGL_LIBRARY}
+    ${QT_QTSCRIPT_LIBRARY}
+    ${QT_QTDECLARATIVE_LIBRARY}
+    ${QT_QTXMLPATTERNS_LIBRARY}
+    ${QT_QTSQL_LIBRARY}
+)
+add_test(TestLanguageFiles TestLanguageFiles)
