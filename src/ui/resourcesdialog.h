@@ -18,55 +18,27 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef RESOURCESDIALOG_H
+#define RESOURCESDIALOG_H
 
-#include <KMainWindow>
-#include "core/resourcemanager.h"
+#include "ui_resourcesdialog.h"
+#include <KDialog>
 
-class Profile;
-class KActionCollection;
-class KMenu;
-class QDeclarativeView;
+class ResourceManager;
+class Course;
 
-class MainWindow : public KMainWindow
+class ResourcesDialog :
+    public KDialog
 {
     Q_OBJECT
-    Q_PROPERTY(ResourceManager *globalResourceManager READ resourceManager CONSTANT)
+
 public:
-    Q_ENUMS(ViewMode)
-    enum ViewMode {
-        Trainer,
-        Editor
-    };
-
-    /**
-     * Default Constructor
-     */
-    MainWindow();
-
-    /**
-     * Default Destructor
-     */
-    virtual ~MainWindow();
-
-    ResourceManager * resourceManager() const;
-
-    Q_INVOKABLE void showMenu(int xPos, int yPos);
-
-    virtual QSize sizeHint() const { return QSize(800,500); }
-
-public slots:
-    void showCourseEditor();
-    void closeCourseEditor();
-    void showSettingsDialog();
+    explicit ResourcesDialog(ResourceManager *resourceMgr);
+    virtual ~ResourcesDialog();
 
 private:
-    QDeclarativeView *m_view;
-    KActionCollection *m_actionCollection;
-    KMenu *m_menu;
-    Profile *m_profile;
+    Ui::ResourcesDialog *ui;
     ResourceManager *m_resourceManager;
 };
 
-#endif // PAIRS_H
+#endif

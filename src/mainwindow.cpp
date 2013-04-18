@@ -19,6 +19,7 @@
  */
 
 #include "mainwindow.h"
+#include "ui/resourcesdialog.h"
 #include "core/resourcemanager.h"
 #include "core/profile.h"
 #include "models/languagemodel.h"
@@ -42,6 +43,7 @@
 #include <QDeclarativeContext>
 #include <QDeclarativeProperty>
 #include <QtCore/QCoreApplication>
+#include <QtCore/QPointer>
 
 MainWindow::MainWindow()
     : KMainWindow()
@@ -69,9 +71,16 @@ MainWindow::MainWindow()
     m_menu->addSeparator();
     KAction *editorAction = new KAction(i18n("Course Editor"), this);
     connect(editorAction, SIGNAL(triggered()), SLOT(showCourseEditor()));
-
     m_actionCollection->addAction("editor", editorAction);
     m_menu->addAction(editorAction);
+
+    KAction *settingsAction = new KAction(i18n("Settings"), this);
+    connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
+    m_actionCollection->addAction("settings", settingsAction);
+    m_menu->addAction(settingsAction);
+
+
+
     m_menu->addSeparator();
 
     KHelpMenu *helpMenu = new KHelpMenu(m_menu, KCmdLineArgs::aboutData(), false, m_actionCollection);
@@ -116,3 +125,10 @@ void MainWindow::showMenu(int xPos, int yPos)
 {
     m_menu->popup(m_view->mapToGlobal(QPoint(xPos, yPos)));
 }
+
+void MainWindow::showSettingsDialog()
+{
+    QPointer<ResourcesDialog> dialog = new ResourcesDialog(m_resourceManager);
+    dialog->exec();
+}
+

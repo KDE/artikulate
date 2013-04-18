@@ -18,55 +18,31 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
-
-#include <KMainWindow>
+#include "resourcesdialog.h"
 #include "core/resourcemanager.h"
+#include "core/language.h"
+#include "core/skeleton.h"
+#include "core/course.h"
 
-class Profile;
-class KActionCollection;
-class KMenu;
-class QDeclarativeView;
+#include <KLocale>
+#include <QUuid>
 
-class MainWindow : public KMainWindow
+ResourcesDialog::ResourcesDialog(ResourceManager *m_resourceManager)
+    : KDialog(0)
+    , m_resourceManager(m_resourceManager)
 {
-    Q_OBJECT
-    Q_PROPERTY(ResourceManager *globalResourceManager READ resourceManager CONSTANT)
-public:
-    Q_ENUMS(ViewMode)
-    enum ViewMode {
-        Trainer,
-        Editor
-    };
+    setPlainCaption(i18n("Course Resources"));
+    setButtons(KDialog::Ok | KDialog::Cancel);
+    setDefaultButton(KDialog::Ok);
 
-    /**
-     * Default Constructor
-     */
-    MainWindow();
+    QWidget *widget = new QWidget(this);
+    ui = new Ui::ResourcesDialog;
 
-    /**
-     * Default Destructor
-     */
-    virtual ~MainWindow();
+    ui->setupUi(widget);
+    setMainWidget(widget);
+}
 
-    ResourceManager * resourceManager() const;
-
-    Q_INVOKABLE void showMenu(int xPos, int yPos);
-
-    virtual QSize sizeHint() const { return QSize(800,500); }
-
-public slots:
-    void showCourseEditor();
-    void closeCourseEditor();
-    void showSettingsDialog();
-
-private:
-    QDeclarativeView *m_view;
-    KActionCollection *m_actionCollection;
-    KMenu *m_menu;
-    Profile *m_profile;
-    ResourceManager *m_resourceManager;
-};
-
-#endif // PAIRS_H
+ResourcesDialog::~ResourcesDialog()
+{
+    delete ui;
+}
