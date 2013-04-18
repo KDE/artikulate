@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<language>
+    <id>mr</id>
+    <title>Marathi मराठी</title>
+    <phonemeGroups>
+        <phonemeGroup>
+            <id>व्यंजन</id>
+            <title>व्यंजन</title>
+            <description>व्यंजन</description>
+            <phonemes>
+                <phoneme>
+                    <id>ka</id>
+                    <title>[kə] कर्म</title>
+                </phoneme>
+                <phoneme>
+                    <id>kha</id>
+                    <title>[kʰə] खत</title>
+                </phoneme>
+                <phoneme>
+                    <id>ga</id>
+                    <title>[ɡə] गरम</title>
+                </phoneme>
+                <phoneme>
+                    <id>gha</id>
+                    <title>[ɡʱə] घर</title>
+                </phoneme>
+                <phoneme>
+                    <id>ṅa</id>
+                    <title>[ŋə] वाङमय</title>
+                </phoneme>
+                <phoneme>
+                    <id>ca-dental</id>
+                    <title>[tʃə] चमचा</title>
+                </phoneme>
+                <phoneme>
+                    <id>ca-palatal</id>
+                    <title>[ç] चक्की</title>
+                </phoneme>
+                <phoneme>
+                    <id>cha</id>
+                    <title>[tsʰə] छडी</title>
+                </phoneme>
+                <phoneme>
+                    <id>ja-dental</id>
+                    <title>[ɟʝə] जमाव</title>
+                </phoneme>
+                <phoneme>
+                    <id>ja-palatal</id>
+                    <title>[dʒ] जननी</title>
+                </phoneme>
+                <phoneme>
+                    <id>jha-dental</id>
+                    <title>[(ɟʝʱə)] झगा</title>
+                </phoneme>
+                <phoneme>
+                    <id>jha-palatal</id>
+                    <title>[(zʱə)] झिम्मा</title>
+                </phoneme>
+                <phoneme>
+                    <id>ña</id>
+                    <title>[ɲə] पंजाब</title>
+                </phoneme>
+                <phoneme>
+                    <id>ṭa</id>
+                    <title>[(ʈə)] टरफल</title>
+                </phoneme>
+                <phoneme>
+                    <id>ṭha</id>
+                    <title>[ʈʰə] ठसा</title>
+                </phoneme>
+                <phoneme>
+                    <id>ḍa</id>
+                    <title>[(ɖə)] डमरु</title>
+                </phoneme>
+                <phoneme>
+                    <id>ḍha</id>
+                    <title>[ɖʱə] ढग</title>
+                </phoneme>
+                <phoneme>
+                    <id>ṇa</id>
+                    <title>[(ɳə)] बाण</title>
+                </phoneme>
+                <phoneme>
+                    <id>ta</id>
+                    <title>[t̪ə] तलवार</title>
+                </phoneme>
+                <phoneme>
+                    <id>tha</id>
+                    <title>[t̪ʰə] थडगे</title>
+                </phoneme>
+                <phoneme>
+                    <id>da</id>
+                    <title>[d̪ə] दररोज</title>
+                </phoneme>
+                <phoneme>
+                    <id>dha</id>
+                    <title>[d̪ʱə] धरा</title>
+                </phoneme>
+                <phoneme>
+                    <id>na</id>
+                    <title>[n̪ə] नमन</title>
+                </phoneme>
+                <phoneme>
+                    <id>pa</id>
+                    <title>[pə] परी</title>
+                </phoneme>
+                <phoneme>
+                    <id>pha-dental</id>
+                    <title>[fə] फळा</title>
+                </phoneme>
+                <phoneme>
+                    <id>pha-labial</id>
+                    <title>[pʰə] फळ</title>
+                </phoneme>
+                <phoneme>
+                    <id>ba</id>
+                    <title>[bə] बकरी</title>
+                </phoneme>
+                 <phoneme>
+                    <id>bha</id>
+                    <title>[bʱə] भटजी</title>
+                </phoneme>
+                 <phoneme>
+                    <id>ma</id>
+                    <title>[mə] मजा</title>
+                </phoneme>
+                 <phoneme>
+                    <id>ya</id>
+                    <title>[jə] यश</title>
+                </phoneme>
+                <phoneme>
+                    <id>ra</id>
+                    <title>[rə] रवा</title>
+                </phoneme>
+                <phoneme>
+                    <id>ṟa</id>
+                    <title>[ɽə] हुऱरा</title>
+                </phoneme>
+                <phoneme>
+                    <id>la</id>
+                    <title>[lə] लसुण</title>
+                </phoneme>
+                <phoneme>
+                    <id>va</id>
+                    <title>[və/wə] वकिल</title>
+                </phoneme>
+                <phoneme>
+                    <id>śa</id>
+                    <title>[ʃə] शहामृग</title>
+                </phoneme>
+                <phoneme>
+                    <id>ṣa</id>
+                    <title>[ʂə] षटकोन</title>
+                </phoneme>
+                <phoneme>
+                    <id>sa</id>
+                    <title>[sə] ससा</title>
+                </phoneme>
+                <phoneme>
+                    <id>ha</id>
+                    <title>[hə] हमाल</title>
+                </phoneme>
+                <phoneme>
+                    <id>ḷa</id>
+                    <title>[ɭə] कमळ</title>
+                </phoneme>
+                <phoneme>
+                    <id>kṣa</id>
+                    <title>[kʃə] क्षत्रिय</title>
+                </phoneme>
+                <phoneme>
+                    <id>jña</id>
+                    <title>[ɟʝɲə] ज्ञान</title>
+                </phoneme>
+                <phoneme>
+                    <id>śra</id>
+                    <title>[ʃrə] श्रवण</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+        <phonemeGroup>
+            <id>स्वर</id>
+            <title>स्वर</title>
+            <description>स्वर</description>
+            <phonemes>
+                <phoneme>
+                    <id>a</id>
+                    <title>[ə] अननस</title>
+                </phoneme>
+                <phoneme>
+                    <id>ā</id>
+                    <title>[a] आळे</title>
+                </phoneme>
+                <phoneme>
+                    <id>i</id>
+                    <title>[i] इमारत</title>
+                </phoneme>
+                <phoneme>
+                    <id>ī</id>
+                    <title>[ii] आई</title>
+                </phoneme>
+                <phoneme>
+                    <id>u</id>
+                    <title>[u] उखळ</title>
+                </phoneme>
+                <phoneme>
+                    <id>ū</id>
+                    <title>[uu] ऊस</title>
+                </phoneme>
+                <phoneme>
+                    <id>ṛu</id>
+                    <title>[ru] ऋषी</title>
+                </phoneme>
+                <phoneme>
+                    <id>e</id>
+                    <title>[e] एडका</title>
+                </phoneme>
+                <phoneme>
+                    <id>ai</id>
+                    <title>[əi] ऐरण</title>
+                </phoneme>
+                <phoneme>
+                    <id>o</id>
+                    <title>[o] ओरखडा</title>
+                </phoneme>
+                <phoneme>
+                    <id>au</id>
+                    <title>[əu] औषध</title>
+                </phoneme>
+                <phoneme>
+                    <id>aṃ</id>
+                    <title>[əⁿ] अंबारी</title>
+                </phoneme>
+                <phoneme>
+                    <id>aḥ</id>
+                    <title>[əh] हाहाःकार</title>
+                </phoneme>
+                <phoneme>
+                    <id>aw</id>
+                    <title>[ɔ] ऑस्कर</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+        </phonemeGroups>
+</language>

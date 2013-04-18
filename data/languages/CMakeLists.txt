@@ -7,6 +7,7 @@ set(languages
     fr.xml
     gr.xml
     it.xml
+    mr.xml
     sp.xml
 )
 
