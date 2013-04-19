@@ -99,7 +99,9 @@ set(artikulate_SRCS
 
     declarativeitems/applicationbackground.cpp
 )
+kde4_add_kcfg_files(artikulate_SRCS settings.kcfgc)
 kde4_add_executable(artikulate ${artikulate_SRCS})
+
 target_link_libraries(artikulate
     artikulatecore
     ${KDECLARATIVE_LIBRARIES}
@@ -116,5 +118,6 @@ target_link_libraries(artikulate
     ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
 )
 
+install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 install(TARGETS artikulate ${INSTALL_TARGETS_DEFAULT_ARGS})
 

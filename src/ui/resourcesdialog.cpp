@@ -23,6 +23,7 @@
 #include "core/language.h"
 #include "core/skeleton.h"
 #include "core/course.h"
+#include "settings.h"
 
 #include <KLocale>
 #include <QUuid>
@@ -40,9 +41,32 @@ ResourcesDialog::ResourcesDialog(ResourceManager *m_resourceManager)
 
     ui->setupUi(widget);
     setMainWidget(widget);
+
+    // setup Ui with stored settings
+    ui->repositoryUrl->setPath(Settings::courseRepositoryPath());
+    if (Settings::useCourseRepository()) {
+        ui->radioRepository->setChecked(true);
+    } else {
+        ui->radioRepository->setChecked(false);
+    }
+    ui->repositoryUrl->setEnabled(ui->radioRepository->isChecked());
+
+    // activate path selector only if repository should be used
+    connect(ui->radioRepository, SIGNAL(toggled(bool)), ui->repositoryUrl, SLOT(setEnabled(bool)));
+    connect(this, SIGNAL(okClicked()), this, SLOT(saveSettings()));
 }
 
 ResourcesDialog::~ResourcesDialog()
 {
     delete ui;
+}
+
+void ResourcesDialog::saveSettings()
+{
+    // save settings
+    Settings::setUseCourseRepository(ui->radioRepository->isChecked());
+    Settings::setCourseRepositoryPath(ui->repositoryUrl->text());
+
+    // set resource manager
+    //TODO
 }

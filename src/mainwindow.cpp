@@ -23,6 +23,7 @@
 #include "core/resourcemanager.h"
 #include "core/profile.h"
 #include "models/languagemodel.h"
+#include "settings.h"
 
 #include <KMainWindow>
 #include <KAction>
@@ -104,7 +105,10 @@ MainWindow::MainWindow()
 }
 
 MainWindow::~MainWindow()
-{}
+{
+    // write application config
+    Settings::self()->writeConfig();
+}
 
 ResourceManager * MainWindow::resourceManager() const
 {

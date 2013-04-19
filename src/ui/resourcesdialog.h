@@ -36,6 +36,9 @@ public:
     explicit ResourcesDialog(ResourceManager *resourceMgr);
     virtual ~ResourcesDialog();
 
+public slots:
+    void saveSettings();
+
 private:
     Ui::ResourcesDialog *ui;
     ResourceManager *m_resourceManager;
