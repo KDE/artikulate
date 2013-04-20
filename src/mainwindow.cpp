@@ -61,7 +61,7 @@ MainWindow::MainWindow()
     setAutoSaveSettings();
 
     // load resources
-    m_resourceManager->loadLocalData();
+    m_resourceManager->loadResources();
 
     KDeclarative m_kdeclarative;
     m_kdeclarative.setDeclarativeEngine(m_view->engine());

@@ -50,10 +50,15 @@ ResourcesDialog::ResourcesDialog(ResourceManager *m_resourceManager)
         ui->radioRepository->setChecked(false);
     }
     ui->repositoryUrl->setEnabled(ui->radioRepository->isChecked());
+    ui->restartInfo->setVisible(false);
 
     // activate path selector only if repository should be used
     connect(ui->radioRepository, SIGNAL(toggled(bool)), ui->repositoryUrl, SLOT(setEnabled(bool)));
     connect(this, SIGNAL(okClicked()), this, SLOT(saveSettings()));
+
+    // show restart info if anything is changed
+    connect(ui->radioIntalledCourses, SIGNAL(toggled(bool)), ui->restartInfo, SLOT(setVisible(bool)));
+    connect(ui->radioRepository, SIGNAL(toggled(bool)), ui->restartInfo, SLOT(setVisible(bool)));
 }
 
 ResourcesDialog::~ResourcesDialog()
@@ -66,7 +71,4 @@ void ResourcesDialog::saveSettings()
     // save settings
     Settings::setUseCourseRepository(ui->radioRepository->isChecked());
     Settings::setCourseRepositoryPath(ui->repositoryUrl->text());
-
-    // set resource manager
-    //TODO
 }

@@ -45,10 +45,16 @@ public:
     explicit ResourceManager(QObject *parent = 0);
 
     /**
+     * Generate or update the cache of all resource files. This method must be called after
+     * switching from locally installed courses to repository.
+     */
+    void updateResourceFileCache();
+
+    /**
      * This method loads all language and course files that are provided in the standard directories
      * for this application.
      */
-    void loadLocalData();
+    void loadResources();
 
     /**
      * \return list of all loaded language specifications

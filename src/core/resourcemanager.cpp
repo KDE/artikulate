@@ -46,6 +46,11 @@
 ResourceManager::ResourceManager(QObject *parent)
     : QObject(parent)
 {
+    updateResourceFileCache();
+}
+
+void ResourceManager::updateResourceFileCache()
+{
     // find all files and cache paths to them
     QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
     foreach (const QString &file, languageFiles) {
@@ -73,7 +78,6 @@ ResourceManager::ResourceManager(QObject *parent)
             for (int i = 0; i < list.size(); ++i) {
                 QFileInfo fileInfo = list.at(i);
                 m_skeletonFileCache.append(KUrl::fromLocalFile(fileInfo.absoluteFilePath()));
-                kDebug() << "added to list: " << fileInfo.fileName();
             }
         }
 
@@ -111,10 +115,13 @@ ResourceManager::ResourceManager(QObject *parent)
     }
 }
 
-void ResourceManager::loadLocalData()
+
+void ResourceManager::loadResources()
 {
     //TODO in the future loading should only be performed on request!
     //     this current implementation is extremely resource inefficient...
+
+    // load resources
     foreach (const KUrl &file, m_languageFileCache) {
         loadLanguage(file);
     }
