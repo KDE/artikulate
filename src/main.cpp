@@ -41,7 +41,7 @@ int main(int argc, char **argv)
                 ki18n("Copyright (C) 2013 by Andreas Cord-Landwehr")
                 );
 
-    about.addAuthor(ki18n("Andreas Cord-Landwehr"), ki18n("Original Author"), "cordlandwehr@gmail.com");
+    about.addAuthor(ki18n("Andreas Cord-Landwehr"), ki18n("Original Author"), "cordlandwehr@kde.org");
 
     KCmdLineArgs::init(argc, argv, &about);
     KApplication::setGraphicsSystem("raster");
