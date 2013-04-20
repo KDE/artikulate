@@ -51,7 +51,6 @@ set(artikulateCore_SRCS
     core/unit.cpp
     core/profile.cpp
     core/skeleton.cpp
-    settings.cpp
 
     ui/newcoursedialog.cpp
 )
@@ -59,7 +58,7 @@ kde4_add_ui_files(artikulateCore_SRCS
     ui/newcoursedialog.ui
     ui/resourcesdialog.ui
 )
-
+kde4_add_kcfg_files(artikulateCore_SRCS settings.kcfgc)
 kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})
 target_link_libraries(artikulatecore
     ${KDECLARATIVE_LIBRARIES}
