@@ -1,1 +1,6 @@
-ArtiKulate is/will be an arcticulation training application for various languages, building upon the KDE Framework.
+Artikulate is a language learning application that helps improving pronunciation skills for
+various languages. This repository maintains the application and language specifications. All course
+files are maintained in a separate repository "artikulate-data".
+
+For detailed explenation how to contribute new languages and/or new courses, please refer to the
+information at techbase: http://techbase.kde.org/Projects/Edu/Artikulate
