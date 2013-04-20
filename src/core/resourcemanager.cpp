@@ -27,6 +27,7 @@
 #include "phoneme.h"
 #include "phonemegroup.h"
 #include <ui/newcoursedialog.h>
+#include "settings.h"
 
 #include <QIODevice>
 #include <QFile>
@@ -35,6 +36,7 @@
 #include <QXmlSchemaValidator>
 #include <QDomDocument>
 #include <QUuid>
+#include <QDir>
 
 #include <KGlobal>
 #include <KStandardDirs>
@@ -44,29 +46,83 @@
 ResourceManager::ResourceManager(QObject *parent)
     : QObject(parent)
 {
+    // find all files and cache paths to them
+    QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
+    foreach (const QString &file, languageFiles) {
+        m_languageFileCache.append(KUrl::fromLocalFile(file));
+    }
+    if (!Settings::useCourseRepository()) {
+        QStringList courseFiles = KGlobal::dirs()->findAllResources("appdata",QString("courses/*.xml"));
+        foreach (const QString &file, courseFiles) {
+            m_courseFileCache.append(KUrl::fromLocalFile(file));
+        }
+        QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
+        foreach (const QString &file, skeletonFiles) {
+            m_skeletonFileCache.append(KUrl::fromLocalFile(file));
+        }
+    } else {
+        // read skeleton files
+        QDir skeletonRepository = QDir(Settings::courseRepositoryPath());
+        skeletonRepository.setFilter(QDir::Files | QDir::Hidden);
+        if (!skeletonRepository.cd("skeletons")) {
+            kError() << "There is no subdirectory \"skeletons\" in directory " << skeletonRepository.path()
+                << " cannot load skeletons.";
+        } else {
+            // read skeletons
+            QFileInfoList list = skeletonRepository.entryInfoList();
+            for (int i = 0; i < list.size(); ++i) {
+                QFileInfo fileInfo = list.at(i);
+                m_skeletonFileCache.append(KUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+                kDebug() << "added to list: " << fileInfo.fileName();
+            }
+        }
+
+        // read course files
+        QDir courseRepository = QDir(Settings::courseRepositoryPath());
+        if (!courseRepository.cd("courses")) {
+            kError() << "There is no subdirectory \"courses\" in directory " << courseRepository.path()
+                << " cannot load courses.";
+        } else {
+            // find courses
+            courseRepository.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+            QFileInfoList courseDirList = courseRepository.entryInfoList();
+
+            // traverse all course directories
+            foreach (const QFileInfo &info, courseDirList) {
+                QDir courseDir = QDir(info.absoluteFilePath());
+                courseDir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+                QFileInfoList courseLangDirList = courseDir.entryInfoList();
+
+                // traverse all language directories for each course
+                foreach (const QFileInfo &langInfo, courseLangDirList) {
+                    QDir courseLangDir = QDir(langInfo.absoluteFilePath());
+                    courseLangDir.setFilter(QDir::Files);
+                    QStringList nameFilters;
+                    nameFilters.append("*.xml");
+                    QFileInfoList courses = courseLangDir.entryInfoList(nameFilters);
+
+                    // find and add course files
+                    foreach (const QFileInfo &courseInfo, courses) {
+                        m_courseFileCache.append(courseInfo.filePath());
+                    }
+                }
+            }
+        } // done with reading courses
+    }
 }
 
 void ResourceManager::loadLocalData()
 {
     //TODO in the future loading should only be performed on request!
     //     this current implementation is extremely resource inefficient...
-
-    // load local language files
-    QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
-    foreach (const QString &file, languageFiles) {
-        loadLanguage(KUrl::fromLocalFile(file));
+    foreach (const KUrl &file, m_languageFileCache) {
+        loadLanguage(file);
     }
-
-    // load local course files
-    QStringList courseFiles = KGlobal::dirs()->findAllResources("appdata",QString("courses/*.xml"));
-    foreach (const QString &file, courseFiles) {
-        addCourse(KUrl::fromLocalFile(file));
+    foreach (const KUrl &file, m_courseFileCache) {
+        addCourse(file);
     }
-
-    // load local skeleton files
-    QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
-    foreach (const QString &file, skeletonFiles) {
-        addSkeleton(loadSkeleton(KUrl::fromLocalFile(file)));
+    foreach (const KUrl &file, m_skeletonFileCache) {
+        addSkeleton(loadSkeleton(file));
     }
 }
 
