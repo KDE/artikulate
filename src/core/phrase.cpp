@@ -19,22 +19,23 @@
  */
 
 #include "phrase.h"
+#include "capturedevicecontroller.h"
 
-#include <QAudioInput>
-#include <QAudioFormat>
-#include <QAudioDeviceInfo>
-#include <QAudioCaptureSource>
 #include <QMediaPlayer>
-#include <QMediaRecorder>
+
 #include <KDebug>
 #include <KTemporaryFile>
 
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
     , m_audioOutput(new QMediaPlayer)
-    , m_audioInput(0)
 {
     m_currentPlayback = None;
+
+    // register recording file
+    m_userSoundFile.setSuffix(".ogg");
+    m_userSoundFile.open();
+
     // TODO too many emits
     connect(m_audioOutput, SIGNAL(stateChanged(QMediaPlayer::State)),
             this, SIGNAL(playbackSoundStateChanged()));
@@ -177,7 +178,7 @@ void Phrase::playbackSound()
 
 void Phrase::playbackUserSound()
 {
-    kDebug() << "Playing authentic sound";
+    kDebug() << this << "Playback sound in file "<< m_userSoundFile.fileName();
     m_audioOutput->setMedia(KUrl::fromLocalFile(m_userSoundFile.fileName()));
     m_audioOutput->setVolume(50); //TODO use global config
     m_audioOutput->play();
@@ -233,58 +234,14 @@ void Phrase::stopPlaybackUserSound()
 
 void Phrase::startRecordUserSound()
 {
-    // create temporary file for user sound
-    if (m_userSoundFile.fileName().isEmpty()) {
-        m_userSoundFile.setSuffix(".ogg");
-        m_userSoundFile.open();
-
-        kDebug() << "Create user sound file at " << m_userSoundFile.fileName();
-    }
-
-    if (!m_audioInput) {
-        kDebug() << "Creating audio input device";
-
-        QAudioCaptureSource *audioSource = new QAudioCaptureSource(this);
-        m_audioInput = new QMediaRecorder(audioSource, this);
-
-        kDebug() << "AUDIO-SOURCE";
-        kDebug() << "available : " << audioSource->isAvailable();
-        kDebug() << "inputs : " << audioSource->audioInputs();
-        kDebug() << "active input : " << audioSource->activeAudioInput();
-        kDebug() << "Available codecs : " << m_audioInput->supportedAudioCodecs();
-    }
-    if (m_audioInput->state() == QMediaRecorder::RecordingState) {
-        kWarning() << "Currently recording, aborting record start";
-        return;
-    }
-
-    // set output location
-    //FIXME for a really strange reason, only the following notation works to get a correct
-    // output file; neither QUrl::fromLocalFile, nor the KUrl equivalents are working
-    // --> investigate why!
-    m_audioInput->setOutputLocation(QUrl(m_userSoundFile.fileName()));
-
-    QAudioEncoderSettings audioSettings;
-    audioSettings.setCodec("audio/vorbis");
-    audioSettings.setSampleRate(0);
-    audioSettings.setBitRate(0);
-    audioSettings.setQuality(QtMultimediaKit::NormalQuality);
-    audioSettings.setEncodingMode(QtMultimediaKit::ConstantQualityEncoding);
-    QString container = "ogg";
-
-    m_audioInput->setEncodingSettings(audioSettings, QVideoEncoderSettings(), container);
-
-    kDebug() << "Start recording";
-    m_audioInput->record();
+    kDebug() << "Start recording to file " << m_userSoundFile.fileName();
+    CaptureDeviceController::self().startCapture(m_userSoundFile.fileName());
 }
 
 void Phrase::stopRecordUserSound()
 {
-    kDebug() << "Stop recording sound";
-    m_audioInput->stop();
-
-    delete m_audioInput;
-    m_audioInput = 0;
+    kDebug() << "End recording to file " << m_userSoundFile.fileName();
+    CaptureDeviceController::self().stopCapture();
     emit userSoundChanged();
 }
 

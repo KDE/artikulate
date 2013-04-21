@@ -28,10 +28,9 @@
 #include <QList>
 #include <KTemporaryFile>
 
+class QAudioCaptureSource;
 class QMediaPlayer;
-class QAudioInput;
 class QString;
-class QMediaRecorder;
 class Phoneme;
 class Unit;
 class KUrl;
@@ -136,7 +135,6 @@ private:
     KTemporaryFile m_userSoundFile;
     CurrentPlayback m_currentPlayback;
     QMediaPlayer *m_audioOutput;
-    QMediaRecorder *m_audioInput;
 };
 Q_DECLARE_METATYPE(Phrase::PlaybackState)
 

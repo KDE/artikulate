@@ -51,6 +51,7 @@ set(artikulateCore_SRCS
     core/unit.cpp
     core/profile.cpp
     core/skeleton.cpp
+    core/capturedevicecontroller.cpp
 
     ui/newcoursedialog.cpp
 )
