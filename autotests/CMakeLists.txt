@@ -28,13 +28,17 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
+# copy test data
+file(COPY ../schemes/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/schemes) # copy test files
+file(COPY ../data/languages DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data) # copy test files
+file(COPY testcourses/de.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/courses) # copy test files
+file(COPY testcourses/fr.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/courses) # copy test files
+
 # basic tests for audio capability
 set (TestAudio_SRCS
     testaudio.cpp
 )
-file(COPY ../schemes/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/schemes) # copy test files
-file(COPY ../data/languages DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data) # copy test files
-file(COPY testcourses DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data) # copy test files
+
 kde4_add_executable(TestAudio ${TestAudio_SRCS} )
 target_link_libraries(TestAudio
     artikulatecore
@@ -60,6 +64,7 @@ add_test(TestAudio TestAudio)
 set (TestCourseFiles_SRCS
     testcoursefiles.cpp
 )
+kde4_add_kcfg_files(TestCourseFiles_SRCS ../src/settings.kcfgc)
 kde4_add_executable(TestCourseFiles ${TestCourseFiles_SRCS} )
 target_link_libraries(TestCourseFiles
     artikulatecore

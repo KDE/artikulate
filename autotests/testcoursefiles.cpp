@@ -24,6 +24,7 @@
 #include "core/language.h"
 #include "core/unit.h"
 #include "core/phrase.h"
+#include "../src/settings.h"
 
 #include <qtest_kde.h>
 #include <KDebug>
@@ -38,17 +39,26 @@
 
 TestCourseFiles::TestCourseFiles()
 {
-    KGlobal::dirs()->addResourceDir("appdata" , "./");
+
 }
 
 void TestCourseFiles::init()
 {
-    // TODO initialization of test case
+    KGlobal::dirs()->addResourceDir("appdata" , "./testcourses/");
+    KGlobal::dirs()->addResourceDir("appdata" , "./");
+    KGlobal::dirs()->addResourceDir("appdata" , "./autotests/");
+    KGlobal::dirs()->addResourceDir("appdata" , "./autotests/testcourses/");
+
+    systemUseCourseRepositoryValue = Settings::useCourseRepository();
+    Settings::setUseCourseRepository(false);
+    Settings::self()->writeConfig();
 }
 
 void TestCourseFiles::cleanup()
 {
-    // TODO cleanup after test run
+    // reset value
+    Settings::setUseCourseRepository(systemUseCourseRepositoryValue);
+    Settings::self()->writeConfig();
 }
 
 void TestCourseFiles::courseSchemeValidationTest()

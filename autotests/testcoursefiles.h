@@ -52,6 +52,9 @@ private slots:
      * TODO this is a test by only string equality and should improved to test on a data level
      */
     void fileLoadSaveCompleteness();
+
+private:
+    bool systemUseCourseRepositoryValue;
 };
 
 #endif
