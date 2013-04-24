@@ -2,6 +2,7 @@
 <language>
     <id>de</id>
     <title>Deutsch</title>
+    <i18nTitle>German</i18nTitle>
     <phonemeGroups>
         <phonemeGroup>
             <id>monophthonge</id>

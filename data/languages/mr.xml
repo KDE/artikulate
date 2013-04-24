@@ -1,7 +1,8 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <language>
     <id>mr</id>
     <title>मराठी</title>
+    <i18nTitle>Marathi</i18nTitle>
     <phonemeGroups>
         <phonemeGroup>
             <id>व्यंजन</id>

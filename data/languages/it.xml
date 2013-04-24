@@ -2,6 +2,7 @@
 <language>
     <id>it</id>
     <title>Italiano</title>
+    <i18nTitle>Italian</i18nTitle>
     <phonemeGroups>
         <phonemeGroup>
             <id>consonanti</id>

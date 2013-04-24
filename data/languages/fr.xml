@@ -2,6 +2,7 @@
 <language>
     <id>fr</id>
     <title>Français</title>
+    <i18nTitle>French</i18nTitle>
     <phonemeGroups>
         <phonemeGroup>
             <id>nasales</id>

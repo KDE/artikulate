@@ -2,6 +2,7 @@
 <language>
     <id>en_US</id>
     <title>English</title>
+    <i18nTitle>English</i18nTitle>
     <phonemeGroups>
         <phonemeGroup>
             <id>consonants</id>

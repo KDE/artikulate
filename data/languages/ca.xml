@@ -2,6 +2,7 @@
 <language>
     <id>ca</id>
     <title>Català</title>
+    <i18nTitle>Catalan</i18nTitle>
     <phonemeGroups>
         <phonemeGroup>
             <id>consonànti</id>

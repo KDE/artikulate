@@ -2,6 +2,7 @@
 <language>
     <id>du</id>
     <title>Nederlands</title>
+    <i18nTitle>Dutch</i18nTitle>
     <phonemeGroups>
         <phonemeGroup>
             <id>medeklinkers stemloos</id>

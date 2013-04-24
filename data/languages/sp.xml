@@ -2,6 +2,7 @@
 <language>
     <id>sp</id>
     <title>Español</title>
+    <i18nTitle>Spanish</i18nTitle>
     <phonemeGroups>
         <phonemeGroup>
             <id>consonánticos</id>

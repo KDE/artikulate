@@ -2,6 +2,7 @@
 <language>
     <id>gr</id>
     <title>Ελληνικά</title>
+    <i18nTitle>Greek</i18nTitle>
     <phonemeGroups>
         <phonemeGroup>
             <id>συμφώνων</id>
