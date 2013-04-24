@@ -23,6 +23,8 @@
 #include "phoneme.h"
 #include "phonemegroup.h"
 #include <KDebug>
+#include <KLocale>
+#include <KGlobal>
 
 Language::Language(QObject *parent)
     : QObject(parent)
@@ -58,6 +60,16 @@ void Language::setTitle(const QString &title)
         m_title = title;
         emit titleChanged();
     }
+}
+
+QString Language::i18nTitle() const
+{
+    return i18n(m_i18nTitle.toUtf8());
+}
+
+void Language::seti18nTitle(const QString &title)
+{
+    m_i18nTitle = title;
 }
 
 KUrl Language::file() const

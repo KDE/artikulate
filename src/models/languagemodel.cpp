@@ -38,6 +38,7 @@ LanguageModel::LanguageModel(QObject* parent)
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
+    roles[I18nTitleRole] = "i18nTitle";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
     setRoleNames(roles);
@@ -97,6 +98,8 @@ QVariant LanguageModel::data(const QModelIndex& index, int role) const
         return QVariant(i18n("<p>%1</p>", language->title()));
     case TitleRole:
         return language->title();
+    case I18nTitleRole:
+        return language->i18nTitle();
     case IdRole:
         return language->id();
     case DataRole:

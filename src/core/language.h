@@ -43,6 +43,8 @@ public:
     QString id() const;
     void setId(const QString &id);
     QString title() const;
+    void seti18nTitle(const QString &title);
+    QString i18nTitle() const;
     void setTitle(const QString &title);
     KUrl file() const;
     void setFile(const KUrl &file);
@@ -62,6 +64,7 @@ private:
     Q_DISABLE_COPY(Language)
     QString m_id;
     QString m_title;
+    QString m_i18nTitle;
     KUrl m_file;
     QList<PhonemeGroup *> m_phonemeGroups;
 };

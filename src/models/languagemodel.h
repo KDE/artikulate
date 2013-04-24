@@ -36,6 +36,7 @@ class LanguageModel : public QAbstractListModel
 public:
     enum LanguageRoles {
         TitleRole = Qt::UserRole + 1,
+        I18nTitleRole,
         IdRole,
         DataRole
     };

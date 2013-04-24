@@ -169,6 +169,7 @@ bool ResourceManager::loadLanguage(const KUrl &languageFile)
     language->setFile(languageFile);
     language->setId(root.firstChildElement("id").text());
     language->setTitle(root.firstChildElement("title").text());
+    language->seti18nTitle(root.firstChildElement("i18nTitle").text());
     // create phoneme groups
     for (QDomElement groupNode = root.firstChildElement("phonemeGroups").firstChildElement();
          !groupNode.isNull();

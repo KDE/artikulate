@@ -38,7 +38,7 @@ Item {
         id: itemDelegate
 
         PlasmaComponents.ToolButton {
-            text: model.title
+            text: model.title + " / " + model.i18nTitle
             property Language language: model.dataRole
             onClicked: {
                 root.selectedLanguage = language
