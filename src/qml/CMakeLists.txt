@@ -41,6 +41,7 @@ set(artikulate_qml_files
     TrainingUnit.qml
     UnitEditor.qml
     PhraseEditor.qml
+    PhraseEditorSoundComponent.qml
     PhonemeUnitSelector.qml
     SkeletonSelector.qml
 )

@@ -20,10 +20,13 @@
 
 #include "phrase.h"
 #include "capturedevicecontroller.h"
+#include "unit.h"
+#include "course.h"
 
 #include <QMediaPlayer>
 
 #include <KDebug>
+#include <KSaveFile>
 #include <KTemporaryFile>
 
 Phrase::Phrase(QObject *parent)
@@ -163,17 +166,25 @@ void Phrase::setSound(const KUrl &soundFile)
         kWarning() << "Not setting empty sound file path.";
         return;
     }
-    m_soundFile = soundFile;
+    m_nativeSoundFile = soundFile;
     emit soundChanged();
 }
 
 void Phrase::playbackSound()
 {
     kDebug() << "Playing authentic sound";
-    m_audioOutput->setMedia(m_soundFile);
+    m_audioOutput->setMedia(m_nativeSoundFile);
     m_audioOutput->setVolume(50); //TODO use global config
     m_audioOutput->play();
     m_currentPlayback = Sound;
+}
+
+void Phrase::playbackNativeSoundBuffer()
+{
+    kDebug() << "Playing sound buffer";
+    m_audioOutput->setMedia(KUrl::fromLocalFile(m_nativeSoundBuffer.fileName()));
+    m_audioOutput->setVolume(50); //TODO use global config
+    m_audioOutput->play();
 }
 
 void Phrase::playbackUserSound()
@@ -224,7 +235,7 @@ void Phrase::stopSound()
 
 bool Phrase::isSound() const
 {
-    return !m_soundFile.fileName().isEmpty();
+    return !m_nativeSoundFile.fileName().isEmpty();
 }
 
 void Phrase::stopPlaybackUserSound()
@@ -232,15 +243,56 @@ void Phrase::stopPlaybackUserSound()
     m_audioOutput->stop();
 }
 
+void Phrase::startRecordNativeSound()
+{
+    m_nativeSoundBuffer.open();
+
+    kDebug() << "Start recording to temporary file " << m_nativeSoundBuffer.fileName();
+    CaptureDeviceController::self().startCapture(m_nativeSoundBuffer.fileName());
+}
+
+void Phrase::stopRecordNativeSound()
+{
+    kDebug() << "End recording to temporary file " << m_nativeSoundBuffer.fileName();
+    CaptureDeviceController::self().stopCapture();
+    emit soundChanged();
+}
+
+void Phrase::applyRecordedNativeSound()
+{
+    if (m_nativeSoundFile.isEmpty()) {
+        QString outputDir = m_unit->course()->file().directory(KUrl::AppendTrailingSlash);
+        kDebug() << "Target directory: " << outputDir;
+
+        //TODO take care that this is proper ASCII
+        m_nativeSoundFile = KUrl::fromLocalFile(outputDir + id() + ".ogg");
+        kDebug() << "preparing write to file " << m_nativeSoundFile.toLocalFile();
+    }
+
+    if (m_nativeSoundBuffer.isOpen()) {
+        kDebug() << "Saving buffered data.";
+        QFile targetFile;
+        targetFile.setFileName(m_nativeSoundFile.toLocalFile());
+        if (!targetFile.exists() || targetFile.remove()) {
+            m_nativeSoundBuffer.copy(m_nativeSoundFile.toLocalFile());
+            m_nativeSoundBuffer.close();
+        } else {
+            kError() << "Could not save buffered sound data to file, data loss!";
+        }
+    } else {
+        kError() << "No buffer present.";
+    }
+}
+
 void Phrase::startRecordUserSound()
 {
-    kDebug() << "Start recording to file " << m_userSoundFile.fileName();
+    kDebug() << "Start recording user sound to file " << m_userSoundFile.fileName();
     CaptureDeviceController::self().startCapture(m_userSoundFile.fileName());
 }
 
 void Phrase::stopRecordUserSound()
 {
-    kDebug() << "End recording to file " << m_userSoundFile.fileName();
+    kDebug() << "End recording user sound to file " << m_userSoundFile.fileName();
     CaptureDeviceController::self().stopCapture();
     emit userSoundChanged();
 }

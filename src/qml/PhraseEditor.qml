@@ -42,12 +42,12 @@ Item {
         id: editComponent
 
         Row {
-            height: textEdit.height + phonemeGrid.height
+            height: textEdit.height + phonemeGrid.height + phraseRecorder.height
             Column {
                 id: textEdit
                 height: 30
                 spacing: 5
-                Row {
+                Row { // controls for setting phrase
                     PlasmaComponents.TextField {
                         id: phraseInput
                         width: Math.max(phraseText.width + 20, 200)
@@ -78,7 +78,11 @@ Item {
                         }
                     }
                 }
-                PlasmaComponents.ButtonRow {
+                PhraseEditorSoundComponent {
+                    id: phraseRecorder
+                    phrase: root.phrase
+                }
+                PlasmaComponents.ButtonRow { // controls for setting type
                     id: phraseTypeRow
                     spacing: 30
                     Text {

@@ -46,6 +46,8 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
     Q_PROPERTY(bool isSound READ isSound NOTIFY soundChanged)
     Q_PROPERTY(bool isUserSound READ isUserSound NOTIFY userSoundChanged)
     Q_PROPERTY(PlaybackState playbackSoundState READ playbackSoundState NOTIFY playbackSoundStateChanged)
+    //TODO this is working for now, but implementation must be revisited
+    Q_PROPERTY(PlaybackState playbackNativeSoundBufferState READ playbackSoundState NOTIFY playbackSoundStateChanged)
     Q_PROPERTY(PlaybackState playbackUserSoundState READ playbackUserSoundState NOTIFY playbackUserSoundStateChanged)
 
 public:
@@ -92,9 +94,24 @@ public:
     Q_INVOKABLE void addPhoneme(Phoneme *phoneme);
     Q_INVOKABLE void removePhoneme(Phoneme *phoneme);
     Q_INVOKABLE void playbackSound();
+    Q_INVOKABLE void playbackNativeSoundBuffer();
     Q_INVOKABLE void stopSound();
     Q_INVOKABLE void playbackUserSound();
     Q_INVOKABLE void stopPlaybackUserSound();
+    /**
+     * Start recording interface to record sound to a temporary file.
+     * This temporary file will not be saved unless applyRecordedNativeSound()
+     * is called.
+     */
+    Q_INVOKABLE void startRecordNativeSound();
+    /**
+     * Stop recording of sound. It is save even if currently no sound is recorded.
+     */
+    Q_INVOKABLE void stopRecordNativeSound();
+    /**
+     * Overwrite native sound resource file by buffered file.
+     */
+    Q_INVOKABLE void applyRecordedNativeSound();
     Q_INVOKABLE void startRecordUserSound();
     Q_INVOKABLE void stopRecordUserSound();
     PlaybackState playbackSoundState() const;
@@ -131,7 +148,8 @@ private:
     Unit *m_unit;
 
     QList<Phoneme *> m_phonemes;
-    KUrl m_soundFile;
+    KUrl m_nativeSoundFile;
+    KTemporaryFile m_nativeSoundBuffer;
     KTemporaryFile m_userSoundFile;
     CurrentPlayback m_currentPlayback;
     QMediaPlayer *m_audioOutput;
