@@ -271,23 +271,12 @@ Item
                 }
             }
 
-            Column {
+            UnitEditor {
                 width: main.width - unitSelectorColumn.width
                 height: parent.height
-                Text {
-                    id: currentUnitInformation
-                    height: 30
-                    text: {
-                        "<strong>" + i18n("Current Unit:") + "</strong> " + editor.currentUnitName
-                    }
-                }
-
-                UnitEditor {
-                    width: parent.width
-                    height: parent.height - currentUnitInformation.height
-                    unit: editor.currentUnit
-                }
+                unit: editor.currentUnit
             }
+
         }
     }
 }

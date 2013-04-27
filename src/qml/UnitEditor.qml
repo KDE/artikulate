@@ -32,6 +32,10 @@ Item {
     width: 500
     height: 400
 
+    onUnitChanged: {
+        unitBreadcrumb.editMode = false
+    }
+
     PhraseModel {
         id: phraseModel
         unit: root.unit
@@ -45,31 +49,97 @@ Item {
         }
     }
 
-    PlasmaComponents.ToolButton {
-        id: addPhraseButton
-        text: i18n("Add Phrase")
-        iconSource: "document-new"
-        enabled: {
-            root.unit != null
-        }
-        onClicked: {
-            root.unit.course.createPhrase(unit)
-        }
-    }
-    Item {
-        anchors.top: addPhraseButton.bottom
-        width: root.width
-        height: root.height
+    Column {
+        Row {
+            id: unitBreadcrumb
+            property bool editMode: false
+            height: 30
+            Text {
+                id: unitTitleInfo
+                anchors.verticalCenter: unitBreadcrumb.verticalCenter
+                text: "<strong>" + i18n("Current Unit:") + "</strong> "
+            }
+            Text {
+                id: unitTitle
+                visible: !unitBreadcrumb.editMode
+                anchors.verticalCenter: unitBreadcrumb.verticalCenter
+                text: {
+                    if (root.unit) {
+                        return root.unit.title;
+                    } else {
+                        return i18n("unselected");
+                    }
+                }
+            }
+            PlasmaComponents.TextField {
+                id: unitTitleInput
+                visible: unitBreadcrumb.editMode
+                anchors.verticalCenter: unitBreadcrumb.verticalCenter
+                width: Math.max(unitTitle.width + 20, 200)
+                text: unitTitle.text
+                onAccepted: {
+                    root.unit.title = text
+                    unitBreadcrumb.editMode = false
+                }
+            }
 
-        ListView {
-            id: phraseList
-            anchors.fill: parent
-            clip: true
-            model: phraseModel
-            delegate: itemDelegate
+            // edit buttons
+            PlasmaComponents.ToolButton {
+                id: enableUnitEdit
+                anchors.verticalCenter: unitBreadcrumb.verticalCenter
+                iconSource: "document-properties"
+                enabled: root.unit != null
+                visible: !unitBreadcrumb.editMode
+                onClicked: {
+                    unitBreadcrumb.editMode = !unitBreadcrumb.editMode
+                }
+            }
+            PlasmaComponents.ToolButton {
+                anchors.verticalCenter: unitBreadcrumb.verticalCenter
+                visible: unitBreadcrumb.editMode
+                iconSource: "dialog-ok-apply"
+                onClicked: {
+                    root.unit.title = unitTitleInput.text
+                    unitBreadcrumb.editMode = false
+                }
+            }
+            PlasmaComponents.ToolButton {
+                anchors.verticalCenter: unitBreadcrumb.verticalCenter
+                visible: unitBreadcrumb.editMode
+                iconSource: "dialog-cancel"
+                onClicked: {
+                    unitBreadcrumb.editMode = false
+                }
+            }
+        }
 
-            PlasmaComponents.ScrollBar {
-                flickableItem: phraseList
+        PlasmaComponents.ToolButton {
+            id: addPhraseButton
+            anchors.top: unitBreadcrumb.bottom
+            text: i18n("Add Phrase")
+            iconSource: "document-new"
+            enabled: {
+                root.unit != null
+            }
+            onClicked: {
+                root.unit.course.createPhrase(unit)
+            }
+        }
+
+        Item {
+            width: root.width
+            height: root.height - unitBreadcrumb.height
+
+            ListView {
+                id: phraseList
+                anchors.fill: parent
+                clip: true
+                model: phraseModel
+                delegate: itemDelegate
+
+                PlasmaComponents.ScrollBar {
+                    flickableItem: phraseList
+                }
             }
         }
     }
