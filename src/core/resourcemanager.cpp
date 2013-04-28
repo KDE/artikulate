@@ -244,7 +244,7 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
     course->setFile(courseFile);
     course->setId(root.firstChildElement("id").text());
     course->setTitle(root.firstChildElement("title").text());
-    course->setDescription(root.firstChildElement("title").text());
+    course->setDescription(root.firstChildElement("description").text());
     if (!root.firstChildElement("foreignId").isNull()) {
         course->setForeignId(root.firstChildElement("foreignId").text());
     }
