@@ -38,7 +38,7 @@ Item {
         Text {
             id: componentTitle
             text: i18n("Native Speaker Recording")
-            font.pointSize: 16;
+            font.pointSize: 14;
         }
 
         Row {

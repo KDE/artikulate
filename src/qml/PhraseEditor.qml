@@ -42,7 +42,7 @@ Item {
         id: editComponent
 
         Row {
-            height: textEdit.height + phonemeGrid.height + phraseRecorder.height
+            height: textEdit.height + phonemeGrid.height + phraseRecorder.height + phraseTypeSetter.height
             Column {
                 id: textEdit
                 height: 30
@@ -78,49 +78,15 @@ Item {
                         }
                     }
                 }
+
                 PhraseEditorSoundComponent {
                     id: phraseRecorder
                     phrase: root.phrase
                 }
-                PlasmaComponents.ButtonRow { // controls for setting type
-                    id: phraseTypeRow
-                    spacing: 30
-                    Text {
-                        anchors.verticalCenter: phraseTypeRow.verticalCenter
-                        text: i18n("Type:")
-                    }
-                    PlasmaComponents.RadioButton {
-                        anchors.verticalCenter: phraseTypeRow.verticalCenter
-                        text: i18n("Word")
-                        checked: {phrase.type == Phrase.Word}
-                        onClicked: {
-                            phrase.type = Phrase.Word
-                        }
-                    }
-                    PlasmaComponents.RadioButton {
-                        anchors.verticalCenter: phraseTypeRow.verticalCenter
-                        text: i18n("Expression")
-                        checked: {phrase.type == Phrase.Expression}
-                        onClicked: {
-                            phrase.type = Phrase.Expression
-                        }
-                    }
-                    PlasmaComponents.RadioButton {
-                        anchors.verticalCenter: phraseTypeRow.verticalCenter
-                        text: i18n("Sentence")
-                        checked: {phrase.type == Phrase.Sentence}
-                        onClicked: {
-                            phrase.type = Phrase.Sentence
-                        }
-                    }
-                    PlasmaComponents.RadioButton {
-                        anchors.verticalCenter: phraseTypeRow.verticalCenter
-                        text: i18n("Paragraph")
-                        checked: {phrase.type == Phrase.Paragraph}
-                        onClicked: {
-                            phrase.type = Phrase.Paragraph
-                        }
-                    }
+
+                PhraseEditorTypeComponent {
+                    id: phraseTypeSetter
+                    phrase: root.phrase
                 }
 
                 Component {
