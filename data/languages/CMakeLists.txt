@@ -1,5 +1,6 @@
 FILE(GLOB languages *.xml)
 set(languages
+    ba.xml
     ca.xml
     de.xml
     du.xml

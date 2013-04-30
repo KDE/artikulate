@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<language>
+    <id>ba</id>
+    <title>বাংলা</title>
+    <i18nTitle>Bengali</i18nTitle>
+    <phonemeGroups>
+        <phonemeGroup>
+            <id>ব্যঞ্জনবর্ণ</id>
+            <title>ব্যঞ্জনবর্ণ</title>
+            <description>ব্যঞ্জনবর্ণ</description>
+            <phonemes>
+                <phoneme>
+                    <id>p</id>
+                    <title>[p] পাল</title>
+                </phoneme>
+                <phoneme>
+                    <id>ph</id>
+                    <title>[pʰ] ফুল</title>
+                </phoneme>
+                <phoneme>
+                    <id>b</id>
+                    <title>[b] বন</title>
+                </phoneme>
+                <phoneme>
+                    <id>bh</id>
+                    <title>[bʰ] ভোর</title>
+                </phoneme>
+                <phoneme>
+                    <id>t</id>
+                    <title>[t] টক</title>
+                </phoneme>
+                <phoneme>
+                    <id>th</id>
+                    <title>[tʰ] ঠক</title>
+                </phoneme>
+                <phoneme>
+                    <id>d</id>
+                    <title>[d] ডাল</title>
+                </phoneme>
+                <phoneme>
+                    <id>dh</id>
+                    <title>[dʰ] ঢাল</title>
+                </phoneme>
+                <phoneme>
+                    <id>t-labial</id>
+                    <title>[t̪] তুমি</title>
+                </phoneme>
+                <phoneme>
+                    <id>th-labial</id>
+                    <title>[t̪ʰ] থালা</title>
+                </phoneme>
+                <phoneme>
+                    <id>d-labial</id>
+                    <title>[d̪] দাম</title>
+                </phoneme>
+                <phoneme>
+                    <id>dh-labial</id>
+                    <title>[d̪ʰ] ধান</title>
+                </phoneme>
+                <phoneme>
+                    <id>c</id>
+                    <title>[c] চাল</title>
+                </phoneme>
+                <phoneme>
+                    <id>ch</id>
+                    <title>[cʰ] ছাগল</title>
+                </phoneme>
+                <phoneme>
+                    <id>j</id>
+                    <title>[ɟ] জল</title>
+                </phoneme>
+                <phoneme>
+                    <id>jh</id>
+                    <title>[ɟʰ] ঝগড়া</title>
+                </phoneme>
+                <phoneme>
+                    <id>k</id>
+                    <title>[k] কম</title>
+                </phoneme>
+                <phoneme>
+                    <id>kh</id>
+                    <title>[kʰ] খোলা</title>
+                </phoneme>
+                <phoneme>
+                    <id>g</id>
+                    <title>[g] গান</title>
+                </phoneme>
+                <phoneme>
+                    <id>gh</id>
+                    <title>[gʰ] ঘোড়া</title>
+                </phoneme>
+                <phoneme>
+                    <id>s</id>
+                    <title>[s] সাফ</title>
+                </phoneme>
+                <phoneme>
+                    <id>sh</id>
+                    <title>[ʃ] সাপ</title>
+                </phoneme>
+		<phoneme>
+                    <id>m</id>
+                    <title>[m] মা</title>
+                </phoneme>
+		<phoneme>
+                    <id>n</id>
+                    <title>[n] না</title>
+                </phoneme>
+		<phoneme>
+                    <id>N</id>
+                    <title>[ŋ] রঙ</title>
+                </phoneme>
+                <phoneme>
+                    <id>l</id>
+                    <title>[l] ফল</title>
+                </phoneme>
+		<phoneme>
+                    <id>r</id>
+                    <title>[r] রঙ</title>
+                </phoneme>
+                <phoneme>
+                    <id>h</id>
+                    <title>[h] হুল</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+        <phonemeGroup>
+            <id>স্বরবর্ণ</id>
+            <title>স্বরবর্ণ</title>
+	    <description>স্বরবর্ণ</description>
+            <phonemes>
+                <phoneme>
+                    <id>a</id>
+                    <title>[a] মা</title>
+                </phoneme>
+                <phoneme>
+                    <id>æ</id>
+                    <title>[æ] ব্যাং</title>
+                </phoneme>
+                <phoneme>
+                    <id>e</id>
+                    <title>[e] পেট</title>
+                </phoneme>
+                <phoneme>
+                    <id>i</id>
+                    <title>[i] আমি</title>
+                </phoneme>
+                <phoneme>
+                    <id>o</id>
+                    <title>[o] বোন</title>
+                </phoneme>
+                <phoneme>
+                    <id>o-half</id>
+                    <title>[ɔ] বস</title>
+                </phoneme>
+                <phoneme>
+                    <id>u</id>
+                    <title>[u] তুমি</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+        <phonemeGroup>
+            <id>দ্বিস্বরধ্বনি</id>
+            <title>দ্বিস্বরধ্বনি</title>
+            <description>দ্বিস্বরধ্বনি</description>
+            <phonemes>
+	        <phoneme>
+                    <id>eɑ</id>
+                    <title>[eɑ] মেয়াদ</title>
+                </phoneme>
+	        <phoneme>
+                    <id>oɑ</id>
+                    <title>[oɑ] দয়া</title>
+                </phoneme>
+	        <phoneme>
+                    <id>uɔ</id>
+                    <title>[uɔ] শুয়োর</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ei</id>
+                    <title>[ei] নেই</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ɑi</id>
+                    <title>[ɑi] ভাই</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ɔi</id>
+                    <title>[ɔi] মই</title>
+                </phoneme>
+	        <phoneme>
+                    <id>oi</id>
+                    <title>[oi] ঐতিহাসিক</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ui</id>
+                    <title>[ui] দুই</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ɔu</id>
+                    <title>[ɔu] বউ</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ɑu</id>
+                    <title>[ɑu] লাউ</title>
+                </phoneme>
+	        <phoneme>
+                    <id>eu</id>
+                    <title>[eu] কেউ</title>
+                </phoneme>
+	        <phoneme>
+                    <id>iu</id>
+                    <title>[iu] শিউলি</title>
+                </phoneme>
+	        <phoneme>
+                    <id>io</id>
+                    <title>[io] দিও</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ɑo</id>
+                    <title>[ɑo] খাও</title>
+                </phoneme>
+	        <phoneme>
+                    <id>uo</id>
+                    <title>[uo] কুয়ো</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ie</id>
+                    <title>[ie] বিয়ে</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ue</id>
+                    <title>[ue] শুয়ে</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+    </phonemeGroups>
+</language>
