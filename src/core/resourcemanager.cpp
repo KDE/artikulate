@@ -588,7 +588,7 @@ void ResourceManager::syncCourse(Course *course)
 
             phraseIdElement.appendChild(document.createTextNode(phrase->id()));
             phraseTextElement.appendChild(document.createTextNode(phrase->text()));
-            phraseSoundFileElement.appendChild(document.createTextNode(phrase->sound().toLocalFile()));
+            phraseSoundFileElement.appendChild(document.createTextNode(phrase->sound().fileName()));
             phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
 
             // add phonemes

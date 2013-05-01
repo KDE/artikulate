@@ -157,7 +157,7 @@ void Phrase::setUnit(Unit *unit)
 
 KUrl Phrase::sound() const
 {
-    return KUrl(); //m_sound->currentSource().url();
+    return m_nativeSoundFile;
 }
 
 void Phrase::setSound(const KUrl &soundFile)
