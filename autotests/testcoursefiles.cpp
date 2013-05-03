@@ -131,7 +131,7 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     QVERIFY(testPhrase->foreignId() == comparePhrase->foreignId());
     QVERIFY(testPhrase->text() == comparePhrase->text());
     QVERIFY(testPhrase->type() == comparePhrase->type());
-    QVERIFY(testPhrase->sound().toLocalFile() == comparePhrase->sound().toLocalFile());
+    QVERIFY(testPhrase->sound().fileName() == comparePhrase->sound().fileName());
     QVERIFY(testPhrase->phonemes().count() == comparePhrase->phonemes().count());
     //FIXME implement phoneme checks after phonemes are fully implemented
 }
