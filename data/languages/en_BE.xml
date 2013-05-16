@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<language>
+    <id>en_BE</id>
+    <title>British English</title>
+    <i18nTitle>British English</i18nTitle>
+    <phonemeGroups>
+        <phonemeGroup>
+            <id>consonants</id>
+            <title>Consonants</title>
+            <description>Consonants</description>
+            <phonemes>
+                <phoneme>
+                    <id>p</id>
+                    <title>[p] Pit</title>
+                </phoneme>
+                <phoneme>
+                    <id>b</id>
+                    <title>[b] Bit</title>
+                </phoneme>
+                <phoneme>
+                    <id>t</id>
+                    <title>[t] Tin</title>
+                </phoneme>
+                <phoneme>
+                    <id>d</id>
+                    <title>[d] Din</title>
+                </phoneme>
+                <phoneme>
+                    <id>k</id>
+                    <title>[k] Cut</title>
+                </phoneme>
+                <phoneme>
+                    <id>g</id>
+                    <title>[g] Gut</title>
+                </phoneme>
+                <phoneme>
+                    <id>ch</id>
+                    <title>[tʃ] Cheap</title>
+                </phoneme>
+                <phoneme>
+                    <id>j</id>
+                    <title>[dʒ] Jeep</title>
+                </phoneme>
+                <phoneme>
+                    <id>f</id>
+                    <title>[f] Fat</title>
+                </phoneme>
+                <phoneme>
+                    <id>v</id>
+                    <title>[v] Vat</title>
+                </phoneme>
+                <phoneme>
+                    <id>th</id>
+                    <title>[θ] Thin</title>
+                </phoneme>
+                <phoneme>
+                    <id>th-heavy</id>
+                    <title>[ð] Then</title>
+                </phoneme>
+                <phoneme>
+                    <id>s</id>
+                    <title>[s] Sap</title>
+                </phoneme>
+                <phoneme>
+                    <id>z</id>
+                    <title>[z] Zap</title>
+                </phoneme>
+                <phoneme>
+                    <id>sh</id>
+                    <title>[ʃ] She</title>
+                </phoneme>
+                <phoneme>
+                    <id>jz</id>
+                    <title>[ʒ] Measure</title>
+                </phoneme>
+                <phoneme>
+                    <id>kx</id>
+                    <title>[x] Loch</title>
+                </phoneme>
+                <phoneme>
+                    <id>w</id>
+                    <title>[w] We</title>
+                </phoneme>
+                <phoneme>
+                    <id>m</id>
+                    <title>[m] Map</title>
+                </phoneme>
+                <phoneme>
+                    <id>l</id>
+                    <title>[l] Left</title>
+                </phoneme>
+                <phoneme>
+                    <id>n</id>
+                    <title>[n] Nap</title>
+                </phoneme>
+                <phoneme>
+                    <id>r</id>
+                    <title>[r] Run</title>
+                </phoneme>
+                <phoneme>
+                    <id>y</id>
+                    <title>[y] Yes</title>
+                </phoneme>
+                <phoneme>
+                    <id>h</id>
+                    <title>[h] Ham</title>
+                </phoneme>
+                <phoneme>
+                    <id>ng</id>
+                    <title>[ŋ] Bang</title>
+                </phoneme>
+                <phoneme>
+                    <id>hw</id>
+                    <title>[hw] What</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+        <phonemeGroup>
+            <id>vowels</id>
+            <title>Vowels</title>
+            <description>Vowels</description>
+            <phonemes>
+                <phoneme>
+                    <id>ee</id>
+                    <title>[iː] See</title>
+                </phoneme>
+                <phoneme>
+                    <id>i</id>
+                    <title>[ɪ] Sit</title>
+                </phoneme>
+                <phoneme>
+                    <id>u-heavy</id>
+                    <title>[uː] You</title>
+                </phoneme>
+                <phoneme>
+                    <id>u</id>
+                    <title>[ʊ] Put</title>
+                </phoneme>
+                <phoneme>
+                    <id>e</id>
+                    <title>[e] Bed</title>
+                </phoneme>
+                <phoneme>
+                    <id>e(r)</id>
+                    <title>[ɜː] Bird</title>
+                </phoneme>
+                <phoneme>
+                    <id>a</id>
+                    <title>[ə] About</title>
+                </phoneme>
+                <phoneme>
+                    <id>aw</id>
+                    <title>[ɔː] Law</title>
+                </phoneme>
+                <phoneme>
+                    <id>ae</id>
+                    <title>[æ] Cat</title>
+                </phoneme>
+                <phoneme>
+                    <id>uh</id>
+                    <title>[ʌ] Run</title>
+                </phoneme>
+                <phoneme>
+                    <id>aa</id>
+                    <title>[ɑː] Palm</title>
+                </phoneme>
+                <phoneme>
+                    <id>o</id>
+                    <title>[ɒ] Lot</title>
+                </phoneme>
+                <phoneme>
+                    <id>ie</id>
+                    <title>[i] City</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+        <phonemeGroup>
+            <id>diphthongs</id>
+            <title>Diphthongs</title>
+            <description>Diphthongs</description>
+            <phonemes>
+                <phoneme>
+                    <id>ei</id>
+                    <title>[eɪ] Day</title>
+                </phoneme>
+                <phoneme>
+                    <id>ai</id>
+                    <title>[aɪ] My</title>
+                </phoneme>
+                <phoneme>
+                    <id>oi</id>
+                    <title>[ɔɪ] Boy</title>
+                </phoneme>
+                <phoneme>
+                    <id>au</id>
+                    <title>[aʊ] Now</title>
+                </phoneme>
+                <phoneme>
+                    <id>eau</id>
+                    <title>[əʊ] Goat</title>
+                </phoneme>
+                <phoneme>
+                    <id>eer</id>
+                    <title>[ɪər] Here</title>
+                </phoneme>
+                <phoneme>
+                    <id>ea</id>
+                    <title>[eə] Square</title>
+                </phoneme>
+                <phoneme>
+                    <id>oo(r)</id>
+                    <title>[ʊə] Tour</title>
+                </phoneme>
+                <phoneme>
+                    <id>eur</id>
+                    <title>[jʊər] Pure</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+    </phonemeGroups>
+</language>
+
