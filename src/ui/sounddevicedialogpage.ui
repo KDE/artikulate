@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>325</width>
-    <height>275</height>
+    <height>281</height>
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
@@ -34,7 +34,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="KComboBox" name="kcfg_inputDevice">
+       <widget class="KComboBox" name="kcfg_AudioInputDevice">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -51,7 +51,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QSlider" name="kcfg_inputVolume">
+       <widget class="QSlider" name="kcfg_AudioInputVolume">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -83,7 +83,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="KComboBox" name="kcfg_outputDevice">
+       <widget class="KComboBox" name="kcfg_AudioOutputDevice">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -100,7 +100,7 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QSlider" name="kcfg_outputVolume">
+       <widget class="QSlider" name="kcfg_AudioOutputVolume">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>

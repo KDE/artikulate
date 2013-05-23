@@ -39,6 +39,8 @@ public slots:
 
 private:
     Ui::SoundDeviceDialogPage *ui;
+    QList<QString> m_audioInputs;
+    QList<QString> m_audioOutputs;
 };
 
 #endif

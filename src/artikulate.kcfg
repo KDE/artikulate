@@ -8,10 +8,24 @@
   <group name="artikulate">
     <entry name="UseCourseRepository" type="Bool">
       <label>If enabled, course files are only read from the local contributor repository</label>
-      <default> false </default>
+      <default>false</default>
     </entry>
     <entry name="CourseRepositoryPath" type="Path">
       <label>Path to local contributor repository</label>
+    </entry>
+    <entry name="AudioInputDevice" type="String">
+      <label>Name of audio input device</label>
+    </entry>
+    <entry name="AudioOutputDevice" type="String">
+      <label>Name of audio output device</label>
+    </entry>
+    <entry name="AudioInputVolume" type="Int">
+      <label>Audio input volume</label>
+      <default>90</default>
+    </entry>
+    <entry name="AudioOutputVolume" type="Int">
+      <label>Audio output volume</label>
+      <default>90</default>
     </entry>
   </group>
 </kcfg>

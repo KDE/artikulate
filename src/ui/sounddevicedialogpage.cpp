@@ -22,13 +22,38 @@
 #include "settings.h"
 
 #include <KLocale>
-#include <QUuid>
+#include <QAudioDeviceInfo>
+#include <QAudioCaptureSource>
 
 SoundDeviceDialogPage::SoundDeviceDialogPage()
     : QWidget(0)
 {
     ui = new Ui::SoundDeviceDialogPage;
     ui->setupUi(this);
+
+    // set input volume slider
+    ui->kcfg_AudioInputVolume->setTickInterval(1);
+    ui->kcfg_AudioInputVolume->setMinimum(1);
+    ui->kcfg_AudioInputVolume->setMaximum(100);
+
+    // set output volume slider
+    ui->kcfg_AudioOutputVolume->setTickInterval(1);
+    ui->kcfg_AudioOutputVolume->setMinimum(1);
+    ui->kcfg_AudioOutputVolume->setMaximum(100);
+
+    // devices
+    QAudioCaptureSource captureSource; // = new QAudioCaptureSource(m_parent);
+    m_audioInputs = captureSource.audioInputs();
+    for (int i=0; i < m_audioInputs.length(); ++i) {
+        ui->kcfg_AudioInputDevice->insertItem(i, m_audioInputs.at(i), i);
+    }
+
+    QAudioDeviceInfo info;
+    QList<QAudioDeviceInfo> audioOutputs = info.availableDevices(QAudio::AudioOutput);
+    for (int i=0; i < audioOutputs.length(); ++i) {
+        ui->kcfg_AudioOutputDevice->insertItem(i, audioOutputs.at(i).deviceName(), i);
+        m_audioOutputs.append(audioOutputs.at(i).deviceName());
+    }
 }
 
 SoundDeviceDialogPage::~SoundDeviceDialogPage()
@@ -38,11 +63,17 @@ SoundDeviceDialogPage::~SoundDeviceDialogPage()
 
 void SoundDeviceDialogPage::loadSettings()
 {
-    //TODO
+//     ui->kcfg_AudioInputDevice(Settings::audioInputDevice());
+//     ui->kcfg_AudioOutputDevice(Settings::audioOutputDevice());
+    ui->kcfg_AudioInputVolume->setValue(Settings::audioInputVolume());
+    ui->kcfg_AudioOutputVolume->setValue(Settings::audioOutputVolume());
 }
 
 void SoundDeviceDialogPage::saveSettings()
 {
-    //TODO
+    Settings::setAudioInputDevice(m_audioInputs.at(ui->kcfg_AudioInputDevice->currentIndex()));
+    Settings::setAudioInputDevice(m_audioOutputs.at(ui->kcfg_AudioOutputDevice->currentIndex()));
+    Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
+    Settings::setAudioOutputVolume(ui->kcfg_AudioOutputVolume->value());
     Settings::self()->writeConfig();
 }
