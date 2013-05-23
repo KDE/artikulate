@@ -56,8 +56,7 @@ set(artikulateCore_SRCS
     ui/newcoursedialog.cpp
 )
 kde4_add_ui_files(artikulateCore_SRCS
-    ui/newcoursedialog.ui
-    ui/resourcesdialog.ui
+    ui/sounddevicedialog.ui
 )
 kde4_add_kcfg_files(artikulateCore_SRCS settings.kcfgc)
 kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})
@@ -96,9 +95,14 @@ set(artikulate_SRCS
     models/phonemeunitmodel.cpp
     models/skeletonmodel.cpp
 
+    ui/sounddevicedialog.cpp
     ui/resourcesdialog.cpp
 
     declarativeitems/applicationbackground.cpp
+)
+kde4_add_ui_files(artikulate_SRCS
+    ui/resourcesdialog.ui
+    ui/sounddevicedialog.ui
 )
 kde4_add_kcfg_files(artikulate_SRCS settings.kcfgc)
 kde4_add_executable(artikulate ${artikulate_SRCS})

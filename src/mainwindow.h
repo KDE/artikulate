@@ -60,6 +60,7 @@ public slots:
     void showCourseEditor();
     void closeCourseEditor();
     void showSettingsDialog();
+    void showSettingsSoundDialog();
 
 private:
     QDeclarativeView *m_view;

@@ -20,6 +20,7 @@
 
 #include "mainwindow.h"
 #include "ui/resourcesdialog.h"
+#include "ui/sounddevicedialog.h"
 #include "core/resourcemanager.h"
 #include "core/profile.h"
 #include "models/languagemodel.h"
@@ -75,12 +76,15 @@ MainWindow::MainWindow()
     m_actionCollection->addAction("editor", editorAction);
     m_menu->addAction(editorAction);
 
-    KAction *settingsAction = new KAction(i18n("Settings"), this);
+    KAction *settingsAction = new KAction(i18n("Course Settings"), this);
     connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
     m_actionCollection->addAction("settings", settingsAction);
     m_menu->addAction(settingsAction);
 
-
+    KAction *settingsSoundAction = new KAction(i18n("Sound Settings"), this);
+    connect(settingsSoundAction, SIGNAL(triggered()), SLOT(showSettingsSoundDialog()));
+    m_actionCollection->addAction("settingsSound", settingsSoundAction);
+    m_menu->addAction(settingsSoundAction);
 
     m_menu->addSeparator();
 
@@ -136,3 +140,8 @@ void MainWindow::showSettingsDialog()
     dialog->exec();
 }
 
+void MainWindow::showSettingsSoundDialog()
+{
+    QPointer<SoundDeviceDialog> dialog = new SoundDeviceDialog();
+    dialog->exec();
+}
