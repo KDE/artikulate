@@ -16,9 +16,6 @@
     <entry name="AudioInputDevice" type="String">
       <label>Name of audio input device</label>
     </entry>
-    <entry name="AudioOutputDevice" type="String">
-      <label>Name of audio output device</label>
-    </entry>
     <entry name="AudioInputVolume" type="Int">
       <label>Audio input volume</label>
       <default>90</default>

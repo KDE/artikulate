@@ -47,13 +47,6 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
     for (int i=0; i < m_audioInputs.length(); ++i) {
         ui->kcfg_AudioInputDevice->insertItem(i, m_audioInputs.at(i), i);
     }
-
-    QAudioDeviceInfo info;
-    QList<QAudioDeviceInfo> audioOutputs = info.availableDevices(QAudio::AudioOutput);
-    for (int i=0; i < audioOutputs.length(); ++i) {
-        ui->kcfg_AudioOutputDevice->insertItem(i, audioOutputs.at(i).deviceName(), i);
-        m_audioOutputs.append(audioOutputs.at(i).deviceName());
-    }
 }
 
 SoundDeviceDialogPage::~SoundDeviceDialogPage()
@@ -64,7 +57,6 @@ SoundDeviceDialogPage::~SoundDeviceDialogPage()
 void SoundDeviceDialogPage::loadSettings()
 {
 //     ui->kcfg_AudioInputDevice(Settings::audioInputDevice());
-//     ui->kcfg_AudioOutputDevice(Settings::audioOutputDevice());
     ui->kcfg_AudioInputVolume->setValue(Settings::audioInputVolume());
     ui->kcfg_AudioOutputVolume->setValue(Settings::audioOutputVolume());
 }
@@ -72,7 +64,6 @@ void SoundDeviceDialogPage::loadSettings()
 void SoundDeviceDialogPage::saveSettings()
 {
     Settings::setAudioInputDevice(m_audioInputs.at(ui->kcfg_AudioInputDevice->currentIndex()));
-    Settings::setAudioInputDevice(m_audioOutputs.at(ui->kcfg_AudioOutputDevice->currentIndex()));
     Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
     Settings::setAudioOutputVolume(ui->kcfg_AudioOutputVolume->value());
     Settings::self()->writeConfig();
