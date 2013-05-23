@@ -22,6 +22,7 @@
 #include "capturedevicecontroller.h"
 #include "unit.h"
 #include "course.h"
+#include "settings.h"
 
 #include <QMediaPlayer>
 
@@ -174,7 +175,7 @@ void Phrase::playbackSound()
 {
     kDebug() << "Playing authentic sound";
     m_audioOutput->setMedia(m_nativeSoundFile);
-    m_audioOutput->setVolume(50); //TODO use global config
+    m_audioOutput->setVolume(Settings::audioOutputVolume());
     m_audioOutput->play();
     m_currentPlayback = Sound;
 }
@@ -183,7 +184,7 @@ void Phrase::playbackNativeSoundBuffer()
 {
     kDebug() << "Playing sound buffer";
     m_audioOutput->setMedia(KUrl::fromLocalFile(m_nativeSoundBuffer.fileName()));
-    m_audioOutput->setVolume(50); //TODO use global config
+    m_audioOutput->setVolume(Settings::audioOutputVolume());
     m_audioOutput->play();
 }
 
@@ -191,7 +192,7 @@ void Phrase::playbackUserSound()
 {
     kDebug() << this << "Playback sound in file "<< m_userSoundFile.fileName();
     m_audioOutput->setMedia(KUrl::fromLocalFile(m_userSoundFile.fileName()));
-    m_audioOutput->setVolume(50); //TODO use global config
+    m_audioOutput->setVolume(Settings::audioOutputVolume());
     m_audioOutput->play();
     m_currentPlayback = UserSound;
 }
