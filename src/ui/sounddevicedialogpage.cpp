@@ -18,23 +18,31 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SOUNDDEVICEDIALOG_H
-#define SOUNDDEVICEDIALOG_H
+#include "sounddevicedialogpage.h"
+#include "settings.h"
 
-#include "ui_sounddevicedialog.h"
-#include <KDialog>
+#include <KLocale>
+#include <QUuid>
 
-class SoundDeviceDialog :
-    public KDialog
+SoundDeviceDialogPage::SoundDeviceDialogPage()
+    : QWidget(0)
 {
-    Q_OBJECT
+    ui = new Ui::SoundDeviceDialogPage;
+    ui->setupUi(this);
+}
 
-public:
-    SoundDeviceDialog();
-    ~SoundDeviceDialog();
+SoundDeviceDialogPage::~SoundDeviceDialogPage()
+{
+    delete ui;
+}
 
-private:
-    Ui::SoundDeviceDialog *ui;
-};
+void SoundDeviceDialogPage::loadSettings()
+{
+    //TODO
+}
 
-#endif
+void SoundDeviceDialogPage::saveSettings()
+{
+    //TODO
+    Settings::self()->writeConfig();
+}

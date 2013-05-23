@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SoundDeviceDialog</class>
- <widget class="QWidget" name="SoundDeviceDialog">
+ <class>SoundDeviceDialogPage</class>
+ <widget class="QWidget" name="SoundDeviceDialogPage">
   <property name="geometry">
    <rect>
     <x>0</x>

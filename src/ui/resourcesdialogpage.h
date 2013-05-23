@@ -18,26 +18,33 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "sounddevicedialog.h"
+#ifndef RESOURCESDIALOGPAGE_H
+#define RESOURCESDIALOGPAGE_H
 
-#include <KLocale>
-#include <QUuid>
+#include "ui_resourcesdialogpage.h"
+#include <QWidget>
 
-SoundDeviceDialog::SoundDeviceDialog()
-    : KDialog(0)
+class ResourceManager;
+class Course;
+
+class ResourcesDialogPage :
+    public QWidget
 {
-    setPlainCaption(i18n("Sound Device Settings"));
-    setButtons(KDialog::Ok | KDialog::Cancel);
-    setDefaultButton(KDialog::Ok);
+    Q_OBJECT
 
-    QWidget *widget = new QWidget(this);
-    ui = new Ui::SoundDeviceDialog;
+public:
+    explicit ResourcesDialogPage(ResourceManager *resourceMgr);
+    virtual ~ResourcesDialogPage();
 
-    ui->setupUi(widget);
-    setMainWidget(widget);
-}
+public slots:
+    void saveSettings();
+    void loadSettings();
+    void updateHints();
 
-SoundDeviceDialog::~SoundDeviceDialog()
-{
-    delete ui;
-}
+private:
+    Ui::ResourcesDialogPage *ui;
+    ResourceManager *m_resourceManager;
+    bool m_restartNeeded;
+};
+
+#endif

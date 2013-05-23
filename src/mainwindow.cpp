@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -19,8 +19,8 @@
  */
 
 #include "mainwindow.h"
-#include "ui/resourcesdialog.h"
-#include "ui/sounddevicedialog.h"
+#include "ui/resourcesdialogpage.h"
+#include "ui/sounddevicedialogpage.h"
 #include "core/resourcemanager.h"
 #include "core/profile.h"
 #include "models/languagemodel.h"
@@ -37,6 +37,7 @@
 #include <KStandardDirs>
 #include <kdeclarative.h>
 #include <KMenu>
+#include <KConfigDialog>
 #include <KDebug>
 
 #include <QGraphicsObject>
@@ -76,15 +77,10 @@ MainWindow::MainWindow()
     m_actionCollection->addAction("editor", editorAction);
     m_menu->addAction(editorAction);
 
-    KAction *settingsAction = new KAction(i18n("Course Settings"), this);
+    KAction *settingsAction = new KAction(i18n("Settings"), this);
     connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
     m_actionCollection->addAction("settings", settingsAction);
     m_menu->addAction(settingsAction);
-
-    KAction *settingsSoundAction = new KAction(i18n("Sound Settings"), this);
-    connect(settingsSoundAction, SIGNAL(triggered()), SLOT(showSettingsSoundDialog()));
-    m_actionCollection->addAction("settingsSound", settingsSoundAction);
-    m_menu->addAction(settingsSoundAction);
 
     m_menu->addSeparator();
 
@@ -136,12 +132,23 @@ void MainWindow::showMenu(int xPos, int yPos)
 
 void MainWindow::showSettingsDialog()
 {
-    QPointer<ResourcesDialog> dialog = new ResourcesDialog(m_resourceManager);
-    dialog->exec();
-}
+    if (KConfigDialog::showDialog("settings")) {
+        return;
+    }
+    QPointer<KConfigDialog> dialog = new KConfigDialog(this, "settings", Settings::self());
 
-void MainWindow::showSettingsSoundDialog()
-{
-    QPointer<SoundDeviceDialog> dialog = new SoundDeviceDialog();
+    ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_resourceManager);
+    SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
+    resourceDialog->loadSettings();
+    soundDialog->loadSettings();
+
+    dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), "audio-headset", i18nc("@title:tab", "Sound Device Settings"), true);
+    dialog->addPage(resourceDialog, i18nc("@item:inmenu", "Course Resources"), "repository", i18nc("@title:tab", "Resource Repository Settings"), true);
+
+//     connect(dialog, SIGNAL(settingsChanged(const QString&)), resourceDialog, SLOT(loadSettings()));
+//     connect(dialog, SIGNAL(settingsChanged(const QString&)), soundDialog, SLOT(loadSettings()));
+    connect(dialog, SIGNAL(accepted()), resourceDialog, SLOT(saveSettings()));
+    connect(dialog, SIGNAL(accepted()), soundDialog, SLOT(saveSettings()));
+
     dialog->exec();
 }

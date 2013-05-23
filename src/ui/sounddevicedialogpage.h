@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,30 +18,27 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESOURCESDIALOG_H
-#define RESOURCESDIALOG_H
+#ifndef SOUNDDEVICEDIALOGPAGE_H
+#define SOUNDDEVICEDIALOGPAGE_H
 
-#include "ui_resourcesdialog.h"
-#include <KDialog>
+#include "ui_sounddevicedialogpage.h"
+#include <QWidget>
 
-class ResourceManager;
-class Course;
-
-class ResourcesDialog :
-    public KDialog
+class SoundDeviceDialogPage :
+    public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit ResourcesDialog(ResourceManager *resourceMgr);
-    virtual ~ResourcesDialog();
+    SoundDeviceDialogPage();
+    ~SoundDeviceDialogPage();
 
 public slots:
     void saveSettings();
+    void loadSettings();
 
 private:
-    Ui::ResourcesDialog *ui;
-    ResourceManager *m_resourceManager;
+    Ui::SoundDeviceDialogPage *ui;
 };
 
 #endif
