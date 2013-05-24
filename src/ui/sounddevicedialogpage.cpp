@@ -31,6 +31,11 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
     ui = new Ui::SoundDeviceDialogPage;
     ui->setupUi(this);
 
+    // set buttons
+    ui->buttonPlayTestSound->setIcon(KIcon("media-playback-start"));
+    ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-start"));
+    ui->buttonRecordTestSound->setIcon(KIcon("media-record"));
+
     // set input volume slider
     ui->kcfg_AudioInputVolume->setTickInterval(1);
     ui->kcfg_AudioInputVolume->setMinimum(1);
