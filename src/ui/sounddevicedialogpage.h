@@ -24,6 +24,7 @@
 #include "ui_sounddevicedialogpage.h"
 #include <QWidget>
 
+class QMediaPlayer;
 class SoundDeviceDialogPage :
     public QWidget
 {
@@ -36,11 +37,16 @@ public:
 public slots:
     void saveSettings();
     void loadSettings();
+    void playTestSound();
+    void playRecordedSound();
+    void recordSound();
+    void updateTestButtonIcons();
 
 private:
     Ui::SoundDeviceDialogPage *ui;
     QList<QString> m_audioInputs;
     QList<QString> m_audioOutputs;
+    QMediaPlayer *m_audioOutput;
 };
 
 #endif
