@@ -73,12 +73,16 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
 
 SoundDeviceDialogPage::~SoundDeviceDialogPage()
 {
+    CaptureDeviceController::self().stopCapture();
+    CaptureDeviceController::self().setDevice(Settings::audioInputDevice());
+
     delete ui;
 }
 
 void SoundDeviceDialogPage::loadSettings()
 {
-//     ui->kcfg_AudioInputDevice(Settings::audioInputDevice()); //TODO
+    ui->kcfg_AudioInputDevice->setCurrentIndex(
+        ui->kcfg_AudioInputDevice->findText(Settings::audioInputDevice()));
     ui->kcfg_AudioInputVolume->setValue(Settings::audioInputVolume());
     ui->kcfg_AudioOutputVolume->setValue(Settings::audioOutputVolume());
 }

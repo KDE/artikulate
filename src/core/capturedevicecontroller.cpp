@@ -19,6 +19,7 @@
  */
 
 #include "capturedevicecontroller.h"
+#include <settings.h>
 
 #include <QMediaRecorder>
 #include <QAudioInput>
@@ -61,11 +62,26 @@ public:
         m_captureSource = new QAudioCaptureSource(m_parent);
         m_audioInput = new QMediaRecorder(m_captureSource, m_parent);
 
-        kDebug() << "CREATED AUDIO-SOURCE";
-        kDebug() << "available : " << m_captureSource->isAvailable();
-        kDebug() << "inputs : " << m_captureSource->audioInputs();
-        kDebug() << "active input : " << m_captureSource->activeAudioInput();
-        kDebug() << "available codecs : " << m_audioInput->supportedAudioCodecs();
+        if (!m_captureSource->isAvailable()) {
+            kError() << "Audio capture source not available.";
+        }
+
+        // check and set input device
+        if (Settings::audioInputDevice().isEmpty()) {
+            kDebug() << "Audio device not set, using default value.";
+            Settings::setAudioInputDevice(m_captureSource->activeAudioInput());
+        }
+        if (m_captureSource->audioInputs().contains(Settings::audioInputDevice())) {
+            m_captureSource->setAudioInput(Settings::audioInputDevice());
+        } else {
+            kError() << "Could not set audio input device, device " << Settings::audioInputDevice()
+                << "is unknown. Using default device.";
+        }
+
+        // check code
+        if (!m_audioInput->supportedAudioCodecs().contains("audio/vorbis")) {
+            kError() << "Audio codec vorbis/ogg is not available, cannot record sound files.";
+        }
 
         m_initialized = true;
     }
@@ -127,9 +143,10 @@ void CaptureDeviceController::stopCapture()
 
 void CaptureDeviceController::setDevice(const QString &deviceIdentifier)
 {
-    kDebug() << "Current input" << d->m_captureSource->activeAudioInput();
-    kDebug() << "------> input" << deviceIdentifier;
-
+    if (!d->m_captureSource->audioInputs().contains(deviceIdentifier)) {
+        kError() << "Audio input devicde " << deviceIdentifier << " is unknown, aborting.";
+        return;
+    }
     d->m_captureSource->setAudioInput(deviceIdentifier);
 }
 
