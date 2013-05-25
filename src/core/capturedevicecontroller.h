@@ -48,10 +48,12 @@ public:
     static CaptureDeviceController & self();
 
     void startCapture(const QString &filePath);
-    void stopCapture();
     QMediaRecorder::State state() const;
+    void stopCapture();
+    void setDevice(const QString &deviceIdentifier);
 
 public Q_SLOTS:
+
 
 Q_SIGNALS:
     void captureStarted();

@@ -22,9 +22,11 @@
 #define SOUNDDEVICEDIALOGPAGE_H
 
 #include "ui_sounddevicedialogpage.h"
+#include <KTemporaryFile>
 #include <QWidget>
 
 class QMediaPlayer;
+
 class SoundDeviceDialogPage :
     public QWidget
 {
@@ -40,13 +42,16 @@ public slots:
     void playTestSound();
     void playRecordedSound();
     void recordSound();
-    void updateTestButtonIcons();
+    void updatePlayButtonIcons();
 
 private:
     Ui::SoundDeviceDialogPage *ui;
     QList<QString> m_audioInputs;
     QList<QString> m_audioOutputs;
+    KTemporaryFile m_recordTestFile;
+
     QMediaPlayer *m_audioOutput;
+    QMediaPlayer *m_audioRecordedOutput;
 };
 
 #endif

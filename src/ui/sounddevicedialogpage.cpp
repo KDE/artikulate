@@ -19,6 +19,7 @@
  */
 
 #include "sounddevicedialogpage.h"
+#include <core/capturedevicecontroller.h>
 #include "settings.h"
 
 #include <KLocale>
@@ -30,6 +31,7 @@
 SoundDeviceDialogPage::SoundDeviceDialogPage()
     : QWidget(0)
     , m_audioOutput(new QMediaPlayer)
+    , m_audioRecordedOutput(new QMediaPlayer)
 {
     ui = new Ui::SoundDeviceDialogPage;
     ui->setupUi(this);
@@ -38,6 +40,7 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
     ui->buttonPlayTestSound->setIcon(KIcon("media-playback-start"));
     ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-start"));
     ui->buttonRecordTestSound->setIcon(KIcon("media-record"));
+    ui->buttonPlayRecordedTestSound->setEnabled(false);
 
     // set input volume slider
     ui->kcfg_AudioInputVolume->setTickInterval(1);
@@ -56,9 +59,16 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
         ui->kcfg_AudioInputDevice->insertItem(i, m_audioInputs.at(i), i);
     }
 
+    // temporary file for recording test
+    m_recordTestFile.setSuffix(".ogg");
+    m_recordTestFile.open();
+
     // connections
     connect(ui->buttonPlayTestSound, SIGNAL(clicked(bool)), this, SLOT(playTestSound()));
-    connect(m_audioOutput, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(updateTestButtonIcons()));
+    connect(ui->buttonPlayRecordedTestSound, SIGNAL(clicked(bool)), this, SLOT(playRecordedSound()));
+    connect(ui->buttonRecordTestSound, SIGNAL(clicked(bool)), this, SLOT(recordSound()));
+    connect(m_audioOutput, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(updatePlayButtonIcons()));
+    connect(m_audioRecordedOutput, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(updatePlayButtonIcons()));
 }
 
 SoundDeviceDialogPage::~SoundDeviceDialogPage()
@@ -68,7 +78,7 @@ SoundDeviceDialogPage::~SoundDeviceDialogPage()
 
 void SoundDeviceDialogPage::loadSettings()
 {
-//     ui->kcfg_AudioInputDevice(Settings::audioInputDevice());
+//     ui->kcfg_AudioInputDevice(Settings::audioInputDevice()); //TODO
     ui->kcfg_AudioInputVolume->setValue(Settings::audioInputVolume());
     ui->kcfg_AudioOutputVolume->setValue(Settings::audioOutputVolume());
 }
@@ -95,16 +105,32 @@ void SoundDeviceDialogPage::playTestSound()
 
 void SoundDeviceDialogPage::playRecordedSound()
 {
-    //TODO
+    if (m_audioRecordedOutput->state() == QMediaPlayer::PlayingState) {
+        m_audioRecordedOutput->stop();
+        return;
+    }
+    m_audioRecordedOutput->setMedia(KUrl::fromLocalFile(m_recordTestFile.fileName()));
+    m_audioRecordedOutput->setVolume(ui->kcfg_AudioOutputVolume->value());
+    m_audioRecordedOutput->play();
 }
 
 void SoundDeviceDialogPage::recordSound()
 {
-    //TODO
+    if (CaptureDeviceController::self().state() == QMediaRecorder::RecordingState) {
+        CaptureDeviceController::self().stopCapture();
+        ui->buttonRecordTestSound->setIcon(KIcon("media-record"));
+        ui->buttonPlayRecordedTestSound->setEnabled(true);
+        return;
+    }
+
+    ui->buttonRecordTestSound->setIcon(KIcon("media-playback-stop"));
+    CaptureDeviceController::self().setDevice(ui->kcfg_AudioInputDevice->currentText());
+    CaptureDeviceController::self().startCapture(m_recordTestFile.fileName());
 }
 
-void SoundDeviceDialogPage::updateTestButtonIcons()
+void SoundDeviceDialogPage::updatePlayButtonIcons()
 {
+    // default sound output test
     switch (m_audioOutput->state()) {
     case QMediaPlayer::PlayingState:
         ui->buttonPlayTestSound->setIcon(KIcon("media-playback-stop"));
@@ -115,6 +141,17 @@ void SoundDeviceDialogPage::updateTestButtonIcons()
     default:
         ui->buttonPlayTestSound->setIcon(KIcon("media-playback-start"));
     }
-}
 
+    // recorded sound output test
+    switch (m_audioRecordedOutput->state()) {
+    case QMediaPlayer::PlayingState:
+        ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-stop"));
+        break;
+    case QMediaPlayer::QMediaPlayer::StoppedState:
+        ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-start"));
+        break;
+    default:
+        ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-start"));
+    }
+}
 

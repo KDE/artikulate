@@ -125,6 +125,14 @@ void CaptureDeviceController::stopCapture()
     emit captureStopped();
 }
 
+void CaptureDeviceController::setDevice(const QString &deviceIdentifier)
+{
+    kDebug() << "Current input" << d->m_captureSource->activeAudioInput();
+    kDebug() << "------> input" << deviceIdentifier;
+
+    d->m_captureSource->setAudioInput(deviceIdentifier);
+}
+
 QMediaRecorder::State CaptureDeviceController::state() const
 {
     return d->m_audioInput->state();
