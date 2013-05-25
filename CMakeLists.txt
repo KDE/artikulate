@@ -41,7 +41,7 @@ add_subdirectory(data)
 add_subdirectory(schemes)
 #add_subdirectory(doc)
 add_subdirectory(src)
-#add_subdirectory(sounds)
+add_subdirectory(sounds)
 add_subdirectory(images)
 add_subdirectory(icons)
 
