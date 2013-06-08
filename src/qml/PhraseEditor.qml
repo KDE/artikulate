@@ -43,9 +43,11 @@ Item {
             height: textEdit.height + phonemeGrid.height + phraseEditStateSetter.height + phraseRecorder.height + phraseTypeSetter.height
             Column {
                 id: textEdit
-                height: 30
+                height: inputLine.height + originalPhraseInfo.height
                 spacing: 5
                 Row { // controls for setting phrase
+                    id: inputLine
+                    height: 30
                     PlasmaComponents.TextField {
                         id: phraseInput
                         width: Math.max(phraseText.width + 20, 200)
@@ -70,6 +72,18 @@ Item {
                             root.editMode = false
                             phrase.type = root.__originalPhraseType
                         }
+                    }
+                }
+                Row {
+                    id: originalPhraseInfo
+                    spacing: 10
+                    visible: { root.phrase.i18nText != "" }
+                    Text {
+                        text: i18n("Original Phrase:")
+                    }
+                    Text {
+                        text: root.phrase.i18nText
+                        font.italic: true
                     }
                 }
 

@@ -95,7 +95,7 @@ void Phrase::setText(const QString &text)
 
 QString Phrase::i18nText() const
 {
-    return m_text;
+    return m_i18nText;
 }
 
 void Phrase::seti18nText(const QString &text)
