@@ -33,6 +33,7 @@
 
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
+    , m_editState(Unknown)
     , m_audioOutput(new QMediaPlayer)
 {
     m_currentPlayback = None;
@@ -203,7 +204,7 @@ void Phrase::setEditState(const QString &stateString)
         setEditState(Completed);
         return;
     }
-    kWarning() << "Cannot set edit state from unknown identifier, aborting";
+    kWarning() << "Cannot set edit state from unknown identifier " << stateString << ", aborting";
     return;
 }
 

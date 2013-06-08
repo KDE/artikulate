@@ -43,6 +43,7 @@ set(artikulate_qml_files
     PhraseEditor.qml
     PhraseEditorSoundComponent.qml
     PhraseEditorTypeComponent.qml
+    PhraseEditorEditStateComponent.qml
     PhonemeUnitSelector.qml
     SkeletonSelector.qml
 )

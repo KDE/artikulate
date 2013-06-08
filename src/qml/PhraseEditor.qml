@@ -40,7 +40,7 @@ Item {
         id: editComponent
 
         Row {
-            height: textEdit.height + phonemeGrid.height + phraseRecorder.height + phraseTypeSetter.height
+            height: textEdit.height + phonemeGrid.height + phraseEditStateSetter.height + phraseRecorder.height + phraseTypeSetter.height
             Column {
                 id: textEdit
                 height: 30
@@ -54,6 +54,11 @@ Item {
                             root.editMode = false
                             root.phrase.text = text
                             root.__originalPhraseType = phrase.type
+                        }
+                        onTextChanged: {
+                            if (root.phrase.editState == Phrase.Unknown) {
+                                root.phrase.editState = Phrase.Translated
+                            }
                         }
                     }
                     PlasmaComponents.ToolButton {
@@ -71,6 +76,11 @@ Item {
                             phrase.type = root.__originalPhraseType
                         }
                     }
+                }
+
+                PhraseEditorEditStateComponent {
+                    id: phraseEditStateSetter
+                    phrase: root.phrase
                 }
 
                 PhraseEditorSoundComponent {
@@ -156,6 +166,17 @@ Item {
             anchors.verticalCenter: enableEdit.verticalCenter
             visible: { !root.editMode }
             text: root.phrase.text
+            color: {
+                switch (root.phrase.editState) {
+                case Phrase.Unknown: "red";
+                    break;
+                case Phrase.Translated: "blue";
+                    break;
+                case Phrase.Completed: "black";
+                    break;
+                default: "purple";
+                }
+            }
         }
 
         Loader {
