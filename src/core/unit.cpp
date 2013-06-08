@@ -124,6 +124,8 @@ void Unit::addPhrase(Phrase *phrase)
     connect(phrase, SIGNAL(typeChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(textChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(soundChanged()), this, SIGNAL(modified()));
+    connect(phrase, SIGNAL(editStateChanged()), this, SIGNAL(modified()));
+    connect(phrase, SIGNAL(i18nTextChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(phonemesChanged()), this, SIGNAL(modified()));
 
     emit modified();
