@@ -31,47 +31,50 @@ Item {
     width: typeController.width
     height: typeController.height
 
-    Column {
+    Row {
         id: typeController
+        spacing: 10
 
         Text {
             id: componentTitle
-            text: i18n("Phrase Type")
+            text: i18n("Length:")
             font.pointSize: 14;
         }
 
         PlasmaComponents.ButtonRow { // controls for setting type
             id: phraseTypeRow
-            spacing: 30
+            anchors { verticalCenter: componentTitle.verticalCenter }
 
-            anchors { left: componentTitle.left; leftMargin: 30 }
-
-            PlasmaComponents.RadioButton {
+            PlasmaComponents.Button {
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
+                checkable: true
                 text: i18n("Word")
                 checked: {phrase.type == Phrase.Word}
                 onClicked: {
                     phrase.type = Phrase.Word
                 }
             }
-            PlasmaComponents.RadioButton {
+            PlasmaComponents.Button {
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
+                checkable: true
                 text: i18n("Expression")
                 checked: {phrase.type == Phrase.Expression}
                 onClicked: {
                     phrase.type = Phrase.Expression
                 }
             }
-            PlasmaComponents.RadioButton {
+            PlasmaComponents.Button {
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
+                checkable: true
                 text: i18n("Sentence")
                 checked: {phrase.type == Phrase.Sentence}
                 onClicked: {
                     phrase.type = Phrase.Sentence
                 }
             }
-            PlasmaComponents.RadioButton {
+            PlasmaComponents.Button {
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
+                checkable: true
                 text: i18n("Paragraph")
                 checked: {phrase.type == Phrase.Paragraph}
                 onClicked: {

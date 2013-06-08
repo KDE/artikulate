@@ -55,11 +55,6 @@ Item {
                             root.phrase.text = text
                             root.__originalPhraseType = phrase.type
                         }
-                        onTextChanged: {
-                            if (root.phrase.editState == Phrase.Unknown) {
-                                root.phrase.editState = Phrase.Translated
-                            }
-                        }
                     }
                     PlasmaComponents.ToolButton {
                         iconSource: "dialog-ok-apply"
@@ -83,13 +78,13 @@ Item {
                     phrase: root.phrase
                 }
 
-                PhraseEditorSoundComponent {
-                    id: phraseRecorder
+                PhraseEditorTypeComponent {
+                    id: phraseTypeSetter
                     phrase: root.phrase
                 }
 
-                PhraseEditorTypeComponent {
-                    id: phraseTypeSetter
+                PhraseEditorSoundComponent {
+                    id: phraseRecorder
                     phrase: root.phrase
                 }
 

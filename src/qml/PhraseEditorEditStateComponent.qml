@@ -29,43 +29,58 @@ Item {
     property Phrase phrase
 
     width: buttons.width
-    height: componentTitle.height + buttons.height
+    height: buttons.height
 
-    Column {
-        id: mediaController
+    Component.onCompleted: {
+        switch (root.phrase.editState) {
+        case Phrase.Unknown:
+            buttonUnknown.checked = true;
+            break;
+        case Phrase.Translated:
+            buttonTranslated.checked = true;
+            break;
+        case Phrase.Completed:
+            buttonCompleted.checked = true;
+            break;
+        }
+    }
+
+    Row {
+        id: buttons
+        spacing: 10
 
         Text {
             id: componentTitle
-            text: i18n("Edit State")
-            font.pointSize: 14;
+            text: i18n("Edit State:")
+            font.pointSize: 14
         }
-
-        Row {
-            id: buttons
-            PlasmaComponents.ButtonRow {
-                PlasmaComponents.RadioButton {
-                    id: radioUnknown
-                    text: i18n("Unknown")
-                    onCheckedChanged: {
-                        if (!checked) return
-                        phrase.editState = Phrase.Unknown
-                    }
+        PlasmaComponents.ButtonRow {
+            anchors { verticalCenter: componentTitle.verticalCenter; }
+            PlasmaComponents.Button {
+                id: buttonUnknown
+                checkable: true
+                text: i18n("Unknown")
+                onCheckedChanged: {
+                    if (!checked) return
+                    phrase.editState = Phrase.Unknown
                 }
-                PlasmaComponents.RadioButton {
-                    id: radioTranslated
-                    text: i18n("Translated")
-                    onCheckedChanged: {
-                        if (!checked) return
-                        phrase.editState = Phrase.Translated
-                    }
+            }
+            PlasmaComponents.Button {
+                id: buttonTranslated
+                checkable: true
+                text: i18n("Translated")
+                onCheckedChanged: {
+                    if (!checked) return
+                    phrase.editState = Phrase.Translated
                 }
-                PlasmaComponents.RadioButton {
-                    id: radioCompleted
-                    text: i18n("Completed")
-                    onCheckedChanged: {
-                        if (!checked) return
-                        phrase.editState = Phrase.Completed
-                    }
+            }
+            PlasmaComponents.Button {
+                id: buttonCompleted
+                checkable: true
+                text: i18n("Completed")
+                onCheckedChanged: {
+                    if (!checked) return
+                    phrase.editState = Phrase.Completed
                 }
             }
         }
