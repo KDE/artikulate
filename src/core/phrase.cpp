@@ -85,7 +85,7 @@ QString Phrase::text() const
 void Phrase::setText(const QString &text)
 {
     if (QString::compare(text, m_text) != 0) {
-        m_text = text;
+        m_text = text.trimmed();
         emit textChanged();
     }
 }

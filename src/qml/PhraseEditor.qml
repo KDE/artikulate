@@ -28,13 +28,11 @@ Item {
 
     property Phrase phrase
     property bool editMode: false
-    property string __originalPhraseText
     property int __originalPhraseType
 
     height: 30 + editLoader.height
 
     Component.onCompleted: {
-        root.__originalPhraseText = root.phrase.text
         root.__originalPhraseType = root.phrase.type
     }
 
@@ -52,12 +50,9 @@ Item {
                         id: phraseInput
                         width: Math.max(phraseText.width + 20, 200)
                         text: root.phrase.text
-                        onTextChanged: {
-                            root.phrase.text = text
-                        }
                         onAccepted: {
                             root.editMode = false
-                            root.__originalPhraseText = phrase.text
+                            root.phrase.text = text
                             root.__originalPhraseType = phrase.type
                         }
                     }
@@ -65,7 +60,7 @@ Item {
                         iconSource: "dialog-ok-apply"
                         onClicked: {
                             root.editMode = false
-                            root.__originalPhraseText = phrase.text
+                            root.phrase.text = phraseInput.text
                             root.__originalPhraseType = phrase.type
                         }
                     }
@@ -73,7 +68,6 @@ Item {
                         iconSource: "dialog-cancel"
                         onClicked: {
                             root.editMode = false
-                            phrase.text = root.__originalPhraseText
                             phrase.type = root.__originalPhraseType
                         }
                     }
