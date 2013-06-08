@@ -33,8 +33,10 @@
         <xs:element name="id" type="xs:string" />
         <xs:element name="foreignId" type="xs:string" minOccurs="0" maxOccurs="1" />
         <xs:element name="text" type="xs:string" />
+        <xs:element name="i18nText"  type="xs:string" minOccurs="0" maxOccurs="1" />
         <xs:element name="soundFile" type="xs:string" />
         <xs:element name="type" type="xs:string" />
+        <xs:element name="editState" type="xs:string" minOccurs="0" maxOccurs="1" />
         <xs:element name="phonemes" type="phonemeList" />
     </xs:sequence>
   </xs:complexType>

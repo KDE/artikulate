@@ -115,7 +115,6 @@ void ResourceManager::updateResourceFileCache()
     }
 }
 
-
 void ResourceManager::loadResources()
 {
     //TODO in the future loading should only be performed on request!
@@ -286,6 +285,7 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
             Phrase *phrase = new Phrase(unit);
             phrase->setId(phraseNode.firstChildElement("id").text());
             phrase->setText(phraseNode.firstChildElement("text").text());
+            phrase->seti18nText(phraseNode.firstChildElement("i18nText").text());
             phrase->setUnit(unit);
             if (!phraseNode.firstChildElement("soundFile").text().isEmpty()) {
                 phrase->setSound(KUrl::fromLocalFile(
@@ -293,6 +293,7 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
                     );
             }
             phrase->setType(phraseNode.firstChildElement("type").text());
+            phrase->setEditState(phraseNode.firstChildElement("editState").text());
             if (!phraseNode.firstChildElement("foreignId").isNull()) {
                 phrase->setForeignId(phraseNode.firstChildElement("foreignId").text());
             }
@@ -398,6 +399,10 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
             bool found = false;
             foreach (Phrase *phrase, currentUnit->phraseList()) {
                 if (phrase->foreignId() == phraseSkeleton->id()) {
+                    if (phrase->i18nText() != phraseSkeleton->text()) {
+                        phrase->setEditState(Phrase::Unknown);
+                        phrase->seti18nText(phraseSkeleton->text());
+                    }
                     found = true;
                     break;
                 }
@@ -546,7 +551,6 @@ void ResourceManager::syncCourse(Course *course)
     Q_ASSERT(course->file().isLocalFile());
     Q_ASSERT(!course->file().isEmpty());
 
-
     QDomDocument document;
     // prepare xml header
     QDomProcessingInstruction header = document.createProcessingInstruction("xml", "version=\"1.0\"");
@@ -582,14 +586,18 @@ void ResourceManager::syncCourse(Course *course)
             QDomElement phraseElement = document.createElement("phrase");
             QDomElement phraseIdElement = document.createElement("id");
             QDomElement phraseTextElement = document.createElement("text");
+            QDomElement phrasei18nTextElement = document.createElement("i18nText");
             QDomElement phraseSoundFileElement = document.createElement("soundFile");
             QDomElement phraseTypeElement = document.createElement("type");
+            QDomElement phraseEditStateElement = document.createElement("editState");
             QDomElement phrasePhonemeListElement = document.createElement("phonemes");
 
             phraseIdElement.appendChild(document.createTextNode(phrase->id()));
             phraseTextElement.appendChild(document.createTextNode(phrase->text()));
+            phrasei18nTextElement.appendChild(document.createTextNode(phrase->i18nText()));
             phraseSoundFileElement.appendChild(document.createTextNode(phrase->sound().fileName()));
             phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
+            phraseEditStateElement.appendChild(document.createTextNode(phrase->editStateString()));
 
             // add phonemes
             foreach (Phoneme *phoneme, phrase->phonemes()) {
@@ -605,8 +613,10 @@ void ResourceManager::syncCourse(Course *course)
                 phraseElement.appendChild(phraseForeignIdElement);
             }
             phraseElement.appendChild(phraseTextElement);
+            phraseElement.appendChild(phrasei18nTextElement);
             phraseElement.appendChild(phraseSoundFileElement);
             phraseElement.appendChild(phraseTypeElement);
+            phraseElement.appendChild(phraseEditStateElement);
             phraseElement.appendChild(phrasePhonemeListElement);
 
             unitPhraseListElement.appendChild(phraseElement);
@@ -635,7 +645,6 @@ void ResourceManager::syncCourse(Course *course)
     root.appendChild(descriptionElement);
     root.appendChild(languageElement);
     root.appendChild(unitListElement);
-
 
     // write back to file
     //TODO port to KSaveFile

@@ -29,6 +29,7 @@
 #include <KDebug>
 #include <KSaveFile>
 #include <KTemporaryFile>
+#include <sys/stat.h>
 
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
@@ -77,6 +78,7 @@ void Phrase::setForeignId(const QString &id)
 {
     m_foreignId = id;
 }
+
 QString Phrase::text() const
 {
     return m_text;
@@ -87,6 +89,20 @@ void Phrase::setText(const QString &text)
     if (QString::compare(text, m_text) != 0) {
         m_text = text.trimmed();
         emit textChanged();
+    }
+}
+
+QString Phrase::i18nText() const
+{
+    return m_text;
+}
+
+void Phrase::seti18nText(const QString &text)
+{
+    if (QString::compare(text, m_i18nText) != 0) {
+        // copy unmodified original text string
+        m_i18nText = text;
+        emit i18nTextChanged();
     }
 }
 
@@ -139,6 +155,55 @@ void Phrase::setType(const QString &typeString)
         return;
     }
     kWarning() << "Cannot set type from unknown identifier, aborting";
+    return;
+}
+
+Phrase::EditState Phrase::editState() const
+{
+    return m_editState;
+}
+
+QString Phrase::editStateString() const
+{
+    switch(m_editState) {
+    case Unknown:
+        return "unknown";
+    case Translated:
+        return "translated";
+    case Completed:
+        return "completed";
+    default:
+        return "ERROR_UNKNOWN_EDIT_STATE";
+    }
+}
+
+void Phrase::setEditState(Phrase::EditState state)
+{
+    if (m_editState == state) {
+        return;
+    }
+    m_editState = state;
+    emit editStateChanged();
+}
+
+void Phrase::setEditState(const QString &stateString)
+{
+    if (stateString.isEmpty()) {
+        return;
+    }
+    if (stateString == "unknown") {
+        setEditState(Unknown);
+        return;
+    }
+    if (stateString == "translated") {
+        setEditState(Translated);
+        return;
+    }
+    if (stateString == "completed") {
+        setEditState(Completed);
+        return;
+    }
+    kWarning() << "Cannot set edit state from unknown identifier, aborting";
     return;
 }
 

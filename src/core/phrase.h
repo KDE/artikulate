@@ -40,7 +40,9 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
+    Q_PROPERTY(QString i18nText READ i18nText WRITE seti18nText NOTIFY i18nTextChanged)
     Q_PROPERTY(Phrase::Type type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(Phrase::EditState editState READ editState WRITE setEditState NOTIFY editStateChanged)
     Q_PROPERTY(Unit *unit READ unit NOTIFY unitChanged)
     Q_PROPERTY(KUrl sound READ sound WRITE setSound NOTIFY soundChanged)
     Q_PROPERTY(bool isSound READ isSound NOTIFY soundChanged)
@@ -51,12 +53,18 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
     Q_PROPERTY(PlaybackState playbackUserSoundState READ playbackUserSoundState NOTIFY playbackUserSoundStateChanged)
 
 public:
+    Q_ENUMS(EditState)
     Q_ENUMS(Type)
     Q_ENUMS(PlaybackState)
     enum PlaybackState {
         StoppedState,
         PlayingState,
         PausedState
+    };
+    enum EditState {
+        Unknown,
+        Translated,
+        Completed
     };
     enum Type {
         Word,
@@ -79,13 +87,19 @@ public:
     QString foreignId() const;
     void setForeignId(const QString &id);
     QString text() const;
-    void setText(const QString &title);
+    void setText(const QString &text);
+    QString i18nText() const;
+    void seti18nText(const QString &text);
     Unit * unit() const;
     void setUnit(Unit *unit);
     Phrase::Type type() const;
     QString typeString() const;
     void setType(Phrase::Type type);
     void setType(const QString &typeString);
+    Phrase::EditState editState() const;
+    QString editStateString() const;
+    void setEditState(Phrase::EditState state);
+    void setEditState(const QString &stateString);
     KUrl sound() const;
     void setSound(const KUrl &soundFile);
     QList<Phoneme *> phonemes() const;
@@ -131,7 +145,9 @@ signals:
     void idChanged();
     void unitChanged();
     void textChanged();
+    void i18nTextChanged();
     void typeChanged();
+    void editStateChanged();
     void soundChanged();
     void userSoundChanged();
     void phonemesChanged();
@@ -144,7 +160,9 @@ private:
     QString m_id;
     QString m_foreignId;
     QString m_text;
+    QString m_i18nText;
     Type m_type;
+    EditState m_editState;
     Unit *m_unit;
 
     QList<Phoneme *> m_phonemes;
