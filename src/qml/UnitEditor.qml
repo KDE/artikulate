@@ -45,6 +45,7 @@ Item {
         id: itemDelegate
 
         PhraseEditor {
+            width: root.width - 10
             phrase: model.dataRole
         }
     }

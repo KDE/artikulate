@@ -32,7 +32,7 @@ Item {
     signal typeSelected(int type)
 
     width: 200
-    height: typeIcon.height
+    height: { 4 * typeIcon.height }
 
     onTypeChanged: {
         typeSelected(type)

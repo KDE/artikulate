@@ -110,8 +110,10 @@ Item {
             }
         }
         Text {
+            width: root.width - 120
             anchors.verticalCenter: phraseLine.verticalCenter
             text: model.text
+            wrapMode: Text.WordWrap
         }
     }
 }

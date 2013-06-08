@@ -42,6 +42,7 @@ Item {
                 height: phrase.visible ? phrase.height : 0
                 TrainerPhrase {
                     id: phrase
+                    width: root.width
                     visible: model.dataRole.type == userProfile.phraseType || userProfile.phraseType == Phrase.AllTypes
                     phrase: model.dataRole
                 }

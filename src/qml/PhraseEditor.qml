@@ -30,6 +30,7 @@ Item {
     property bool editMode: false
     property int __originalPhraseType
 
+    width: 500
     height: 30 + editLoader.height
 
     Component.onCompleted: {
@@ -40,6 +41,7 @@ Item {
         id: editComponent
 
         Row {
+            width: root.width - enableEdit.width - typeIcon.width - 20
             height: textEdit.height + phonemeGrid.height + phraseEditStateSetter.height + phraseRecorder.height + phraseTypeSetter.height
             Column {
                 id: textEdit
@@ -50,7 +52,7 @@ Item {
                     height: 30
                     PlasmaComponents.TextField {
                         id: phraseInput
-                        width: Math.max(phraseText.width + 20, 200)
+                        width: Math.min( Math.max(phraseText.width + 20, 200), root.width - 120)
                         text: root.phrase.text
                         onAccepted: {
                             root.editMode = false
@@ -79,11 +81,9 @@ Item {
                     spacing: 10
                     visible: { root.phrase.i18nText != "" }
                     Text {
-                        text: i18n("Original Phrase:")
-                    }
-                    Text {
-                        text: root.phrase.i18nText
-                        font.italic: true
+                        text: i18n("Original Phrase:") + " <i>" + root.phrase.i18nText + "</i>"
+                        width: root.width - 70
+                        wrapMode: Text.WordWrap
                     }
                 }
 
@@ -172,9 +172,11 @@ Item {
 
         Text {
             id: phraseText
+            width: root.width - enableEdit.width - typeIcon.width - 20
             anchors.verticalCenter: enableEdit.verticalCenter
             visible: { !root.editMode }
             text: root.phrase.text
+            wrapMode: Text.WordWrap
             color: {
                 switch (root.phrase.editState) {
                 case Phrase.Unknown: "red";
