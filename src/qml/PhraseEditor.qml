@@ -42,7 +42,13 @@ Item {
 
         Row {
             width: root.width - enableEdit.width - typeIcon.width - 20
-            height: textEdit.height + phonemeGrid.height + phraseEditStateSetter.height + phraseRecorder.height + phraseTypeSetter.height
+            height: {
+                if (!editCourseSelector.isSkeleton)
+                    textEdit.height + phonemeGrid.height + phraseEditStateSetter.height + phraseRecorder.height + phraseTypeSetter.height;
+                else { // height if only editing skeleton
+                    textEdit.height + phraseTypeSetter.height;
+                }
+            }
             Column {
                 id: textEdit
                 height: inputLine.height + originalPhraseInfo.height
@@ -89,6 +95,7 @@ Item {
 
                 PhraseEditorEditStateComponent {
                     id: phraseEditStateSetter
+                    visible: !editCourseSelector.isSkeleton
                     phrase: root.phrase
                 }
 
@@ -99,6 +106,7 @@ Item {
 
                 PhraseEditorSoundComponent {
                     id: phraseRecorder
+                    visible: !editCourseSelector.isSkeleton
                     phrase: root.phrase
                 }
 
@@ -178,6 +186,9 @@ Item {
             text: root.phrase.text
             wrapMode: Text.WordWrap
             color: {
+                if (editCourseSelector.isSkeleton) {
+                    return "black";
+                }
                 switch (root.phrase.editState) {
                 case Phrase.Unknown: "red";
                     break;
