@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<language>
+    <id>hi</id>
+    <title>हिन्दी</title>
+    <i18nTitle>Hindi</i18nTitle>
+    <phonemeGroups>
+        <phonemeGroup>
+            <id>व्यंजन</id>
+            <title>व्यंजन</title>
+            <description>व्यंजन</description>
+            <phonemes>
+                <phoneme>
+                    <id>p</id>
+                    <title>[p] पल</title>
+                </phoneme>
+                <phoneme>
+                    <id>f</id>
+                    <title>[f] साफ़</title>
+                </phoneme>
+                <phoneme>
+                    <id>b</id>
+                    <title>[b] बाल</title>
+                </phoneme>
+                <phoneme>
+                    <id>bh</id>
+                    <title>[bʰ] भालू</title>
+                </phoneme>
+                <phoneme>
+                    <id>t</id>
+                    <title>[t] टमाटर</title>
+                </phoneme>
+                <phoneme>
+                    <id>th</id>
+                    <title>[tʰ] ठंड</title>
+                </phoneme>
+                <phoneme>
+                    <id>d</id>
+                    <title>[d] डर</title>
+                </phoneme>
+                <phoneme>
+                    <id>dh</id>
+                    <title>[dʰ] ढोल</title>
+                </phoneme>
+                <phoneme>
+                    <id>t-labial</id>
+                    <title>[t̪] तीन</title>
+                </phoneme>
+                <phoneme>
+                    <id>th-labial</id>
+                    <title>[t̪ʰ] थप्पड़</title>
+                </phoneme>
+                <phoneme>
+                    <id>d-labial</id>
+                    <title>[d̪] दाल</title>
+                </phoneme>
+                <phoneme>
+                    <id>dh-labial</id>
+                    <title>[d̪ʰ] धूल</title>
+                </phoneme>
+                <phoneme>
+                    <id>c</id>
+                    <title>[c] चावल</title>
+                </phoneme>
+                <phoneme>
+                    <id>ch</id>
+                    <title>[cʰ] छल</title>
+                </phoneme>
+                <phoneme>
+                    <id>j</id>
+                    <title>[ɟ] जल</title>
+                </phoneme>
+                <phoneme>
+                    <id>jh</id>
+                    <title>[ɟʰ] झगड़ा</title>
+                </phoneme>
+                <phoneme>
+                    <id>k</id>
+                    <title>[k] काम</title>
+                </phoneme>
+                <phoneme>
+                    <id>kh</id>
+                    <title>[kʰ] खेल</title>
+                </phoneme>
+                <phoneme>
+                    <id>g</id>
+                    <title>[g] गाना</title>
+                </phoneme>
+                <phoneme>
+                    <id>gh</id>
+                    <title>[gʰ] घड़ी</title>
+                </phoneme>
+                <phoneme>
+                    <id>s</id>
+                    <title>[s] साल</title>
+                </phoneme>
+                <phoneme>
+                    <id>z</id>
+                    <title>[z] ज़मीन</title>
+                </phoneme>
+		<phoneme>
+                    <id>m</id>
+                    <title>[m] मकान</title>
+                </phoneme>
+		<phoneme>
+                    <id>n</id>
+                    <title>[n] नया</title>
+                </phoneme>
+		<phoneme>
+                    <id>N</id>
+                    <title>[ŋ] रंग</title>
+                </phoneme>
+                <phoneme>
+                    <id>l</id>
+                    <title>[l] फल</title>
+                </phoneme>
+		<phoneme>
+                    <id>r</id>
+                    <title>[r] घर</title>
+                </phoneme>
+                <phoneme>
+                    <id>h</id>
+                    <title>[h] हम</title>
+                </phoneme>
+                <phoneme>
+                    <id>v</id>
+                    <title>[v] व्रत</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+        <phonemeGroup>
+            <id>स्वर</id>
+            <title>स्वर</title>
+	    <description>स्वर</description>
+            <phonemes>
+                <phoneme>
+                    <id>a</id>
+                    <title>[a] मां</title>
+                </phoneme>
+                <phoneme>
+                    <id>e</id>
+                    <title>[e] एक</title>
+                </phoneme>
+                <phoneme>
+                    <id>i</id>
+                    <title>[i] तीन</title>
+                </phoneme>
+                <phoneme>
+                    <id>o</id>
+                    <title>[o] दो</title>
+                </phoneme>
+                <phoneme>
+                    <id>u</id>
+                    <title>[u] तुम</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+        <phonemeGroup>
+            <id>संधिस्वर</id>
+            <title>संधिस्वर</title>
+            <description>संधिस्वर</description>
+            <phonemes>
+	        <phoneme>
+                    <id>ɑi</id>
+                    <title>[ɑi] मैं</title>
+                </phoneme>
+	        <phoneme>
+                    <id>ɑu</id>
+                    <title>[ɑu] कौन</title>
+                </phoneme>
+	    </phonemes>
+	</phonemeGroup>
+    </phonemeGroups>
+</language>

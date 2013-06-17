@@ -32,6 +32,7 @@ set(languages
     en_US.xml
     fr.xml
     gr.xml
+    hi.xml
     it.xml
     mr.xml
     sp.xml
