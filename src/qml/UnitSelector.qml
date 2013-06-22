@@ -49,7 +49,12 @@ Item {
         id: unitList
 
         anchors.fill: parent
+        clip: true
         model: root.unitModel
         delegate: itemDelegate
+
+        PlasmaComponents.ScrollBar {
+            flickableItem: unitList
+        }
     }
 }

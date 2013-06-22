@@ -251,10 +251,12 @@ Item
                 width: 200
 
                 Text {
+                    id: unitSelectorCaption
                     text: i18n("Units")
                     font.pointSize: 20;
                 }
                 PlasmaComponents.ToolButton {
+                    id: unitAddButton
                     text: i18n("Add Unit")
                     iconSource: "document-new"
                     enabled: editor.currentCourse != null
@@ -264,6 +266,7 @@ Item
                 }
                 UnitSelector {
                     id: unitSelector
+                    height: main.height - unitSelectorCaption.height - unitAddButton.height - editorTitle.height
                     unitModel: selectedUnitModel
                     onUnitSelected: {
                         editor.currentUnit = unit;
@@ -276,7 +279,6 @@ Item
                 height: parent.height
                 unit: editor.currentUnit
             }
-
         }
     }
 }
