@@ -40,7 +40,6 @@ Phrase::Phrase(QObject *parent)
 
     // register recording file
     m_userSoundFile.setSuffix(".ogg");
-    m_userSoundFile.open();
 
     // TODO too many emits
     connect(m_audioOutput, SIGNAL(stateChanged(QMediaPlayer::State)),
@@ -353,8 +352,12 @@ void Phrase::applyRecordedNativeSound()
 
 void Phrase::startRecordUserSound()
 {
+    if(!m_userSoundFile.isOpen()) {
+        m_userSoundFile.open();
+    }
     kDebug() << "Start recording user sound to file " << m_userSoundFile.fileName();
     CaptureDeviceController::self().startCapture(m_userSoundFile.fileName());
+    m_userSoundFile.close();
 }
 
 void Phrase::stopRecordUserSound()
