@@ -259,7 +259,7 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
         ++iter;
     }
     if (course->language() == 0) {
-        kWarning() << "Language ID unknown, could not register any language, aborting";
+        kWarning() << "Language ID" << language << "unknown, could not register any language, aborting";
         return 0;
     }
 
