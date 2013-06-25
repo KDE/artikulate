@@ -23,6 +23,7 @@
 #include "core/language.h"
 #include "core/skeleton.h"
 #include "core/course.h"
+#include "settings.h"
 
 #include <KLocale>
 #include <QUuid>
@@ -42,13 +43,16 @@ NewCourseDialog::NewCourseDialog(ResourceManager *m_resourceManager)
     ui->setupUi(widget);
     setMainWidget(widget);
 
+    //FIXME only allow creation when data repository is set
+    //FIXME only allow creation when unique ID is given: check this and give feedback
+
     // add languages
     foreach (Language *language, m_resourceManager->languageList()) {
         ui->language->addItem(language->title(), language->id());
     }
 
     // add skeletons
-    ui->skeletonSelector->addItem(i18n("< no skeleton >"), "");
+    ui->skeletonSelector->addItem(i18n("none"), "");
     foreach (Skeleton *skeleton, m_resourceManager->skeletonList()) {
         ui->skeletonSelector->addItem(skeleton->title(), skeleton->id());
     }
@@ -84,6 +88,18 @@ void NewCourseDialog::createCourse()
     }
     // check that language actually exists
     Q_ASSERT(course->language());
+
+    // set path
+    if (Settings::useCourseRepository()) {
+        QString path = QString("%1/%2/%3/%4/%4.xml")
+            .arg(Settings::courseRepositoryPath())
+            .arg("courses")
+            .arg(ui->identifier->text())
+            .arg(course->language()->id());
+
+        kDebug() << "set save path to" << path;
+        course->setFile(KUrl::fromLocalFile(path));
+    }
 
     m_createdCourse = course;
 }
