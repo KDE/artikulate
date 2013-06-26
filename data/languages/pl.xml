@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<language>
+    <id>pl</id>
+    <title>Polski</title>
+    <i18nTitle>Polish</i18nTitle>
+    <phonemeGroups>
+        <phonemeGroup>
+            <id>spółgłoski</id>
+            <title>Spółgłoski</title>
+            <description>Spółgłoski</description>
+            <phonemes>
+                <phoneme>
+                    <id>m</id>
+                    <title>[m] Masa</title>
+                </phoneme>
+                <phoneme>
+                    <id>b</id>
+                    <title>[b] Bas</title>
+                </phoneme>
+                <phoneme>
+                    <id>p</id>
+                    <title>[p] Pas</title>
+                </phoneme>
+                <phoneme>
+                    <id>v</id>
+                    <title>[v] wór</title>
+                </phoneme>
+                <phoneme>
+                    <id>f</id>
+                    <title>[f] Futro</title>
+                </phoneme>
+                <phoneme>
+                    <id>n</id>
+                    <title>[g] Noga</title>
+                </phoneme>
+                <phoneme>
+                    <id>d</id>
+                    <title>[d] Dom</title>
+                </phoneme>
+                <phoneme>
+                    <id>t</id>
+                    <title>[t] Tom</title>
+                </phoneme>
+                <phoneme>
+                    <id>z</id>
+                    <title>[z] Zero</title>
+                </phoneme>
+                <phoneme>
+                    <id>s</id>
+                    <title>[s] Sum</title>
+                </phoneme>
+                <phoneme>
+                    <id>d͡z</id>
+                    <title>[d͡z] Dzwon</title>
+                </phoneme>
+                <phoneme>
+                    <id>t͡s</id>
+                    <title>[t͡s] Co</title>
+                </phoneme>
+                <phoneme>
+                    <id>r</id>
+                    <title>[r] Krok</title>
+                </phoneme>
+                <phoneme>
+                    <id>l</id>
+                    <title>[l] Pole</title>
+                </phoneme>
+                <phoneme>
+                    <id>ʑ</id>
+                    <title>[ʑ] Źrebię</title>
+                </phoneme>
+                <phoneme>
+                    <id>ɕ</id>
+                    <title>[ɕ] Śruba</title>
+                </phoneme>
+                <phoneme>
+                    <id>d͡ʑ</id>
+                    <title>[d͡ʑ] Dźwięk</title>
+                </phoneme>
+                <phoneme>
+                    <id>t͡ɕ</id>
+                    <title>[t͡ɕ] Ćma</title>
+                </phoneme>
+                <phoneme>
+                    <id>ʐ</id>
+                    <title>[ʐ] Żona</title>
+                </phoneme>
+                <phoneme>
+                    <id>ʂ</id>
+                    <title>[ʂ] Szum</title>
+                </phoneme>
+                <phoneme>
+                    <id>d͡ʐ</id>
+                    <title>[d͡ʐ] Dżem</title>
+                </phoneme>
+                <phoneme>
+                    <id>t͡ʂ</id>
+                    <title>[t͡ʂ] Czas</title>
+                </phoneme>
+                <phoneme>
+                    <id>ɲ</id>
+                    <title>[ɲ] Koń</title>
+                </phoneme>
+                <phoneme>
+                    <id>ɡʲ</id>
+                    <title>[ɡʲ] Gips</title>
+                </phoneme>
+                <phoneme>
+                    <id>kʲ</id>
+                    <title>[kʲ] Kiedy</title>
+                </phoneme>
+                <phoneme>
+                    <id>g</id>
+                    <title>[g] Gmin</title>
+                </phoneme>
+                <phoneme>
+                    <id>k</id>
+                    <title>[k] Kmin</title>
+                </phoneme>
+                <phoneme>
+                    <id>x</id>
+                    <title>[x] Hak</title>
+                </phoneme>
+                     <phoneme>
+                    <id>j</id>
+                    <title>[j] Jutro</title>
+                </phoneme>
+                <phoneme>
+                    <id>w</id>
+                    <title>[w] Mały</title>
+                </phoneme>
+                <phoneme>
+                    <id>xʲ</id>
+                    <title>[xʲ] Historia</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+        <phonemeGroup>
+            <id>samogłsoki</id>
+            <title>Samogłsoki</title>
+            <description>Samogłsoki</description>
+            <phonemes>
+                <phoneme>
+                    <id>i</id>
+                    <title>[i] Miś</title>
+                </phoneme>
+                <phoneme>
+                    <id>ɛ</id>
+                    <title>[ɛ] Ten</title>
+                </phoneme>
+                <phoneme>
+                    <id>ɨ</id>
+                    <title>[ɨ] Mysz</title>
+                </phoneme>
+                <phoneme>
+                    <id>a</id>
+                    <title>[a] Ptak</title>
+                </phoneme>
+                <phoneme>
+                    <id>u</id>
+                    <title>[u] Bum</title>
+                </phoneme>
+                <phoneme>
+                    <id>ɔ</id>
+                    <title>[ɔ] Kot</title>
+                </phoneme>
+                <phoneme>
+                    <id>ɛ̃</id>
+                    <title>[ɛ̃] Węże</title>
+                </phoneme>
+                <phoneme>
+                    <id>ɔ̃</id>
+                    <title>[ɔ̃] Wąż</title>
+                </phoneme>
+            </phonemes>
+        </phonemeGroup>
+    </phonemeGroups>
+</language>
