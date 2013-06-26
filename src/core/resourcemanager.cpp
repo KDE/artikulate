@@ -412,6 +412,7 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
                 newPhrase->setForeignId(phraseSkeleton->id());
                 newPhrase->setId(QUuid::createUuid().toString());
                 newPhrase->setText(phraseSkeleton->text());
+                newPhrase->seti18nText(phraseSkeleton->text());
                 newPhrase->setType(phraseSkeleton->type());
                 newPhrase->setUnit(currentUnit);
                 currentUnit->addPhrase(newPhrase);
