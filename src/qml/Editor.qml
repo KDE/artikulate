@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -229,6 +229,7 @@ Item
             text: i18n("Course Editor")
             font.pointSize: 28;
         }
+
         EditorSelector {
             id: editCourseSelector
             anchors { horizontalCenter: parent.horizontalCenter }
@@ -241,14 +242,14 @@ Item
             }
         }
 
-        Row {
+        Item {
+            anchors { top: editorTitle.bottom; topMargin: 30 }
             visible: currentCourse != null
-            width: parent.width
-            height: parent.height - editorTitle.height - 50
 
             Column {
                 id: unitSelectorColumn
                 width: 200
+                visible: (unitSelector.currentUnit == null)
 
                 Text {
                     id: unitSelectorCaption
@@ -274,10 +275,21 @@ Item
                 }
             }
 
-            UnitEditor {
-                width: main.width - unitSelectorColumn.width
-                height: parent.height
-                unit: editor.currentUnit
+            Column {
+                visible: (unitSelector.currentUnit != null)
+
+                PlasmaComponents.ToolButton {
+                    text: i18n("Close Unit")
+                    iconSource: "go-previous-view"
+                    onClicked: {
+                        unitSelector.currentUnit = null
+                    }
+                }
+                UnitEditor {
+                    width: main.width
+                    height: main.height - editorTitle.height - 60
+                    unit: editor.currentUnit
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -27,6 +27,7 @@ Item {
     id: root
 
     property UnitModel unitModel
+    property Unit currentUnit
 
     signal unitSelected(variant unit)
 
@@ -37,10 +38,12 @@ Item {
         id: itemDelegate
 
         PlasmaComponents.ToolButton {
-            text : model.title
+            text: model.title
+            iconSource: "artikulate-course"
             property Unit unit: model.dataRole
             onClicked: {
                 root.unitSelected(unit)
+                currentUnit = unit
             }
         }
     }
