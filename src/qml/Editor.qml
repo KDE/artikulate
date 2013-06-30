@@ -222,12 +222,24 @@ Item
         anchors { top: breadcrumb.bottom; left: editor.left; topMargin: 30; leftMargin: 30 }
         width: editor.width - 60
         height: editor.height - breadcrumb.height - 60
-        spacing: 20
+        spacing: 10
 
         Text {
             id: editorTitle
             text: i18n("Course Editor")
             font.pointSize: 28;
+        }
+        Row {
+            id: currentCourseTitle
+            spacing: 10
+            Text {
+                text: i18n("Course:")
+                font.pointSize: 20;
+            }
+            Text {
+                text: currentCourseName
+                font.pointSize: 20;
+            }
         }
 
         EditorSelector {
@@ -243,7 +255,7 @@ Item
         }
 
         Item {
-            anchors { top: editorTitle.bottom; topMargin: 30 }
+            anchors { top: currentCourseTitle.bottom; topMargin: 30 }
             visible: currentCourse != null
 
             Column {
@@ -267,7 +279,7 @@ Item
                 }
                 UnitSelector {
                     id: unitSelector
-                    height: main.height - unitSelectorCaption.height - unitAddButton.height - editorTitle.height
+                    height: main.height - unitSelectorCaption.height - unitAddButton.height - editorTitle.height - currentCourseTitle.height
                     unitModel: selectedUnitModel
                     onUnitSelected: {
                         editor.currentUnit = unit;
@@ -278,17 +290,13 @@ Item
             Column {
                 visible: (unitSelector.currentUnit != null)
 
-                PlasmaComponents.ToolButton {
-                    text: i18n("Close Unit")
-                    iconSource: "go-previous-view"
-                    onClicked: {
-                        unitSelector.currentUnit = null
-                    }
-                }
                 UnitEditor {
                     width: main.width
                     height: main.height - editorTitle.height - 60
                     unit: editor.currentUnit
+                    onCloseUnit: {
+                        unitSelector.currentUnit = null
+                    }
                 }
             }
         }

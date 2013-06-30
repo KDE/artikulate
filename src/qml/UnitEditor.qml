@@ -29,6 +29,8 @@ Item {
 
     property Unit unit
 
+    signal closeUnit()
+
     width: 500
     height: 400
 
@@ -55,10 +57,16 @@ Item {
             id: unitBreadcrumb
             property bool editMode: false
             height: 30
-            Text {
-                id: unitTitleInfo
+            spacing: 10
+
+            PlasmaComponents.ToolButton {
                 anchors.verticalCenter: unitBreadcrumb.verticalCenter
-                text: "<strong>" + i18n("Current Unit:") + "</strong> "
+                text: i18n("Unit: ")
+                iconSource: "go-up"
+                font.pointSize: 20;
+                onClicked: {
+                    closeUnit()
+                }
             }
             Text {
                 id: unitTitle
@@ -71,6 +79,7 @@ Item {
                         return i18n("unselected");
                     }
                 }
+                font.pointSize: 20;
             }
             PlasmaComponents.TextField {
                 id: unitTitleInput
