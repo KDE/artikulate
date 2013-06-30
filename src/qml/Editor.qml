@@ -233,7 +233,12 @@ Item
             id: currentCourseTitle
             spacing: 10
             Text {
-                text: i18n("Course:")
+                text: {
+                    if (editCourseSelector.isSkeleton)
+                        i18n("Course Skeleton:")
+                    else
+                        i18n("Course:")
+                }
                 font.pointSize: 20;
             }
             Text {
