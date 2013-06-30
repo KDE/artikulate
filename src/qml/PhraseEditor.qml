@@ -31,7 +31,7 @@ Item {
     property int __originalPhraseType
 
     width: 500
-    height: 30 + editLoader.height
+    height: 20 + phraseText.height + editLoader.height
 
     Component.onCompleted: {
         root.__originalPhraseType = root.phrase.type
