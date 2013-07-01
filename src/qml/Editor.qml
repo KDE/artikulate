@@ -266,7 +266,7 @@ Item
             Column {
                 id: unitSelectorColumn
                 width: 200
-                visible: (unitSelector.currentUnit == null)
+                visible: (editor.currentUnit == null)
 
                 Text {
                     id: unitSelectorCaption
@@ -293,14 +293,14 @@ Item
             }
 
             Column {
-                visible: (unitSelector.currentUnit != null)
+                visible: (editor.currentUnit != null)
 
                 UnitEditor {
                     width: main.width
                     height: main.height - editorTitle.height - 60
                     unit: editor.currentUnit
                     onCloseUnit: {
-                        unitSelector.currentUnit = null
+                        editor.currentUnit = null
                     }
                 }
             }
