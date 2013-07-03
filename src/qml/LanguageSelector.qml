@@ -56,5 +56,9 @@ Item {
         anchors.fill: parent
         model: LanguageModel { resourceManager: root.resourceManager }
         delegate: itemDelegate
+
+        PlasmaComponents.ScrollBar {
+            flickableItem: languageList
+        }
     }
 }
