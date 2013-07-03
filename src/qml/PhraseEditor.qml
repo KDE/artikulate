@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -27,21 +27,24 @@ Item {
     id: root
 
     property Phrase phrase
-    property bool editMode: false
     property int __originalPhraseType
 
+    signal editorClosed()
+
     width: 500
-    height: 20 + phraseText.height + editLoader.height
+    height: editLoader.height
 
     Component.onCompleted: {
-        root.__originalPhraseType = root.phrase.type
+        if (root.phrase) {
+            root.__originalPhraseType = root.phrase.type
+        }
     }
 
     Component {
         id: editComponent
 
         Row {
-            width: root.width - enableEdit.width - typeIcon.width - 20
+            width: root.width
             height: {
                 if (!editCourseSelector.isSkeleton)
                     textEdit.height + phonemeGrid.height + phraseEditStateSetter.height + phraseRecorder.height + phraseTypeSetter.height;
@@ -58,27 +61,36 @@ Item {
                     height: 30
                     PlasmaComponents.TextField {
                         id: phraseInput
-                        width: Math.min( Math.max(phraseText.width + 20, 200), root.width - 120)
+                        width: root.width - buttonAccept.width - buttonCancel.width - 15
                         text: root.phrase.text
+                        anchors.verticalCenter: inputLine.verticalCenter
                         onAccepted: {
-                            root.editMode = false
                             root.phrase.text = text
                             root.__originalPhraseType = phrase.type
+                            editorClosed()
                         }
                     }
                     PlasmaComponents.ToolButton {
+                        id: buttonAccept
+                        width: 48
+                        height: 48
+                        anchors.verticalCenter: inputLine.verticalCenter
                         iconSource: "dialog-ok-apply"
                         onClicked: {
-                            root.editMode = false
                             root.phrase.text = phraseInput.text
                             root.__originalPhraseType = phrase.type
+                            editorClosed()
                         }
                     }
                     PlasmaComponents.ToolButton {
+                        id: buttonCancel
+                        width: 48
+                        height: 48
+                        anchors.verticalCenter: inputLine.verticalCenter
                         iconSource: "dialog-cancel"
                         onClicked: {
-                            root.editMode = false
                             phrase.type = root.__originalPhraseType
+                            editorClosed()
                         }
                     }
                 }
@@ -145,65 +157,10 @@ Item {
 
     Row {
         id: phraseRow
-        spacing: 5
-        anchors.centerIn: parent.center
-
-        PlasmaComponents.ToolButton {
-            id: enableEdit
-            iconSource: "document-properties"
-            enabled: {!root.editMode}
-            onClicked: {
-                root.editMode = !root.editMode
-            }
-        }
-
-        Image {
-            id: typeIcon
-
-            width: 20
-            height: 20
-            source: {
-                switch (root.phrase.type) {
-                    case Phrase.Word: "../icons/hicolor/64x64/actions/artikulate-word.png"
-                        break;
-                    case Phrase.Expression: "../icons/hicolor/64x64/actions/artikulate-expression.png"
-                        break;
-                    case Phrase.Sentence: "../icons/hicolor/64x64/actions/artikulate-sentence.png"
-                        break;
-                    case Phrase.Paragraph: "../icons/hicolor/64x64/actions/artikulate-paragraph.png"
-                        break;
-                    default:
-                        ""
-                }
-            }
-        }
-
-        Text {
-            id: phraseText
-            width: root.width - enableEdit.width - typeIcon.width - 20
-            anchors.verticalCenter: enableEdit.verticalCenter
-            visible: { !root.editMode }
-            text: root.phrase.text
-            wrapMode: Text.WordWrap
-            color: {
-                if (editCourseSelector.isSkeleton) {
-                    return "black";
-                }
-                switch (root.phrase.editState) {
-                case Phrase.Unknown: "red";
-                    break;
-                case Phrase.Translated: "blue";
-                    break;
-                case Phrase.Completed: "black";
-                    break;
-                default: "purple";
-                }
-            }
-        }
 
         Loader {
             id: editLoader
-            sourceComponent: editMode ? editComponent : undefined
+            sourceComponent: (phrase != null) ? editComponent : undefined
             onSourceComponentChanged: {
                 if (sourceComponent == undefined) height = 0
                 else height = editComponent.height

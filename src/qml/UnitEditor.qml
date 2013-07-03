@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -28,6 +28,7 @@ Item {
     id: root
 
     property Unit unit
+    property bool editMode: false
 
     signal closeUnit()
 
@@ -46,9 +47,65 @@ Item {
     Component {
         id: itemDelegate
 
-        PhraseEditor {
-            width: root.width - 10
-            phrase: model.dataRole
+        Row {
+            id: phraseRow
+            spacing: 5
+            anchors.centerIn: parent.center
+            height: Math.max(phraseText.height, typeIcon.height) + 10
+
+            property Phrase phrase: model.dataRole
+
+            PlasmaComponents.ToolButton {
+                id: enableEdit
+                iconSource: "document-properties"
+                onClicked: {
+                    editMode = true
+                    phraseEditor.phrase = phrase
+                }
+            }
+
+            Image {
+                id: typeIcon
+
+                width: 20
+                height: 20
+                source: {
+                    switch (phrase.type) {
+                        case Phrase.Word: "../icons/hicolor/64x64/actions/artikulate-word.png"
+                            break;
+                        case Phrase.Expression: "../icons/hicolor/64x64/actions/artikulate-expression.png"
+                            break;
+                        case Phrase.Sentence: "../icons/hicolor/64x64/actions/artikulate-sentence.png"
+                            break;
+                        case Phrase.Paragraph: "../icons/hicolor/64x64/actions/artikulate-paragraph.png"
+                            break;
+                        default:
+                            ""
+                    }
+                }
+            }
+
+            Text {
+                id: phraseText
+                width: root.width - enableEdit.width - typeIcon.width - 20
+                anchors.verticalCenter: enableEdit.verticalCenter
+                text: phrase.text
+                wrapMode: Text.WordWrap
+                color: {
+                    if (editCourseSelector.isSkeleton) {
+                        return "black";
+                    }
+                    switch (phrase.editState) {
+                    case Phrase.Unknown: "red";
+                        break;
+                    case Phrase.Translated: "blue";
+                        break;
+                    case Phrase.Completed: "black";
+                        break;
+                    default: "purple";
+                    }
+                }
+            }
         }
     }
 
@@ -128,9 +185,7 @@ Item {
             anchors.top: unitBreadcrumb.bottom
             text: i18n("Add Phrase")
             iconSource: "document-new"
-            enabled: {
-                root.unit != null
-            }
+            enabled: root.unit != null && !root.editMode
             onClicked: {
                 root.unit.course.createPhrase(unit)
             }
@@ -138,10 +193,11 @@ Item {
 
         Item {
             width: root.width
-            height: root.height - unitBreadcrumb.height
+            height: root.height - unitBreadcrumb.height - 10
 
             ListView {
                 id: phraseList
+                visible: !root.editMode
                 anchors.fill: parent
                 clip: true
                 model: phraseModel
@@ -149,6 +205,15 @@ Item {
 
                 PlasmaComponents.ScrollBar {
                     flickableItem: phraseList
+                }
+            }
+            PhraseEditor {
+                id: phraseEditor
+                visible: root.editMode
+                width: root.width
+                height: parent.height
+                onEditorClosed: {
+                    root.editMode = false
                 }
             }
         }
