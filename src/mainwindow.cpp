@@ -68,6 +68,7 @@ MainWindow::MainWindow()
     KDeclarative m_kdeclarative;
     m_kdeclarative.setDeclarativeEngine(m_view->engine());
     m_kdeclarative.initialize();
+    m_kdeclarative.setupBindings(); //TODO use result for determining touch/desktop version
 
     // create menu
     m_actionCollection->addAssociatedWidget(this);
