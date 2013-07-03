@@ -34,7 +34,7 @@ Item {
     width: 500
     height: editLoader.height
 
-    Component.onCompleted: {
+    onPhraseChanged: {
         if (root.phrase) {
             root.__originalPhraseType = root.phrase.type
         }

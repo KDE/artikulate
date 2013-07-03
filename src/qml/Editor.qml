@@ -249,7 +249,6 @@ Item
 
         EditorSelector {
             id: editCourseSelector
-            anchors { horizontalCenter: parent.horizontalCenter }
             onSelectedLanguageChanged: {
                 editor.currentLanguage = selectedLanguage
             }

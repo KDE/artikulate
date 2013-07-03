@@ -75,6 +75,7 @@ Column {
     Column {
         visible: editCourses.checked
         Column {
+            spacing: 5
             visible: selectedLanguage == null
 
             Text {
@@ -92,15 +93,37 @@ Column {
         }
 
         Column {
+            spacing: 5
             visible: {
                 if (selectedLanguage == null) return false;
                 if (selectedCourse != null) return false;
                 return true;
             }
-            Text {
-                text: i18n("Select Course:")
-                font.pointSize: 20;
+            Row {
+                spacing: 10
+                PlasmaComponents.ToolButton {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: i18n("Language: ")
+                    iconSource: "go-up"
+                    font.pointSize: 20;
+                    onClicked: {
+                        unselect()
+                    }
+                }
+                Text {
+                    id: unitTitle
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: {
+                        if (root.selectedLanguage) {
+                            return root.selectedLanguage.title
+                        } else {
+                            return i18n("unselected");
+                        }
+                    }
+                    font.pointSize: 20;
+                }
             }
+
             PlasmaComponents.ToolButton {
                 text: i18n("New Course")
                 iconSource: "document-new"
@@ -122,6 +145,7 @@ Column {
 
     Column {
         visible: editSkeletons.checked
+        spacing: 5
 
         Text {
             text: i18n("Select Skeleton:")

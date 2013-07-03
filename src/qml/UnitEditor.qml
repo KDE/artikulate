@@ -110,6 +110,7 @@ Item {
     }
 
     Column {
+        spacing: 5
         Row {
             id: unitBreadcrumb
             property bool editMode: false

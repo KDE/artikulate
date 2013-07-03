@@ -39,6 +39,7 @@ Item {
 
         PlasmaComponents.ToolButton {
             text: model.title + " / " + model.i18nTitle
+            iconSource: "artikulate-language"
             property Language language: model.dataRole
             onClicked: {
                 root.selectedLanguage = language
