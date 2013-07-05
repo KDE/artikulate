@@ -348,6 +348,7 @@ void Phrase::applyRecordedNativeSound()
     } else {
         kError() << "No buffer present.";
     }
+    emit soundChanged();
 }
 
 void Phrase::startRecordUserSound()
