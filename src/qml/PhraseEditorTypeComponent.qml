@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -31,6 +31,32 @@ Item {
     width: typeController.width
     height: typeController.height
 
+    Component.onCompleted: {
+        updateCheckedStates();
+    }
+
+    onPhraseChanged: {
+        updateCheckedStates()
+    }
+
+    function updateCheckedStates()
+    {
+        switch (root.phrase.type) {
+        case Phrase.Word:
+            buttonWord.checked = true;
+            break;
+        case Phrase.Expression:
+            buttonExpression.checked = true;
+            break;
+        case Phrase.Sentence:
+            buttonSentence.checked = true;
+            break;
+        case Phrase.Paragraph:
+            buttonParagraph.checked = true;
+            break;
+        }
+    }
+
     Row {
         id: typeController
         spacing: 10
@@ -46,6 +72,7 @@ Item {
             anchors { verticalCenter: componentTitle.verticalCenter }
 
             PlasmaComponents.Button {
+                id: buttonWord
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
                 checkable: true
                 text: i18n("Word")
@@ -55,6 +82,7 @@ Item {
                 }
             }
             PlasmaComponents.Button {
+                id: buttonExpression
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
                 checkable: true
                 text: i18n("Expression")
@@ -64,6 +92,7 @@ Item {
                 }
             }
             PlasmaComponents.Button {
+                id: buttonSentence
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
                 checkable: true
                 text: i18n("Sentence")
@@ -73,6 +102,7 @@ Item {
                 }
             }
             PlasmaComponents.Button {
+                id: buttonParagraph
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
                 checkable: true
                 text: i18n("Paragraph")

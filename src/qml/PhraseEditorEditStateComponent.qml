@@ -32,6 +32,15 @@ Item {
     height: buttons.height
 
     Component.onCompleted: {
+        updateCheckedStates();
+    }
+
+    onPhraseChanged: {
+        updateCheckedStates();
+    }
+
+    function updateCheckedStates()
+    {
         switch (root.phrase.editState) {
         case Phrase.Unknown:
             buttonUnknown.checked = true;
