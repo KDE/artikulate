@@ -294,6 +294,11 @@ Phrase::PlaybackState Phrase::playbackUserSoundState() const
     }
 }
 
+Phrase::RecordingState Phrase::recordingState() const
+{
+    return m_recordingState;
+}
+
 void Phrase::stopSound()
 {
     m_audioOutput->stop();
@@ -358,6 +363,8 @@ void Phrase::startRecordUserSound()
     }
     kDebug() << "Start recording user sound to file " << m_userSoundFile.fileName();
     CaptureDeviceController::self().startCapture(m_userSoundFile.fileName());
+    m_recordingState = CurrentlyRecordingState;
+    emit recordingStateChanged();
     m_userSoundFile.close();
 }
 
@@ -365,6 +372,8 @@ void Phrase::stopRecordUserSound()
 {
     kDebug() << "End recording user sound to file " << m_userSoundFile.fileName();
     CaptureDeviceController::self().stopCapture();
+    m_recordingState = NotRecordingState;
+    emit recordingStateChanged();
     emit userSoundChanged();
 }
 

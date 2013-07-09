@@ -51,15 +51,21 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
     //TODO this is working for now, but implementation must be revisited
     Q_PROPERTY(PlaybackState playbackNativeSoundBufferState READ playbackSoundState NOTIFY playbackSoundStateChanged)
     Q_PROPERTY(PlaybackState playbackUserSoundState READ playbackUserSoundState NOTIFY playbackUserSoundStateChanged)
+    Q_PROPERTY(RecordingState recordingState READ recordingState NOTIFY recordingStateChanged)
 
 public:
     Q_ENUMS(EditState)
     Q_ENUMS(Type)
     Q_ENUMS(PlaybackState)
+    Q_ENUMS(RecordingState)
     enum PlaybackState {
         StoppedState,
         PlayingState,
         PausedState
+    };
+    enum RecordingState {
+        CurrentlyRecordingState,
+        NotRecordingState,
     };
     enum EditState {
         Unknown,
@@ -130,6 +136,7 @@ public:
     Q_INVOKABLE void stopRecordUserSound();
     PlaybackState playbackSoundState() const;
     PlaybackState playbackUserSoundState() const;
+    RecordingState recordingState() const;
 
     /**
      * Return true if a sound file exists, otherwise false.
@@ -153,6 +160,7 @@ signals:
     void phonemesChanged();
     void playbackSoundStateChanged();
     void playbackUserSoundStateChanged();
+    void recordingStateChanged();
     void modified();
 
 private:
@@ -163,6 +171,7 @@ private:
     QString m_i18nText;
     Type m_type;
     EditState m_editState;
+    RecordingState m_recordingState;
     Unit *m_unit;
 
     QList<Phoneme *> m_phonemes;
