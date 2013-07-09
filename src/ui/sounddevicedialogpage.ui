@@ -67,19 +67,6 @@
       <string>Microphone</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="1" column="1">
-       <widget class="QSlider" name="kcfg_AudioInputVolume">
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="1">
        <widget class="KComboBox" name="kcfg_AudioInputDevice">
         <property name="sizePolicy">
@@ -99,25 +86,6 @@
           <width>200</width>
           <height>16777215</height>
          </size>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="labelVolume">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="text">
-         <string>Volume</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -151,7 +119,7 @@
     </widget>
    </item>
    <item row="5" column="0">
-    <widget class="QWidget" name="" native="true">
+    <widget class="QWidget" name="widget" native="true">
      <layout class="QGridLayout" name="gridLayout">
       <property name="sizeConstraint">
        <enum>QLayout::SetDefaultConstraint</enum>

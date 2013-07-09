@@ -43,9 +43,10 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
     ui->buttonPlayRecordedTestSound->setEnabled(false);
 
     // set input volume slider
-    ui->kcfg_AudioInputVolume->setTickInterval(1);
-    ui->kcfg_AudioInputVolume->setMinimum(1);
-    ui->kcfg_AudioInputVolume->setMaximum(100);
+    //TODO Qt5.x port: reenable, since that we can set audioinput volume
+//     ui->kcfg_AudioInputVolume->setTickInterval(1);
+//     ui->kcfg_AudioInputVolume->setMinimum(1);
+//     ui->kcfg_AudioInputVolume->setMaximum(100);
 
     // set output volume slider
     ui->kcfg_AudioOutputVolume->setTickInterval(1);
@@ -83,14 +84,14 @@ void SoundDeviceDialogPage::loadSettings()
 {
     ui->kcfg_AudioInputDevice->setCurrentIndex(
         ui->kcfg_AudioInputDevice->findText(Settings::audioInputDevice()));
-    ui->kcfg_AudioInputVolume->setValue(Settings::audioInputVolume());
+//     ui->kcfg_AudioInputVolume->setValue(Settings::audioInputVolume());
     ui->kcfg_AudioOutputVolume->setValue(Settings::audioOutputVolume());
 }
 
 void SoundDeviceDialogPage::saveSettings()
 {
     Settings::setAudioInputDevice(m_audioInputs.at(ui->kcfg_AudioInputDevice->currentIndex()));
-    Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
+//     Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
     Settings::setAudioOutputVolume(ui->kcfg_AudioOutputVolume->value());
     Settings::self()->writeConfig();
 }
