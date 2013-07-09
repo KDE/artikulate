@@ -97,6 +97,15 @@ Item
                 height: parent.height
                 anchors.verticalCenter: parent.verticalCenter
 
+                PlasmaComponents.ToolButton {
+                    id: configureButton
+                    iconSource: "configure"
+                    onClicked: {
+                        var position = mapToItem(null, 0, height)
+                        showMenu(position.x, position.y)
+                    }
+                }
+
                 Row {
                     visible: !editCourseSelector.isSkeleton
                     Text {
