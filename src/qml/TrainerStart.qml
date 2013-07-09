@@ -112,7 +112,15 @@ FocusScope {
     }
 
     Text {
+        anchors { top: screen.verticalCenter; left: helloArtikulate.left; topMargin: 20 }
+        text: i18n("This is a contributor version of Artikulate. It only provides an editor mode.")
+        font.pointSize: 14
+        wrapMode: Text.WordWrap
+    }
+
+    Text {
         id: selectNextTipp
+        visible: false
 
         anchors { top: screen.verticalCenter; left: helloArtikulate.left; topMargin: 20 }
         text: {
@@ -141,7 +149,7 @@ FocusScope {
 
         LanguageSelector {
             id: languageSelector
-            visible: userProfile.language == null
+            visible: false //userProfile.language == null
             resourceManager: globalResourceManager
             onSelectedLanguageChanged: {
                 screen.languageSelected(selectedLanguage)
