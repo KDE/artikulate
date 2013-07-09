@@ -233,6 +233,8 @@ Item
         height: editor.height - breadcrumb.height - 60
         spacing: 10
 
+        visible: globalResourceManager.isRepositoryManager()
+
         Text {
             id: editorTitle
             text: i18n("Course Editor")
@@ -312,6 +314,20 @@ Item
                     }
                 }
             }
+        }
+    }
+
+    Column {
+        anchors { top: breadcrumb.bottom; left: editor.left; topMargin: 30; leftMargin: 30 }
+        spacing: 10
+        visible: !globalResourceManager.isRepositoryManager()
+        Text {
+            text: i18n("No Course Repository Selected")
+            font.pointSize: 28
+        }
+        Text {
+            text: i18n("Editor is only available when Artikulate works on a course data repository. Please see program settings.")
+            wrapMode: Text.WordWrap
         }
     }
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -49,6 +49,11 @@ public:
      * switching from locally installed courses to repository.
      */
     void updateResourceFileCache();
+
+    /**
+     * returns true if a repository is used, else false
+     */
+    Q_INVOKABLE bool isRepositoryManager() const;
 
     /**
      * This method loads all language and course files that are provided in the standard directories

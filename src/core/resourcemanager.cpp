@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -113,6 +113,11 @@ void ResourceManager::updateResourceFileCache()
             }
         } // done with reading courses
     }
+}
+
+bool ResourceManager::isRepositoryManager() const
+{
+    return Settings::useCourseRepository() && !Settings::courseRepositoryPath().isEmpty();
 }
 
 void ResourceManager::loadResources()
