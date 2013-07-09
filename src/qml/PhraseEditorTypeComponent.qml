@@ -27,6 +27,7 @@ Item {
     id: root
 
     property Phrase phrase
+    property int selectedType
 
     width: typeController.width
     height: typeController.height
@@ -37,6 +38,7 @@ Item {
 
     onPhraseChanged: {
         updateCheckedStates()
+        root.selectedType = phrase.type
     }
 
     function updateCheckedStates()
@@ -76,9 +78,9 @@ Item {
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
                 checkable: true
                 text: i18n("Word")
-                checked: {phrase.type == Phrase.Word}
+                checked: {root.selectedType == Phrase.Word}
                 onClicked: {
-                    phrase.type = Phrase.Word
+                    root.selectedType = Phrase.Word
                 }
             }
             PlasmaComponents.Button {
@@ -86,9 +88,9 @@ Item {
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
                 checkable: true
                 text: i18n("Expression")
-                checked: {phrase.type == Phrase.Expression}
+                checked: {root.selectedType == Phrase.Expression}
                 onClicked: {
-                    phrase.type = Phrase.Expression
+                    root.selectedType = Phrase.Expression
                 }
             }
             PlasmaComponents.Button {
@@ -96,9 +98,9 @@ Item {
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
                 checkable: true
                 text: i18n("Sentence")
-                checked: {phrase.type == Phrase.Sentence}
+                checked: {root.selectedType == Phrase.Sentence}
                 onClicked: {
-                    phrase.type = Phrase.Sentence
+                    root.selectedType = Phrase.Sentence
                 }
             }
             PlasmaComponents.Button {
@@ -106,9 +108,9 @@ Item {
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
                 checkable: true
                 text: i18n("Paragraph")
-                checked: {phrase.type == Phrase.Paragraph}
+                checked: {root.selectedType == Phrase.Paragraph}
                 onClicked: {
-                    phrase.type = Phrase.Paragraph
+                    root.selectedType = Phrase.Paragraph
                 }
             }
         }

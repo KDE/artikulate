@@ -27,7 +27,12 @@ Item {
     id: root
 
     property Phrase phrase
-    property int __originalPhraseType
+
+    // use for saving
+    property int __changedPhraseType
+    property int __changedPhraseEditState
+    property string __changedPhraseText
+
 
     signal editorClosed()
 
@@ -36,8 +41,17 @@ Item {
 
     onPhraseChanged: {
         if (root.phrase) {
-            root.__originalPhraseType = root.phrase.type
+            root.__changedPhraseType = root.phrase.type
+            root.__changedPhraseEditState = root.phrase.editState
+            root.__changedPhraseText = root.phrase.text
         }
+    }
+
+    function applyChanges()
+    {
+        root.phrase.type = root.__changedPhraseType
+        root.phrase.editState = root.__changedPhraseEditState
+        root.phrase.text = root.__changedPhraseText
     }
 
     Component {
@@ -64,9 +78,9 @@ Item {
                         width: root.width - buttonAccept.width - buttonCancel.width - 15
                         text: root.phrase.text
                         anchors.verticalCenter: inputLine.verticalCenter
+                        onTextChanged: root.__changedPhraseText = text
                         onAccepted: {
-                            root.phrase.text = text
-                            root.__originalPhraseType = phrase.type
+                            applyChanges()
                             editorClosed()
                         }
                     }
@@ -77,8 +91,7 @@ Item {
                         anchors.verticalCenter: inputLine.verticalCenter
                         iconSource: "dialog-ok-apply"
                         onClicked: {
-                            root.phrase.text = phraseInput.text
-                            root.__originalPhraseType = phrase.type
+                            applyChanges()
                             editorClosed()
                         }
                     }
@@ -89,7 +102,9 @@ Item {
                         anchors.verticalCenter: inputLine.verticalCenter
                         iconSource: "dialog-cancel"
                         onClicked: {
-                            phrase.type = root.__originalPhraseType
+                            phraseInput.text = root.phrase.text
+                            phraseEditStateSetter.updateCheckedStates()
+                            phraseTypeSetter.updateCheckedStates()
                             editorClosed()
                         }
                     }
@@ -109,11 +124,13 @@ Item {
                     id: phraseEditStateSetter
                     visible: !editCourseSelector.isSkeleton
                     phrase: root.phrase
+                    onSelectedEditStateChanged: root.__changedPhraseEditState = selectedEditState
                 }
 
                 PhraseEditorTypeComponent {
                     id: phraseTypeSetter
                     phrase: root.phrase
+                    onSelectedTypeChanged: root.__changedPhraseType = selectedType
                 }
 
                 PhraseEditorSoundComponent {

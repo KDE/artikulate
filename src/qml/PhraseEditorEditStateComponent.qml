@@ -27,6 +27,7 @@ Item {
     id: root
 
     property Phrase phrase
+    property int selectedEditState
 
     width: buttons.width
     height: buttons.height
@@ -37,6 +38,7 @@ Item {
 
     onPhraseChanged: {
         updateCheckedStates();
+        selectedState = phrase.editState
     }
 
     function updateCheckedStates()
@@ -71,7 +73,7 @@ Item {
                 text: i18n("Unknown")
                 onCheckedChanged: {
                     if (!checked) return
-                    phrase.editState = Phrase.Unknown
+                    root.selectedEditState = Phrase.Unknown
                 }
             }
             PlasmaComponents.Button {
@@ -80,7 +82,7 @@ Item {
                 text: i18n("Translated")
                 onCheckedChanged: {
                     if (!checked) return
-                    phrase.editState = Phrase.Translated
+                    root.selectedEditState = Phrase.Translated
                 }
             }
             PlasmaComponents.Button {
@@ -89,7 +91,7 @@ Item {
                 text: i18n("Completed")
                 onCheckedChanged: {
                     if (!checked) return
-                    phrase.editState = Phrase.Completed
+                    root.selectedEditState = Phrase.Completed
                 }
             }
         }
