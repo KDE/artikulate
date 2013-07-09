@@ -42,6 +42,8 @@ int main(int argc, char **argv)
                 );
 
     about.addAuthor(ki18n("Andreas Cord-Landwehr"), ki18n("Original Author"), "cordlandwehr@kde.org");
+    about.addAuthor(ki18n("Oindrila Gupta"), ki18n("Developer and Course Data"));
+    about.addAuthor(ki18n("Magdalena Konkiewicz"), ki18n("Developer and Course Data"));
 
     KCmdLineArgs::init(argc, argv, &about);
     KApplication::setGraphicsSystem("raster");
