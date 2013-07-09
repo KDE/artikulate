@@ -53,7 +53,7 @@ Item {
                 property int soundState: phrase.playbackSoundState
 
                 anchors.verticalCenter: parent.verticalCenter
-                iconSource: "media-playback-start"
+                iconSource: "artikulate-media-playback-start"
                 enabled: phrase.isSound
 
                 onClicked: {
@@ -67,10 +67,10 @@ Item {
                 onSoundStateChanged: {
                     // set next possible action icon
                     if (soundState == Phrase.PlayingState) {
-                        iconSource = "media-playback-stop";
+                        iconSource = "artikulate-media-playback-stop";
                     }
                     if (soundState == Phrase.StoppedState) {
-                        iconSource = "media-playback-start";
+                        iconSource = "artikulate-media-playback-start";
                     }
                 }
             }
@@ -82,10 +82,11 @@ Item {
                 text: i18n("Create New Recording:")
             }
             PlasmaComponents.ToolButton {
+                property int recordingState: phrase.recordingState
                 property bool recording: true
 
                 anchors.verticalCenter: parent.verticalCenter
-                iconSource: "media-record"
+                iconSource: "artikulate-media-record"
 
                 onClicked: {
                     if (recording) {
@@ -98,12 +99,21 @@ Item {
                         recordingBuffered = true;
                     }
                 }
+                onRecordingStateChanged: {
+                    // set next possible action icon
+                    if (recordingState == Phrase.CurrentlyRecordingState) {
+                        iconSource = "artikulate-media-record-active";
+                    }
+                    if (recordingState == Phrase.NotRecordingState) {
+                        iconSource = "artikulate-media-record";
+                    }
+                }
             }
             PlasmaComponents.ToolButton {
                 property int soundState: phrase.playbackNativeSoundBufferState
 
                 anchors.verticalCenter: parent.verticalCenter
-                iconSource: "media-playback-start"
+                iconSource: "artikulate-media-playback-start"
                 enabled: recordingBuffered
 
                 onClicked: {
@@ -117,10 +127,10 @@ Item {
                 onSoundStateChanged: {
                     // set next possible action icon
                     if (soundState == Phrase.PlayingState) {
-                        iconSource = "media-playback-stop";
+                        iconSource = "artikulate-media-playback-stop";
                     }
                     if (soundState == Phrase.StoppedState) {
-                        iconSource = "media-playback-start";
+                        iconSource = "artikulate-media-playback-start";
                     }
                 }
             }

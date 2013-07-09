@@ -317,6 +317,8 @@ void Phrase::stopPlaybackUserSound()
 void Phrase::startRecordNativeSound()
 {
     m_nativeSoundBuffer.open();
+    m_recordingState = CurrentlyRecordingState;
+    emit recordingStateChanged();
 
     kDebug() << "Start recording to temporary file " << m_nativeSoundBuffer.fileName();
     CaptureDeviceController::self().startCapture(m_nativeSoundBuffer.fileName());
@@ -326,6 +328,8 @@ void Phrase::stopRecordNativeSound()
 {
     kDebug() << "End recording to temporary file " << m_nativeSoundBuffer.fileName();
     CaptureDeviceController::self().stopCapture();
+    m_recordingState = NotRecordingState;
+    emit recordingStateChanged();
     emit soundChanged();
 }
 
