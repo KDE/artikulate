@@ -161,7 +161,7 @@ Item {
                 GridView {
                     id: phonemeGrid
                     property int columns : width / cellWidth
-                    width: parent.width
+                    width: root.width
                     height: 30 * count / columns + 60
                     cellWidth: 100
                     cellHeight: 30
