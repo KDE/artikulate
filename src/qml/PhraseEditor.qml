@@ -47,6 +47,12 @@ Item {
         }
     }
 
+    function close()
+    {
+        root.phrase = null
+        editorClosed()
+    }
+
     function applyChanges()
     {
         root.phrase.type = root.__changedPhraseType
@@ -81,11 +87,14 @@ Item {
                         anchors.verticalCenter: inputLine.verticalCenter
                         onTextChanged: root.__changedPhraseText = text
                         onPhraseChanged: {
-                            text = root.phrase.text
+                            if (root.phrase != null)
+                                text = root.phrase.text
+                            else
+                                text = ""
                         }
                         onAccepted: {
                             applyChanges()
-                            editorClosed()
+                            close()
                         }
                     }
                     PlasmaComponents.ToolButton {
@@ -96,7 +105,7 @@ Item {
                         iconSource: "dialog-ok-apply"
                         onClicked: {
                             applyChanges()
-                            editorClosed()
+                            close()
                         }
                     }
                     PlasmaComponents.ToolButton {
@@ -109,16 +118,17 @@ Item {
                             phraseInput.text = root.phrase.text
                             phraseEditStateSetter.updateCheckedStates()
                             phraseTypeSetter.updateCheckedStates()
-                            editorClosed()
+                            close()
                         }
                     }
                 }
                 Row {
                     id: originalPhraseInfo
+                    property string originalPhrase : (root.phrase != null) ? root.phrase.i18nText : ""
                     spacing: 10
-                    visible: { root.phrase.i18nText != "" }
+                    visible: { root.phrase != null && originalPhrase != "" }
                     Text {
-                        text: i18n("Original Phrase:") + " <i>" + root.phrase.i18nText + "</i>"
+                        text: i18n("Original Phrase:") + " <i>" + originalPhraseInfo.originalPhrase + "</i>"
                         width: root.width - 70
                         wrapMode: Text.WordWrap
                     }
@@ -150,7 +160,7 @@ Item {
                             width: 100
                             text: model.title
                             checkable: true
-                            checked: phrase.hasPhoneme(model.dataRole)
+                            checked: { phrase != null && phrase.hasPhoneme(model.dataRole) }
                             onClicked: { //TODO this button has no undo operation yet
                                 if (checked) {
                                     phrase.addPhoneme(model.dataRole)
@@ -169,7 +179,10 @@ Item {
                     height: 30 * count / columns + 60
                     cellWidth: 100
                     cellHeight: 30
-                    model: PhonemeModel { language: root.phrase.unit.course.language }
+                    model:
+                        PhonemeModel {
+                            language: { (phrase != null) ? root.phrase.unit.course.language : null }
+                        }
                     delegate: phonemeItem
                 }
             }

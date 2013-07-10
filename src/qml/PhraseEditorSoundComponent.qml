@@ -50,11 +50,11 @@ Item {
                 text: i18n("Existing Recording:")
             }
             PlasmaComponents.ToolButton {
-                property int soundState: phrase.playbackSoundState
+                property int soundState: (phrase != null) ? phrase.playbackSoundState : Phrase.StoppedState
 
                 anchors.verticalCenter: parent.verticalCenter
                 iconSource: "artikulate-media-playback-start"
-                enabled: phrase.isSound
+                enabled: { phrase != null && phrase.isSound }
 
                 onClicked: {
                     if (soundState == Phrase.PlayingState) {
@@ -82,7 +82,7 @@ Item {
                 text: i18n("Create New Recording:")
             }
             PlasmaComponents.ToolButton {
-                property int recordingState: phrase.recordingState
+                property int recordingState: (root.phrase != null) ? root.phrase.recordingState : Phrase.NotRecordingState
                 property bool recording: true
 
                 anchors.verticalCenter: parent.verticalCenter
@@ -110,7 +110,7 @@ Item {
                 }
             }
             PlasmaComponents.ToolButton {
-                property int soundState: phrase.playbackNativeSoundBufferState
+                property int soundState: (phrase != null) ? phrase.playbackNativeSoundBufferState : Phrase.StoppedState
 
                 anchors.verticalCenter: parent.verticalCenter
                 iconSource: "artikulate-media-playback-start"

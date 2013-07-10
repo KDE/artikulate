@@ -124,6 +124,7 @@ Item {
                 font.pointSize: 20;
                 onClicked: {
                     closeUnit()
+                    phraseEditor.close()
                 }
             }
             Text {

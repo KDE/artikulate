@@ -38,11 +38,16 @@ Item {
 
     onPhraseChanged: {
         updateCheckedStates()
-        root.selectedType = phrase.type
+        if (phrase != null) {
+            root.selectedType = phrase.type
+        }
     }
 
     function updateCheckedStates()
     {
+        if (root.phrase == null) {
+            return;
+        }
         switch (root.phrase.type) {
         case Phrase.Word:
             buttonWord.checked = true;

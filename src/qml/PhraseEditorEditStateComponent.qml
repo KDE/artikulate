@@ -38,11 +38,16 @@ Item {
 
     onPhraseChanged: {
         updateCheckedStates();
-        selectedState = phrase.editState
+        if (phrase != null) {
+            selectedState = phrase.editState
+        }
     }
 
     function updateCheckedStates()
     {
+        if (root.phrase == null) {
+            return;
+        }
         switch (root.phrase.editState) {
         case Phrase.Unknown:
             buttonUnknown.checked = true;
