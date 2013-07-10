@@ -75,10 +75,14 @@ Item {
                     height: 30
                     PlasmaComponents.TextField {
                         id: phraseInput
+                        property Phrase phrase : root.phrase
                         width: root.width - buttonAccept.width - buttonCancel.width - 15
                         text: root.phrase.text
                         anchors.verticalCenter: inputLine.verticalCenter
                         onTextChanged: root.__changedPhraseText = text
+                        onPhraseChanged: {
+                            text = root.phrase.text
+                        }
                         onAccepted: {
                             applyChanges()
                             editorClosed()
