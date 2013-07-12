@@ -28,6 +28,7 @@ include(MacroLogFeature)
 find_package(KDeclarative REQUIRED)
 
 find_package(QtMobility COMPONENTS MultimediaKit)
+find_package(QtGStreamer)
 
 add_subdirectory(qml)
 
@@ -38,6 +39,7 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${QTMOBILITY_INCLUDE_DIR}
     ${QTMOBILITY_MULTIMEDIAKIT_INCLUDE_DIR}
+    ${QTGSTREAMER_INCLUDE_DIR}
 )
 
 # set the source code files from which Artikulate is compiled
@@ -78,6 +80,8 @@ target_link_libraries(artikulatecore
     ${QT_QTSQL_LIBRARY}
     ${PHONON_LIBS}
     ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
+    ${QTGLIB_LIBRARIES}
+    ${QTGSTREAMER_LIBRARIES}
 )
 set_target_properties(artikulatecore
     PROPERTIES VERSION ${GENERIC_LIB_VERSION}
@@ -129,6 +133,8 @@ target_link_libraries(artikulate
     ${PHONON_LIBS}
     ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
     ${KDE4_KNEWSTUFF3_LIBS}
+    ${QTGLIB_LIBRARIES}
+    ${QTGSTREAMER_LIBRARIES}
 )
 
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})
