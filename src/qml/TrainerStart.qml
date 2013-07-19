@@ -114,7 +114,7 @@ FocusScope {
     Text {
         id: selectNextTipp
 
-        anchors { top: screen.verticalCenter; left: helloArtikulate.left; topMargin: 20 }
+        anchors { top: breadcrumb.bottom; left: helloArtikulate.left; topMargin: 40 }
         text: {
             if (userProfile.language == null) {
                 return i18n("Select a language:");
@@ -163,6 +163,8 @@ FocusScope {
             visible: userProfile.course != null && userProfile.unit == null && screen.__showPhonemeUnits == false
             UnitSelector {
                 id: unitSelector
+                width: Math.max(300, screen.width - selectNextTipp.width - 80)
+                height: screen.height - breadcrumb.height - 230
                 unitModel: selectedUnitModel
                 onUnitSelected: {
                     userProfile.unit = unit
@@ -177,7 +179,8 @@ FocusScope {
                 id: phonemeUnitSelector
                 course: userProfile.course
                 onUnitSelected: {
-                    userProfile.unit = unit
+                    userProfile.unit = unit //TODO remove after porting to training session
+                    trainingSession.createFromUnit(unit);
                     screen.unitSelected(unit)
                 }
             }

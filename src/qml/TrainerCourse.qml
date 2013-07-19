@@ -82,6 +82,8 @@ FocusScope {
                 font.pointSize: 20
             }
             UnitSelector {
+                width: 100
+                height: 200
                 unitModel: UnitModel { course: userProfile.course }
                 onUnitSelected: {
                     userProfile.unit = unit

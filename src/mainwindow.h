@@ -23,6 +23,7 @@
 
 #include <KMainWindow>
 #include "core/resourcemanager.h"
+#include "core/trainingsession.h"
 
 class Profile;
 class KActionCollection;
@@ -67,6 +68,7 @@ private:
     KMenu *m_menu;
     Profile *m_profile;
     ResourceManager *m_resourceManager;
+    TrainingSession *m_trainingSession;
 };
 
 #endif // PAIRS_H

@@ -55,6 +55,7 @@ MainWindow::MainWindow()
     , m_menu(new KMenu(this))
     , m_profile(new Profile(this))
     , m_resourceManager(new ResourceManager(this))
+    , m_trainingSession(new TrainingSession(this))
 {
     setWindowIcon(KIcon("artikulate")); // FIXME not present yet
     setWindowTitle(qAppName());
@@ -97,6 +98,7 @@ MainWindow::MainWindow()
 
     m_view->rootContext()->setContextProperty("viewMode", Trainer);
     m_view->rootContext()->setContextProperty("userProfile", m_profile);
+    m_view->rootContext()->setContextProperty("trainingSession", m_trainingSession);
 
     // set starting screen
     m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Main.qml")));
