@@ -40,6 +40,7 @@ FocusScope {
             id: breadcrumb
             width: screen.width
             height: 50
+            spacing: 10
 
             Text {
                 id: captionCourse
@@ -76,7 +77,7 @@ FocusScope {
 
     Row {
         id: trainerMain
-        anchors { top: unitHeader.bottom; left: unitHeader.left }
+        anchors { top: unitHeader.bottom; left: unitHeader.left; topMargin: 50 }
 
         TrainerSessionScreen {
             width: screen.width - 100
@@ -92,7 +93,9 @@ FocusScope {
 
         spacing: 10
         Text {
-            text: i18n("<strong>Niveau</strong>")
+            text: i18n("Training Progress")
+            font.pointSize: 14
+            color: "gray"
         }
         TrainerPhraseTypeStatus {
             width: screen.width - 60
