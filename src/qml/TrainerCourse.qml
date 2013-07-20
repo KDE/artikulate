@@ -27,8 +27,14 @@ FocusScope {
     id: screen
 
     property TrainingSession session
+    property bool finished: session.isFinished
 
     signal close()
+
+    onFinishedChanged: {
+        trainerMain.visible = false
+        finishedInformation.visible = true
+    }
 
     Row {
         id: unitHeader
@@ -84,6 +90,26 @@ FocusScope {
             height: screen.height - breadcrumb.height - 300
             unit: userProfile.unit
             session: screen.session
+        }
+    }
+
+    Column {
+        id: finishedInformation
+        anchors { top: unitHeader.bottom; left: unitHeader.left; topMargin: 50 }
+        visible: false
+        spacing: 20
+
+        Text {
+            text: i18n("Congratulations! This training unit is completed.")
+            font.pointSize: 24
+        }
+        PlasmaComponents.ToolButton { // unselect-button for language
+            iconSource: "dialog-close"
+            text: i18n("Close Training")
+            font.pointSize: 14
+            onClicked: {
+                close()
+            }
         }
     }
 

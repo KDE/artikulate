@@ -34,6 +34,7 @@ class ARTIKULATELIB_EXPORT TrainingSession : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+    Q_PROPERTY(bool isFinished READ isFinished NOTIFY finished)
     Q_PROPERTY(Phrase *currentPhrase READ currentPhrase NOTIFY currentPhraseChanged)
     Q_PROPERTY(Phrase::Type currentType READ currentType NOTIFY currentTypeChanged)
     Q_PROPERTY(int progressTypeWord READ progressTypeWord NOTIFY progressChanged) //!< value between 0 and 100 that gives percentage value
@@ -65,6 +66,7 @@ public:
     Phrase::Type currentType() const;
     QList<Phrase *> phraseList() const;
     void addPhrase(Phrase *phrase);
+    bool isFinished() const;
 
     /**
      * Create training session from \p unit.
@@ -87,6 +89,7 @@ signals:
     void currentPhraseChanged();
     void currentTypeChanged();
     void progressChanged();
+    void finished();
 
 private:
     Q_DISABLE_COPY(TrainingSession)

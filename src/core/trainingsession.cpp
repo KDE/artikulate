@@ -108,6 +108,18 @@ int TrainingSession::progressTypeParagraph() const
     return 100 * m_phraseListTrained.value(Phrase::Paragraph).length() / totalNumber;
 }
 
+bool TrainingSession::isFinished() const
+{
+    if (m_phraseListUntrained[Phrase::Word].isEmpty()
+        && m_phraseListUntrained[Phrase::Expression].isEmpty()
+        && m_phraseListUntrained[Phrase::Sentence].isEmpty()
+        && m_phraseListUntrained[Phrase::Paragraph].isEmpty())
+    {
+        return true;
+    }
+    return false;
+}
+
 void TrainingSession::next(TrainingSession::NextAction completeCurrent)
 {
     TrainingPhrase currentPhrase = m_phraseListUntrained.value(m_currentType).first();
@@ -149,6 +161,7 @@ void TrainingSession::next(TrainingSession::NextAction completeCurrent)
             break;
         }
         if (m_currentType == Phrase::Paragraph) {
+            emit finished();
             break;
         }
         emit currentTypeChanged();
@@ -156,6 +169,7 @@ void TrainingSession::next(TrainingSession::NextAction completeCurrent)
 
     emit currentPhraseChanged();
     emit progressChanged();
+    emit finished(); //TODO work around for now, since we allow access to empty units at trainer
 }
 
 void TrainingSession::createFromUnit(Unit * unit)
