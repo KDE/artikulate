@@ -113,6 +113,7 @@ Item {
             visible: false
             session: trainingSession //TODO we do not need global object for this
             onClose: {
+                userProfile.course = null
                 switchScreen(trainingScreen, homeScreen)
             }
         }
