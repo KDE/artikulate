@@ -95,7 +95,8 @@ FocusScope {
             text: i18n("<strong>Niveau</strong>")
         }
         TrainerPhraseTypeStatus {
-            width: screen.width
+            width: screen.width - 60
+            session: screen.session
             onTypeSelected: {
                 userProfile.phraseType = type
             }

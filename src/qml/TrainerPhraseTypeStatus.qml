@@ -26,65 +26,72 @@ import artikulate 1.0
 Item {
     id: root
 
-    property int type
-    property string typeString
+    property TrainingSession session
 
     signal typeSelected(int type)
 
     width: 200
-    height: 30
-
-    onTypeChanged: {
-        typeSelected(type)
-    }
+    height: 20
 
     Row {
-        spacing: 10
+        height: root.height
+        width: root.width
 
-        // word
-        Rectangle {
-            color: "#2de86c"
-            width: 80; height: 20
+        Item { // word
+            height: root.height
+            width: root.width/4
+            Rectangle {
+                color: "#A7E8BD"
+                width: parent.width; height: parent.height
+            }
+            Rectangle {
+                color: "#2de86c"
+                width: parent.width * session.progressTypeWord/100
+                height: parent.height
+            }
         }
 
-        // expression
-        Rectangle {
-            color: "#327bff"
-            width: 80; height: 20
+        Item { // expression
+            height: root.height
+            width: root.width/4
+            Rectangle {
+                color: "#B9D5FF"
+                width: parent.width; height: parent.height
+            }
+            Rectangle {
+                color: "#327bff"
+                width: parent.width * session.progressTypeExpression/100
+                height: parent.height
+            }
         }
 
-        // sentence
-        Rectangle {
-            color: "#fff13f"
-            width: 80; height: 20
+        Item { // sentence
+            height: root.height
+            width: root.width/4
+            Rectangle {
+                color: "#F5FFCB"
+                width: parent.width; height: parent.height
+            }
+            Rectangle {
+                color: "#fff13f"
+                width: parent.width * session.progressTypeSentence/100
+                height: parent.height
+            }
         }
 
-        // paragraph
-        Rectangle {
-            color: "#e85a02"
-            width: 80; height: 20
+        Item { // paragraph
+            height: root.height
+            width: root.width/4
+            Rectangle {
+                color: "#E8CAB9"
+                width: parent.width; height: parent.height
+            }
+            Rectangle {
+                color: "#e85a02"
+                width: parent.width * session.progressTypeParagraph/100
+                height: parent.height
+            }
         }
-
-
-//         Image {
-//             id: typeIcon
-//             width: 64
-//             height: 64
-//             source: {
-//                 switch (root.type) {
-//                     case Phrase.Word: "../icons/hicolor/64x64/actions/artikulate-word.png"
-//                         break;
-//                     case Phrase.Expression: "../icons/hicolor/64x64/actions/artikulate-expression.png"
-//                         break;
-//                     case Phrase.Sentence: "../icons/hicolor/64x64/actions/artikulate-sentence.png"
-//                         break;
-//                     case Phrase.Paragraph: "../icons/hicolor/64x64/actions/artikulate-paragraph.png"
-//                         break;
-//                     default:
-//                         ""
-//                 }
-//             }
-//         }
 
 //         Column {
 //             PlasmaComponents.ButtonColumn {

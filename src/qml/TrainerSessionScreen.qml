@@ -66,7 +66,7 @@ Item {
                 height: 48
                 iconSource: "dialog-cancel"
                 onClicked: {
-                    session.next(TrainingSession.RetryLater)
+                    session.next(TrainingSession.Incomplete)
                 }
             }
         }

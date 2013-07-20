@@ -36,6 +36,10 @@ class ARTIKULATELIB_EXPORT TrainingSession : public QObject
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(Phrase *currentPhrase READ currentPhrase NOTIFY currentPhraseChanged)
     Q_PROPERTY(Phrase::Type currentType READ currentType NOTIFY currentTypeChanged)
+    Q_PROPERTY(int progressTypeWord READ progressTypeWord NOTIFY progressChanged) //!< value between 0 and 100 that gives percentage value
+    Q_PROPERTY(int progressTypeExpression READ progressTypeExpression NOTIFY progressChanged) //!< value between 0 and 100 that gives percentage value
+    Q_PROPERTY(int progressTypeSentence READ progressTypeSentence NOTIFY progressChanged) //!< value between 0 and 100 that gives percentage value
+    Q_PROPERTY(int progressTypeParagraph READ progressTypeParagraph NOTIFY progressChanged) //!< value between 0 and 100 that gives percentage value
 
     struct TrainingPhrase {
         Phrase *phrase;
@@ -48,7 +52,7 @@ public:
     Q_ENUMS(NextAction)
     enum NextAction {
         Complete,
-        RetryLater,
+        Incomplete,
         StepOver
     };
 
@@ -57,8 +61,8 @@ public:
 
     QString title() const;
     void setTitle(const QString &title);
-    Phrase * currentPhrase();
-    Phrase::Type currentType();
+    Phrase * currentPhrase() const;
+    Phrase::Type currentType() const;
     QList<Phrase *> phraseList() const;
     void addPhrase(Phrase *phrase);
 
@@ -73,17 +77,23 @@ public:
      */
     Q_INVOKABLE void next(NextAction completeCurrent);
 
+    int progressTypeWord() const;
+    int progressTypeExpression() const;
+    int progressTypeSentence() const;
+    int progressTypeParagraph() const;
+
 signals:
     void titleChanged();
     void currentPhraseChanged();
     void currentTypeChanged();
+    void progressChanged();
 
 private:
     Q_DISABLE_COPY(TrainingSession)
     QString m_title;
     Phrase::Type m_currentType;
-    QList<TrainingPhrase> m_phraseListUntrained;
-    QList<TrainingPhrase> m_phraseListTrained;
+    QMap< Phrase::Type, QList<TrainingPhrase> > m_phraseListUntrained;
+    QMap< Phrase::Type, QList<TrainingPhrase> > m_phraseListTrained;
 };
 
 #endif // TRAININGSESSION_H
