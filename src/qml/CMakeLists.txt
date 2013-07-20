@@ -32,13 +32,13 @@ set(artikulate_qml_files
     TrainerCourse.qml
     TrainerPhrase.qml
     TrainerSessionScreen.qml
+    TrainerPhraseTypeStatus.qml
 
     EditorSelector.qml
 
     CourseSelector.qml
     LanguageSelector.qml
     UnitSelector.qml
-    PhraseTypeSelector.qml
     UnitEditor.qml
     PhraseEditor.qml
     PhraseEditorSoundComponent.qml

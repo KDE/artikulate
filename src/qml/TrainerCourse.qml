@@ -75,26 +75,29 @@ FocusScope {
     }
 
     Row {
+        id: trainerMain
         anchors { top: unitHeader.bottom; left: unitHeader.left }
 
         TrainerSessionScreen {
-            width: screen.width - difficultySelector.width - 60
-            height: screen.height - breadcrumb.height
+            width: screen.width - 100
+            height: screen.height - breadcrumb.height - 300
             unit: userProfile.unit
             session: screen.session
         }
+    }
 
-        Column {
-            id: difficultySelector
+    Column {
+        id: learningStatus
+        anchors { top: trainerMain.bottom; left: unitHeader.left }
 
-            spacing: 10
-            Text {
-                text: i18n("<strong>Niveau</strong>")
-            }
-            PhraseTypeSelector {
-                onTypeSelected: {
-                    userProfile.phraseType = type
-                }
+        spacing: 10
+        Text {
+            text: i18n("<strong>Niveau</strong>")
+        }
+        TrainerPhraseTypeStatus {
+            width: screen.width
+            onTypeSelected: {
+                userProfile.phraseType = type
             }
         }
     }
