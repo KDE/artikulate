@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -111,6 +111,10 @@ Item {
             width: parent.width
             height: trainer.height - header.height
             visible: false
+            session: trainingSession //TODO we do not need global object for this
+            onClose: {
+                switchScreen(trainingScreen, homeScreen)
+            }
         }
     }
 

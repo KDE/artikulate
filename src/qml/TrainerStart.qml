@@ -169,6 +169,7 @@ FocusScope {
                 onUnitSelected: {
                     userProfile.unit = unit
                     screen.unitSelected(unit)
+                    trainingSession.createFromUnit(unit)
                 }
             }
         }

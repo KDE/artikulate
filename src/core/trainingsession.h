@@ -43,13 +43,15 @@ class ARTIKULATELIB_EXPORT TrainingSession : public QObject
         int trainedGood;
         bool isTrained;
     };
+
+public:
+    Q_ENUMS(NextAction)
     enum NextAction {
         Complete,
         RetryLater,
         StepOver
     };
 
-public:
     explicit TrainingSession(QObject *parent = 0);
     ~TrainingSession();
 
@@ -63,13 +65,13 @@ public:
     /**
      * Create training session from \p unit.
      */
-    void createFromUnit(Unit *unit);
+    Q_INVOKABLE void createFromUnit(Unit *unit);
 
     /**
      * Proceeds with next phrase to train.
      * Set statistics value for current phrase to \p completeCurrent;
      */
-    void next(NextAction completeCurrent);
+    Q_INVOKABLE void next(NextAction completeCurrent);
 
 signals:
     void titleChanged();

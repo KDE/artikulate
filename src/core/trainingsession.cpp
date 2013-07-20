@@ -84,6 +84,7 @@ void TrainingSession::next(TrainingSession::NextAction completeCurrent)
 
 void TrainingSession::createFromUnit(Unit * unit)
 {
+    setTitle(unit->title());
     foreach(Phrase *phrase, unit->phraseList()) {
         TrainingPhrase newTrainingPhrase;
         newTrainingPhrase.isTrained = false;
@@ -93,5 +94,8 @@ void TrainingSession::createFromUnit(Unit * unit)
         m_phraseListUntrained.append(newTrainingPhrase);
     }
     kDebug() << "create new training session with" << m_phraseListUntrained.length() << "elements";
+
+    // set current phrase
+    emit currentPhraseChanged();
 }
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -25,6 +25,10 @@ import artikulate 1.0
 
 FocusScope {
     id: screen
+
+    property TrainingSession session
+
+    signal close()
 
     Row {
         id: unitHeader
@@ -63,7 +67,7 @@ FocusScope {
                     id: unselectUnit
                     iconSource: "dialog-close"
                     onClicked: {
-                        unitSelector.visible = true
+                        close()
                     }
                 }
             }
@@ -73,35 +77,11 @@ FocusScope {
     Row {
         anchors { top: unitHeader.bottom; left: unitHeader.left }
 
-        Column {
-            id: unitSelector
-            width: 200
-            visible: false
-            Text {
-                text: i18n("Change Unit")
-                font.pointSize: 20
-            }
-            UnitSelector {
-                width: 100
-                height: 200
-                unitModel: UnitModel { course: userProfile.course }
-                onUnitSelected: {
-                    userProfile.unit = unit
-                    unitSelector.visible = false
-                }
-            }
-        }
-
-        TrainingUnit {
-            width: {
-                if (unitSelector.visible) {
-                    screen.width - difficultySelector.width - unitSelector.width - 60
-                } else {
-                    screen.width - difficultySelector.width - 60
-                }
-            }
+        TrainerSessionScreen {
+            width: screen.width - difficultySelector.width - 60
             height: screen.height - breadcrumb.height
             unit: userProfile.unit
+            session: screen.session
         }
 
         Column {

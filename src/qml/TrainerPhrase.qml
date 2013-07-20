@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -66,7 +66,6 @@ Item {
         }
 
         PlasmaComponents.ToolButton {
-            property Phrase phrase: model.dataRole
             property bool recording: true
 
             anchors.verticalCenter: phraseLine.verticalCenter
@@ -84,12 +83,11 @@ Item {
             }
         }
         PlasmaComponents.ToolButton {
-            property Phrase phrase: model.dataRole
-            property int userSoundState: phrase.playbackUserSoundState
+            property int userSoundState: (phrase != null) ? phrase.playbackUserSoundState : Phrase.StoppedState
 
             anchors.verticalCenter: phraseLine.verticalCenter
             iconSource: "media-playback-start"
-            enabled: phrase.isUserSound
+            enabled: (phrase != null) ? phrase.isUserSound : false
 
             onClicked: {
                 if (userSoundState == Phrase.PlayingState) {
@@ -112,7 +110,7 @@ Item {
         Text {
             width: root.width - 120
             anchors.verticalCenter: phraseLine.verticalCenter
-            text: model.text
+            text: (phrase != null) ? phrase.text : ""
             wrapMode: Text.WordWrap
         }
     }

@@ -31,6 +31,7 @@ set(artikulate_qml_files
     TrainerStart.qml
     TrainerCourse.qml
     TrainerPhrase.qml
+    TrainerSessionScreen.qml
 
     EditorSelector.qml
 
@@ -38,7 +39,6 @@ set(artikulate_qml_files
     LanguageSelector.qml
     UnitSelector.qml
     PhraseTypeSelector.qml
-    TrainingUnit.qml
     UnitEditor.qml
     PhraseEditor.qml
     PhraseEditorSoundComponent.qml
