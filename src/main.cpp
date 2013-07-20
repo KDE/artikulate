@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -29,7 +29,7 @@
 static const char description[] =
     I18N_NOOP("Learn and practice pronunciation.");
 
-static const char version[] = "0.1.0";
+static const char version[] = "0.1.90";
 
 int main(int argc, char **argv)
 {
