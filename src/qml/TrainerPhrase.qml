@@ -77,20 +77,28 @@ Item {
             }
 
             PlasmaComponents.ToolButton {
-                property bool recording: true
+                property bool isRecording: false
 
                 anchors.verticalCenter: audioControls.verticalCenter
                 iconSource: "artikulate-media-record"
                 height: 48; width: 48
 
                 onClicked: {
-                    if (recording) {
-                        phrase.startRecordUserSound();
-                        recording = false;
+                    if (!isRecording) {
+                        phrase.startRecordUserSound()
+                        isRecording = true
                     }
                     else {
-                        phrase.stopRecordUserSound();
-                        recording = true;
+                        phrase.stopRecordUserSound()
+                        isRecording = false
+                    }
+                }
+                onIsRecordingChanged: {
+                    if (isRecording) {
+                        iconSource = "artikulate-media-record-active";
+                    }
+                    else {
+                        iconSource = "artikulate-media-record";
                     }
                 }
             }
