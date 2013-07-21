@@ -169,7 +169,6 @@ void TrainingSession::next(TrainingSession::NextAction completeCurrent)
 
     emit currentPhraseChanged();
     emit progressChanged();
-    emit finished(); //TODO work around for now, since we allow access to empty units at trainer
 }
 
 void TrainingSession::createFromUnit(Unit * unit)
@@ -201,5 +200,6 @@ void TrainingSession::createFromUnit(Unit * unit)
     m_currentType = Phrase::Word;
     emit currentPhraseChanged();
     emit progressChanged();
+    emit finished(); //TODO work around for now, since we allow access to empty units at trainer
 }
 

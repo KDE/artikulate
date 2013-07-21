@@ -32,8 +32,14 @@ FocusScope {
     signal close()
 
     onFinishedChanged: {
-        trainerMain.visible = false
-        finishedInformation.visible = true
+        if (isFinished) {
+            trainerMain.visible = false
+            finishedInformation.visible = true
+        }
+        else {
+            trainerMain.visible = true
+            finishedInformation.visible = false
+        }
     }
 
     Row {
