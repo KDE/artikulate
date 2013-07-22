@@ -158,7 +158,7 @@ public:
     /**
      * \return list of all loaded skeletons
      */
-    QList<Skeleton *> skeletonList() const;
+    QList<Skeleton *> skeletonList();
 
     Q_INVOKABLE void newCourseDialog();
 
@@ -215,6 +215,7 @@ private:
     QList<Language *> m_languageList;
     QMap<Language *, QList<Course *> > m_courseList;
     QList<Skeleton *> m_skeletonList;
+    bool m_loadingSkeletons;
 };
 
 #endif // RESOURCEMANAGER_H

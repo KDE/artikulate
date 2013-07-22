@@ -45,6 +45,7 @@
 
 ResourceManager::ResourceManager(QObject *parent)
     : QObject(parent)
+    , m_loadingSkeletons(false)
 {
     updateResourceFileCache();
 }
@@ -541,8 +542,17 @@ void ResourceManager::removeSkeleton(Skeleton *skeleton)
     skeleton->deleteLater();
 }
 
-QList< Skeleton* > ResourceManager::skeletonList() const
+QList< Skeleton* > ResourceManager::skeletonList()
 {
+    //TODO compare with cache if content change and possibly update
+    if (m_skeletonList.isEmpty() && !m_skeletonFileCache.isEmpty() && !m_loadingSkeletons) {
+        m_loadingSkeletons = true;
+        foreach(const KUrl &path, m_skeletonFileCache) {
+            addSkeleton(loadSkeleton(path));
+        }
+    }
+    m_loadingSkeletons = false;
+
     return m_skeletonList;
 }
 
