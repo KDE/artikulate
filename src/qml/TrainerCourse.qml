@@ -32,7 +32,7 @@ FocusScope {
     signal close()
 
     onFinishedChanged: {
-        if (isFinished) {
+        if (finished) {
             trainerMain.visible = false
             finishedInformation.visible = true
         }
