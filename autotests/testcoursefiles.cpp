@@ -81,9 +81,9 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     manager.addCourse(KUrl::fromLocalFile("data/courses/de.xml"));
 
     // test to encure further logic
-    QVERIFY(manager.courseList().count() == 1);
+    QVERIFY(manager.courseList(manager.languageList().first()).count() == 1);
 
-    Course *testCourse = manager.courseList().first();
+    Course *testCourse = manager.courseList(manager.languageList().first()).first();
     KTemporaryFile outputFile;
     outputFile.setSuffix(".xml");
     outputFile.open();
@@ -99,7 +99,7 @@ void TestCourseFiles::fileLoadSaveCompleteness()
 
     //TODO this only works, since the resource manager not checks uniqueness of course ids!
     manager.addCourse(KUrl::fromLocalFile(outputFile.fileName()));
-    Course *compareCourse = manager.courseList().last();
+    Course *compareCourse = manager.courseList(manager.languageList().first()).last();
 
     // test that we actually call the different files
     QVERIFY(testCourse->file().toLocalFile() != compareCourse->file().toLocalFile());

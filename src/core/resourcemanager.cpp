@@ -57,9 +57,12 @@ void ResourceManager::updateResourceFileCache()
         m_languageFileCache.append(KUrl::fromLocalFile(file));
     }
     if (!Settings::useCourseRepository()) {
-        QStringList courseFiles = KGlobal::dirs()->findAllResources("appdata",QString("courses/*.xml"));
+        //TODO implement GHNS interface to put files into correct directories according to language id
+        kError() << "Currently loading from system installs is disabled";
+        QStringList courseFiles = KGlobal::dirs()->findAllResources("appdata",QString("courses/*/*.xml"));
         foreach (const QString &file, courseFiles) {
-            m_courseFileCache.append(KUrl::fromLocalFile(file));
+            KUrl courseFile = KUrl::fromLocalFile(file);
+            m_courseFileCache.insert(courseFile.directory(), KUrl::fromLocalFile(file));
         }
         QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
         foreach (const QString &file, skeletonFiles) {
@@ -99,6 +102,7 @@ void ResourceManager::updateResourceFileCache()
 
                 // traverse all language directories for each course
                 foreach (const QFileInfo &langInfo, courseLangDirList) {
+                    QString languageId = langInfo.fileName();
                     QDir courseLangDir = QDir(langInfo.absoluteFilePath());
                     courseLangDir.setFilter(QDir::Files);
                     QStringList nameFilters;
@@ -107,7 +111,7 @@ void ResourceManager::updateResourceFileCache()
 
                     // find and add course files
                     foreach (const QFileInfo &courseInfo, courses) {
-                        m_courseFileCache.append(courseInfo.filePath());
+                        m_courseFileCache.insert(languageId, courseInfo.filePath());
                     }
                 }
             }
@@ -122,18 +126,10 @@ bool ResourceManager::isRepositoryManager() const
 
 void ResourceManager::loadResources()
 {
-    //TODO in the future loading should only be performed on request!
-    //     this current implementation is extremely resource inefficient...
-
-    // load resources
+    // load language resources
+    // all other resources are only loaded on demand
     foreach (const KUrl &file, m_languageFileCache) {
         loadLanguage(file);
-    }
-    foreach (const KUrl &file, m_courseFileCache) {
-        addCourse(file);
-    }
-    foreach (const KUrl &file, m_skeletonFileCache) {
-        addSkeleton(loadSkeleton(file));
     }
 }
 
@@ -196,19 +192,18 @@ bool ResourceManager::loadLanguage(const KUrl &languageFile)
     return true;
 }
 
-QList< Course* > ResourceManager::courseList() const
+QList< Course* > ResourceManager::courseList(Language *language)
 {
-    QList< Course* > list;
-    QMap<Language *, QList<Course *> >::ConstIterator iter = m_courseList.begin();
-    while (iter != m_courseList.end()) {
-        list << *iter;
-        ++iter;
+    //TODO compare with cache if content change and possibly update
+    if (!m_courseList.contains(language) && m_courseFileCache.contains(language->id())) {
+        m_courseList.insert(language, QList< Course* >());
+        QList<KUrl> courseFiles = m_courseFileCache.values(language->id());
+        for (int i = 0; i < courseFiles.size(); ++i) {
+            addCourse(courseFiles[i]);
+        }
     }
-    return list;
-}
 
-QList< Course* > ResourceManager::courseList(Language *language) const
-{
+    // return empty list if no course available
     if (!m_courseList.contains(language)) {
         return QList< Course* >();
     }

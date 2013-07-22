@@ -78,14 +78,9 @@ public:
     bool loadLanguage(const KUrl &path);
 
     /**
-     * \return list of all loaded courses
-     */
-    QList<Course *> courseList() const;
-
-    /**
      * \return list of all loaded courses for language \p language
      */
-    QList<Course *> courseList(Language *language) const;
+    QList<Course *> courseList(Language *language);
 
     Q_INVOKABLE Course * course(Language *language, int index) const;
 
@@ -215,7 +210,7 @@ signals:
 
 private:
     QList<KUrl> m_languageFileCache; // list of found language files
-    QList<KUrl> m_courseFileCache;
+    QMultiMap<QString, KUrl> m_courseFileCache; //!> language identifier, path
     QList<KUrl> m_skeletonFileCache;
     QList<Language *> m_languageList;
     QMap<Language *, QList<Course *> > m_courseList;

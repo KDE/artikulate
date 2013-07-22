@@ -99,7 +99,7 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_resourceManager->courseList().count()) {
+    if (index.row() >= m_resourceManager->courseList(m_language).count()) {
         return QVariant();
     }
 
