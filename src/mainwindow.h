@@ -61,6 +61,7 @@ public slots:
     void showCourseEditor();
     void closeCourseEditor();
     void showSettingsDialog();
+    void slotDownloadNewStuff();
 
 private:
     QDeclarativeView *m_view;
