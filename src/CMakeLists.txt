@@ -80,6 +80,7 @@ set_target_properties(artikulatecore
     SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 install(TARGETS artikulatecore ${INSTALL_TARGETS_DEFAULT_ARGS})
+install( FILES artikulate.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 
 # set the source code files from which Artikulate is compiled
 set(artikulate_SRCS
