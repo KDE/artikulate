@@ -25,7 +25,7 @@
 #include <kdemacros.h>
 
 #ifndef ARTIKULATELIB_EXPORT
-# if defined(MAKE_ARTIKULATELIB_LIB)
+# if defined(MAKE_ARTIKULATECORE_LIB)
 // We are building this library
 #  define ARTIKULATELIB_EXPORT KDE_EXPORT
 # else
