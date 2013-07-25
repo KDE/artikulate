@@ -122,6 +122,7 @@ target_link_libraries(artikulate
     ${QT_QTXMLPATTERNS_LIBRARY}
     ${QT_QTSQL_LIBRARY}
     ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
+    ${KDE4_KNEWSTUFF3_LIBS}
 )
 
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})

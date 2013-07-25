@@ -47,6 +47,7 @@
 #include <QDeclarativeProperty>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QPointer>
+#include <knewstuff3/downloaddialog.h>
 
 MainWindow::MainWindow()
     : KMainWindow()
@@ -83,6 +84,11 @@ MainWindow::MainWindow()
     connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
     m_actionCollection->addAction("settings", settingsAction);
     m_menu->addAction(settingsAction);
+	
+    KAction *downloadsAction = new KAction(i18n("Download New Language Course"), this);
+    connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(slotDownloadNewStuff()));
+    m_actionCollection->addAction("download_new_stuff", downloadsAction);
+    m_menu->addAction(downloadsAction);
 
     m_menu->addSeparator();
 
@@ -148,10 +154,21 @@ void MainWindow::showSettingsDialog()
     dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), "audio-headset", i18nc("@title:tab", "Sound Device Settings"), true);
     dialog->addPage(resourceDialog, i18nc("@item:inmenu", "Course Resources"), "repository", i18nc("@title:tab", "Resource Repository Settings"), true);
 
+
 //     connect(dialog, SIGNAL(settingsChanged(const QString&)), resourceDialog, SLOT(loadSettings()));
 //     connect(dialog, SIGNAL(settingsChanged(const QString&)), soundDialog, SLOT(loadSettings()));
     connect(dialog, SIGNAL(accepted()), resourceDialog, SLOT(saveSettings()));
     connect(dialog, SIGNAL(accepted()), soundDialog, SLOT(saveSettings()));
 
     dialog->exec();
+}
+
+void MainWindow::slotDownloadNewStuff()
+{
+    QPointer<KNS3::DownloadDialog> dialog(new KNS3::DownloadDialog("artikulate.knsrc", this)); 
+    if ( dialog->exec() == QDialog::Accepted ) {
+        // do nothing
+    }
+
+    delete dialog;
 }
