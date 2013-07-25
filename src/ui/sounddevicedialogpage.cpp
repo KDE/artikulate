@@ -140,7 +140,7 @@ void SoundDeviceDialogPage::updatePlayButtonIcons()
     case QMediaPlayer::PlayingState:
         ui->buttonPlayTestSound->setIcon(KIcon("media-playback-stop"));
         break;
-    case QMediaPlayer::QMediaPlayer::StoppedState:
+    case QMediaPlayer::StoppedState:
         ui->buttonPlayTestSound->setIcon(KIcon("media-playback-start"));
         break;
     default:
@@ -152,7 +152,7 @@ void SoundDeviceDialogPage::updatePlayButtonIcons()
     case QMediaPlayer::PlayingState:
         ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-stop"));
         break;
-    case QMediaPlayer::QMediaPlayer::StoppedState:
+    case QMediaPlayer::StoppedState:
         ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-start"));
         break;
     default:
