@@ -58,13 +58,13 @@ void ResourceManager::updateResourceFileCache()
         m_languageFileCache.append(KUrl::fromLocalFile(file));
     }
     if (!Settings::useCourseRepository()) {
-        //TODO implement GHNS interface to put files into correct directories according to language id
-        kError() << "Currently loading from system installs is disabled";
-        QStringList courseFiles = KGlobal::dirs()->findAllResources("appdata",QString("courses/*/*.xml"));
+        QStringList courseFiles = KGlobal::dirs()->findAllResources("data",QString("artikulate/courses/*/*/*.xml"));
         foreach (const QString &file, courseFiles) {
             KUrl courseFile = KUrl::fromLocalFile(file);
-            m_courseFileCache.insert(courseFile.directory(), KUrl::fromLocalFile(file));
-        }
+	    //TODO this is a bit hacky remove(0,53) removes prefix path/// needs to be changed
+	    //how to remove the path prefix form QString to have only folder name ????
+            m_courseFileCache.insert(courseFile.directory().remove(0,53), KUrl::fromLocalFile(file));
+        } 
         QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
         foreach (const QString &file, skeletonFiles) {
             m_skeletonFileCache.append(KUrl::fromLocalFile(file));
@@ -82,7 +82,7 @@ void ResourceManager::updateResourceFileCache()
             for (int i = 0; i < list.size(); ++i) {
                 QFileInfo fileInfo = list.at(i);
                 m_skeletonFileCache.append(KUrl::fromLocalFile(fileInfo.absoluteFilePath()));
-            }
+            }  
         }
 
         // read course files

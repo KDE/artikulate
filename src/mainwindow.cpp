@@ -171,4 +171,7 @@ void MainWindow::slotDownloadNewStuff()
     }
 
     delete dialog;
+
+    //update available languages	
+    m_resourceManager->updateResourceFileCache();
 }
