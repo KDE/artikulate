@@ -84,10 +84,11 @@ MainWindow::MainWindow()
     connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
     m_actionCollection->addAction("settings", settingsAction);
     m_menu->addAction(settingsAction);
-	
+
     KAction *downloadsAction = new KAction(i18n("Download New Language Course"), this);
     connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(slotDownloadNewStuff()));
     m_actionCollection->addAction("download_new_stuff", downloadsAction);
+    downloadsAction->setIcon(KIcon("get-hot-new-stuff"));
     m_menu->addAction(downloadsAction);
 
     m_menu->addSeparator();
@@ -165,13 +166,13 @@ void MainWindow::showSettingsDialog()
 
 void MainWindow::slotDownloadNewStuff()
 {
-    QPointer<KNS3::DownloadDialog> dialog(new KNS3::DownloadDialog("artikulate.knsrc", this)); 
+    QPointer<KNS3::DownloadDialog> dialog(new KNS3::DownloadDialog("artikulate.knsrc", this));
     if ( dialog->exec() == QDialog::Accepted ) {
         // do nothing
     }
 
     delete dialog;
 
-    //update available languages	
+    //update available languages
     m_resourceManager->updateResourceFileCache();
 }
