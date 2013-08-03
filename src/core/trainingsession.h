@@ -78,6 +78,7 @@ public:
      * Set statistics value for current phrase to \p completeCurrent;
      */
     Q_INVOKABLE void next(NextAction completeCurrent);
+    Q_INVOKABLE void setPhraseType(QString newType);
 
     int progressTypeWord() const;
     int progressTypeExpression() const;

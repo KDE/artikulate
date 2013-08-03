@@ -125,6 +125,7 @@ FocusScope {
 
         spacing: 10
         Text {
+            id: trainingText
             text: i18n("Training Progress")
             font.pointSize: 14
             color: "gray"
@@ -132,6 +133,7 @@ FocusScope {
         TrainerPhraseTypeStatus {
             width: screen.width - 60
             session: screen.session
+            sessionType: screen.session.currentType
             onTypeSelected: {
                 userProfile.phraseType = type
             }

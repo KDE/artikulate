@@ -27,19 +27,59 @@ Item {
     id: root
 
     property TrainingSession session
-
+    property int sessionType
+    property string phraseTypeString
     signal typeSelected(int type)
+
+
+
+    onSessionTypeChanged: {
+        if (sessionType==Phrase.Word){
+            word.border.width = 4
+            expression.border.width = 0
+            sentence.border.width = 0
+            paragraph.border.width = 0
+            phraseTypeString = "Words"
+        }
+        if (sessionType==Phrase.Expression){
+            word.border.width = 0
+            expression.border.width = 4
+            sentence.border.width = 0
+            paragraph.border.width = 0
+            phraseTypeString = "Expressions"
+        }
+        if (sessionType==Phrase.Sentence){
+            word.border.width = 0
+            expression.border.width = 0
+            sentence.border.width = 4
+            paragraph.border.width = 0
+            phraseTypeString = "Sentences"
+        }
+        if (sessionType==Phrase.Paragraph){
+            word.border.width = 0
+            expression.border.width = 0
+            sentence.border.width = 0
+            paragraph.border.width = 4
+            phraseTypeString = "Paragraphs"
+            }
+        trainingText.text= i18n("Currently training: " + phraseTypeString)
+    }
 
     width: 200
     height: 20
 
     Row {
+        id: statusBar
         height: root.height
         width: root.width
+        spacing: 3
 
-        Item { // word
+        Rectangle { // word
+            id: word
             height: root.height
             width: root.width/4
+            border.color: "#800000FF"
+            border.width: 0
             Rectangle {
                 color: "#A7E8BD"
                 width: parent.width; height: parent.height
@@ -49,11 +89,28 @@ Item {
                 width: parent.width * session.progressTypeWord/100
                 height: parent.height
             }
+            MouseArea{
+                anchors.fill: parent
+                hoverEnabled: true
+	        onClicked: {
+                    session.setPhraseType("word")
+	        }
+                onEntered: {
+                    if (phraseTypeString != "Words") {
+                        trainingText.text = i18n("Change to train: Words")
+                    }
+                }
+                onExited: {
+                    trainingText.text= i18n("Currently training: " + phraseTypeString)
+                }
+            }
         }
-
-        Item { // expression
+        Rectangle { // expression
+            id: expression
             height: root.height
             width: root.width/4
+            border.color: "#800000FF"
+            border.width: 0
             Rectangle {
                 color: "#B9D5FF"
                 width: parent.width; height: parent.height
@@ -63,9 +120,27 @@ Item {
                 width: parent.width * session.progressTypeExpression/100
                 height: parent.height
             }
+             MouseArea{
+                anchors.fill: parent
+                hoverEnabled: true
+	        onClicked: {
+                    session.setPhraseType("expression")
+	        }
+                onEntered: {
+                    if (phraseTypeString != "Expressions") {
+                        trainingText.text = i18n("Change to train: Expressions")
+                    }
+                }
+                onExited: {
+                    trainingText.text= i18n("Currently training: " + phraseTypeString)
+                }
+            }
         }
 
-        Item { // sentence
+        Rectangle { // sentence
+            id: sentence
+            border.color: "#800000FF"
+            border.width: 0
             height: root.height
             width: root.width/4
             Rectangle {
@@ -77,11 +152,29 @@ Item {
                 width: parent.width * session.progressTypeSentence/100
                 height: parent.height
             }
+            MouseArea{
+                anchors.fill: parent
+                hoverEnabled: true
+	        onClicked: {
+                    session.setPhraseType("sentence")
+	        }
+                onEntered: {
+                    if (phraseTypeString != "Sentences") {
+                        trainingText.text = i18n("Change to train: Sentences")
+                    }
+                }
+                onExited: {
+                    trainingText.text= i18n("Currently training: " + phraseTypeString)
+                }
+            }
         }
 
-        Item { // paragraph
+        Rectangle { // paragraph
+            id: paragraph
             height: root.height
             width: root.width/4
+            border.color: "#800000FF"
+            border.width: 0
             Rectangle {
                 color: "#E8CAB9"
                 width: parent.width; height: parent.height
@@ -91,47 +184,21 @@ Item {
                 width: parent.width * session.progressTypeParagraph/100
                 height: parent.height
             }
+            MouseArea{
+                anchors.fill: parent
+                hoverEnabled: true
+	        onClicked: {
+                    session.setPhraseType("paragraph")
+	        }
+                onEntered: {
+                    if (phraseTypeString != "Paragraphs") {
+                        trainingText.text = i18n("Change to train: Paragraphs")
+                    }
+                }
+                onExited: {
+                    trainingText.text= i18n("Currently training: " + phraseTypeString)
+                }
+            }
         }
-
-//         Column {
-//             PlasmaComponents.ButtonColumn {
-//                 PlasmaComponents.RadioButton {
-//                     id: radioWord
-//                     text: i18n("Word")
-//                     onCheckedChanged: {
-//                         if (!checked) return
-//                         root.typeString = i18n("Word")
-//                         type = Phrase.Word
-//                     }
-//                 }
-//                 PlasmaComponents.RadioButton {
-//                     id: radioExpression
-//                     text: i18n("Expression")
-//                     onCheckedChanged: {
-//                         if (!checked) return
-//                         root.typeString = i18n("Expression")
-//                         type = Phrase.Expression
-//                     }
-//                 }
-//                 PlasmaComponents.RadioButton {
-//                     id: radioSentence
-//                     text: i18n("Sentence")
-//                     onCheckedChanged: {
-//                         if (!checked) return
-//                         root.typeString = i18n("Sentence")
-//                         type = Phrase.Sentence
-//                     }
-//                 }
-//                 PlasmaComponents.RadioButton {
-//                     id: radioParagraph
-//                     text: i18n("Paragraph")
-//                     onCheckedChanged: {
-//                         if (!checked) return
-//                         root.typeString = i18n("Paragraph")
-//                         type = Phrase.Paragraph
-//                     }
-//                 }
-//             }
-//         }
     }
 }

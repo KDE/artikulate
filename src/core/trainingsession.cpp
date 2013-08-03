@@ -120,6 +120,25 @@ bool TrainingSession::isFinished() const
     return false;
 }
 
+void TrainingSession::setPhraseType(QString newType)
+{
+    if (newType=="word" && not m_phraseListUntrained[Phrase::Word].isEmpty()) {
+        m_currentType = Phrase::Word;
+    }
+    if (newType=="expression" && not m_phraseListUntrained[Phrase::Expression].isEmpty()) {
+        m_currentType = Phrase::Expression;
+    }
+    if (newType=="sentence"&& not m_phraseListUntrained[Phrase::Sentence].isEmpty()) {
+        m_currentType = Phrase::Sentence;
+    }
+    if (newType=="paragraph" && not m_phraseListUntrained[Phrase::Paragraph].isEmpty()) {
+        m_currentType = Phrase::Paragraph;
+    }
+    emit currentTypeChanged();
+    TrainingPhrase currentPhrase = m_phraseListUntrained.value(m_currentType).first();
+    emit currentPhraseChanged();
+}
+
 void TrainingSession::next(TrainingSession::NextAction completeCurrent)
 {
     TrainingPhrase currentPhrase = m_phraseListUntrained.value(m_currentType).first();
@@ -145,28 +164,68 @@ void TrainingSession::next(TrainingSession::NextAction completeCurrent)
         m_phraseListUntrained[currentPhrase.phrase->type()].move(0,m_phraseListUntrained[currentPhrase.phrase->type()].size()-1);
     }
 
+    // check for course completion
+    if (m_phraseListUntrained.value(Phrase::Word).isEmpty() &&
+    m_phraseListUntrained.value(Phrase::Expression).isEmpty() &&
+    m_phraseListUntrained.value(Phrase::Sentence).isEmpty() &&
+    m_phraseListUntrained.value(Phrase::Paragraph).isEmpty() ) {
+       emit finished();
+    }
+
     // switch type when all phrases in current set are trained
     // use loop here, since types can be empty
     while (m_phraseListUntrained.value(m_currentType).isEmpty()) {
         if (m_currentType == Phrase::Word) {
+            if (m_phraseListUntrained.value(Phrase::Expression).isEmpty()) {
+                if (m_phraseListUntrained.value(Phrase::Sentence).isEmpty()) {
+                    m_currentType = Phrase::Paragraph;
+                    break;
+                }
+                m_currentType = Phrase::Sentence;
+                break;
+            }
             m_currentType = Phrase::Expression;
             break;
         }
+
         if (m_currentType == Phrase::Expression) {
+            if (m_phraseListUntrained.value(Phrase::Sentence).isEmpty()) {
+                if (m_phraseListUntrained.value(Phrase::Paragraph).isEmpty()) {
+                    m_currentType = Phrase::Word;
+                    break;
+                }
+                m_currentType = Phrase::Paragraph;
+                break;
+            }
             m_currentType = Phrase::Sentence;
             break;
         }
         if (m_currentType == Phrase::Sentence) {
+            if (m_phraseListUntrained.value(Phrase::Paragraph).isEmpty()) {
+                if (m_phraseListUntrained.value(Phrase::Word).isEmpty()) {
+                    m_currentType = Phrase::Expression;
+                    break;
+                }
+                m_currentType = Phrase::Word;
+                break;
+            }
             m_currentType = Phrase::Paragraph;
             break;
         }
         if (m_currentType == Phrase::Paragraph) {
-            emit finished();
+            if (m_phraseListUntrained.value(Phrase::Word).isEmpty()) {
+                if (m_phraseListUntrained.value(Phrase::Expression).isEmpty()) {
+                    m_currentType = Phrase::Sentence;
+                    break;
+                }
+                m_currentType = Phrase::Expression;
+                break;
+            }
+            m_currentType = Phrase::Word;
             break;
         }
-        emit currentTypeChanged();
     }
-
+    emit currentTypeChanged();
     emit currentPhraseChanged();
     emit progressChanged();
 }
@@ -196,10 +255,11 @@ void TrainingSession::createFromUnit(Unit * unit)
         m_phraseListUntrained[phrase->type()].append(newTrainingPhrase);
     }
 
-    // set current phrase
-    m_currentType = Phrase::Word;
-    emit currentPhraseChanged();
-    emit progressChanged();
-    emit finished(); //TODO work around for now, since we allow access to empty units at trainer
+        m_currentType = Phrase::Word;
+        emit currentPhraseChanged();
+        emit progressChanged();
+        emit currentTypeChanged();
+
+        emit finished(); //TODO work around for now, since we allow access to empty units at trainer
 }
 
