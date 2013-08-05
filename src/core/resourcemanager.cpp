@@ -61,10 +61,11 @@ void ResourceManager::updateResourceFileCache()
         QStringList courseFiles = KGlobal::dirs()->findAllResources("data",QString("artikulate/courses/*/*/*.xml"));
         foreach (const QString &file, courseFiles) {
             KUrl courseFile = KUrl::fromLocalFile(file);
-	    //TODO this is a bit hacky remove(0,53) removes prefix path/// needs to be changed
-	    //how to remove the path prefix form QString to have only folder name ????
-            m_courseFileCache.insert(courseFile.directory().remove(0,53), KUrl::fromLocalFile(file));
-        } 
+            // get directory name, which is the language identifier for this course
+            // TODO allow usage of non-language ID named course folders
+            QString directory = courseFile.directory().section('/', -1);
+            m_courseFileCache.insert(directory, courseFile);
+        }
         QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
         foreach (const QString &file, skeletonFiles) {
             m_skeletonFileCache.append(KUrl::fromLocalFile(file));
@@ -82,7 +83,7 @@ void ResourceManager::updateResourceFileCache()
             for (int i = 0; i < list.size(); ++i) {
                 QFileInfo fileInfo = list.at(i);
                 m_skeletonFileCache.append(KUrl::fromLocalFile(fileInfo.absoluteFilePath()));
-            }  
+            }
         }
 
         // read course files
