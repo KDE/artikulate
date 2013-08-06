@@ -53,6 +53,7 @@ set(artikulateCore_SRCS
     core/skeleton.cpp
     core/trainingsession.cpp
     core/capturedevicecontroller.cpp
+    core/outputdevicecontroller.cpp
 
     ui/newcoursedialog.cpp
 )
@@ -73,6 +74,7 @@ target_link_libraries(artikulatecore
     ${QT_QTDECLARATIVE_LIBRARY}
     ${QT_QTXMLPATTERNS_LIBRARY}
     ${QT_QTSQL_LIBRARY}
+    ${PHONON_LIBS}
     ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
 )
 set_target_properties(artikulatecore
@@ -122,6 +124,7 @@ target_link_libraries(artikulate
     ${QT_QTDECLARATIVE_LIBRARY}
     ${QT_QTXMLPATTERNS_LIBRARY}
     ${QT_QTSQL_LIBRARY}
+    ${PHONON_LIBS}
     ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
     ${KDE4_KNEWSTUFF3_LIBS}
 )

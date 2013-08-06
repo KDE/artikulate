@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -27,6 +27,11 @@
 #include <KUrl>
 #include <QList>
 #include <KTemporaryFile>
+
+namespace Phonon
+{
+class MediaObject;
+}
 
 class QAudioCaptureSource;
 class QMediaPlayer;
@@ -163,6 +168,9 @@ signals:
     void recordingStateChanged();
     void modified();
 
+private slots:
+    void updatePlaybackState();
+
 private:
     Q_DISABLE_COPY(Phrase)
     QString m_id;
@@ -178,8 +186,8 @@ private:
     KUrl m_nativeSoundFile;
     KTemporaryFile m_nativeSoundBuffer;
     KTemporaryFile m_userSoundFile;
-    CurrentPlayback m_currentPlayback;
-    QMediaPlayer *m_audioOutput;
+    PlaybackState m_nativeSoundPlaybackState;
+    PlaybackState m_userSoundPlaybackState;
 };
 Q_DECLARE_METATYPE(Phrase::PlaybackState)
 
