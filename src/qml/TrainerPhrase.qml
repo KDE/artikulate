@@ -53,7 +53,7 @@ Item {
                 property int soundState: phrase != null ? phrase.playbackSoundState : Phrase.StoppedState
 
                 anchors.verticalCenter: audioControls.verticalCenter
-                iconSource: "artikulate-media-playback-start"
+                iconSource: "artikulate-media-native-speaker-play"
                 height: 48; width: 48
                 enabled: phrase != null ? phrase.isSound : false
 
@@ -71,7 +71,7 @@ Item {
                         iconSource = "artikulate-media-playback-stop";
                     }
                     if (soundState == Phrase.StoppedState) {
-                        iconSource = "artikulate-media-playback-start";
+                        iconSource = "artikulate-media-native-speaker-play";
                     }
                 }
             }
