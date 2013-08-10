@@ -154,4 +154,3 @@ QMediaRecorder::State CaptureDeviceController::state() const
 {
     return d->m_audioInput->state();
 }
-
