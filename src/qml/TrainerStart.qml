@@ -109,6 +109,22 @@ FocusScope {
                 }
             }
         }
+        Column {
+            x: (parent.width / 3 ) *2
+            Image {
+                width: 128
+                height: 128
+                source: "../images/new-course.png"
+            }
+            PlasmaComponents.ToolButton {
+                text: i18n("Get a new course")
+                flat: false
+                enabled: true
+                onClicked : {
+                    slotDownloadNewStuff()
+                }
+            }
+        }
     }
 
     Text {
