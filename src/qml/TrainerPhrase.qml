@@ -33,98 +33,135 @@ Item {
 
     Column {
         spacing: 20
-        Text {
-            id: phraseText
-            width: root.width - 120
-            text: (phrase != null) ? phrase.text : ""
-            wrapMode: Text.WordWrap
-            font.pointSize: 24
-            horizontalAlignment: Text.AlignHCenter
+        anchors { horizontalCenter: parent.horizontalCenter }
+        Rectangle {
+            width: phraseText.width
+            height: phraseText.height
+            anchors { horizontalCenter: parent.horizontalCenter }
+            //change gradient values
+            gradient: Gradient {
+               GradientStop { position: 1.0; color: "lightsteelblue" }
+               GradientStop { position: 0.1; color: "blue" }
+            }
+            Text {
+               id: phraseText
+                width: ((phrase.text.length * 19) > (root.width-120)) ? root.width-120 : phrase.text.length * 19
+                text: (phrase != null) ? phrase.text : ""
+                wrapMode: Text.WordWrap
+                font.pointSize: 24
+                horizontalAlignment: Text.AlignHCenter
+            }
         }
 
         Row {
             id: audioControls
-            spacing: 10
+            spacing: 400
             anchors { horizontalCenter: parent.horizontalCenter }
-            width: 3*48 + 20
-            height: 48
-
-            PlasmaComponents.ToolButton {
-                property int soundState: phrase != null ? phrase.playbackSoundState : Phrase.StoppedState
-
-                anchors.verticalCenter: audioControls.verticalCenter
-                iconSource: "artikulate-media-native-speaker-play"
-                height: 48; width: 48
-                enabled: phrase != null ? phrase.isSound : false
-
-                onClicked: {
-                    if (soundState == Phrase.PlayingState) {
-                        phrase.stopSound();
-                    }
-                    if (soundState == Phrase.StoppedState) {
-                        phrase.playbackSound();
-                    }
+            width: 90*2 + 400
+            height: 90
+            Item {
+                width: 90
+                height: parent.height
+                //anchors.verticalCenter: audioControls.left
+                Image {
+                    width: parent.width
+                    height: parent.height
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: "../images/language.png"
                 }
-                onSoundStateChanged: {
-                    // set next possible action icon
-                    if (soundState == Phrase.PlayingState) {
-                        iconSource = "artikulate-media-playback-stop";
-                    }
-                    if (soundState == Phrase.StoppedState) {
-                        iconSource = "artikulate-media-native-speaker-play";
-                    }
-                }
-            }
 
-            PlasmaComponents.ToolButton {
-                property bool isRecording: false
+                PlasmaComponents.ToolButton {
+                    property int soundState: phrase != null ? phrase.playbackSoundState : Phrase.StoppedState
+                    x: 45; y: 40;
+                    //anchors.verticalCenter: parent.bottom
+                    //anchors.horizontalCenter: parent.right
+                    iconSource: "artikulate-media-playback-start"
+                    height: 50; width: 50
+                    enabled: phrase != null ? phrase.isSound : false
 
-                anchors.verticalCenter: audioControls.verticalCenter
-                iconSource: "artikulate-media-record"
-                height: 48; width: 48
-
-                onClicked: {
-                    if (!isRecording) {
-                        phrase.startRecordUserSound()
-                        isRecording = true
+                    onClicked: {
+                        if (soundState == Phrase.PlayingState) {
+                            phrase.stopSound();
+                        }
+                        if (soundState == Phrase.StoppedState) {
+                            phrase.playbackSound();
+                        }
                     }
-                    else {
-                        phrase.stopRecordUserSound()
-                        isRecording = false
-                    }
-                }
-                onIsRecordingChanged: {
-                    if (isRecording) {
-                        iconSource = "artikulate-media-record-active";
-                    }
-                    else {
-                        iconSource = "artikulate-media-record";
+                    onSoundStateChanged: {
+                        // set next possible action icon
+                        if (soundState == Phrase.PlayingState) {
+                            iconSource = "artikulate-media-playback-stop";
+                        }
+                        if (soundState == Phrase.StoppedState) {
+                            iconSource = "artikulate-media-playback-start";
+                        }
                     }
                 }
             }
-            PlasmaComponents.ToolButton {
-                property int userSoundState: (phrase != null) ? phrase.playbackUserSoundState : Phrase.StoppedState
+            Item {
+                width: 90
+                height: parent.height
+                //anchors.verticalCenter: audioControls.left
+                Image {
+                    width: parent.width
+                    height: parent.height
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: "../images/user-identity.png"
+                }
 
-                anchors.verticalCenter: audioControls.verticalCenter
-                iconSource: "artikulate-media-playback-start"
-                height: 48; width: 48
-                enabled: (phrase != null) ? phrase.isUserSound : false
+                PlasmaComponents.ToolButton {
+                    property bool isRecording: false
+                    anchors.horizontalCenter: parent.left
+                    y: 40;
+                    iconSource: "artikulate-media-record"
+                    height: 52; width: 52
 
-                onClicked: {
-                    if (userSoundState == Phrase.PlayingState) {
-                        phrase.stopPlaybackUserSound();
+                    onClicked: {
+                        if (!isRecording) {
+                            phrase.startRecordUserSound()
+                            isRecording = true
+                        }
+                        else {
+                            phrase.stopRecordUserSound()
+                            isRecording = false
+                        }
                     }
-                    if (userSoundState == Phrase.StoppedState) {
-                        phrase.playbackUserSound();
+                    onIsRecordingChanged: {
+                        if (isRecording) {
+                            iconSource = "artikulate-media-record-active";
+                        }
+                        else {
+                            iconSource = "artikulate-media-record";
+                        }
                     }
                 }
-                onUserSoundStateChanged: {
-                    // set next possible action icon
-                    if (userSoundState == Phrase.PlayingState) {
-                        iconSource = "artikulate-media-playback-stop";
+                PlasmaComponents.ToolButton {
+                    property int userSoundState: (phrase != null) ? phrase.playbackUserSoundState : Phrase.StoppedState
+
+                    y: 40;
+                    anchors.horizontalCenter: parent.right
+                    iconSource: "artikulate-media-playback-start"
+                    height: 52; width: 52
+                    enabled: (phrase != null) ? phrase.isUserSound : false
+
+                    onClicked: {
+                        if (userSoundState == Phrase.PlayingState) {
+                            phrase.stopPlaybackUserSound();
+                        }
+                        if (userSoundState == Phrase.StoppedState) {
+                            phrase.playbackUserSound();
+                        }
                     }
-                    if (userSoundState == Phrase.StoppedState) {
-                        iconSource = "artikulate-media-playback-start";
+                    onUserSoundStateChanged: {
+                        // set next possible action icon
+                        if (userSoundState == Phrase.PlayingState) {
+                            iconSource = "artikulate-media-playback-stop";
+                        }
+                        if (userSoundState == Phrase.StoppedState) {
+                            iconSource = "artikulate-media-playback-start";
+                        }
                     }
                 }
             }
