@@ -34,25 +34,44 @@ Item {
     Column {
         spacing: 20
         anchors { horizontalCenter: parent.horizontalCenter }
-        Rectangle {
-            width: phraseText.width
-            height: phraseText.height
+        Item {
+            width: phraseText.width + 30
+            height: phraseText.height + 30
             anchors { horizontalCenter: parent.horizontalCenter }
-            //change gradient values
-            gradient: Gradient {
-               GradientStop { position: 1.0; color: "lightsteelblue" }
-               GradientStop { position: 0.1; color: "blue" }
+            Image {
+                width: 30
+                height: 30
+                anchors.horizontalCenter: parent.left
+                anchors.verticalCenter: parent.top
+                source: "../images/language.png"
             }
-            Text {
-               id: phraseText
-                width: ((phrase.text.length * 19) > (root.width-120)) ? root.width-120 : phrase.text.length * 19
-                text: (phrase != null) ? phrase.text : ""
-                wrapMode: Text.WordWrap
-                font.pointSize: 24
-                horizontalAlignment: Text.AlignHCenter
+            Image {
+                width: 30
+                height: 30
+                anchors.horizontalCenter: parent.right
+                anchors.verticalCenter: parent.bottom
+                source: "../images/language.png"
+                }
+            Rectangle {
+                width: phraseText.width
+                height: phraseText.height
+                anchors { horizontalCenter: parent.horizontalCenter }
+                anchors { verticalCenter: parent.verticalCenter }
+                
+                gradient: Gradient {
+                    GradientStop { position: 1.0; color: "#F2F2F2" }
+                    GradientStop { position: 0.1; color: "#E3E3E3" }
+                }
+                Text {
+                    id: phraseText
+                    width: ((phrase.text.length * 19) > (root.width-120)) ? root.width-120 : phrase.text.length * 19
+                    text: (phrase != null) ? phrase.text : ""
+                    wrapMode: Text.WordWrap
+                    font.pointSize: 24
+                    horizontalAlignment: Text.AlignHCenter
+                }
             }
         }
-
         Row {
             id: audioControls
             spacing: 400
