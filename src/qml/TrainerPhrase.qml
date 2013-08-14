@@ -63,7 +63,7 @@ Item {
                 width: ((phrase.text.length * 19) > (root.width-120)) ? root.width-120 : phrase.text.length * 19
                 text: (phrase != null) ? phrase.text : ""
                 wrapMode: Text.WordWrap
-                font.pointSize: 24
+                font.pointSize: ((phrase.text.length * 19) > (root.width-120)*5) ? 20 :24
                 horizontalAlignment: Text.AlignHCenter
             }
         }
