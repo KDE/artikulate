@@ -55,7 +55,7 @@ public:
     static CaptureDeviceController & self();
 
     void startCapture(const QString &filePath);
-    QMediaRecorder::State state() const;
+    CaptureDeviceController::State state() const;
     void stopCapture();
     void setDevice(const QString &deviceIdentifier);
 
