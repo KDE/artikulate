@@ -34,7 +34,7 @@ find_package(KDE4 4.10.0 REQUIRED)
 include(KDE4Defaults)
 
 include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES} ${QT4_INCLUDES})
-add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS -fexceptions)
 
 # subdirectories to build
 add_subdirectory(data)
