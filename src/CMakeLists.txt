@@ -58,6 +58,7 @@ set(artikulateCore_SRCS
     core/outputdevicecontroller.cpp
     core/soundbackends/soundbackendinterface.cpp
     core/soundbackends/qtmultimediabackend.cpp
+    core/soundbackends/qtgstreamerbackend.cpp
 
     ui/newcoursedialog.cpp
 )
