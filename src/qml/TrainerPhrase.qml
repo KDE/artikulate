@@ -70,24 +70,30 @@ Item {
         anchors { horizontalCenter: parent.horizontalCenter }
         anchors { top: phraseDisplay.bottom; topMargin: 50 }
         width: 90*2 + 400
-        height: 90
+
         Item {
             width: 90
-            height: parent.height
-            //anchors.verticalCenter: audioControls.left
+            height: imageLanguage.height + textNativeSpeaker.height + 10
+
             Image {
-                width: parent.width
-                height: parent.height
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
+                id: imageLanguage
+                height: 90
+                width: 90
+                anchors { horizontalCenter: parent.horizontalCenter }
                 source: "../images/language.png"
+            }
+            Text {
+                id: textNativeSpeaker
+                text: i18n("Native Speaker")
+                anchors { top: imageLanguage.bottom; topMargin: 10; horizontalCenter: parent.horizontalCenter }
+                font.pointSize: 14
+                color: "gray"
             }
 
             PlasmaComponents.ToolButton {
                 property int soundState: phrase != null ? phrase.playbackSoundState : Phrase.StoppedState
                 x: 45; y: 40;
-                //anchors.verticalCenter: parent.bottom
-                //anchors.horizontalCenter: parent.right
+
                 iconSource: "artikulate-media-playback-start"
                 height: 50; width: 50
                 enabled: phrase != null ? phrase.isSound : false
@@ -113,19 +119,28 @@ Item {
         }
         Item {
             width: 90
-            height: parent.height
-            //anchors.verticalCenter: audioControls.left
-            Image {
-                width: parent.width
-                height: parent.height
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                source: "../images/user-identity.png"
+            height: imageLearner.height + textLearner.height + 10
+
+            Column {
+                Image {
+                    id: imageLearner
+                    anchors { horizontalCenter: parent.horizontalCenter }
+                    width: 90
+                    height: 90
+                    source: "../images/user-identity.png"
+                }
+                Text {
+                    id: textLearner
+                    anchors { top: imageLearner.bottom; topMargin: 10; horizontalCenter: parent.horizontalCenter }
+                    text: i18n("Learner (You)")
+                    font.pointSize: 14
+                    color: "gray"
+                }
             }
 
             PlasmaComponents.ToolButton {
                 property bool isRecording: false
-                anchors.horizontalCenter: parent.left
+                anchors { horizontalCenter: imageLearner.left }
                 y: 40;
                 iconSource: "artikulate-media-record"
                 height: 52; width: 52
