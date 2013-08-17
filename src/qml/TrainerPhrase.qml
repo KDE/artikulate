@@ -64,6 +64,7 @@ Item {
         }
 
     }
+
     Row {
         id: audioControls
         spacing: 400

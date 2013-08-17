@@ -43,28 +43,30 @@ Item {
 
         Column {
             id: trainingControls
-            width: buttonApply.width
+            width: Math.max(buttonApply.width, buttonCancel.width)
             PlasmaComponents.ToolButton {
                 id: buttonApply
-                width: 48
                 height: 48
                 iconSource: "dialog-ok-apply"
+                text: i18n("Correctly Pronounced")
                 onClicked: {
                     session.next(TrainingSession.Complete)
                 }
             }
             PlasmaComponents.ToolButton {
-                width: 48
+                id: buttonStepOver
                 height: 48
                 iconSource: "object-rotate-left"
+                text: i18n("Retry Later")
                 onClicked: {
                     session.next(TrainingSession.StepOver)
                 }
             }
             PlasmaComponents.ToolButton {
-                width: 48
+                id: buttonCancel
                 height: 48
                 iconSource: "dialog-cancel"
+                text: i18n("Not Correctly Pronounced")
                 onClicked: {
                     session.next(TrainingSession.Incomplete)
                 }
