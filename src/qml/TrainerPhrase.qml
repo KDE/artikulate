@@ -1,5 +1,6 @@
 /*
  *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013  Magdalena Konkiewicz <konkiewicz.m@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -28,51 +29,46 @@ Item {
 
     property Phrase phrase
     height: 320
-    width: 500
+    width: 400
     Item {
-        width: phraseText.width + 30
-        height: phraseText.height + 30
-        anchors { horizontalCenter: parent.horizontalCenter }
-        anchors { top: parent.top }
+        id: phraseDisplay
+        width: Math.max(400, parent.width * 0.5)
+        height: Math.max(150, phraseText.lineCount * 30)
+        anchors { horizontalCenter: parent.horizontalCenter; top: parent.top }
+
+        // phrase text element
+        Text {
+            id: phraseText
+            anchors { horizontalCenter: parent.horizontalCenter; verticalCenter: parent.verticalCenter }
+            width: parent.width - 64
+            text: (phrase != null) ? phrase.text : ""
+            font.pointSize: 20
+            wrapMode: Text.WordWrap
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        // quotation marks
         Image {
-            width: 30
-            height: 30
+            width: 32
+            height: 32
             anchors.horizontalCenter: parent.left
             anchors.verticalCenter: parent.top
-            source: "../images/language.png"
+            source: "../images/quotationmark-left.png"
         }
         Image {
-            width: 30
-            height: 30
+            width: 32
+            height: 32
             anchors.horizontalCenter: parent.right
             anchors.verticalCenter: parent.bottom
-            source: "../images/language.png"
+            source: "../images/quotationmark-right.png"
         }
-        Rectangle {
-            width: phraseText.width
-            height: phraseText.height
-            anchors { horizontalCenter: parent.horizontalCenter }
-            anchors { verticalCenter: parent.verticalCenter }
-                
-            gradient: Gradient {
-                GradientStop { position: 1.0; color: "#F2F2F2" }
-                GradientStop { position: 0.1; color: "#E3E3E3" }
-            }
-            Text {
-                id: phraseText
-                width: ((phrase.text.length * 19) > (root.width-120)) ? root.width-120 : phrase.text.length * 19
-                text: (phrase != null) ? phrase.text : ""
-                wrapMode: Text.WordWrap
-                font.pointSize: ((phrase.text.length * 19) > (root.width-120)*5) ? 20 :24
-                horizontalAlignment: Text.AlignHCenter
-            }
-        }
+
     }
     Row {
         id: audioControls
         spacing: 400
         anchors { horizontalCenter: parent.horizontalCenter }
-        anchors { bottom: parent.bottom }
+        anchors { top: phraseDisplay.bottom; topMargin: 50 }
         width: 90*2 + 400
         height: 90
         Item {
