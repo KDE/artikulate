@@ -65,6 +65,17 @@ FocusScope {
         }
     }
 
+    PlasmaComponents.ToolButton {
+        anchors { top: helloArtikulate.top; right: parent.right; rightMargin: 50 }
+        text: i18n("Download new courses")
+        iconSource: "get-hot-new-stuff"
+        flat: false
+        enabled: true
+        onClicked : {
+            slotDownloadNewStuff()
+        }
+    }
+
     Item {
         id: breadcrumb
 
@@ -106,22 +117,6 @@ FocusScope {
                 onClicked : {
                     userProfile.course = null
                     userProfile.unit = null
-                }
-            }
-        }
-        Column {
-            x: (parent.width / 3 ) *2
-            Image {
-                width: 128
-                height: 128
-                source: "../images/new-course.png"
-            }
-            PlasmaComponents.ToolButton {
-                text: i18n("Get a new course")
-                flat: false
-                enabled: true
-                onClicked : {
-                    slotDownloadNewStuff()
                 }
             }
         }
