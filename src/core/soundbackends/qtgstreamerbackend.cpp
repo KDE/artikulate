@@ -93,6 +93,10 @@ QString QtGStreamerBackend::identifier()
 
 CaptureDeviceController::State QtGStreamerBackend::captureState()
 {
+    if (!m_pipeline) {
+        return CaptureDeviceController::StoppedState;
+    }
+
     switch (m_pipeline->currentState()) {
     case QGst::StateNull:
         return CaptureDeviceController::StoppedState;
