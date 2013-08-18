@@ -154,7 +154,7 @@ FocusScope {
             id: languageSelector
             visible: userProfile.language == null
             resourceManager: globalResourceManager
-            onSelectedLanguageChanged: {
+            onLanguageSelected: {
                 screen.languageSelected(selectedLanguage)
             }
         }
