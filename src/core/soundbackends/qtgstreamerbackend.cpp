@@ -76,7 +76,7 @@ QtGStreamerBackend::QtGStreamerBackend()
             m_availableDevices.insert(device.toString(), QString("%1 (%2)").arg(deviceName, device.toString()));
         }
     } else {
-        m_availableDevices.insert("Default", i18n("Default"));
+        m_availableDevices.insert("", i18n("Default"));
     }
 }
 
@@ -131,7 +131,7 @@ QGst::BinPtr QtGStreamerBackend::createAudioSrcBin()
     if (childProxy && childProxy->childrenCount() > 0) {
         //the actual source is the first child
         QGst::ObjectPtr realSrc = childProxy->childByIndex(0);
-//         realSrc->setProperty("device", m_device); //FIXME if set, fails to set stream to pipeline
+//         realSrc->setProperty("device", ""); //FIXME when setting device pipeline breaks with creation error
     }
 
     return audioBin;
