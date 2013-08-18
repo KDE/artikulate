@@ -194,3 +194,4 @@ target_link_libraries(artikulate
 
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 install(TARGETS artikulate ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(FILES artikulateui.rc DESTINATION  ${DATA_INSTALL_DIR})

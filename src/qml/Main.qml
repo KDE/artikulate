@@ -42,7 +42,7 @@ Item
         height: parent.height
 
         onCloseEditor: {
-            main.viewMode = MainWindow.Trainer
+            switchMode()
         }
     }
 }

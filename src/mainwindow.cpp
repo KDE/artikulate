@@ -31,14 +31,15 @@
 #include <KActionCollection>
 #include <KCmdLineArgs>
 #include <KGlobal>
-#include <KHelpMenu>
 #include <KIcon>
 #include <KLocale>
 #include <KStandardDirs>
 #include <kdeclarative.h>
-#include <KMenu>
 #include <KConfigDialog>
 #include <KDebug>
+#include <KStandardAction>
+#include <KApplication>
+
 
 #include <QGraphicsObject>
 #include <QDeclarativeItem>
@@ -50,10 +51,8 @@
 #include <knewstuff3/downloaddialog.h>
 
 MainWindow::MainWindow()
-    : KMainWindow()
+    : KXmlGuiWindow(0)
     , m_view(new QDeclarativeView(this))
-    , m_actionCollection(new KActionCollection(this))
-    , m_menu(new KMenu(this))
     , m_profile(new Profile(this))
     , m_resourceManager(new ResourceManager(this))
     , m_trainingSession(new TrainingSession(this))
@@ -73,39 +72,16 @@ MainWindow::MainWindow()
     m_kdeclarative.setupBindings(); //TODO use result for determining touch/desktop version
 
     // create menu
-    m_actionCollection->addAssociatedWidget(this);
-    m_menu->addSeparator();
-    KAction *editorAction = new KAction(i18n("Course Editor"), this);
-    connect(editorAction, SIGNAL(triggered()), SLOT(showCourseEditor()));
-    m_actionCollection->addAction("editor", editorAction);
-    editorAction->setIcon(KIcon("artikulate-course-editor"));
-    m_menu->addAction(editorAction);
-
-    KAction *settingsAction = new KAction(i18n("Settings"), this);
-    connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
-    m_actionCollection->addAction("settings", settingsAction);
-    settingsAction->setIcon(KIcon("configure"));
-    m_menu->addAction(settingsAction);
-
-    KAction *downloadsAction = new KAction(i18n("Download New Language Course"), this);
-    connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(slotDownloadNewStuff()));
-    m_actionCollection->addAction("download_new_stuff", downloadsAction);
-    downloadsAction->setIcon(KIcon("get-hot-new-stuff"));
-    m_menu->addAction(downloadsAction);
-
-    m_menu->addSeparator();
-
-    KHelpMenu *helpMenu = new KHelpMenu(m_menu, KCmdLineArgs::aboutData(), false, m_actionCollection);
-    m_menu->addMenu(helpMenu->menu());
+    setupActions();
 
     // set view
-    m_view->setMinimumSize(1000, 700);
+    setMinimumSize(QSize(1000, 700));
+
     m_view->setStyleSheet("background-color: transparent;");
     m_view->rootContext()->setContextObject(this);
 
     m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
 
-    m_view->rootContext()->setContextProperty("viewMode", Trainer);
     m_view->rootContext()->setContextProperty("userProfile", m_profile);
     m_view->rootContext()->setContextProperty("trainingSession", m_trainingSession);
 
@@ -127,19 +103,53 @@ ResourceManager * MainWindow::resourceManager() const
     return m_resourceManager;
 }
 
+void MainWindow::setupActions()
+{
+    KAction *editorAction = new KAction(i18n("Course Editor mode"), this);
+    connect(editorAction, SIGNAL(triggered()), SLOT(switchMode()));
+    connect(this, SIGNAL(modeChanged(bool)), editorAction, SLOT(setChecked(bool)));
+    actionCollection()->addAction("editor", editorAction);
+    editorAction->setIcon(KIcon("artikulate-course-editor"));
+    editorAction->setCheckable(true);
+    editorAction->setChecked(false);
+
+    KAction *settingsAction = new KAction(i18n("Configure Artikulate"), this);
+    connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
+    actionCollection()->addAction("settings", settingsAction);
+    settingsAction->setIcon(KIcon("configure"));
+
+    KAction *downloadsAction = new KAction(i18n("Download New Language Course"), this);
+    connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(slotDownloadNewStuff()));
+    actionCollection()->addAction("download_new_stuff", downloadsAction);
+    downloadsAction->setIcon(KIcon("get-hot-new-stuff"));
+
+    KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
+
+    setupGUI(Default, "artikulateui.rc");
+}
+
 void MainWindow::showCourseEditor()
 {
     m_view->rootObject()->setProperty("viewMode", Editor);
+    // untoggle editor view mode
+    emit modeChanged(true);
 }
 
 void MainWindow::closeCourseEditor()
 {
     m_view->rootObject()->setProperty("viewMode", Trainer);
+    // toggle editor view mode
+    emit modeChanged(false);
 }
 
-void MainWindow::showMenu(int xPos, int yPos)
+void MainWindow::switchMode()
 {
-    m_menu->popup(m_view->mapToGlobal(QPoint(xPos, yPos)));
+    if (m_view->rootObject()->property("viewMode") == Trainer){
+         showCourseEditor();
+    }
+    else {
+        closeCourseEditor();
+    }
 }
 
 void MainWindow::showSettingsDialog()

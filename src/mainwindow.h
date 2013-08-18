@@ -21,7 +21,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <KMainWindow>
+#include <KXmlGuiWindow>
 #include "core/resourcemanager.h"
 #include "core/trainingsession.h"
 
@@ -30,10 +30,11 @@ class KActionCollection;
 class KMenu;
 class QDeclarativeView;
 
-class MainWindow : public KMainWindow
+class MainWindow : public KXmlGuiWindow
 {
     Q_OBJECT
     Q_PROPERTY(ResourceManager *globalResourceManager READ resourceManager CONSTANT)
+
 public:
     Q_ENUMS(ViewMode)
     enum ViewMode {
@@ -53,20 +54,21 @@ public:
 
     ResourceManager * resourceManager() const;
 
-    Q_INVOKABLE void showMenu(int xPos, int yPos);
+    void setupActions();
 
-    virtual QSize sizeHint() const { return QSize(800,500); }
+    virtual QSize sizeHint() const { return QSize(1000, 700); }
 
 public slots:
     void showCourseEditor();
     void closeCourseEditor();
+    void switchMode();
     void showSettingsDialog();
     void slotDownloadNewStuff();
+signals:
+     void modeChanged(bool);
 
 private:
     QDeclarativeView *m_view;
-    KActionCollection *m_actionCollection;
-    KMenu *m_menu;
     Profile *m_profile;
     ResourceManager *m_resourceManager;
     TrainingSession *m_trainingSession;

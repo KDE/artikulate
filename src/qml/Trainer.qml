@@ -58,14 +58,6 @@ Item {
                 anchors.rightMargin: 3
                 spacing: 5
 
-                PlasmaComponents.ToolButton {
-                    id: configureButton
-                    iconSource: "configure"
-                    onClicked: {
-                        var position = mapToItem(null, 0, height)
-                        showMenu(position.x, position.y)
-                    }
-                }
                 Item { // spanner
                     width: header.width - configureButton.width - closeButton.width - 20
                     height: parent.height
