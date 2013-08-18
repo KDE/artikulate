@@ -23,7 +23,7 @@
 #include "soundbackends/qtmultimediabackend.h"
 #include "version.h"
 
-#ifdef NO_QTMULTIMEDIA
+#if NO_QTMULTIMEDIA
     #include "soundbackends/qtgstreamerbackend.h"
 #else
     #include "soundbackends/qtmultimediabackend.h"
