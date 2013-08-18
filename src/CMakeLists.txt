@@ -23,10 +23,22 @@
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
+set(ARTIKULATE_VERSION_MAJOR 0)
+set(ARTIKULATE_VERSION_MINOR 1)
+set(ARTIKULATE_VERSION_PATCH 90)
+
+configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
+
 include(MacroLogFeature)
 
-find_package(KDeclarative REQUIRED)
+# switch sound backend to QtGStreamer
+option(NO_QTMULTIMEDIA "NO_QTMULTIMEDIA" 0)
+add_feature_info(NoQtMultimedia
+    NO_QTMULTIMEDIA
+    "Use QtGStreamer for sound backend."
+)
 
+find_package(KDeclarative REQUIRED)
 find_package(QtMobility COMPONENTS MultimediaKit)
 find_package(QtGStreamer)
 
@@ -57,17 +69,10 @@ set(artikulateCore_SRCS
     core/capturedevicecontroller.cpp
     core/outputdevicecontroller.cpp
     core/soundbackends/soundbackendinterface.cpp
-    core/soundbackends/qtmultimediabackend.cpp
-    core/soundbackends/qtgstreamerbackend.cpp
-
     ui/newcoursedialog.cpp
 )
-kde4_add_ui_files(artikulateCore_SRCS
-    ui/newcoursedialog.ui
-)
-kde4_add_kcfg_files(artikulateCore_SRCS settings.kcfgc)
-kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})
-target_link_libraries(artikulatecore
+
+set(artikulateCoreTargetLibs
     ${KDECLARATIVE_LIBRARIES}
     ${KDE4_KDEUI_LIBS}
     ${KDE4_PLASMA_LIBS}
@@ -80,9 +85,39 @@ target_link_libraries(artikulatecore
     ${QT_QTXMLPATTERNS_LIBRARY}
     ${QT_QTSQL_LIBRARY}
     ${PHONON_LIBS}
-    ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
-    ${QTGLIB_LIBRARIES}
-    ${QTGSTREAMER_LIBRARIES}
+)
+
+# select backend and add files
+if (NO_QTMULTIMEDIA)
+    message("Build with alternative backend QtGStreamer")
+    set(artikulateCore_SRCS
+        ${artikulateCore_SRCS}
+        core/soundbackends/qtgstreamerbackend.cpp
+    )
+    set(artikulateCoreTargetLibs
+        ${artikulateCoreTargetLibs}
+        ${QTGLIB_LIBRARIES}
+        ${QTGSTREAMER_LIBRARIES}
+    )
+else(NO_QTMULTIMEDIA)
+    set(artikulateCore_SRCS
+        ${artikulateCore_SRCS}
+        core/soundbackends/qtmultimediabackend.cpp
+    )
+    set(artikulateCoreTargetLibs
+        ${artikulateCoreTargetLibs}
+        ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
+    )
+endif(NO_QTMULTIMEDIA)
+
+# compile UI files
+kde4_add_ui_files(artikulateCore_SRCS
+    ui/newcoursedialog.ui
+)
+kde4_add_kcfg_files(artikulateCore_SRCS settings.kcfgc)
+kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})
+target_link_libraries(artikulatecore
+    ${artikulateCoreTargetLibs}
 )
 set_target_properties(artikulatecore
     PROPERTIES VERSION ${GENERIC_LIB_VERSION}

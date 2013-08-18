@@ -21,9 +21,15 @@
 #include "capturedevicecontroller.h"
 #include "soundbackends/soundbackendinterface.h"
 #include "soundbackends/qtmultimediabackend.h"
-#include "soundbackends/qtgstreamerbackend.h"
-#include <settings.h>
+#include "version.h"
 
+#ifdef NO_QTMULTIMEDIA
+    #include "soundbackends/qtgstreamerbackend.h"
+#else
+    #include "soundbackends/qtmultimediabackend.h"
+#endif
+
+#include <settings.h>
 #include <QUrl>
 #include <KDebug>
 
@@ -56,9 +62,11 @@ public:
             return;
         }
 
-        //TODO port to different backends
-//         m_backend = new QtMultimediaBackend();
+#if NO_QTMULTIMEDIA
         m_backend = new QtGStreamerBackend();
+#else
+        m_backend = new QtMultimediaBackend();
+#endif
 
         m_initialized = true;
     }
