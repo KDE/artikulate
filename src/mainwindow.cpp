@@ -78,11 +78,13 @@ MainWindow::MainWindow()
     KAction *editorAction = new KAction(i18n("Course Editor"), this);
     connect(editorAction, SIGNAL(triggered()), SLOT(showCourseEditor()));
     m_actionCollection->addAction("editor", editorAction);
+    editorAction->setIcon(KIcon("artikulate-course-editor"));
     m_menu->addAction(editorAction);
 
     KAction *settingsAction = new KAction(i18n("Settings"), this);
     connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
     m_actionCollection->addAction("settings", settingsAction);
+    settingsAction->setIcon(KIcon("configure"));
     m_menu->addAction(settingsAction);
 
     KAction *downloadsAction = new KAction(i18n("Download New Language Course"), this);
