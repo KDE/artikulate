@@ -22,7 +22,6 @@
 #  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
-
 set(ARTIKULATE_VERSION_MAJOR 0)
 set(ARTIKULATE_VERSION_MINOR 1)
 set(ARTIKULATE_VERSION_PATCH 90)
@@ -40,7 +39,7 @@ add_feature_info(NoQtMultimedia
 
 find_package(KDeclarative REQUIRED)
 find_package(QtMobility COMPONENTS MultimediaKit)
-find_package(QtGStreamer)
+find_package(QtGStreamer QUIET)
 
 add_subdirectory(qml)
 
@@ -89,6 +88,9 @@ set(artikulateCoreTargetLibs
 
 # select backend and add files
 if (NO_QTMULTIMEDIA)
+    if (NOT QTGSTREAMER_FOUND)
+        message(FATAL_ERROR "Could not find QtGStreamer, which is required to build Artikulate with NO_QTMULTIMEDIA=TRUE.")
+    endif()
     message("Build with alternative backend QtGStreamer")
     set(artikulateCore_SRCS
         ${artikulateCore_SRCS}
