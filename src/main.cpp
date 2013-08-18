@@ -20,6 +20,7 @@
 
 #include "mainwindow.h"
 #include "application.h"
+#include "version.h"
 
 #include <KAboutData>
 #include <KCmdLineArgs>
@@ -29,7 +30,7 @@
 static const char description[] =
     I18N_NOOP("Learn and practice pronunciation.");
 
-static const char version[] = "0.1.90";
+static const char version[] = "ARTIKULATE_VERSION_STR";
 
 int main(int argc, char **argv)
 {

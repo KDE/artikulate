@@ -19,13 +19,18 @@
  */
 
 #include "capturedevicecontroller.h"
+#include "soundbackends/soundbackendinterface.h"
+#include "soundbackends/qtmultimediabackend.h"
+#include "version.h"
+
+#ifdef NO_QTMULTIMEDIA
+    #include "soundbackends/qtgstreamerbackend.h"
+#else
+    #include "soundbackends/qtmultimediabackend.h"
+#endif
+
 #include <settings.h>
-
-#include <QMediaRecorder>
-#include <QAudioInput>
-#include <QAudioCaptureSource>
 #include <QUrl>
-
 #include <KDebug>
 
 /**
@@ -48,8 +53,7 @@ public:
 
     ~CaptureDeviceControllerPrivate()
     {
-        delete m_audioInput;
-        delete m_captureSource;
+        delete m_backend;
     }
 
     void lazyInit()
@@ -58,38 +62,18 @@ public:
             return;
         }
 
-        // initialize
-        m_captureSource = new QAudioCaptureSource(m_parent);
-        m_audioInput = new QMediaRecorder(m_captureSource, m_parent);
-
-        if (!m_captureSource->isAvailable()) {
-            kError() << "Audio capture source not available.";
-        }
-
-        // check and set input device
-        if (Settings::audioInputDevice().isEmpty()) {
-            kDebug() << "Audio device not set, using default value.";
-            Settings::setAudioInputDevice(m_captureSource->activeAudioInput());
-        }
-        if (m_captureSource->audioInputs().contains(Settings::audioInputDevice())) {
-            m_captureSource->setAudioInput(Settings::audioInputDevice());
-        } else {
-            kError() << "Could not set audio input device, device " << Settings::audioInputDevice()
-                << "is unknown. Using default device.";
-        }
-
-        // check code
-        if (!m_audioInput->supportedAudioCodecs().contains("audio/vorbis")) {
-            kError() << "Audio codec vorbis/ogg is not available, cannot record sound files.";
-        }
+#if NO_QTMULTIMEDIA
+        m_backend = new QtGStreamerBackend();
+#else
+        m_backend = new QtMultimediaBackend();
+#endif
 
         m_initialized = true;
     }
 
     QObject *m_parent;
+    SoundBackendInterface *m_backend;
     bool m_initialized;
-    QMediaRecorder *m_audioInput;
-    QAudioCaptureSource *m_captureSource;
 };
 
 CaptureDeviceController::CaptureDeviceController()
@@ -110,48 +94,22 @@ CaptureDeviceController & CaptureDeviceController::self()
 
 void CaptureDeviceController::startCapture(const QString &filePath)
 {
-    if (d->m_audioInput->state() == QMediaRecorder::RecordingState) {
-        kError() << "Currently recording, aborting record start";
-        return;
-    }
-
-    // set output location
-    //FIXME for a really strange reason, only the following notation works to get a correct
-    // output file; neither QUrl::fromLocalFile, nor the KUrl equivalents are working
-    // --> investigate why!
-    d->m_audioInput->setOutputLocation(QUrl(filePath));
-
-    QAudioEncoderSettings audioSettings;
-    audioSettings.setCodec("audio/vorbis");
-    audioSettings.setSampleRate(0);
-    audioSettings.setBitRate(0);
-    audioSettings.setQuality(QtMultimediaKit::NormalQuality);
-    audioSettings.setEncodingMode(QtMultimediaKit::ConstantQualityEncoding);
-    QString container = "ogg";
-
-    d->m_audioInput->setEncodingSettings(audioSettings, QVideoEncoderSettings(), container);
-
-    d->m_audioInput->record();
+    d->m_backend->startCapture(filePath);
     emit captureStarted();
 }
 
 void CaptureDeviceController::stopCapture()
 {
-    d->m_audioInput->stop();
+    d->m_backend->stopCapture();
     emit captureStopped();
 }
 
 void CaptureDeviceController::setDevice(const QString &deviceIdentifier)
 {
-    if (!d->m_captureSource->audioInputs().contains(deviceIdentifier)) {
-        kError() << "Audio input devicde " << deviceIdentifier << " is unknown, aborting.";
-        return;
-    }
-    d->m_captureSource->setAudioInput(deviceIdentifier);
+    d->m_backend->setDevice(deviceIdentifier);
 }
 
-QMediaRecorder::State CaptureDeviceController::state() const
+CaptureDeviceController::State CaptureDeviceController::state() const
 {
-    return d->m_audioInput->state();
+    return d->m_backend->captureState();
 }
-

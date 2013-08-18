@@ -18,68 +18,65 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CAPTUREDEVICECONTROLLER_H
-#define CAPTUREDEVICECONTROLLER_H
+#ifndef OUTPUTDEVICECONTROLLER_H
+#define OUTPUTDEVICECONTROLLER_H
 
 #include "artikulatecore_export.h"
 
 #include <QObject>
-#include <QMediaRecorder>
+#include <Phonon/AudioOutput>
+#include <Phonon/MediaObject>
 
-class CaptureDeviceControllerPrivate;
+class OutputDeviceControllerPrivate;
 class KUrl;
 
 /**
- * \class CaptureDeviceController
+ * \class OutputDeviceController
  *
- * This singelton class provides a controller for the sound capture device.
+ * This singelton class provides a controller for the sound output device.
  */
-class ARTIKULATELIB_EXPORT CaptureDeviceController : public QObject
+class ARTIKULATELIB_EXPORT OutputDeviceController : public QObject
 {
     Q_OBJECT
 
 public:
-    enum State
-    {
-        StoppedState,
-        RecordingState,
-        PausedState
-    };
-
     /**
      * Returns self reference to the controller. First call of this method initializes
-     * capture device controller.
+     * output device controller.
      *
      * \return self reference
      */
-    static CaptureDeviceController & self();
+    static OutputDeviceController & self();
 
-    void startCapture(const QString &filePath);
-    CaptureDeviceController::State state() const;
-    void stopCapture();
-    void setDevice(const QString &deviceIdentifier);
+    void play(const KUrl &filePath);
+    Phonon::State state() const;
+    void stop();
+    QString currentSource() const;
 
 public Q_SLOTS:
 
 
 Q_SIGNALS:
-    void captureStarted();
-    void captureStopped();
+    void started();
+    void stopped();
+
+private Q_SLOTS:
+    void updateState();
 
 private:
-    Q_DISABLE_COPY(CaptureDeviceController)
+    Q_DISABLE_COPY(OutputDeviceController)
     /**
      * \internal
      * Private constructor, \ref self().
      */
-    CaptureDeviceController();
+    OutputDeviceController();
 
     /**
      * Private destructor.
      */
-    ~CaptureDeviceController();
+    ~OutputDeviceController();
 
-    const QScopedPointer<CaptureDeviceControllerPrivate> d;
+    const QScopedPointer<OutputDeviceControllerPrivate> d;
 };
 
 #endif
