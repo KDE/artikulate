@@ -120,7 +120,7 @@ bool TrainingSession::isFinished() const
     return false;
 }
 
-void TrainingSession::setPhraseType(QString newType)
+void TrainingSession::setPhraseType(const QString &newType)
 {
     if (newType=="word" && not m_phraseListUntrained[Phrase::Word].isEmpty()) {
         m_currentType = Phrase::Word;
@@ -135,7 +135,6 @@ void TrainingSession::setPhraseType(QString newType)
         m_currentType = Phrase::Paragraph;
     }
     emit currentTypeChanged();
-    TrainingPhrase currentPhrase = m_phraseListUntrained.value(m_currentType).first();
     emit currentPhraseChanged();
 }
 
