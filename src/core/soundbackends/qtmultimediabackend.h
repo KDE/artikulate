@@ -22,6 +22,7 @@
 #define QTMULTIMEDIABACKEND_H
 
 #include "soundbackendinterface.h"
+#include <QMediaRecorder>
 
 class QAudioCaptureSource;
 

@@ -24,7 +24,6 @@
 #include "artikulatecore_export.h"
 
 #include <QObject>
-#include <QMediaRecorder>
 
 class CaptureDeviceControllerPrivate;
 class KUrl;
