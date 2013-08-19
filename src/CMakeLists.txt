@@ -48,9 +48,6 @@ include_directories(
     ${QT_INCLUDE}
     ${KDE4_INCLUDES}
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${QTMOBILITY_INCLUDE_DIR}
-    ${QTMOBILITY_MULTIMEDIAKIT_INCLUDE_DIR}
-    ${QTGSTREAMER_INCLUDE_DIR}
 )
 
 # set the source code files from which Artikulate is compiled
@@ -86,8 +83,28 @@ set(artikulateCoreTargetLibs
     ${PHONON_LIBS}
 )
 
+set(artikulateTargetLibs
+    artikulatecore
+    ${KDECLARATIVE_LIBRARIES}
+    ${KDE4_KDEUI_LIBS}
+    ${KDE4_PLASMA_LIBS}
+    ${KDE4_KIO_LIBS}
+    ${KDE4_KCMUTILS_LIBS}
+    ${QT_QTCORE_LIBRARY}
+    ${QT_QTOPENGL_LIBRARY}
+    ${QT_QTSCRIPT_LIBRARY}
+    ${QT_QTDECLARATIVE_LIBRARY}
+    ${QT_QTXMLPATTERNS_LIBRARY}
+    ${QT_QTSQL_LIBRARY}
+    ${PHONON_LIBS}
+    ${KDE4_KNEWSTUFF3_LIBS}
+)
+
 # select backend and add files
 if (NO_QTMULTIMEDIA)
+    include_directories(
+        ${QTGSTREAMER_INCLUDE_DIR}
+    )
     if (NOT QTGSTREAMER_FOUND)
         message(FATAL_ERROR "Could not find QtGStreamer, which is required to build Artikulate with NO_QTMULTIMEDIA=TRUE.")
     endif()
@@ -101,7 +118,16 @@ if (NO_QTMULTIMEDIA)
         ${QTGLIB_LIBRARIES}
         ${QTGSTREAMER_LIBRARIES}
     )
+    set(artikulateeTargetLibs
+        ${artikulateTargetLibs}
+        ${QTGLIB_LIBRARIES}
+        ${QTGSTREAMER_LIBRARIES}
+    )
 else(NO_QTMULTIMEDIA)
+    include_directories(
+        ${QTMOBILITY_INCLUDE_DIR}
+        ${QTMOBILITY_MULTIMEDIAKIT_INCLUDE_DIR}
+    )
     if (NOT QTMOBILITY_FOUND)
         message(FATAL_ERROR "Could not find QtMultimedia (part of QtMobility), which is required to build Artikulate with NO_QTMULTIMEDIA=FALSE.")
     endif()
@@ -112,6 +138,10 @@ else(NO_QTMULTIMEDIA)
     )
     set(artikulateCoreTargetLibs
         ${artikulateCoreTargetLibs}
+        ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
+    )
+    set(artikulateeTargetLibs
+        ${artikulateTargetLibs}
         ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
     )
 endif(NO_QTMULTIMEDIA)
@@ -158,25 +188,8 @@ kde4_add_ui_files(artikulate_SRCS
 )
 kde4_add_kcfg_files(artikulate_SRCS settings.kcfgc)
 kde4_add_executable(artikulate ${artikulate_SRCS})
-
 target_link_libraries(artikulate
-    artikulatecore
-    ${KDECLARATIVE_LIBRARIES}
-    ${KDE4_KDEUI_LIBS}
-    ${KDE4_PLASMA_LIBS}
-    ${KDE4_KIO_LIBS}
-    ${KDE4_KCMUTILS_LIBS}
-    ${QT_QTCORE_LIBRARY}
-    ${QT_QTOPENGL_LIBRARY}
-    ${QT_QTSCRIPT_LIBRARY}
-    ${QT_QTDECLARATIVE_LIBRARY}
-    ${QT_QTXMLPATTERNS_LIBRARY}
-    ${QT_QTSQL_LIBRARY}
-    ${PHONON_LIBS}
-    ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
-    ${KDE4_KNEWSTUFF3_LIBS}
-    ${QTGLIB_LIBRARIES}
-    ${QTGSTREAMER_LIBRARIES}
+    ${artikulateTargetLibs}
 )
 
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})
