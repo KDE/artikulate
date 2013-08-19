@@ -38,7 +38,7 @@ add_feature_info(NoQtMultimedia
 )
 
 find_package(KDeclarative REQUIRED)
-find_package(QtMobility COMPONENTS MultimediaKit)
+find_package(QtMobility COMPONENTS MultimediaKit QUIET)
 find_package(QtGStreamer QUIET)
 
 add_subdirectory(qml)
@@ -102,6 +102,10 @@ if (NO_QTMULTIMEDIA)
         ${QTGSTREAMER_LIBRARIES}
     )
 else(NO_QTMULTIMEDIA)
+    if (NOT QTMOBILITY_FOUND)
+        message(FATAL_ERROR "Could not find QtMultimedia (part of QtMobility), which is required to build Artikulate with NO_QTMULTIMEDIA=FALSE.")
+    endif()
+    message("Build with default backend QtMultimedia")
     set(artikulateCore_SRCS
         ${artikulateCore_SRCS}
         core/soundbackends/qtmultimediabackend.cpp

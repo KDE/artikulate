@@ -53,9 +53,11 @@ find_path(QTMOBILITY_INCLUDE_DIR qmobilityglobal.h PATH_SUFFIXES QtMobility)
 
 #Find the mobility version
 if(QTMOBILITY_INCLUDE_DIR)
-    file(READ "${QTMOBILITY_INCLUDE_DIR}/qmobilityglobal.h" _qtmobility_global_header LIMIT 5000)
-    string(REGEX MATCH "#define QTM_VERSION_STR +\"([0-9.]*)\"" _qtmobility_version_match  "${_qtmobility_global_header}")
-    set(QTMOBILITY_VERSION "${CMAKE_MATCH_1}")
+    if(EXISTS "${QTMOBILITY_INCLUDE_DIR}/qmobilityglobal.h")
+        file(READ "${QTMOBILITY_INCLUDE_DIR}/qmobilityglobal.h" _qtmobility_global_header LIMIT 5000)
+        string(REGEX MATCH "#define QTM_VERSION_STR +\"([0-9.]*)\"" _qtmobility_version_match  "${_qtmobility_global_header}")
+        set(QTMOBILITY_VERSION "${CMAKE_MATCH_1}")
+    endif()
 endif(QTMOBILITY_INCLUDE_DIR)
 
 set(QTMOBILITY_VARIABLES "QTMOBILITY_INCLUDE_DIR")
