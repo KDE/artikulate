@@ -20,7 +20,6 @@
 
 #include "capturedevicecontroller.h"
 #include "soundbackends/soundbackendinterface.h"
-#include "soundbackends/qtmultimediabackend.h"
 #include "version.h"
 
 #if NO_QTMULTIMEDIA
