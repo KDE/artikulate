@@ -49,9 +49,6 @@ private:
     QList<QString> m_audioInputs;
     QList<QString> m_audioOutputs;
     KTemporaryFile m_recordTestFile;
-
-    QMediaPlayer *m_audioOutput;
-    QMediaPlayer *m_audioRecordedOutput;
 };
 
 #endif

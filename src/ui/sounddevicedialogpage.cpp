@@ -20,18 +20,14 @@
 
 #include "sounddevicedialogpage.h"
 #include <core/capturedevicecontroller.h>
+#include <core/outputdevicecontroller.h>
 #include "settings.h"
 
 #include <KLocale>
 #include <KStandardDirs>
-#include <QAudioDeviceInfo>
-#include <QAudioCaptureSource>
-#include <QMediaPlayer>
 
 SoundDeviceDialogPage::SoundDeviceDialogPage()
     : QWidget(0)
-    , m_audioOutput(new QMediaPlayer)
-    , m_audioRecordedOutput(new QMediaPlayer)
 {
     ui = new Ui::SoundDeviceDialogPage;
     ui->setupUi(this);
@@ -68,8 +64,8 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
     connect(ui->buttonPlayTestSound, SIGNAL(clicked(bool)), this, SLOT(playTestSound()));
     connect(ui->buttonPlayRecordedTestSound, SIGNAL(clicked(bool)), this, SLOT(playRecordedSound()));
     connect(ui->buttonRecordTestSound, SIGNAL(clicked(bool)), this, SLOT(recordSound()));
-    connect(m_audioOutput, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(updatePlayButtonIcons()));
-    connect(m_audioRecordedOutput, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(updatePlayButtonIcons()));
+    connect(&OutputDeviceController::self(), SIGNAL(started()), this, SLOT(updatePlayButtonIcons()));
+    connect(&OutputDeviceController::self(), SIGNAL(stopped()), this, SLOT(updatePlayButtonIcons()));
 }
 
 SoundDeviceDialogPage::~SoundDeviceDialogPage()
@@ -98,25 +94,23 @@ void SoundDeviceDialogPage::saveSettings()
 
 void SoundDeviceDialogPage::playTestSound()
 {
-    if (m_audioOutput->state() == QMediaPlayer::PlayingState) {
-        m_audioOutput->stop();
+    if (OutputDeviceController::self().state() == Phonon::PlayingState) {
+        OutputDeviceController::self().stop();
         return;
     }
     QString testsoundFile = KGlobal::dirs()->findResource("appdata", QString("sounds/testsound.ogg"));
-    m_audioOutput->setMedia(KUrl::fromLocalFile(testsoundFile));
-    m_audioOutput->setVolume(ui->kcfg_AudioOutputVolume->value());
-    m_audioOutput->play();
+    OutputDeviceController::self().play(KUrl::fromLocalFile(testsoundFile));
+//     m_audioOutput->setVolume(ui->kcfg_AudioOutputVolume->value()); // FIXME set at output device
 }
 
 void SoundDeviceDialogPage::playRecordedSound()
 {
-    if (m_audioRecordedOutput->state() == QMediaPlayer::PlayingState) {
-        m_audioRecordedOutput->stop();
+    if (OutputDeviceController::self().state() == Phonon::PlayingState) {
+        OutputDeviceController::self().stop();
         return;
     }
-    m_audioRecordedOutput->setMedia(KUrl::fromLocalFile(m_recordTestFile.fileName()));
-    m_audioRecordedOutput->setVolume(ui->kcfg_AudioOutputVolume->value());
-    m_audioRecordedOutput->play();
+    OutputDeviceController::self().play(KUrl::fromLocalFile(m_recordTestFile.fileName()));
+//     m_audioRecordedOutput->setVolume(ui->kcfg_AudioOutputVolume->value()); //FIXME
 }
 
 void SoundDeviceDialogPage::recordSound()
@@ -137,11 +131,11 @@ void SoundDeviceDialogPage::recordSound()
 void SoundDeviceDialogPage::updatePlayButtonIcons()
 {
     // default sound output test
-    switch (m_audioOutput->state()) {
-    case QMediaPlayer::PlayingState:
+    switch (OutputDeviceController::self().state()) {
+    case Phonon::PlayingState:
         ui->buttonPlayTestSound->setIcon(KIcon("media-playback-stop"));
         break;
-    case QMediaPlayer::StoppedState:
+    case Phonon::StoppedState:
         ui->buttonPlayTestSound->setIcon(KIcon("media-playback-start"));
         break;
     default:
@@ -149,11 +143,11 @@ void SoundDeviceDialogPage::updatePlayButtonIcons()
     }
 
     // recorded sound output test
-    switch (m_audioRecordedOutput->state()) {
-    case QMediaPlayer::PlayingState:
+    switch (OutputDeviceController::self().state()) {
+    case Phonon::PlayingState:
         ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-stop"));
         break;
-    case QMediaPlayer::StoppedState:
+    case Phonon::StoppedState:
         ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-start"));
         break;
     default:
