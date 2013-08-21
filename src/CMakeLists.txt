@@ -183,6 +183,7 @@ set(artikulate_SRCS
     models/skeletonmodel.cpp
 
     ui/sounddevicedialogpage.cpp
+    ui/appearencedialogpage.cpp
     ui/resourcesdialogpage.cpp
 
     declarativeitems/applicationbackground.cpp
@@ -190,6 +191,7 @@ set(artikulate_SRCS
 kde4_add_ui_files(artikulate_SRCS
     ui/resourcesdialogpage.ui
     ui/sounddevicedialogpage.ui
+    ui/appearencedialogpage.ui
 )
 kde4_add_kcfg_files(artikulate_SRCS settings.kcfgc)
 kde4_add_executable(artikulate ${artikulate_SRCS})

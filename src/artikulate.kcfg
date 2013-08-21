@@ -24,5 +24,12 @@
       <label>Audio output volume</label>
       <default>90</default>
     </entry>
+    <entry name="TrainingPhraseFont" type="Font">
+      <label>Font</label>
+      <code>QFont defaultFont = QFont();
+            defaultFont.setPointSize(20);
+      </code>
+      <default code="true">defaultFont</default>
+    </entry>
   </group>
 </kcfg>

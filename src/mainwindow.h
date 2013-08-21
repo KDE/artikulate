@@ -64,6 +64,8 @@ public slots:
     void switchMode();
     void showSettingsDialog();
     void slotDownloadNewStuff();
+    void slotUpdateTrianingPhraseFont();
+
 signals:
      void modeChanged(bool);
 

@@ -21,6 +21,7 @@
 #include "mainwindow.h"
 #include "ui/resourcesdialogpage.h"
 #include "ui/sounddevicedialogpage.h"
+#include "ui/appearencedialogpage.h"
 #include "core/resourcemanager.h"
 #include "core/profile.h"
 #include "models/languagemodel.h"
@@ -91,6 +92,10 @@ MainWindow::MainWindow()
 
     // set initial view
     m_view->rootObject()->setProperty("viewMode", Trainer);
+
+    // set font for the phrase in trainer to default from kcfg file
+    QObject *phraseText = m_view->rootObject()->findChild<QObject*>("phraseText");
+    phraseText->setProperty("font", Settings::trainingPhraseFont());
 }
 
 MainWindow::~MainWindow()
@@ -162,19 +167,31 @@ void MainWindow::showSettingsDialog()
 
     ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_resourceManager);
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
+    AppearenceDialogPage *appearenceDialog = new AppearenceDialogPage();
+
     resourceDialog->loadSettings();
     soundDialog->loadSettings();
+    appearenceDialog->loadSettings();
 
     dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), "audio-headset", i18nc("@title:tab", "Sound Device Settings"), true);
+    dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Fonts"), "preferences-desktop-font", i18nc("@title:tab", "Training Phrase Font"), true);
     dialog->addPage(resourceDialog, i18nc("@item:inmenu", "Course Resources"), "repository", i18nc("@title:tab", "Resource Repository Settings"), true);
-
 
 //     connect(dialog, SIGNAL(settingsChanged(const QString&)), resourceDialog, SLOT(loadSettings()));
 //     connect(dialog, SIGNAL(settingsChanged(const QString&)), soundDialog, SLOT(loadSettings()));
     connect(dialog, SIGNAL(accepted()), resourceDialog, SLOT(saveSettings()));
     connect(dialog, SIGNAL(accepted()), soundDialog, SLOT(saveSettings()));
+    connect(dialog, SIGNAL(accepted()), appearenceDialog, SLOT(saveSettings()));
+    connect(dialog, SIGNAL(accepted()), SLOT(slotUpdateTrianingPhraseFont()));
 
     dialog->exec();
+}
+
+void MainWindow::slotUpdateTrianingPhraseFont()
+{
+    QObject *phraseText = m_view->rootObject()->findChild<QObject*>("phraseText");
+    QFont f = phraseText->property("font").value<QFont>();
+    phraseText->setProperty("font", Settings::trainingPhraseFont());
 }
 
 void MainWindow::slotDownloadNewStuff()
