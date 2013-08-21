@@ -30,7 +30,7 @@
 static const char description[] =
     I18N_NOOP("Learn and practice pronunciation.");
 
-static const char version[] = "ARTIKULATE_VERSION_STR";
+static const char version[] = ARTIKULATE_VERSION_STR;
 
 int main(int argc, char **argv)
 {
