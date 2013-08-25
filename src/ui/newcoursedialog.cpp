@@ -24,6 +24,7 @@
 #include "core/skeleton.h"
 #include "core/course.h"
 #include "core/resources/languageresource.h"
+#include "core/resources/courseresource.h"
 #include "settings.h"
 
 #include <KLocale>
@@ -102,10 +103,10 @@ void NewCourseDialog::createCourse()
         course->setFile(KUrl::fromLocalFile(path));
     }
 
-    m_createdCourse = course;
+    m_createdCourse = new CourseResource(m_resourceManager, course);
 }
 
-Course * NewCourseDialog::course() const
+CourseResource * NewCourseDialog::courseResource() const
 {
     return m_createdCourse;
 }

@@ -99,7 +99,7 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_resourceManager->courseList(m_language).count()) {
+    if (index.row() >= m_resourceManager->courseResources(m_language).count()) {
         return QVariant();
     }
 
@@ -139,7 +139,7 @@ int CourseModel::rowCount(const QModelIndex& parent) const
         return 0;
     }
 
-    return m_resourceManager->courseList(m_language).count();
+    return m_resourceManager->courseResources(m_language).count();
 }
 
 void CourseModel::onCourseAboutToBeAdded(Course *course, int index)
@@ -188,7 +188,7 @@ void CourseModel::updateMappings()
         kDebug() << "Aborting to update mappings, language not set.";
         return;
     }
-    int courses = m_resourceManager->courseList(m_language).count();
+    int courses = m_resourceManager->courseResources(m_language).count();
     for (int i = 0; i < courses; i++) {
         m_signalMapper->setMapping(m_resourceManager->course(m_language, i), i);
     }

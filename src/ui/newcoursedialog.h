@@ -25,7 +25,7 @@
 #include <KDialog>
 
 class ResourceManager;
-class Course;
+class CourseResource;
 
 class NewCourseDialog :
     public KDialog
@@ -35,7 +35,7 @@ class NewCourseDialog :
 public:
     explicit NewCourseDialog(ResourceManager *resourceMgr);
     virtual ~NewCourseDialog();
-    Course * course() const;
+    CourseResource * courseResource() const;
 
 public slots:
     void createCourse();
@@ -43,7 +43,7 @@ public slots:
 private:
     Ui::NewCourseDialog *ui;
     ResourceManager *m_resourceManager;
-    Course *m_createdCourse;
+    CourseResource *m_createdCourse;
 };
 
 #endif

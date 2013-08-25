@@ -27,6 +27,7 @@
 #include "phoneme.h"
 #include "phonemegroup.h"
 #include "resources/languageresource.h"
+#include "resources/courseresource.h"
 #include <ui/newcoursedialog.h>
 #include "settings.h"
 
@@ -148,15 +149,15 @@ QList< LanguageResource* > ResourceManager::languageResources() const
 
 Language * ResourceManager::language(int index) const
 {
-    Q_ASSERT (index >= 0 && index < m_languageList.count());
+    Q_ASSERT (index >= 0 && index < m_languageResources.count());
     return m_languageResources.at(index)->language();
 }
 
-QList< Course* > ResourceManager::courseList(Language *language)
+QList< CourseResource* > ResourceManager::courseResources(Language *language)
 {
-    //TODO compare with cache if content change and possibly update
-    if (!m_courseList.contains(language) && m_courseFileCache.contains(language->id())) {
-        m_courseList.insert(language, QList< Course* >());
+    //TODO remove this caching, not neededn anymore
+    if (!m_courseResources.contains(language->id()) && m_courseFileCache.contains(language->id())) {
+        m_courseResources.insert(language->id(), QList< CourseResource* >());
         QList<KUrl> courseFiles = m_courseFileCache.values(language->id());
         for (int i = 0; i < courseFiles.size(); ++i) {
             addCourse(courseFiles[i]);
@@ -164,126 +165,18 @@ QList< Course* > ResourceManager::courseList(Language *language)
     }
 
     // return empty list if no course available
-    if (!m_courseList.contains(language)) {
-        return QList< Course* >();
+    if (!m_courseResources.contains(language->id())) {
+        return QList< CourseResource* >();
     }
-    return m_courseList[language];
+    return m_courseResources[language->id()];
 }
 
 Course * ResourceManager::course(Language *language, int index) const
 {
-    Q_ASSERT(m_courseList.contains(language));
-    Q_ASSERT(index >= 0 && index < m_courseList[language].count());
+    Q_ASSERT(m_courseResources.contains(language->id()));
+    Q_ASSERT(index >= 0 && index < m_courseResources[language->id()].count());
 
-    return m_courseList[language].at(index);
-}
-
-Course * ResourceManager::loadCourse(const KUrl &courseFile)
-{
-    if (!courseFile.isLocalFile()) {
-        kWarning() << "Cannot open course file at " << courseFile.toLocalFile() << ", aborting.";
-        return 0;
-    }
-
-    QXmlSchema schema = loadXmlSchema("course");
-    if (!schema.isValid()) {
-        return 0;
-    }
-
-    QDomDocument document = loadDomDocument(courseFile, schema);
-    if (document.isNull()) {
-        kWarning() << "Could not parse document " << courseFile.toLocalFile() << ", aborting.";
-        return 0;
-    }
-
-    // create course
-    QDomElement root(document.documentElement());
-    Course *course = new Course(this);
-
-    course->setFile(courseFile);
-    course->setId(root.firstChildElement("id").text());
-    course->setTitle(root.firstChildElement("title").text());
-    course->setDescription(root.firstChildElement("description").text());
-    if (!root.firstChildElement("foreignId").isNull()) {
-        course->setForeignId(root.firstChildElement("foreignId").text());
-    }
-
-    // set language
-    //TODO not efficient to load completely every language for this comparison
-    QString language = root.firstChildElement("language").text();
-    QList<LanguageResource*>::ConstIterator iter = m_languageResources.constBegin();
-    while (iter != m_languageResources.constEnd()) {
-        if ((*iter)->language()->id() == language) {
-            course->setLanguage((*iter)->language());
-            break;
-        }
-        ++iter;
-    }
-    if (course->language() == 0) {
-        kWarning() << "Language ID" << language << "unknown, could not register any language, aborting";
-        return 0;
-    }
-
-    // create units
-    for (QDomElement unitNode = root.firstChildElement("units").firstChildElement();
-         !unitNode.isNull();
-         unitNode = unitNode.nextSiblingElement())
-    {
-        Unit *unit = new Unit(course);
-        unit->setId(unitNode.firstChildElement("id").text());
-        unit->setCourse(course);
-        unit->setTitle(unitNode.firstChildElement("title").text());
-        if (!unitNode.firstChildElement("foreignId").isNull()) {
-            unit->setForeignId(unitNode.firstChildElement("foreignId").text());
-        }
-        course->addUnit(unit);
-
-        // create phrases
-        for (QDomElement phraseNode = unitNode.firstChildElement("phrases").firstChildElement();
-            !phraseNode.isNull();
-            phraseNode = phraseNode.nextSiblingElement())
-        {
-            Phrase *phrase = new Phrase(unit);
-            phrase->setId(phraseNode.firstChildElement("id").text());
-            phrase->setText(phraseNode.firstChildElement("text").text());
-            phrase->seti18nText(phraseNode.firstChildElement("i18nText").text());
-            phrase->setUnit(unit);
-            if (!phraseNode.firstChildElement("soundFile").text().isEmpty()) {
-                phrase->setSound(KUrl::fromLocalFile(
-                        courseFile.directory() + '/' + phraseNode.firstChildElement("soundFile").text())
-                    );
-            }
-            phrase->setType(phraseNode.firstChildElement("type").text());
-            phrase->setEditState(phraseNode.firstChildElement("editState").text());
-            if (!phraseNode.firstChildElement("foreignId").isNull()) {
-                phrase->setForeignId(phraseNode.firstChildElement("foreignId").text());
-            }
-
-            // add phonemes
-            QList<Phoneme *> phonemes = course->language()->phonemes();
-            for (QDomElement phonemeID = phraseNode.firstChildElement("phonemes").firstChildElement();
-                !phonemeID.isNull();
-                    phonemeID = phonemeID.nextSiblingElement())
-            {
-                QString id = phonemeID.text();
-                if (id.isEmpty()) {
-                    kError() << "Phoneme ID string is empty for phrase "<< phrase->id() <<", aborting.";
-                    continue;
-                }
-                foreach (Phoneme *phoneme, phonemes) {
-                    if (phoneme->id() == id) {
-                        phrase->addPhoneme(phoneme);
-                        break;
-                    }
-                }
-            }
-            unit->addPhrase(phrase); // add to unit at last step to produce only one signal
-            //FIXME phrase does not cause unit signals that phonemes list is changed
-        }
-    }
-    course->setModified(false);
-
-    return course;
+    return m_courseResources[language->id()].at(index)->course();
 }
 
 void ResourceManager::reloadCourseOrSkeleton(Course *courseOrSkeleton)
@@ -388,44 +281,49 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
 
 bool ResourceManager::addCourse(const KUrl &courseFile)
 {
-    Course *course = loadCourse(courseFile);
-    if (course == 0) {
-        kError() << "Could not load course, aborting";
+    CourseResource *resource = new CourseResource(this, courseFile);
+    if (resource->language().isEmpty()) {
+        kError() << "Could not load course, language unknown:" << courseFile.toLocalFile();
         return false;
     }
-    addCourse(course);
+    addCourseResource(resource);
+
     return true;
 }
 
-void ResourceManager::addCourse(Course *course)
+void ResourceManager::addCourseResource(CourseResource *resource)
 {
-    Q_ASSERT(m_languageList.contains(course->language()));
+    Q_ASSERT(m_courseResources.contains(resource->language()));
 
-    if (m_courseList.contains(course->language())) {
-        emit courseAboutToBeAdded(course, m_courseList[course->language()].count());
+    if (m_courseResources.contains(resource->language())) {
+        emit courseAboutToBeAdded(resource->course(), m_courseResources[resource->language()].count());
     }
     else {
-        emit courseAboutToBeAdded(course, 0);
-        m_courseList.insert(course->language(), QList<Course*>());
+        emit courseAboutToBeAdded(resource->course(), 0);
+        m_courseResources.insert(resource->language(), QList<CourseResource*>());
     }
-    m_courseList[course->language()].append(course);
+    m_courseResources[resource->language()].append(resource);
     emit courseAdded();
 }
 
 void ResourceManager::removeCourse(Course *course)
 {
-    int index = m_courseList[course->language()].indexOf(course);
-    emit courseAboutToBeRemoved(index, index);
-    m_courseList[course->language()].removeAt(index);
-    emit courseRemoved();
-    course->deleteLater();
+    for (int index=0; index < m_courseResources[course->language()->id()].length(); index++) {
+        if (m_courseResources[course->language()->id()].at(index)->course() == course) {
+            emit courseAboutToBeRemoved(index, index);
+            m_courseResources[course->language()->id()].removeAt(index);
+            emit courseRemoved();
+            course->deleteLater();
+            return;
+        }
+    }
 }
 
 void ResourceManager::newCourseDialog()
 {
     QPointer<NewCourseDialog> dialog = new NewCourseDialog(this);
     if (dialog->exec() == QDialog::Accepted ) {
-        addCourse(dialog->course());
+        addCourseResource(dialog->courseResource());
     }
 }
 

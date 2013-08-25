@@ -25,6 +25,7 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/resources/languageresource.h"
+#include <core/resources/courseresource.h>
 #include "../src/settings.h"
 
 #include <qtest_kde.h>
@@ -82,9 +83,9 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     manager.addCourse(KUrl::fromLocalFile("data/courses/de.xml"));
 
     // test to encure further logic
-    QVERIFY(manager.courseList(manager.languageResources().first()->language()).count() == 1);
+    QVERIFY(manager.courseResources(manager.languageResources().first()->language()).count() == 1);
 
-    Course *testCourse = manager.courseList(manager.languageResources().first()->language()).first();
+    Course *testCourse = manager.courseResources(manager.languageResources().first()->language()).first()->course();
     KTemporaryFile outputFile;
     outputFile.setSuffix(".xml");
     outputFile.open();
@@ -100,7 +101,7 @@ void TestCourseFiles::fileLoadSaveCompleteness()
 
     //TODO this only works, since the resource manager not checks uniqueness of course ids!
     manager.addCourse(KUrl::fromLocalFile(outputFile.fileName()));
-    Course *compareCourse = manager.courseList(manager.languageResources().first()->language()).last();
+    Course *compareCourse = manager.courseResources(manager.languageResources().first()->language()).last()->course();
 
     // test that we actually call the different files
     QVERIFY(testCourse->file().toLocalFile() != compareCourse->file().toLocalFile());

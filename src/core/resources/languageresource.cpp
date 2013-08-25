@@ -58,7 +58,7 @@ LanguageResource::LanguageResource(ResourceManager *resourceManager, const KUrl 
     : ResourceInterface(resourceManager)
     , d(new LanguageResourcePrivate(resourceManager))
 {
-    d->m_type = ResourceInterface::LanguageResource;
+    d->m_type = ResourceInterface::LanguageResourceType;
     d->m_path = path;
 
     // load basic information from language file, but does not parse everything

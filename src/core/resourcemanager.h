@@ -26,6 +26,7 @@
 #include <QObject>
 #include <QMap>
 
+class CourseResource;
 class LanguageResource;
 class Skeleton;
 class Language;
@@ -72,7 +73,7 @@ public:
     /**
      * \return list of all loaded courses for language \p language
      */
-    QList<Course *> courseList(Language *language);
+    QList<CourseResource *> courseResources(Language *language);
 
     Q_INVOKABLE Course * course(Language *language, int index) const;
 
@@ -111,9 +112,9 @@ public:
      * Adds course to resource manager. If the course's language is not registered, the language
      * is registered by this method.
      *
-     * \param course the course to add to resource manager
+     * \param resource the course resource to add to resource manager
      */
-    void addCourse(Course *course);
+    void addCourseResource(CourseResource *resource);
 
     /**
      * Remove course from resource manager. If the course is modified its changes are NOT
@@ -207,7 +208,7 @@ private:
     QMultiMap<QString, KUrl> m_courseFileCache; //!> language identifier, path
     QList<KUrl> m_skeletonFileCache;
     QList<LanguageResource *> m_languageResources;
-    QMap<Language *, QList<Course *> > m_courseList;
+    QMap<QString, QList<CourseResource *> > m_courseResources; //!> (language-id, course-resource)
     QList<Skeleton *> m_skeletonList;
     bool m_loadingSkeletons;
 };

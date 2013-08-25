@@ -35,9 +35,9 @@ class ResourceInterface : public QObject
 public:
     enum Type
     {
-        LanguageResource,
-        CourseResource,
-        SkeletonResource
+        LanguageResourceType,
+        CourseResourceType,
+        SkeletonResourceType
     };
 
     ResourceInterface(ResourceManager *resourceManager);
