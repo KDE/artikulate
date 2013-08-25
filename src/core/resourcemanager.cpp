@@ -28,6 +28,7 @@
 #include "phonemegroup.h"
 #include "resources/languageresource.h"
 #include "resources/courseresource.h"
+#include "resources/skeletonresource.h"
 #include <ui/newcoursedialog.h>
 #include "settings.h"
 
@@ -195,10 +196,12 @@ void ResourceManager::reloadCourseOrSkeleton(Course *courseOrSkeleton)
         removeCourse(courseOrSkeleton);
         addCourse(file);
     } else {
-        KUrl file = courseOrSkeleton->file();
-        Skeleton *skeleton = qobject_cast<Skeleton*>(courseOrSkeleton);
-        removeSkeleton(skeleton);
-        addSkeleton(loadSkeleton(file));
+        foreach (SkeletonResource *resource, m_skeletonList) {
+            if (resource->identifier() == courseOrSkeleton->id()) {
+                resource->reload();
+                return;
+            }
+        }
     }
 }
 
@@ -210,10 +213,10 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
         return;
     }
     Course *skeleton = 0;
-    QList<Skeleton *>::ConstIterator iter = m_skeletonList.constBegin();
+    QList<SkeletonResource *>::ConstIterator iter = m_skeletonList.constBegin();
     while (iter != m_skeletonList.constEnd()) {
-        if ((*iter)->id() == course->foreignId()) {
-            skeleton = *iter;
+        if ((*iter)->identifier() == course->foreignId()) {
+            skeleton = (*iter)->skeleton();
             break;
         }
         ++iter;
@@ -324,86 +327,39 @@ void ResourceManager::newCourseDialog()
     }
 }
 
-Skeleton * ResourceManager::loadSkeleton(const KUrl& skeletonFile)
+void ResourceManager::addSkeleton(const KUrl &skeletonFile)
 {
-    if (!skeletonFile.isLocalFile()) {
-        kWarning() << "Cannot open skeleton file at " << skeletonFile.toLocalFile() << ", aborting.";
-        return 0;
-    }
-
-    QXmlSchema schema = loadXmlSchema("skeleton");
-    if (!schema.isValid()) {
-        return 0;
-    }
-
-    QDomDocument document = loadDomDocument(skeletonFile, schema);
-    if (document.isNull()) {
-        kWarning() << "Could not parse document " << skeletonFile.toLocalFile() << ", aborting.";
-        return 0;
-    }
-
-    // create skeleton
-    QDomElement root(document.documentElement());
-    Skeleton *skeleton = new Skeleton(this);
-
-    skeleton->setFile(skeletonFile);
-    skeleton->setId(root.firstChildElement("id").text());
-    skeleton->setTitle(root.firstChildElement("title").text());
-    skeleton->setDescription(root.firstChildElement("title").text());
-
-    // create units
-    for (QDomElement unitNode = root.firstChildElement("units").firstChildElement();
-         !unitNode.isNull();
-         unitNode = unitNode.nextSiblingElement())
-    {
-        Unit *unit = new Unit(skeleton);
-        unit->setId(unitNode.firstChildElement("id").text());
-        unit->setCourse(skeleton);
-        unit->setTitle(unitNode.firstChildElement("title").text());
-        skeleton->addUnit(unit);
-
-        // create phrases
-        for (QDomElement phraseNode = unitNode.firstChildElement("phrases").firstChildElement();
-            !phraseNode.isNull();
-            phraseNode = phraseNode.nextSiblingElement())
-        {
-            Phrase *phrase = new Phrase(unit);
-            phrase->setId(phraseNode.firstChildElement("id").text());
-            phrase->setText(phraseNode.firstChildElement("text").text());
-            phrase->setType(phraseNode.firstChildElement("type").text());
-            phrase->setUnit(unit);
-
-            unit->addPhrase(phrase);
-        }
-    }
-    skeleton->setModified(false);
-
-    return skeleton;
+    SkeletonResource *resource = new SkeletonResource(this, skeletonFile);
+    addSkeletonResource(resource);
 }
 
-void ResourceManager::addSkeleton(Skeleton* skeleton)
+void ResourceManager::addSkeletonResource(SkeletonResource* resource)
 {
-    emit skeletonAboutToBeAdded(skeleton, m_skeletonList.count());
-    m_skeletonList.append(skeleton);
+    emit skeletonAboutToBeAdded(resource->skeleton(), m_skeletonList.count());
+    m_skeletonList.append(resource);
     emit skeletonAdded();
 }
 
 void ResourceManager::removeSkeleton(Skeleton *skeleton)
 {
-    int index = m_skeletonList.indexOf(skeleton);
-    emit skeletonAboutToBeRemoved(index, index);
-    m_skeletonList.removeAt(index);
-    emit skeletonRemoved();
-    skeleton->deleteLater();
+    for (int index=0; index < m_skeletonList.length(); ++index) {
+        if (m_skeletonList.at(index)->identifier() == skeleton->id()) {
+            emit skeletonAboutToBeRemoved(index, index);
+            m_skeletonList.removeAt(index);
+            emit skeletonRemoved();
+            skeleton->deleteLater();
+            return;
+        }
+    }
 }
 
-QList< Skeleton* > ResourceManager::skeletonList()
+QList< SkeletonResource* > ResourceManager::skeletonResources()
 {
     //TODO compare with cache if content change and possibly update
     if (m_skeletonList.isEmpty() && !m_skeletonFileCache.isEmpty() && !m_loadingSkeletons) {
         m_loadingSkeletons = true;
         foreach(const KUrl &path, m_skeletonFileCache) {
-            addSkeleton(loadSkeleton(path));
+            addSkeleton(path);
         }
     }
     m_loadingSkeletons = false;

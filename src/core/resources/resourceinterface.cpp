@@ -46,6 +46,11 @@ void ResourceInterface::sync()
     kWarning() << "Resource does not implement syncing.";
 }
 
+void ResourceInterface::reload()
+{
+    kWarning() << "Resource does not implement reloading.";
+}
+
 QXmlSchema ResourceInterface::loadXmlSchema(const QString &schemeName) const
 {
     QString relPath = QString("schemes/%1.xsd").arg(schemeName);

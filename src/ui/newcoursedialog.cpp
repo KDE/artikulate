@@ -25,6 +25,7 @@
 #include "core/course.h"
 #include "core/resources/languageresource.h"
 #include "core/resources/courseresource.h"
+#include "core/resources/skeletonresource.h"
 #include "settings.h"
 
 #include <KLocale>
@@ -55,8 +56,8 @@ NewCourseDialog::NewCourseDialog(ResourceManager *m_resourceManager)
 
     // add skeletons
     ui->skeletonSelector->addItem(i18n("none"), "");
-    foreach (Skeleton *skeleton, m_resourceManager->skeletonList()) {
-        ui->skeletonSelector->addItem(skeleton->title(), skeleton->id());
+    foreach (SkeletonResource *resource, m_resourceManager->skeletonResources()) {
+        ui->skeletonSelector->addItem(resource->skeleton()->title(), resource->identifier());
     }
 
     ui->title->setText(i18n("New Course"));

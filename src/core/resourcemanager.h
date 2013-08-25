@@ -26,6 +26,7 @@
 #include <QObject>
 #include <QMap>
 
+class SkeletonResource;
 class CourseResource;
 class LanguageResource;
 class Skeleton;
@@ -125,20 +126,18 @@ public:
     void removeCourse(Course *course);
 
     /**
-     * Load skeleton from locally stored XML file.
-     * TODO allow loading of remote XML files
+     * Adds skeleton resource to resource manager
      *
-     * \param skeletonFile is the local XML file containing the skeleton
-     * \return loaded skeleton
+     * \param resource the skeleton resource to add to resource manager
      */
-    Skeleton * loadSkeleton(const KUrl &skeletonFile);
+    void addSkeleton(const KUrl &skeletonFile);
 
     /**
-     * Adds skeleton to resource manager
+     * Adds skeleton resource to resource manager
      *
-     * \param skeleton the skeleton to add to resource manager
+     * \param resource the skeleton resource to add to resource manager
      */
-    void addSkeleton(Skeleton *skeleton);
+    void addSkeletonResource(SkeletonResource *resource);
 
     /**
      * Remove skeleton from resource manager. If the skeleton is modified its changes are NOT
@@ -149,9 +148,9 @@ public:
     void removeSkeleton(Skeleton *skeleton);
 
     /**
-     * \return list of all loaded skeletons
+     * \return list of all loaded skeletons resources
      */
-    QList<Skeleton *> skeletonList();
+    QList<SkeletonResource *> skeletonResources();
 
     Q_INVOKABLE void newCourseDialog();
 
@@ -208,7 +207,7 @@ private:
     QList<KUrl> m_skeletonFileCache;
     QList<LanguageResource *> m_languageResources;
     QMap<QString, QList<CourseResource *> > m_courseResources; //!> (language-id, course-resource)
-    QList<Skeleton *> m_skeletonList;
+    QList<SkeletonResource *> m_skeletonList;
     bool m_loadingSkeletons;
 };
 

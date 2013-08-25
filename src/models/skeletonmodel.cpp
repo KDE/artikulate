@@ -22,6 +22,7 @@
 #include "core/course.h"
 #include "core/resourcemanager.h"
 #include "core/skeleton.h"
+#include "core/resources/skeletonresource.h"
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
@@ -81,11 +82,11 @@ QVariant SkeletonModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_resourceManager->skeletonList().count()) {
+    if (index.row() >= m_resourceManager->skeletonResources().count()) {
         return QVariant();
     }
 
-    Skeleton * const skeleton = m_resourceManager->skeletonList().at(index.row());
+    Skeleton * const skeleton = m_resourceManager->skeletonResources().at(index.row())->skeleton();
 
     switch(role)
     {
@@ -117,7 +118,7 @@ int SkeletonModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    return m_resourceManager->skeletonList().count();
+    return m_resourceManager->skeletonResources().count();
 }
 
 void SkeletonModel::onSkeletonAboutToBeAdded(Course *skeleton, int index)
@@ -164,13 +165,13 @@ QVariant SkeletonModel::headerData(int section, Qt::Orientation orientation, int
 
 int SkeletonModel::count() const
 {
-    return m_resourceManager->skeletonList().count();
+    return m_resourceManager->skeletonResources().count();
 }
 
 void SkeletonModel::updateMappings()
 {
-    int skeletons = m_resourceManager->skeletonList().count();
+    int skeletons = m_resourceManager->skeletonResources().count();
     for (int i = 0; i < skeletons; i++) {
-        m_signalMapper->setMapping(m_resourceManager->skeletonList().at(i), i);
+        m_signalMapper->setMapping(m_resourceManager->skeletonResources().at(i)->skeleton(), i);
     }
 }

@@ -86,6 +86,11 @@ public:
     virtual void sync();
 
     /**
+     * Reload resource from file.
+     */
+    virtual void reload();
+
+    /**
      * \return reference to the loaded resource
      * if resource is not open yet, it will be loaded
      */

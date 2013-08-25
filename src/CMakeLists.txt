@@ -67,6 +67,7 @@ set(artikulateCore_SRCS
     core/resources/resourceinterface.cpp
     core/resources/languageresource.cpp
     core/resources/courseresource.cpp
+    core/resources/skeletonresource.cpp
     core/soundbackends/soundbackendinterface.cpp
     ui/newcoursedialog.cpp
 )
