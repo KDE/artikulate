@@ -23,6 +23,7 @@
 #include "core/language.h"
 #include "core/skeleton.h"
 #include "core/course.h"
+#include "core/resources/languageresource.h"
 #include "settings.h"
 
 #include <KLocale>
@@ -47,8 +48,8 @@ NewCourseDialog::NewCourseDialog(ResourceManager *m_resourceManager)
     //FIXME only allow creation when unique ID is given: check this and give feedback
 
     // add languages
-    foreach (Language *language, m_resourceManager->languageList()) {
-        ui->language->addItem(language->title(), language->id());
+    foreach (LanguageResource *resource, m_resourceManager->languageResources()) {
+        ui->language->addItem(resource->title(), resource->identifier());
     }
 
     // add skeletons
@@ -80,9 +81,9 @@ void NewCourseDialog::createCourse()
 
     // set language
     QString selectedLanguage = ui->language->itemData(ui->language->currentIndex()).toString();
-    foreach (Language *language, m_resourceManager->languageList()) {
-        if (language->id() == selectedLanguage) {
-            course->setLanguage(language);
+    foreach (LanguageResource *resource, m_resourceManager->languageResources()) {
+        if (resource->identifier() == selectedLanguage) {
+            course->setLanguage(resource->language());
             break;
         }
     }

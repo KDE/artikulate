@@ -21,13 +21,15 @@
 #ifndef LANGUAGERESOURCE_H
 #define LANGUAGERESOURCE_H
 
-#include <QObject>
+#include "artikulatecore_export.h"
 #include "resourceinterface.h"
+
+#include <QObject>
 
 class LanguageResourcePrivate;
 class Language;
 
-class LanguageResource : public ResourceInterface
+class ARTIKULATELIB_EXPORT LanguageResource : public ResourceInterface
 {
     Q_OBJECT
 

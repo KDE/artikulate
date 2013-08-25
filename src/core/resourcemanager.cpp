@@ -141,14 +141,9 @@ void ResourceManager::loadResources()
     }
 }
 
-QList< Language* > ResourceManager::languageList() const
+QList< LanguageResource* > ResourceManager::languageResources() const
 {
-    //TODO change to not loading all resources but only providing access to important information
-    QList<Language *> languages;
-    foreach (LanguageResource *resource, m_languageResources) {
-        languages.append(resource->language());
-    }
-    return languages;
+    return m_languageResources;
 }
 
 Language * ResourceManager::language(int index) const

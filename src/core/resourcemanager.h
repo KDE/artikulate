@@ -63,9 +63,9 @@ public:
     void loadResources();
 
     /**
-     * \return list of all loaded language specifications
+     * \return list of all available language specifications
      */
-    QList<Language *> languageList() const;
+    QList<LanguageResource *> languageResources() const;
 
     Q_INVOKABLE Language * language(int index) const;
 

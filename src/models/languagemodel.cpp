@@ -84,7 +84,7 @@ QVariant LanguageModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_resourceManager->languageList().count()) {
+    if (index.row() >= m_resourceManager->languageResources().count()) {
         return QVariant();
     }
 
@@ -119,7 +119,7 @@ int LanguageModel::rowCount(const QModelIndex& parent) const
         return 0;
     }
 
-    return m_resourceManager->languageList().count();
+    return m_resourceManager->languageResources().count();
 }
 
 void LanguageModel::onLanguageAboutToBeAdded(Language *language, int index)
@@ -165,7 +165,7 @@ QVariant LanguageModel::headerData(int section, Qt::Orientation orientation, int
 
 void LanguageModel::updateMappings()
 {
-    int languages = m_resourceManager->languageList().count();
+    int languages = m_resourceManager->languageResources().count();
     for (int i = 0; i < languages; i++)
     {
         m_signalMapper->setMapping(m_resourceManager->language(i), i);
