@@ -64,6 +64,8 @@ set(artikulateCore_SRCS
     core/trainingsession.cpp
     core/capturedevicecontroller.cpp
     core/outputdevicecontroller.cpp
+    core/resources/resourceinterface.cpp
+    core/resources/languageresource.cpp
     core/soundbackends/soundbackendinterface.cpp
     ui/newcoursedialog.cpp
 )
