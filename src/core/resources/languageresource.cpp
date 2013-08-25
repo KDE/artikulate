@@ -66,7 +66,8 @@ LanguageResource::LanguageResource(ResourceManager *resourceManager, const KUrl 
     QFile file(path.toLocalFile());
     if (file.open(QIODevice::ReadOnly)) {
         xml.setDevice(&file);
-        while (xml.readNextStartElement()) {
+        xml.readNextStartElement();
+        while (xml.readNext() && !xml.atEnd()) {
             if (xml.name() == "id") {
                 d->m_identifier = xml.readElementText();
             }
