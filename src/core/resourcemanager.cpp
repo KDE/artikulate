@@ -54,11 +54,7 @@ ResourceManager::ResourceManager(QObject *parent)
 
 void ResourceManager::updateResourceFileCache()
 {
-    // find all files and cache paths to them
-    QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
-    foreach (const QString &file, languageFiles) {
-        m_languageFileCache.append(KUrl::fromLocalFile(file));
-    }
+    // find all course and skeleton files and cache paths to them
     if (!Settings::useCourseRepository()) {
         QStringList courseFiles = KGlobal::dirs()->findAllResources("data",QString("artikulate/courses/*/*/*.xml"));
         foreach (const QString &file, courseFiles) {
@@ -132,8 +128,9 @@ void ResourceManager::loadResources()
 {
     // load language resources
     // all other resources are only loaded on demand
-    foreach (const KUrl &file, m_languageFileCache) { //TODO why cache???
-        LanguageResource *resource = new LanguageResource(this, file);
+    QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
+    foreach (const QString &file, languageFiles) {
+        LanguageResource *resource = new LanguageResource(this, KUrl::fromLocalFile(file));
         Language *language = resource->language();
 
         emit languageAboutToBeAdded(language, m_languageResources.count());

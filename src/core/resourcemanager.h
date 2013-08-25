@@ -204,7 +204,6 @@ signals:
     void skeletonAboutToBeRemoved(int,int);
 
 private:
-    QList<KUrl> m_languageFileCache; // list of found language files
     QMultiMap<QString, KUrl> m_courseFileCache; //!> language identifier, path
     QList<KUrl> m_skeletonFileCache;
     QList<LanguageResource *> m_languageResources;
