@@ -42,9 +42,14 @@ public:
     virtual QString identifier();
 
     /**
-     * \return human readable (localized) title
+     * \return human readable localized title
      */
     virtual QString title();
+
+    /**
+     * \return human readable title in English
+     */
+    virtual QString i18nTitle();
 
     /**
      * \return type of resource

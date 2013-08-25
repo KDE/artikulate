@@ -25,7 +25,10 @@
 #include "core/phonemegroup.h"
 
 #include <QXmlSchema>
+#include <QXmlStreamReader>
 #include <QDomDocument>
+#include <QIODevice>
+#include <QFile>
 
 #include <KDebug>
 
@@ -47,6 +50,7 @@ public:
     ResourceInterface::Type m_type;
     QString m_identifier;
     QString m_title;
+    QString m_i18nTitle;
     Language *m_languageResource;
 };
 
@@ -57,7 +61,36 @@ LanguageResource::LanguageResource(ResourceManager *resourceManager, const KUrl 
     d->m_type = ResourceInterface::LanguageResource;
     d->m_path = path;
 
-    //FIXME load basics
+    // load basic information from language file, but does not parse everything
+    QXmlStreamReader xml;
+    QFile file(path.toLocalFile());
+    if (file.open(QIODevice::ReadOnly)) {
+        xml.setDevice(&file);
+        while (xml.readNextStartElement()) {
+            if (xml.name() == "id") {
+                d->m_identifier = xml.readElementText();
+            }
+            if (xml.name() == "title") {
+                d->m_title = xml.readElementText();
+            }
+            if (xml.name() == "i18nTitle") {
+                d->m_i18nTitle = xml.readElementText();
+            }
+            // quit reading when basic elements are read
+            if (!d->m_identifier.isEmpty()
+                && !d->m_title.isEmpty()
+                && !d->m_i18nTitle.isEmpty()
+            )
+            {
+                break;
+            }
+        }
+        if (xml.hasError()) {
+            kError() << "Error occured when reading Language XML file:" << path.toLocalFile();
+        }
+    }
+    xml.clear();
+    file.close();
 }
 
 LanguageResource::~LanguageResource()
@@ -75,6 +108,10 @@ QString LanguageResource::title()
     return d->m_title;
 }
 
+QString LanguageResource::i18nTitle()
+{
+    return d->m_i18nTitle;
+}
 
 ResourceInterface::Type LanguageResource::type() const
 {

@@ -50,9 +50,14 @@ public:
     virtual QString identifier() = 0;
 
     /**
-     * \return human readable (localized) title
+     * \return human readable localized title
      */
     virtual QString title() = 0;
+
+    /**
+     * \return human readable title in English
+     */
+    virtual QString i18nTitle() = 0;
 
     /**
      * \return type of resource
