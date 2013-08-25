@@ -26,6 +26,7 @@
 #include <QObject>
 #include <QMap>
 
+class LanguageResource;
 class Skeleton;
 class Language;
 class Course;
@@ -67,15 +68,6 @@ public:
     QList<Language *> languageList() const;
 
     Q_INVOKABLE Language * language(int index) const;
-
-    /**
-     * Load language specification from locally stored XML file.
-     * TODO allow loading of remote XML files
-     *
-     * \param path is the local XML file containing the language specification
-     * \return true if loaded successfully, otherwise false
-     */
-    bool loadLanguage(const KUrl &path);
 
     /**
      * \return list of all loaded courses for language \p language
@@ -177,6 +169,7 @@ public:
     static void syncSkeleton(Skeleton *skeleton);
 
     /**
+     * \deprecated
      * Load XSD file given by its file name (without ".xsd" suffix). The method searches exclusively
      * the standard install dir for XSD files in subdirectory "schemes/".
      *
@@ -186,6 +179,7 @@ public:
     QXmlSchema loadXmlSchema(const QString &schemeName) const;
 
     /**
+     * \deprecated
      * Load XML file given by \p file that confirms with XML schema \p scheme.
      *
      * \param path is the path to the XML file to be loaded
@@ -212,7 +206,7 @@ private:
     QList<KUrl> m_languageFileCache; // list of found language files
     QMultiMap<QString, KUrl> m_courseFileCache; //!> language identifier, path
     QList<KUrl> m_skeletonFileCache;
-    QList<Language *> m_languageList;
+    QList<LanguageResource *> m_languageResources;
     QMap<Language *, QList<Course *> > m_courseList;
     QList<Skeleton *> m_skeletonList;
     bool m_loadingSkeletons;

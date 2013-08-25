@@ -25,6 +25,7 @@
 #include "resourceinterface.h"
 
 class LanguageResourcePrivate;
+class Language;
 
 class LanguageResource : public ResourceInterface
 {
@@ -70,6 +71,12 @@ public:
      * if resource is not open yet, it will be loaded
      */
     virtual QObject * resource();
+
+    /**
+     * \return reference to the loaded language resource
+     * Same behavior as \see resource() but casted to Language
+     */
+    Language * language();
 
 private:
     const QScopedPointer<LanguageResourcePrivate> d;

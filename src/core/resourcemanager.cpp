@@ -26,6 +26,7 @@
 #include "phrase.h"
 #include "phoneme.h"
 #include "phonemegroup.h"
+#include "resources/languageresource.h"
 #include <ui/newcoursedialog.h>
 #include "settings.h"
 
@@ -83,7 +84,7 @@ void ResourceManager::updateResourceFileCache()
             for (int i = 0; i < list.size(); ++i) {
                 QFileInfo fileInfo = list.at(i);
                 m_skeletonFileCache.append(KUrl::fromLocalFile(fileInfo.absoluteFilePath()));
-            }  
+            }
         }
 
         // read course files
@@ -130,68 +131,30 @@ void ResourceManager::loadResources()
 {
     // load language resources
     // all other resources are only loaded on demand
-    foreach (const KUrl &file, m_languageFileCache) {
-        loadLanguage(file);
+    foreach (const KUrl &file, m_languageFileCache) { //TODO why cache???
+        LanguageResource *resource = new LanguageResource(this, file);
+        Language *language = resource->language();
+
+        emit languageAboutToBeAdded(language, m_languageResources.count());
+        m_languageResources.append(resource);
+        emit languageAdded();
     }
 }
 
 QList< Language* > ResourceManager::languageList() const
 {
-    return m_languageList;
+    //TODO change to not loading all resources but only providing access to important information
+    QList<Language *> languages;
+    foreach (LanguageResource *resource, m_languageResources) {
+        languages.append(resource->language());
+    }
+    return languages;
 }
 
 Language * ResourceManager::language(int index) const
 {
     Q_ASSERT (index >= 0 && index < m_languageList.count());
-    return m_languageList.at(index);
-}
-
-bool ResourceManager::loadLanguage(const KUrl &languageFile)
-{
-    if (!languageFile.isLocalFile()) {
-        kWarning() << "Cannot open language file at " << languageFile.toLocalFile() << ", aborting.";
-        return false;
-    }
-
-    QXmlSchema schema = loadXmlSchema("language");
-    if (!schema.isValid()) {
-        return false;
-    }
-
-    QDomDocument document = loadDomDocument(languageFile, schema);
-    if (document.isNull()) {
-        kWarning() << "Could not parse document " << languageFile.toLocalFile() << ", aborting.";
-        return false;
-    }
-
-    QDomElement root(document.documentElement());
-    Language *language = new Language(this);
-    m_languageList.append(language);
-    emit languageAboutToBeAdded(language, m_languageList.count()-1);
-    language->setFile(languageFile);
-    language->setId(root.firstChildElement("id").text());
-    language->setTitle(root.firstChildElement("title").text());
-    language->seti18nTitle(root.firstChildElement("i18nTitle").text());
-    // create phoneme groups
-    for (QDomElement groupNode = root.firstChildElement("phonemeGroups").firstChildElement();
-         !groupNode.isNull();
-         groupNode = groupNode.nextSiblingElement())
-    {
-        PhonemeGroup *group = language->addPhonemeGroup(
-            groupNode.firstChildElement("id").text(),
-            groupNode.firstChildElement("title").text());
-        group->setDescription(groupNode.attribute("description"));
-        // register phonemes
-        for (QDomElement phonemeNode = groupNode.firstChildElement("phonemes").firstChildElement();
-            !phonemeNode.isNull();
-            phonemeNode = phonemeNode.nextSiblingElement())
-        {
-            group->addPhoneme(phonemeNode.firstChildElement("id").text(), phonemeNode.firstChildElement("title").text());
-        }
-    }
-
-    emit languageAdded();
-    return true;
+    return m_languageResources.at(index)->language();
 }
 
 QList< Course* > ResourceManager::courseList(Language *language)
@@ -251,11 +214,12 @@ Course * ResourceManager::loadCourse(const KUrl &courseFile)
     }
 
     // set language
+    //TODO not efficient to load completely every language for this comparison
     QString language = root.firstChildElement("language").text();
-    QList<Language*>::ConstIterator iter = m_languageList.constBegin();
-    while (iter != m_languageList.constEnd()) {
-        if ((*iter)->id() == language) {
-            course->setLanguage(*iter);
+    QList<LanguageResource*>::ConstIterator iter = m_languageResources.constBegin();
+    while (iter != m_languageResources.constEnd()) {
+        if ((*iter)->language()->id() == language) {
+            course->setLanguage((*iter)->language());
             break;
         }
         ++iter;

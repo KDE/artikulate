@@ -19,8 +19,15 @@
  */
 
 #include "languageresource.h"
-#include "../resourcemanager.h"
-#include "../language.h"
+#include "core/resourcemanager.h"
+#include "core/language.h"
+#include "core/phoneme.h"
+#include "core/phonemegroup.h"
+
+#include <QXmlSchema>
+#include <QDomDocument>
+
+#include <KDebug>
 
 class LanguageResourcePrivate
 {
@@ -74,10 +81,10 @@ ResourceInterface::Type LanguageResource::type() const
     return d->m_type;
 }
 
-
 void LanguageResource::close()
 {
     // do nothing
+    // language files are never closed
 }
 
 bool LanguageResource::isOpen() const
@@ -92,6 +99,54 @@ KUrl LanguageResource::path() const
 
 QObject * LanguageResource::resource()
 {
+    if (d->m_languageResource != 0) {
+        return d->m_languageResource;
+    }
+
+    if (!d->m_path.isLocalFile()) {
+        kWarning() << "Cannot open language file at " << d->m_path.toLocalFile() << ", aborting.";
+        return 0;
+    }
+
+    QXmlSchema schema = loadXmlSchema("language");
+    if (!schema.isValid()) {
+        return 0;
+    }
+
+    QDomDocument document = loadDomDocument(d->m_path, schema);
+    if (document.isNull()) {
+        kWarning() << "Could not parse document " << d->m_path.toLocalFile() << ", aborting.";
+        return 0;
+    }
+
+    QDomElement root(document.documentElement());
+    d->m_languageResource = new Language(this);
+    d->m_languageResource->setFile(d->m_path);
+    d->m_languageResource->setId(root.firstChildElement("id").text());
+    d->m_languageResource->setTitle(root.firstChildElement("title").text());
+    d->m_languageResource->seti18nTitle(root.firstChildElement("i18nTitle").text());
+    // create phoneme groups
+    for (QDomElement groupNode = root.firstChildElement("phonemeGroups").firstChildElement();
+         !groupNode.isNull();
+         groupNode = groupNode.nextSiblingElement())
+    {
+        PhonemeGroup *group = d->m_languageResource->addPhonemeGroup(
+            groupNode.firstChildElement("id").text(),
+            groupNode.firstChildElement("title").text());
+        group->setDescription(groupNode.attribute("description"));
+        // register phonemes
+        for (QDomElement phonemeNode = groupNode.firstChildElement("phonemes").firstChildElement();
+            !phonemeNode.isNull();
+            phonemeNode = phonemeNode.nextSiblingElement())
+        {
+            group->addPhoneme(phonemeNode.firstChildElement("id").text(), phonemeNode.firstChildElement("title").text());
+        }
+    }
+
     return d->m_languageResource;
 }
 
+Language * LanguageResource::language()
+{
+    return qobject_cast<Language*>(resource());
+}
