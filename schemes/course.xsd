@@ -9,6 +9,7 @@
         <xs:element name="description" type="xs:string" />
         <xs:element name="language" type="xs:string" />
         <xs:element name="units" type="unitList" />
+        <xs:element name="excludedPhrases" type="phraseList" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
