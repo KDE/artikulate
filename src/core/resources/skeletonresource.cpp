@@ -141,6 +141,97 @@ void SkeletonResource::close()
     d->m_skeletonResource = 0;
 }
 
+void SkeletonResource::sync()
+{
+    Q_ASSERT(d->m_path.isValid());
+    Q_ASSERT(d->m_path.isLocalFile());
+    Q_ASSERT(!d->m_path.isEmpty());
+
+    // if resource was never loaded, it cannot be changed
+    if (d->m_skeletonResource == 0) {
+        kDebug() << "Aborting sync, skeleton was not parsed.";
+        return;
+    }
+
+    // not writing back if not modified
+    if (!d->m_skeletonResource->modified()) {
+        kDebug() << "Aborting sync, skeleton was not modified.";
+        return;
+    }
+
+    QDomDocument document;
+    // prepare xml header
+    QDomProcessingInstruction header = document.createProcessingInstruction("xml", "version=\"1.0\"");
+    document.appendChild(header);
+
+    // create main element
+    QDomElement root = document.createElement("skeleton");
+    document.appendChild(root);
+
+    QDomElement idElement = document.createElement("id");
+    QDomElement titleElement = document.createElement("title");
+    QDomElement descriptionElement = document.createElement("description");
+
+    idElement.appendChild(document.createTextNode(d->m_skeletonResource->id()));
+    titleElement.appendChild(document.createTextNode(d->m_skeletonResource->title()));
+    descriptionElement.appendChild(document.createTextNode(d->m_skeletonResource->description()));
+
+    QDomElement unitListElement = document.createElement("units");
+    // create units
+    foreach (Unit *unit, d->m_skeletonResource->unitList()) {
+        QDomElement unitElement = document.createElement("unit");
+
+        QDomElement unitIdElement = document.createElement("id");
+        QDomElement unitTitleElement = document.createElement("title");
+        QDomElement unitPhraseListElement = document.createElement("phrases");
+        unitIdElement.appendChild(document.createTextNode(unit->id()));
+        unitTitleElement.appendChild(document.createTextNode(unit->title()));
+
+        // construct phrases
+        foreach (Phrase *phrase, unit->phraseList()) {
+            QDomElement phraseElement = document.createElement("phrase");
+            QDomElement phraseIdElement = document.createElement("id");
+            QDomElement phraseTextElement = document.createElement("text");
+            QDomElement phraseTypeElement = document.createElement("type");
+
+            phraseIdElement.appendChild(document.createTextNode(phrase->id()));
+            phraseTextElement.appendChild(document.createTextNode(phrase->text()));
+            phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
+
+            phraseElement.appendChild(phraseIdElement);
+            phraseElement.appendChild(phraseTextElement);
+            phraseElement.appendChild(phraseTypeElement);
+
+            unitPhraseListElement.appendChild(phraseElement);
+        }
+
+        // construct the unit element
+        unitElement.appendChild(unitIdElement);
+        unitElement.appendChild(unitTitleElement);
+        unitElement.appendChild(unitPhraseListElement);
+
+        unitListElement.appendChild(unitElement);
+    }
+
+    root.appendChild(idElement);
+    root.appendChild(titleElement);
+    root.appendChild(descriptionElement);
+    root.appendChild(unitListElement);
+
+
+    // write back to file
+    //TODO port to KSaveFile
+    QFile file;
+    file.setFileName(d->m_path.toLocalFile());
+    if (!file.open(QIODevice::WriteOnly)) {
+        kWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+        return;
+    }
+
+    file.write(document.toByteArray());
+    return;
+}
+
 void SkeletonResource::reload()
 {
     kError() << "NOT IMPLEMENTED";

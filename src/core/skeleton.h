@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -27,20 +27,15 @@
 #include <QMap>
 #include <KUrl>
 
-class QString;
-class Language;
-class Unit;
-class Phrase;
-class PhonemeGroup;
-class Phoneme;
+class ResourceInterface;
+class SkeletonResource;
 
 class ARTIKULATELIB_EXPORT Skeleton : public Course
 {
     Q_OBJECT
 
-
 public:
-    explicit Skeleton(QObject *parent = 0);
+    explicit Skeleton(ResourceInterface *resource = 0);
     ~Skeleton();
 
     /**
@@ -51,6 +46,8 @@ public:
 
 private:
     Q_DISABLE_COPY(Skeleton)
+
+    SkeletonResource * const m_resource;
 };
 
 #endif // SKELETON_H

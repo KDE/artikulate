@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,6 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "resources/skeletonresource.h"
 #include "skeleton.h"
 #include "course.h"
 #include "unit.h"
@@ -31,8 +32,9 @@
 #include <QPair>
 #include <QUuid>
 
-Skeleton::Skeleton(QObject *parent)
-    : Course(parent)
+Skeleton::Skeleton(ResourceInterface *resource)
+    : Course(resource)
+    , m_resource(qobject_cast<SkeletonResource*>(resource))
 {
 }
 
@@ -43,12 +45,10 @@ Skeleton::~Skeleton()
 
 void Skeleton::sync()
 {
-    if (!file().isValid() || file().isEmpty()) {
+    if (!file().isValid() || file().isEmpty() || m_resource == 0) {
         kWarning() << "No file path set, aborting sync operation.";
         return;
     }
-
-    // call sync operation
-    ResourceManager::syncSkeleton(this);
+    m_resource->sync();
     setModified(false);
 }

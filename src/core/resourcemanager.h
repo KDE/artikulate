@@ -161,13 +161,6 @@ public:
      */
     static void syncCourse(Course *course);
 
-    /**
-     * Serializes skeleton to its file. The skeleton must have a valid local file path set.
-     *
-     * \param skeleton is the course skeleton to be serialized
-     */
-    static void syncSkeleton(Skeleton *skeleton);
-
 signals:
     void languageAdded();
     void languageAboutToBeAdded(Language*,int);

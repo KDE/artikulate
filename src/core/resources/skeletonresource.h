@@ -77,7 +77,9 @@ public:
      */
     virtual void close();
 
-    void reload();
+    virtual void sync();
+
+    virtual void reload();
 
     /**
      * \return path to resource file
