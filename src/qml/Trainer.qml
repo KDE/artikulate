@@ -59,7 +59,7 @@ Item {
                 spacing: 5
 
                 Item { // spanner
-                    width: header.width - configureButton.width - closeButton.width - 20
+                    width: header.width - closeButton.width - 20
                     height: parent.height
                 }
                 PlasmaComponents.ToolButton {
