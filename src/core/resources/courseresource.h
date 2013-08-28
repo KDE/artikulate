@@ -40,11 +40,6 @@ public:
      */
     explicit CourseResource(ResourceManager *resourceManager, const KUrl &path);
 
-    /**
-     * Create course resource from course.
-     */
-    explicit CourseResource(ResourceManager *resourceManager, Course *course);
-
     virtual ~CourseResource();
 
     /**
@@ -76,6 +71,8 @@ public:
      * \return true if resource is loaded, otherwise false
      */
     virtual bool isOpen() const;
+
+    virtual void sync();
 
     /**
      * close resource without writing changes back to file

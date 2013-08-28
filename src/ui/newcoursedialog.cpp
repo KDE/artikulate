@@ -72,7 +72,26 @@ NewCourseDialog::~NewCourseDialog()
 
 void NewCourseDialog::createCourse()
 {
-    Course *course = new Course(m_resourceManager);
+    // set language
+    Language * language = 0;
+    QString selectedLanguage = ui->language->itemData(ui->language->currentIndex()).toString();
+    foreach (LanguageResource *resource, m_resourceManager->languageResources()) {
+        if (resource->identifier() == selectedLanguage) {
+            language = resource->language();
+            break;
+        }
+    }
+
+    // set path
+    QString path = QString("%1/%2/%3/%4/%4.xml")
+        .arg(Settings::courseRepositoryPath())
+        .arg("courses")
+        .arg(ui->identifier->text())
+        .arg(language->id());
+
+    m_createdCourse = new CourseResource(m_resourceManager, KUrl::fromLocalFile(path));
+
+    Course *course = m_createdCourse->course();
     course->setId(QUuid::createUuid().toString());
     course->setTitle(ui->title->text());
     course->setDescription(ui->description->toHtml());
@@ -81,30 +100,8 @@ void NewCourseDialog::createCourse()
     QString skeletonId = ui->skeletonSelector->itemData(ui->skeletonSelector->currentIndex()).toString();
     course->setForeignId(skeletonId);
 
-    // set language
-    QString selectedLanguage = ui->language->itemData(ui->language->currentIndex()).toString();
-    foreach (LanguageResource *resource, m_resourceManager->languageResources()) {
-        if (resource->identifier() == selectedLanguage) {
-            course->setLanguage(resource->language());
-            break;
-        }
-    }
     // check that language actually exists
     Q_ASSERT(course->language());
-
-    // set path
-    if (Settings::useCourseRepository()) {
-        QString path = QString("%1/%2/%3/%4/%4.xml")
-            .arg(Settings::courseRepositoryPath())
-            .arg("courses")
-            .arg(ui->identifier->text())
-            .arg(course->language()->id());
-
-        kDebug() << "set save path to" << path;
-        course->setFile(KUrl::fromLocalFile(path));
-    }
-
-    m_createdCourse = new CourseResource(m_resourceManager, course);
 }
 
 CourseResource * NewCourseDialog::courseResource() const

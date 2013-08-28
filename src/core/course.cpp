@@ -21,6 +21,8 @@
 #include "course.h"
 #include "unit.h"
 #include "language.h"
+#include "resources/resourceinterface.h"
+#include "resources/courseresource.h"
 #include "resourcemanager.h"
 #include "phonemegroup.h"
 
@@ -30,8 +32,9 @@
 #include <QPair>
 #include <QUuid>
 
-Course::Course(QObject *parent)
-    : QObject(parent)
+Course::Course(ResourceInterface *resource)
+    : QObject(resource)
+    , m_resource(qobject_cast<CourseResource*>(resource))
     , m_language(0)
     , m_modified(false)
 {
@@ -291,13 +294,11 @@ void Course::setModified(bool modified)
 
 void Course::sync()
 {
-    if (!m_file.isValid() || m_file.isEmpty()) {
+    if (!m_file.isValid() || m_file.isEmpty() || m_resource == 0) {
         kWarning() << "No file path set, aborting sync operation.";
         return;
     }
-
-    // call sync operation
-    ResourceManager::syncCourse(this);
+    m_resource->sync();
     setModified(false);
 }
 

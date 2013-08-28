@@ -105,18 +105,6 @@ CourseResource::CourseResource(ResourceManager *resourceManager, const KUrl &pat
     file.close();
 }
 
-CourseResource::CourseResource(ResourceManager* resourceManager, Course* course)
-    : ResourceInterface(resourceManager)
-    , d(new CourseResourcePrivate(resourceManager))
-{
-    d->m_type = ResourceInterface::CourseResourceType;
-    d->m_path = course->file();
-    d->m_identifier = course->id();
-    d->m_language = course->language()->id();
-    d->m_title = course->title();
-    d->m_courseResource = course;
-}
-
 CourseResource::~CourseResource()
 {
 
@@ -145,6 +133,132 @@ QString CourseResource::language() const
 ResourceInterface::Type CourseResource::type() const
 {
     return d->m_type;
+}
+
+void CourseResource::sync()
+{
+    Q_ASSERT(d->m_path.isValid());
+    Q_ASSERT(d->m_path.isLocalFile());
+    Q_ASSERT(!d->m_path.isEmpty());
+
+    // if resource was never loaded, it cannot be changed
+    if (d->m_courseResource == 0) {
+        kDebug() << "Aborting sync, course was not parsed.";
+        return;
+    }
+
+    // not writing back if not modified
+    if (!d->m_courseResource->modified()) {
+        kDebug() << "Aborting sync, course was not modified.";
+        return;
+    }
+
+    QDomDocument document;
+    // prepare xml header
+    QDomProcessingInstruction header = document.createProcessingInstruction("xml", "version=\"1.0\"");
+    document.appendChild(header);
+
+    // create main element
+    QDomElement root = document.createElement("course");
+    document.appendChild(root);
+
+    QDomElement idElement = document.createElement("id");
+    QDomElement titleElement = document.createElement("title");
+    QDomElement descriptionElement = document.createElement("description");
+    QDomElement languageElement = document.createElement("language");
+
+    idElement.appendChild(document.createTextNode(d->m_courseResource->id()));
+    titleElement.appendChild(document.createTextNode(d->m_courseResource->title()));
+    descriptionElement.appendChild(document.createTextNode(d->m_courseResource->description()));
+    languageElement.appendChild(document.createTextNode(d->m_courseResource->language()->id()));
+
+    QDomElement unitListElement = document.createElement("units");
+    // create units
+    foreach (Unit *unit, d->m_courseResource->unitList()) {
+        QDomElement unitElement = document.createElement("unit");
+
+        QDomElement unitIdElement = document.createElement("id");
+        QDomElement unitTitleElement = document.createElement("title");
+        QDomElement unitPhraseListElement = document.createElement("phrases");
+        unitIdElement.appendChild(document.createTextNode(unit->id()));
+        unitTitleElement.appendChild(document.createTextNode(unit->title()));
+
+        // construct phrases
+        foreach (Phrase *phrase, unit->phraseList()) {
+            QDomElement phraseElement = document.createElement("phrase");
+            QDomElement phraseIdElement = document.createElement("id");
+            QDomElement phraseTextElement = document.createElement("text");
+            QDomElement phrasei18nTextElement = document.createElement("i18nText");
+            QDomElement phraseSoundFileElement = document.createElement("soundFile");
+            QDomElement phraseTypeElement = document.createElement("type");
+            QDomElement phraseEditStateElement = document.createElement("editState");
+            QDomElement phrasePhonemeListElement = document.createElement("phonemes");
+
+            phraseIdElement.appendChild(document.createTextNode(phrase->id()));
+            phraseTextElement.appendChild(document.createTextNode(phrase->text()));
+            phrasei18nTextElement.appendChild(document.createTextNode(phrase->i18nText()));
+            phraseSoundFileElement.appendChild(document.createTextNode(phrase->sound().fileName()));
+            phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
+            phraseEditStateElement.appendChild(document.createTextNode(phrase->editStateString()));
+
+            // add phonemes
+            foreach (Phoneme *phoneme, phrase->phonemes()) {
+                QDomElement phonemeElement = document.createElement("phonemeID");
+                phonemeElement.appendChild(document.createTextNode(phoneme->id()));
+                phrasePhonemeListElement.appendChild(phonemeElement);
+            }
+
+            phraseElement.appendChild(phraseIdElement);
+            if (!phrase->foreignId().isEmpty()) {
+                QDomElement phraseForeignIdElement = document.createElement("foreignId");
+                phraseForeignIdElement.appendChild(document.createTextNode(phrase->foreignId()));
+                phraseElement.appendChild(phraseForeignIdElement);
+            }
+            phraseElement.appendChild(phraseTextElement);
+            phraseElement.appendChild(phrasei18nTextElement);
+            phraseElement.appendChild(phraseSoundFileElement);
+            phraseElement.appendChild(phraseTypeElement);
+            phraseElement.appendChild(phraseEditStateElement);
+            phraseElement.appendChild(phrasePhonemeListElement);
+
+            unitPhraseListElement.appendChild(phraseElement);
+        }
+
+        // construct the unit element
+        unitElement.appendChild(unitIdElement);
+        if (!unit->foreignId().isEmpty()) {
+            QDomElement unitForeignIdElement = document.createElement("foreignId");
+            unitForeignIdElement.appendChild(document.createTextNode(unit->foreignId()));
+            unitElement.appendChild(unitForeignIdElement);
+        }
+        unitElement.appendChild(unitTitleElement);
+        unitElement.appendChild(unitPhraseListElement);
+
+        unitListElement.appendChild(unitElement);
+    }
+
+    root.appendChild(idElement);
+    if (!d->m_courseResource->foreignId().isEmpty()) {
+        QDomElement courseForeignIdElement = document.createElement("foreignId");
+        courseForeignIdElement.appendChild(document.createTextNode(d->m_courseResource->foreignId()));
+        root.appendChild(courseForeignIdElement);
+    }
+    root.appendChild(titleElement);
+    root.appendChild(descriptionElement);
+    root.appendChild(languageElement);
+    root.appendChild(unitListElement);
+
+    // write back to file
+    //TODO port to KSaveFile
+    QFile file;
+    file.setFileName(d->m_path.toLocalFile());
+    if (!file.open(QIODevice::WriteOnly)) {
+        kWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+        return;
+    }
+
+    file.write(document.toByteArray());
+    return;
 }
 
 void CourseResource::close()

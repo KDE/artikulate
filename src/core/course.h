@@ -26,6 +26,8 @@
 #include <QMap>
 #include <KUrl>
 
+class ResourceInterface;
+class CourseResource;
 class QString;
 class Language;
 class Unit;
@@ -43,7 +45,7 @@ class ARTIKULATELIB_EXPORT Course : public QObject
     Q_PROPERTY(Language * language READ language NOTIFY languageChanged)
 
 public:
-    explicit Course(QObject *parent = 0);
+    explicit Course(ResourceInterface *resource = 0);
     ~Course();
     QString id() const;
     void setId(const QString &id);
@@ -98,6 +100,11 @@ public:
      */
     virtual Q_INVOKABLE void sync();
 
+public slots:
+    void setModified(bool modified = true);
+    void registerPhrasePhonemes(Phrase *phrase);
+    void removePhrasePhonemes(Phrase *phrase);
+
 signals:
     void idChanged();
     void titleChanged();
@@ -115,6 +122,7 @@ signals:
 
 private:
     Q_DISABLE_COPY(Course)
+    CourseResource * const m_resource;
     QString m_id;
     QString m_foreignId;
     QString m_title;
@@ -125,11 +133,6 @@ private:
     QList<Unit *> m_unitList;
     QList<PhonemeGroup *> m_phonemeGroupList;
     QMap< PhonemeGroup *, QList< QPair<Phoneme *, Unit *> > >m_phonemeUnitList;
-
-public slots:
-    void setModified(bool modified = true);
-    void registerPhrasePhonemes(Phrase *phrase);
-    void removePhrasePhonemes(Phrase *phrase);
 };
 
 #endif // COURSE_H
