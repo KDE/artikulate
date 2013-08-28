@@ -112,21 +112,33 @@ CourseResource::~CourseResource()
 
 QString CourseResource::identifier()
 {
+    if (d->m_courseResource) {
+        return d->m_courseResource->id();
+    }
     return d->m_identifier;
 }
 
 QString CourseResource::title()
 {
+    if (d->m_courseResource) {
+        return d->m_courseResource->title();
+    }
     return d->m_title;
 }
 
 QString CourseResource::i18nTitle()
 {
+    if (d->m_courseResource) {
+        return d->m_courseResource->title(); //TODO
+    }
     return d->m_i18nTitle;
 }
 
 QString CourseResource::language() const
 {
+    if (d->m_courseResource) {
+        return d->m_courseResource->language()->id();
+    }
     return d->m_language;
 }
 
@@ -137,9 +149,9 @@ ResourceInterface::Type CourseResource::type() const
 
 void CourseResource::sync()
 {
-    Q_ASSERT(d->m_path.isValid());
-    Q_ASSERT(d->m_path.isLocalFile());
-    Q_ASSERT(!d->m_path.isEmpty());
+    Q_ASSERT(path().isValid());
+    Q_ASSERT(path().isLocalFile());
+    Q_ASSERT(!path().isEmpty());
 
     // if resource was never loaded, it cannot be changed
     if (d->m_courseResource == 0) {
@@ -251,7 +263,7 @@ void CourseResource::sync()
     // write back to file
     //TODO port to KSaveFile
     QFile file;
-    file.setFileName(d->m_path.toLocalFile());
+    file.setFileName(path().toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         kWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;
@@ -274,6 +286,9 @@ bool CourseResource::isOpen() const
 
 KUrl CourseResource::path() const
 {
+    if (d->m_courseResource) {
+        return d->m_courseResource->file();
+    }
     return d->m_path;
 }
 
@@ -283,8 +298,8 @@ QObject * CourseResource::resource()
         return d->m_courseResource;
     }
 
-    if (!d->m_path.isLocalFile()) {
-        kWarning() << "Cannot open course file at " << d->m_path.toLocalFile() << ", aborting.";
+    if (!path().isLocalFile()) {
+        kWarning() << "Cannot open course file at " << path().toLocalFile() << ", aborting.";
         return 0;
     }
 
@@ -293,9 +308,9 @@ QObject * CourseResource::resource()
         return 0;
     }
 
-    QDomDocument document = loadDomDocument(d->m_path, schema);
+    QDomDocument document = loadDomDocument(path(), schema);
     if (document.isNull()) {
-        kWarning() << "Could not parse document " << d->m_path.toLocalFile() << ", aborting.";
+        kWarning() << "Could not parse document " << path().toLocalFile() << ", aborting.";
         return 0;
     }
 
@@ -303,7 +318,7 @@ QObject * CourseResource::resource()
     QDomElement root(document.documentElement());
     d->m_courseResource = new Course(this);
 
-    d->m_courseResource->setFile(d->m_path);
+    d->m_courseResource->setFile(path());
     d->m_courseResource->setId(root.firstChildElement("id").text());
     d->m_courseResource->setTitle(root.firstChildElement("title").text());
     d->m_courseResource->setDescription(root.firstChildElement("description").text());
@@ -351,7 +366,7 @@ QObject * CourseResource::resource()
             phrase->setUnit(unit);
             if (!phraseNode.firstChildElement("soundFile").text().isEmpty()) {
                 phrase->setSound(KUrl::fromLocalFile(
-                        d->m_path.directory() + '/' + phraseNode.firstChildElement("soundFile").text())
+                        path().directory() + '/' + phraseNode.firstChildElement("soundFile").text())
                     );
             }
             phrase->setType(phraseNode.firstChildElement("type").text());

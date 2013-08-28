@@ -117,16 +117,25 @@ SkeletonResource::~SkeletonResource()
 
 QString SkeletonResource::identifier()
 {
+    if (d->m_skeletonResource) {
+        return d->m_skeletonResource->id();
+    }
     return d->m_identifier;
 }
 
 QString SkeletonResource::title()
 {
+    if (d->m_skeletonResource) {
+        return d->m_skeletonResource->title();
+    }
     return d->m_title;
 }
 
 QString SkeletonResource::i18nTitle()
 {
+    if (d->m_skeletonResource) {
+        return d->m_skeletonResource->title(); //TODO
+    }
     return d->m_i18nTitle;
 }
 
@@ -143,9 +152,9 @@ void SkeletonResource::close()
 
 void SkeletonResource::sync()
 {
-    Q_ASSERT(d->m_path.isValid());
-    Q_ASSERT(d->m_path.isLocalFile());
-    Q_ASSERT(!d->m_path.isEmpty());
+    Q_ASSERT(path().isValid());
+    Q_ASSERT(path().isLocalFile());
+    Q_ASSERT(!path().isEmpty());
 
     // if resource was never loaded, it cannot be changed
     if (d->m_skeletonResource == 0) {
@@ -222,7 +231,7 @@ void SkeletonResource::sync()
     // write back to file
     //TODO port to KSaveFile
     QFile file;
-    file.setFileName(d->m_path.toLocalFile());
+    file.setFileName(path().toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         kWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;
@@ -244,6 +253,9 @@ bool SkeletonResource::isOpen() const
 
 KUrl SkeletonResource::path() const
 {
+    if (d->m_skeletonResource) {
+        return d->m_skeletonResource->file();
+    }
     return d->m_path;
 }
 
@@ -253,8 +265,8 @@ QObject * SkeletonResource::resource()
         return d->m_skeletonResource;
     }
 
-    if (!d->m_path.isLocalFile()) {
-        kWarning() << "Cannot open skeleton file at " << d->m_path.toLocalFile() << ", aborting.";
+    if (!path().isLocalFile()) {
+        kWarning() << "Cannot open skeleton file at " << path().toLocalFile() << ", aborting.";
         return 0;
     }
 
@@ -263,9 +275,9 @@ QObject * SkeletonResource::resource()
         return 0;
     }
 
-    QDomDocument document = loadDomDocument(d->m_path, schema);
+    QDomDocument document = loadDomDocument(path(), schema);
     if (document.isNull()) {
-        kWarning() << "Could not parse document " << d->m_path.toLocalFile() << ", aborting.";
+        kWarning() << "Could not parse document " << path().toLocalFile() << ", aborting.";
         return 0;
     }
 
@@ -273,7 +285,7 @@ QObject * SkeletonResource::resource()
     QDomElement root(document.documentElement());
     d->m_skeletonResource = new Skeleton(this);
 
-    d->m_skeletonResource->setFile(d->m_path);
+    d->m_skeletonResource->setFile(path());
     d->m_skeletonResource->setId(root.firstChildElement("id").text());
     d->m_skeletonResource->setTitle(root.firstChildElement("title").text());
     d->m_skeletonResource->setDescription(root.firstChildElement("title").text());

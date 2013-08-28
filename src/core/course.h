@@ -45,7 +45,7 @@ class ARTIKULATELIB_EXPORT Course : public QObject
     Q_PROPERTY(Language * language READ language NOTIFY languageChanged)
 
 public:
-    explicit Course(ResourceInterface *resource = 0);
+    explicit Course(ResourceInterface *resource=0);
     ~Course();
     QString id() const;
     void setId(const QString &id);
