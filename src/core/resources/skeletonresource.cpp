@@ -162,11 +162,11 @@ void SkeletonResource::sync()
         return;
     }
 
-    // not writing back if not modified
-    if (!d->m_skeletonResource->modified()) {
-        kDebug() << "Aborting sync, skeleton was not modified.";
-        return;
-    }
+//     // not writing back if not modified
+//     if (!d->m_skeletonResource->modified()) {
+//         kDebug() << "Aborting sync, skeleton was not modified.";
+//         return;
+//     }
 
     QDomDocument document;
     // prepare xml header
@@ -285,7 +285,7 @@ QObject * SkeletonResource::resource()
     QDomElement root(document.documentElement());
     d->m_skeletonResource = new Skeleton(this);
 
-    d->m_skeletonResource->setFile(path());
+    d->m_skeletonResource->setFile(d->m_path);
     d->m_skeletonResource->setId(root.firstChildElement("id").text());
     d->m_skeletonResource->setTitle(root.firstChildElement("title").text());
     d->m_skeletonResource->setDescription(root.firstChildElement("title").text());

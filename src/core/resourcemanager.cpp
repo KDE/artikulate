@@ -124,19 +124,24 @@ void ResourceManager::loadLanguageResources()
     // all other resources are only loaded on demand
     QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
     foreach (const QString &file, languageFiles) {
-        if (m_loadedResources.contains(file)) {
-            continue;
-        }
-
-        LanguageResource *resource = new LanguageResource(this, KUrl::fromLocalFile(file));
-        Language *language = resource->language();
-
-        emit languageAboutToBeAdded(language, m_languageResources.count());
-        m_languageResources.append(resource);
-        m_loadedResources.append(file);
-        m_courseResources.insert(language->id(), QList<CourseResource*>());
-        emit languageAdded();
+        addLanguage(KUrl::fromLocalFile(file));
     }
+}
+
+void ResourceManager::addLanguage(const KUrl &languageFile)
+{
+    if (m_loadedResources.contains(languageFile.toLocalFile())) {
+        return;
+    }
+
+    LanguageResource *resource = new LanguageResource(this, languageFile);
+    Language *language = resource->language();
+
+    emit languageAboutToBeAdded(language, m_languageResources.count());
+    m_languageResources.append(resource);
+    m_loadedResources.append(languageFile.toLocalFile());
+    m_courseResources.insert(language->id(), QList<CourseResource*>());
+    emit languageAdded();
 }
 
 bool ResourceManager::isRepositoryManager() const
@@ -274,23 +279,21 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
     kDebug() << "Update performed!";
 }
 
-bool ResourceManager::addCourse(const KUrl &courseFile)
+void ResourceManager::addCourse(const KUrl &courseFile)
 {
     CourseResource *resource = new CourseResource(this, courseFile);
     if (resource->language().isEmpty()) {
         kError() << "Could not load course, language unknown:" << courseFile.toLocalFile();
-        return false;
+        return;
     }
 
     // skip already loaded resources
     if (m_loadedResources.contains(courseFile.toLocalFile())) {
-        return false;
+        return;
     }
     m_loadedResources.append(courseFile.toLocalFile());
 
     addCourseResource(resource);
-
-    return true;
 }
 
 void ResourceManager::addCourseResource(CourseResource *resource)

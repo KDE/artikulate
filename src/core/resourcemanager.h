@@ -96,12 +96,19 @@ public:
     Q_INVOKABLE void updateCourseFromSkeleton(Course *course);
 
     /**
+     * Add language to resource manager by parsing the given language specification file.
+     *
+     * \param languageFile is the local XML file containing the language
+     */
+    void addLanguage(const KUrl &languageFile);
+
+    /**
      * Adds course to resource manager by parsing the given course specification file.
      *
      * \param courseFile is the local XML file containing the course
      * \return true if loaded successfully, otherwise false
      */
-    bool addCourse(const KUrl &courseFile);
+    void addCourse(const KUrl &courseFile);
 
     /**
      * Adds course to resource manager. If the course's language is not registered, the language

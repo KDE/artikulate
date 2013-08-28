@@ -159,11 +159,11 @@ void CourseResource::sync()
         return;
     }
 
-    // not writing back if not modified
-    if (!d->m_courseResource->modified()) {
-        kDebug() << "Aborting sync, course was not modified.";
-        return;
-    }
+//     // not writing back if not modified
+//     if (!d->m_courseResource->modified()) {
+//         kDebug() << "Aborting sync, course was not modified.";
+//         return;
+//     }
 
     QDomDocument document;
     // prepare xml header
@@ -318,7 +318,7 @@ QObject * CourseResource::resource()
     QDomElement root(document.documentElement());
     d->m_courseResource = new Course(this);
 
-    d->m_courseResource->setFile(path());
+    d->m_courseResource->setFile(d->m_path);
     d->m_courseResource->setId(root.firstChildElement("id").text());
     d->m_courseResource->setTitle(root.firstChildElement("title").text());
     d->m_courseResource->setDescription(root.firstChildElement("description").text());

@@ -25,7 +25,7 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/resources/languageresource.h"
-#include <core/resources/courseresource.h>
+#include "core/resources/courseresource.h"
 #include "../src/settings.h"
 
 #include <qtest_kde.h>
@@ -79,8 +79,7 @@ void TestCourseFiles::courseSchemeValidationTest()
 void TestCourseFiles::fileLoadSaveCompleteness()
 {
     ResourceManager manager;
-    manager.loadLanguageResources(); // TODO inject local path: "data/languages/de.xml"
-    manager.loadCourseResources();
+    manager.addLanguage(KUrl::fromLocalFile("data/languages/de.xml"));
     manager.addCourse(KUrl::fromLocalFile("data/courses/de.xml"));
 
     // test to encure further logic
@@ -92,6 +91,7 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     outputFile.open();
     KUrl oldFileName = testCourse->file();
     testCourse->setFile(KUrl::fromLocalFile(outputFile.fileName()));
+    testCourse->setLanguage(manager.languageResources().first()->language());
     testCourse->sync();
     testCourse->setFile(oldFileName); // restore for later tests
 
@@ -106,7 +106,6 @@ void TestCourseFiles::fileLoadSaveCompleteness()
 
     // test that we actually call the different files
     QVERIFY(testCourse->file().toLocalFile() != compareCourse->file().toLocalFile());
-
     QVERIFY(testCourse->id() == compareCourse->id());
     QVERIFY(testCourse->foreignId() == compareCourse->foreignId());
     QVERIFY(testCourse->title() == compareCourse->title());
