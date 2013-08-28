@@ -82,15 +82,6 @@ public:
     Q_INVOKABLE Course * course(Language *language, int index) const;
 
     /**
-     * Load course from locally stored XML file.
-     * TODO allow loading of remote XML files
-     *
-     * \param courseFile is the local XML file containing the course
-     * \return loaded course
-     */
-    Course * loadCourse(const KUrl &courseFile);
-
-    /**
      * Reset the file for this course or skeleton.
      *
      * \param course the course to be reloaded
@@ -156,13 +147,6 @@ public:
     QList<SkeletonResource *> skeletonResources();
 
     Q_INVOKABLE void newCourseDialog();
-
-    /**
-     * Serializes course object to its file. The course must have a valid local file path set.
-     *
-     * \param course is the course to be serialized
-     */
-    static void syncCourse(Course *course);
 
 signals:
     void languageAdded();
