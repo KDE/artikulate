@@ -64,7 +64,8 @@ MainWindow::MainWindow()
     setAutoSaveSettings();
 
     // load resources
-    m_resourceManager->loadResources();
+    m_resourceManager->loadLanguageResources();
+    m_resourceManager->loadCourseResources();
 
     KDeclarative m_kdeclarative;
     m_kdeclarative.setDeclarativeEngine(m_view->engine());
@@ -185,6 +186,6 @@ void MainWindow::slotDownloadNewStuff()
 
     delete dialog;
 
-    //update available languages
-    m_resourceManager->updateResourceFileCache();
+    //update available courses
+    m_resourceManager->loadCourseResources();
 }

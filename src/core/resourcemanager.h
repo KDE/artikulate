@@ -25,6 +25,8 @@
 #include "artikulatecore_export.h"
 #include <QObject>
 #include <QMap>
+#include <QHash>
+#include <QStringList>
 
 class SkeletonResource;
 class CourseResource;
@@ -48,21 +50,22 @@ public:
     explicit ResourceManager(QObject *parent = 0);
 
     /**
-     * Generate or update the cache of all resource files. This method must be called after
-     * switching from locally installed courses to repository.
+     * Load all course resources.
+     * This loading is very fast, since course files are only partly (~20 top lines) parsed and
+     * the complete parsing is postproned until first access.
      */
-    void updateResourceFileCache();
+    void loadCourseResources();
+
+    /**
+     * This method loads all language files that are provided in the standard directories
+     * for this application.
+     */
+    void loadLanguageResources();
 
     /**
      * returns true if a repository is used, else false
      */
     Q_INVOKABLE bool isRepositoryManager() const;
-
-    /**
-     * This method loads all language and course files that are provided in the standard directories
-     * for this application.
-     */
-    void loadResources();
 
     /**
      * \return list of all available language specifications
@@ -176,12 +179,10 @@ signals:
     void skeletonAboutToBeRemoved(int,int);
 
 private:
-    QMultiMap<QString, KUrl> m_courseFileCache; //!> language identifier, path
-    QList<KUrl> m_skeletonFileCache;
     QList<LanguageResource *> m_languageResources;
     QMap<QString, QList<CourseResource *> > m_courseResources; //!> (language-id, course-resource)
     QList<SkeletonResource *> m_skeletonList;
-    bool m_loadingSkeletons;
+    QStringList m_loadedResources;
 };
 
 #endif // RESOURCEMANAGER_H

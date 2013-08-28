@@ -48,12 +48,10 @@
 
 ResourceManager::ResourceManager(QObject *parent)
     : QObject(parent)
-    , m_loadingSkeletons(false)
 {
-    updateResourceFileCache();
 }
 
-void ResourceManager::updateResourceFileCache()
+void ResourceManager::loadCourseResources()
 {
     // find all course and skeleton files and cache paths to them
     if (!Settings::useCourseRepository()) {
@@ -63,11 +61,11 @@ void ResourceManager::updateResourceFileCache()
             // get directory name, which is the language identifier for this course
             // TODO allow usage of non-language ID named course folders
             QString directory = courseFile.directory().section('/', -1);
-            m_courseFileCache.insert(directory, courseFile);
+            addCourse(courseFile);
         }
         QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
         foreach (const QString &file, skeletonFiles) {
-            m_skeletonFileCache.append(KUrl::fromLocalFile(file));
+            addSkeleton(KUrl::fromLocalFile(file));
         }
     } else {
         // read skeleton files
@@ -81,7 +79,7 @@ void ResourceManager::updateResourceFileCache()
             QFileInfoList list = skeletonRepository.entryInfoList();
             for (int i = 0; i < list.size(); ++i) {
                 QFileInfo fileInfo = list.at(i);
-                m_skeletonFileCache.append(KUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+                addSkeleton(KUrl::fromLocalFile(fileInfo.absoluteFilePath()));
             }
         }
 
@@ -112,7 +110,7 @@ void ResourceManager::updateResourceFileCache()
 
                     // find and add course files
                     foreach (const QFileInfo &courseInfo, courses) {
-                        m_courseFileCache.insert(languageId, courseInfo.filePath());
+                        addCourse(courseInfo.filePath());
                     }
                 }
             }
@@ -120,24 +118,30 @@ void ResourceManager::updateResourceFileCache()
     }
 }
 
-bool ResourceManager::isRepositoryManager() const
-{
-    return Settings::useCourseRepository() && !Settings::courseRepositoryPath().isEmpty();
-}
-
-void ResourceManager::loadResources()
+void ResourceManager::loadLanguageResources()
 {
     // load language resources
     // all other resources are only loaded on demand
     QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
     foreach (const QString &file, languageFiles) {
+        if (m_loadedResources.contains(file)) {
+            continue;
+        }
+
         LanguageResource *resource = new LanguageResource(this, KUrl::fromLocalFile(file));
         Language *language = resource->language();
 
         emit languageAboutToBeAdded(language, m_languageResources.count());
         m_languageResources.append(resource);
+        m_loadedResources.append(file);
+        m_courseResources.insert(language->id(), QList<CourseResource*>());
         emit languageAdded();
     }
+}
+
+bool ResourceManager::isRepositoryManager() const
+{
+    return Settings::useCourseRepository() && !Settings::courseRepositoryPath().isEmpty();
 }
 
 QList< LanguageResource* > ResourceManager::languageResources() const
@@ -153,15 +157,6 @@ Language * ResourceManager::language(int index) const
 
 QList< CourseResource* > ResourceManager::courseResources(Language *language)
 {
-    //TODO remove this caching, not neededn anymore
-    if (!m_courseResources.contains(language->id()) && m_courseFileCache.contains(language->id())) {
-        m_courseResources.insert(language->id(), QList< CourseResource* >());
-        QList<KUrl> courseFiles = m_courseFileCache.values(language->id());
-        for (int i = 0; i < courseFiles.size(); ++i) {
-            addCourse(courseFiles[i]);
-        }
-    }
-
     // return empty list if no course available
     if (!m_courseResources.contains(language->id())) {
         return QList< CourseResource* >();
@@ -286,6 +281,13 @@ bool ResourceManager::addCourse(const KUrl &courseFile)
         kError() << "Could not load course, language unknown:" << courseFile.toLocalFile();
         return false;
     }
+
+    // skip already loaded resources
+    if (m_loadedResources.contains(courseFile.toLocalFile())) {
+        return false;
+    }
+    m_loadedResources.append(courseFile.toLocalFile());
+
     addCourseResource(resource);
 
     return true;
@@ -355,14 +357,5 @@ void ResourceManager::removeSkeleton(Skeleton *skeleton)
 
 QList< SkeletonResource* > ResourceManager::skeletonResources()
 {
-    //TODO compare with cache if content change and possibly update
-    if (m_skeletonList.isEmpty() && !m_skeletonFileCache.isEmpty() && !m_loadingSkeletons) {
-        m_loadingSkeletons = true;
-        foreach(const KUrl &path, m_skeletonFileCache) {
-            addSkeleton(path);
-        }
-    }
-    m_loadingSkeletons = false;
-
     return m_skeletonList;
 }

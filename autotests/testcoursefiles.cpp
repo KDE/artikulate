@@ -79,7 +79,8 @@ void TestCourseFiles::courseSchemeValidationTest()
 void TestCourseFiles::fileLoadSaveCompleteness()
 {
     ResourceManager manager;
-    manager.loadResources(); // TODO inject local path: "data/languages/de.xml"
+    manager.loadLanguageResources(); // TODO inject local path: "data/languages/de.xml"
+    manager.loadCourseResources();
     manager.addCourse(KUrl::fromLocalFile("data/courses/de.xml"));
 
     // test to encure further logic
