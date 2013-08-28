@@ -69,6 +69,7 @@ FocusScope {
         anchors { top: helloArtikulate.top; right: parent.right; rightMargin: 50 }
         text: i18n("Download new courses")
         iconSource: "get-hot-new-stuff"
+        height: 48
         flat: false
         enabled: true
         onClicked : {
