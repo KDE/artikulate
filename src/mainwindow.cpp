@@ -21,6 +21,7 @@
 #include "mainwindow.h"
 #include "ui/resourcesdialogpage.h"
 #include "ui/sounddevicedialogpage.h"
+#include "ui/ui_appearencedialogpage.h"
 #include "core/resourcemanager.h"
 #include "core/profile.h"
 #include "models/languagemodel.h"
@@ -49,6 +50,15 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QPointer>
 #include <knewstuff3/downloaddialog.h>
+
+class AppearenceDialogPage : public QWidget, public Ui::AppearenceDialogPage
+{
+    public:
+        AppearenceDialogPage( QWidget * parent ) : QWidget(parent)
+        {
+            setupUi(this);
+        }
+};
 
 MainWindow::MainWindow()
     : KXmlGuiWindow(0)
@@ -161,17 +171,21 @@ void MainWindow::showSettingsDialog()
 
     ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_resourceManager);
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
+    AppearenceDialogPage *appearenceDialog = new AppearenceDialogPage(0);
+
     resourceDialog->loadSettings();
     soundDialog->loadSettings();
+    //appearenceDialog->loadSettings();
 
     dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), "audio-headset", i18nc("@title:tab", "Sound Device Settings"), true);
     dialog->addPage(resourceDialog, i18nc("@item:inmenu", "Course Resources"), "repository", i18nc("@title:tab", "Resource Repository Settings"), true);
-
+    dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Appearence"), "appearence", i18nc("@title:tab", "Phrase Font Settings"), true);
 
 //     connect(dialog, SIGNAL(settingsChanged(const QString&)), resourceDialog, SLOT(loadSettings()));
 //     connect(dialog, SIGNAL(settingsChanged(const QString&)), soundDialog, SLOT(loadSettings()));
     connect(dialog, SIGNAL(accepted()), resourceDialog, SLOT(saveSettings()));
     connect(dialog, SIGNAL(accepted()), soundDialog, SLOT(saveSettings()));
+    //connect(dialog, SIGNAL(accepted()), appearenceDialog, SLOT(saveSettings()));
 
     dialog->exec();
 }
