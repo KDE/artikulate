@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -31,13 +31,16 @@ Item {
 
     signal languageSelected(variant language)
 
-    width: languageList.width
-    height: languageList.height
+    width: 300
+    height: 300
 
     Component {
         id: itemDelegate
 
         PlasmaComponents.ToolButton {
+            id: button
+
+            width: root.width - 20
             text: model.title + " / " + model.i18nTitle
             iconSource: "artikulate-language"
             property Language language: model.dataRole
@@ -51,9 +54,8 @@ Item {
     ListView {
         id: languageList
 
-        width: 100
-        height: languageList.count * 30
         anchors.fill: parent
+        clip: true
         model: LanguageModel { resourceManager: root.resourceManager }
         delegate: itemDelegate
 
