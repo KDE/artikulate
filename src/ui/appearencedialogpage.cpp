@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013  Magdalena Konkiewicz <konkiewicz.m@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -36,11 +36,12 @@ AppearenceDialogPage::~AppearenceDialogPage()
 
 void AppearenceDialogPage::loadSettings()
 {
-    ui->kcfg_Font->setFont(Settings::font());
+    ui->kcfg_Font->setFont(Settings::trainingPhraseFont());
 }
 
 void AppearenceDialogPage::saveSettings()
 {
-    Settings::setFont(ui->kcfg_Font->font());
+    Settings::setTrainingPhraseFont(ui->kcfg_Font->font());
     Settings::self()->writeConfig();
 }
+

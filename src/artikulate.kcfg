@@ -24,11 +24,10 @@
       <label>Audio output volume</label>
       <default>90</default>
     </entry>
-    <entry name="Font" type="Font">
+    <entry name="TrainingPhraseFont" type="Font">
       <label>Font</label>
       <code>QFont defaultFont = KGlobalSettings::largeFont();
-            defaultFont.setPointSize(15);
-            defaultFont.setBold(true);
+            defaultFont.setPointSize(20);;
       </code>
       <default code="true">defaultFont</default>
     </entry>
