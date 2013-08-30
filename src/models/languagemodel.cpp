@@ -31,13 +31,36 @@
 LanguageModel::LanguageModel(QObject* parent)
     : QSortFilterProxyModel(parent)
     , m_resourceModel(0)
+    , m_hideEmpty(true)
 {
     setDynamicSortFilter(true);
+    setFilterRole(LanguageResourceModel::CourseNumberRole);
+    setHideEmpty(true);
 }
 
 LanguageResourceModel * LanguageModel::resourceModel() const
 {
     return m_resourceModel;
+}
+
+void LanguageModel::setHideEmpty(bool hide)
+{
+    m_hideEmpty = hide;
+
+    if (m_hideEmpty == true) {
+        QRegExp nonZero("^[1-9]+[0-9]*$");
+        setFilterRegExp(nonZero);
+    }
+    else {
+        setFilterRegExp(QString());
+    }
+
+    emit hideEmptyChanged();
+}
+
+bool LanguageModel::isHideEmpty() const
+{
+    return m_hideEmpty;
 }
 
 void LanguageModel::setResourceModel(LanguageResourceModel* resourceModel)

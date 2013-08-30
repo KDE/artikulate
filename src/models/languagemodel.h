@@ -30,19 +30,24 @@ class QSignalMapper;
 class LanguageModel : public QSortFilterProxyModel
 {
     Q_OBJECT
-    Q_PROPERTY(LanguageResourceModel* resourceModel READ resourceModel WRITE setResourceModel NOTIFY resourceModelChanged)
+    Q_PROPERTY(LanguageResourceModel *resourceModel READ resourceModel WRITE setResourceModel NOTIFY resourceModelChanged)
+    Q_PROPERTY(bool hideEmpty READ isHideEmpty WRITE setHideEmpty NOTIFY hideEmptyChanged)
 
 public:
     explicit LanguageModel(QObject *parent = 0);
     LanguageResourceModel * resourceModel() const;
     void setResourceModel(LanguageResourceModel *resourceModel);
     virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
+    void setHideEmpty(bool hide=true);
+    bool isHideEmpty() const;
 
 signals:
     void resourceModelChanged();
+    void hideEmptyChanged();
 
 private:
     LanguageResourceModel *m_resourceModel;
+    bool m_hideEmpty;
 };
 
 #endif

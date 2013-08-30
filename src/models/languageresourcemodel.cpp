@@ -39,6 +39,7 @@ LanguageResourceModel::LanguageResourceModel(QObject* parent)
     roles[I18nTitleRole] = "i18nTitle";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
+    roles[CourseNumberRole] = "courseNumberRole";
     setRoleNames(roles);
 
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLanguageChanged(int)));
@@ -102,6 +103,8 @@ QVariant LanguageResourceModel::data(const QModelIndex& index, int role) const
         return language->id();
     case DataRole:
         return QVariant::fromValue<QObject*>(language);
+    case CourseNumberRole:
+        return m_resourceManager->courseResources(language).count();
     default:
         return QVariant();
     }

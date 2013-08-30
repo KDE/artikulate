@@ -85,6 +85,7 @@ Column {
             LanguageSelector {
                 id: languageSelector
 
+                hideEmpty: false
                 resourceManager: globalResourceManager
                 onLanguageSelected: {
                     root.selectedLanguage = language

@@ -37,7 +37,8 @@ public:
         TitleRole = Qt::UserRole + 1,
         I18nTitleRole,
         IdRole,
-        DataRole
+        DataRole,
+        CourseNumberRole
     };
 
     explicit LanguageResourceModel(QObject *parent = 0);
