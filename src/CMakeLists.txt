@@ -174,6 +174,7 @@ set(artikulate_SRCS
 
     models/coursemodel.cpp
     models/languagemodel.cpp
+    models/languageresourcemodel.cpp
     models/unitmodel.cpp
     models/phrasemodel.cpp
     models/phonememodel.cpp
