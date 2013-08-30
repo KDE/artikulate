@@ -56,7 +56,9 @@ Item {
 
         anchors.fill: parent
         clip: true
-        model: LanguageModel { resourceManager: root.resourceManager }
+        model: LanguageModel {
+            resourceModel: LanguageResourceModel {resourceManager: root.resourceManager }
+        }
         delegate: itemDelegate
 
         PlasmaComponents.ScrollBar {

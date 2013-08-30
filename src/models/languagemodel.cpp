@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -21,154 +21,37 @@
 
 
 #include "languagemodel.h"
-#include "core/language.h"
-#include "core/course.h"
-#include "core/resourcemanager.h"
+#include "models/languageresourcemodel.h"
 
-#include <QAbstractListModel>
-#include <QSignalMapper>
+#include <QSortFilterProxyModel>
 
 #include <KLocale>
 #include <KDebug>
 
 LanguageModel::LanguageModel(QObject* parent)
-    : QAbstractListModel(parent)
-    , m_resourceManager(0)
-    , m_signalMapper(new QSignalMapper(this))
+    : QSortFilterProxyModel(parent)
+    , m_resourceModel(0)
 {
-    QHash<int, QByteArray> roles;
-    roles[TitleRole] = "title";
-    roles[I18nTitleRole] = "i18nTitle";
-    roles[IdRole] = "id";
-    roles[DataRole] = "dataRole";
-    setRoleNames(roles);
-
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLanguageChanged(int)));
+    setDynamicSortFilter(true);
 }
 
-void LanguageModel::setResourceManager(ResourceManager *resourceManager)
+LanguageResourceModel * LanguageModel::resourceModel() const
 {
-    if (m_resourceManager == resourceManager) {
-        return;
-    }
-
-    beginResetModel();
-
-    if (m_resourceManager) {
-        m_resourceManager->disconnect(this);
-    }
-
-    m_resourceManager = resourceManager;
-
-    if (m_resourceManager) {
-        //FIXME
-        connect(m_resourceManager, SIGNAL(languageAboutToBeAdded(Language*,int)), SLOT(onLanguageAboutToBeAdded(Language*,int)));
-        connect(m_resourceManager, SIGNAL(languageAdded()), SLOT(onLanguageAdded()));
-        connect(m_resourceManager, SIGNAL(languageAboutToBeRemoved(int,int)), SLOT(onLanguagesAboutToBeRemoved(int,int)));
-        connect(m_resourceManager, SIGNAL(languageRemoved()), SLOT(onLanguagesRemoved()));
-    }
-
-    endResetModel();
-
-    emit resourceManagerChanged();
+    return m_resourceModel;
 }
 
-ResourceManager * LanguageModel::resourceManager() const
+void LanguageModel::setResourceModel(LanguageResourceModel* resourceModel)
 {
-    return m_resourceManager;
-}
-
-QVariant LanguageModel::data(const QModelIndex& index, int role) const
-{
-    if (!index.isValid()) {
-        return QVariant();
-    }
-
-    if (index.row() >= m_resourceManager->languageResources().count()) {
-        return QVariant();
-    }
-
-    Language * const language = m_resourceManager->language(index.row());
-    switch(role)
+    if (resourceModel != m_resourceModel)
     {
-    case Qt::DisplayRole:
-        return !language->title().isEmpty()?
-                QVariant(language->title()): QVariant(i18n("<No title>"));
-    case Qt::ToolTipRole:
-        return QVariant(i18n("<p>%1</p>", language->title()));
-    case TitleRole:
-        return language->title();
-    case I18nTitleRole:
-        return language->i18nTitle();
-    case IdRole:
-        return language->id();
-    case DataRole:
-        return QVariant::fromValue<QObject*>(language);
-    default:
-        return QVariant();
+        m_resourceModel = resourceModel;
+        setSourceModel(m_resourceModel);
+        sort(0);
+        emit resourceModelChanged();
     }
 }
 
-int LanguageModel::rowCount(const QModelIndex& parent) const
+bool LanguageModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
 {
-    if (!m_resourceManager) {
-        return 0;
-    }
-
-    if (parent.isValid()) {
-        return 0;
-    }
-
-    return m_resourceManager->languageResources().count();
+    return QSortFilterProxyModel::lessThan(left, right);
 }
-
-void LanguageModel::onLanguageAboutToBeAdded(Language *language, int index)
-{
-    connect(language, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
-    connect(language, SIGNAL(phonemesChanged()), m_signalMapper, SLOT(map()));
-    connect(language, SIGNAL(phonemeGroupsChanged()), m_signalMapper, SLOT(map()));
-    beginInsertRows(QModelIndex(), index, index);
-}
-
-void LanguageModel::onLanguageAdded()
-{
-    updateMappings();
-    endInsertRows();
-}
-
-void LanguageModel::onLanguagesAboutToBeRemoved(int first, int last)
-{
-    beginRemoveRows(QModelIndex(), first, last);
-}
-
-void LanguageModel::onLanguagesRemoved()
-{
-    endRemoveRows();
-}
-
-void LanguageModel::emitLanguageChanged(int row)
-{
-    emit languageChanged(row);
-    emit dataChanged(index(row, 0), index(row, 0));
-}
-
-QVariant LanguageModel::headerData(int section, Qt::Orientation orientation, int role) const
-{
-    if (role != Qt::DisplayRole) {
-        return QVariant();
-    }
-    if (orientation == Qt::Vertical) {
-        return QVariant(section + 1);
-    }
-    return QVariant(i18n("Title"));
-}
-
-void LanguageModel::updateMappings()
-{
-    int languages = m_resourceManager->languageResources().count();
-    for (int i = 0; i < languages; i++)
-    {
-        m_signalMapper->setMapping(m_resourceManager->language(i), i);
-    }
-}
-

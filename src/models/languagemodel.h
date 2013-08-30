@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gkde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -21,48 +21,28 @@
 #ifndef LANGUAGEMODEL_H
 #define LANGUAGEMODEL_H
 
-#include <QAbstractListModel>
+#include <QSortFilterProxyModel>
 
-class ResourceManager;
+class LanguageResourceModel;
 class Language;
 class QSignalMapper;
 
-
-class LanguageModel : public QAbstractListModel
+class LanguageModel : public QSortFilterProxyModel
 {
     Q_OBJECT
-    Q_PROPERTY(ResourceManager *resourceManager READ resourceManager WRITE setResourceManager NOTIFY resourceManagerChanged)
+    Q_PROPERTY(LanguageResourceModel* resourceModel READ resourceModel WRITE setResourceModel NOTIFY resourceModelChanged)
 
 public:
-    enum LanguageRoles {
-        TitleRole = Qt::UserRole + 1,
-        I18nTitleRole,
-        IdRole,
-        DataRole
-    };
-
     explicit LanguageModel(QObject *parent = 0);
-    void setResourceManager(ResourceManager *resourceManager);
-    ResourceManager * resourceManager() const;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    LanguageResourceModel * resourceModel() const;
+    void setResourceModel(LanguageResourceModel *resourceModel);
+    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
 
 signals:
-    void languageChanged(int index);
-    void resourceManagerChanged();
-
-private slots:
-    void onLanguageAboutToBeAdded(Language *language, int index);
-    void onLanguageAdded();
-    void onLanguagesAboutToBeRemoved(int first, int last);
-    void onLanguagesRemoved();
-    void emitLanguageChanged(int row);
+    void resourceModelChanged();
 
 private:
-    void updateMappings();
-    ResourceManager *m_resourceManager;
-    QSignalMapper *m_signalMapper;
+    LanguageResourceModel *m_resourceModel;
 };
 
-#endif // LANGUAGEMODEL_H
+#endif
