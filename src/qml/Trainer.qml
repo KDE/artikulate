@@ -47,12 +47,13 @@ Item {
         resourceManager: globalResourceManager
     }
 
-    Column {
-        width: trainer.width
-
-        PlasmaComponents.ToolBar { // head toolbar
+    // head toolbar, buttons only on right
+    Item {
+        width: parent.width
+        height: 30
+        PlasmaComponents.ToolBar {
             id: header
-            height: 30
+            height: parent.height
             tools: Row {
                 anchors.leftMargin: 3
                 anchors.rightMargin: 3
@@ -66,6 +67,7 @@ Item {
                     id: closeButton
                     visible: trainingScreen.visible
                     iconSource: "go-up"
+                    height: 48
                     text: i18n("Close Course")
                     onClicked: {
                         // show home screen
@@ -75,11 +77,15 @@ Item {
                 }
             }
         }
+    }
+
+    Column {
+        width: trainer.width
 
         TrainerStart {
             id: homeScreen
             width: parent.width
-            height: trainer.height - header.height
+            height: trainer.height
             visible: false
             focus: true
 
@@ -127,7 +133,7 @@ Item {
             target: curtain
             property: "opacity"
             to: 1
-            duration: switchScreenAnimation.to == homeScreen? 250: 750
+            duration: switchScreenAnimation.to == homeScreen ? 250 : 750
             easing.type: Easing.OutQuad
         }
         PropertyAction {
@@ -144,7 +150,7 @@ Item {
             target: curtain
             property: "opacity"
             to: 0
-            duration: switchScreenAnimation.to == homeScreen? 250: 750
+            duration: switchScreenAnimation.to == homeScreen ? 250 : 750
             easing.type: Easing.InQuad
         }
         ScriptAction {

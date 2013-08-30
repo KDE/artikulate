@@ -67,6 +67,7 @@ FocusScope {
             }
             Row {
                 Text {
+                    anchors { verticalCenter: parent.verticalCenter }
                     text: {
                         var title = i18n("unselected")
                         if (userProfile.unit != null) {
@@ -78,6 +79,7 @@ FocusScope {
                 }
                 PlasmaComponents.ToolButton { // unselect-button for language
                     id: unselectUnit
+                    anchors { verticalCenter: parent.verticalCenter }
                     iconSource: "dialog-close"
                     onClicked: {
                         close()
@@ -89,11 +91,13 @@ FocusScope {
 
     Row {
         id: trainerMain
+        width: screen.width - 20
+        height: screen.height - 30 - breadcrumb.height - 50 - 50 - trainingStatusInfo.height
         anchors { top: unitHeader.bottom; left: unitHeader.left; topMargin: 50 }
 
         TrainerSessionScreen {
-            width: screen.width - 100
-            height: screen.height - breadcrumb.height - 300
+            width: parent.width
+            height: parent.height
             unit: userProfile.unit
             session: screen.session
         }
@@ -120,15 +124,14 @@ FocusScope {
     }
 
     Column {
-        id: learningStatus
+        id: trainingStatusInfo
         anchors { top: trainerMain.bottom; left: unitHeader.left }
 
         spacing: 10
         Text {
             id: trainingText
             text: i18n("Training Progress")
-            font.pointSize: 14
-            color: "gray"
+            font.pointSize: theme.defaultFont.pointSize
         }
         TrainerPhraseTypeStatus {
             width: screen.width - 60

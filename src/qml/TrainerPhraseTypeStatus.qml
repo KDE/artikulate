@@ -29,40 +29,24 @@ Item {
     property TrainingSession session
     property int sessionType
     property string phraseTypeString
+    property int __highlightWidth: 4
+
     signal typeSelected(int type)
 
-
-
     onSessionTypeChanged: {
-        if (sessionType==Phrase.Word){
-            word.border.width = 4
-            expression.border.width = 0
-            sentence.border.width = 0
-            paragraph.border.width = 0
+        if (sessionType == Phrase.Word){
             phraseTypeString = "Words"
         }
-        if (sessionType==Phrase.Expression){
-            word.border.width = 0
-            expression.border.width = 4
-            sentence.border.width = 0
-            paragraph.border.width = 0
+        if (sessionType == Phrase.Expression){
             phraseTypeString = "Expressions"
         }
-        if (sessionType==Phrase.Sentence){
-            word.border.width = 0
-            expression.border.width = 0
-            sentence.border.width = 4
-            paragraph.border.width = 0
+        if (sessionType == Phrase.Sentence){
             phraseTypeString = "Sentences"
         }
-        if (sessionType==Phrase.Paragraph){
-            word.border.width = 0
-            expression.border.width = 0
-            sentence.border.width = 0
-            paragraph.border.width = 4
+        if (sessionType == Phrase.Paragraph){
             phraseTypeString = "Paragraphs"
-            }
-        trainingText.text= i18n("Currently training: " + phraseTypeString)
+        }
+        trainingText.text= i18n("Difficulty: %1", phraseTypeString)
     }
 
     width: 200
@@ -72,14 +56,15 @@ Item {
         id: statusBar
         height: root.height
         width: root.width
-        spacing: 3
+        spacing: 0
 
         Rectangle { // word
             id: word
             height: root.height
             width: root.width/4
             border.color: "#800000FF"
-            border.width: 0
+            border.width: sessionType == Phrase.Word ? __highlightWidth : 0
+            z: sessionType == Phrase.Word ? 1 : 0
             Rectangle {
                 color: "#A7E8BD"
                 width: parent.width; height: parent.height
@@ -92,16 +77,16 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 hoverEnabled: true
-	        onClicked: {
+                onClicked: {
                     session.setPhraseType("word")
-	        }
+                }
                 onEntered: {
                     if (phraseTypeString != "Words") {
-                        trainingText.text = i18n("Change to train: Words")
+                        trainingText.text= i18n("Difficulty: <i>change to Words</i>")
                     }
                 }
                 onExited: {
-                    trainingText.text= i18n("Currently training: " + phraseTypeString)
+                    trainingText.text= i18n("Difficulty: %1", phraseTypeString)
                 }
             }
         }
@@ -110,7 +95,8 @@ Item {
             height: root.height
             width: root.width/4
             border.color: "#800000FF"
-            border.width: 0
+            border.width: sessionType == Phrase.Expression ? __highlightWidth : 0
+            z: sessionType == Phrase.Expression ? 1 : 0
             Rectangle {
                 color: "#B9D5FF"
                 width: parent.width; height: parent.height
@@ -123,16 +109,16 @@ Item {
              MouseArea{
                 anchors.fill: parent
                 hoverEnabled: true
-	        onClicked: {
-                    session.setPhraseType("expression")
-	        }
+                onClicked: {
+                        session.setPhraseType("expression")
+                }
                 onEntered: {
                     if (phraseTypeString != "Expressions") {
-                        trainingText.text = i18n("Change to train: Expressions")
+                        trainingText.text= i18n("Difficulty: <i>change to Expressions</i>")
                     }
                 }
                 onExited: {
-                    trainingText.text= i18n("Currently training: " + phraseTypeString)
+                    trainingText.text= i18n("Difficulty: %1", phraseTypeString)
                 }
             }
         }
@@ -140,7 +126,8 @@ Item {
         Rectangle { // sentence
             id: sentence
             border.color: "#800000FF"
-            border.width: 0
+            border.width: sessionType == Phrase.Sentence ? __highlightWidth : 0
+            z: sessionType == Phrase.Sentence ? 1 : 0
             height: root.height
             width: root.width/4
             Rectangle {
@@ -155,16 +142,16 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 hoverEnabled: true
-	        onClicked: {
-                    session.setPhraseType("sentence")
-	        }
+                onClicked: {
+                        session.setPhraseType("sentence")
+                }
                 onEntered: {
                     if (phraseTypeString != "Sentences") {
-                        trainingText.text = i18n("Change to train: Sentences")
+                        trainingText.text= i18n("Difficulty: <i>change to Sentences</i>")
                     }
                 }
                 onExited: {
-                    trainingText.text= i18n("Currently training: " + phraseTypeString)
+                    trainingText.text= i18n("Difficulty: %1", phraseTypeString)
                 }
             }
         }
@@ -174,7 +161,8 @@ Item {
             height: root.height
             width: root.width/4
             border.color: "#800000FF"
-            border.width: 0
+            border.width: sessionType == Phrase.Paragraph ? __highlightWidth : 0
+            z: sessionType == Phrase.Paragraph ? 1 : 0
             Rectangle {
                 color: "#E8CAB9"
                 width: parent.width; height: parent.height
@@ -187,16 +175,16 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 hoverEnabled: true
-	        onClicked: {
-                    session.setPhraseType("paragraph")
-	        }
+                onClicked: {
+                        session.setPhraseType("paragraph")
+                }
                 onEntered: {
                     if (phraseTypeString != "Paragraphs") {
-                        trainingText.text = i18n("Change to train: Paragraphs")
+                        trainingText.text= i18n("Difficulty: <i>change to Paragraphs</i>")
                     }
                 }
                 onExited: {
-                    trainingText.text= i18n("Currently training: " + phraseTypeString)
+                    trainingText.text= i18n("Difficulty: %1", phraseTypeString)
                 }
             }
         }
