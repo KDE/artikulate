@@ -25,8 +25,8 @@
 #include "core/resourcemanager.h"
 #include "core/profile.h"
 #include "models/languagemodel.h"
-#include "settings.h"
 
+#include <settings.h>
 #include <KMainWindow>
 #include <KAction>
 #include <KActionCollection>
@@ -100,6 +100,11 @@ MainWindow::MainWindow()
 
     // set initial view
     m_view->rootObject()->setProperty("viewMode", Trainer);
+
+    // set font for the phrase in trainer to default from kcfg file
+    QObject *phraseText = m_view->rootObject()->findChild<QObject*>("phraseText");
+    QFont f = phraseText->property("font").value<QFont>();
+    phraseText->setProperty("font", Settings::font());
 }
 
 MainWindow::~MainWindow()
@@ -186,8 +191,16 @@ void MainWindow::showSettingsDialog()
     connect(dialog, SIGNAL(accepted()), resourceDialog, SLOT(saveSettings()));
     connect(dialog, SIGNAL(accepted()), soundDialog, SLOT(saveSettings()));
     //connect(dialog, SIGNAL(accepted()), appearenceDialog, SLOT(saveSettings()));
+    connect(dialog, SIGNAL(accepted()), SLOT(slotUpdateSettings()));
 
     dialog->exec();
+}
+
+void MainWindow::slotUpdateSettings()
+{
+    QObject *phraseText = m_view->rootObject()->findChild<QObject*>("phraseText");
+    QFont f = phraseText->property("font").value<QFont>();
+    phraseText->setProperty("font", Settings::font());
 }
 
 void MainWindow::slotDownloadNewStuff()

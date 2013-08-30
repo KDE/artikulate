@@ -39,6 +39,7 @@ Item {
         // phrase text element
         Text {
             id: phraseText
+            objectName: "phraseText"
             anchors { horizontalCenter: parent.horizontalCenter; verticalCenter: parent.verticalCenter }
             width: parent.width - 64
             text: (phrase != null) ? phrase.text : ""

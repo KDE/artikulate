@@ -64,6 +64,7 @@ public slots:
     void switchMode();
     void showSettingsDialog();
     void slotDownloadNewStuff();
+    void slotUpdateSettings();
 signals:
      void modeChanged(bool);
 

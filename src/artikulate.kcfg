@@ -24,5 +24,13 @@
       <label>Audio output volume</label>
       <default>90</default>
     </entry>
+    <entry name="Font" type="Font">
+      <label>Font</label>
+      <code>QFont defaultFont = KGlobalSettings::largeFont();
+            defaultFont.setPointSize(4);
+            defaultFont.setBold(true);
+      </code>
+      <default code="true">defaultFont</default>
+    </entry>
   </group>
 </kcfg>
