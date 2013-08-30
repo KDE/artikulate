@@ -19,31 +19,11 @@
    <item row="0" column="0" >
     <widget class="KFontChooser" name="kcfg_Font" >
      <property name="font" >
-      <font>
-       <family>Sans Serif</family>
-       <pointsize>48</pointsize>
-       <weight>75</weight>
-       <italic>false</italic>
-       <bold>true</bold>
-       <underline>false</underline>
-       <strikeout>false</strikeout>
-      </font>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
-  <customwidgets>
-  <customwidget>
-   <class>KFontChooser</class>
-   <extends>QWidget</extends>
-   <header>kfontdialog.h</header>
-  </customwidget>
- </customwidgets>
- <includes>
-  <include location="global" >kfontdialog.h</include>
-  <include location="local" >kfontdialog.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

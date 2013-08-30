@@ -27,7 +27,7 @@
     <entry name="Font" type="Font">
       <label>Font</label>
       <code>QFont defaultFont = KGlobalSettings::largeFont();
-            defaultFont.setPointSize(4);
+            defaultFont.setPointSize(15);
             defaultFont.setBold(true);
       </code>
       <default code="true">defaultFont</default>
