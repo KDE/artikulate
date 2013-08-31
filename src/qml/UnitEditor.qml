@@ -29,6 +29,7 @@ Item {
 
     property Unit unit
     property bool editMode: false
+    property bool phraseExcluded: false
 
     signal closeUnit()
 
@@ -61,6 +62,23 @@ Item {
                 onClicked: {
                     editMode = true
                     phraseEditor.phrase = phrase
+                }
+            }
+
+            PlasmaComponents.ToolButton {
+                id: excludePhrase
+                iconSource: "list-remove"
+                onClicked: {
+                    if (excludePhrase.iconSource == "list-remove") {
+                        excludePhrase.iconSource = "list-add"
+                        phraseExcluded = true
+                        enableEdit.enabled = false
+                    }
+                    else {
+                        excludePhrase.iconSource = "list-remove"
+                        phraseExcluded = false
+                        enableEdit.enabled = true
+                    }
                 }
             }
 
