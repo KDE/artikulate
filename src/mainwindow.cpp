@@ -94,7 +94,6 @@ MainWindow::MainWindow()
 
     // set font for the phrase in trainer to default from kcfg file
     QObject *phraseText = m_view->rootObject()->findChild<QObject*>("phraseText");
-    QFont f = phraseText->property("font").value<QFont>();
     phraseText->setProperty("font", Settings::trainingPhraseFont());
 }
 

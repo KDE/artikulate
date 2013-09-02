@@ -26,8 +26,8 @@
     </entry>
     <entry name="TrainingPhraseFont" type="Font">
       <label>Font</label>
-      <code>QFont defaultFont = KGlobalSettings::largeFont();
-            defaultFont.setPointSize(20);;
+      <code>QFont defaultFont = QFont();
+            defaultFont.setPointSize(20);
       </code>
       <default code="true">defaultFont</default>
     </entry>

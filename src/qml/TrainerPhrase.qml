@@ -43,7 +43,7 @@ Item {
             anchors { horizontalCenter: parent.horizontalCenter; verticalCenter: parent.verticalCenter }
             width: parent.width - 64
             text: (phrase != null) ? phrase.text : ""
-            font.pointSize: 20
+            //font.pointSize: 20
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
         }
