@@ -57,8 +57,7 @@ void ResourcesDialogPage::updateHints()
     } else {
         m_restartNeeded = false;
     }
-    ui->restartInfo->setVisible(m_restartNeeded);
-    ui->kcfg_CourseRepositoryPath->setEnabled(ui->kcfg_UseCourseRepository->isChecked());
+//     ui->restartInfo->setVisible(m_restartNeeded);//FIXME tell resource manager
 }
 
 void ResourcesDialogPage::loadSettings()
@@ -66,9 +65,7 @@ void ResourcesDialogPage::loadSettings()
     // setup Ui with stored settings
     ui->kcfg_CourseRepositoryPath->setText(Settings::courseRepositoryPath());
     ui->kcfg_UseCourseRepository->setChecked(Settings::useCourseRepository());
-
-    ui->kcfg_CourseRepositoryPath->setEnabled(ui->kcfg_UseCourseRepository->isChecked());
-    ui->restartInfo->setVisible(false);
+//     ui->restartInfo->setVisible(false); //FIXME tell resource manager
 }
 
 void ResourcesDialogPage::saveSettings()
