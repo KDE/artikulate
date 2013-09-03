@@ -173,7 +173,7 @@ void MainWindow::showSettingsDialog()
     appearenceDialog->loadSettings();
 
     dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), "audio-headset", i18nc("@title:tab", "Sound Device Settings"), true);
-    dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Font"), "preferences-desktop-font", i18nc("@title:tab", "Training Phrase Font"), true);
+    dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Fonts"), "preferences-desktop-font", i18nc("@title:tab", "Training Phrase Font"), true);
     dialog->addPage(resourceDialog, i18nc("@item:inmenu", "Course Resources"), "repository", i18nc("@title:tab", "Resource Repository Settings"), true);
 
 //     connect(dialog, SIGNAL(settingsChanged(const QString&)), resourceDialog, SLOT(loadSettings()));
