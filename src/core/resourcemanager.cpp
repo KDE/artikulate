@@ -53,68 +53,69 @@ ResourceManager::ResourceManager(QObject *parent)
 
 void ResourceManager::loadCourseResources()
 {
-    // find all course and skeleton files and cache paths to them
-    if (!Settings::useCourseRepository()) {
-        QStringList courseFiles = KGlobal::dirs()->findAllResources("data",QString("artikulate/courses/*/*/*.xml"));
-        foreach (const QString &file, courseFiles) {
-            KUrl courseFile = KUrl::fromLocalFile(file);
-            // get directory name, which is the language identifier for this course
-            // TODO allow usage of non-language ID named course folders
-            QString directory = courseFile.directory().section('/', -1);
-            addCourse(courseFile);
-        }
-        QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
-        foreach (const QString &file, skeletonFiles) {
-            addSkeleton(KUrl::fromLocalFile(file));
-        }
+    // register skeleton resources
+    QDir skeletonRepository = QDir(Settings::courseRepositoryPath());
+    skeletonRepository.setFilter(QDir::Files | QDir::Hidden);
+    if (!skeletonRepository.cd("skeletons")) {
+        kError() << "There is no subdirectory \"skeletons\" in directory " << skeletonRepository.path()
+            << " cannot load skeletons.";
     } else {
-        // read skeleton files
-        QDir skeletonRepository = QDir(Settings::courseRepositoryPath());
-        skeletonRepository.setFilter(QDir::Files | QDir::Hidden);
-        if (!skeletonRepository.cd("skeletons")) {
-            kError() << "There is no subdirectory \"skeletons\" in directory " << skeletonRepository.path()
-                << " cannot load skeletons.";
-        } else {
-            // read skeletons
-            QFileInfoList list = skeletonRepository.entryInfoList();
-            for (int i = 0; i < list.size(); ++i) {
-                QFileInfo fileInfo = list.at(i);
-                addSkeleton(KUrl::fromLocalFile(fileInfo.absoluteFilePath()));
-            }
+        // read skeletons
+        QFileInfoList list = skeletonRepository.entryInfoList();
+        for (int i = 0; i < list.size(); ++i) {
+            QFileInfo fileInfo = list.at(i);
+            addSkeleton(KUrl::fromLocalFile(fileInfo.absoluteFilePath()));
         }
+    }
 
-        // read course files
-        QDir courseRepository = QDir(Settings::courseRepositoryPath());
-        if (!courseRepository.cd("courses")) {
-            kError() << "There is no subdirectory \"courses\" in directory " << courseRepository.path()
-                << " cannot load courses.";
-        } else {
-            // find courses
-            courseRepository.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
-            QFileInfoList courseDirList = courseRepository.entryInfoList();
+    // register contributor course files
+    QDir courseRepository = QDir(Settings::courseRepositoryPath());
+    if (!courseRepository.cd("courses")) {
+        kError() << "There is no subdirectory \"courses\" in directory " << courseRepository.path()
+            << " cannot load courses.";
+    } else {
+        // find courses
+        courseRepository.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+        QFileInfoList courseDirList = courseRepository.entryInfoList();
 
-            // traverse all course directories
-            foreach (const QFileInfo &info, courseDirList) {
-                QDir courseDir = QDir(info.absoluteFilePath());
-                courseDir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
-                QFileInfoList courseLangDirList = courseDir.entryInfoList();
+        // traverse all course directories
+        foreach (const QFileInfo &info, courseDirList) {
+            QDir courseDir = QDir(info.absoluteFilePath());
+            courseDir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+            QFileInfoList courseLangDirList = courseDir.entryInfoList();
 
-                // traverse all language directories for each course
-                foreach (const QFileInfo &langInfo, courseLangDirList) {
-                    QString languageId = langInfo.fileName();
-                    QDir courseLangDir = QDir(langInfo.absoluteFilePath());
-                    courseLangDir.setFilter(QDir::Files);
-                    QStringList nameFilters;
-                    nameFilters.append("*.xml");
-                    QFileInfoList courses = courseLangDir.entryInfoList(nameFilters);
+            // traverse all language directories for each course
+            foreach (const QFileInfo &langInfo, courseLangDirList) {
+                QString languageId = langInfo.fileName();
+                QDir courseLangDir = QDir(langInfo.absoluteFilePath());
+                courseLangDir.setFilter(QDir::Files);
+                QStringList nameFilters;
+                nameFilters.append("*.xml");
+                QFileInfoList courses = courseLangDir.entryInfoList(nameFilters);
 
-                    // find and add course files
-                    foreach (const QFileInfo &courseInfo, courses) {
-                        addCourse(courseInfo.filePath());
+                // find and add course files
+                foreach (const QFileInfo &courseInfo, courses) {
+                    CourseResource * course = addCourse(courseInfo.filePath());
+                    if (course != 0) {
+                        course->setContributorResource(true);
                     }
                 }
             }
-        } // done with reading courses
+        }
+    }
+
+    // register GHNS course resources
+    QStringList courseFiles = KGlobal::dirs()->findAllResources("data",QString("artikulate/courses/*/*/*.xml"));
+    foreach (const QString &file, courseFiles) {
+        KUrl courseFile = KUrl::fromLocalFile(file);
+        // get directory name, which is the language identifier for this course
+        // TODO allow usage of non-language ID named course folders
+        QString directory = courseFile.directory().section('/', -1);
+        addCourse(courseFile);
+    }
+    QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
+    foreach (const QString &file, skeletonFiles) {
+        addSkeleton(KUrl::fromLocalFile(file));
     }
 }
 
@@ -279,21 +280,21 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
     kDebug() << "Update performed!";
 }
 
-void ResourceManager::addCourse(const KUrl &courseFile)
+CourseResource * ResourceManager::addCourse(const KUrl &courseFile)
 {
     CourseResource *resource = new CourseResource(this, courseFile);
     if (resource->language().isEmpty()) {
         kError() << "Could not load course, language unknown:" << courseFile.toLocalFile();
-        return;
+        return 0;
     }
 
     // skip already loaded resources
     if (m_loadedResources.contains(courseFile.toLocalFile())) {
-        return;
+        return 0;
     }
     m_loadedResources.append(courseFile.toLocalFile());
-
     addCourseResource(resource);
+    return resource;
 }
 
 void ResourceManager::addCourseResource(CourseResource *resource)

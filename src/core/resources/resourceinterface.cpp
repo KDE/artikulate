@@ -32,6 +32,7 @@
 
 ResourceInterface::ResourceInterface(ResourceManager *resourceManager)
     : QObject()
+    , m_contributorResource(false)
 {
     Q_UNUSED(resourceManager)
 }
@@ -39,6 +40,16 @@ ResourceInterface::ResourceInterface(ResourceManager *resourceManager)
 ResourceInterface::~ResourceInterface()
 {
 
+}
+
+void ResourceInterface::setContributorResource(bool contributorResource)
+{
+    m_contributorResource = contributorResource;
+}
+
+bool ResourceInterface::isContributorResource() const
+{
+    return m_contributorResource;
 }
 
 void ResourceInterface::sync()

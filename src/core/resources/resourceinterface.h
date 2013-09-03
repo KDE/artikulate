@@ -60,6 +60,16 @@ public:
     virtual QString i18nTitle() = 0;
 
     /**
+     * Set resource to be read-only.
+     */
+    virtual void setContributorResource(bool contributorResource=true);
+
+    /**
+     * \returns true if resource is readonly, otherwise false
+     */
+    virtual bool isContributorResource() const;
+
+    /**
      * \return type of resource
      */
     virtual Type type() const = 0;
@@ -113,6 +123,9 @@ public:
      * \return the loaded DOM document
      */
     QDomDocument loadDomDocument(const KUrl &path, const QXmlSchema &schema) const;
+
+private:
+    bool m_contributorResource; //!< identifies this resource as an editable resource
 };
 
 

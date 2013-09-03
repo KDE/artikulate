@@ -108,7 +108,7 @@ public:
      * \param courseFile is the local XML file containing the course
      * \return true if loaded successfully, otherwise false
      */
-    void addCourse(const KUrl &courseFile);
+    CourseResource * addCourse(const KUrl &courseFile);
 
     /**
      * Adds course to resource manager. If the course's language is not registered, the language
