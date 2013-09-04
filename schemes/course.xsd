@@ -9,7 +9,6 @@
         <xs:element name="description" type="xs:string" />
         <xs:element name="language" type="xs:string" />
         <xs:element name="units" type="unitList" />
-        <xs:element name="excludedPhrases" type="phraseList" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -20,12 +19,19 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="idList">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="unit">
     <xs:sequence>
         <xs:element name="id" type="xs:string" />
         <xs:element name="foreignId" type="xs:string" minOccurs="0" maxOccurs="1" />
         <xs:element name="title" type="xs:string" />
         <xs:element name="phrases" type="phraseList" />
+        <xs:element name="excludedPhrases" type="idList" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
   </xs:complexType>
 
