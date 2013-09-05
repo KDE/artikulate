@@ -71,8 +71,8 @@ QtMultimediaBackend::QtMultimediaBackend()
 
 QtMultimediaBackend::~QtMultimediaBackend()
 {
-    delete m_audioInput;
-    delete m_captureSource;
+    m_audioInput->deleteLater();
+    m_captureSource->deleteLater();
 }
 
 QString QtMultimediaBackend::identifier()

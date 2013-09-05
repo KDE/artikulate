@@ -52,7 +52,7 @@ public:
 
     ~CaptureDeviceControllerPrivate()
     {
-        delete m_backend;
+        m_backend->deleteLater();
     }
 
     void lazyInit()
