@@ -89,13 +89,13 @@ Item {
                 iconSource: "artikulate-media-record"
 
                 onClicked: {
-                    if (isRecording) {
+                    if (!isRecording) { // hence, start recording
+                        isRecording = true
                         phrase.startRecordNativeSound();
-                        isRecording = false;
                     }
-                    else {
+                    else { // hence, stop recording
+                        isRecording = false;
                         phrase.stopRecordNativeSound();
-                        isRecording = true;
                         recordingBuffered = true;
                     }
                 }
