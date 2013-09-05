@@ -103,9 +103,11 @@ Item {
                     // set next possible action icon
                     if (recordingState == Phrase.CurrentlyRecordingState) {
                         iconSource = "artikulate-media-record-active";
+                        console.log("change state to active")
                     }
                     if (recordingState == Phrase.NotRecordingState) {
                         iconSource = "artikulate-media-record";
+                        console.log("change state to stop")
                     }
                 }
             }

@@ -37,11 +37,16 @@ QtMultimediaBackend::QtMultimediaBackend()
         kError() << "Audio capture source not available.";
     }
 
+    kDebug() << "Available devices:";
+    foreach (QString device, m_captureSource->audioInputs()) {
+        kDebug() << " + " << device;
+    }
+
     // check and set input device
-//     if (Settings::audioInputDevice().isEmpty()) {
-//         kDebug() << "Audio device not set, using default value.";
+    if (Settings::audioInputDevice().isEmpty()) {
+        kDebug() << "Audio device not set, using default value.";
         Settings::setAudioInputDevice(m_captureSource->activeAudioInput());
-//     }
+    }
     if (m_captureSource->audioInputs().contains(Settings::audioInputDevice())) {
         m_captureSource->setAudioInput(Settings::audioInputDevice());
     } else {
@@ -53,7 +58,6 @@ QtMultimediaBackend::QtMultimediaBackend()
     if (!m_audioInput->supportedAudioCodecs().contains("audio/vorbis")) {
         kError() << "Audio codec vorbis/ogg is not available, cannot record sound files.";
     }
-
 }
 
 QtMultimediaBackend::~QtMultimediaBackend()
@@ -91,11 +95,16 @@ void QtMultimediaBackend::startCapture(const QString &filePath)
         return;
     }
 
+    kDebug() << "starting capture...";
+    kDebug() << "writing to " << filePath;
+    kDebug() << "device " << m_device;
+
     // set output location
     //FIXME for a really strange reason, only the following notation works to get a correct
     // output file; neither QUrl::fromLocalFile, nor the KUrl equivalents are working
     // --> investigate why!
     m_audioInput->setOutputLocation(QUrl(filePath));
+    m_captureSource->setAudioInput(m_device);
 
     QAudioEncoderSettings audioSettings;
     audioSettings.setCodec("audio/vorbis");
@@ -106,13 +115,16 @@ void QtMultimediaBackend::startCapture(const QString &filePath)
     QString container = "ogg";
 
     m_audioInput->setEncodingSettings(audioSettings, QVideoEncoderSettings(), container);
-
     m_audioInput->record();
 }
 
 void QtMultimediaBackend::stopCapture()
 {
+    if (m_audioInput->state() != QMediaRecorder::RecordingState) {
+        kError() << "Could not stop capture, was not in recording state.";
+    }
     m_audioInput->stop();
+    kDebug() << "capture stopped";
 }
 
 QStringList QtMultimediaBackend::devices() const
@@ -123,7 +135,7 @@ QStringList QtMultimediaBackend::devices() const
 void QtMultimediaBackend::setDevice(const QString &deviceIdentifier)
 {
     if (!m_captureSource->audioInputs().contains(deviceIdentifier)) {
-        kError() << "Audio input devicde " << deviceIdentifier << " is unknown, aborting.";
+        kError() << "Audio input device " << deviceIdentifier << " is unknown, aborting.";
         return;
     }
     m_device = deviceIdentifier;

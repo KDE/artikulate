@@ -108,6 +108,11 @@ void CaptureDeviceController::setDevice(const QString &deviceIdentifier)
     d->m_backend->setDevice(deviceIdentifier);
 }
 
+QList< QString > CaptureDeviceController::devices() const
+{
+    return d->m_backend->devices();
+}
+
 CaptureDeviceController::State CaptureDeviceController::state() const
 {
     return d->m_backend->captureState();

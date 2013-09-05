@@ -49,12 +49,11 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
     ui->kcfg_AudioOutputVolume->setMinimum(1);
     ui->kcfg_AudioOutputVolume->setMaximum(100);
 
-// //     // devices
-// //     QAudioCaptureSource captureSource; // = new QAudioCaptureSource(m_parent);
-// //     m_audioInputs = captureSource.audioInputs();
-// //     for (int i=0; i < m_audioInputs.length(); ++i) {
-// //         ui->kcfg_AudioInputDevice->insertItem(i, m_audioInputs.at(i), i);
-// //     }
+    // devices
+    QStringList devices = CaptureDeviceController::self().devices();
+    for (int i=0; i < devices.length(); ++i) {
+        ui->kcfg_AudioInputDevice->insertItem(i, devices.at(i), i);
+    }
 
     // temporary file for recording test
     m_recordTestFile.setSuffix(".ogg");
@@ -78,15 +77,15 @@ SoundDeviceDialogPage::~SoundDeviceDialogPage()
 
 void SoundDeviceDialogPage::loadSettings()
 {
-// //     ui->kcfg_AudioInputDevice->setCurrentIndex(
-// //         ui->kcfg_AudioInputDevice->findText(Settings::audioInputDevice()));
+    ui->kcfg_AudioInputDevice->setCurrentIndex(
+        ui->kcfg_AudioInputDevice->findText(Settings::audioInputDevice()));
 //     ui->kcfg_AudioInputVolume->setValue(Settings::audioInputVolume());
     ui->kcfg_AudioOutputVolume->setValue(Settings::audioOutputVolume());
 }
 
 void SoundDeviceDialogPage::saveSettings()
 {
-//     Settings::setAudioInputDevice(m_audioInputs.at(ui->kcfg_AudioInputDevice->currentIndex()));
+    Settings::setAudioInputDevice(m_audioInputs.at(ui->kcfg_AudioInputDevice->currentIndex()));
 //     Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
     Settings::setAudioOutputVolume(ui->kcfg_AudioOutputVolume->value());
     Settings::self()->writeConfig();
@@ -124,7 +123,7 @@ void SoundDeviceDialogPage::recordSound()
     }
 
     ui->buttonRecordTestSound->setIcon(KIcon("artikulate-media-record-active"));
-//     CaptureDeviceController::self().setDevice(ui->kcfg_AudioInputDevice->currentText());
+    CaptureDeviceController::self().setDevice(ui->kcfg_AudioInputDevice->currentText());
     CaptureDeviceController::self().startCapture(m_recordTestFile.fileName());
 }
 

@@ -58,6 +58,11 @@ public:
     void stopCapture();
     void setDevice(const QString &deviceIdentifier);
 
+    /**
+     * \return list of available capture devices
+     */
+    QList<QString> devices() const;
+
 public Q_SLOTS:
 
 
