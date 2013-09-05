@@ -85,26 +85,39 @@ Item {
                 }
             }
 
+            Rectangle {
+                id: coloredBox
+                width: theme.smallIconSize
+                height: theme.smallIconSize
+                anchors.verticalCenter: enableEdit.verticalCenter
+
+                color: {
+                    switch (phrase.editState) {
+                    case Phrase.Unknown: "red";
+                        break;
+                    case Phrase.Translated: "orange";
+                        break;
+                    case Phrase.Completed: "green";
+                        break;
+                    default: "purple";
+                    }
+                }
+                visible: {
+                    if (editCourseSelector.isSkeleton) {
+                        visible = false
+                    }
+                    else {
+                        visible = true
+                    }
+                }
+            }
+
             Text {
                 id: phraseText
                 width: root.width - enableEdit.width - typeIcon.width - 20
                 anchors.verticalCenter: enableEdit.verticalCenter
                 text: phrase.text
                 wrapMode: Text.WordWrap
-                color: {
-                    if (editCourseSelector.isSkeleton) {
-                        return "black";
-                    }
-                    switch (phrase.editState) {
-                    case Phrase.Unknown: "red";
-                        break;
-                    case Phrase.Translated: "blue";
-                        break;
-                    case Phrase.Completed: "black";
-                        break;
-                    default: "purple";
-                    }
-                }
             }
         }
     }
