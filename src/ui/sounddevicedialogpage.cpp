@@ -85,7 +85,7 @@ void SoundDeviceDialogPage::loadSettings()
 
 void SoundDeviceDialogPage::saveSettings()
 {
-    Settings::setAudioInputDevice(m_audioInputs.at(ui->kcfg_AudioInputDevice->currentIndex()));
+    Settings::setAudioInputDevice(ui->kcfg_AudioInputDevice->itemText(ui->kcfg_AudioInputDevice->currentIndex()));
 //     Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
     Settings::setAudioOutputVolume(ui->kcfg_AudioOutputVolume->value());
     Settings::self()->writeConfig();

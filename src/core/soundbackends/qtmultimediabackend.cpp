@@ -37,9 +37,18 @@ QtMultimediaBackend::QtMultimediaBackend()
         kError() << "Audio capture source not available.";
     }
 
+    // capabilities of backend
     kDebug() << "Available devices:";
     foreach (QString device, m_captureSource->audioInputs()) {
         kDebug() << " + " << device;
+    }
+    kDebug() << "Available codecs:";
+    foreach(const QString &codecName, m_audioInput->supportedAudioCodecs()) {
+        kDebug() << " + " << codecName;
+    }
+    kDebug() << "Available containers:";
+    foreach(const QString &containerName, m_audioInput->supportedContainers()) {
+        kDebug() << " + " << containerName;
     }
 
     // check and set input device
@@ -95,9 +104,8 @@ void QtMultimediaBackend::startCapture(const QString &filePath)
         return;
     }
 
-    kDebug() << "starting capture...";
-    kDebug() << "writing to " << filePath;
-    kDebug() << "device " << m_device;
+    kDebug() << "starting capture for " << filePath;
+    kDebug() << "selected device " << m_device;
 
     // set output location
     //FIXME for a really strange reason, only the following notation works to get a correct
@@ -116,6 +124,9 @@ void QtMultimediaBackend::startCapture(const QString &filePath)
 
     m_audioInput->setEncodingSettings(audioSettings, QVideoEncoderSettings(), container);
     m_audioInput->record();
+    if (m_audioInput->error() != QMediaRecorder::NoError) {
+        kError() << "QtMultimediaBackend returned error: " << m_audioInput->errorString();
+    }
 }
 
 void QtMultimediaBackend::stopCapture()
