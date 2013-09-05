@@ -47,7 +47,6 @@ int main(int argc, char **argv)
     about.addAuthor(ki18n("Magdalena Konkiewicz"), ki18n("Developer and Course Data"));
 
     KCmdLineArgs::init(argc, argv, &about);
-    KApplication::setGraphicsSystem("raster");
 
     Application app;
 
