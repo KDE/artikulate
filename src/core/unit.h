@@ -52,6 +52,8 @@ public:
     void setTitle(const QString &title);
     QList<Phrase *> phraseList() const;
     void addPhrase(Phrase *phrase);
+    QStringList excludedPhraseId() const;
+    void setExcludedPhraseId(const QString &id);
 
 signals:
     void idChanged();
@@ -65,6 +67,7 @@ signals:
     void phraseRemoved();
     void phraseRemoved(Phrase*);
     void phraseAboutToBeRemoved(int,int);
+    void excludedPhraseIdListChanged();
 
 private:
     Q_DISABLE_COPY(Unit)
@@ -73,6 +76,7 @@ private:
     Course *m_course;
     QString m_title;
     QList<Phrase *> m_phraseList;
+    QStringList m_excludedPhraseIds;
     QSignalMapper *m_phraseSignalMapper;
 };
 
