@@ -375,8 +375,9 @@ QObject * CourseResource::resource()
              excludedPhrasesNode = excludedPhrasesNode.nextSiblingElement())
         {
             if (!unit->excludedPhraseIdList().contains(excludedPhrasesNode.firstChildElement("id").text())) {
-                kWarning() << "Phrase ID" << excludedPhrasesNode.firstChildElement("id").text() << "should not be present in the excluded phrase list, aborting";
-                return 0;
+                kWarning() << "Phrase ID" << excludedPhrasesNode.firstChildElement("id").text()
+                    << "contained in excluded-phrase list, skipping";
+                continue;
             }
             unit->setExcludedPhraseIdList(excludedPhrasesNode.firstChildElement("id").text());
         }
