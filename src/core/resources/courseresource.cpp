@@ -241,11 +241,9 @@ void CourseResource::sync()
             unitPhraseListElement.appendChild(phraseElement);
         }
 
-        Phrase *excludedPhrase;
-        foreach (excludedPhrase->id(), unit->excludedPhraseIdList()) {
+        foreach (QString phraseId, unit->excludedPhraseIdList()) {
             QDomElement excludedPhraseIdElement = document.createElement("id");
-            excludedPhraseIdElement.appendChild(document.createTextNode(excludedPhrase->id()));
-
+            excludedPhraseIdElement.appendChild(document.createTextNode(phraseId));
             unitExcludedPhraseIdListElement.appendChild(excludedPhraseIdElement);
         }
 
