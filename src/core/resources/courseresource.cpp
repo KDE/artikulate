@@ -1,5 +1,6 @@
 /*
  *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -240,11 +241,16 @@ void CourseResource::sync()
             }
 
             else {
-                QDomElement excludedPhraseIdElement = document.createElement("id");
-                excludedPhraseIdElement.appendChild(document.createTextNode(phrase->id()));
-
-                unitExcludedPhraseIdListElement.appendChild(excludedPhraseIdElement);
+                continue;
             }
+        }
+
+        Phrase *excludedPhrase;
+        foreach (excludedPhrase->id(), unit->excludedPhraseIdList()) {
+            QDomElement excludedPhraseIdElement = document.createElement("id");
+            excludedPhraseIdElement.appendChild(document.createTextNode(excludedPhrase->id()));
+
+            unitExcludedPhraseIdListElement.appendChild(excludedPhraseIdElement);
         }
 
         // construct the unit element
@@ -368,7 +374,11 @@ QObject * CourseResource::resource()
              !excludedPhrasesNode.isNull();
              excludedPhrasesNode = excludedPhrasesNode.nextSiblingElement())
         {
-             unit->setExcludedPhraseIdList(excludedPhrasesNode.firstChildElement("id").text());
+            if (!unit->excludedPhraseIdList().contains(excludedPhrasesNode.firstChildElement("id").text())) {
+                kWarning() << "Phrase ID" << excludedPhrasesNode.firstChildElement("id").text() << "should not be present in the excluded phrase list, aborting";
+                return 0;
+            }
+            unit->setExcludedPhraseIdList(excludedPhrasesNode.firstChildElement("id").text());
         }
         d->m_courseResource->addUnit(unit);
 
