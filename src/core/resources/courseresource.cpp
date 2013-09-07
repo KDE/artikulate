@@ -199,50 +199,46 @@ void CourseResource::sync()
 
         // construct phrases
         foreach (Phrase *phrase, unit->phraseList()) {
-
-            //checks if the phrase is excluded
-            if (!unit->excludedPhraseIdList().contains(phrase->id())) {
-                QDomElement phraseElement = document.createElement("phrase");
-                QDomElement phraseIdElement = document.createElement("id");
-                QDomElement phraseTextElement = document.createElement("text");
-                QDomElement phrasei18nTextElement = document.createElement("i18nText");
-                QDomElement phraseSoundFileElement = document.createElement("soundFile");
-                QDomElement phraseTypeElement = document.createElement("type");
-                QDomElement phraseEditStateElement = document.createElement("editState");
-                QDomElement phrasePhonemeListElement = document.createElement("phonemes");
-
-                phraseIdElement.appendChild(document.createTextNode(phrase->id()));
-                phraseTextElement.appendChild(document.createTextNode(phrase->text()));
-                phrasei18nTextElement.appendChild(document.createTextNode(phrase->i18nText()));
-                phraseSoundFileElement.appendChild(document.createTextNode(phrase->sound().fileName()));
-                phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
-                phraseEditStateElement.appendChild(document.createTextNode(phrase->editStateString()));
-
-                // add phonemes
-                foreach (Phoneme *phoneme, phrase->phonemes()) {
-                    QDomElement phonemeElement = document.createElement("phonemeID");
-                    phonemeElement.appendChild(document.createTextNode(phoneme->id()));
-                    phrasePhonemeListElement.appendChild(phonemeElement);
-                }
-                phraseElement.appendChild(phraseIdElement);
-                if (!phrase->foreignId().isEmpty()) {
-                    QDomElement phraseForeignIdElement = document.createElement("foreignId");
-                    phraseForeignIdElement.appendChild(document.createTextNode(phrase->foreignId()));
-                    phraseElement.appendChild(phraseForeignIdElement);
-                }
-                phraseElement.appendChild(phraseTextElement);
-                phraseElement.appendChild(phrasei18nTextElement);
-                phraseElement.appendChild(phraseSoundFileElement);
-                phraseElement.appendChild(phraseTypeElement);
-                phraseElement.appendChild(phraseEditStateElement);
-                phraseElement.appendChild(phrasePhonemeListElement);
-
-                unitPhraseListElement.appendChild(phraseElement);
-            }
-
-            else {
+            // skip phrase if included in exclude-list
+            if (unit->excludedPhraseIdList().contains(phrase->id())) {
                 continue;
             }
+            QDomElement phraseElement = document.createElement("phrase");
+            QDomElement phraseIdElement = document.createElement("id");
+            QDomElement phraseTextElement = document.createElement("text");
+            QDomElement phrasei18nTextElement = document.createElement("i18nText");
+            QDomElement phraseSoundFileElement = document.createElement("soundFile");
+            QDomElement phraseTypeElement = document.createElement("type");
+            QDomElement phraseEditStateElement = document.createElement("editState");
+            QDomElement phrasePhonemeListElement = document.createElement("phonemes");
+
+            phraseIdElement.appendChild(document.createTextNode(phrase->id()));
+            phraseTextElement.appendChild(document.createTextNode(phrase->text()));
+            phrasei18nTextElement.appendChild(document.createTextNode(phrase->i18nText()));
+            phraseSoundFileElement.appendChild(document.createTextNode(phrase->sound().fileName()));
+            phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
+            phraseEditStateElement.appendChild(document.createTextNode(phrase->editStateString()));
+
+            // add phonemes
+            foreach (Phoneme *phoneme, phrase->phonemes()) {
+                QDomElement phonemeElement = document.createElement("phonemeID");
+                phonemeElement.appendChild(document.createTextNode(phoneme->id()));
+                phrasePhonemeListElement.appendChild(phonemeElement);
+            }
+            phraseElement.appendChild(phraseIdElement);
+            if (!phrase->foreignId().isEmpty()) {
+                QDomElement phraseForeignIdElement = document.createElement("foreignId");
+                phraseForeignIdElement.appendChild(document.createTextNode(phrase->foreignId()));
+                phraseElement.appendChild(phraseForeignIdElement);
+            }
+            phraseElement.appendChild(phraseTextElement);
+            phraseElement.appendChild(phrasei18nTextElement);
+            phraseElement.appendChild(phraseSoundFileElement);
+            phraseElement.appendChild(phraseTypeElement);
+            phraseElement.appendChild(phraseEditStateElement);
+            phraseElement.appendChild(phrasePhonemeListElement);
+
+            unitPhraseListElement.appendChild(phraseElement);
         }
 
         Phrase *excludedPhrase;
