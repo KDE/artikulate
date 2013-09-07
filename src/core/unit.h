@@ -25,6 +25,7 @@
 #include "phrase.h"
 #include <QObject>
 #include <QList>
+#include <QStringList>
 
 class QSignalMapper;
 class QString;
@@ -52,8 +53,8 @@ public:
     void setTitle(const QString &title);
     QList<Phrase *> phraseList() const;
     void addPhrase(Phrase *phrase);
-    QStringList excludedPhraseId() const;
-    void setExcludedPhraseId(const QString &id);
+    QStringList excludedPhraseIdList() const;
+    void setExcludedPhraseIdList(const QString &id);
 
 signals:
     void idChanged();

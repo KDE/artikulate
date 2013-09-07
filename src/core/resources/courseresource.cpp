@@ -192,48 +192,59 @@ void CourseResource::sync()
         QDomElement unitIdElement = document.createElement("id");
         QDomElement unitTitleElement = document.createElement("title");
         QDomElement unitPhraseListElement = document.createElement("phrases");
+        QDomElement unitExcludedPhraseIdListElement = document.createElement("excludedPhrases");
         unitIdElement.appendChild(document.createTextNode(unit->id()));
         unitTitleElement.appendChild(document.createTextNode(unit->title()));
 
         // construct phrases
         foreach (Phrase *phrase, unit->phraseList()) {
-            QDomElement phraseElement = document.createElement("phrase");
-            QDomElement phraseIdElement = document.createElement("id");
-            QDomElement phraseTextElement = document.createElement("text");
-            QDomElement phrasei18nTextElement = document.createElement("i18nText");
-            QDomElement phraseSoundFileElement = document.createElement("soundFile");
-            QDomElement phraseTypeElement = document.createElement("type");
-            QDomElement phraseEditStateElement = document.createElement("editState");
-            QDomElement phrasePhonemeListElement = document.createElement("phonemes");
 
-            phraseIdElement.appendChild(document.createTextNode(phrase->id()));
-            phraseTextElement.appendChild(document.createTextNode(phrase->text()));
-            phrasei18nTextElement.appendChild(document.createTextNode(phrase->i18nText()));
-            phraseSoundFileElement.appendChild(document.createTextNode(phrase->sound().fileName()));
-            phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
-            phraseEditStateElement.appendChild(document.createTextNode(phrase->editStateString()));
+            //checks if the phrase is excluded
+            if (!unit->excludedPhraseIdList().contains(phrase->id())) {
+                QDomElement phraseElement = document.createElement("phrase");
+                QDomElement phraseIdElement = document.createElement("id");
+                QDomElement phraseTextElement = document.createElement("text");
+                QDomElement phrasei18nTextElement = document.createElement("i18nText");
+                QDomElement phraseSoundFileElement = document.createElement("soundFile");
+                QDomElement phraseTypeElement = document.createElement("type");
+                QDomElement phraseEditStateElement = document.createElement("editState");
+                QDomElement phrasePhonemeListElement = document.createElement("phonemes");
 
-            // add phonemes
-            foreach (Phoneme *phoneme, phrase->phonemes()) {
-                QDomElement phonemeElement = document.createElement("phonemeID");
-                phonemeElement.appendChild(document.createTextNode(phoneme->id()));
-                phrasePhonemeListElement.appendChild(phonemeElement);
+                phraseIdElement.appendChild(document.createTextNode(phrase->id()));
+                phraseTextElement.appendChild(document.createTextNode(phrase->text()));
+                phrasei18nTextElement.appendChild(document.createTextNode(phrase->i18nText()));
+                phraseSoundFileElement.appendChild(document.createTextNode(phrase->sound().fileName()));
+                phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
+                phraseEditStateElement.appendChild(document.createTextNode(phrase->editStateString()));
+
+                // add phonemes
+                foreach (Phoneme *phoneme, phrase->phonemes()) {
+                    QDomElement phonemeElement = document.createElement("phonemeID");
+                    phonemeElement.appendChild(document.createTextNode(phoneme->id()));
+                    phrasePhonemeListElement.appendChild(phonemeElement);
+                }
+                phraseElement.appendChild(phraseIdElement);
+                if (!phrase->foreignId().isEmpty()) {
+                    QDomElement phraseForeignIdElement = document.createElement("foreignId");
+                    phraseForeignIdElement.appendChild(document.createTextNode(phrase->foreignId()));
+                    phraseElement.appendChild(phraseForeignIdElement);
+                }
+                phraseElement.appendChild(phraseTextElement);
+                phraseElement.appendChild(phrasei18nTextElement);
+                phraseElement.appendChild(phraseSoundFileElement);
+                phraseElement.appendChild(phraseTypeElement);
+                phraseElement.appendChild(phraseEditStateElement);
+                phraseElement.appendChild(phrasePhonemeListElement);
+
+                unitPhraseListElement.appendChild(phraseElement);
             }
 
-            phraseElement.appendChild(phraseIdElement);
-            if (!phrase->foreignId().isEmpty()) {
-                QDomElement phraseForeignIdElement = document.createElement("foreignId");
-                phraseForeignIdElement.appendChild(document.createTextNode(phrase->foreignId()));
-                phraseElement.appendChild(phraseForeignIdElement);
-            }
-            phraseElement.appendChild(phraseTextElement);
-            phraseElement.appendChild(phrasei18nTextElement);
-            phraseElement.appendChild(phraseSoundFileElement);
-            phraseElement.appendChild(phraseTypeElement);
-            phraseElement.appendChild(phraseEditStateElement);
-            phraseElement.appendChild(phrasePhonemeListElement);
+            else {
+                QDomElement excludedPhraseIdElement = document.createElement("id");
+                excludedPhraseIdElement.appendChild(document.createTextNode(phrase->id()));
 
-            unitPhraseListElement.appendChild(phraseElement);
+                unitExcludedPhraseIdListElement.appendChild(excludedPhraseIdElement);
+            }
         }
 
         // construct the unit element
@@ -245,6 +256,7 @@ void CourseResource::sync()
         }
         unitElement.appendChild(unitTitleElement);
         unitElement.appendChild(unitPhraseListElement);
+        unitElement.appendChild(unitExcludedPhraseIdListElement);
 
         unitListElement.appendChild(unitElement);
     }
@@ -351,6 +363,12 @@ QObject * CourseResource::resource()
         unit->setTitle(unitNode.firstChildElement("title").text());
         if (!unitNode.firstChildElement("foreignId").isNull()) {
             unit->setForeignId(unitNode.firstChildElement("foreignId").text());
+        }
+        for (QDomElement excludedPhrasesNode = unitNode.firstChildElement("excludedPhrases").firstChildElement();
+             !excludedPhrasesNode.isNull();
+             excludedPhrasesNode = excludedPhrasesNode.nextSiblingElement())
+        {
+             unit->setExcludedPhraseIdList(excludedPhrasesNode.firstChildElement("id").text());
         }
         d->m_courseResource->addUnit(unit);
 

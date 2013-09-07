@@ -131,12 +131,12 @@ void Unit::addPhrase(Phrase *phrase)
     emit modified();
 }
 
-QStringList Unit::excludedPhraseId() const
+QStringList Unit::excludedPhraseIdList() const
 {
     return m_excludedPhraseIds;
 }
 
-void Unit::setExcludedPhraseId(const QString &id)
+void Unit::setExcludedPhraseIdList(const QString &id)
 {
     m_excludedPhraseIds.append(id);
     emit excludedPhraseIdListChanged();
