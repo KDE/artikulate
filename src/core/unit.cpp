@@ -132,13 +132,22 @@ void Unit::addPhrase(Phrase *phrase)
     emit modified();
 }
 
-QStringList Unit::excludedPhraseIdList() const
+QStringList Unit::excludedSkeletonPhraseList() const
 {
     return m_excludedPhraseIds;
 }
 
-void Unit::setExcludedPhraseIdList(const QString &id)
+void Unit::excludeSkeletonPhrase(const QString &phraseId)
 {
-    m_excludedPhraseIds.append(id);
-    emit excludedPhraseIdListChanged();
+    foreach (Phrase *phrase, m_phraseList) {
+        if (phrase->id() == phraseId) {
+            emit phraseAboutToBeRemoved(m_phraseList.indexOf(phrase), m_phraseList.indexOf(phrase));
+            m_phraseList.removeAt(m_phraseList.indexOf(phrase));
+            m_excludedPhraseIds.append(phraseId);
+            emit phraseRemoved(phrase);
+            emit phraseRemoved();
+            emit modified();
+            break;
+        }
+    }
 }

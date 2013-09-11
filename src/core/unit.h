@@ -53,8 +53,9 @@ public:
     void setTitle(const QString &title);
     QList<Phrase *> phraseList() const;
     void addPhrase(Phrase *phrase);
-    QStringList excludedPhraseIdList() const;
-    void setExcludedPhraseIdList(const QString &id);
+    QStringList excludedSkeletonPhraseList() const;
+
+    Q_INVOKABLE void excludeSkeletonPhrase(const QString &phraseId);
 
 signals:
     void idChanged();
@@ -68,7 +69,6 @@ signals:
     void phraseRemoved();
     void phraseRemoved(Phrase*);
     void phraseAboutToBeRemoved(int,int);
-    void excludedPhraseIdListChanged();
 
 private:
     Q_DISABLE_COPY(Unit)
