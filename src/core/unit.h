@@ -55,6 +55,12 @@ public:
     void addPhrase(Phrase *phrase);
     QStringList excludedSkeletonPhraseList() const;
 
+    /**
+     * Removes phrase with ID \p phraseId from unit and adds ID to set
+     * of excluded IDs.
+     *
+     * \param phraseId is the UID of the to be excluded phrase
+     */
     Q_INVOKABLE void excludeSkeletonPhrase(const QString &phraseId);
 
 signals:

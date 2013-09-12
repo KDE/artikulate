@@ -147,7 +147,8 @@ void Unit::excludeSkeletonPhrase(const QString &phraseId)
             emit phraseRemoved(phrase);
             emit phraseRemoved();
             emit modified();
-            break;
+            return;
         }
     }
+    kWarning() << "Could not exclude phrase with ID " << phraseId << ", no phrase with this ID.";
 }
