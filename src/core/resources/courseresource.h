@@ -26,8 +26,11 @@
 
 #include <QObject>
 
+class QDomElement;
 class CourseResourcePrivate;
 class Course;
+class Unit;
+class Phrase;
 
 class ARTIKULATELIB_EXPORT CourseResource : public ResourceInterface
 {
@@ -97,6 +100,9 @@ public:
     Course * course();
 
 private:
+    Phrase * parsePhrase(QDomElement phraseNode, Unit *parentUnit) const;
+    QDomElement serializePhrase(Phrase * phrase, QDomDocument &document);
+
     const QScopedPointer<CourseResourcePrivate> d;
 };
 

@@ -132,9 +132,24 @@ void Unit::addPhrase(Phrase *phrase)
     emit modified();
 }
 
-QStringList Unit::excludedSkeletonPhraseList() const
+void Unit::addExcludedPhrase(Phrase *phrase)
 {
-    return m_excludedPhraseIds;
+    QList<Phrase *>::ConstIterator iter = m_excludedPhraseList.constBegin();
+    while (iter != m_excludedPhraseList.constEnd()) {
+        if (phrase->id() == (*iter)->id()) {
+            kWarning() << "Phrase is already excluded in this unit, aborting";
+            return;
+        }
+        ++iter;
+    }
+    phrase->setUnit(this);
+    m_excludedPhraseList.append(phrase);
+    emit modified();
+}
+
+QList<Phrase *> Unit::excludedSkeletonPhraseList() const
+{
+    return m_excludedPhraseList;
 }
 
 void Unit::excludeSkeletonPhrase(const QString &phraseId)
@@ -143,7 +158,7 @@ void Unit::excludeSkeletonPhrase(const QString &phraseId)
         if (phrase->id() == phraseId) {
             emit phraseAboutToBeRemoved(m_phraseList.indexOf(phrase), m_phraseList.indexOf(phrase));
             m_phraseList.removeAt(m_phraseList.indexOf(phrase));
-            m_excludedPhraseIds.append(phraseId);
+            m_excludedPhraseList.append(phrase);
             emit phraseRemoved(phrase);
             emit phraseRemoved();
             emit modified();

@@ -53,7 +53,8 @@ public:
     void setTitle(const QString &title);
     QList<Phrase *> phraseList() const;
     void addPhrase(Phrase *phrase);
-    QStringList excludedSkeletonPhraseList() const;
+    void addExcludedPhrase(Phrase *phrase);
+    QList<Phrase *> excludedSkeletonPhraseList() const;
 
     /**
      * Removes phrase with ID \p phraseId from unit and adds ID to set
@@ -83,7 +84,7 @@ private:
     Course *m_course;
     QString m_title;
     QList<Phrase *> m_phraseList;
-    QStringList m_excludedPhraseIds;
+    QList<Phrase *> m_excludedPhraseList;
     QSignalMapper *m_phraseSignalMapper;
 };
 

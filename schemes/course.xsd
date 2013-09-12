@@ -25,19 +25,13 @@
         <xs:element name="foreignId" type="xs:string" minOccurs="0" maxOccurs="1" />
         <xs:element name="title" type="xs:string" />
         <xs:element name="phrases" type="phraseList" />
-        <xs:element name="excludedPhrases" type="excludedPhraseIdList" minOccurs="0" maxOccurs="1" />
+        <xs:element name="excludedPhrases" type="phraseList" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="phraseList">
     <xs:sequence>
       <xs:element name="phrase" type="phrase" minOccurs="0" maxOccurs="unbounded" />
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="excludedPhraseIdList">
-    <xs:sequence>
-      <xs:element name="excludedPhraseId" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
