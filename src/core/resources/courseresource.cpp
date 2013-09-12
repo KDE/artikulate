@@ -250,13 +250,16 @@ void CourseResource::sync()
         unitElement.appendChild(unitTitleElement);
         unitElement.appendChild(unitPhraseListElement);
 
-        QDomElement unitExcludedPhraseIdListElement = document.createElement("excludedPhrases");
-        foreach (QString phraseId, unit->excludedSkeletonPhraseList()) {
-            QDomElement excludedPhraseIdElement = document.createElement("excludedPhraseId");
-            excludedPhraseIdElement.appendChild(document.createTextNode(phraseId));
-            unitExcludedPhraseIdListElement.appendChild(excludedPhraseIdElement);
+        // construct list of excluded phrases, iff phrases are excluded
+        if (!unit->excludedSkeletonPhraseList().isEmpty()) {
+            QDomElement unitExcludedPhraseIdListElement = document.createElement("excludedPhrases");
+            foreach (QString phraseId, unit->excludedSkeletonPhraseList()) {
+                QDomElement excludedPhraseIdElement = document.createElement("excludedPhraseId");
+                excludedPhraseIdElement.appendChild(document.createTextNode(phraseId));
+                unitExcludedPhraseIdListElement.appendChild(excludedPhraseIdElement);
+            }
+            unitElement.appendChild(unitExcludedPhraseIdListElement);
         }
-        unitElement.appendChild(unitExcludedPhraseIdListElement);
 
         unitListElement.appendChild(unitElement);
     }
