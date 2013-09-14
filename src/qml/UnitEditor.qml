@@ -53,6 +53,7 @@ Item {
             PlasmaComponents.ToolButton {
                 id: enableEdit
                 iconSource: "document-properties"
+                enabled: !phrase.excluded
                 onClicked: {
                     editMode = true
                     phraseEditor.phrase = phrase
@@ -60,14 +61,6 @@ Item {
             }
 
             property bool phraseExcluded: false
-
-            PlasmaComponents.ToolButton {
-                id: excludePhrase
-                iconSource: "list-remove"
-                onClicked: {
-                    unit.excludeSkeletonPhrase(phrase.id)
-                }
-            }
 
             Image {
                 id: typeIcon
@@ -92,10 +85,11 @@ Item {
 
             Text {
                 id: phraseText
-                width: root.width - enableEdit.width - typeIcon.width - 20
+                width: root.width - enableEdit.width - typeIcon.width - excludeButton.width - 35
                 anchors.verticalCenter: enableEdit.verticalCenter
                 text: phrase.text
                 wrapMode: Text.WordWrap
+                font.italic: phrase.excluded
                 color: {
                     if (editCourseSelector.isSkeleton) {
                         return "black";
@@ -108,6 +102,18 @@ Item {
                     case Phrase.Completed: "black";
                         break;
                     default: "purple";
+                    }
+                }
+            }
+
+            PlasmaComponents.ToolButton {
+                id: excludeButton
+                iconSource: phrase.excluded ? "list-add" : "list-remove"
+                onClicked: {
+                    if (!phrase.excluded) {
+                        unit.excludeSkeletonPhrase(phrase.id)
+                    } else {
+                        unit.includeSkeletonPhrase(phrase.id)
                     }
                 }
             }
@@ -209,6 +215,7 @@ Item {
                 clip: true
                 model: PhraseFilterModel
                 {
+                    hideExcluded: false
                     phraseModel: PhraseModel {
                         unit: root.unit
                     }

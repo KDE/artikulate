@@ -35,8 +35,8 @@
 
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
-    , m_excludedFromUnit(false)
     , m_editState(Unknown)
+    , m_excludedFromUnit(false)
     , m_nativeSoundPlaybackState(StoppedState)
     , m_userSoundPlaybackState(StoppedState)
 {
@@ -387,7 +387,6 @@ void Phrase::setExcluded(bool excluded)
         return;
     }
     m_excludedFromUnit = excluded;
-    kDebug() << "EXCLUDED";
     emit excludedChanged();
 }
 

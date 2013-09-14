@@ -174,3 +174,15 @@ void Unit::excludeSkeletonPhrase(const QString &phraseId)
     }
     kWarning() << "Could not exclude phrase with ID " << phraseId << ", no phrase with this ID.";
 }
+
+void Unit::includeSkeletonPhrase(const QString &phraseId)
+{
+    foreach (Phrase *phrase, m_phraseList) {
+        if (phrase->id() == phraseId) {
+            phrase->setExcluded(false);
+            emit modified();
+            return;
+        }
+    }
+    kWarning() << "Could not include phrase with ID " << phraseId << ", no phrase with this ID.";
+}

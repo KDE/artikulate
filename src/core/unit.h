@@ -63,6 +63,7 @@ public:
      * \param phraseId is the UID of the to be excluded phrase
      */
     Q_INVOKABLE void excludeSkeletonPhrase(const QString &phraseId);
+    Q_INVOKABLE void includeSkeletonPhrase(const QString &phraseId);
 
 signals:
     void idChanged();
