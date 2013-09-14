@@ -84,7 +84,6 @@ private:
     Course *m_course;
     QString m_title;
     QList<Phrase *> m_phraseList;
-    QList<Phrase *> m_excludedPhraseList;
     QSignalMapper *m_phraseSignalMapper;
 };
 

@@ -134,33 +134,39 @@ void Unit::addPhrase(Phrase *phrase)
 
 void Unit::addExcludedPhrase(Phrase *phrase)
 {
-    QList<Phrase *>::ConstIterator iter = m_excludedPhraseList.constBegin();
-    while (iter != m_excludedPhraseList.constEnd()) {
+    QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
+    while (iter != m_phraseList.constEnd()) {
         if (phrase->id() == (*iter)->id()) {
-            kWarning() << "Phrase is already excluded in this unit, aborting";
+            kWarning() << "Trying to add already existing phrase as excluded phrase.";
+            excludeSkeletonPhrase(phrase->id());
             return;
         }
         ++iter;
     }
     phrase->setUnit(this);
-    m_excludedPhraseList.append(phrase);
+    phrase->setExcluded(true);
+    m_phraseList.append(phrase);
     emit modified();
 }
 
 QList<Phrase *> Unit::excludedSkeletonPhraseList() const
 {
-    return m_excludedPhraseList;
+    QList<Phrase *> excludedPhraseList;
+    QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
+    while (iter != m_phraseList.constEnd()) {
+        if ((*iter)->isExcluded() == true) {
+            excludedPhraseList.append(*iter);
+        }
+        ++iter;
+    }
+    return excludedPhraseList;
 }
 
 void Unit::excludeSkeletonPhrase(const QString &phraseId)
 {
     foreach (Phrase *phrase, m_phraseList) {
         if (phrase->id() == phraseId) {
-            emit phraseAboutToBeRemoved(m_phraseList.indexOf(phrase), m_phraseList.indexOf(phrase));
-            m_phraseList.removeAt(m_phraseList.indexOf(phrase));
-            m_excludedPhraseList.append(phrase);
-            emit phraseRemoved(phrase);
-            emit phraseRemoved();
+            phrase->setExcluded(true);
             emit modified();
             return;
         }
