@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
@@ -128,6 +128,7 @@ void Unit::addPhrase(Phrase *phrase)
     connect(phrase, SIGNAL(editStateChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(i18nTextChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(phonemesChanged()), this, SIGNAL(modified()));
+    connect(phrase, SIGNAL(excludedChanged()), this, SIGNAL(modified()));
 
     emit modified();
 }

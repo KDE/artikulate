@@ -39,6 +39,7 @@ PhraseModel::PhraseModel(QObject *parent)
     roles[TextRole] = "text";
     roles[SoundFileRole] = "soundFile";
     roles[IdRole] = "id";
+    roles[ExcludedRole] = "excludedRole";
     roles[DataRole] = "dataRole";
     setRoleNames(roles);
 
@@ -59,19 +60,29 @@ void PhraseModel::setUnit(Unit *unit)
 
     if (m_unit) {
         m_unit->disconnect(this);
+        foreach (Phrase *phrase, m_unit->phraseList()) {
+            phrase->disconnect(this);
+        }
     }
 
     m_unit = unit;
-
     if (m_unit) {
+        // initial setting of signal mappings
         connect(m_unit, SIGNAL(phraseAboutToBeAdded(Phrase*,int)), SLOT(onPhraseAboutToBeAdded(Phrase*,int)));
         connect(m_unit, SIGNAL(phraseAdded()), SLOT(onPhraseAdded()));
         connect(m_unit, SIGNAL(phraseAboutToBeRemoved(int,int)), SLOT(onPhrasesAboutToBeRemoved(int,int)));
         connect(m_unit, SIGNAL(phraseRemoved()), SLOT(onPhrasesRemoved()));
+
+        // insert and connect all already existing phrases
+        int phrases = m_unit->phraseList().count();
+        for (int i=0; i < phrases; ++i) {
+            onPhraseAboutToBeAdded(m_unit->phraseList().at(i), i);
+        }
+        onPhraseAdded();
     }
 
+    // emit done
     endResetModel();
-
     emit unitChanged();
 }
 
@@ -107,6 +118,8 @@ QVariant PhraseModel::data(const QModelIndex &index, int role) const
         return phrase->sound();
     case IdRole:
         return phrase->id();
+    case ExcludedRole:
+        return phrase->isExcluded();
     case DataRole:
         return QVariant::fromValue<QObject*>(phrase);
     default:
@@ -129,6 +142,8 @@ int PhraseModel::rowCount(const QModelIndex &parent) const
 void PhraseModel::onPhraseAboutToBeAdded(Phrase *phrase, int index)
 {
     connect(phrase, SIGNAL(textChanged()), m_signalMapper, SLOT(map()));
+    connect(phrase, SIGNAL(typeChanged()), m_signalMapper, SLOT(map()));
+    connect(phrase, SIGNAL(excludedChanged()), m_signalMapper, SLOT(map()));
     beginInsertRows(QModelIndex(), index, index);
 }
 
@@ -152,6 +167,8 @@ void PhraseModel::onPhrasesRemoved()
 
 void PhraseModel::emitPhraseChanged(int row)
 {
+    reset(); //FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
+             //      to exclude possible new excluded phrases
     emit phraseChanged(row);
     emit dataChanged(index(row, 0), index(row, 0));
 }
@@ -177,8 +194,11 @@ int PhraseModel::count() const
 
 void PhraseModel::updateMappings()
 {
+    if (!m_unit) {
+        return;
+    }
     int phrases = m_unit->phraseList().count();
-    for (int i = 0; i < phrases; i++) {
+    for (int i = 0; i < phrases; ++i) {
         m_signalMapper->setMapping(m_unit->phraseList().at(i), i);
     }
 }

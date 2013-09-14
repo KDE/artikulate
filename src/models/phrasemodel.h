@@ -38,6 +38,7 @@ public:
         TextRole = Qt::UserRole + 1,
         IdRole,
         SoundFileRole,
+        ExcludedRole,
         DataRole
     };
 

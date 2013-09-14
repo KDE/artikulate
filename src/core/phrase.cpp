@@ -35,10 +35,10 @@
 
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
+    , m_excludedFromUnit(false)
     , m_editState(Unknown)
     , m_nativeSoundPlaybackState(StoppedState)
     , m_userSoundPlaybackState(StoppedState)
-    , m_excludedFromUnit(false)
 {
     // register recording file
     m_userSoundFile.setSuffix(".ogg");
@@ -387,6 +387,7 @@ void Phrase::setExcluded(bool excluded)
         return;
     }
     m_excludedFromUnit = excluded;
+    kDebug() << "EXCLUDED";
     emit excludedChanged();
 }
 

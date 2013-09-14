@@ -39,11 +39,6 @@ Item {
         unitBreadcrumb.editMode = false
     }
 
-    PhraseModel {
-        id: phraseModel
-        unit: root.unit
-    }
-
     Component {
         id: itemDelegate
 
@@ -212,7 +207,12 @@ Item {
                 visible: !root.editMode
                 anchors.fill: parent
                 clip: true
-                model: phraseModel
+                model: PhraseFilterModel
+                {
+                    phraseModel: PhraseModel {
+                        unit: root.unit
+                    }
+                }
                 delegate: itemDelegate
 
                 PlasmaComponents.ScrollBar {
