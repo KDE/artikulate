@@ -53,7 +53,6 @@ public:
     void setTitle(const QString &title);
     QList<Phrase *> phraseList() const;
     void addPhrase(Phrase *phrase);
-    void addExcludedPhrase(Phrase *phrase);
     QList<Phrase *> excludedSkeletonPhraseList() const;
 
     /**

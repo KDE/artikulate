@@ -211,15 +211,6 @@ void CourseResource::sync()
         unitElement.appendChild(unitTitleElement);
         unitElement.appendChild(unitPhraseListElement);
 
-        // construct list of excluded phrases, iff phrases are excluded
-        if (!unit->excludedSkeletonPhraseList().isEmpty()) {
-            QDomElement unitExcludedPhraseIdListElement = document.createElement("excludedPhrases");
-            foreach (Phrase *excludedPhrase, unit->excludedSkeletonPhraseList()) {
-                unitExcludedPhraseIdListElement.appendChild(serializePhrase(excludedPhrase, document));
-            }
-            unitElement.appendChild(unitExcludedPhraseIdListElement);
-        }
-
         unitListElement.appendChild(unitElement);
     }
 
@@ -271,6 +262,7 @@ QDomElement CourseResource::serializePhrase(Phrase *phrase, QDomDocument &docume
         phonemeElement.appendChild(document.createTextNode(phoneme->id()));
         phrasePhonemeListElement.appendChild(phonemeElement);
     }
+
     phraseElement.appendChild(phraseIdElement);
     if (!phrase->foreignId().isEmpty()) {
         QDomElement phraseForeignIdElement = document.createElement("foreignId");
@@ -283,6 +275,12 @@ QDomElement CourseResource::serializePhrase(Phrase *phrase, QDomDocument &docume
     phraseElement.appendChild(phraseTypeElement);
     phraseElement.appendChild(phraseEditStateElement);
     phraseElement.appendChild(phrasePhonemeListElement);
+
+    if (phrase->isExcluded()) {
+        QDomElement phraseIsExcludedElement = document.createElement("excluded");
+        phraseIsExcludedElement.appendChild(document.createTextNode("true"));
+        phraseElement.appendChild(phraseIsExcludedElement);
+    }
 
     return phraseElement;
 }
@@ -366,21 +364,6 @@ QObject * CourseResource::resource()
         if (!unitNode.firstChildElement("foreignId").isNull()) {
             unit->setForeignId(unitNode.firstChildElement("foreignId").text());
         }
-        if (!unitNode.firstChildElement("excludedPhrases").isNull()) {
-            for (QDomElement excludedPhraseNode = unitNode.firstChildElement("excludedPhrases").firstChildElement();
-                !excludedPhraseNode.isNull();
-                excludedPhraseNode = excludedPhraseNode.nextSiblingElement())
-            {
-                Phrase * excludedPhrase = parsePhrase(excludedPhraseNode, unit);
-//TODO add unit test to check this logic
-//                 if (!unit->excludedSkeletonPhraseList().contains(unitNode.firstChildElement("excludedPhrases").firstChildElement("excludedPhraseId").text())) {
-//                     kWarning() << "Phrase ID" << unitNode.firstChildElement("excludedPhrases").firstChildElement("excludedPhraseId").text()
-//                     << "contained in excluded-phrase list, skipping";
-//                     continue;
-//                 }
-                unit->addExcludedPhrase(excludedPhrase);
-            }
-        }
         d->m_courseResource->addUnit(unit);
 
         // create phrases
@@ -438,6 +421,13 @@ Phrase* CourseResource::parsePhrase(QDomElement phraseNode, Unit* parentUnit) co
             }
         }
     }
+
+    if (!phraseNode.firstChildElement("excluded").isNull() &&
+        phraseNode.firstChildElement("excluded").text() == "true")
+    {
+        phrase->setExcluded(true);
+    }
+
     return phrase;
 }
 

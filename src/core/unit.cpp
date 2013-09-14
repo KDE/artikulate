@@ -133,23 +133,6 @@ void Unit::addPhrase(Phrase *phrase)
     emit modified();
 }
 
-void Unit::addExcludedPhrase(Phrase *phrase)
-{
-    QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
-    while (iter != m_phraseList.constEnd()) {
-        if (phrase->id() == (*iter)->id()) {
-            kWarning() << "Trying to add already existing phrase as excluded phrase.";
-            excludeSkeletonPhrase(phrase->id());
-            return;
-        }
-        ++iter;
-    }
-    phrase->setUnit(this);
-    phrase->setExcluded(true);
-    m_phraseList.append(phrase);
-    emit modified();
-}
-
 QList<Phrase *> Unit::excludedSkeletonPhraseList() const
 {
     QList<Phrase *> excludedPhraseList;
