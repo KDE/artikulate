@@ -34,31 +34,6 @@ file(COPY ../data/languages DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data) # copy
 file(COPY testcourses/de.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/courses) # copy test files
 file(COPY testcourses/fr.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/courses) # copy test files
 
-# basic tests for audio capability
-set (TestAudio_SRCS
-    testaudio.cpp
-)
-
-kde4_add_executable(TestAudio ${TestAudio_SRCS} )
-target_link_libraries(TestAudio
-    artikulatecore
-    ${QT_QTTEST_LIBRARY}
-    ${KDECLARATIVE_LIBRARIES}
-    ${KDE4_KDEUI_LIBS}
-    ${KDE4_PLASMA_LIBS}
-    ${KDE4_KIO_LIBS}
-    ${KDE4_KCMUTILS_LIBS}
-    ${QT_QTCORE_LIBRARY}
-    ${QT_QTOPENGL_LIBRARY}
-    ${QT_QTSCRIPT_LIBRARY}
-    ${QT_QTDECLARATIVE_LIBRARY}
-    ${QT_QTXMLPATTERNS_LIBRARY}
-    ${QT_QTSQL_LIBRARY}
-    ${PHONON_LIBS}
-)
-add_test(TestAudio TestAudio)
-
-
 # basic tests course files (input/output)
 set (TestCourseFiles_SRCS
     testcoursefiles.cpp
