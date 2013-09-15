@@ -122,27 +122,24 @@ Item {
             width: 90
             height: imageLearner.height + textLearner.height + 10
 
-            Column {
-                Image {
-                    id: imageLearner
-                    anchors { horizontalCenter: parent.horizontalCenter }
-                    width: 90
-                    height: 90
-                    source: "../images/user-identity.png"
-                }
-                Text {
-                    id: textLearner
-                    anchors { top: imageLearner.bottom; topMargin: 10; horizontalCenter: parent.horizontalCenter }
-                    text: i18n("Learner (You)")
-                    font.pointSize: 14
-                    color: "gray"
-                }
+            Image {
+                id: imageLearner
+                width: 90
+                height: 90
+                source: "../images/user-identity.png"
+            }
+            Text {
+                id: textLearner
+                anchors { top: imageLearner.bottom; topMargin: 10; horizontalCenter: imageLearner.horizontalCenter }
+                text: i18n("Learner (You)")
+                font.pointSize: 14
+                color: "gray"
             }
 
             PlasmaComponents.ToolButton {
                 property bool isRecording: false
-                anchors { horizontalCenter: imageLearner.left }
-                y: 40;
+                x: -20
+                y: 40
                 iconSource: "artikulate-media-record"
                 height: 52; width: 52
 
@@ -167,7 +164,7 @@ Item {
             }
             PlasmaComponents.ToolButton {
                 property int userSoundState: (phrase != null) ? phrase.playbackUserSoundState : Phrase.StoppedState
-
+                x: 50
                 y: 40;
                 anchors.horizontalCenter: parent.right
                 iconSource: "artikulate-media-playback-start"
