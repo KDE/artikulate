@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -44,16 +44,13 @@ Column {
         }
     }
 
-    PlasmaComponents.TabBar {
-        width: 400
-        height: 30
+    PlasmaComponents.ButtonColumn {
+        id: modeSelector
+        exclusive: true
 
-        onCurrentTabChanged: {
-            root.selectedLanguage = null
-            root.selectedCourse = null
-        }
-        PlasmaComponents.TabButton {
+        PlasmaComponents.ToolButton {
             id: editCourses
+            checkable: true
             text: i18n("Edit Courses")
             onCheckedChanged: {
                 if (checked) {
@@ -61,8 +58,9 @@ Column {
                 }
             }
         }
-        PlasmaComponents.TabButton {
+        PlasmaComponents.ToolButton {
             id: editSkeletons
+            checkable: true
             text: i18n("Edit Skeletons")
             onCheckedChanged: {
                 if (checked) {
@@ -73,18 +71,23 @@ Column {
     }
 
     Column {
+        height: root.height
+        width: root.width
         visible: editCourses.checked
         Column {
+            id: languageColumn
             spacing: 5
             visible: selectedLanguage == null
 
             Text {
+                id: textSelectLanguage
                 text: i18n("Select Course Language:")
                 font.pointSize: 20;
             }
             LanguageSelector {
                 id: languageSelector
-
+                width: root.width
+                height: root.height - modeSelector.height - textSelectLanguage.height - 20
                 hideEmpty: false
                 resourceManager: globalResourceManager
                 onLanguageSelected: {
@@ -101,6 +104,7 @@ Column {
                 return true;
             }
             Row {
+                id: rowLanguageInformation
                 spacing: 10
                 PlasmaComponents.ToolButton {
                     anchors.verticalCenter: parent.verticalCenter
@@ -126,6 +130,7 @@ Column {
             }
 
             PlasmaComponents.ToolButton {
+                id: buttonAddCourse
                 text: i18n("New Course")
                 iconSource: "document-new"
                 enabled: selectedLanguage != null
@@ -135,6 +140,8 @@ Column {
             }
             CourseSelector {
                 id: courseSelector
+                width: root.width
+                height: root.height - modeSelector.height - rowLanguageInformation.height - buttonAddCourse.height - 40
                 resourceManager: globalResourceManager
                 language: selectedLanguage
                 onCourseSelected: {
@@ -154,6 +161,8 @@ Column {
         }
         SkeletonSelector {
             id: skeletonSelector
+            width: root.width
+            height: root.height - modeSelector.height - 20
             resourceManager: globalResourceManager
             onSkeletonSelected: {
                 root.selectedCourse = skeleton

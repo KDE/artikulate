@@ -228,7 +228,7 @@ Item
 
         Text {
             id: editorTitle
-            text: i18n("Course Editor")
+            text: i18n("Editor")
             font.pointSize: 28;
         }
         Row {
@@ -251,6 +251,8 @@ Item
 
         EditorSelector {
             id: editCourseSelector
+            width: editor.width - 60
+            height: main.height - unitSelectorCaption.height - editorTitle.height - currentCourseTitle.height
             onSelectedLanguageChanged: {
                 editor.currentLanguage = selectedLanguage
             }
