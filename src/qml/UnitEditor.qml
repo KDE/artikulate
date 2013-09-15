@@ -65,8 +65,8 @@ Item {
             Image {
                 id: typeIcon
 
-                width: 20
-                height: 20
+                width: 32
+                height: 32
                 source: {
                     switch (phrase.type) {
                         case Phrase.Word: "../icons/hicolor/64x64/actions/artikulate-word.png"
