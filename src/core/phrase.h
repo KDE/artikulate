@@ -49,6 +49,7 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
     Q_PROPERTY(Phrase::Type type READ type WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(Phrase::EditState editState READ editState WRITE setEditState NOTIFY editStateChanged)
     Q_PROPERTY(Unit *unit READ unit NOTIFY unitChanged)
+    Q_PROPERTY(bool excluded READ isExcluded NOTIFY excludedChanged)
     Q_PROPERTY(KUrl sound READ sound WRITE setSound NOTIFY soundChanged)
     Q_PROPERTY(bool isSound READ isSound NOTIFY soundChanged)
     Q_PROPERTY(bool isUserSound READ isUserSound NOTIFY userSoundChanged)
@@ -114,6 +115,8 @@ public:
     KUrl sound() const;
     void setSound(const KUrl &soundFile);
     QList<Phoneme *> phonemes() const;
+    bool isExcluded() const;
+    void setExcluded(bool excluded = false);
 
     Q_INVOKABLE bool hasPhoneme(Phoneme *phoneme);
     Q_INVOKABLE void addPhoneme(Phoneme *phoneme);
@@ -162,6 +165,7 @@ signals:
     void editStateChanged();
     void soundChanged();
     void userSoundChanged();
+    void excludedChanged();
     void phonemesChanged();
     void playbackSoundStateChanged();
     void playbackUserSoundStateChanged();
@@ -181,6 +185,7 @@ private:
     EditState m_editState;
     RecordingState m_recordingState;
     Unit *m_unit;
+    bool m_excludedFromUnit;
 
     QList<Phoneme *> m_phonemes;
     KUrl m_nativeSoundFile;

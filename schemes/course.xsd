@@ -13,9 +13,9 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:complexType name="phraseList">
+  <xs:complexType name="unitList">
     <xs:sequence>
-      <xs:element name="phrase" type="phrase" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="unit" type="unit" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
@@ -25,6 +25,12 @@
         <xs:element name="foreignId" type="xs:string" minOccurs="0" maxOccurs="1" />
         <xs:element name="title" type="xs:string" />
         <xs:element name="phrases" type="phraseList" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="phraseList">
+    <xs:sequence>
+      <xs:element name="phrase" type="phrase" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
@@ -38,12 +44,7 @@
         <xs:element name="type" type="xs:string" />
         <xs:element name="editState" type="xs:string" minOccurs="0" maxOccurs="1" />
         <xs:element name="phonemes" type="phonemeList" />
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="unitList">
-    <xs:sequence>
-      <xs:element name="unit" type="unit" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="excluded" type="xs:boolean" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
   </xs:complexType>
 

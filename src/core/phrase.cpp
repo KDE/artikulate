@@ -36,6 +36,7 @@
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
     , m_editState(Unknown)
+    , m_excludedFromUnit(false)
     , m_nativeSoundPlaybackState(StoppedState)
     , m_userSoundPlaybackState(StoppedState)
 {
@@ -373,6 +374,20 @@ void Phrase::stopRecordUserSound()
 bool Phrase::isUserSound() const
 {
     return !m_userSoundFile.fileName().isEmpty();
+}
+
+bool Phrase::isExcluded() const
+{
+    return m_excludedFromUnit;
+}
+
+void Phrase::setExcluded(bool excluded)
+{
+    if (excluded == m_excludedFromUnit) {
+        return;
+    }
+    m_excludedFromUnit = excluded;
+    emit excludedChanged();
 }
 
 QList<Phoneme *> Phrase::phonemes() const

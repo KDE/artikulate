@@ -39,11 +39,6 @@ Item {
         unitBreadcrumb.editMode = false
     }
 
-    PhraseModel {
-        id: phraseModel
-        unit: root.unit
-    }
-
     Component {
         id: itemDelegate
 
@@ -58,11 +53,14 @@ Item {
             PlasmaComponents.ToolButton {
                 id: enableEdit
                 iconSource: "document-properties"
+                enabled: !phrase.excluded
                 onClicked: {
                     editMode = true
                     phraseEditor.phrase = phrase
                 }
             }
+
+            property bool phraseExcluded: false
 
             Image {
                 id: typeIcon
@@ -114,10 +112,23 @@ Item {
 
             Text {
                 id: phraseText
-                width: root.width - enableEdit.width - typeIcon.width - 20
+                width: root.width - enableEdit.width - typeIcon.width - excludeButton.width - coloredBox.width - 40
                 anchors.verticalCenter: enableEdit.verticalCenter
+                font.italic: phrase.excluded
                 text: phrase.text
                 wrapMode: Text.WordWrap
+            }
+
+            PlasmaComponents.ToolButton {
+                id: excludeButton
+                iconSource: phrase.excluded ? "list-add" : "list-remove"
+                onClicked: {
+                    if (!phrase.excluded) {
+                        unit.excludeSkeletonPhrase(phrase.id)
+                    } else {
+                        unit.includeSkeletonPhrase(phrase.id)
+                    }
+                }
             }
         }
     }
@@ -215,7 +226,13 @@ Item {
                 visible: !root.editMode
                 anchors.fill: parent
                 clip: true
-                model: phraseModel
+                model: PhraseFilterModel
+                {
+                    hideExcluded: false
+                    phraseModel: PhraseModel {
+                        unit: root.unit
+                    }
+                }
                 delegate: itemDelegate
 
                 PlasmaComponents.ScrollBar {

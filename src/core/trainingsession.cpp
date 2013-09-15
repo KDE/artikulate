@@ -242,8 +242,9 @@ void TrainingSession::createFromUnit(Unit * unit)
 
     setTitle(unit->title());
     foreach(Phrase *phrase, unit->phraseList()) {
-        if (phrase->sound().isEmpty()) {
-            kWarning() << "Skipping unit, no native recording provided";
+        if (phrase->sound().isEmpty()
+            || phrase->isExcluded() == true)
+        {
             continue;
         }
         TrainingPhrase newTrainingPhrase;

@@ -25,6 +25,7 @@
 #include "phrase.h"
 #include <QObject>
 #include <QList>
+#include <QStringList>
 
 class QSignalMapper;
 class QString;
@@ -52,6 +53,16 @@ public:
     void setTitle(const QString &title);
     QList<Phrase *> phraseList() const;
     void addPhrase(Phrase *phrase);
+    QList<Phrase *> excludedSkeletonPhraseList() const;
+
+    /**
+     * Removes phrase with ID \p phraseId from unit and adds ID to set
+     * of excluded IDs.
+     *
+     * \param phraseId is the UID of the to be excluded phrase
+     */
+    Q_INVOKABLE void excludeSkeletonPhrase(const QString &phraseId);
+    Q_INVOKABLE void includeSkeletonPhrase(const QString &phraseId);
 
 signals:
     void idChanged();

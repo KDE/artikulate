@@ -44,7 +44,6 @@ Item {
             onClicked: {
                 root.unitSelected(unit)
                 currentUnit = unit
-                console.log("unit selector: select unit")
             }
         }
     }

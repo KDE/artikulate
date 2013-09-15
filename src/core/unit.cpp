@@ -1,5 +1,6 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -127,6 +128,44 @@ void Unit::addPhrase(Phrase *phrase)
     connect(phrase, SIGNAL(editStateChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(i18nTextChanged()), this, SIGNAL(modified()));
     connect(phrase, SIGNAL(phonemesChanged()), this, SIGNAL(modified()));
+    connect(phrase, SIGNAL(excludedChanged()), this, SIGNAL(modified()));
 
     emit modified();
+}
+
+QList<Phrase *> Unit::excludedSkeletonPhraseList() const
+{
+    QList<Phrase *> excludedPhraseList;
+    QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
+    while (iter != m_phraseList.constEnd()) {
+        if ((*iter)->isExcluded() == true) {
+            excludedPhraseList.append(*iter);
+        }
+        ++iter;
+    }
+    return excludedPhraseList;
+}
+
+void Unit::excludeSkeletonPhrase(const QString &phraseId)
+{
+    foreach (Phrase *phrase, m_phraseList) {
+        if (phrase->id() == phraseId) {
+            phrase->setExcluded(true);
+            emit modified();
+            return;
+        }
+    }
+    kWarning() << "Could not exclude phrase with ID " << phraseId << ", no phrase with this ID.";
+}
+
+void Unit::includeSkeletonPhrase(const QString &phraseId)
+{
+    foreach (Phrase *phrase, m_phraseList) {
+        if (phrase->id() == phraseId) {
+            phrase->setExcluded(false);
+            emit modified();
+            return;
+        }
+    }
+    kWarning() << "Could not include phrase with ID " << phraseId << ", no phrase with this ID.";
 }
