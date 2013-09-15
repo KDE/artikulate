@@ -18,8 +18,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
 #include "phrasemodel.h"
 #include "core/unit.h"
 #include "core/phrase.h"
@@ -77,8 +75,10 @@ void PhraseModel::setUnit(Unit *unit)
         int phrases = m_unit->phraseList().count();
         for (int i=0; i < phrases; ++i) {
             onPhraseAboutToBeAdded(m_unit->phraseList().at(i), i);
+            endInsertRows();
+            emit countChanged();
         }
-        onPhraseAdded();
+        updateMappings();
     }
 
     // emit done
