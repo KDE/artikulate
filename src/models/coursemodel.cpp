@@ -22,6 +22,7 @@
 #include "core/language.h"
 #include "core/course.h"
 #include "core/resourcemanager.h"
+#include "core/resources/courseresource.h"
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
@@ -61,10 +62,15 @@ void CourseModel::setResourceManager(ResourceManager *resourceManager)
     m_resourceManager = resourceManager;
 
     if (m_resourceManager) {
-        connect(m_resourceManager, SIGNAL(courseAboutToBeAdded(Course*,int)), SLOT(onCourseAboutToBeAdded(Course*,int)));
-        connect(m_resourceManager, SIGNAL(courseAdded()), SLOT(onCourseAdded()));
-        connect(m_resourceManager, SIGNAL(courseAboutToBeRemoved(int,int)), SLOT(onCoursesAboutToBeRemoved(int,int)));
-        connect(m_resourceManager, SIGNAL(courseRemoved()), SLOT(onCoursesRemoved()));
+        connect(m_resourceManager, SIGNAL(courseResourceAboutToBeAdded(CourseResource*,int)),
+                SLOT(onCourseResourceAboutToBeAdded(CourseResource*,int)));
+        connect(m_resourceManager, SIGNAL(courseResourceAdded()),
+                SLOT(onCourseResourceAdded()));
+        connect(m_resourceManager, SIGNAL(courseResourceAboutToBeRemoved(int)),
+                SLOT(onCourseResourceAboutToBeRemoved(int)));
+        connect(m_resourceManager, SIGNAL(courseResourceRemoved()),
+                SLOT(onCourseResourceRemoved()));
+        updateResources();
     }
 
     endResetModel();
@@ -84,8 +90,12 @@ Language * CourseModel::language() const
 
 void CourseModel::setLanguage(Language *language)
 {
+    if (!language) {
+        return;
+    }
     emit beginResetModel();
     m_language = language;
+    updateResources();
     emit languageChanged();
     emit endResetModel();
 }
@@ -102,6 +112,7 @@ void CourseModel::setView(CourseModel::CourseResourceView view)
     }
     emit beginResetModel();
     m_view = view;
+    updateResources();
     emit viewChanged();
     emit endResetModel();
 }
@@ -112,11 +123,11 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_resourceManager->courseResources(m_language).count()) {
+    if (index.row() >= m_resources.count()) {
         return QVariant();
     }
 
-    Course * const course = m_resourceManager->course(m_language, index.row());
+    Course * const course = m_resources.at(index.row())->course();
 
     switch(role)
     {
@@ -140,40 +151,49 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
 
 int CourseModel::rowCount(const QModelIndex& parent) const
 {
-    if (!m_resourceManager) {
-        return 0;
-    }
-
-    if (!m_language) {
-        return 0;
-    }
-
     if (parent.isValid()) {
         return 0;
     }
-
-    return m_resourceManager->courseResources(m_language).count();
+    return m_resources.count();
 }
 
-void CourseModel::onCourseAboutToBeAdded(Course *course, int index)
+void CourseModel::onCourseResourceAboutToBeAdded(CourseResource *resource, int index)
 {
-    connect(course, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
+    // do nothing when view does not show resource
+    if (resource->isContributorResource() == true && m_view == OnlyGetHotNewStuffResources) {
+        return;
+    }
+    if (!resource->isContributorResource() == true && m_view == OnlyContributorResources) {
+        return;
+    }
+
+    beginInsertRows(QModelIndex(), m_resources.count(), m_resources.count());
+    m_resources.append(resource);
+
+    connect(resource->course(), SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
     //TODO add missing signals
-    beginInsertRows(QModelIndex(), index, index);
 }
 
-void CourseModel::onCourseAdded()
+void CourseModel::onCourseResourceAdded()
 {
     updateMappings();
     endInsertRows();
 }
 
-void CourseModel::onCoursesAboutToBeRemoved(int first, int last)
+void CourseModel::onCourseResourceAboutToBeRemoved(int index)
 {
-    beginRemoveRows(QModelIndex(), first, last);
+    CourseResource *originalResource = m_resourceManager->courseResources(m_language).at(index);
+    int modelIndex = m_resources.indexOf(originalResource);
+
+    if (modelIndex == -1) {
+        kWarning() << "Cannot remove course from model, not registered";
+        return;
+    }
+    beginRemoveRows(QModelIndex(), modelIndex, modelIndex);
+    m_resources.removeAt(modelIndex);
 }
 
-void CourseModel::onCoursesRemoved()
+void CourseModel::onCourseResourceRemoved()
 {
     endRemoveRows();
 }
@@ -195,14 +215,49 @@ QVariant CourseModel::headerData(int section, Qt::Orientation orientation, int r
     return QVariant(i18n("Title"));
 }
 
+void CourseModel::updateResources()
+{
+    Q_ASSERT(m_resourceManager);
+    if (!m_resourceManager) {
+        return;
+    }
+    if (!m_language) {
+        return;
+    }
+    m_resources.clear();
+    QList<CourseResource*> resources = m_resourceManager->courseResources(m_language);
+    switch (m_view) {
+    case CourseModel::AllResources:
+        m_resources = resources;
+        break;
+    case CourseModel::OnlyContributorResources:
+        foreach(CourseResource *resource, resources) {
+            if (!resource->isContributorResource()) {
+                continue;
+            }
+            m_resources.append(resource);
+        }
+        break;
+    case CourseModel::OnlyGetHotNewStuffResources:
+        foreach(CourseResource *resource, resources) {
+            if (resource->isContributorResource()) {
+                continue;
+            }
+            m_resources.append(resource);
+        }
+        break;
+    }
+    updateMappings();
+}
+
 void CourseModel::updateMappings()
 {
     if (!m_language) {
         kDebug() << "Aborting to update mappings, language not set.";
         return;
     }
-    int courses = m_resourceManager->courseResources(m_language).count();
+    int courses = m_resources.count();
     for (int i = 0; i < courses; i++) {
-        m_signalMapper->setMapping(m_resourceManager->course(m_language, i), i);
+        m_signalMapper->setMapping(m_resources.at(i)->course(), i);
     }
 }

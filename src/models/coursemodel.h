@@ -25,6 +25,7 @@
 
 class ResourceManager;
 class Course;
+class CourseResource;
 class Language;
 class QSignalMapper;
 
@@ -69,17 +70,27 @@ signals:
     void viewChanged();
 
 private slots:
-    void onCourseAboutToBeAdded(Course *course, int index);
-    void onCourseAdded();
-    void onCoursesAboutToBeRemoved(int first, int last);
-    void onCoursesRemoved();
+    void onCourseResourceAboutToBeAdded(CourseResource *resource, int index);
+    void onCourseResourceAdded();
+    void onCourseResourceAboutToBeRemoved(int index);
+    void onCourseResourceRemoved();
     void emitCourseChanged(int row);
 
 private:
+    /**
+     * Updates internal list of course resources. Before calling this method, emit beginResetModel()
+     * and after completion of this method emit endResetModel().
+     */
+    void updateResources();
+
+    /**
+     * Updates internal mappings of course signals.
+     */
     void updateMappings();
     ResourceManager *m_resourceManager;
     Language *m_language;
     CourseResourceView m_view;
+    QList<CourseResource*> m_resources;
     QSignalMapper *m_signalMapper;
 };
 

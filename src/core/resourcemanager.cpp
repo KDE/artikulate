@@ -163,6 +163,10 @@ Language * ResourceManager::language(int index) const
 
 QList< CourseResource* > ResourceManager::courseResources(Language *language)
 {
+    Q_ASSERT(language);
+    if (!language) {
+        return QList< CourseResource* >();
+    }
     // return empty list if no course available
     if (!m_courseResources.contains(language->id())) {
         return QList< CourseResource* >();
@@ -302,23 +306,23 @@ void ResourceManager::addCourseResource(CourseResource *resource)
     Q_ASSERT(m_courseResources.contains(resource->language()));
 
     if (m_courseResources.contains(resource->language())) {
-        emit courseAboutToBeAdded(resource->course(), m_courseResources[resource->language()].count());
+        emit courseResourceAboutToBeAdded(resource, m_courseResources[resource->language()].count());
     }
     else {
-        emit courseAboutToBeAdded(resource->course(), 0);
+        emit courseResourceAboutToBeAdded(resource, 0);
         m_courseResources.insert(resource->language(), QList<CourseResource*>());
     }
     m_courseResources[resource->language()].append(resource);
-    emit courseAdded();
+    emit courseResourceAdded();
 }
 
 void ResourceManager::removeCourse(Course *course)
 {
     for (int index=0; index < m_courseResources[course->language()->id()].length(); index++) {
         if (m_courseResources[course->language()->id()].at(index)->course() == course) {
-            emit courseAboutToBeRemoved(index, index);
+            emit courseResourceAboutToBeRemoved(index);
             m_courseResources[course->language()->id()].removeAt(index);
-            emit courseRemoved();
+            emit courseResourceRemoved();
             course->deleteLater();
             return;
         }

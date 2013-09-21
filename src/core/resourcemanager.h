@@ -160,10 +160,10 @@ signals:
     void languageAboutToBeAdded(Language*,int);
     void languageRemoved();
     void languageAboutToBeRemoved(int,int);
-    void courseAdded();
-    void courseAboutToBeAdded(Course*,int);
-    void courseRemoved();
-    void courseAboutToBeRemoved(int,int);
+    void courseResourceAdded();
+    void courseResourceAboutToBeAdded(CourseResource*,int);
+    void courseResourceRemoved();
+    void courseResourceAboutToBeRemoved(int);
     void skeletonAdded();
     void skeletonAboutToBeAdded(Course*,int);
     void skeletonRemoved();
