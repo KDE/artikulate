@@ -18,7 +18,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
@@ -46,6 +45,7 @@ class QXmlSchema;
 class ARTIKULATELIB_EXPORT ResourceManager : public QObject
 {
     Q_OBJECT
+
 public:
     explicit ResourceManager(QObject *parent = 0);
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -34,8 +34,16 @@ class CourseModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(ResourceManager *resourceManager READ resourceManager WRITE setResourceManager NOTIFY resourceManagerChanged)
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
+    Q_PROPERTY(CourseResourceView view READ view WRITE setView NOTIFY viewChanged)
 
 public:
+    Q_ENUMS(CourseResourceView);
+    enum CourseResourceView {
+        OnlyGetHotNewStuffResources,
+        OnlyContributorResources,
+        AllResources
+    };
+
     enum courseRoles {
         TitleRole = Qt::UserRole + 1,
         DescriptionRole,
@@ -48,6 +56,8 @@ public:
     ResourceManager * resourceManager() const;
     void setLanguage(Language *language);
     Language * language() const;
+    CourseResourceView view() const;
+    void setView(CourseResourceView view);
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
@@ -56,6 +66,7 @@ signals:
     void courseChanged(int index);
     void resourceManagerChanged();
     void languageChanged();
+    void viewChanged();
 
 private slots:
     void onCourseAboutToBeAdded(Course *course, int index);
@@ -68,6 +79,7 @@ private:
     void updateMappings();
     ResourceManager *m_resourceManager;
     Language *m_language;
+    CourseResourceView m_view;
     QSignalMapper *m_signalMapper;
 };
 

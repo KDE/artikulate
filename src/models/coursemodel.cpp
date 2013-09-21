@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,8 +18,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
 #include "coursemodel.h"
 #include "core/language.h"
 #include "core/course.h"
@@ -35,6 +33,7 @@ CourseModel::CourseModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_resourceManager(0)
     , m_language(0)
+    , m_view(OnlyGetHotNewStuffResources)
     , m_signalMapper(new QSignalMapper(this))
 {
     QHash<int, QByteArray> roles;
@@ -86,10 +85,24 @@ Language * CourseModel::language() const
 void CourseModel::setLanguage(Language *language)
 {
     emit beginResetModel();
-
     m_language = language;
     emit languageChanged();
+    emit endResetModel();
+}
 
+CourseModel::CourseResourceView CourseModel::view() const
+{
+    return m_view;
+}
+
+void CourseModel::setView(CourseModel::CourseResourceView view)
+{
+    if (m_view == view) {
+        return;
+    }
+    emit beginResetModel();
+    m_view = view;
+    emit viewChanged();
     emit endResetModel();
 }
 
