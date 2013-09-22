@@ -31,23 +31,31 @@ class LanguageModel : public QSortFilterProxyModel
 {
     Q_OBJECT
     Q_PROPERTY(LanguageResourceModel *resourceModel READ resourceModel WRITE setResourceModel NOTIFY resourceModelChanged)
-    Q_PROPERTY(bool hideEmpty READ isHideEmpty WRITE setHideEmpty NOTIFY hideEmptyChanged)
+    Q_PROPERTY(LanguageResourceView view READ view WRITE setView NOTIFY viewChanged)
 
 public:
+    Q_ENUMS(LanguageResourceView);
+    enum LanguageResourceView {
+        NonEmptyContributorOnlyResources,
+        NonEmptyGhnsOnlyLanguages,
+        NonEmptyLanguages,
+        AllLanguages
+    };
+
     explicit LanguageModel(QObject *parent = 0);
     LanguageResourceModel * resourceModel() const;
     void setResourceModel(LanguageResourceModel *resourceModel);
     virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
-    void setHideEmpty(bool hide=true);
-    bool isHideEmpty() const;
+    void setView(LanguageResourceView view);
+    LanguageResourceView view() const;
 
 signals:
     void resourceModelChanged();
-    void hideEmptyChanged();
+    void viewChanged();
 
 private:
     LanguageResourceModel *m_resourceModel;
-    bool m_hideEmpty;
+    LanguageResourceView m_view;
 };
 
 #endif

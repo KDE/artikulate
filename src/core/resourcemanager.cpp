@@ -136,13 +136,12 @@ void ResourceManager::addLanguage(const KUrl &languageFile)
     }
 
     LanguageResource *resource = new LanguageResource(this, languageFile);
-    Language *language = resource->language();
 
-    emit languageAboutToBeAdded(language, m_languageResources.count());
+    emit languageResourceAboutToBeAdded(resource, m_languageResources.count());
     m_languageResources.append(resource);
     m_loadedResources.append(languageFile.toLocalFile());
-    m_courseResources.insert(language->id(), QList<CourseResource*>());
-    emit languageAdded();
+    m_courseResources.insert(resource->identifier(), QList<CourseResource*>());
+    emit languageResourceAdded();
 }
 
 bool ResourceManager::isRepositoryManager() const
@@ -298,6 +297,7 @@ CourseResource * ResourceManager::addCourse(const KUrl &courseFile)
     }
     m_loadedResources.append(courseFile.toLocalFile());
     addCourseResource(resource);
+    emit languageCoursesChanged();
     return resource;
 }
 

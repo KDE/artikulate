@@ -22,8 +22,10 @@
 #define LANGUAGERESOURCEMODEL_H
 
 #include <QAbstractListModel>
+#include "languagemodel.h"
 
 class ResourceManager;
+class LanguageResource;
 class Language;
 class QSignalMapper;
 
@@ -47,21 +49,28 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    void setView(LanguageModel::LanguageResourceView view);
+    LanguageModel::LanguageResourceView view() const;
 
 signals:
     void languageChanged(int index);
     void resourceManagerChanged();
 
 private slots:
-    void onLanguageAboutToBeAdded(Language *language, int index);
-    void onLanguageAdded();
-    void onLanguagesAboutToBeRemoved(int first, int last);
-    void onLanguagesRemoved();
+    void onLanguageResourceAboutToBeAdded(LanguageResource *resource, int index);
+    void onLanguageResourceAdded();
+    void onLanguageResourceAboutToBeRemoved(int index);
+    void onLanguageResourceRemoved();
     void emitLanguageChanged(int row);
+    void updateDisplayedLanguages();
 
 private:
+    bool displayResource(LanguageResource *resource) const;
+    void updateResources();
     void updateMappings();
     ResourceManager *m_resourceManager;
+    QList<LanguageResource *> m_resources;
+    LanguageModel::LanguageResourceView m_view;
     QSignalMapper *m_signalMapper;
 };
 

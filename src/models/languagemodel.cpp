@@ -29,11 +29,9 @@
 LanguageModel::LanguageModel(QObject* parent)
     : QSortFilterProxyModel(parent)
     , m_resourceModel(0)
-    , m_hideEmpty(true)
+    , m_view(NonEmptyGhnsOnlyLanguages)
 {
     setDynamicSortFilter(true);
-    setFilterRole(LanguageResourceModel::CourseNumberRole);
-    setHideEmpty(true);
 }
 
 LanguageResourceModel * LanguageModel::resourceModel() const
@@ -41,31 +39,29 @@ LanguageResourceModel * LanguageModel::resourceModel() const
     return m_resourceModel;
 }
 
-void LanguageModel::setHideEmpty(bool hide)
+void LanguageModel::setView(LanguageResourceView view)
 {
-    m_hideEmpty = hide;
-
-    if (m_hideEmpty == true) {
-        QRegExp nonZero("^[1-9]+[0-9]*$");
-        setFilterRegExp(nonZero);
+    if (m_view == view) {
+        return;
     }
-    else {
-        setFilterRegExp(QString());
+    if (!m_resourceModel) {
+        return;
     }
+    m_resourceModel->setView(view);
 
-    emit hideEmptyChanged();
+    emit viewChanged();
 }
 
-bool LanguageModel::isHideEmpty() const
+LanguageModel::LanguageResourceView LanguageModel::view() const
 {
-    return m_hideEmpty;
+    return m_view;
 }
 
 void LanguageModel::setResourceModel(LanguageResourceModel* resourceModel)
 {
-    if (resourceModel != m_resourceModel)
-    {
+    if (resourceModel != m_resourceModel) {
         m_resourceModel = resourceModel;
+        m_resourceModel->setView(m_view);
         setSourceModel(m_resourceModel);
         sort(0);
         emit resourceModelChanged();

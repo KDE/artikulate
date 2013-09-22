@@ -156,10 +156,10 @@ public:
     Q_INVOKABLE void newCourseDialog();
 
 signals:
-    void languageAdded();
-    void languageAboutToBeAdded(Language*,int);
-    void languageRemoved();
-    void languageAboutToBeRemoved(int,int);
+    void languageResourceAdded();
+    void languageResourceAboutToBeAdded(LanguageResource*,int);
+    void languageResourceRemoved();
+    void languageResourceAboutToBeRemoved(int);
     void courseResourceAdded();
     void courseResourceAboutToBeAdded(CourseResource*,int);
     void courseResourceRemoved();
@@ -168,6 +168,7 @@ signals:
     void skeletonAboutToBeAdded(Course*,int);
     void skeletonRemoved();
     void skeletonAboutToBeRemoved(int,int);
+    void languageCoursesChanged();
 
 private:
     QList<LanguageResource *> m_languageResources;
