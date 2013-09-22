@@ -86,9 +86,13 @@ MainWindow::MainWindow()
 
     m_view->rootContext()->setContextProperty("userProfile", m_profile);
     m_view->rootContext()->setContextProperty("trainingSession", m_trainingSession);
+    m_view->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 
     // set starting screen
     m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Main.qml")));
+
+    // settings from kcfg values
+    slotUpdateTrianingPhraseFont();
 
     // set initial view
     m_view->rootObject()->setProperty("viewMode", Trainer);
@@ -183,6 +187,7 @@ void MainWindow::showSettingsDialog()
     connect(dialog, SIGNAL(accepted()), soundDialog, SLOT(saveSettings()));
     connect(dialog, SIGNAL(accepted()), appearenceDialog, SLOT(saveSettings()));
     connect(dialog, SIGNAL(accepted()), SLOT(slotUpdateTrianingPhraseFont()));
+    connect(dialog, SIGNAL(accepted()), SLOT(updateKcfgUseContributorResources()));
 
     dialog->exec();
 }
@@ -192,6 +197,11 @@ void MainWindow::slotUpdateTrianingPhraseFont()
     QObject *phraseText = m_view->rootObject()->findChild<QObject*>("phraseText");
     QFont f = phraseText->property("font").value<QFont>();
     phraseText->setProperty("font", Settings::trainingPhraseFont());
+}
+
+void MainWindow::updateKcfgUseContributorResources()
+{
+    m_view->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 }
 
 void MainWindow::slotDownloadNewStuff()

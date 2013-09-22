@@ -29,6 +29,7 @@ Item {
     property ResourceManager resourceManager
     property Language language
     property Course selectedCourse
+    property int view : CourseModel.AllResources
 
     signal courseSelected(variant course)
 
@@ -59,6 +60,7 @@ Item {
         model: CourseModel {
             resourceManager: root.resourceManager
             language: root.language
+            view: root.view
         }
         delegate: courseDelegate
     }

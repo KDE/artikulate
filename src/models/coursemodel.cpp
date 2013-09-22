@@ -217,7 +217,6 @@ QVariant CourseModel::headerData(int section, Qt::Orientation orientation, int r
 
 void CourseModel::updateResources()
 {
-    Q_ASSERT(m_resourceManager);
     if (!m_resourceManager) {
         return;
     }

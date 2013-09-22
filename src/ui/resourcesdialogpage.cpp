@@ -57,7 +57,10 @@ void ResourcesDialogPage::updateHints()
     } else {
         m_restartNeeded = false;
     }
-//     ui->restartInfo->setVisible(m_restartNeeded);//FIXME tell resource manager
+    // TODO
+    // when doing this, a simple reload of the resource manager should be enough
+    // proper reload mechanism not implemented yet
+//     ui->restartInfo->setVisible(m_restartNeeded);//FIXME tell resource manager to reload
 }
 
 void ResourcesDialogPage::loadSettings()

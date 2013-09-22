@@ -65,6 +65,7 @@ public slots:
     void showSettingsDialog();
     void slotDownloadNewStuff();
     void slotUpdateTrianingPhraseFont();
+    void updateKcfgUseContributorResources();
 
 signals:
      void modeChanged(bool);
