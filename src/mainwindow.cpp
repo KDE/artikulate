@@ -92,7 +92,7 @@ MainWindow::MainWindow()
     m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Main.qml")));
 
     // settings from kcfg values
-    slotUpdateTrianingPhraseFont();
+    updateTrainingPhraseFont();
 
     // set initial view
     m_view->rootObject()->setProperty("viewMode", Trainer);
@@ -129,7 +129,7 @@ void MainWindow::setupActions()
     settingsAction->setIcon(KIcon("configure"));
 
     KAction *downloadsAction = new KAction(i18n("Download New Language Course"), this);
-    connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(slotDownloadNewStuff()));
+    connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(downloadNewStuff()));
     actionCollection()->addAction("download_new_stuff", downloadsAction);
     downloadsAction->setIcon(KIcon("get-hot-new-stuff"));
 
@@ -186,13 +186,13 @@ void MainWindow::showSettingsDialog()
     connect(dialog, SIGNAL(accepted()), resourceDialog, SLOT(saveSettings()));
     connect(dialog, SIGNAL(accepted()), soundDialog, SLOT(saveSettings()));
     connect(dialog, SIGNAL(accepted()), appearenceDialog, SLOT(saveSettings()));
-    connect(dialog, SIGNAL(accepted()), SLOT(slotUpdateTrianingPhraseFont()));
+    connect(dialog, SIGNAL(accepted()), SLOT(updateTrainingPhraseFont()));
     connect(dialog, SIGNAL(accepted()), SLOT(updateKcfgUseContributorResources()));
 
     dialog->exec();
 }
 
-void MainWindow::slotUpdateTrianingPhraseFont()
+void MainWindow::updateTrainingPhraseFont()
 {
     QObject *phraseText = m_view->rootObject()->findChild<QObject*>("phraseText");
     QFont f = phraseText->property("font").value<QFont>();
@@ -204,7 +204,7 @@ void MainWindow::updateKcfgUseContributorResources()
     m_view->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 }
 
-void MainWindow::slotDownloadNewStuff()
+void MainWindow::downloadNewStuff()
 {
     QPointer<KNS3::DownloadDialog> dialog(new KNS3::DownloadDialog("artikulate.knsrc", this));
     if ( dialog->exec() == QDialog::Accepted ) {

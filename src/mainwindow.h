@@ -63,8 +63,8 @@ public slots:
     void closeCourseEditor();
     void switchMode();
     void showSettingsDialog();
-    void slotDownloadNewStuff();
-    void slotUpdateTrianingPhraseFont();
+    void downloadNewStuff();
+    void updateTrainingPhraseFont();
     void updateKcfgUseContributorResources();
 
 signals:
