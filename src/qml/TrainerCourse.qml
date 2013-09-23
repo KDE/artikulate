@@ -1,5 +1,6 @@
 /*
  *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -35,10 +36,12 @@ FocusScope {
         if (finished) {
             trainerMain.visible = false
             finishedInformation.visible = true
+            trainingStatusInfo.visible = false
         }
         else {
             trainerMain.visible = true
             finishedInformation.visible = false
+            trainingStatusInfo.visible = true
         }
     }
 
@@ -105,21 +108,75 @@ FocusScope {
 
     Column {
         id: finishedInformation
-        anchors { top: unitHeader.bottom; left: unitHeader.left; topMargin: 50 }
+        anchors { top: unitHeader.bottom; left: unitHeader.left; topMargin: 20; right: screen.right }
         visible: false
-        spacing: 20
+        spacing: 10
 
         Text {
-            text: i18n("Congratulations! This training unit is completed.")
-            font.pointSize: 24
+            id: results
+            text: i18n("Results")
+            font.pointSize: 20
         }
-        PlasmaComponents.ToolButton { // unselect-button for language
-            iconSource: "dialog-close"
-            text: i18n("Close Training")
-            font.pointSize: 14
-            onClicked: {
-                close()
+
+        Row {
+            spacing: 15
+            anchors { right: parent.right; rightMargin: 30 }
+
+            Rectangle {
+                id: rect1
+                height: 15
+                width: 15
+                color: "#2de86c"
             }
+
+            Text {
+                id: label1
+                text: "Word"
+                font.pointSize: 10
+            }
+
+            Rectangle {
+                id: rect2
+                height: 15
+                width: 15
+                color: "#327bff"
+            }
+
+            Text {
+                id: label2
+                text: "Expression"
+                font.pointSize: 10
+            }
+
+            Rectangle {
+                id: rect3
+                height: 15
+                width: 15
+                color: "#fff13f"
+            }
+
+            Text {
+                id: label3
+                text: "Sentence"
+                font.pointSize: 10
+            }
+
+            Rectangle {
+                id: rect4
+                height: 15
+                width: 15
+                color: "#e85a02"
+            }
+
+            Text {
+                id: label4
+                text: "Paragraph"
+                font.pointSize: 10
+            }
+        }
+        TrainerCourseStatistics {
+            width: screen.width - 60
+            height: screen.height - 30 - breadcrumb.height - 50 - 50
         }
     }
 

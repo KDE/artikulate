@@ -1,5 +1,6 @@
 /*
  *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -57,6 +58,18 @@ public:
         StepOver
     };
 
+    // TODO workaround for QT-BUG-26415, fixed in Qt 5.0
+    // we must simulate the Phrase::Type enum in TrainingSession to be able to allow its usage
+    // as parameter for Q_INVOKABLE method
+    // can be removed with Qt 5.0 migration
+    Q_ENUMS(Type)
+    enum Type {
+        Word = Phrase::Word,
+        Expression = Phrase::Expression,
+        Sentence = Phrase::Sentence,
+        Paragraph = Phrase::Paragraph
+    };
+
     explicit TrainingSession(QObject *parent = 0);
     ~TrainingSession();
 
@@ -79,6 +92,14 @@ public:
      */
     Q_INVOKABLE void next(NextAction completeCurrent);
     Q_INVOKABLE void setPhraseType(const QString &newType);
+
+    // TODO workaround for QT-BUG-26415, remove after migration to Qt-5
+    Q_INVOKABLE int numberPhrasesGroupedByTries(TrainingSession::Type type, int neededTries) const;
+    Q_INVOKABLE int numberPhrases(TrainingSession::Type type) const;
+
+    Q_INVOKABLE int numberPhrasesGroupedByTries(Phrase::Type type, int neededTries) const;
+    Q_INVOKABLE int numberPhrases(Phrase::Type type) const;
+    Q_INVOKABLE int maximumTries() const;
 
     int progressTypeWord() const;
     int progressTypeExpression() const;

@@ -1,5 +1,6 @@
 /*
  *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -77,8 +78,7 @@ int TrainingSession::progressTypeWord() const
     if (m_phraseListUntrained.value(Phrase::Word).isEmpty()) {
         return 100;
     }
-    int totalNumber = m_phraseListTrained.value(Phrase::Word).length() + m_phraseListUntrained.value(Phrase::Word).length();
-    return 100 * m_phraseListTrained.value(Phrase::Word).length() / totalNumber;
+    return 100 * m_phraseListTrained.value(Phrase::Word).length() / numberPhrases(Phrase::Word);
 }
 
 int TrainingSession::progressTypeExpression() const
@@ -86,8 +86,7 @@ int TrainingSession::progressTypeExpression() const
     if (m_phraseListUntrained.value(Phrase::Expression).isEmpty()) {
         return 100;
     }
-    int totalNumber = m_phraseListTrained.value(Phrase::Expression).length() + m_phraseListUntrained.value(Phrase::Expression).length();
-    return 100 * m_phraseListTrained.value(Phrase::Expression).length() / totalNumber;
+    return 100 * m_phraseListTrained.value(Phrase::Expression).length() / numberPhrases(Phrase::Expression);
 }
 
 int TrainingSession::progressTypeSentence() const
@@ -95,8 +94,7 @@ int TrainingSession::progressTypeSentence() const
     if (m_phraseListUntrained.value(Phrase::Sentence).isEmpty()) {
         return 100;
     }
-    int totalNumber = m_phraseListTrained.value(Phrase::Sentence).length() + m_phraseListUntrained.value(Phrase::Sentence).length();
-    return 100 * m_phraseListTrained.value(Phrase::Sentence).length() / totalNumber;
+    return 100 * m_phraseListTrained.value(Phrase::Sentence).length() / numberPhrases(Phrase::Sentence);
 }
 
 int TrainingSession::progressTypeParagraph() const
@@ -104,8 +102,7 @@ int TrainingSession::progressTypeParagraph() const
     if (m_phraseListUntrained.value(Phrase::Paragraph).isEmpty()) {
         return 100;
     }
-    int totalNumber = m_phraseListTrained.value(Phrase::Paragraph).length() + m_phraseListUntrained.value(Phrase::Paragraph).length();
-    return 100 * m_phraseListTrained.value(Phrase::Paragraph).length() / totalNumber;
+    return 100 * m_phraseListTrained.value(Phrase::Paragraph).length() / numberPhrases(Phrase::Paragraph);
 }
 
 bool TrainingSession::isFinished() const
@@ -140,7 +137,7 @@ void TrainingSession::setPhraseType(const QString &newType)
 
 void TrainingSession::next(TrainingSession::NextAction completeCurrent)
 {
-    TrainingPhrase currentPhrase = m_phraseListUntrained.value(m_currentType).first();
+    TrainingPhrase &currentPhrase = const_cast<TrainingPhrase&>(m_phraseListUntrained.value(m_currentType).first());
     switch(completeCurrent) {
     case Complete:
         ++currentPhrase.trainedGood;
@@ -153,7 +150,7 @@ void TrainingSession::next(TrainingSession::NextAction completeCurrent)
         break;
     }
 
-    // if completed, then put to completed list
+    // if completed, then put to completed list and check for maximum number of tries
     if (completeCurrent == Complete) {
         m_phraseListTrained[currentPhrase.phrase->type()].append(currentPhrase);
         m_phraseListUntrained[currentPhrase.phrase->type()].removeFirst();
@@ -263,3 +260,54 @@ void TrainingSession::createFromUnit(Unit * unit)
         emit finished(); //TODO work around for now, since we allow access to empty units at trainer
 }
 
+int TrainingSession::numberPhrasesGroupedByTries(TrainingSession::Type type, int neededTries) const
+{
+    return numberPhrasesGroupedByTries(static_cast<Phrase::Type>(type), neededTries);
+}
+
+int TrainingSession::numberPhrasesGroupedByTries(Phrase::Type type, int neededTries) const
+{
+    int numberOfPhrasesForTries = 0;
+    foreach (TrainingPhrase phrase, m_phraseListTrained[type]) {
+        if (phrase.trainedBad + 1 == neededTries) {
+            ++numberOfPhrasesForTries;
+        }
+    }
+    return numberOfPhrasesForTries;
+}
+
+int TrainingSession::numberPhrases(TrainingSession::Type type) const
+{
+    return numberPhrases(static_cast<Phrase::Type>(type));
+}
+
+int TrainingSession::numberPhrases(Phrase::Type type) const
+{
+    return m_phraseListTrained.value(type).length() + m_phraseListUntrained.value(type).length();
+}
+
+int TrainingSession::maximumTries() const
+{
+    int maxTries = 0;
+    foreach (TrainingPhrase phrase, m_phraseListTrained[Phrase::Word]) {
+        if (maxTries < phrase.trainedBad) {
+            maxTries = phrase.trainedBad;
+        }
+    }
+    foreach (TrainingPhrase phrase, m_phraseListTrained[Phrase::Expression]) {
+        if (maxTries < phrase.trainedBad) {
+            maxTries = phrase.trainedBad;
+        }
+    }
+    foreach (TrainingPhrase phrase, m_phraseListTrained[Phrase::Sentence]) {
+        if (maxTries < phrase.trainedBad) {
+            maxTries = phrase.trainedBad;
+        }
+    }
+    foreach (TrainingPhrase phrase, m_phraseListTrained[Phrase::Paragraph]) {
+        if (maxTries < phrase.trainedBad) {
+            maxTries = phrase.trainedBad;
+        }
+    }
+    return maxTries;
+}

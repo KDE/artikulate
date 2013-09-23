@@ -33,6 +33,7 @@ set(artikulate_qml_files
     TrainerPhrase.qml
     TrainerSessionScreen.qml
     TrainerPhraseTypeStatus.qml
+    TrainerCourseStatistics.qml
 
     EditorSelector.qml
 
