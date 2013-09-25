@@ -28,7 +28,7 @@ Item {
 
     property ResourceManager resourceManager
     property Language selectedLanguage
-    property bool hideEmpty: true
+    property int view: LanguageModel.AllLanguages
 
     signal languageSelected(variant language)
 
@@ -58,7 +58,7 @@ Item {
         anchors.fill: parent
         clip: true
         model: LanguageModel {
-            hideEmpty: root.hideEmpty
+            view: root.view
             resourceModel: LanguageResourceModel {resourceManager: root.resourceManager }
         }
         delegate: itemDelegate

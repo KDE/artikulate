@@ -88,7 +88,7 @@ Column {
                 id: languageSelector
                 width: root.width
                 height: root.height - modeSelector.height - textSelectLanguage.height - 20
-                hideEmpty: false
+                view: LanguageModel.AllLanguages
                 resourceManager: globalResourceManager
                 onLanguageSelected: {
                     root.selectedLanguage = language

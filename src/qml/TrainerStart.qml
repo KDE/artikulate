@@ -156,6 +156,7 @@ FocusScope {
             height: screen.height - breadcrumb.height - 230
             visible: userProfile.language == null
             resourceManager: globalResourceManager
+            view: kcfg_UseContributorResources ? LanguageModel.NonEmptyLanguages : LanguageModel.NonEmptyGhnsOnlyLanguages
             onLanguageSelected: {
                 screen.languageSelected(selectedLanguage)
             }
