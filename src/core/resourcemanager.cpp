@@ -146,7 +146,7 @@ void ResourceManager::addLanguage(const KUrl &languageFile)
 
 bool ResourceManager::isRepositoryManager() const
 {
-    return Settings::useCourseRepository() && !Settings::courseRepositoryPath().isEmpty();
+    return !Settings::courseRepositoryPath().isEmpty();
 }
 
 QList< LanguageResource* > ResourceManager::languageResources() const
