@@ -73,7 +73,7 @@ FocusScope {
         flat: false
         enabled: true
         onClicked : {
-            slotDownloadNewStuff()
+            downloadNewStuff()
         }
     }
 
