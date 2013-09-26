@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -28,7 +28,6 @@ class Course;
 class Unit;
 class PhonemeGroup;
 class QSignalMapper;
-
 
 class PhonemeUnitModel : public QAbstractListModel
 {
