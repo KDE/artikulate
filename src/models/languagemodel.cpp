@@ -41,14 +41,17 @@ LanguageResourceModel * LanguageModel::resourceModel() const
 
 void LanguageModel::setView(LanguageResourceView view)
 {
-    if (m_view == view) {
-        return;
-    }
+    // always change view for resource model
     if (!m_resourceModel) {
         return;
     }
     m_resourceModel->setView(view);
 
+    // set local view variable
+    if (m_view == view) {
+        return;
+    }
+    m_view = view;
     emit viewChanged();
 }
 
