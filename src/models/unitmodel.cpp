@@ -94,7 +94,7 @@ QVariant UnitModel::data(const QModelIndex& index, int role) const
     {
     case Qt::DisplayRole:
         return !unit->title().isEmpty()?
-                QVariant(unit->title()): QVariant(i18n("<No title>"));
+                QVariant(unit->title()): QVariant(i18nc("@item:inlistbox:", "<no title>"));
     case Qt::ToolTipRole:
         return QVariant(i18n("<p>%1</p>", unit->title()));
     case TitleRole:
@@ -160,7 +160,7 @@ QVariant UnitModel::headerData(int section, Qt::Orientation orientation, int rol
     if (orientation == Qt::Vertical) {
         return QVariant(section + 1);
     }
-    return QVariant(i18n("Title"));
+    return QVariant(i18nc("@title:column", "Title"));
 }
 
 void UnitModel::updateMappings()

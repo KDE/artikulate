@@ -101,7 +101,7 @@ QVariant LanguageResourceModel::data(const QModelIndex& index, int role) const
     {
     case Qt::DisplayRole:
         return !language->title().isEmpty() ?
-                QVariant(language->title()): QVariant(i18n("<No title>"));
+                QVariant(language->title()): QVariant(i18nc("@item:inlistbox:", "<no title>"));
     case Qt::ToolTipRole:
         return QVariant(i18n("<p>%1</p>", language->title()));
     case TitleRole:
@@ -185,7 +185,7 @@ QVariant LanguageResourceModel::headerData(int section, Qt::Orientation orientat
     if (orientation == Qt::Vertical) {
         return QVariant(section + 1);
     }
-    return QVariant(i18n("Title"));
+    return QVariant(i18nc("@title:column", "Title"));
 }
 
 void LanguageResourceModel::setView(LanguageModel::LanguageResourceView view)

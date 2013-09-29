@@ -76,7 +76,7 @@ QtGStreamerBackend::QtGStreamerBackend()
             m_availableDevices.insert(device.toString(), QString("%1 (%2)").arg(deviceName, device.toString()));
         }
     } else {
-        m_availableDevices.insert("", i18n("Default"));
+        m_availableDevices.insert("", i18nc("@item:inlistbox default sound device", "Default"));
     }
 }
 

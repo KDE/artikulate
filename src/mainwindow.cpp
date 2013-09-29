@@ -115,7 +115,7 @@ ResourceManager * MainWindow::resourceManager() const
 
 void MainWindow::setupActions()
 {
-    KAction *editorAction = new KAction(i18n("Course Editor mode"), this);
+    KAction *editorAction = new KAction(i18nc("@option:check", "Course Editor mode"), this);
     connect(editorAction, SIGNAL(triggered()), SLOT(switchMode()));
     connect(this, SIGNAL(modeChanged(bool)), editorAction, SLOT(setChecked(bool)));
     actionCollection()->addAction("editor", editorAction);
@@ -123,12 +123,12 @@ void MainWindow::setupActions()
     editorAction->setCheckable(true);
     editorAction->setChecked(false);
 
-    KAction *settingsAction = new KAction(i18n("Configure Artikulate"), this);
+    KAction *settingsAction = new KAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
     connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
     actionCollection()->addAction("settings", settingsAction);
     settingsAction->setIcon(KIcon("configure"));
 
-    KAction *downloadsAction = new KAction(i18n("Download New Language Course"), this);
+    KAction *downloadsAction = new KAction(i18nc("@item:inmenu", "Download New Language Course"), this);
     connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(downloadNewStuff()));
     actionCollection()->addAction("download_new_stuff", downloadsAction);
     downloadsAction->setIcon(KIcon("get-hot-new-stuff"));
