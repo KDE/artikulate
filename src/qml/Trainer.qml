@@ -47,45 +47,30 @@ Item {
         resourceManager: globalResourceManager
     }
 
-    // head toolbar, buttons only on right
-    Item {
-        width: parent.width
-        height: 30
-        PlasmaComponents.ToolBar {
-            id: header
-            height: parent.height
-            tools: Row {
-                anchors.leftMargin: 3
-                anchors.rightMargin: 3
-                spacing: 5
-
-                Item { // spanner
-                    width: header.width - closeButton.width - 20
-                    height: parent.height
-                }
-                PlasmaComponents.ToolButton {
-                    id: closeButton
-                    visible: trainingScreen.visible
-                    iconSource: "go-up"
-                    height: 48
-                    text: i18n("Close Course")
-                    onClicked: {
-                        // show home screen
-                        userProfile.course = null
-                        switchScreen(trainingScreen, homeScreen)
-                    }
-                }
-            }
+    // course close button
+    PlasmaComponents.ToolButton {
+        id: closeButton
+        anchors { top: trainer.top; right: trainer.right; rightMargin: 30; topMargin: 30}
+        visible: trainingScreen.visible
+        iconSource: "go-up"
+        height: 48
+        text: i18n("Close Course")
+        onClicked: {
+            // show home screen
+            userProfile.course = null
+            switchScreen(trainingScreen, homeScreen)
         }
     }
 
+
     Column {
         width: trainer.width
+        anchors { top: trainer.top }
 
         TrainerStart {
             id: homeScreen
             width: parent.width
-            height: trainer.height
+            height: trainer.height - 30
             visible: false
             focus: true
 
@@ -107,7 +92,7 @@ Item {
         TrainerCourse {
             id: trainingScreen
             width: parent.width
-            height: trainer.height - header.height
+            height: trainer.height - 30
             visible: false
             session: trainingSession //TODO we do not need global object for this
             onClose: {
