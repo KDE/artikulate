@@ -39,7 +39,7 @@ QtMultimediaBackend::QtMultimediaBackend()
 
     // capabilities of backend
     kDebug() << "Available devices:";
-    foreach (QString device, m_captureSource->audioInputs()) {
+    foreach (const QString &device, m_captureSource->audioInputs()) {
         kDebug() << " + " << device;
     }
     kDebug() << "Available codecs:";

@@ -268,7 +268,7 @@ int TrainingSession::numberPhrasesGroupedByTries(TrainingSession::Type type, int
 int TrainingSession::numberPhrasesGroupedByTries(Phrase::Type type, int neededTries) const
 {
     int numberOfPhrasesForTries = 0;
-    foreach (TrainingPhrase phrase, m_phraseListTrained[type]) {
+    foreach (const TrainingPhrase &phrase, m_phraseListTrained[type]) {
         if (phrase.trainedBad + 1 == neededTries) {
             ++numberOfPhrasesForTries;
         }
@@ -289,22 +289,22 @@ int TrainingSession::numberPhrases(Phrase::Type type) const
 int TrainingSession::maximumTries() const
 {
     int maxTries = 0;
-    foreach (TrainingPhrase phrase, m_phraseListTrained[Phrase::Word]) {
+    foreach (const TrainingPhrase &phrase, m_phraseListTrained[Phrase::Word]) {
         if (maxTries < phrase.trainedBad) {
             maxTries = phrase.trainedBad;
         }
     }
-    foreach (TrainingPhrase phrase, m_phraseListTrained[Phrase::Expression]) {
+    foreach (const TrainingPhrase &phrase, m_phraseListTrained[Phrase::Expression]) {
         if (maxTries < phrase.trainedBad) {
             maxTries = phrase.trainedBad;
         }
     }
-    foreach (TrainingPhrase phrase, m_phraseListTrained[Phrase::Sentence]) {
+    foreach (const TrainingPhrase &phrase, m_phraseListTrained[Phrase::Sentence]) {
         if (maxTries < phrase.trainedBad) {
             maxTries = phrase.trainedBad;
         }
     }
-    foreach (TrainingPhrase phrase, m_phraseListTrained[Phrase::Paragraph]) {
+    foreach (const TrainingPhrase &phrase, m_phraseListTrained[Phrase::Paragraph]) {
         if (maxTries < phrase.trainedBad) {
             maxTries = phrase.trainedBad;
         }
