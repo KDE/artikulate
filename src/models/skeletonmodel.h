@@ -29,7 +29,6 @@ class Skeleton;
 class Language;
 class QSignalMapper;
 
-
 class SkeletonModel : public QAbstractListModel
 {
     Q_OBJECT

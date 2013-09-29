@@ -173,7 +173,7 @@ signals:
 private:
     QList<LanguageResource *> m_languageResources;
     QMap<QString, QList<CourseResource *> > m_courseResources; //!> (language-id, course-resource)
-    QList<SkeletonResource *> m_skeletonList;
+    QList<SkeletonResource *> m_skeletonResources;
     QStringList m_loadedResources;
 };
 

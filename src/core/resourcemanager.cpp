@@ -200,7 +200,7 @@ void ResourceManager::reloadCourseOrSkeleton(Course *courseOrSkeleton)
         removeCourse(courseOrSkeleton);
         addCourse(file);
     } else {
-        foreach (SkeletonResource *resource, m_skeletonList) {
+        foreach (SkeletonResource *resource, m_skeletonResources) {
             if (resource->identifier() == courseOrSkeleton->id()) {
                 resource->reload();
                 return;
@@ -217,8 +217,8 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
         return;
     }
     Course *skeleton = 0;
-    QList<SkeletonResource *>::ConstIterator iter = m_skeletonList.constBegin();
-    while (iter != m_skeletonList.constEnd()) {
+    QList<SkeletonResource *>::ConstIterator iter = m_skeletonResources.constBegin();
+    while (iter != m_skeletonResources.constEnd()) {
         if ((*iter)->identifier() == course->foreignId()) {
             skeleton = (*iter)->skeleton();
             break;
@@ -343,19 +343,24 @@ void ResourceManager::addSkeleton(const KUrl &skeletonFile)
     addSkeletonResource(resource);
 }
 
-void ResourceManager::addSkeletonResource(SkeletonResource* resource)
+void ResourceManager::addSkeletonResource(SkeletonResource *resource)
 {
-    emit skeletonAboutToBeAdded(resource->skeleton(), m_skeletonList.count());
-    m_skeletonList.append(resource);
+    // skip already loaded resources
+    if (m_loadedResources.contains(resource->path().toLocalFile())) {
+        return;
+    }
+    m_loadedResources.append(resource->path().toLocalFile());
+    emit skeletonAboutToBeAdded(resource->skeleton(), m_skeletonResources.count());
+    m_skeletonResources.append(resource);
     emit skeletonAdded();
 }
 
 void ResourceManager::removeSkeleton(Skeleton *skeleton)
 {
-    for (int index=0; index < m_skeletonList.length(); ++index) {
-        if (m_skeletonList.at(index)->identifier() == skeleton->id()) {
+    for (int index=0; index < m_skeletonResources.length(); ++index) {
+        if (m_skeletonResources.at(index)->identifier() == skeleton->id()) {
             emit skeletonAboutToBeRemoved(index, index);
-            m_skeletonList.removeAt(index);
+            m_skeletonResources.removeAt(index);
             emit skeletonRemoved();
             skeleton->deleteLater();
             return;
@@ -365,5 +370,5 @@ void ResourceManager::removeSkeleton(Skeleton *skeleton)
 
 QList< SkeletonResource* > ResourceManager::skeletonResources()
 {
-    return m_skeletonList;
+    return m_skeletonResources;
 }
