@@ -160,7 +160,7 @@ QVariant SkeletonModel::headerData(int section, Qt::Orientation orientation, int
     if (orientation == Qt::Vertical) {
         return QVariant(section + 1);
     }
-    return QVariant(i18nc("@title:column", "Title"));
+    return QVariant(i18nc("@title:column", "Skeleton"));
 }
 
 int SkeletonModel::count() const

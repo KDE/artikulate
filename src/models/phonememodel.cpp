@@ -73,9 +73,9 @@ QVariant PhonemeModel::data(const QModelIndex& index, int role) const
     {
     case Qt::DisplayRole:
         return !phoneme->title().isEmpty()?
-                QVariant(phoneme->title()): QVariant(i18n("<No title>"));
+                QVariant(phoneme->title()): QVariant(i18nc("@item:inlistbox:", "unknown"));
     case Qt::ToolTipRole:
-        return QVariant(i18n("<p>%1</p>", phoneme->title()));
+        return QVariant(phoneme->title());
     case TitleRole:
         return phoneme->title();
     case IdRole:
@@ -135,7 +135,7 @@ QVariant PhonemeModel::headerData(int section, Qt::Orientation orientation, int 
     if (orientation == Qt::Vertical) {
         return QVariant(section + 1);
     }
-    return QVariant(i18n("Title"));
+    return QVariant(i18nc("@title:column", "Phoneme"));
 }
 
 void PhonemeModel::updateMappings()

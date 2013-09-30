@@ -115,9 +115,9 @@ QVariant PhonemeUnitModel::data(const QModelIndex& index, int role) const
     {
     case Qt::DisplayRole:
         return !unit->title().isEmpty()?
-                QVariant(unit->title()): QVariant(i18nc("@item:inlistbox:", "<no title>"));
+                QVariant(unit->title()): QVariant(i18nc("@item:inlistbox:", "unknown"));
     case Qt::ToolTipRole:
-        return QVariant(i18n("<p>%1</p>", unit->title()));
+        return QVariant(unit->title());
     case TitleRole:
         return unit->title();
     case NumberPhrasesRole:
@@ -185,7 +185,7 @@ QVariant PhonemeUnitModel::headerData(int section, Qt::Orientation orientation, 
     if (orientation == Qt::Vertical) {
         return QVariant(section + 1);
     }
-    return QVariant(i18nc("@title:column", "Title"));
+    return QVariant(i18nc("@title:column", "Phoneme Unit"));
 }
 
 int PhonemeUnitModel::count() const

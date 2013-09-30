@@ -133,9 +133,9 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
     {
     case Qt::DisplayRole:
         return !course->title().isEmpty()?
-                QVariant(course->title()): QVariant(i18nc("@item:inlistbox:", "<no title>"));
+                QVariant(course->title()): QVariant(i18nc("@item:inlistbox:", "unknown"));
     case Qt::ToolTipRole:
-        return QVariant(i18n("<p>%1</p>", course->title()));
+        return QVariant(course->title());
     case TitleRole:
         return course->title();
     case DescriptionRole:
@@ -212,7 +212,7 @@ QVariant CourseModel::headerData(int section, Qt::Orientation orientation, int r
     if (orientation == Qt::Vertical) {
         return QVariant(section + 1);
     }
-    return QVariant(i18nc("@title:column", "Title"));
+    return QVariant(i18nc("@title:column", "Course"));
 }
 
 void CourseModel::updateResources()
