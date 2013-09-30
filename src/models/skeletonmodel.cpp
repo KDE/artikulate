@@ -92,9 +92,9 @@ QVariant SkeletonModel::data(const QModelIndex& index, int role) const
     {
     case Qt::DisplayRole:
         return !skeleton->title().isEmpty() ?
-                QVariant(skeleton->title()): QVariant(i18nc("@item:inlistbox:", "<no title>"));
+                QVariant(skeleton->title()): QVariant(i18nc("@item:inlistbox:", "unknown"));
     case Qt::ToolTipRole:
-        return QVariant(i18n("<p>%1</p>", skeleton->title()));
+        return QVariant(skeleton->title());
     case TitleRole:
         return skeleton->title();
     case DescriptionRole:
