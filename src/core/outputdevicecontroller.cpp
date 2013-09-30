@@ -45,6 +45,8 @@ public:
     ~OutputDeviceControllerPrivate()
     {
         m_mediaObject->disconnect();
+        m_mediaObject->deleteLater();
+        m_audioOutput->deleteLater();
     }
 
     bool lazyInit()
@@ -53,8 +55,8 @@ public:
             return false;
         }
 
-        m_audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory, m_parent);
-        m_mediaObject = new Phonon::MediaObject(m_parent);
+        m_audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory);
+        m_mediaObject = new Phonon::MediaObject();
 
         // initialize
         Phonon::createPath(m_mediaObject, m_audioOutput);
