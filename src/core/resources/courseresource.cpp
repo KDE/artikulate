@@ -99,7 +99,7 @@ CourseResource::CourseResource(ResourceManager *resourceManager, const KUrl &pat
             }
         }
         if (xml.hasError()) {
-            kError() << "Error occured when reading Course XML file:" << path.toLocalFile();
+            kError() << "Error occurred when reading Course XML file:" << path.toLocalFile();
         }
     }
     xml.clear();

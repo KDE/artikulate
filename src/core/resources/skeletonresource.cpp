@@ -92,7 +92,7 @@ SkeletonResource::SkeletonResource(ResourceManager *resourceManager, const KUrl 
             }
         }
         if (xml.hasError()) {
-            kError() << "Error occured when reading Skeleton XML file:" << path.toLocalFile();
+            kError() << "Error occurred when reading Skeleton XML file:" << path.toLocalFile();
         }
     }
     xml.clear();
