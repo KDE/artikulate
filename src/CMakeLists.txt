@@ -24,7 +24,7 @@
 ###
 set(ARTIKULATE_VERSION_MAJOR 0)
 set(ARTIKULATE_VERSION_MINOR 2)
-set(ARTIKULATE_VERSION_PATCH 0)
+set(ARTIKULATE_VERSION_PATCH 70)
 
 configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
 
