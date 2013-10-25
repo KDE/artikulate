@@ -30,7 +30,8 @@ FocusScope {
     property TrainingSession session
     property bool finished: session.isFinished
 
-    signal close()
+    signal closeCourse()
+    signal closeUnit()
 
     onFinishedChanged: {
         if (finished) {
@@ -85,7 +86,7 @@ FocusScope {
                     anchors { verticalCenter: parent.verticalCenter }
                     iconSource: "dialog-close"
                     onClicked: {
-                        close()
+                        closeUnit()
                     }
                 }
             }

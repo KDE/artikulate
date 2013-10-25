@@ -95,8 +95,12 @@ Item {
             height: trainer.height - 30
             visible: false
             session: trainingSession //TODO we do not need global object for this
-            onClose: {
+            onCloseCourse: {
                 userProfile.course = null
+                switchScreen(trainingScreen, homeScreen)
+            }
+            onCloseUnit: {
+                userProfile.unit = null
                 switchScreen(trainingScreen, homeScreen)
             }
         }
