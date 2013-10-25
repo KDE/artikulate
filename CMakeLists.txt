@@ -45,6 +45,8 @@ add_subdirectory(sounds)
 add_subdirectory(images)
 add_subdirectory(icons)
 
+add_subdirectory(liblearnerprofile)
+
 # Build Tests if KDE_TEST is on
 if(KDE4_BUILD_TESTS)
     enable_testing()
