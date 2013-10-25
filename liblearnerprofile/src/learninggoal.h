@@ -18,21 +18,49 @@
  *  License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QString>
-#include <QList>
+#ifndef LEARNINGGOAL_H
+#define LEARNINGGOAL_H
 
-class LearningGoal;
+#include "liblearnerprofile_export.h"
+#include <QObject>
+
+class LearningGoalPrivate;
 
 namespace LearnerProfile
 {
-class LearnerPrivate {
+
+/**
+ * \class LearningGoal
+ */
+class LIBLEARNERPROFILE_EXPORT LearningGoal : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(QString id READ identifier WRITE setIdentifier NOTIFY identifierChanged)
 
 public:
-    LearnerPrivate() {}
-    ~LearnerPrivate() {}
+    Q_ENUMS(Type)
+    enum PlaybackState {
+        Unspecified = 0,
+        Language = 1
+    };
 
-    QString name;
-    QString identifier;
-    QList<LearningGoal*> goals;
+    explicit LearningGoal(QObject *parent = 0);
+    ~LearningGoal();
+
+    QString name() const;
+    void setName(const QString &name);
+    QString identifier() const;
+    void setIdentifier(const QString &identifier);
+
+Q_SIGNALS:
+    void nameChanged();
+    void identifierChanged();
+
+private:
+    Q_DISABLE_COPY(LearningGoal)
+    const QScopedPointer<LearningGoalPrivate> d;
 };
 }
+
+#endif // LEARINGGOAL_H

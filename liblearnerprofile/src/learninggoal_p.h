@@ -19,20 +19,16 @@
  */
 
 #include <QString>
-#include <QList>
-
-class LearningGoal;
 
 namespace LearnerProfile
 {
-class LearnerPrivate {
+class LearningGoalPrivate {
 
 public:
-    LearnerPrivate() {}
-    ~LearnerPrivate() {}
+    LearningGoalPrivate() {}
+    ~LearningGoalPrivate() {}
 
     QString name;
     QString identifier;
-    QList<LearningGoal*> goals;
 };
 }

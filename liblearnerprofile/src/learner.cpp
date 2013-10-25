@@ -63,4 +63,3 @@ void Learner::setIdentifier(const QString& identifier)
     d->identifier = identifier;
     emit identifierChanged();
 }
-

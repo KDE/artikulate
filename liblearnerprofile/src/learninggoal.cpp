@@ -18,21 +18,47 @@
  *  License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QString>
-#include <QList>
+#include "learninggoal_p.h"
+#include "learninggoal.h"
 
-class LearningGoal;
+using namespace LearnerProfile;
 
-namespace LearnerProfile
+LearningGoal::LearningGoal(QObject *parent)
+    : QObject(parent)
+    , d(new LearningGoalPrivate)
 {
-class LearnerPrivate {
 
-public:
-    LearnerPrivate() {}
-    ~LearnerPrivate() {}
+}
 
-    QString name;
-    QString identifier;
-    QList<LearningGoal*> goals;
-};
+QString LearningGoal::name() const
+{
+    return d->name;
+}
+
+LearningGoal::~LearningGoal()
+{
+
+}
+
+void LearningGoal::setName(const QString &name)
+{
+    if (name == d->name) {
+        return;
+    }
+    d->name = name;
+    nameChanged();
+}
+
+QString LearningGoal::identifier() const
+{
+    return d->identifier;
+}
+
+void LearningGoal::setIdentifier(const QString &identifier)
+{
+    if (identifier == d->identifier) {
+        return;
+    }
+    d->identifier = identifier;
+    emit identifierChanged();
 }
