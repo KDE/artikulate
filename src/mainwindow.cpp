@@ -40,6 +40,7 @@
 #include <KDebug>
 #include <KStandardAction>
 #include <KApplication>
+#include <KMessageBox>
 
 
 #include <QGraphicsObject>
@@ -54,7 +55,8 @@
 MainWindow::MainWindow()
     : KXmlGuiWindow(0)
     , m_view(new QDeclarativeView(this))
-    , m_profile(new Profile(this))
+    , m_trainingProfile(new Profile(this))
+    , m_editorProfile(new Profile(this))
     , m_resourceManager(new ResourceManager(this))
     , m_trainingSession(new TrainingSession(this))
 {
@@ -84,7 +86,8 @@ MainWindow::MainWindow()
 
     m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
 
-    m_view->rootContext()->setContextProperty("userProfile", m_profile);
+    m_view->rootContext()->setContextProperty("userProfile", m_trainingProfile);
+    m_view->rootContext()->setContextProperty("editorProfile", m_editorProfile);
     m_view->rootContext()->setContextProperty("trainingSession", m_trainingSession);
     m_view->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 
@@ -215,4 +218,25 @@ void MainWindow::downloadNewStuff()
 
     //update available courses
     m_resourceManager->loadCourseResources();
+}
+
+bool MainWindow::queryClose()
+{
+    if (Course * course = m_editorProfile->course()) {
+        if (course->modified()) {
+            switch(KMessageBox::warningYesNoCancel(this, "Save changes made to unit?")) {
+                case KMessageBox::Yes:
+                    m_editorProfile->course()->sync();
+                    return true;
+                case KMessageBox::No:
+                    return true;
+                default:
+                    return false;
+            }
+        } else {
+            return false;
+        }
+    } else {
+        return true;
+    }
 }

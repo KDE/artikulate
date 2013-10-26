@@ -58,6 +58,8 @@ public:
 
     virtual QSize sizeHint() const { return QSize(1000, 700); }
 
+    bool queryClose();
+
 public slots:
     void showCourseEditor();
     void closeCourseEditor();
@@ -72,7 +74,7 @@ signals:
 
 private:
     QDeclarativeView *m_view;
-    Profile *m_profile;
+    Profile *m_trainingProfile, *m_editorProfile;
     ResourceManager *m_resourceManager;
     TrainingSession *m_trainingSession;
 };
