@@ -41,6 +41,13 @@ public:
     ~ProfileManager();
 
     QList< Learner* > profiles() const;
+    Learner * addProfile(const QString &name);
+    void sync();
+    void setActiveProfile(Learner *learner);
+    Learner * activeProfile() const;
+
+Q_SIGNALS:
+    void activeProfileChanged();
 
 private:
     Q_DISABLE_COPY(ProfileManager)

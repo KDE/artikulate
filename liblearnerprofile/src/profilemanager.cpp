@@ -24,6 +24,8 @@
 
 #include <QObject>
 #include <QList>
+#include <QUuid>
+#include <KDebug>
 
 using namespace LearnerProfile;
 
@@ -41,5 +43,48 @@ ProfileManager::~ProfileManager()
 
 QList< Learner* > ProfileManager::profiles() const
 {
-    return d->profiles;
+    return d->m_profiles;
+}
+
+Learner * ProfileManager::addProfile(const QString &name)
+{
+    Learner *learner = new Learner(this);
+    learner->setName(name);
+
+    //compare that profile id is unique
+    bool unique;
+    do {
+        learner->setIdentifier(QUuid::createUuid());
+        unique = true;
+        foreach (Learner *cpLearner, profiles()) {
+            if (learner->identifier() == cpLearner->identifier()) {
+                unique = false;
+                kWarning() << "Learner id already use, computing new one.";
+            }
+        }
+    } while (!unique);
+
+    d->m_profiles.append(learner);
+
+
+    return learner;
+}
+
+void ProfileManager::sync()
+{
+    d->sync();
+}
+
+Learner * ProfileManager::activeProfile() const
+{
+    return d->m_activeProfile;
+}
+
+void ProfileManager::setActiveProfile(Learner* learner)
+{
+    if (learner == d->m_activeProfile) {
+        return;
+    }
+    d->m_activeProfile = learner;
+    emit activeProfileChanged();
 }

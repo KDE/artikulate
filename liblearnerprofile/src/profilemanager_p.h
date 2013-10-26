@@ -18,8 +18,14 @@
  *  License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "learner.h"
+
 #include <QString>
 #include <QList>
+#include <KDebug>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KStandardDirs>
 
 namespace LearnerProfile
 {
@@ -28,9 +34,33 @@ class Learner;
 class ProfileManagerPrivate {
 
 public:
-    ProfileManagerPrivate() {}
+    ProfileManagerPrivate();
     ~ProfileManagerPrivate() {}
 
-    QList<LearnerProfile::Learner*> profiles;
+    void sync();
+
+    QList<Learner*> m_profiles;
+    Learner *m_activeProfile;
+    KConfig *m_config;
 };
+
+ProfileManagerPrivate::ProfileManagerPrivate()
+{
+    m_config = new KConfig("learnerprofilerc");
+
+    //FIXME reading of profiles not implemented yet
+}
+
+void ProfileManagerPrivate::sync()
+{
+    kDebug() << "Writing profile list to file.";
+
+    //FIXME syncing of profiles not implemented yet
+
+    KConfigGroup activeProfileGroup(m_config, "ActiveProfile");
+    activeProfileGroup.writeEntry("profileId", m_activeProfile->identifier());
+
+    m_config->sync();
+}
+
 }
