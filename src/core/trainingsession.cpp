@@ -200,9 +200,10 @@ void TrainingSession::next(TrainingSession::NextAction completeCurrent)
 
     // check for course completion
     if (m_phraseListUntrained.value(Phrase::Word).isEmpty() &&
-    m_phraseListUntrained.value(Phrase::Expression).isEmpty() &&
-    m_phraseListUntrained.value(Phrase::Sentence).isEmpty() &&
-    m_phraseListUntrained.value(Phrase::Paragraph).isEmpty() ) {
+        m_phraseListUntrained.value(Phrase::Expression).isEmpty() &&
+        m_phraseListUntrained.value(Phrase::Sentence).isEmpty() &&
+        m_phraseListUntrained.value(Phrase::Paragraph).isEmpty()
+    ) {
        emit finished();
     }
 
