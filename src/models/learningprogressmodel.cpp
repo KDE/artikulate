@@ -40,7 +40,7 @@ int LearningProgressModel::rowCount(const QModelIndex& parent) const
     if (m_session == 0) {
         return 0;
     }
-    // row for every try, plus extra column for 0 and (max + 1) try
+    // row for every try, plus extra column for 0st and (max + 1)st try
     return m_session->maximumTries() + 2;
 }
 
@@ -104,7 +104,7 @@ QVariant LearningProgressModel::data(const QModelIndex &index, int role) const
     }
 
     // normal tries
-    int tries = index.row() + 1;
+    int tries = index.row();
     switch (index.column())
     {
     case Phrase::Word:

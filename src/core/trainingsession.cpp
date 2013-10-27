@@ -326,7 +326,7 @@ int TrainingSession::numberPhrases(Phrase::Type type) const
 
 int TrainingSession::maximumTries() const
 {
-    int maxTries = 0;
+    int maxTries = 1;
     foreach (const TrainingPhrase &phrase, m_phraseListTrained[Phrase::Word]) {
         if (maxTries < phrase.tries) {
             maxTries = phrase.tries;
@@ -348,5 +348,5 @@ int TrainingSession::maximumTries() const
         }
     }
     // return bad tries plus one good try
-    return maxTries + 1;
+    return maxTries;
 }
