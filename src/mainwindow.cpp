@@ -222,21 +222,20 @@ void MainWindow::downloadNewStuff()
 
 bool MainWindow::queryClose()
 {
-    if (Course * course = m_editorProfile->course()) {
-        if (course->modified()) {
-            switch(KMessageBox::warningYesNoCancel(this, "Save changes made to unit?")) {
-                case KMessageBox::Yes:
-                    m_editorProfile->course()->sync();
-                    return true;
-                case KMessageBox::No:
-                    return true;
-                default:
-                    return false;
-            }
-        } else {
-            return false;
-        }
-    } else {
+    if (!m_editorProfile->course() || m_editorProfile->course()->modified() == false) {
         return true;
+    }
+
+    int result = KMessageBox::warningYesNoCancel(this, i18nc("@info",
+        "The currently open course contains unsaved changes. Do you want to save them?"));
+
+    switch(result) {
+    case KMessageBox::Yes:
+        m_editorProfile->course()->sync();
+        return true;
+    case KMessageBox::No:
+        return true;
+    default:
+        return false;
     }
 }
