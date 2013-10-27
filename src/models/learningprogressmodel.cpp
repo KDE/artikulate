@@ -40,7 +40,8 @@ int LearningProgressModel::rowCount(const QModelIndex& parent) const
     if (m_session == 0) {
         return 0;
     }
-    return m_session->maximumTries();
+    // row for every try, plus extra column for 0 and (max + 1) try
+    return m_session->maximumTries() + 2;
 }
 
 int LearningProgressModel::columnCount(const QModelIndex &parent) const
@@ -87,14 +88,22 @@ QVariant LearningProgressModel::data(const QModelIndex &index, int role) const
     }
 
     // column tooltip is number of needed tries
+    // first try is 0
     if (role == Qt::ToolTipRole) {
-        return QVariant(index.row() + 1);
+        return QVariant(index.row());
     }
 
     // otherwise we only suppert displayrole
     if (role != Qt::DisplayRole) {
         return QVariant();
     }
+
+    // handle special rows
+    if (index.row() == 0 || index.row() == m_session->maximumTries() + 1) {
+        return QVariant(0);
+    }
+
+    // normal tries
     int tries = index.row() + 1;
     switch (index.column())
     {
