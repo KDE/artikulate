@@ -347,5 +347,6 @@ int TrainingSession::maximumTries() const
             maxTries = phrase.tries;
         }
     }
-    return maxTries;
+    // return bad tries plus one good try
+    return maxTries + 1;
 }

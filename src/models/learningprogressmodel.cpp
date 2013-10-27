@@ -22,6 +22,7 @@
 #include "core/trainingsession.h"
 #include <QAbstractTableModel>
 #include <KLocale>
+#include <KDebug>
 
 LearningProgressModel::LearningProgressModel(QObject *parent)
     : QAbstractTableModel(parent)
@@ -35,7 +36,8 @@ LearningProgressModel::LearningProgressModel(QObject *parent)
 
 int LearningProgressModel::rowCount(const QModelIndex& parent) const
 {
-    if (!parent.isValid() || m_session == 0) {
+    Q_UNUSED(parent)
+    if (m_session == 0) {
         return 0;
     }
     return m_session->maximumTries();
@@ -43,10 +45,8 @@ int LearningProgressModel::rowCount(const QModelIndex& parent) const
 
 int LearningProgressModel::columnCount(const QModelIndex &parent) const
 {
-    if (!parent.isValid()) {
-        return 0;
-    }
-    // we have 4 word types
+    Q_UNUSED(parent)
+    // we have 4 different word types
     return 4;
 }
 
@@ -55,31 +55,47 @@ TrainingSession * LearningProgressModel::session() const
     return m_session;
 }
 
-void LearningProgressModel::setSession(TrainingSession* session)
+void LearningProgressModel::setSession(TrainingSession *session)
 {
     if (m_session == session) {
         return;
     }
+    beginResetModel();
+    if (m_session) {
+        m_session->disconnect(this);
+    }
     m_session = session;
+    connect(session, SIGNAL(finished()), this, SLOT(updateResults()));
+    connect(session, SIGNAL(finished()), this, SIGNAL(maximumTriesChanged()));
+    endResetModel();
     emit sessionChanged();
+}
+
+int LearningProgressModel::maximumTries() const
+{
+    if (!m_session) {
+        return 0;
+    }
+    return m_session->maximumTries();
 }
 
 QVariant LearningProgressModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        return QVariant();
-    }
-    if (index.column() > columnCount() || index.column() < 0) {
-        return QVariant();
-    }
-    if (index.row() > rowCount() || index.row() < 0) {
-        return QVariant();
-    }
-    if (role != Qt::DisplayRole) {
+        kWarning() << "Invalid index requested";
         return QVariant();
     }
 
-    int tries = index.row();
+    // column tooltip is number of needed tries
+    if (role == Qt::ToolTipRole) {
+        return QVariant(index.row() + 1);
+    }
+
+    // otherwise we only suppert displayrole
+    if (role != Qt::DisplayRole) {
+        return QVariant();
+    }
+    int tries = index.row() + 1;
     switch (index.column())
     {
     case Phrase::Word:
@@ -118,4 +134,11 @@ QVariant LearningProgressModel::headerData(int section, Qt::Orientation orientat
     default:
         return QVariant();
     }
+}
+
+void LearningProgressModel::updateResults()
+{
+    beginResetModel();
+    //nothing to do
+    endResetModel();
 }

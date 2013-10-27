@@ -1,5 +1,6 @@
 /*
  *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
+ *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -21,181 +22,122 @@
 import QtQuick 1.1
 import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
+import org.kde.graphs 0.1 as Graphs
 import artikulate 1.0
 
 Item {
     id: root
 
-    property int totalNumberOfPhrasesInUnit
-    property int heightForEachPhrase
-    property int maxTries
-    property int widthForEachBar
-    property int hLine1
-    property int hLine2
-    property bool finished: session.isFinished
+    property TrainingSession session
+    property bool finished : session.isFinished
 
-    onFinishedChanged: {
+    onFinishedChanged : {
         if (finished) {
-            computeStatistics()
             statisticsGraphLoader.sourceComponent = statisticsGraph
         }
     }
 
     Loader {
         id: statisticsGraphLoader
-        height: root.height
-        width: root.width
-        anchors { left: root.left; bottom: root.bottom }
+        // add padding
+        // TODO should become parameter in garph class
+        height : Math.round(root.height - 60)
+        width : Math.round(root.width - 20)
+        anchors { top: root.top; topMargin: 10; left: root.left; leftMargin: 10 }
     }
 
-    function computeStatistics() {
-        totalNumberOfPhrasesInUnit = session.numberPhrases(Phrase.Word) + session.numberPhrases(Phrase.Expression) + session.numberPhrases(Phrase.Sentence) + session.numberPhrases(Phrase.Paragraph);
-        if (totalNumberOfPhrasesInUnit % 10 == 0) {
-            highestMark = totalNumberOfPhrasesInUnit;
-        }
-        else {
-            highestMark = totalNumberOfPhrasesInUnit + 10 - (totalNumberOfPhrasesInUnit % 10);
-        }
-        heightForEachPhrase = (root.height - 30 - 20 - 10 - 10) / highestMark;
-        hLine1 = highestMark - 10;
-        hLine2 = hLine1 / 2;
-        maxTries = session.maximumTries() + 1;
-        widthForEachBar = (root.width - 80 - 10) / ((2 * maxTries) + 1);
+    Rectangle {
+        id: backgroundRect
+        anchors.fill: parent
+        z: -1
+        color: "#ffffff"
+    }
+
+    Text {
+        anchors { bottom: backgroundRect.bottom; bottomMargin: 10; horizontalCenter: backgroundRect.horizontalCenter }
+        text: i18n("Needed Tries")
     }
 
     Component {
-        id: statisticsGraph
-
-        Row {
-            spacing: 10
-            height: parent.height - 30
-            width: parent.width
-
-            Text {
-                id: yText
-                text: "Phrases"
-                font.pointSize: 14
+        id : statisticsGraph
+        Column {
+            Row {
+                spacing: 15
+                width: legendWord.width + legendExpression.width + legendSentence.width + legendParagraph.width + 3*15
+                anchors { right: parent.right; top: parent.top}
+                Graphs.LegendItem {
+                    id: legendWord
+                    dimension: wordDimension
+                }
+                Graphs.LegendItem {
+                    id: legendExpression
+                    dimension: expressionDimension
+                }
+                Graphs.LegendItem {
+                    id: legendSentence
+                    dimension: sentenceDimension
+                }
+                Graphs.LegendItem {
+                    id: legendParagraph
+                    dimension: paragraphDimension
+                }
             }
 
-            Column {
-                height: parent.height
-                width: parent.width - 80 - 10
-                anchors.bottom: parent.bottom
-                spacing: 10
 
-                Row {
-                    height: parent.height - 30 - 20 - 10 - 10
-                    width: parent.width
-                    anchors.top: parent.top
-                    spacing: widthForEachBar
-
-                    Rectangle {
-                        id: verticalLine
-                        height: parent.height
-                        width: 2
-                        color: "black"
-                        anchors.left: parent.left
-                    }
-
-                    Repeater {
-                        model: maxTries
-                        anchors.bottom: parent.bottom
-
-                        Column {
-                            id: statisticsBar
-                            height: paragraph.height + sentence.height + expression.height + word.height + (1 / 10)
-                            width: widthForEachBar
-                            spacing: 0
-                            anchors.bottom: parent.bottom
-
-                            Rectangle {
-                                id: paragraph
-                                height: session.numberPhrasesGroupedByTries(Phrase.Paragraph, index + 1) * heightForEachPhrase
-                                width: parent.width
-                                color: "#e85a02"
-                            }
-                            Rectangle {
-                                id: sentence
-                                height: session.numberPhrasesGroupedByTries(Phrase.Sentence, index + 1) * heightForEachPhrase
-                                width: parent.width
-                                color: "#fff13f"
-                            }
-                            Rectangle {
-                                id: expression
-                                height: session.numberPhrasesGroupedByTries(Phrase.Expression, index + 1) * heightForEachPhrase
-                                width: parent.width
-                                color: "#327bff"
-                            }
-                            Rectangle {
-                                id: word
-                                height: session.numberPhrasesGroupedByTries(Phrase.Word, index + 1) * heightForEachPhrase
-                                width: parent.width
-                                color: "#2de86c"
-                            }
-                        }
-                    }
-
-                    Rectangle {
-                        id: horizontalLine
-                        anchors { top: verticalLine.bottom; left: verticalLine.left }
-                        height: 2
-                        width: parent.width
-                        color: "black"
-                    }
-
-                    Rectangle {
-                        id: horizontalLine1
-                        anchors { bottom: horizontalLine.top; bottomMargin: hLine1 * heightForEachPhrase; left: verticalLine.left }
-                        height: 1
-                        width: parent.width
-                        color: "black"
-                    }
-
-                    Rectangle {
-                        id: horizontalLine2
-                        anchors { bottom: horizontalLine.top; bottomMargin: hLine2 * heightForEachPhrase; left: verticalLine.left }
-                        height: 1
-                        width: parent.width
-                        color: "black"
-                    }
-
-                    Text {
-                        text: hLine1
-                        font.pointSize: 14
-                        anchors { right: parent.right; bottom: horizontalLine1.top; bottomMargin: 5}
-                    }
-
-                    Text {
-                        text: hLine2
-                        font.pointSize: 14
-                        anchors { right: parent.right; bottom: horizontalLine2.top; bottomMargin: 5}
-                    }
+            Graphs.LineGraph {
+                height : Math.round(root.height - 60)
+                width : Math.round(root.width - 20)
+                model: LearningProgressModel {
+                    id: statistics
+                    session: root.session
                 }
+                pitch: 60
+    //             textRole: 3 // Qt::ToolTipRole
 
-                Row {
-                    id: xAxisMark
-                    height: 20
-                    width: parent.width - (3 * widthForEachBar)
-                    anchors { right: parent.right; rightMargin: widthForEachBar * 3 / 2 }
-                    spacing: (widthForEachBar * 2) - 12
-
-                    Repeater {
-                        model: maxTries
-
-                        Text {
-                            id: tries
-                            text: index + 1
-                            font.pointSize: 14
-                        }
+                dimensions: [
+                    // words
+                    Graphs.Dimension {
+                        id: wordDimension
+                        dataColumn : 0
+                        color: "#2DE86C"
+                        maximumValue: Math.max(0, Math.ceil(statistics.maximumTries / 4) * 4) + 20
+                        label: i18n("Words")
+                    },
+                    // expressions
+                    Graphs.Dimension {
+                        id: expressionDimension
+                        dataColumn: 1
+                        color: "#327BFF"
+                        maximumValue: Math.max(0, Math.ceil(statistics.maximumTries / 4) * 4) + 20
+                        label: i18n("Expressions")
+                    },
+                    // sentences
+                    Graphs.Dimension {
+                        id: sentenceDimension
+                        dataColumn: 2
+                        color: "#FFF13F"
+                        maximumValue: Math.max(0, Math.ceil(statistics.maximumTries / 4) * 4) + 20
+                        label: i18n("Sentences")
+                    },
+                    // paragraphs
+                    Graphs.Dimension {
+                        id: paragraphDimension
+                        dataColumn: 3
+                        color: "#E85A02"
+                        maximumValue: Math.max(0, Math.ceil(statistics.maximumTries / 4) * 4) + 20
+                        label: i18n("Paragraphs")
                     }
-                }
+                ]
 
-                Text {
-                    id: xText
-                    text: "Tries"
-                    font.pointSize: 14
-                    anchors { right: parent.right }
-                }
+//             onBarEntered: {
+//                 errorsTooltip.visualParent = bar;
+//                 errorsTooltip.row = row
+//                 errorsTooltip.open()
+//             }
+//
+//             onBarExited: {
+//                 errorsTooltip.close()
+//             }
             }
         }
     }
