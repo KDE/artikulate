@@ -59,15 +59,6 @@ Item {
                 iconSource: "object-rotate-left"
                 text: i18n("Retry Later")
                 onClicked: {
-                    session.next(TrainingSession.StepOver)
-                }
-            }
-            PlasmaComponents.ToolButton {
-                id: buttonCancel
-                height: 48
-                iconSource: "dialog-cancel"
-                text: i18n("Not Correctly Pronounced")
-                onClicked: {
                     session.next(TrainingSession.Incomplete)
                 }
             }

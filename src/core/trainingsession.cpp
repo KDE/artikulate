@@ -140,11 +140,11 @@ void TrainingSession::next(TrainingSession::NextAction completeCurrent)
     TrainingPhrase &currentPhrase = const_cast<TrainingPhrase&>(m_phraseListUntrained.value(m_currentType).first());
     switch(completeCurrent) {
     case Complete:
-        ++currentPhrase.trainedGood;
+        ++currentPhrase.tries;
         currentPhrase.isTrained = true;
         break;
     case Incomplete:
-        ++currentPhrase.trainedBad;
+        ++currentPhrase.tries;
         break;
     default:
         break;
@@ -246,8 +246,7 @@ void TrainingSession::createFromUnit(Unit * unit)
         }
         TrainingPhrase newTrainingPhrase;
         newTrainingPhrase.isTrained = false;
-        newTrainingPhrase.trainedBad = 0;
-        newTrainingPhrase.trainedGood = 0;
+        newTrainingPhrase.tries = 0;
         newTrainingPhrase.phrase = phrase;
         m_phraseListUntrained[phrase->type()].append(newTrainingPhrase);
     }
@@ -269,7 +268,7 @@ int TrainingSession::numberPhrasesGroupedByTries(Phrase::Type type, int neededTr
 {
     int numberOfPhrasesForTries = 0;
     foreach (const TrainingPhrase &phrase, m_phraseListTrained[type]) {
-        if (phrase.trainedBad + 1 == neededTries) {
+        if (phrase.tries == neededTries) {
             ++numberOfPhrasesForTries;
         }
     }
@@ -290,23 +289,23 @@ int TrainingSession::maximumTries() const
 {
     int maxTries = 0;
     foreach (const TrainingPhrase &phrase, m_phraseListTrained[Phrase::Word]) {
-        if (maxTries < phrase.trainedBad) {
-            maxTries = phrase.trainedBad;
+        if (maxTries < phrase.tries) {
+            maxTries = phrase.tries;
         }
     }
     foreach (const TrainingPhrase &phrase, m_phraseListTrained[Phrase::Expression]) {
-        if (maxTries < phrase.trainedBad) {
-            maxTries = phrase.trainedBad;
+        if (maxTries < phrase.tries) {
+            maxTries = phrase.tries;
         }
     }
     foreach (const TrainingPhrase &phrase, m_phraseListTrained[Phrase::Sentence]) {
-        if (maxTries < phrase.trainedBad) {
-            maxTries = phrase.trainedBad;
+        if (maxTries < phrase.tries) {
+            maxTries = phrase.tries;
         }
     }
     foreach (const TrainingPhrase &phrase, m_phraseListTrained[Phrase::Paragraph]) {
-        if (maxTries < phrase.trainedBad) {
-            maxTries = phrase.trainedBad;
+        if (maxTries < phrase.tries) {
+            maxTries = phrase.tries;
         }
     }
     return maxTries;

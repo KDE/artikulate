@@ -45,8 +45,7 @@ class ARTIKULATELIB_EXPORT TrainingSession : public QObject
 
     struct TrainingPhrase {
         Phrase *phrase;
-        int trainedBad;
-        int trainedGood;
+        int tries;
         bool isTrained;
     };
 
