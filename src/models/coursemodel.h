@@ -73,7 +73,6 @@ private slots:
     void onCourseResourceAboutToBeAdded(CourseResource *resource, int index);
     void onCourseResourceAdded();
     void onCourseResourceAboutToBeRemoved(int index);
-    void onCourseResourceRemoved();
     void emitCourseChanged(int row);
 
 private:

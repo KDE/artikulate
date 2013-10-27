@@ -68,8 +68,6 @@ void CourseModel::setResourceManager(ResourceManager *resourceManager)
                 SLOT(onCourseResourceAdded()));
         connect(m_resourceManager, SIGNAL(courseResourceAboutToBeRemoved(int)),
                 SLOT(onCourseResourceAboutToBeRemoved(int)));
-        connect(m_resourceManager, SIGNAL(courseResourceRemoved()),
-                SLOT(onCourseResourceRemoved()));
         updateResources();
     }
 
@@ -182,6 +180,9 @@ void CourseModel::onCourseResourceAdded()
 
 void CourseModel::onCourseResourceAboutToBeRemoved(int index)
 {
+    if (!m_language) {
+        return;
+    }
     CourseResource *originalResource = m_resourceManager->courseResources(m_language).at(index);
     int modelIndex = m_resources.indexOf(originalResource);
 
@@ -191,10 +192,6 @@ void CourseModel::onCourseResourceAboutToBeRemoved(int index)
     }
     beginRemoveRows(QModelIndex(), modelIndex, modelIndex);
     m_resources.removeAt(modelIndex);
-}
-
-void CourseModel::onCourseResourceRemoved()
-{
     endRemoveRows();
 }
 

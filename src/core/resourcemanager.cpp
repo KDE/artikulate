@@ -197,6 +197,7 @@ void ResourceManager::reloadCourseOrSkeleton(Course *courseOrSkeleton)
         //TODO better add a check if this is contained in the course list
         // to catch possible errors
         KUrl file = courseOrSkeleton->file();
+        m_loadedResources.removeOne(courseOrSkeleton->file().toLocalFile());
         removeCourse(courseOrSkeleton);
         addCourse(file);
     } else {
@@ -322,7 +323,6 @@ void ResourceManager::removeCourse(Course *course)
         if (m_courseResources[course->language()->id()].at(index)->course() == course) {
             emit courseResourceAboutToBeRemoved(index);
             m_courseResources[course->language()->id()].removeAt(index);
-            emit courseResourceRemoved();
             course->deleteLater();
             return;
         }

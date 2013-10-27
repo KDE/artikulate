@@ -162,7 +162,6 @@ signals:
     void languageResourceAboutToBeRemoved(int);
     void courseResourceAdded();
     void courseResourceAboutToBeAdded(CourseResource*,int);
-    void courseResourceRemoved();
     void courseResourceAboutToBeRemoved(int);
     void skeletonAdded();
     void skeletonAboutToBeAdded(Course*,int);
