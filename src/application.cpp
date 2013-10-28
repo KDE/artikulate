@@ -41,6 +41,7 @@
 #include "models/phonememodel.h"
 #include "models/phonemegroupmodel.h"
 #include "models/phonemeunitmodel.h"
+#include "models/profilemodel.h"
 #include "models/skeletonmodel.h"
 
 #include <kdeclarative.h>
@@ -78,6 +79,7 @@ void Application::registerQmlTypes()
     qmlRegisterType<PhonemeModel>("artikulate", 1, 0, "PhonemeModel");
     qmlRegisterType<PhonemeGroupModel>("artikulate", 1, 0, "PhonemeGroupModel");
     qmlRegisterType<PhonemeUnitModel>("artikulate", 1, 0, "PhonemeUnitModel");
+    qmlRegisterType<ProfileModel>("artikulate", 1, 0, "ProfileModel");
     qmlRegisterType<SkeletonModel>("artikulate", 1, 0, "SkeletonModel");
 
     qmlRegisterType<MainWindow>("artikulate", 1, 0, "MainWindow");

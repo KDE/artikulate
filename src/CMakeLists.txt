@@ -89,6 +89,7 @@ set(artikulateCoreTargetLibs
 
 set(artikulateTargetLibs
     artikulatecore
+    learnerprofile
     ${KDECLARATIVE_LIBRARIES}
     ${KDE4_KDEUI_LIBS}
     ${KDE4_PLASMA_LIBS}
@@ -181,6 +182,7 @@ set(artikulate_SRCS
     models/phonememodel.cpp
     models/phonemegroupmodel.cpp
     models/phonemeunitmodel.cpp
+    models/profilemodel.cpp
     models/skeletonmodel.cpp
 
     ui/sounddevicedialogpage.cpp

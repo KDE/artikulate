@@ -48,6 +48,8 @@ public:
 
 Q_SIGNALS:
     void activeProfileChanged();
+    void profileAdded(Learner*,int);
+    void profileAboutToBeRemoved(int);
 
 private:
     Q_DISABLE_COPY(ProfileManager)

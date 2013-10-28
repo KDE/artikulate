@@ -63,6 +63,7 @@ Learner * ProfileManager::addProfile(const QString &name)
 
     d->m_profiles.append(learner);
     d->m_storage.storeProfile(learner);
+    emit profileAdded(learner, d->m_profiles.count() - 1);
 
     return learner;
 }
