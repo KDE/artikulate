@@ -19,13 +19,18 @@
  */
 
 #include "learner.h"
+#include "storage.h"
 
-#include <QString>
-#include <QList>
 #include <KDebug>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KStandardDirs>
+
+#include <QString>
+#include <QList>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
 
 namespace LearnerProfile
 {
@@ -42,6 +47,7 @@ public:
     QList<Learner*> m_profiles;
     Learner *m_activeProfile;
     KConfig *m_config;
+    Storage m_storage;
 };
 
 ProfileManagerPrivate::ProfileManagerPrivate()

@@ -24,7 +24,6 @@
 
 #include <QObject>
 #include <QList>
-#include <QUuid>
 #include <KDebug>
 
 using namespace LearnerProfile;
@@ -51,21 +50,17 @@ Learner * ProfileManager::addProfile(const QString &name)
     Learner *learner = new Learner(this);
     learner->setName(name);
 
-    //compare that profile id is unique
-    bool unique;
-    do {
-        learner->setIdentifier(QUuid::createUuid());
-        unique = true;
-        foreach (Learner *cpLearner, profiles()) {
-            if (learner->identifier() == cpLearner->identifier()) {
-                unique = false;
-                kWarning() << "Learner id already use, computing new one.";
-            }
+    // set id
+    int maxUsedId = 0;
+    foreach (Learner *cpLearner, d->m_profiles) {
+        if (cpLearner->identifier() >= maxUsedId) {
+            maxUsedId = cpLearner->identifier();
         }
-    } while (!unique);
+    }
+    learner->setIdentifier(maxUsedId + 1);
 
     d->m_profiles.append(learner);
-
+    d->m_storage.storeProfile(learner);
 
     return learner;
 }

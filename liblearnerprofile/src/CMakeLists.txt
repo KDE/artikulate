@@ -27,12 +27,13 @@ set( learnerprofile_LIB_SRCS
     learner.cpp
     learninggoal.cpp
     profilemanager.cpp
+    storage.cpp
 )
 
 kde4_add_library( learnerprofile SHARED ${learnerprofile_LIB_SRCS} )
 
 target_link_libraries( learnerprofile
-    ${KDE4_KDECORE_LIBS}
+    ${KDE4_KDECORE_LIBS} ${QT_QTSQL_LIBRARY}
 )
 
 set_target_properties( learnerprofile

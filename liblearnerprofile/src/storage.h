@@ -18,48 +18,45 @@
  *  License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "learner_p.h"
-#include "learner.h"
+#ifndef STORAGE_H
+#define STORAGE_H
 
-using namespace LearnerProfile;
+#include <QObject>
 
-Learner::Learner(QObject *parent)
-    : QObject(parent)
-    , d(new LearnerPrivate)
+class QSqlError;
+class QSqlDatabase;
+
+namespace LearnerProfile
 {
 
-}
+class Learner;
 
-Learner::~Learner()
+class Storage : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(QString errorMessage READ errorMessage NOTIFY errorMessageChanged)
 
+public:
+    explicit Storage(QObject* parent = 0);
+    QString errorMessage() const;
+
+    /**
+     * Store profile in database. This can either be a new or an existing profile.
+     * If it is an existing profile, the corresponding values are updated.
+     */
+    bool storeProfile(Learner *learner);
+
+Q_SIGNALS:
+    void errorMessageChanged();
+
+protected:
+    QSqlDatabase database();
+    void raiseError(const QSqlError &error);
+
+private:
+    bool updateSchema();
+    QString m_errorMessage;
+};
 }
 
-
-QString Learner::name() const
-{
-    return d->name;
-}
-
-void Learner::setName(const QString &name)
-{
-    if (name == d->name) {
-        return;
-    }
-    d->name = name;
-    emit nameChanged();
-}
-
-int Learner::identifier() const
-{
-    return d->identifier;
-}
-
-void Learner::setIdentifier(int identifier)
-{
-    if (identifier == d->identifier) {
-        return;
-    }
-    d->identifier = identifier;
-    emit identifierChanged();
-}
+#endif // STORAGE_H

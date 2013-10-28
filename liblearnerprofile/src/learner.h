@@ -36,7 +36,7 @@ class LIBLEARNERPROFILE_EXPORT Learner : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(QString id READ identifier WRITE setIdentifier NOTIFY identifierChanged)
+    Q_PROPERTY(int id READ identifier WRITE setIdentifier NOTIFY identifierChanged)
 
 public:
     explicit Learner(QObject *parent = 0);
@@ -44,8 +44,8 @@ public:
 
     QString name() const;
     void setName(const QString &name);
-    QString identifier() const;
-    void setIdentifier(const QString &identifier);
+    int identifier() const;
+    void setIdentifier(int identifier);
 
 Q_SIGNALS:
     void nameChanged();

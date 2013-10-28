@@ -32,7 +32,7 @@ public:
     ~LearnerPrivate() {}
 
     QString name;
-    QString identifier;
+    int identifier;
     QList<LearningGoal*> goals;
 };
 }
