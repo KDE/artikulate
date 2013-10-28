@@ -45,6 +45,7 @@ public:
      * If it is an existing profile, the corresponding values are updated.
      */
     bool storeProfile(Learner *learner);
+    QList<Learner *> loadProfiles();
 
 Q_SIGNALS:
     void errorMessageChanged();

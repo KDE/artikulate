@@ -82,6 +82,27 @@ bool Storage::storeProfile(Learner *learner)
     }
 }
 
+QList< Learner* > Storage::loadProfiles()
+{
+    QSqlDatabase db = database();
+    QSqlQuery profileQuery(db);
+    profileQuery.prepare("SELECT id, name");
+    if (profileQuery.lastError().isValid()) {
+        kError() << profileQuery.lastError().text();
+        raiseError(profileQuery.lastError());
+        return QList<Learner*>();
+    }
+
+    QList<Learner*> profiles;
+    while (profileQuery.next()) {
+        Learner* profile = new Learner();
+        profile->setIdentifier(profileQuery.value(0).toInt());
+        profile->setName(profileQuery.value(1).toString());
+        profiles.append(profile);
+    }
+    return profiles;
+}
+
 QSqlDatabase Storage::database()
 {
     if (QSqlDatabase::contains(QSqlDatabase::defaultConnection)) {

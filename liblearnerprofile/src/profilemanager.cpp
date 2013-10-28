@@ -37,7 +37,9 @@ ProfileManager::ProfileManager(QObject* parent)
 
 ProfileManager::~ProfileManager()
 {
-
+    foreach (Learner *learner, d->m_profiles) {
+        learner->deleteLater();
+    }
 }
 
 QList< Learner* > ProfileManager::profiles() const

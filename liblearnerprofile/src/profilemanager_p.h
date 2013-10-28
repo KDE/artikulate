@@ -51,10 +51,29 @@ public:
 };
 
 ProfileManagerPrivate::ProfileManagerPrivate()
+    : m_profiles(QList<Learner*>())
+    , m_activeProfile(0)
+    , m_config(0)
 {
-    m_config = new KConfig("learnerprofilerc");
+    // load all profiles from storage
+    m_profiles.append(m_storage.loadProfiles());
 
-    //FIXME reading of profiles not implemented yet
+    // set last used profile
+    m_config = new KConfig("learnerprofilerc");
+    KConfigGroup activeProfileGroup(m_config, "ActiveProfile");
+    int lastProfileId = activeProfileGroup.readEntry("profileId", "0").toInt();
+    foreach (Learner *learner, m_profiles) {
+        if (learner->identifier() == lastProfileId) {
+            m_activeProfile = learner;
+            break;
+        }
+    }
+    if (m_activeProfile == 0) {
+        kWarning() << "No last active profile found, falling back to first found profile";
+        if (m_profiles.size() > 0) {
+            m_activeProfile = m_profiles.at(0);
+        }
+    }
 }
 
 void ProfileManagerPrivate::sync()
