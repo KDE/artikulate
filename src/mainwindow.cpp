@@ -26,6 +26,7 @@
 #include "core/profile.h"
 #include "models/languagemodel.h"
 #include "settings.h"
+#include "liblearnerprofile/src/profilemanager.h"
 
 #include <KMainWindow>
 #include <KAction>
@@ -41,7 +42,7 @@
 #include <KStandardAction>
 #include <KApplication>
 #include <KMessageBox>
-
+#include <KNS3/DownloadDialog>
 
 #include <QGraphicsObject>
 #include <QDeclarativeItem>
@@ -50,7 +51,8 @@
 #include <QDeclarativeProperty>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QPointer>
-#include <knewstuff3/downloaddialog.h>
+
+using namespace LearnerProfile;
 
 MainWindow::MainWindow()
     : KXmlGuiWindow(0)
@@ -59,6 +61,7 @@ MainWindow::MainWindow()
     , m_editorProfile(new Profile(this))
     , m_resourceManager(new ResourceManager(this))
     , m_trainingSession(new TrainingSession(this))
+    , m_profileManager(new ProfileManager(this))
 {
     setWindowIcon(KIcon("artikulate")); // FIXME not present yet
     setWindowTitle(qAppName());
@@ -89,6 +92,8 @@ MainWindow::MainWindow()
     m_view->rootContext()->setContextProperty("userProfile", m_trainingProfile);
     m_view->rootContext()->setContextProperty("editorProfile", m_editorProfile);
     m_view->rootContext()->setContextProperty("trainingSession", m_trainingSession);
+    m_view->rootContext()->setContextProperty("profileManager", m_profileManager);
+
     m_view->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 
     // set starting screen

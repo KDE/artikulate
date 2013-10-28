@@ -30,6 +30,10 @@ class KActionCollection;
 class KMenu;
 class QDeclarativeView;
 
+namespace LearnerProfile {
+    class ProfileManager;
+}
+
 class MainWindow : public KXmlGuiWindow
 {
     Q_OBJECT
@@ -77,6 +81,7 @@ private:
     Profile *m_trainingProfile, *m_editorProfile;
     ResourceManager *m_resourceManager;
     TrainingSession *m_trainingSession;
+    LearnerProfile::ProfileManager *m_profileManager;
 };
 
 #endif // PAIRS_H
