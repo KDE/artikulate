@@ -54,31 +54,45 @@ bool Storage::storeProfile(Learner *learner)
     QSqlDatabase db = database();
 
     // test whether ID is present
-    QSqlQuery idExistsQuery = db.exec(QString("SELECT id FROM profiles WHERE id = '%1'").arg(learner->identifier()));
+    QSqlQuery idExistsQuery(db);
+    idExistsQuery.prepare("SELECT COUNT(*) FROM profiles WHERE id = :id");
+    idExistsQuery.bindValue(":id", learner->identifier());
+    idExistsQuery.exec();
     if (db.lastError().isValid()) {
-        kError() << db.lastError().text();
+        kError() << "ExistsQuery: " << db.lastError().text();
         raiseError(db.lastError());
         return false;
     }
-    if (idExistsQuery.size() < 1) {
+    // go to first result row that contains the count
+    idExistsQuery.next();
+    if (idExistsQuery.value(0).toInt() < 1) {
         // in case learner ID is not found in database
-        QSqlQuery insertCourseQuery(db);
-        insertCourseQuery.prepare("INSERT INTO profiles (id, name) VALUES (?, ?)");
-        insertCourseQuery.bindValue(0, learner->identifier());
-        insertCourseQuery.bindValue(1, learner->name());
-        insertCourseQuery.exec();
+        QSqlQuery insertProfileQuery(db);
+        insertProfileQuery.prepare("INSERT INTO profiles (id, name) VALUES (?, ?)");
+        insertProfileQuery.bindValue(0, learner->identifier());
+        insertProfileQuery.bindValue(1, learner->name());
+        insertProfileQuery.exec();
 
-        if (insertCourseQuery.lastError().isValid()) {
-            kError() << "FOO" << insertCourseQuery.lastError().text() << "KEY " << learner->identifier();
-            raiseError(insertCourseQuery.lastError());
+        if (insertProfileQuery.lastError().isValid()) {
+            raiseError(insertProfileQuery.lastError());
             db.rollback();
             return false;
         }
         return true;
     } else {
-        //FIXME update profile
-        kError() << "Update not supported";
-        return false;
+        // update name otherwise
+        QSqlQuery updateProfileQuery(db);
+        updateProfileQuery.prepare("UPDATE profiles SET name = :name WHERE id = :id");
+        updateProfileQuery.bindValue(":id", learner->identifier());
+        updateProfileQuery.bindValue(":name", learner->name());
+        updateProfileQuery.exec();
+        if (updateProfileQuery.lastError().isValid()) {
+            kError() << updateProfileQuery.lastError().text();
+            raiseError(updateProfileQuery.lastError());
+            db.rollback();
+            return false;
+        }
+        return true;
     }
 }
 
@@ -105,6 +119,7 @@ QList< Learner* > Storage::loadProfiles()
     QSqlDatabase db = database();
     QSqlQuery profileQuery(db);
     profileQuery.prepare("SELECT id, name FROM profiles");
+    profileQuery.exec();
     if (profileQuery.lastError().isValid()) {
         kError() << profileQuery.lastError().text();
         raiseError(profileQuery.lastError());
