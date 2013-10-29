@@ -49,144 +49,208 @@ Item {
         trainingText.text= i18n("Difficulty: %1", phraseTypeString)
     }
 
-    width: 200
+    width: 1500
     height: 20
 
-    Row {
-        id: statusBar
-        height: root.height
-        width: root.width
-        spacing: 0
+    Component {
+        id: progressBarDelegate
 
-        Rectangle { // word
-            id: word
-            height: root.height
-            width: root.width/4
-            border.color: "#800000FF"
-            border.width: sessionType == Phrase.Word ? __highlightWidth : 0
-            z: sessionType == Phrase.Word ? 1 : 0
-            Rectangle {
-                color: "#A7E8BD"
-                width: parent.width; height: parent.height
-            }
-            Rectangle {
-                color: "#2de86c"
-                width: parent.width * session.progressTypeWord/100
-                height: parent.height
-            }
-            MouseArea{
-                anchors.fill: parent
-                hoverEnabled: true
-                onClicked: {
-                    session.setPhraseType("word")
-                }
-                onEntered: {
-                    if (phraseTypeString != "Words") {
-                        trainingText.text= i18n("Difficulty: <i>change to Words</i>")
-                    }
-                }
-                onExited: {
-                    trainingText.text= i18n("Difficulty: %1", phraseTypeString)
-                }
-            }
-        }
-        Rectangle { // expression
-            id: expression
-            height: root.height
-            width: root.width/4
-            border.color: "#800000FF"
-            border.width: sessionType == Phrase.Expression ? __highlightWidth : 0
-            z: sessionType == Phrase.Expression ? 1 : 0
-            Rectangle {
-                color: "#B9D5FF"
-                width: parent.width; height: parent.height
-            }
-            Rectangle {
-                color: "#327bff"
-                width: parent.width * session.progressTypeExpression/100
-                height: parent.height
-            }
-             MouseArea{
-                anchors.fill: parent
-                hoverEnabled: true
-                onClicked: {
-                        session.setPhraseType("expression")
-                }
-                onEntered: {
-                    if (phraseTypeString != "Expressions") {
-                        trainingText.text= i18n("Difficulty: <i>change to Expressions</i>")
-                    }
-                }
-                onExited: {
-                    trainingText.text= i18n("Difficulty: %1", phraseTypeString)
-                }
-            }
-        }
+        Rectangle {
+            id: phraseItem
+            property Phrase currentPhrase : model.dataRole
 
-        Rectangle { // sentence
-            id: sentence
-            border.color: "#800000FF"
-            border.width: sessionType == Phrase.Sentence ? __highlightWidth : 0
-            z: sessionType == Phrase.Sentence ? 1 : 0
-            height: root.height
-            width: root.width/4
-            Rectangle {
-                color: "#F5FFCB"
-                width: parent.width; height: parent.height
-            }
-            Rectangle {
-                color: "#fff13f"
-                width: parent.width * session.progressTypeSentence/100
-                height: parent.height
-            }
-            MouseArea{
-                anchors.fill: parent
-                hoverEnabled: true
-                onClicked: {
-                        session.setPhraseType("sentence")
-                }
-                onEntered: {
-                    if (phraseTypeString != "Sentences") {
-                        trainingText.text= i18n("Difficulty: <i>change to Sentences</i>")
-                    }
-                }
-                onExited: {
-                    trainingText.text= i18n("Difficulty: %1", phraseTypeString)
-                }
-            }
-        }
+            width: root.width / progressBarModel.count
+            height: 20
 
-        Rectangle { // paragraph
-            id: paragraph
-            height: root.height
-            width: root.width/4
-            border.color: "#800000FF"
-            border.width: sessionType == Phrase.Paragraph ? __highlightWidth : 0
-            z: sessionType == Phrase.Paragraph ? 1 : 0
-            Rectangle {
-                color: "#E8CAB9"
-                width: parent.width; height: parent.height
-            }
-            Rectangle {
-                color: "#e85a02"
-                width: parent.width * session.progressTypeParagraph/100
-                height: parent.height
-            }
-            MouseArea{
-                anchors.fill: parent
-                hoverEnabled: true
-                onClicked: {
-                        session.setPhraseType("paragraph")
-                }
-                onEntered: {
-                    if (phraseTypeString != "Paragraphs") {
-                        trainingText.text= i18n("Difficulty: <i>change to Paragraphs</i>")
-                    }
-                }
-                onExited: {
-                    trainingText.text= i18n("Difficulty: %1", phraseTypeString)
+            color: {
+                switch(currentPhrase.type) {
+                    case Phrase.Word: "#A7E8BD"
+                        break;
+                    case Phrase.Expression: "#B9D5FF"
+                        break;
+                    case Phrase.Sentence: "#F5FFCB"
+                        break;
+                    case Phrase.Paragraph: "#E8CAB9"
+                        break;
+                    default:
+                        break;
                 }
             }
         }
     }
+
+    ListView {
+        id: progressView
+        anchors.fill: parent
+        orientation: ListView.Horizontal
+        delegate: progressBarDelegate
+        model: PhraseFilterModel {
+            id: progressFooModel
+            sortOption: PhraseFilterModel.Type
+            phraseModel: PhraseModel {
+                id: progressBarModel
+                unit: userProfile.unit
+            }
+        }
+    }
 }
+//     ListView {
+//         id: phraseListBar
+// 
+//         anchors.fill: parent
+//         width: parent.width
+//         height: parent.height
+// 
+//         delegate: Item {
+//             id: phraseItem
+//             width: 10
+//             height: 20
+//             Rectangle {
+//                 width: parent.width
+//                 height: parent.height
+//                 color: "black"
+//             }
+//         }
+//         model: PhraseModel {
+//             unit: userProfile.unit
+//         }
+//     }
+
+//     Row {
+//         id: statusBar
+//         height: root.height
+//         width: root.width
+//         spacing: 0
+// 
+//         Rectangle { // word
+//             id: word
+//             height: root.height
+//             width: root.width/4
+//             border.color: "#800000FF"
+//             border.width: sessionType == Phrase.Word ? __highlightWidth : 0
+//             z: sessionType == Phrase.Word ? 1 : 0
+//             Rectangle {
+//                 color: "#A7E8BD"
+//                 width: parent.width; height: parent.height
+//             }
+//             Rectangle {
+//                 color: "#2de86c"
+//                 width: parent.width * session.progressTypeWord/100
+//                 height: parent.height
+//             }
+//             MouseArea{
+//                 anchors.fill: parent
+//                 hoverEnabled: true
+//                 onClicked: {
+//                     session.setPhraseType("word")
+//                 }
+//                 onEntered: {
+//                     if (phraseTypeString != "Words") {
+//                         trainingText.text= i18n("Difficulty: <i>change to Words</i>")
+//                     }
+//                 }
+//                 onExited: {
+//                     trainingText.text= i18n("Difficulty: %1", phraseTypeString)
+//                 }
+//             }
+//         }
+//         Rectangle { // expression
+//             id: expression
+//             height: root.height
+//             width: root.width/4
+//             border.color: "#800000FF"
+//             border.width: sessionType == Phrase.Expression ? __highlightWidth : 0
+//             z: sessionType == Phrase.Expression ? 1 : 0
+//             Rectangle {
+//                 color: "#B9D5FF"
+//                 width: parent.width; height: parent.height
+//             }
+//             Rectangle {
+//                 color: "#327bff"
+//                 width: parent.width * session.progressTypeExpression/100
+//                 height: parent.height
+//             }
+//              MouseArea{
+//                 anchors.fill: parent
+//                 hoverEnabled: true
+//                 onClicked: {
+//                         session.setPhraseType("expression")
+//                 }
+//                 onEntered: {
+//                     if (phraseTypeString != "Expressions") {
+//                         trainingText.text= i18n("Difficulty: <i>change to Expressions</i>")
+//                     }
+//                 }
+//                 onExited: {
+//                     trainingText.text= i18n("Difficulty: %1", phraseTypeString)
+//                 }
+//             }
+//         }
+// 
+//         Rectangle { // sentence
+//             id: sentence
+//             border.color: "#800000FF"
+//             border.width: sessionType == Phrase.Sentence ? __highlightWidth : 0
+//             z: sessionType == Phrase.Sentence ? 1 : 0
+//             height: root.height
+//             width: root.width/4
+//             Rectangle {
+//                 color: "#F5FFCB"
+//                 width: parent.width; height: parent.height
+//             }
+//             Rectangle {
+//                 color: "#fff13f"
+//                 width: parent.width * session.progressTypeSentence/100
+//                 height: parent.height
+//             }
+//             MouseArea{
+//                 anchors.fill: parent
+//                 hoverEnabled: true
+//                 onClicked: {
+//                         session.setPhraseType("sentence")
+//                 }
+//                 onEntered: {
+//                     if (phraseTypeString != "Sentences") {
+//                         trainingText.text= i18n("Difficulty: <i>change to Sentences</i>")
+//                     }
+//                 }
+//                 onExited: {
+//                     trainingText.text= i18n("Difficulty: %1", phraseTypeString)
+//                 }
+//             }
+//         }
+// 
+//         Rectangle { // paragraph
+//             id: paragraph
+//             height: root.height
+//             width: root.width/4
+//             border.color: "#800000FF"
+//             border.width: sessionType == Phrase.Paragraph ? __highlightWidth : 0
+//             z: sessionType == Phrase.Paragraph ? 1 : 0
+//             Rectangle {
+//                 color: "#E8CAB9"
+//                 width: parent.width; height: parent.height
+//             }
+//             Rectangle {
+//                 color: "#e85a02"
+//                 width: parent.width * session.progressTypeParagraph/100
+//                 height: parent.height
+//             }
+//             MouseArea{
+//                 anchors.fill: parent
+//                 hoverEnabled: true
+//                 onClicked: {
+//                         session.setPhraseType("paragraph")
+//                 }
+//                 onEntered: {
+//                     if (phraseTypeString != "Paragraphs") {
+//                         trainingText.text= i18n("Difficulty: <i>change to Paragraphs</i>")
+//                     }
+//                 }
+//                 onExited: {
+//                     trainingText.text= i18n("Difficulty: %1", phraseTypeString)
+//                 }
+//             }
+//         }
+//     }
+// }

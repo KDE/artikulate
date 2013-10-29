@@ -37,6 +37,7 @@ PhraseModel::PhraseModel(QObject *parent)
     roles[TextRole] = "text";
     roles[SoundFileRole] = "soundFile";
     roles[IdRole] = "id";
+    roles[TypeRole] = "type";
     roles[ExcludedRole] = "excludedRole";
     roles[DataRole] = "dataRole";
     setRoleNames(roles);
@@ -118,6 +119,8 @@ QVariant PhraseModel::data(const QModelIndex &index, int role) const
         return phrase->sound();
     case IdRole:
         return phrase->id();
+    case TypeRole:
+        return phrase->type();
     case ExcludedRole:
         return phrase->isExcluded();
     case DataRole:

@@ -56,15 +56,32 @@ void PhraseFilterModel::setPhraseModel(PhraseModel* phraseModel)
     if (phraseModel == m_phraseModel) {
         return;
     }
+
     m_phraseModel = phraseModel;
     setSourceModel(m_phraseModel);
     sort(0);
+
     emit phraseModelChanged();
 
 }
 
+void PhraseFilterModel::setSortOption(PhraseFilterModel::SortOption option)
+{
+    m_sortOption = option;
+    invalidateFilter();
+    emit sortOptionChanged();
+}
+
+PhraseFilterModel::SortOption PhraseFilterModel::sortOption() const
+{
+    return m_sortOption;
+}
+
 bool PhraseFilterModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
 {
+    if (m_sortOption == Type) {
+        return sourceModel()->data(left, PhraseModel::TypeRole).toInt() < sourceModel()->data(right, PhraseModel::TypeRole).toInt();
+    }
     return QSortFilterProxyModel::lessThan(left, right);
 }
 
