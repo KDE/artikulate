@@ -84,9 +84,20 @@ bool Storage::storeProfile(Learner *learner)
 
 bool Storage::removeProfile(Learner* learner)
 {
-    //FIXME remove profile
-    kError() << "Not implemented";
-    return false;
+    QSqlDatabase db = database();
+    QSqlQuery removeProfileQuery(db);
+
+    removeProfileQuery.prepare("DELETE FROM profiles WHERE id = ?");
+    removeProfileQuery.bindValue(0, learner->identifier());
+    removeProfileQuery.exec();
+
+    if (removeProfileQuery.lastError().isValid()) {
+        kError() << removeProfileQuery.lastError().text();
+        raiseError(removeProfileQuery.lastError());
+        db.rollback();
+        return false;
+    }
+    return true;
 }
 
 QList< Learner* > Storage::loadProfiles()
