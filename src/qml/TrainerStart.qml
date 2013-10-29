@@ -66,6 +66,7 @@ FocusScope {
     }
 
     PlasmaComponents.ToolButton {
+        id: knsDownloadButton
         anchors { top: helloArtikulate.top; right: parent.right; rightMargin: 50 }
         text: i18n("Download new courses")
         iconSource: "get-hot-new-stuff"
@@ -74,6 +75,18 @@ FocusScope {
         enabled: true
         onClicked : {
             downloadNewStuff()
+        }
+    }
+
+    PlasmaComponents.ToolButton {
+        anchors { top: knsDownloadButton.bottom; right: knsDownloadButton.right; topMargin: 20 }
+        text: i18n("User Identity")
+        iconSource: "user-identity"
+        height: 48
+        flat: false
+        enabled: true
+        onClicked : {
+            configLearnerProfile()
         }
     }
 

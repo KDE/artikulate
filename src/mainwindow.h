@@ -72,6 +72,7 @@ public slots:
     void downloadNewStuff();
     void updateTrainingPhraseFont();
     void updateKcfgUseContributorResources();
+    void configLearnerProfile();
 
 signals:
      void modeChanged(bool);

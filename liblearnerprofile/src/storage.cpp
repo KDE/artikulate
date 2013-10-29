@@ -86,7 +86,7 @@ QList< Learner* > Storage::loadProfiles()
 {
     QSqlDatabase db = database();
     QSqlQuery profileQuery(db);
-    profileQuery.prepare("SELECT id, name");
+    profileQuery.prepare("SELECT id, name FROM profiles");
     if (profileQuery.lastError().isValid()) {
         kError() << profileQuery.lastError().text();
         raiseError(profileQuery.lastError());
@@ -160,10 +160,8 @@ bool Storage::updateSchema()
             return false;
         }
     }
-    else
-    {
-        if (!db.transaction())
-        {
+    else {
+        if (!db.transaction()) {
             kWarning() <<  db.lastError().text();
             raiseError(db.lastError());
             return false;

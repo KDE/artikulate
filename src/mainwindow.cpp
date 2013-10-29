@@ -141,6 +141,11 @@ void MainWindow::setupActions()
     actionCollection()->addAction("download_new_stuff", downloadsAction);
     downloadsAction->setIcon(KIcon("get-hot-new-stuff"));
 
+    KAction *configLearnerProfileAction = new KAction(i18nc("@item:inmenu", "Learner Profile"), this);
+    connect(configLearnerProfileAction, SIGNAL(triggered(bool)), this, SLOT(configLearnerProfile()));
+    actionCollection()->addAction("config_learner_profile", configLearnerProfileAction);
+    configLearnerProfileAction->setIcon(KIcon("user-identity"));
+
     KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
 
     setupGUI(Default, "artikulateui.rc");
@@ -223,6 +228,11 @@ void MainWindow::downloadNewStuff()
 
     //update available courses
     m_resourceManager->loadCourseResources();
+}
+
+void MainWindow::configLearnerProfile()
+{
+    kError() << "Not implemented"; //FIXME
 }
 
 bool MainWindow::queryClose()

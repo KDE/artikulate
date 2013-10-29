@@ -69,7 +69,7 @@ ProfileManagerPrivate::ProfileManagerPrivate()
         }
     }
     if (m_activeProfile == 0) {
-        kWarning() << "No last active profile found, falling back to first found profile";
+        kDebug() << "No last active profile found, falling back to first found profile";
         if (m_profiles.size() > 0) {
             m_activeProfile = m_profiles.at(0);
         }
