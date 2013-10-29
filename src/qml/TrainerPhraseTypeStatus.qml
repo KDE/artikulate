@@ -55,25 +55,56 @@ Item {
     Component {
         id: progressBarDelegate
 
-        Rectangle {
+        Item {
             id: phraseItem
-            property Phrase currentPhrase : model.dataRole
-
             width: root.width / progressBarModel.count
             height: 20
 
-            color: {
-                switch(currentPhrase.type) {
-                    case Phrase.Word: "#A7E8BD"
-                        break;
-                    case Phrase.Expression: "#B9D5FF"
-                        break;
-                    case Phrase.Sentence: "#F5FFCB"
-                        break;
-                    case Phrase.Paragraph: "#E8CAB9"
-                        break;
-                    default:
-                        break;
+            Rectangle {
+                id: phraseBox
+                property Phrase currentPhrase : model.dataRole
+
+                width: 20
+                height: 20
+                anchors.centerIn: parent
+
+                color: {
+                    switch(currentPhrase.type) {
+                        case Phrase.Word: "#A7E8BD"
+                            break;
+                        case Phrase.Expression: "#B9D5FF"
+                            break;
+                        case Phrase.Sentence: "#F5FFCB"
+                            break;
+                        case Phrase.Paragraph: "#E8CAB9"
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                border.color: Qt.darker(phraseBox.color, 1.2)
+                border.width: 1
+
+                Behavior on width {PropertyAnimation {}}
+                Behavior on height {PropertyAnimation {}}
+
+                MouseArea {
+                    id: boxMouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onEntered: {
+                        phraseBox.width = 35
+                        phraseBox.height = 35
+                        phraseBox.border.width = 3
+                        phraseItem.z = 2
+                    }
+                    onExited: {
+                        phraseBox.width = 20
+                        phraseBox.height = 20
+                        phraseBox.border.width = 1
+                        phraseItem.z = 1
+                    }
                 }
             }
         }
