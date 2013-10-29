@@ -114,6 +114,7 @@ MainWindow::~MainWindow()
 {
     // write application config
     Settings::self()->writeConfig();
+    m_profileManager->sync();
 }
 
 ResourceManager * MainWindow::resourceManager() const

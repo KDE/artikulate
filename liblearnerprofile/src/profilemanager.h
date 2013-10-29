@@ -35,21 +35,32 @@ class Learner;
 class LIBLEARNERPROFILE_EXPORT ProfileManager : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY (int profileCount READ profileCount NOTIFY profileCountChanged)
+    Q_PROPERTY (LearnerProfile::Learner * activeProfile READ activeProfile WRITE setActiveProfile NOTIFY activeProfileChanged)
 
 public:
     explicit ProfileManager(QObject *parent = 0);
     ~ProfileManager();
 
     QList< Learner* > profiles() const;
-    Learner * addProfile(const QString &name);
-    void sync();
-    void setActiveProfile(Learner *learner);
+    int profileCount() const;
+    Q_INVOKABLE LearnerProfile::Learner * addProfile(const QString &name);
+    Q_INVOKABLE void removeProfile(LearnerProfile::Learner *learner);
+    Q_INVOKABLE LearnerProfile::Learner * profile(int index);
+    Q_INVOKABLE void sync();
+    /**
+     * Writes \p profile to database.
+     */
+    Q_INVOKABLE void sync(LearnerProfile::Learner *learner);
+    void setActiveProfile(LearnerProfile::Learner *learner);
     Learner * activeProfile() const;
 
 Q_SIGNALS:
     void activeProfileChanged();
     void profileAdded(Learner*,int);
     void profileAboutToBeRemoved(int);
+    void profileRemoved();
+    void profileCountChanged();
 
 private:
     Q_DISABLE_COPY(ProfileManager)

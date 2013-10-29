@@ -78,14 +78,17 @@ ProfileManagerPrivate::ProfileManagerPrivate()
 
 void ProfileManagerPrivate::sync()
 {
-    kDebug() << "Writing profile list to file.";
-
-    //FIXME syncing of profiles not implemented yet
-
-    KConfigGroup activeProfileGroup(m_config, "ActiveProfile");
-    activeProfileGroup.writeEntry("profileId", m_activeProfile->identifier());
-
+    // sync last used profile data
+    if (m_activeProfile) {
+        KConfigGroup activeProfileGroup(m_config, "ActiveProfile");
+        activeProfileGroup.writeEntry("profileId", m_activeProfile->identifier());
+    }
+    else {
+        kError() << "No active profile selected, aborting sync.";
+    }
     m_config->sync();
+
+    // note: not storage operations necessary, always in sync
 }
 
 }

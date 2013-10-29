@@ -43,6 +43,7 @@
 #include "models/phonemeunitmodel.h"
 #include "models/profilemodel.h"
 #include "models/skeletonmodel.h"
+#include "liblearnerprofile/src/learner.h"
 
 #include <kdeclarative.h>
 
@@ -50,7 +51,6 @@
 #include <QGraphicsDropShadowEffect>
 #include <QScriptValue>
 #include <QScriptEngine>
-
 
 Application::Application()
     : KApplication(true)
@@ -61,6 +61,7 @@ Application::Application()
 void Application::registerQmlTypes()
 {
     qmlRegisterType<Profile>("artikulate", 1, 0, "Profile");
+    qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");
     qmlRegisterType<Unit>("artikulate", 1, 0, "Unit");
     qmlRegisterType<Course>("artikulate", 1, 0, "Course");
     qmlRegisterType<Language>("artikulate", 1, 0, "Language");

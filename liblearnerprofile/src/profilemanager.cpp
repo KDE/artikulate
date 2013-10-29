@@ -32,7 +32,8 @@ ProfileManager::ProfileManager(QObject* parent)
     : QObject(parent)
     , d(new ProfileManagerPrivate)
 {
-
+    connect (this, SIGNAL(profileAdded(Learner*,int)), this, SIGNAL(profileCountChanged()));
+    connect (this, SIGNAL(profileRemoved()), this, SIGNAL(profileCountChanged()));
 }
 
 ProfileManager::~ProfileManager()
@@ -45,6 +46,11 @@ ProfileManager::~ProfileManager()
 QList< Learner* > ProfileManager::profiles() const
 {
     return d->m_profiles;
+}
+
+int ProfileManager::profileCount() const
+{
+    return profiles().length();
 }
 
 Learner * ProfileManager::addProfile(const QString &name)
@@ -65,12 +71,51 @@ Learner * ProfileManager::addProfile(const QString &name)
     d->m_storage.storeProfile(learner);
     emit profileAdded(learner, d->m_profiles.count() - 1);
 
+    if (activeProfile() == 0) {
+        setActiveProfile(learner);
+    }
+
     return learner;
+}
+
+void ProfileManager::removeProfile(Learner *learner)
+{
+    int index = d->m_profiles.indexOf(learner);
+    if (index < 0) {
+        kWarning() << "Profile was not found, aborting";
+        return;
+    }
+    emit profileAboutToBeRemoved(index);
+    d->m_profiles.removeAt(index);
+    d->m_storage.removeProfile(learner);
+
+    if (d->m_activeProfile == learner) {
+        if (d->m_profiles.count() == 0) {
+            setActiveProfile(0);
+        }
+        else {
+            setActiveProfile(d->m_profiles.at(0));
+        }
+    }
+    emit profileRemoved();
+}
+
+Learner * ProfileManager::profile(int index)
+{
+    if (index < 0 || index >= profiles().count()) {
+        return 0;
+    }
+    return profiles().at(index);
 }
 
 void ProfileManager::sync()
 {
     d->sync();
+}
+
+void ProfileManager::sync(Learner *learner)
+{
+    d->m_storage.storeProfile(learner);
 }
 
 Learner * ProfileManager::activeProfile() const

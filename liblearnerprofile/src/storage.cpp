@@ -54,7 +54,7 @@ bool Storage::storeProfile(Learner *learner)
     QSqlDatabase db = database();
 
     // test whether ID is present
-    QSqlQuery idExistsQuery = db.exec(QString("SELECT value FROM profiles WHERE id = '%1'").arg(learner->identifier()));
+    QSqlQuery idExistsQuery = db.exec(QString("SELECT id FROM profiles WHERE id = '%1'").arg(learner->identifier()));
     if (db.lastError().isValid()) {
         kError() << db.lastError().text();
         raiseError(db.lastError());
@@ -69,17 +69,24 @@ bool Storage::storeProfile(Learner *learner)
         insertCourseQuery.exec();
 
         if (insertCourseQuery.lastError().isValid()) {
-            kError() << insertCourseQuery.lastError().text();
+            kError() << "FOO" << insertCourseQuery.lastError().text() << "KEY " << learner->identifier();
             raiseError(insertCourseQuery.lastError());
             db.rollback();
             return false;
         }
         return true;
     } else {
-        //FIXME
+        //FIXME update profile
         kError() << "Update not supported";
         return false;
     }
+}
+
+bool Storage::removeProfile(Learner* learner)
+{
+    //FIXME remove profile
+    kError() << "Not implemented";
+    return false;
 }
 
 QList< Learner* > Storage::loadProfiles()

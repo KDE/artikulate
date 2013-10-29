@@ -46,7 +46,13 @@ set(artikulate_qml_files
     PhraseEditorTypeComponent.qml
     PhraseEditorEditStateComponent.qml
     PhonemeUnitSelector.qml
+    ProfileDetailsItem.qml
+    ProfileForm.qml
+    ProfileSelector.qml
     SkeletonSelector.qml
+
+    ListItem.qml
+    SheetDialog.qml
 )
 
 install(FILES ${artikulate_qml_files} DESTINATION ${DATA_INSTALL_DIR}/artikulate/qml)

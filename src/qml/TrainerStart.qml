@@ -50,9 +50,31 @@ FocusScope {
         //TODO
     }
 
+    PlasmaComponents.ToolBar {
+        id: header
+        width: screen.width
+        tools: Row {
+            PlasmaComponents.ToolButton {
+                text: profileManager.activeProfile == null
+                    ? i18n("User Identity")
+                    : profileManager.activeProfile.name
+                iconSource: "user-identity"
+                onClicked: {
+                    if (profileSelectorSheet.isOpen()) {
+                        profileSelectorSheet.close()
+                    }
+                    else {
+                        profileSelectorSheet.open()
+                    }
+                }
+                checked: profileSelectorSheet.isOpen()
+            }
+        }
+    }
+
     Column {
         id: helloArtikulate
-        anchors { top: screen.top; left: screen.left; topMargin: 30; leftMargin: 30 }
+        anchors { top: header.bottom; left: screen.left; topMargin: 30; leftMargin: 30 }
         spacing: 10
 
         Text {
@@ -75,18 +97,6 @@ FocusScope {
         enabled: true
         onClicked : {
             downloadNewStuff()
-        }
-    }
-
-    PlasmaComponents.ToolButton {
-        anchors { top: knsDownloadButton.bottom; right: knsDownloadButton.right; topMargin: 20 }
-        text: i18n("User Identity")
-        iconSource: "user-identity"
-        height: 48
-        flat: false
-        enabled: true
-        onClicked : {
-            configLearnerProfile()
         }
     }
 
@@ -233,6 +243,17 @@ FocusScope {
             checked: screen.__showPhonemeUnits
             onClicked : {
                 screen.__showPhonemeUnits = !screen.__showPhonemeUnits
+            }
+        }
+    }
+
+    SheetDialog {
+        id: profileSelectorSheet
+        anchors { top: screen.top; topMargin: header.height; left: screen.left; bottom: screen.bottom; right: screen.right }
+        content: ProfileSelector {
+            anchors.fill: parent
+            onProfileChosen: {
+                profileSelectorSheet.close()
             }
         }
     }
