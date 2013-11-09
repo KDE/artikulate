@@ -60,12 +60,17 @@ Item {
             width: root.width / progressBarModel.count
             height: 20
 
+            // The Z value for the item is set to the width of the rectangle.
+            // This hack keeps the bigger phrase box above other boxes top.
+            z: phraseBox.width
             Rectangle {
                 id: phraseBox
                 property Phrase currentPhrase : model.dataRole
+                signal phraseSelected()
 
-                width: 20
-                height: 20
+                width: boxMouseArea.containsMouse ? 35 : 20
+                height: width
+                border.width: boxMouseArea.containsMouse ? 3 : 1
                 anchors.centerIn: parent
 
                 color: {
@@ -83,27 +88,36 @@ Item {
                     }
                 }
 
+                onPhraseSelected: {
+                    session.jumpToPhrase(currentPhrase)
+                    switch(currentPhrase.type) {
+                        case Phrase.Word:
+                            session.setPhraseType("word")
+                            break;
+                        case Phrase.Expression:
+                            session.setPhraseType("expression")
+                            break;
+                        case Phrase.Sentence:
+                            session.setPhraseType("sentence")
+                            break;
+                        case Phrase.Paragraph:
+                            session.setPhraseType("paragraph")
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
                 border.color: Qt.darker(phraseBox.color, 1.2)
-                border.width: 1
 
                 Behavior on width {PropertyAnimation {}}
-                Behavior on height {PropertyAnimation {}}
 
                 MouseArea {
                     id: boxMouseArea
                     anchors.fill: parent
                     hoverEnabled: true
-                    onEntered: {
-                        phraseBox.width = 35
-                        phraseBox.height = 35
-                        phraseBox.border.width = 3
-                        phraseItem.z = 2
-                    }
-                    onExited: {
-                        phraseBox.width = 20
-                        phraseBox.height = 20
-                        phraseBox.border.width = 1
-                        phraseItem.z = 1
+                    onClicked: {
+                        phraseBox.phraseSelected()
                     }
                 }
             }
