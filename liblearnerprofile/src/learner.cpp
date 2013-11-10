@@ -20,6 +20,8 @@
 
 #include "learner_p.h"
 #include "learner.h"
+#include "learninggoal.h"
+#include <KDebug>
 
 using namespace LearnerProfile;
 
@@ -27,14 +29,14 @@ Learner::Learner(QObject *parent)
     : QObject(parent)
     , d(new LearnerPrivate)
 {
-
+    connect(this, SIGNAL(goalAdded(LearningGoal*,int)), this, SIGNAL(goalCountChanged()));
+    connect(this, SIGNAL(goalRemoved()), this, SIGNAL(goalCountChanged()));
 }
 
 Learner::~Learner()
 {
 
 }
-
 
 QString Learner::name() const
 {
@@ -62,4 +64,27 @@ void Learner::setIdentifier(int identifier)
     }
     d->identifier = identifier;
     emit identifierChanged();
+}
+
+QList< LearningGoal* > Learner::goals() const
+{
+    return d->goals;
+}
+
+void Learner::addGoal(LearnerProfile::LearningGoal* goal)
+{
+    d->goals.append(goal);
+    emit goalAdded(goal, d->goals.count() - 1);
+}
+
+void Learner::removeGoal(LearnerProfile::LearningGoal* goal)
+{
+    int index = d->goals.indexOf(goal);
+    if (index < 0) {
+        kError() << "Cannot remove goal, not found: aborting";
+        return;
+    }
+    emit goalAboutToBeRemoved(index);
+    d->goals.removeAt(index);
+    emit goalRemoved();
 }

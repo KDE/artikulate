@@ -21,10 +21,12 @@
 #include <QString>
 #include <QList>
 
-class LearningGoal;
+
 
 namespace LearnerProfile
 {
+class LearningGoal;
+
 class LearnerPrivate {
 
 public:

@@ -28,6 +28,7 @@ namespace LearnerProfile
 {
 class ProfileManagerPrivate;
 class Learner;
+class LearningGoal;
 
 /**
  * \class ProfileManager
@@ -47,6 +48,7 @@ public:
     Q_INVOKABLE LearnerProfile::Learner * addProfile(const QString &name);
     Q_INVOKABLE void removeProfile(LearnerProfile::Learner *learner);
     Q_INVOKABLE LearnerProfile::Learner * profile(int index);
+    QList< LearningGoal* > goals() const;
     Q_INVOKABLE void sync();
     /**
      * Writes \p profile to database.

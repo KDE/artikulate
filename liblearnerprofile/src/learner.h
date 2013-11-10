@@ -28,6 +28,7 @@ class LearnerPrivate;
 
 namespace LearnerProfile
 {
+class LearningGoal;
 
 /**
  * \class Learner
@@ -46,10 +47,17 @@ public:
     void setName(const QString &name);
     int identifier() const;
     void setIdentifier(int identifier);
+    QList<LearningGoal *> goals() const;
+    void addGoal(LearningGoal *goal);
+    void removeGoal(LearningGoal *goal);
 
 Q_SIGNALS:
     void nameChanged();
     void identifierChanged();
+    void goalAdded(LearningGoal*,int);
+    void goalAboutToBeRemoved(int);
+    void goalRemoved();
+    void goalCountChanged();
 
 private:
     Q_DISABLE_COPY(Learner)
