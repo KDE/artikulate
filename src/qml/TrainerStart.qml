@@ -72,18 +72,26 @@ FocusScope {
         }
     }
 
-    Column {
+    Row {
         id: helloArtikulate
         anchors { top: header.bottom; left: screen.left; topMargin: 30; leftMargin: 30 }
         spacing: 10
 
         Text {
-            text: i18n("Welcome to")
-            font.pointSize: 28;
+            anchors { verticalCenter : languageSwitcher.verticalCenter }
+            text : i18n("Language:")
+            font.bold : true
+            font.pointSize : theme.defaultFont.pointSize
         }
-        Text {
-            text: i18n("Artikulate!")
-            font.pointSize: 48;
+
+        LanguageSwitcher {
+            id: languageSwitcher
+            width: Math.max(400, Math.floor(screen.width/3))
+            resourceManager: globalResourceManager
+            view: kcfg_UseContributorResources ? LanguageModel.NonEmptyLanguages : LanguageModel.NonEmptyGhnsOnlyLanguages
+            onLanguageSelected: {
+                screen.languageSelected(selectedLanguage)
+            }
         }
     }
 
@@ -173,17 +181,6 @@ FocusScope {
     Column {
         spacing: 30
         anchors { top: selectNextTipp.top; left: selectNextTipp.right; leftMargin: 30; topMargin: 10 }
-
-        LanguageSelector {
-            id: languageSelector
-            height: screen.height - breadcrumb.height - 230
-            visible: userProfile.language == null
-            resourceManager: globalResourceManager
-            view: kcfg_UseContributorResources ? LanguageModel.NonEmptyLanguages : LanguageModel.NonEmptyGhnsOnlyLanguages
-            onLanguageSelected: {
-                screen.languageSelected(selectedLanguage)
-            }
-        }
 
         CourseSelector {
             id: courseSelector
