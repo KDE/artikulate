@@ -57,7 +57,7 @@ Item {
 
         Item {
             id: phraseItem
-            width: root.width / progressBarModel.count
+            width: root.width / progressFooModel.filteredCount
             height: 20
 
             // The Z value for the item is set to the width of the rectangle.
@@ -68,8 +68,8 @@ Item {
                 property Phrase currentPhrase : model.dataRole
                 signal phraseSelected()
 
-                width: boxMouseArea.containsMouse ? 35 : 20
-                height: width
+                width: boxMouseArea.containsMouse ? parent.width + 15 : parent.width
+                height: boxMouseArea.containsMouse ? 35 : 20
                 border.width: boxMouseArea.containsMouse ? 3 : 1
                 anchors.centerIn: parent
 
@@ -111,6 +111,7 @@ Item {
                 border.color: Qt.darker(phraseBox.color, 1.2)
 
                 Behavior on width {PropertyAnimation {}}
+                Behavior on height {PropertyAnimation {}}
 
                 MouseArea {
                     id: boxMouseArea
@@ -131,6 +132,8 @@ Item {
         delegate: progressBarDelegate
         model: PhraseFilterModel {
             id: progressFooModel
+            hideNotRecorded: true
+            hideExcluded: true
             sortOption: PhraseFilterModel.Type
             phraseModel: PhraseModel {
                 id: progressBarModel

@@ -51,6 +51,18 @@ bool PhraseFilterModel::isHideExcluded() const
     return m_hideExcluded;
 }
 
+void PhraseFilterModel::setHideNotRecorded(bool hide)
+{
+    m_hideNotRecorded = hide;
+    invalidateFilter();
+    emit hideNotRecordedChanged();
+}
+
+bool PhraseFilterModel::isHideNotRecorded() const
+{
+    return m_hideNotRecorded;
+}
+
 void PhraseFilterModel::setPhraseModel(PhraseModel* phraseModel)
 {
     if (phraseModel == m_phraseModel) {
@@ -77,6 +89,11 @@ PhraseFilterModel::SortOption PhraseFilterModel::sortOption() const
     return m_sortOption;
 }
 
+int PhraseFilterModel::filteredCount() const
+{
+    return rowCount();
+}
+
 bool PhraseFilterModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
 {
     if (m_sortOption == Type) {
@@ -87,11 +104,12 @@ bool PhraseFilterModel::lessThan(const QModelIndex& left, const QModelIndex& rig
 
 bool PhraseFilterModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
-    if (m_hideExcluded == true) {
-        // return true if not excluded
+    int result = true;
+    if (m_hideNotRecorded || m_hideExcluded) {
         QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
-        !sourceModel()->data(index, PhraseModel::ExcludedRole).toBool();
-        return !sourceModel()->data(index, PhraseModel::ExcludedRole).toBool();
+        bool notRecorded = sourceModel()->data(index, PhraseModel::SoundFileRole).value<KUrl>().isEmpty();
+        bool excluded = sourceModel()->data(index, PhraseModel::ExcludedRole).toBool();
+        result = !(notRecorded || excluded);
     }
-    return true;
+    return result;
 }
