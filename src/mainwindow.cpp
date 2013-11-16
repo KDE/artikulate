@@ -96,6 +96,8 @@ MainWindow::MainWindow()
 
     m_view->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 
+    m_view->setStyleSheet("background-color: transparent;");
+
     // set starting screen
     m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Main.qml")));
 

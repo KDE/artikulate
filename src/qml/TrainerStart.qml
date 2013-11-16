@@ -72,39 +72,37 @@ FocusScope {
         }
     }
 
-    Row {
+    Rectangle {
         id: languageControls
-        anchors { top: header.bottom; left: screen.left; topMargin: 30; leftMargin: 30 }
-        spacing: 10
+        width : parent.width
+        height :Math.ceil(Math.max(languageSwitcher.height, knsDownloadButton.height) + 6)
+        anchors { top : header.bottom; topMargin : 2 }
+        color : theme.backgroundColor
 
-        Text {
-            anchors { verticalCenter : languageSwitcher.verticalCenter }
-            text : i18n("Language:")
-            font.bold : true
-            font.pointSize : theme.defaultFont.pointSize
-        }
-
-        LanguageSwitcher {
-            id: languageSwitcher
-            width: Math.max(400, Math.floor(screen.width/3))
-            resourceManager: globalResourceManager
-            view: kcfg_UseContributorResources ? LanguageModel.NonEmptyLanguages : LanguageModel.NonEmptyGhnsOnlyLanguages
-            onLanguageSelected: {
-                screen.languageSelected(selectedLanguage)
+        Row {
+            spacing : 20
+            anchors { topMargin : 3; top: parent.top; bottomMargin : 3; bottom : parent.bottom; leftMargin: 5; left : parent.left }
+            LanguageSwitcher {
+                id : languageSwitcher
+                anchors { verticalCenter : parent.verticalCenter }
+                width : screen.width - 6 - knsDownloadButton.width - 20
+                resourceManager: globalResourceManager
+                view: kcfg_UseContributorResources ? LanguageModel.NonEmptyLanguages : LanguageModel.NonEmptyGhnsOnlyLanguages
+                onLanguageSelected: {
+                    screen.languageSelected(selectedLanguage)
+                }
             }
-        }
-    }
 
-    PlasmaComponents.ToolButton {
-        id: knsDownloadButton
-        anchors { top: languageControls.top; right: parent.right; rightMargin: 50 }
-        text: i18n("Download new courses")
-        iconSource: "get-hot-new-stuff"
-        height: 48
-        flat: false
-        enabled: true
-        onClicked : {
-            downloadNewStuff()
+            PlasmaComponents.ToolButton {
+                id: knsDownloadButton
+                iconSource: "get-hot-new-stuff"
+                anchors { verticalCenter : parent.verticalCenter }
+                flat: false
+                enabled: true
+                onClicked : {
+                    downloadNewStuff()
+                }
+            }
         }
     }
 

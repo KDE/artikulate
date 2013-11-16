@@ -39,18 +39,21 @@ Item {
         id: itemDelegate
 
         Row {
-            width : root.width - buttonLeft.width - buttonRight.width
+            width : root.width - buttonLeft.width - buttonRight.width - 20
             height : theme.mediumIconSize
             spacing : 10
             PlasmaCore.IconItem {
                 id: icon
                 source : "artikulate-language"
-                width : theme.smallMediumIconSize
-                height : theme.smallMediumIconSize
+                width : theme.mediumIconSize
+                height : theme.mediumIconSize
                 anchors.verticalCenter: parent.verticalCenter
             }
-            Text {
+            PlasmaComponents.Label {
+                id: languageTitleLabel
                 anchors.verticalCenter: parent.verticalCenter
+                height: paintedHeight
+                font.pointSize: 1.5 * theme.defaultFont.pointSize
                 text : model.title + " / " + model.i18nTitle
             }
         }
@@ -58,24 +61,16 @@ Item {
 
     Row {
         spacing : 10
-        PlasmaComponents.ToolButton {
-            id : buttonLeft
-            iconSource : "arrow-left"
-            enabled : languageView.currentIndex > 0
-            onClicked: {
-                languageView.decrementCurrentIndex()
-            }
-        }
 
         ListView {
             id: languageView
 
-            width : root.width - buttonLeft.width - buttonRight.width
+            width : root.width - buttonLeft.width - buttonRight.width - 20
             height : theme.mediumIconSize
 
             clip : true
             snapMode : ListView.SnapToItem
-            orientation : ListView.Horizontal
+            orientation : ListView.Vertical
             model: LanguageModel {
                 id : languageModel
                 view: root.view
@@ -86,6 +81,15 @@ Item {
                 languageSelected(selectedLanguage)
             }
             delegate : itemDelegate
+        }
+
+        PlasmaComponents.ToolButton {
+            id : buttonLeft
+            iconSource : "arrow-left"
+            enabled : languageView.currentIndex > 0
+            onClicked: {
+                languageView.decrementCurrentIndex()
+            }
         }
 
         PlasmaComponents.ToolButton {
