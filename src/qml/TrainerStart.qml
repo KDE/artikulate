@@ -106,39 +106,9 @@ FocusScope {
         }
     }
 
-    Item {
-        id: breadcrumb
-
-        anchors { top: languageControls.bottom; left: languageControls.left; topMargin: 20 }
-        width: parent. width
-        height: 150
-
-    }
-
-    Text {
-        id: selectNextTipp
-
-        anchors { top: breadcrumb.bottom; left: languageControls.left; topMargin: 40 }
-        text: {
-            if (userProfile.language != null && userProfile.course == null) {
-                return i18n("Select a course:");
-            }
-            if (userProfile.course != null && userProfile.unit == null) {
-                if (!screen.__showPhonemeUnits) {
-                    return i18n("Select a scenario unit:");
-                }
-                else {
-                    return i18n("Select a phoneme unit:");
-                }
-            }
-            return i18n("Training is starting...");
-        }
-        font.pointSize: 24;
-    }
-
     Column {
         spacing: 30
-        anchors { top: selectNextTipp.top; left: selectNextTipp.right; leftMargin: 30; topMargin: 10 }
+        anchors { top: languageControls.bottom; left: languageControls.left; leftMargin: 10; topMargin: 10 }
 
         CourseSwitcher {
             id: courseSelector
@@ -151,12 +121,34 @@ FocusScope {
             }
         }
 
+
+        // additional information for current selector
+        PlasmaComponents.ButtonColumn {
+            visible: userProfile.course != null
+            anchors { leftMargin : 30; left : parent.left }
+            PlasmaComponents.RadioButton {
+                text: i18n("Scenario Training Units")
+                checked: !screen.__showPhonemeUnits
+                onClicked : {
+                    screen.__showPhonemeUnits = !screen.__showPhonemeUnits
+                }
+            }
+            PlasmaComponents.RadioButton {
+                text: i18n("Phoneme Training Units")
+                checked: screen.__showPhonemeUnits
+                onClicked : {
+                    screen.__showPhonemeUnits = !screen.__showPhonemeUnits
+                }
+            }
+        }
+
         Column {
             visible: userProfile.course != null && userProfile.unit == null && screen.__showPhonemeUnits == false
             UnitSelector {
                 id: unitSelector
-                width: Math.max(300, screen.width - selectNextTipp.width - 80)
-                height: screen.height - breadcrumb.height - 230
+                anchors { leftMargin : 30; left : parent.left }
+                width: Math.floor(300, screen.width/2)
+                height: screen.height - 300
                 unitModel: selectedUnitModel
                 onUnitSelected: {
                     userProfile.unit = unit
@@ -170,6 +162,7 @@ FocusScope {
             visible: userProfile.course != null && userProfile.unit == null && screen.__showPhonemeUnits == true
             PhonemeUnitSelector {
                 id: phonemeUnitSelector
+                anchors { leftMargin : 30; left : parent.left }
                 course: userProfile.course
                 onUnitSelected: {
                     userProfile.unit = unit //TODO remove after porting to training session
@@ -178,27 +171,7 @@ FocusScope {
                 }
             }
         }
-    }
 
-    // additional information for current selector
-    PlasmaComponents.ButtonColumn {
-        anchors { top: selectNextTipp.bottom; left: selectNextTipp.left; topMargin: 20; leftMargin: 20 }
-        visible: userProfile.course != null
-
-        PlasmaComponents.RadioButton {
-            text: i18n("Scenario Training Units")
-            checked: !screen.__showPhonemeUnits
-            onClicked : {
-                screen.__showPhonemeUnits = !screen.__showPhonemeUnits
-            }
-        }
-        PlasmaComponents.RadioButton {
-            text: i18n("Phoneme Training Units")
-            checked: screen.__showPhonemeUnits
-            onClicked : {
-                screen.__showPhonemeUnits = !screen.__showPhonemeUnits
-            }
-        }
     }
 
     SheetDialog {

@@ -50,8 +50,11 @@ Item {
                 height : theme.smallMediumIconSize
                 anchors.verticalCenter: parent.verticalCenter
             }
-            Text {
+            PlasmaComponents.Label {
+                id: courseTitleLabel
                 anchors.verticalCenter: parent.verticalCenter
+                height: paintedHeight
+                font.pointSize: theme.defaultFont.pointSize
                 text : model.title
             }
         }
