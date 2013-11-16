@@ -38,6 +38,7 @@ set(artikulate_qml_files
     EditorSelector.qml
 
     CourseSelector.qml
+    CourseSwitcher.qml
     LanguageSelector.qml
     LanguageSwitcher.qml
     UnitSelector.qml

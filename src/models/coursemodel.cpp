@@ -257,3 +257,8 @@ void CourseModel::updateMappings()
         m_signalMapper->setMapping(m_resources.at(i)->course(), i);
     }
 }
+
+QVariant CourseModel::course(int row) const
+{
+    return data(index(row, 0), CourseModel::DataRole);
+}

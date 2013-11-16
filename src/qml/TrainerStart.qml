@@ -142,9 +142,8 @@ FocusScope {
         spacing: 30
         anchors { top: selectNextTipp.top; left: selectNextTipp.right; leftMargin: 30; topMargin: 10 }
 
-        CourseSelector {
+        CourseSwitcher {
             id: courseSelector
-            visible: userProfile.language != null && userProfile.course == null
             resourceManager: globalResourceManager
             view: kcfg_UseContributorResources ? CourseModel.AllResources : CourseModel.OnlyGetHotNewStuffResources
             language: userProfile.language
