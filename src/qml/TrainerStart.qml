@@ -73,7 +73,7 @@ FocusScope {
     }
 
     Row {
-        id: helloArtikulate
+        id: languageControls
         anchors { top: header.bottom; left: screen.left; topMargin: 30; leftMargin: 30 }
         spacing: 10
 
@@ -97,7 +97,7 @@ FocusScope {
 
     PlasmaComponents.ToolButton {
         id: knsDownloadButton
-        anchors { top: helloArtikulate.top; right: parent.right; rightMargin: 50 }
+        anchors { top: languageControls.top; right: parent.right; rightMargin: 50 }
         text: i18n("Download new courses")
         iconSource: "get-hot-new-stuff"
         height: 48
@@ -111,57 +111,17 @@ FocusScope {
     Item {
         id: breadcrumb
 
-        anchors { top: helloArtikulate.bottom; left: helloArtikulate.left; topMargin: 20 }
+        anchors { top: languageControls.bottom; left: languageControls.left; topMargin: 20 }
         width: parent. width
         height: 150
 
-        Column {
-            Image {
-                width: 128
-                height: 128
-                source: userProfile.language == null ? "../images/language-gray.png" : "../images/language.png"
-            }
-            PlasmaComponents.ToolButton {
-                iconSource: "dialog-close"
-                text: userProfile.language != null ? userProfile.language.title : i18n("No language selected")
-                flat: true
-                enabled: userProfile.language != null
-                onClicked : {
-                    userProfile.language = null
-                    userProfile.course = null
-                    userProfile.unit = null
-                }
-            }
-        }
-
-        Column {
-            x: parent.width / 3
-            Image {
-                width: 128
-                height: 128
-                source: userProfile.course == null ? "../images/course-gray.png" : "../images/course.png"
-            }
-            PlasmaComponents.ToolButton {
-                iconSource: "dialog-close"
-                text: userProfile.course != null ? userProfile.course.title : i18n("No course selected")
-                flat: true
-                enabled: userProfile.course != null
-                onClicked : {
-                    userProfile.course = null
-                    userProfile.unit = null
-                }
-            }
-        }
     }
 
     Text {
         id: selectNextTipp
 
-        anchors { top: breadcrumb.bottom; left: helloArtikulate.left; topMargin: 40 }
+        anchors { top: breadcrumb.bottom; left: languageControls.left; topMargin: 40 }
         text: {
-            if (userProfile.language == null) {
-                return i18n("Select a language:");
-            }
             if (userProfile.language != null && userProfile.course == null) {
                 return i18n("Select a course:");
             }
