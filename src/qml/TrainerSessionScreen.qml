@@ -43,7 +43,7 @@ Item {
 
         Column {
             id: trainingControls
-            width: Math.max(buttonApply.width, buttonCancel.width)
+            width: Math.max(buttonApply.width, buttonStepOver.width)
             PlasmaComponents.ToolButton {
                 id: buttonApply
                 height: 48
