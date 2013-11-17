@@ -106,7 +106,8 @@ void Learner::setActiveGoal(Learner::Category categoryLearner, const QString &id
             return;
         }
     }
-    kError() << "Could not select learning goal with ID " << identifier << ": not registered";
+    kError() << "Could not select learning goal with ID " << identifier
+        << ": not registered for this learner";
 }
 
 LearningGoal * Learner::activeGoal(Learner::Category categoryLearner) const
