@@ -56,19 +56,18 @@ Item {
         height: 48
         text: i18n("Close Course")
         onClicked: {
-            // show home screen
+            // show overview screen / start screen
             userProfile.course = null
-            switchScreen(trainingScreen, homeScreen)
+            switchScreen(trainingScreen, overviewScreen)
         }
     }
-
 
     Column {
         width: trainer.width
         anchors { top: trainer.top }
 
-        TrainerStart {
-            id: homeScreen
+        TrainerOverviewScreen {
+            id: overviewScreen
             width: parent.width
             height: trainer.height - 30
             visible: false
@@ -80,12 +79,12 @@ Item {
             }
 
             onUnitSelected: {
-                switchScreen(homeScreen, trainingScreen)
+                switchScreen(overviewScreen, trainingScreen)
             }
 
             Component.onCompleted: {
-                homeScreen.reset()
-                homeScreen.visible = true
+                overviewScreen.reset()
+                overviewScreen.visible = true
             }
         }
 
@@ -97,11 +96,11 @@ Item {
             session: trainingSession //TODO we do not need global object for this
             onCloseCourse: {
                 userProfile.course = null
-                switchScreen(trainingScreen, homeScreen)
+                switchScreen(trainingScreen, overviewScreen)
             }
             onCloseUnit: {
                 userProfile.unit = null
-                switchScreen(trainingScreen, homeScreen)
+                switchScreen(trainingScreen, overviewScreen)
             }
         }
     }
@@ -122,7 +121,7 @@ Item {
             target: curtain
             property: "opacity"
             to: 1
-            duration: switchScreenAnimation.to == homeScreen ? 250 : 750
+            duration: switchScreenAnimation.to == overviewScreen ? 250 : 750
             easing.type: Easing.OutQuad
         }
         PropertyAction {
@@ -139,7 +138,7 @@ Item {
             target: curtain
             property: "opacity"
             to: 0
-            duration: switchScreenAnimation.to == homeScreen ? 250 : 750
+            duration: switchScreenAnimation.to == overviewScreen ? 250 : 750
             easing.type: Easing.InQuad
         }
         ScriptAction {
