@@ -108,6 +108,19 @@ Learner * ProfileManager::profile(int index)
     return profiles().at(index);
 }
 
+QList< LearningGoal* > ProfileManager::goals() const
+{
+    return d->m_goals;
+}
+
+void ProfileManager::registerGoal(LearningGoal::Category category, const QString &identifier, const QString &name)
+{
+    LearningGoal *goal = new LearningGoal(category, this);
+    goal->setIdentifier(identifier);
+    goal->setName(name);
+    d->m_goals.append(goal);
+}
+
 void ProfileManager::sync()
 {
     d->sync();

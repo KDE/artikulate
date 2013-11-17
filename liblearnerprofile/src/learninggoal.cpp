@@ -18,7 +18,6 @@
  *  License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "learninggoal_p.h"
 #include "learninggoal.h"
 
 using namespace LearnerProfile;
@@ -45,7 +44,14 @@ LearningGoal::LearningGoal(QObject *parent)
     : QObject(parent)
     , d(new LearningGoalPrivate)
 {
-    //TODO set category
+    // create goal of unspecified category
+}
+
+LearningGoal::LearningGoal(LearningGoal::Category category, QObject *parent)
+    : QObject(parent)
+    , d(new LearningGoalPrivate)
+{
+    d->m_category = category;
 }
 
 QString LearningGoal::name() const

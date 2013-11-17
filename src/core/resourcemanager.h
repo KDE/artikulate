@@ -33,10 +33,15 @@ class LanguageResource;
 class Skeleton;
 class Language;
 class Course;
+class ProfileManager;
 class KUrl;
 class QDomDocument;
 class QFile;
 class QXmlSchema;
+
+namespace LearnerProfile {
+    class ProfileManager;
+}
 
 /**
  * \class ResourceManager
@@ -61,6 +66,14 @@ public:
      * for this application.
      */
     void loadLanguageResources();
+
+    /**
+     * Register loaded languages as learning goals in profile manager.
+     *
+     * TODO this should not be done by explicit call, but by putting data at shared data storage
+     *      for profile manager
+     */
+    void registerLearningGoals(LearnerProfile::ProfileManager *profileManger);
 
     /**
      * returns true if a repository is used, else false

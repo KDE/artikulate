@@ -22,6 +22,7 @@
 #define PROFILEMANAGER_H
 
 #include "liblearnerprofile_export.h"
+#include "learninggoal.h"
 #include <QObject>
 
 namespace LearnerProfile
@@ -49,6 +50,7 @@ public:
     Q_INVOKABLE void removeProfile(LearnerProfile::Learner *learner);
     Q_INVOKABLE LearnerProfile::Learner * profile(int index);
     QList< LearningGoal* > goals() const;
+    void registerGoal(LearningGoal::Category category, const QString &identifier, const QString &name);
     Q_INVOKABLE void sync();
     /**
      * Writes \p profile to database.

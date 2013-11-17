@@ -61,7 +61,7 @@ MainWindow::MainWindow()
     , m_editorProfile(new Profile(this))
     , m_resourceManager(new ResourceManager(this))
     , m_trainingSession(new TrainingSession(this))
-    , m_profileManager(new ProfileManager(this))
+    , m_profileManager(new LearnerProfile::ProfileManager(this))
 {
     setWindowIcon(KIcon("artikulate")); // FIXME not present yet
     setWindowTitle(qAppName());
@@ -72,6 +72,7 @@ MainWindow::MainWindow()
     // load resources
     m_resourceManager->loadLanguageResources();
     m_resourceManager->loadCourseResources();
+    m_resourceManager->registerLearningGoals(m_profileManager);
 
     KDeclarative m_kdeclarative;
     m_kdeclarative.setDeclarativeEngine(m_view->engine());

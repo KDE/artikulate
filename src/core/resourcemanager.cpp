@@ -31,6 +31,8 @@
 #include "resources/skeletonresource.h"
 #include <ui/newcoursedialog.h>
 #include "settings.h"
+#include "liblearnerprofile/src/profilemanager.h"
+#include "liblearnerprofile/src/learninggoal.h"
 
 #include <QIODevice>
 #include <QFile>
@@ -126,6 +128,17 @@ void ResourceManager::loadLanguageResources()
     QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
     foreach (const QString &file, languageFiles) {
         addLanguage(KUrl::fromLocalFile(file));
+    }
+}
+
+void ResourceManager::registerLearningGoals(LearnerProfile::ProfileManager *profileManger)
+{
+    foreach (LanguageResource *languageResource, languageResources()) {
+        profileManger->registerGoal(
+            LearnerProfile::LearningGoal::Language,
+            languageResource->language()->id(),
+            languageResource->language()->title()
+            );
     }
 }
 

@@ -158,6 +158,7 @@ kde4_add_ui_files(artikulateCore_SRCS
 kde4_add_kcfg_files(artikulateCore_SRCS settings.kcfgc)
 kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})
 target_link_libraries(artikulatecore
+    learnerprofile
     ${artikulateCoreTargetLibs}
 )
 set_target_properties(artikulatecore

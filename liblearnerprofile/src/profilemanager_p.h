@@ -31,10 +31,12 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QMultiMap>
 
 namespace LearnerProfile
 {
 class Learner;
+class LearningGoal;
 
 class ProfileManagerPrivate {
 
@@ -46,6 +48,7 @@ public:
 
     QList<Learner*> m_profiles;
     Learner *m_activeProfile;
+    QList<LearningGoal*> m_goals;
     KConfig *m_config;
     Storage m_storage;
 };
