@@ -115,10 +115,16 @@ QList< LearningGoal* > ProfileManager::goals() const
 
 void ProfileManager::registerGoal(LearningGoal::Category category, const QString &identifier, const QString &name)
 {
-    LearningGoal *goal = new LearningGoal(category, this);
-    goal->setIdentifier(identifier);
+    // test whether goal is already registered
+    foreach (LearningGoal *cmpGoal, d->m_goals) {
+        if (cmpGoal->category() == category && cmpGoal->identifier() == identifier) {
+            return;
+        }
+    }
+    LearningGoal *goal = new LearningGoal(category, identifier, this);
     goal->setName(name);
     d->m_goals.append(goal);
+    d->m_storage.storeGoal(goal);
 }
 
 void ProfileManager::sync()

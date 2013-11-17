@@ -136,6 +136,80 @@ QList< Learner* > Storage::loadProfiles()
     return profiles;
 }
 
+bool Storage::storeGoal(LearningGoal *goal)
+{
+    QSqlDatabase db = database();
+
+    // test whether ID is present
+    QSqlQuery goalExistsQuery(db);
+    goalExistsQuery.prepare("SELECT COUNT(*) FROM goals WHERE category = :category AND identifier = :identifier");
+    goalExistsQuery.bindValue(":identifier", goal->identifier());
+    goalExistsQuery.bindValue(":category", static_cast<int>(goal->category()));
+    goalExistsQuery.exec();
+    if (db.lastError().isValid()) {
+        kError() << "ExistsQuery: " << db.lastError().text();
+        raiseError(db.lastError());
+        return false;
+    }
+    // go to first result row that contains the count
+    goalExistsQuery.next();
+    if (goalExistsQuery.value(0).toInt() < 1) {
+        // in case learner ID is not found in database
+        QSqlQuery insertGoalQuery(db);
+        insertGoalQuery.prepare("INSERT INTO goals (category, identifier, name) VALUES (?, ?, ?)");
+        insertGoalQuery.bindValue(0, static_cast<int>(goal->category()));
+        insertGoalQuery.bindValue(1, goal->identifier());
+        insertGoalQuery.bindValue(2, goal->name());
+        insertGoalQuery.exec();
+
+        if (insertGoalQuery.lastError().isValid()) {
+            raiseError(insertGoalQuery.lastError());
+            db.rollback();
+            return false;
+        }
+        return true;
+    } else {
+        // update name otherwise
+        QSqlQuery updateGoalQuery(db);
+        updateGoalQuery.prepare("UPDATE goals SET name = :name WHERE category = :category AND identifier = :identifier");
+        updateGoalQuery.bindValue(":category", static_cast<int>(goal->category()));
+        updateGoalQuery.bindValue(":identifier", goal->identifier());
+        updateGoalQuery.bindValue(":name", goal->name());
+        updateGoalQuery.exec();
+        if (updateGoalQuery.lastError().isValid()) {
+            kError() << updateGoalQuery.lastError().text();
+            raiseError(updateGoalQuery.lastError());
+            db.rollback();
+            return false;
+        }
+        return true;
+    }
+}
+
+QList< LearningGoal* > Storage::loadGoals()
+{
+    QSqlDatabase db = database();
+    QSqlQuery goalQuery(db);
+    goalQuery.prepare("SELECT category, identifier, name FROM goals");
+    goalQuery.exec();
+    if (goalQuery.lastError().isValid()) {
+        kError() << goalQuery.lastError().text();
+        raiseError(goalQuery.lastError());
+        return QList<LearningGoal*>();
+    }
+
+    QList<LearningGoal*> goals;
+    while (goalQuery.next()) {
+        LearningGoal::Category category = static_cast<LearningGoal::Category>(goalQuery.value(0).toInt());
+        QString identifier = goalQuery.value(1).toString();
+        QString name = goalQuery.value(2).toString();
+        LearningGoal* goal = new LearningGoal(category, identifier);
+        goal->setName(name);
+        goals.append(goal);
+    }
+    return goals;
+}
+
 QSqlDatabase Storage::database()
 {
     if (QSqlDatabase::contains(QSqlDatabase::defaultConnection)) {
@@ -171,7 +245,6 @@ bool Storage::updateSchema()
             "key TEXT PRIMARY KEY, "
             "value TEXT"
             ")");
-
     if (db.lastError().isValid()) {
         kError() << db.lastError().text();
         raiseError(db.lastError());
@@ -216,7 +289,18 @@ bool Storage::updateSchema()
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
             "name TEXT"
             ")");
+    if (db.lastError().isValid()) {
+        kError() << db.lastError().text();
+        raiseError(db.lastError());
+        return false;
+    }
 
+    db.exec("CREATE TABLE IF NOT EXISTS goals ("
+            "category INTEGER, "    // LanguageGoal::Category
+            "identifier TEXT, "     // identifier, unique per Category
+            "name TEXT, "           // name
+            "PRIMARY KEY ( category, identifier )"
+            ")");
     if (db.lastError().isValid()) {
         kError() << db.lastError().text();
         raiseError(db.lastError());

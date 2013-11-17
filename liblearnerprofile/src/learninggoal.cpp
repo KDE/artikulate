@@ -47,11 +47,12 @@ LearningGoal::LearningGoal(QObject *parent)
     // create goal of unspecified category
 }
 
-LearningGoal::LearningGoal(LearningGoal::Category category, QObject *parent)
+LearningGoal::LearningGoal(LearningGoal::Category category, const QString &identifier, QObject *parent)
     : QObject(parent)
     , d(new LearningGoalPrivate)
 {
     d->m_category = category;
+    d->m_identifier = identifier;
 }
 
 QString LearningGoal::name() const

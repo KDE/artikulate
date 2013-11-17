@@ -60,6 +60,7 @@ ProfileManagerPrivate::ProfileManagerPrivate()
 {
     // load all profiles from storage
     m_profiles.append(m_storage.loadProfiles());
+    m_goals.append(m_storage.loadGoals());
 
     // set last used profile
     m_config = new KConfig("learnerprofilerc");

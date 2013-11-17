@@ -50,6 +50,10 @@ public:
     Q_INVOKABLE void removeProfile(LearnerProfile::Learner *learner);
     Q_INVOKABLE LearnerProfile::Learner * profile(int index);
     QList< LearningGoal* > goals() const;
+    /**
+     * Register learning goal if not registered yet. The registered goals will be stored at the
+     * internal database.
+     */
     void registerGoal(LearningGoal::Category category, const QString &identifier, const QString &name);
     Q_INVOKABLE void sync();
     /**

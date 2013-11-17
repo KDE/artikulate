@@ -30,6 +30,7 @@ namespace LearnerProfile
 {
 
 class Learner;
+class LearningGoal;
 
 class Storage : public QObject
 {
@@ -47,6 +48,8 @@ public:
     bool storeProfile(Learner *learner);
     bool removeProfile(Learner *learner);
     QList<Learner *> loadProfiles();
+    bool storeGoal(LearningGoal *goal);
+    QList<LearningGoal *> loadGoals();
 
 Q_SIGNALS:
     void errorMessageChanged();

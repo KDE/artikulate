@@ -46,7 +46,7 @@ public:
     };
 
     explicit LearningGoal(QObject *parent = 0);
-    explicit LearningGoal(LearningGoal::Category category, QObject *parent = 0);
+    explicit LearningGoal(LearningGoal::Category category, const QString &identifier, QObject *parent = 0);
     ~LearningGoal();
 
     QString name() const;
