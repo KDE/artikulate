@@ -39,8 +39,8 @@ class LIBLEARNERPROFILE_EXPORT LearningGoal : public QObject
     Q_PROPERTY(QString id READ identifier WRITE setIdentifier NOTIFY identifierChanged)
 
 public:
-    Q_ENUMS(Type)
-    enum PlaybackState {
+    Q_ENUMS(Category)
+    enum Category {
         Unspecified = 0,
         Language = 1
     };
@@ -52,6 +52,7 @@ public:
     void setName(const QString &name);
     QString identifier() const;
     void setIdentifier(const QString &identifier);
+    LearningGoal::Category category() const;
 
 Q_SIGNALS:
     void nameChanged();
@@ -63,4 +64,4 @@ private:
 };
 }
 
-#endif // LEARINGGOAL_H
+#endif // LEARNINGGOAL_H

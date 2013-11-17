@@ -23,16 +23,34 @@
 
 using namespace LearnerProfile;
 
+// private class LearningGoalPrivate
+class LearningGoalPrivate {
+
+public:
+    LearningGoalPrivate()
+        : m_name(QString())
+        , m_identifier(QString())
+        , m_category(LearningGoal::Unspecified)
+    {
+    }
+    ~LearningGoalPrivate() {}
+
+    QString m_name;
+    QString m_identifier;
+    LearningGoal::Category m_category;
+};
+
+// methods of LearningGoal
 LearningGoal::LearningGoal(QObject *parent)
     : QObject(parent)
     , d(new LearningGoalPrivate)
 {
-
+    //TODO set category
 }
 
 QString LearningGoal::name() const
 {
-    return d->name;
+    return d->m_name;
 }
 
 LearningGoal::~LearningGoal()
@@ -42,23 +60,28 @@ LearningGoal::~LearningGoal()
 
 void LearningGoal::setName(const QString &name)
 {
-    if (name == d->name) {
+    if (name == d->m_name) {
         return;
     }
-    d->name = name;
+    d->m_name = name;
     nameChanged();
 }
 
 QString LearningGoal::identifier() const
 {
-    return d->identifier;
+    return d->m_identifier;
 }
 
 void LearningGoal::setIdentifier(const QString &identifier)
 {
-    if (identifier == d->identifier) {
+    if (identifier == d->m_identifier) {
         return;
     }
-    d->identifier = identifier;
+    d->m_identifier = identifier;
     emit identifierChanged();
+}
+
+LearningGoal::Category LearningGoal::category() const
+{
+    return d->m_category;
 }

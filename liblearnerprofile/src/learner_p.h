@@ -20,8 +20,8 @@
 
 #include <QString>
 #include <QList>
-
-
+#include <QHash>
+#include "learninggoal.h"
 
 namespace LearnerProfile
 {
@@ -33,8 +33,9 @@ public:
     LearnerPrivate() {}
     ~LearnerPrivate() {}
 
-    QString name;
-    int identifier;
-    QList<LearningGoal*> goals;
+    QString m_name;
+    int m_identifier;
+    QList<LearningGoal*> m_goals;
+    QHash<LearningGoal::Category, LearningGoal*> m_activeGoal;
 };
 }

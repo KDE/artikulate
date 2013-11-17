@@ -22,6 +22,7 @@
 #define LEARNER_H
 
 #include "liblearnerprofile_export.h"
+#include "learninggoal.h"
 #include <QObject>
 
 class LearnerPrivate;
@@ -40,6 +41,17 @@ class LIBLEARNERPROFILE_EXPORT Learner : public QObject
     Q_PROPERTY(int id READ identifier WRITE setIdentifier NOTIFY identifierChanged)
 
 public:
+
+    // TODO workaround for QT-BUG-26415, fixed in Qt5.0
+    // we must simulate the LearningGoal::Category enum in Learner to be able to allow its usage
+    // as parameter for Q_INVOKABLE method
+    // can be removed with Qt 5.0 migration
+    Q_ENUMS(Category)
+    enum Category {
+        Unspecified = 0,
+        Language = 1
+    };
+
     explicit Learner(QObject *parent = 0);
     ~Learner();
 
@@ -50,6 +62,9 @@ public:
     QList<LearningGoal *> goals() const;
     void addGoal(LearningGoal *goal);
     void removeGoal(LearningGoal *goal);
+    void setActiveGoal(LearningGoal *goal);
+    Q_INVOKABLE void setActiveGoal(LearnerProfile::Learner::Category category, const QString &identifier);
+    Q_INVOKABLE LearningGoal * activeGoal(LearnerProfile::Learner::Category category) const;
 
 Q_SIGNALS:
     void nameChanged();
@@ -58,6 +73,7 @@ Q_SIGNALS:
     void goalAboutToBeRemoved(int);
     void goalRemoved();
     void goalCountChanged();
+    void activeGoalChanged();
 
 private:
     Q_DISABLE_COPY(Learner)

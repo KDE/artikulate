@@ -40,51 +40,90 @@ Learner::~Learner()
 
 QString Learner::name() const
 {
-    return d->name;
+    return d->m_name;
 }
 
 void Learner::setName(const QString &name)
 {
-    if (name == d->name) {
+    if (name == d->m_name) {
         return;
     }
-    d->name = name;
+    d->m_name = name;
     emit nameChanged();
 }
 
 int Learner::identifier() const
 {
-    return d->identifier;
+    return d->m_identifier;
 }
 
 void Learner::setIdentifier(int identifier)
 {
-    if (identifier == d->identifier) {
+    if (identifier == d->m_identifier) {
         return;
     }
-    d->identifier = identifier;
+    d->m_identifier = identifier;
     emit identifierChanged();
 }
 
 QList< LearningGoal* > Learner::goals() const
 {
-    return d->goals;
+    return d->m_goals;
 }
 
 void Learner::addGoal(LearnerProfile::LearningGoal* goal)
 {
-    d->goals.append(goal);
-    emit goalAdded(goal, d->goals.count() - 1);
+    d->m_goals.append(goal);
+    emit goalAdded(goal, d->m_goals.count() - 1);
 }
 
 void Learner::removeGoal(LearnerProfile::LearningGoal* goal)
 {
-    int index = d->goals.indexOf(goal);
+    int index = d->m_goals.indexOf(goal);
     if (index < 0) {
         kError() << "Cannot remove goal, not found: aborting";
         return;
     }
     emit goalAboutToBeRemoved(index);
-    d->goals.removeAt(index);
+    d->m_goals.removeAt(index);
     emit goalRemoved();
+}
+
+void Learner::setActiveGoal(LearningGoal *goal)
+{
+    d->m_activeGoal.insert(goal->category(), goal);
+    emit activeGoalChanged();
+}
+
+void Learner::setActiveGoal(Learner::Category categoryLearner, const QString &identifier)
+{
+    // TODO:Qt5 change method parameter to LearningGoal::Category
+    // workaround for Q_INVOKABLE access of enum
+    LearningGoal::Category category = static_cast<LearningGoal::Category>(categoryLearner);
+    foreach (LearningGoal *goal, d->m_goals) {
+        if (goal->category() == category && goal->identifier() == identifier) {
+            d->m_activeGoal[category] = goal;
+            return;
+        }
+    }
+    kError() << "Could not select learning goal with ID " << identifier << ": not registered";
+}
+
+LearningGoal * Learner::activeGoal(Learner::Category categoryLearner) const
+{
+    // TODO:Qt5 change method parameter to LearningGoal::Category
+    // workaround for Q_INVOKABLE access of enum
+    LearningGoal::Category category = static_cast<LearningGoal::Category>(categoryLearner);
+    if (d->m_activeGoal.contains(category)) {
+        kWarning() << "No current learning goal set for this category: fall back to first in list";
+        foreach (LearningGoal *goal, d->m_goals) {
+            if (goal->category() == category) {
+                return goal;
+            }
+        }
+        kWarning() << "No learning goals of catagory " << category << " registered";
+        return 0;
+    }
+
+    return d->m_activeGoal[category];
 }

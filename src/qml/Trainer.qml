@@ -83,7 +83,6 @@ Item {
             }
 
             Component.onCompleted: {
-                overviewScreen.reset()
                 overviewScreen.visible = true
             }
         }

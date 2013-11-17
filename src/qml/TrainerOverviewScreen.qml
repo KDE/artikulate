@@ -44,12 +44,6 @@ FocusScope {
         course: userProfile.course
     }
 
-
-    function start() {}
-    function reset() {
-        //TODO
-    }
-
     PlasmaComponents.ToolBar {
         id: header
         width: screen.width
@@ -86,9 +80,10 @@ FocusScope {
                 id : languageSwitcher
                 anchors { verticalCenter : parent.verticalCenter }
                 width : screen.width - 6 - knsDownloadButton.width - 20
-                resourceManager: globalResourceManager
+                resourceManager : globalResourceManager
                 view: kcfg_UseContributorResources ? LanguageModel.NonEmptyLanguages : LanguageModel.NonEmptyGhnsOnlyLanguages
-                onLanguageSelected: {
+                onLanguageSelected : {
+                    learner.setActiveGoal(Learner.Language, selectedLanguage.id)
                     screen.languageSelected(selectedLanguage)
                 }
             }

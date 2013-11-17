@@ -29,6 +29,8 @@ Item
     id: main
 
     property int viewMode
+    property Learner learner : profileManager.activeProfile
+
 
     Trainer {
         visible: main.viewMode == MainWindow.Trainer

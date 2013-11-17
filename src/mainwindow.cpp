@@ -89,9 +89,9 @@ MainWindow::MainWindow()
 
     m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
 
-    m_view->rootContext()->setContextProperty("userProfile", m_trainingProfile);
-    m_view->rootContext()->setContextProperty("editorProfile", m_editorProfile);
-    m_view->rootContext()->setContextProperty("trainingSession", m_trainingSession);
+    m_view->rootContext()->setContextProperty("userProfile", m_trainingProfile); //TODO deprecated
+    m_view->rootContext()->setContextProperty("editorProfile", m_editorProfile); //TODO rename
+    m_view->rootContext()->setContextProperty("trainingSession", m_trainingSession); //TODO needed at top level?
     m_view->rootContext()->setContextProperty("profileManager", m_profileManager);
 
     m_view->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
