@@ -121,26 +121,28 @@ FocusScope {
             }
         }
 
-
-        // additional information for current selector
-        PlasmaComponents.ButtonColumn {
-            visible: userProfile.course != null
-            anchors { leftMargin : 30; left : parent.left }
-            PlasmaComponents.RadioButton {
-                text: i18n("Scenario Training Units")
-                checked: !screen.__showPhonemeUnits
-                onClicked : {
-                    screen.__showPhonemeUnits = !screen.__showPhonemeUnits
-                }
-            }
-            PlasmaComponents.RadioButton {
-                text: i18n("Phoneme Training Units")
-                checked: screen.__showPhonemeUnits
-                onClicked : {
-                    screen.__showPhonemeUnits = !screen.__showPhonemeUnits
-                }
-            }
-        }
+//TODO uncomment for now
+// there is currently no course the sufficiently supports this feature
+//
+//         // additional information for current selector
+//         PlasmaComponents.ButtonColumn {
+//             visible: userProfile.course != null
+//             anchors { leftMargin : 30; left : parent.left }
+//             PlasmaComponents.RadioButton {
+//                 text: i18n("Scenario Training Units")
+//                 checked: !screen.__showPhonemeUnits
+//                 onClicked : {
+//                     screen.__showPhonemeUnits = !screen.__showPhonemeUnits
+//                 }
+//             }
+//             PlasmaComponents.RadioButton {
+//                 text: i18n("Phoneme Training Units")
+//                 checked: screen.__showPhonemeUnits
+//                 onClicked : {
+//                     screen.__showPhonemeUnits = !screen.__showPhonemeUnits
+//                 }
+//             }
+//         }
 
         Column {
             visible: userProfile.course != null && userProfile.unit == null && screen.__showPhonemeUnits == false
