@@ -69,7 +69,7 @@ FocusScope {
     Rectangle {
         id: languageControls
         width : parent.width
-        height :Math.ceil(Math.max(languageSwitcher.height, knsDownloadButton.height) + 6)
+        height : Math.ceil(Math.max(languageSwitcher.height, knsDownloadButton.height) + 6)
         anchors { top : header.bottom; topMargin : 2 }
         color : theme.backgroundColor
 
@@ -101,20 +101,26 @@ FocusScope {
         }
     }
 
-    Column {
-        spacing: 30
+    Row {
+        id : content
         anchors { top: languageControls.bottom; left: languageControls.left; leftMargin: 10; topMargin: 10 }
+        property int columnWidth : Math.floor(screen.width / 2 - line.width/2)
+        height : screen.height - languageControls.height - header.height
 
-        CourseSwitcher {
-            id: courseSelector
-            resourceManager: globalResourceManager
-            view: kcfg_UseContributorResources ? CourseModel.AllResources : CourseModel.OnlyGetHotNewStuffResources
-            language: userProfile.language
-            onCourseSelected: {
-                userProfile.course = course
-                screen.courseSelected(course)
+        Column {
+            width : content.columnWidth
+            spacing : 30
+
+            CourseSwitcher {
+                id: courseSelector
+                resourceManager: globalResourceManager
+                view: kcfg_UseContributorResources ? CourseModel.AllResources : CourseModel.OnlyGetHotNewStuffResources
+                language: userProfile.language
+                onCourseSelected: {
+                    userProfile.course = course
+                    screen.courseSelected(course)
+                }
             }
-        }
 
 //TODO uncomment for now
 // there is currently no course the sufficiently supports this feature
@@ -139,44 +145,68 @@ FocusScope {
 //             }
 //         }
 
-        Column {
-            visible: userProfile.course != null && userProfile.unit == null && screen.__showPhonemeUnits == false
-            UnitSelector {
-                id: unitSelector
-                anchors { leftMargin : 30; left : parent.left }
-                width: Math.floor(300, screen.width/2)
-                height: screen.height - 300
-                unitModel: selectedUnitModel
-                onUnitSelected: {
-                    userProfile.unit = unit
-                    screen.unitSelected(unit)
-                    trainingSession.createFromUnit(unit)
+            Column {
+                UnitSelector {
+                    id: unitSelector
+                    anchors { leftMargin : 30; left : parent.left }
+                    width : content.columnWidth - 50
+                    height : content.height
+                    unitModel : selectedUnitModel
+                    onUnitSelected : {
+                        userProfile.unit = unit
+                    }
+                }
+            }
+
+            Column {
+                visible : userProfile.course != null && userProfile.unit == null && screen.__showPhonemeUnits == true
+                PhonemeUnitSelector {
+                    id : phonemeUnitSelector
+                    anchors { leftMargin : 30; left : parent.left }
+                    width : content.columnWidth
+                    course : userProfile.course
+                    onUnitSelected : {
+                        userProfile.unit = unit //TODO remove after porting to training session
+                        trainingSession.createFromUnit(unit);
+                        screen.unitSelected(unit)
+                    }
                 }
             }
         }
 
-        Column {
-            visible: userProfile.course != null && userProfile.unit == null && screen.__showPhonemeUnits == true
-            PhonemeUnitSelector {
-                id: phonemeUnitSelector
-                anchors { leftMargin : 30; left : parent.left }
-                course: userProfile.course
-                onUnitSelected: {
-                    userProfile.unit = unit //TODO remove after porting to training session
-                    trainingSession.createFromUnit(unit);
-                    screen.unitSelected(unit)
-                }
+        PlasmaCore.SvgItem {
+            id : line
+            width : naturalSize.width
+            height : parent.height
+            elementId : "vertical-line"
+            svg : PlasmaCore.Svg {
+                imagePath : "widgets/line"
             }
         }
 
+        Column {
+            width : Math.floor(screen.width / 2 - line.width/2)
+
+            PlasmaComponents.Button {
+                id: selectButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                iconSource : "go-next-view"
+                text : i18n("Start Training")
+                enabled : userProfile.unit != null
+                onClicked : {
+                        screen.unitSelected(userProfile.unit)
+                        trainingSession.createFromUnit(userProfile.unit)
+                }
+            }
+        }
     }
 
     SheetDialog {
-        id: profileSelectorSheet
+        id : profileSelectorSheet
         anchors { top: screen.top; topMargin: header.height; left: screen.left; bottom: screen.bottom; right: screen.right }
-        content: ProfileSelector {
-            anchors.fill: parent
-            onProfileChosen: {
+        content : ProfileSelector {
+            anchors.fill : parent
+            onProfileChosen : {
                 profileSelectorSheet.close()
             }
         }
