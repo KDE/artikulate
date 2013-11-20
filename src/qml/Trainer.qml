@@ -54,10 +54,10 @@ Item {
         visible: trainingScreen.visible
         iconSource: "go-up"
         height: 48
-        text: i18n("Close Course")
+        text: i18n("Finish Training")
         onClicked: {
             // show overview screen / start screen
-            userProfile.course = null
+            userProfile.unit = null
             switchScreen(trainingScreen, overviewScreen)
         }
     }

@@ -81,14 +81,6 @@ FocusScope {
                     }
                     font.pointSize: 20
                 }
-                PlasmaComponents.ToolButton { // unselect-button for language
-                    id: unselectUnit
-                    anchors { verticalCenter: parent.verticalCenter }
-                    iconSource: "dialog-close"
-                    onClicked: {
-                        closeUnit()
-                    }
-                }
             }
         }
     }
