@@ -57,7 +57,44 @@ Item {
         Column {
             width: parent.width
             height: childrenRect.height
-            spacing: 40
+            spacing: 10
+
+            PlasmaComponents.Label {
+                id: languageTitleLabel
+                height: paintedHeight
+                font.pointSize: 1.5 * theme.defaultFont.pointSize
+                text : i18n("Favorite Languages")
+            }
+
+            ListView {
+                id : languageList
+                width : parent.width
+                height : Math.min(Math.floor(root.height/2), languageList.count * 30)
+                clip : true
+                model: LanguageModel {
+                    view: kcfg_UseContributorResources ? LanguageModel.NonEmptyLanguages : LanguageModel.NonEmptyGhnsOnlyLanguages
+                    resourceModel: LanguageResourceModel {resourceManager: globalResourceManager }
+                }
+                delegate : Row {
+                    spacing : 10
+                    property Language language : model.dataRole
+                    width : languageList.width - 10
+                    PlasmaComponents.ToolButton {
+                        anchors.verticalCenter : parent.verticalCenter
+                        iconSource : "favorites"
+                    }
+                    PlasmaComponents.Label {
+                        anchors.verticalCenter : parent.verticalCenter
+                        height : paintedHeight
+                        font.pointSize : theme.defaultFont.pointSize
+                        text : model.title + " / " + model.i18nTitle
+                    }
+                }
+
+                PlasmaComponents.ScrollBar {
+                    flickableItem : languageList
+                }
+            }
 
             Row {
                 spacing: 10
