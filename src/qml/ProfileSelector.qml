@@ -39,6 +39,10 @@ FocusScope {
         profileForm.profile = profileManager.profile(index)
     }
 
+    Component.onCompleted : {
+        profileForm.profile = profileManager.activeProfile
+    }
+
     Column {
         anchors.fill: parent
         spacing: 10
