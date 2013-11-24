@@ -82,6 +82,10 @@ Item {
                     PlasmaComponents.ToolButton {
                         anchors.verticalCenter : parent.verticalCenter
                         iconSource : "favorites"
+                        checkable : false
+                        onClicked : {
+                            checked = !checked
+                        }
                     }
                     PlasmaComponents.Label {
                         anchors.verticalCenter : parent.verticalCenter

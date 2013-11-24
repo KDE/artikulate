@@ -41,7 +41,6 @@ class LIBLEARNERPROFILE_EXPORT Learner : public QObject
     Q_PROPERTY(int id READ identifier WRITE setIdentifier NOTIFY identifierChanged)
 
 public:
-
     // TODO workaround for QT-BUG-26415, fixed in Qt5.0
     // we must simulate the LearningGoal::Category enum in Learner to be able to allow its usage
     // as parameter for Q_INVOKABLE method
@@ -60,7 +59,7 @@ public:
     int identifier() const;
     void setIdentifier(int identifier);
     QList<LearningGoal *> goals() const;
-    void addGoal(LearningGoal *goal);
+    Q_INVOKABLE void addGoal(LearningGoal *goal);
     void removeGoal(LearningGoal *goal);
     void setActiveGoal(LearningGoal *goal);
     Q_INVOKABLE void setActiveGoal(LearnerProfile::Learner::Category category, const QString &identifier);

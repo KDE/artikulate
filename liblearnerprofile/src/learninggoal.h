@@ -37,6 +37,7 @@ class LIBLEARNERPROFILE_EXPORT LearningGoal : public QObject
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString id READ identifier WRITE setIdentifier NOTIFY identifierChanged)
+    Q_PROPERTY(Category category READ category)
 
 public:
     Q_ENUMS(Category)
