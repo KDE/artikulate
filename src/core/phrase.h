@@ -48,6 +48,7 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
     Q_PROPERTY(QString i18nText READ i18nText WRITE seti18nText NOTIFY i18nTextChanged)
     Q_PROPERTY(Phrase::Type type READ type WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(Phrase::EditState editState READ editState WRITE setEditState NOTIFY editStateChanged)
+    Q_PROPERTY(Phrase::TrainingState trainingState READ trainingState WRITE setTrainingState NOTIFY trainingStateChanged)
     Q_PROPERTY(Unit *unit READ unit NOTIFY unitChanged)
     Q_PROPERTY(bool excluded READ isExcluded NOTIFY excludedChanged)
     Q_PROPERTY(KUrl sound READ sound WRITE setSound NOTIFY soundChanged)
@@ -61,6 +62,7 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
 
 public:
     Q_ENUMS(EditState)
+    Q_ENUMS(TrainingState)
     Q_ENUMS(Type)
     Q_ENUMS(PlaybackState)
     Q_ENUMS(RecordingState)
@@ -77,6 +79,10 @@ public:
         Unknown,
         Translated,
         Completed
+    };
+    enum TrainingState {
+        Trained,
+        Untrained
     };
     enum Type {
         Word,
@@ -112,6 +118,8 @@ public:
     QString editStateString() const;
     void setEditState(Phrase::EditState state);
     void setEditState(const QString &stateString);
+    Phrase::TrainingState trainingState() const;
+    void setTrainingState(Phrase::TrainingState state);
     KUrl sound() const;
     void setSound(const KUrl &soundFile);
     QList<Phoneme *> phonemes() const;
@@ -163,6 +171,7 @@ signals:
     void i18nTextChanged();
     void typeChanged();
     void editStateChanged();
+    void trainingStateChanged();
     void soundChanged();
     void userSoundChanged();
     void excludedChanged();
@@ -183,6 +192,7 @@ private:
     QString m_i18nText;
     Type m_type;
     EditState m_editState;
+    TrainingState m_trainingState;
     RecordingState m_recordingState;
     Unit *m_unit;
     bool m_excludedFromUnit;

@@ -75,13 +75,17 @@ Item {
 
                 color: {
                     switch(currentPhrase.type) {
-                        case Phrase.Word: "#A7E8BD"
+                        case Phrase.Word:
+                            currentPhrase.trainingState == Phrase.Untrained ? "#A7E8BD" : Qt.darker("#A7E8BD", 1.2)
                             break;
-                        case Phrase.Expression: "#B9D5FF"
+                        case Phrase.Expression:
+                            currentPhrase.trainingState == Phrase.Untrained ? "#B9D5FF" : Qt.darker("#B9D5FF", 1.2)
                             break;
-                        case Phrase.Sentence: "#F5FFCB"
+                        case Phrase.Sentence:
+                            currentPhrase.trainingState == Phrase.Untrained ? "#F5FFCB" : Qt.darker("#F5FFCB", 1.2)
                             break;
-                        case Phrase.Paragraph: "#E8CAB9"
+                        case Phrase.Paragraph:
+                            currentPhrase.trainingState == Phrase.Untrained ? "#E8CAB9" : Qt.darker("#E8CAB9", 1.2)
                             break;
                         default:
                             break;

@@ -178,6 +178,7 @@ void TrainingSession::next(TrainingSession::NextAction completeCurrent)
     case Complete:
         ++currentPhrase.tries;
         currentPhrase.isTrained = true;
+        currentPhrase.phrase->setTrainingState(Phrase::Trained);
         break;
     case Incomplete:
         ++currentPhrase.tries;

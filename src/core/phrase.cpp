@@ -36,6 +36,7 @@
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
     , m_editState(Unknown)
+    , m_trainingState(Untrained)
     , m_excludedFromUnit(false)
     , m_nativeSoundPlaybackState(StoppedState)
     , m_userSoundPlaybackState(StoppedState)
@@ -199,6 +200,17 @@ void Phrase::setEditState(const QString &stateString)
     }
     kWarning() << "Cannot set edit state from unknown identifier " << stateString << ", aborting";
     return;
+}
+
+Phrase::TrainingState Phrase::trainingState() const
+{
+    return m_trainingState;
+}
+
+void Phrase::setTrainingState(Phrase::TrainingState state)
+{
+    m_trainingState = state;
+    emit trainingStateChanged();
 }
 
 Unit * Phrase::unit() const
