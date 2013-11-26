@@ -200,6 +200,7 @@ kde4_add_ui_files(artikulate_SRCS
 kde4_add_kcfg_files(artikulate_SRCS settings.kcfgc)
 kde4_add_executable(artikulate ${artikulate_SRCS})
 target_link_libraries(artikulate
+    learnerprofile
     ${artikulateTargetLibs}
 )
 

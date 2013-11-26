@@ -28,6 +28,8 @@ set( learnerprofile_LIB_SRCS
     learninggoal.cpp
     profilemanager.cpp
     storage.cpp
+
+    models/learninggoalmodel.cpp
 )
 
 kde4_add_library( learnerprofile SHARED ${learnerprofile_LIB_SRCS} )

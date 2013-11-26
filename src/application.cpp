@@ -43,7 +43,9 @@
 #include "models/phonemeunitmodel.h"
 #include "models/profilemodel.h"
 #include "models/skeletonmodel.h"
+
 #include "liblearnerprofile/src/learner.h"
+#include "liblearnerprofile/src/models/learninggoalmodel.h"
 
 #include <kdeclarative.h>
 
@@ -82,6 +84,7 @@ void Application::registerQmlTypes()
     qmlRegisterType<PhonemeUnitModel>("artikulate", 1, 0, "PhonemeUnitModel");
     qmlRegisterType<ProfileModel>("artikulate", 1, 0, "ProfileModel");
     qmlRegisterType<SkeletonModel>("artikulate", 1, 0, "SkeletonModel");
+    qmlRegisterType<LearnerProfile::LearningGoalModel>("artikulate", 1, 0, "LearningGoalModel");
 
     qmlRegisterType<MainWindow>("artikulate", 1, 0, "MainWindow");
     qmlRegisterType<ApplicationBackground>("artikulate", 1, 0, "ApplicationBackground");
