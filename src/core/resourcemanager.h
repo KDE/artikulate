@@ -27,6 +27,8 @@
 #include <QHash>
 #include <QStringList>
 
+#include "liblearnerprofile/src/learninggoal.h"
+
 class SkeletonResource;
 class CourseResource;
 class LanguageResource;
@@ -85,7 +87,15 @@ public:
      */
     QList<LanguageResource *> languageResources() const;
 
+    /**
+     * \return language by \p index
+     */
     Q_INVOKABLE Language * language(int index) const;
+
+    /**
+     * \return language by \p learningGoal
+     */
+    Q_INVOKABLE Language * language(LearnerProfile::LearningGoal* learningGoal) const;
 
     /**
      * \return list of all loaded courses for language \p language

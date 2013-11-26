@@ -169,8 +169,24 @@ QList< LanguageResource* > ResourceManager::languageResources() const
 
 Language * ResourceManager::language(int index) const
 {
-    Q_ASSERT (index >= 0 && index < m_languageResources.count());
+    Q_ASSERT(index >= 0 && index < m_languageResources.count());
     return m_languageResources.at(index)->language();
+}
+
+Language * ResourceManager::language(LearnerProfile::LearningGoal *learningGoal) const
+{
+    Q_ASSERT(learningGoal->category() == LearnerProfile::LearningGoal::Language);
+    if (learningGoal->category() != LearnerProfile::LearningGoal::Language) {
+        kError() << "Cannot translate non-language learning goal to language";
+        return 0;
+    }
+    foreach (LanguageResource *resource, m_languageResources) {
+        if (resource->identifier() == learningGoal->identifier()) {
+            return resource->language();
+        }
+    }
+    kError() << "No language registered with identifier " << learningGoal->identifier() << ": aborting";
+    return 0;
 }
 
 QList< CourseResource* > ResourceManager::courseResources(Language *language)
