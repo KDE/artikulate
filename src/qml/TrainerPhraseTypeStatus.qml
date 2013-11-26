@@ -76,16 +76,16 @@ Item {
                 color: {
                     switch(currentPhrase.type) {
                         case Phrase.Word:
-                            currentPhrase.trainingState == Phrase.Untrained ? "#A7E8BD" : Qt.darker("#A7E8BD", 1.2)
+                            currentPhrase.trainingState == Phrase.Untrained ? "#A7E8BD" : "#2de86c"
                             break;
                         case Phrase.Expression:
-                            currentPhrase.trainingState == Phrase.Untrained ? "#B9D5FF" : Qt.darker("#B9D5FF", 1.2)
+                            currentPhrase.trainingState == Phrase.Untrained ? "#B9D5FF" : "#327bff"
                             break;
                         case Phrase.Sentence:
-                            currentPhrase.trainingState == Phrase.Untrained ? "#F5FFCB" : Qt.darker("#F5FFCB", 1.2)
+                            currentPhrase.trainingState == Phrase.Untrained ? "#F5FFCB" : "#fff13f"
                             break;
                         case Phrase.Paragraph:
-                            currentPhrase.trainingState == Phrase.Untrained ? "#E8CAB9" : Qt.darker("#E8CAB9", 1.2)
+                            currentPhrase.trainingState == Phrase.Untrained ? "#E8CAB9" : "#e85a02"
                             break;
                         default:
                             break;
