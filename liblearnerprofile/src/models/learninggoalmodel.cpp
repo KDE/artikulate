@@ -30,7 +30,7 @@
 
 using namespace LearnerProfile;
 
-// private class LearningGoaModelPrivate
+// private class LearningGoalModelPrivate
 class LearningGoalModelPrivate {
 public:
     LearningGoalModelPrivate()
@@ -40,13 +40,32 @@ public:
     }
 
     ~LearningGoalModelPrivate() {}
+    void updateGoals();
 
     ProfileManager *m_profileManager;
     Learner *m_learner;
     QList<LearningGoal*> m_goals;
 };
 
+void LearningGoalModelPrivate::updateGoals()
+{
+    m_goals.clear();
+    // if learner is set, only set its goals
+    if (m_learner) {
+        foreach (LearningGoal *goal, m_learner->goals()) {
+            m_goals.append(goal);
+        }
+        return;
+    }
+    // else set all registered goals from profile manager
+    if (m_profileManager) {
+        foreach (LearningGoal *goal, m_profileManager->goals()) {
+            m_goals.append(goal);
+        }
+    }
+}
 
+// class LearningGoalModel
 LearningGoalModel::LearningGoalModel(QObject *parent)
     : QAbstractListModel(parent)
     , d(new LearningGoalModelPrivate)
@@ -83,6 +102,7 @@ void LearningGoalModel::setProfileManager(ProfileManager *profileManager)
         connect(d->m_profileManager, SIGNAL(profileAboutToBeRemoved(int)),
                 SLOT(onLearningGoalAboutToBeRemoved(int)));
     }
+    d->updateGoals();
     endResetModel();
 
     emit profileManagerChanged();
@@ -105,6 +125,7 @@ void LearningGoalModel::setLearner(Learner *learner)
     }
     emit beginResetModel();
     d->m_learner = learner;
+    d->updateGoals();
     emit learnerChanged();
     emit endResetModel();
 }

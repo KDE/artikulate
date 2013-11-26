@@ -45,6 +45,8 @@
 #include "models/skeletonmodel.h"
 
 #include "liblearnerprofile/src/learner.h"
+#include "liblearnerprofile/src/profilemanager.h"
+#include "liblearnerprofile/src/learninggoal.h"
 #include "liblearnerprofile/src/models/learninggoalmodel.h"
 
 #include <kdeclarative.h>
@@ -64,6 +66,8 @@ void Application::registerQmlTypes()
 {
     qmlRegisterType<Profile>("artikulate", 1, 0, "Profile");
     qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");
+    qmlRegisterType<LearnerProfile::ProfileManager>("artikulate", 1, 0, "ProfileManager");
+    qmlRegisterType<LearnerProfile::LearningGoal>("artikulate", 1, 0, "LearningGoal");
     qmlRegisterType<Unit>("artikulate", 1, 0, "Unit");
     qmlRegisterType<Course>("artikulate", 1, 0, "Course");
     qmlRegisterType<Language>("artikulate", 1, 0, "Language");

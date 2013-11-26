@@ -36,8 +36,8 @@ class Learner;
 class LIBLEARNERPROFILE_EXPORT LearningGoalModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(ProfileManager *profileManager READ profileManager WRITE setProfileManager NOTIFY profileManagerChanged)
-    Q_PROPERTY(Learner *learner READ learner WRITE setLearner NOTIFY learnerChanged)
+    Q_PROPERTY(LearnerProfile::ProfileManager *profileManager READ profileManager WRITE setProfileManager NOTIFY profileManagerChanged)
+    Q_PROPERTY(LearnerProfile::Learner *learner READ learner WRITE setLearner NOTIFY learnerChanged)
 
 public:
     enum learningGoalRoles {
