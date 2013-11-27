@@ -95,13 +95,6 @@ void LearningGoalModel::setProfileManager(ProfileManager *profileManager)
     }
 
     d->m_profileManager = profileManager;
-
-    if (d->m_profileManager) {
-        connect(d->m_profileManager, SIGNAL(profileAdded(Learner*,int)),
-                SLOT(onLearningGoalAdded()));
-        connect(d->m_profileManager, SIGNAL(profileAboutToBeRemoved(int)),
-                SLOT(onLearningGoalAboutToBeRemoved(int)));
-    }
     d->updateGoals();
     endResetModel();
 
