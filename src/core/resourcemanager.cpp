@@ -137,7 +137,7 @@ void ResourceManager::registerLearningGoals(LearnerProfile::ProfileManager *prof
         profileManger->registerGoal(
             LearnerProfile::LearningGoal::Language,
             languageResource->language()->id(),
-            languageResource->language()->title()
+            languageResource->language()->i18nTitle()
             );
     }
 }
