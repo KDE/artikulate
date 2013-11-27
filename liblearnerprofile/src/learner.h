@@ -39,6 +39,7 @@ class LIBLEARNERPROFILE_EXPORT Learner : public QObject
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(int id READ identifier WRITE setIdentifier NOTIFY identifierChanged)
+    Q_PROPERTY(QList<LearnerProfile::LearningGoal*> goals READ goals NOTIFY goalCountChanged)
 
 public:
     // TODO workaround for QT-BUG-26415, fixed in Qt5.0
@@ -59,8 +60,9 @@ public:
     int identifier() const;
     void setIdentifier(int identifier);
     QList<LearningGoal *> goals() const;
-    Q_INVOKABLE void addGoal(LearningGoal *goal);
-    void removeGoal(LearningGoal *goal);
+    Q_INVOKABLE void addGoal(LearnerProfile::LearningGoal *goal);
+    Q_INVOKABLE void removeGoal(LearnerProfile::LearningGoal *goal);
+    Q_INVOKABLE bool hasGoal(LearnerProfile::LearningGoal *goal) const;
     void setActiveGoal(LearningGoal *goal);
     Q_INVOKABLE void setActiveGoal(LearnerProfile::Learner::Category category, const QString &identifier);
     Q_INVOKABLE LearningGoal * activeGoal(LearnerProfile::Learner::Category category) const;

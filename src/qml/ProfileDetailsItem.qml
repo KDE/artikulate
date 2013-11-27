@@ -80,11 +80,28 @@ Item {
                     property LearningGoal goal: model.dataRole
                     width: languageList.width - 10
                     PlasmaComponents.ToolButton {
+                        id: goalSelector
+                        Connections {
+                            target: root.profile
+                            onGoalsChanged: {
+                                goalSelector.checked = root.profile.hasGoal(goal)
+                            }
+                        }
+                        Connections {
+                            target: root
+                            onProfileChanged: {
+                                goalSelector.checked = root.profile.hasGoal(goal)
+                            }
+                        }
                         anchors.verticalCenter: parent.verticalCenter
                         iconSource: "favorites"
                         checkable: false
                         onClicked: {
-                            checked = !checked
+                            if (checked) {
+                                root.profile.removeGoal(goal)
+                            } else {
+                                root.profile.addGoal(goal)
+                            }
                         }
                     }
                     PlasmaComponents.Label {

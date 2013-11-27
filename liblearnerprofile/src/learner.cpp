@@ -89,6 +89,16 @@ void Learner::removeGoal(LearnerProfile::LearningGoal* goal)
     emit goalRemoved();
 }
 
+bool Learner::hasGoal(LearningGoal* goal) const
+{
+    foreach (LearningGoal *cmpGoal, d->m_goals) {
+        if (goal->identifier() == cmpGoal->identifier()) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void Learner::setActiveGoal(LearningGoal *goal)
 {
     d->m_activeGoal.insert(goal->category(), goal);
