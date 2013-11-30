@@ -25,11 +25,9 @@ import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
 
 Item {
-    id: trainer
+    id: root
 
     property ResourceManager resourceManager: globalResourceManager
-
-    height: parent.height
 
     function switchScreen(from, to) {
         switchScreenAnimation.from = from
@@ -50,7 +48,7 @@ Item {
     // course close button
     PlasmaComponents.ToolButton {
         id: closeButton
-        anchors { top: trainer.top; right: trainer.right; rightMargin: 30; topMargin: 30}
+        anchors { top: root.top; right: root.right; rightMargin: 30; topMargin: 30}
         visible: trainingScreen.visible
         iconSource: "go-up"
         height: 48
@@ -62,45 +60,38 @@ Item {
         }
     }
 
-    Column {
-        width: trainer.width
-        anchors { top: trainer.top }
+    TrainerOverviewScreen {
+        id: overviewScreen
+        anchors.fill: parent
+        visible: false
+        focus: true
 
-        TrainerOverviewScreen {
-            id: overviewScreen
-            width: parent.width
-            height: trainer.height - 30
-            visible: false
-            focus: true
-
-            onLanguageSelected: {
-                availableCourseModel.language = language
-                userProfile.language = language
-            }
-
-            onUnitSelected: {
-                switchScreen(overviewScreen, trainingScreen)
-            }
-
-            Component.onCompleted: {
-                overviewScreen.visible = true
-            }
+        onLanguageSelected: {
+            availableCourseModel.language = language
+            userProfile.language = language
         }
 
-        TrainerCourse {
-            id: trainingScreen
-            width: parent.width
-            height: trainer.height - 30
-            visible: false
-            session: trainingSession //TODO we do not need global object for this
-            onCloseCourse: {
-                userProfile.course = null
-                switchScreen(trainingScreen, overviewScreen)
-            }
-            onCloseUnit: {
-                userProfile.unit = null
-                switchScreen(trainingScreen, overviewScreen)
-            }
+        onUnitSelected: {
+            switchScreen(overviewScreen, trainingScreen)
+        }
+
+        Component.onCompleted: {
+            overviewScreen.visible = true
+        }
+    }
+
+    TrainerCourse {
+        id: trainingScreen
+        anchors.fill: parent
+        visible: false
+        session: trainingSession //TODO we do not need global object for this
+        onCloseCourse: {
+            userProfile.course = null
+            switchScreen(trainingScreen, overviewScreen)
+        }
+        onCloseUnit: {
+            userProfile.unit = null
+            switchScreen(trainingScreen, overviewScreen)
         }
     }
 

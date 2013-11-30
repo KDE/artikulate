@@ -83,11 +83,9 @@ MainWindow::MainWindow()
     setupActions();
 
     // set view
-    setMinimumSize(QSize(1000, 700));
-
+    m_view->setMinimumSize(QSize(1000, 700));
     m_view->setStyleSheet("background-color: transparent;");
     m_view->rootContext()->setContextObject(this);
-
     m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
 
     m_view->rootContext()->setContextProperty("userProfile", m_trainingProfile); //TODO deprecated
@@ -152,7 +150,7 @@ void MainWindow::setupActions()
 
     KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
 
-    setupGUI(Default, "artikulateui.rc");
+    setupGUI(ToolBar | Keys | Save | Create, "artikulateui.rc");
 }
 
 void MainWindow::showCourseEditor()

@@ -24,7 +24,7 @@ import org.kde.plasma.components 0.1 as PlasmaComponents
 import artikulate 1.0
 
 FocusScope {
-    id: screen
+    id: root
 
     property bool __showPhonemeUnits: false
 
@@ -32,8 +32,7 @@ FocusScope {
     signal courseSelected(variant course)
     signal unitSelected(variant unit)
 
-    height: screen.height
-    width: screen.width
+    anchors.fill: parent
 
     QtObject {
         id: d
@@ -46,7 +45,7 @@ FocusScope {
 
     PlasmaComponents.ToolBar {
         id: header
-        width: screen.width
+        width: root.width
         tools: Row {
             PlasmaComponents.ToolButton {
                 text: profileManager.activeProfile == null
@@ -79,12 +78,12 @@ FocusScope {
             LanguageSwitcher {
                 id : languageSwitcher
                 anchors { verticalCenter : parent.verticalCenter }
-                width : screen.width - 6 - knsDownloadButton.width - 20
+                width : root.width - 6 - knsDownloadButton.width - 20
                 resourceManager : globalResourceManager
                 view: kcfg_UseContributorResources ? LanguageModel.NonEmptyLanguages : LanguageModel.NonEmptyGhnsOnlyLanguages
                 onLanguageSelected : {
                     learner.setActiveGoal(Learner.Language, selectedLanguage.id)
-                    screen.languageSelected(selectedLanguage)
+                    root.languageSelected(selectedLanguage)
                 }
             }
 
@@ -104,8 +103,8 @@ FocusScope {
     Row {
         id : content
         anchors { top: languageControls.bottom; left: languageControls.left; leftMargin: 10; topMargin: 10 }
-        property int columnWidth : Math.floor(screen.width / 2 - line.width/2)
-        height : screen.height - languageControls.height - header.height
+        property int columnWidth : Math.floor(root.width / 2 - line.width/2)
+        height : root.height - languageControls.height - header.height
 
         Column {
             width : content.columnWidth
@@ -118,7 +117,7 @@ FocusScope {
                 language: userProfile.language
                 onCourseSelected: {
                     userProfile.course = course
-                    screen.courseSelected(course)
+                    root.courseSelected(course)
                 }
             }
 
@@ -131,16 +130,16 @@ FocusScope {
 //             anchors { leftMargin : 30; left : parent.left }
 //             PlasmaComponents.RadioButton {
 //                 text: i18n("Scenario Training Units")
-//                 checked: !screen.__showPhonemeUnits
+//                 checked: !root.__showPhonemeUnits
 //                 onClicked : {
-//                     screen.__showPhonemeUnits = !screen.__showPhonemeUnits
+//                     root.__showPhonemeUnits = !root.__showPhonemeUnits
 //                 }
 //             }
 //             PlasmaComponents.RadioButton {
 //                 text: i18n("Phoneme Training Units")
-//                 checked: screen.__showPhonemeUnits
+//                 checked: root.__showPhonemeUnits
 //                 onClicked : {
-//                     screen.__showPhonemeUnits = !screen.__showPhonemeUnits
+//                     root.__showPhonemeUnits = !root.__showPhonemeUnits
 //                 }
 //             }
 //         }
@@ -159,7 +158,7 @@ FocusScope {
             }
 
             Column {
-                visible : userProfile.course != null && userProfile.unit == null && screen.__showPhonemeUnits == true
+                visible : userProfile.course != null && userProfile.unit == null && root.__showPhonemeUnits == true
                 PhonemeUnitSelector {
                     id : phonemeUnitSelector
                     anchors { leftMargin : 30; left : parent.left }
@@ -168,7 +167,7 @@ FocusScope {
                     onUnitSelected : {
                         userProfile.unit = unit //TODO remove after porting to training session
                         trainingSession.createFromUnit(unit);
-                        screen.unitSelected(unit)
+                        root.unitSelected(unit)
                     }
                 }
             }
@@ -185,7 +184,7 @@ FocusScope {
         }
 
         Column {
-            width : Math.floor(screen.width / 2 - line.width/2)
+            width : Math.floor(root.width / 2 - line.width/2)
 
             PlasmaComponents.Button {
                 id: selectButton
@@ -194,7 +193,7 @@ FocusScope {
                 text : i18n("Start Training")
                 enabled : userProfile.unit != null
                 onClicked : {
-                        screen.unitSelected(userProfile.unit)
+                        root.unitSelected(userProfile.unit)
                         trainingSession.createFromUnit(userProfile.unit)
                 }
             }
@@ -203,7 +202,7 @@ FocusScope {
 
     SheetDialog {
         id : profileSelectorSheet
-        anchors { top: screen.top; topMargin: header.height; left: screen.left; bottom: screen.bottom; right: screen.right }
+        anchors { top: root.top; topMargin: header.height; left: root.left; bottom: root.bottom; right: root.right }
         content : ProfileSelector {
             anchors.fill : parent
             onProfileChosen : {

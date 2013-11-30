@@ -24,24 +24,20 @@ import artikulate 1.0
 import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
 
-Item
-{
-    id: main
-
+Item {
+    id: root
+anchors.fill: parent
     property int viewMode
-    property Learner learner : profileManager.activeProfile
-
+    property Learner learner: profileManager.activeProfile
 
     Trainer {
-        visible: main.viewMode == MainWindow.Trainer
-        width: parent.width
-        height: parent.height
+        anchors.fill: parent
+        visible: root.viewMode == MainWindow.Trainer
     }
 
     Editor {
-        visible: main.viewMode == MainWindow.Editor
-        width: parent.width
-        height: parent.height
+        anchors.fill: parent
+        visible: root.viewMode == MainWindow.Editor
 
         onCloseEditor: {
             switchMode()
