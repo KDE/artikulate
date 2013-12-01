@@ -30,7 +30,6 @@ PlasmaComponents.Page {
     property Learner profile: null
     property ProfileManager profileManager: null
 
-
     ListView {
         id: languageList
         width: root.width
@@ -51,7 +50,7 @@ PlasmaComponents.Page {
             width: languageList.width - scrollbar.width
             title: model.title
             iconSource: "favorites"
-            onCheckedChanged: {
+            onStateChanged: {
                 if (checked) {
                     root.profile.addGoal(goal)
                 } else {

@@ -32,6 +32,8 @@ Item {
     property alias label: label
     property bool checked: false
 
+    signal stateChanged(bool checked)
+
     height: padding.height + bg.margins.top + bg.margins.bottom
     state: mouseArea.containsMouse? "hover": "normal"
 
@@ -91,6 +93,7 @@ Item {
         hoverEnabled: true
         onClicked: {
             root.checked = !root.checked
+            root.stateChanged(root.checked)
         }
     }
 
