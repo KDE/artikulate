@@ -122,7 +122,6 @@ FocusScope {
                 onDeletionRequest: {
                     profileManager.removeProfile(profileForm.profile)
                     profileForm.profile = null
-                    state = "init"
                 }
             }
         }

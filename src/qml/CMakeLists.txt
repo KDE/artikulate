@@ -49,7 +49,7 @@ set(artikulate_qml_files
     PhraseEditorEditStateComponent.qml
     PhonemeUnitSelector.qml
     ProfileDetailsItem.qml
-    ProfileForm.qml
+    ProfileDetailsViewUser.qml
     ProfileSelector.qml
     SkeletonSelector.qml
 
