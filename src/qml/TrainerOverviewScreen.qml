@@ -67,21 +67,31 @@ FocusScope {
 
     Rectangle {
         id: languageControls
-        width : parent.width
-        height : Math.ceil(Math.max(languageSwitcher.height, knsDownloadButton.height) + 6)
-        anchors { top : header.bottom; topMargin : 2 }
-        color : theme.backgroundColor
+        width: parent.width
+        height: Math.ceil(Math.max(languageSwitcher.height, knsDownloadButton.height) + 6)
+        anchors {
+            top: header.bottom
+            topMargin: 2
+        }
+        color: theme.backgroundColor
 
         Row {
-            spacing : 20
-            anchors { topMargin : 3; top: parent.top; bottomMargin : 3; bottom : parent.bottom; leftMargin: 5; left : parent.left }
+            spacing: 20
+            anchors {
+                topMargin: 3
+                top: parent.top
+                bottomMargin: 3
+                bottom: parent.bottom
+                leftMargin: 5
+                left: parent.left
+            }
             LanguageSwitcher {
-                id : languageSwitcher
-                anchors { verticalCenter : parent.verticalCenter }
-                width : root.width - 6 - knsDownloadButton.width - 20
-                resourceManager : globalResourceManager
+                id: languageSwitcher
+                anchors.verticalCenter: parent.verticalCenter
+                width: root.width - 6 - knsDownloadButton.width - 20
+                resourceManager: globalResourceManager
                 view: kcfg_UseContributorResources ? LanguageModel.NonEmptyLanguages : LanguageModel.NonEmptyGhnsOnlyLanguages
-                onLanguageSelected : {
+                onLanguageSelected: {
                     learner.setActiveGoal(Learner.Language, selectedLanguage.id)
                     root.languageSelected(selectedLanguage)
                 }
@@ -101,14 +111,19 @@ FocusScope {
     }
 
     Row {
-        id : content
-        anchors { top: languageControls.bottom; left: languageControls.left; leftMargin: 10; topMargin: 10 }
-        property int columnWidth : Math.floor(root.width / 2 - line.width/2)
-        height : root.height - languageControls.height - header.height
+        id: content
+        anchors {
+            top: languageControls.bottom
+            left: languageControls.left
+            leftMargin: 10
+            topMargin: 10
+        }
+        property int columnWidth: Math.floor(root.width / 2 - line.width/2)
+        height: root.height - languageControls.height - header.height - 10 - 10
 
         Column {
-            width : content.columnWidth
-            spacing : 30
+            width: content.columnWidth
+            spacing: 30
 
             CourseSwitcher {
                 id: courseSelector
@@ -147,10 +162,13 @@ FocusScope {
             Column {
                 UnitSelector {
                     id: unitSelector
-                    anchors { leftMargin : 30; left : parent.left }
-                    width : content.columnWidth - 50
-                    height : content.height
-                    unitModel : selectedUnitModel
+                    anchors {
+                        leftMargin: 30
+                        left: parent.left
+                    }
+                    width: content.columnWidth - 50
+                    height: content.height - 60
+                    unitModel: selectedUnitModel
                     onUnitSelected : {
                         userProfile.unit = unit
                     }
@@ -158,13 +176,16 @@ FocusScope {
             }
 
             Column {
-                visible : userProfile.course != null && userProfile.unit == null && root.__showPhonemeUnits == true
+                visible: userProfile.course != null && userProfile.unit == null && root.__showPhonemeUnits == true
                 PhonemeUnitSelector {
-                    id : phonemeUnitSelector
-                    anchors { leftMargin : 30; left : parent.left }
-                    width : content.columnWidth
-                    course : userProfile.course
-                    onUnitSelected : {
+                    id: phonemeUnitSelector
+                    anchors {
+                        leftMargin: 30
+                        left: parent.left
+                    }
+                    width: content.columnWidth
+                    course: userProfile.course
+                    onUnitSelected: {
                         userProfile.unit = unit //TODO remove after porting to training session
                         trainingSession.createFromUnit(unit);
                         root.unitSelected(unit)
@@ -174,38 +195,44 @@ FocusScope {
         }
 
         PlasmaCore.SvgItem {
-            id : line
-            width : naturalSize.width
-            height : parent.height
-            elementId : "vertical-line"
-            svg : PlasmaCore.Svg {
+            id: line
+            width: naturalSize.width
+            height: parent.height
+            elementId: "vertical-line"
+            svg: PlasmaCore.Svg {
                 imagePath : "widgets/line"
             }
         }
 
         Column {
-            width : Math.floor(root.width / 2 - line.width/2)
+            width: Math.floor(root.width / 2 - line.width/2)
 
             PlasmaComponents.Button {
                 id: selectButton
                 anchors.horizontalCenter: parent.horizontalCenter
                 iconSource : "go-next-view"
-                text : i18n("Start Training")
-                enabled : userProfile.unit != null
-                onClicked : {
-                        root.unitSelected(userProfile.unit)
-                        trainingSession.createFromUnit(userProfile.unit)
+                text: i18n("Start Training")
+                enabled: userProfile.unit != null
+                onClicked: {
+                    root.unitSelected(userProfile.unit)
+                    trainingSession.createFromUnit(userProfile.unit)
                 }
             }
         }
     }
 
     SheetDialog {
-        id : profileSelectorSheet
-        anchors { top: root.top; topMargin: header.height; left: root.left; bottom: root.bottom; right: root.right }
-        content : ProfileSelector {
-            anchors.fill : parent
-            onProfileChosen : {
+        id: profileSelectorSheet
+        anchors {
+            top: root.top
+            topMargin: header.height
+            left: root.left
+            bottom: root.bottom
+            right: root.right
+        }
+        content: ProfileSelector {
+            anchors.fill: parent
+            onProfileChosen: {
                 profileSelectorSheet.close()
             }
         }

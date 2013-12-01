@@ -38,7 +38,7 @@ Item {
         id: itemDelegate
 
         ListItem {
-            width : root.width - 10
+            width : root.width - scrollbar.width - 10
             title : model.title
             iconSource : "artikulate-course"
             property Unit unit : model.dataRole
@@ -59,6 +59,7 @@ Item {
         delegate: itemDelegate
 
         PlasmaComponents.ScrollBar {
+            id: scrollbar
             flickableItem: unitList
         }
     }
