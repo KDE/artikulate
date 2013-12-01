@@ -51,89 +51,99 @@ Item {
 
     Item {
         id: infoContainer
-        width: parent.width
-        height: childrenRect.height
+        width: root.width
+        height: root.height
         anchors.centerIn: parent
 
-        Column {
+        PlasmaComponents.TabBar {
+            id: tabbar
             width: parent.width
-            height: childrenRect.height
-            spacing: 10
+            anchors { top: parent.top }
 
-            PlasmaComponents.Label {
-                id: languageTitleLabel
-                height: paintedHeight
-                font.pointSize: 1.5 * theme.defaultFont.pointSize
-                text : i18n("Favorite Languages")
+            PlasmaComponents.TabButton {
+                text: i18n("User")
+                tab: userSettings
             }
+            PlasmaComponents.TabButton {
+                text: i18n("Favorite Languages")
+                tab: favoriteLanguages
+            }
+        }
 
-            ListView {
-                id: languageList
-                width: parent.width
-                height: Math.min(Math.floor(root.height/2), languageList.count * 30)
-                clip: true
-                model: LearningGoalModel {
-                    profileManager: root.manager
-                }
-                delegate : Row {
-                    spacing : 10
-                    property LearningGoal goal: model.dataRole
-                    width: languageList.width - 10
+        PlasmaComponents.TabGroup {
+            anchors { top: tabbar.bottom; left: tabbar.left; right: tabbar.right; }
+            PlasmaComponents.Page {
+                id: userSettings
+                Row {
+                    spacing: 10
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: childrenRect.width
+                    height: childrenRect.height
                     PlasmaComponents.ToolButton {
-                        id: goalSelector
-                        Connections {
-                            target: root.profile
-                            onGoalsChanged: {
-                                goalSelector.checked = root.profile.hasGoal(goal)
-                            }
-                        }
-                        Connections {
-                            target: root
-                            onProfileChanged: {
-                                if (root.profile != null) {
+                        iconSource: "document-edit"
+                        text: i18n("Edit")
+                        onClicked: root.state = "editor"
+                    }
+                    PlasmaComponents.ToolButton {
+                        iconSource: "edit-delete"
+                        text: i18n("Delete")
+                        enabled: profileManager.profileCount > 1
+                        onClicked: root.state = "deleteConfirmation"
+                    }
+                }
+            }
+            PlasmaComponents.Page {
+                id: favoriteLanguages
+                ListView {
+                    id: languageList
+                    width: parent.width
+                    height: Math.min(Math.floor(root.height/2), languageList.count * 30)
+                    clip: true
+                    model: LearningGoalModel {
+                        profileManager: root.manager
+                    }
+                    delegate : Row {
+                        spacing : 10
+                        property LearningGoal goal: model.dataRole
+                        width: languageList.width - 10
+                        PlasmaComponents.ToolButton {
+                            id: goalSelector
+                            Connections {
+                                target: root.profile
+                                onGoalsChanged: {
                                     goalSelector.checked = root.profile.hasGoal(goal)
                                 }
                             }
-                        }
-                        anchors.verticalCenter: parent.verticalCenter
-                        iconSource: "favorites"
-                        checkable: false
-                        onClicked: {
-                            if (checked) {
-                                root.profile.removeGoal(goal)
-                            } else {
-                                root.profile.addGoal(goal)
+                            Connections {
+                                target: root
+                                onProfileChanged: {
+                                    if (root.profile != null) {
+                                        goalSelector.checked = root.profile.hasGoal(goal)
+                                    }
+                                }
+                            }
+                            anchors.verticalCenter: parent.verticalCenter
+                            iconSource: "favorites"
+                            checkable: false
+                            onClicked: {
+                                if (checked) {
+                                    root.profile.removeGoal(goal)
+                                } else {
+                                    root.profile.addGoal(goal)
+                                }
                             }
                         }
+                        PlasmaComponents.Label {
+                            anchors.verticalCenter: parent.verticalCenter
+                            height: paintedHeight
+                            font.pointSize: theme.defaultFont.pointSize
+                            text: model.title
+                        }
                     }
-                    PlasmaComponents.Label {
-                        anchors.verticalCenter: parent.verticalCenter
-                        height: paintedHeight
-                        font.pointSize: theme.defaultFont.pointSize
-                        text: model.title
+
+                    PlasmaComponents.ScrollBar {
+                        flickableItem: languageList
                     }
-                }
-
-                PlasmaComponents.ScrollBar {
-                    flickableItem: languageList
-                }
-            }
-
-            Row {
-                spacing: 10
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: childrenRect.width
-                height: childrenRect.height
-                PlasmaComponents.ToolButton {
-                    iconSource: "document-edit"
-                    text: i18n("Edit")
-                    onClicked: root.state = "editor"
-                }
-                PlasmaComponents.ToolButton {
-                    iconSource: "edit-delete"
-                    text: i18n("Delete")
-                    enabled: profileManager.profileCount > 1
-                    onClicked: root.state = "deleteConfirmation"
                 }
             }
         }
