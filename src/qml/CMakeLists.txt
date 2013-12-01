@@ -50,6 +50,7 @@ set(artikulate_qml_files
     PhonemeUnitSelector.qml
     ProfileDetailsItem.qml
     ProfileDetailsViewUser.qml
+    ProfileDetailsViewFavorites.qml
     ProfileSelector.qml
     SkeletonSelector.qml
 

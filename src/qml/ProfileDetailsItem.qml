@@ -60,7 +60,13 @@ Item {
         }
 
         PlasmaComponents.TabGroup {
-            anchors { top: tabbar.bottom; left: tabbar.left; right: tabbar.right; }
+            width: parent.width
+            height: root.height - tabbar.height
+            anchors {
+                top: tabbar.bottom
+                left: tabbar.left
+                right: tabbar.right
+            }
             ProfileDetailsViewUser {
                 id: userPage
                 profile: root.profile
@@ -69,59 +75,13 @@ Item {
                 }
             }
 
-            PlasmaComponents.Page {
+            ProfileDetailsViewFavorites {
                 id: favoriteLanguages
-                ListView {
-                    id: languageList
-                    width: parent.width
-                    height: Math.min(Math.floor(root.height/2), languageList.count * 30)
-                    clip: true
-                    model: LearningGoalModel {
-                        profileManager: root.manager
-                    }
-                    delegate : Row {
-                        spacing : 10
-                        property LearningGoal goal: model.dataRole
-                        width: languageList.width - 10
-                        PlasmaComponents.ToolButton {
-                            id: goalSelector
-                            Connections {
-                                target: root.profile
-                                onGoalsChanged: {
-                                    goalSelector.checked = root.profile.hasGoal(goal)
-                                }
-                            }
-                            Connections {
-                                target: root
-                                onProfileChanged: {
-                                    if (root.profile != null) {
-                                        goalSelector.checked = root.profile.hasGoal(goal)
-                                    }
-                                }
-                            }
-                            anchors.verticalCenter: parent.verticalCenter
-                            iconSource: "favorites"
-                            checkable: false
-                            onClicked: {
-                                if (checked) {
-                                    root.profile.removeGoal(goal)
-                                } else {
-                                    root.profile.addGoal(goal)
-                                }
-                            }
-                        }
-                        PlasmaComponents.Label {
-                            anchors.verticalCenter: parent.verticalCenter
-                            height: paintedHeight
-                            font.pointSize: theme.defaultFont.pointSize
-                            text: model.title
-                        }
-                    }
-
-                    PlasmaComponents.ScrollBar {
-                        flickableItem: languageList
-                    }
-                }
+                anchors.fill: parent
+                width: parent.width
+                height: parent.height
+                profile: root.profile
+                profileManager: root.manager
             }
         }
     }
