@@ -41,6 +41,13 @@ FocusScope {
 
     Component.onCompleted : {
         profileForm.profile = profileManager.activeProfile
+        list.currentIndex = -1 // clear highlighting as fallback
+        for (var i=0; i < profileManager.profileCount; ++i) {
+            if (profileManager.activeProfile == profileManager.profile(i)) {
+                list.currentIndex = i
+                return;
+            }
+        }
     }
 
     Column {
@@ -64,6 +71,15 @@ FocusScope {
                     clip: true
                     delegate: ListItem {
                         property bool isNewButton: index >= profileManager.profileCount
+                        // update list-index when profilemanager is changed
+                        Connections {
+                            target: profileManager
+                            onActiveProfileChanged: {
+                                if (profileManager.activeProfile == profileManager.profile(index)) {
+                                    list.currentIndex = index
+                                }
+                            }
+                        }
                         width: list.width - scrollBar.width
                         title: isNewButton?
                                    i18n("Create New Profile"):
