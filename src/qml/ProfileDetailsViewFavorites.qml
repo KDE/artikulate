@@ -57,7 +57,12 @@ PlasmaComponents.Page {
                     root.profile.removeGoal(goal)
                 }
             }
-            Connections {
+            checked: { // initialization with initial profile
+                if (root.profile != null) {
+                    goalSelector.checked = root.profile.hasGoal(goal)
+                }
+            }
+            Connections { // update after profile changes
                 target: root
                 onProfileChanged: {
                     if (root.profile != null) {
