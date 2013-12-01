@@ -59,8 +59,8 @@ ProfileManagerPrivate::ProfileManagerPrivate()
     , m_config(0)
 {
     // load all profiles from storage
-    m_profiles.append(m_storage.loadProfiles());
     m_goals.append(m_storage.loadGoals());
+    m_profiles.append(m_storage.loadProfiles(m_goals));
 
     // set last used profile
     m_config = new KConfig("learnerprofilerc");
@@ -92,7 +92,10 @@ void ProfileManagerPrivate::sync()
     }
     m_config->sync();
 
-    // note: not storage operations necessary, always in sync
+    //TODO only sync changed learner
+    foreach (Learner *learner, m_profiles) {
+        m_storage.storeProfile(learner);
+    }
 }
 
 }

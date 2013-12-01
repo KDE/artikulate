@@ -78,7 +78,6 @@ bool Storage::storeProfile(Learner *learner)
             db.rollback();
             return false;
         }
-        return true;
     } else {
         // update name otherwise
         QSqlQuery updateProfileQuery(db);
@@ -92,15 +91,50 @@ bool Storage::storeProfile(Learner *learner)
             db.rollback();
             return false;
         }
-        return true;
     }
+
+    // store existing learning goal relations
+    foreach (LearningGoal *goal, learner->goals()) {
+        QSqlQuery relationExistsQuery(db);
+        relationExistsQuery.prepare("SELECT COUNT(*) FROM learner_goals "
+            "WHERE goal_category = :goalCategory "
+            "AND goal_identifier = :goalIdentifier "
+            "AND profile_id = :profileId "
+            );
+        relationExistsQuery.bindValue(":goalCategory", goal->category());
+        relationExistsQuery.bindValue(":goalIdentifier", goal->identifier());
+        relationExistsQuery.bindValue(":profileId", learner->identifier());
+        relationExistsQuery.exec();
+        if (db.lastError().isValid()) {
+            kError() << "ExistsQuery: " << db.lastError().text();
+            raiseError(db.lastError());
+            return false;
+        }
+        // go to first result row that contains the count
+        relationExistsQuery.next();
+        if (relationExistsQuery.value(0).toInt() < 1) {
+            QSqlQuery insertProfileQuery(db);
+            insertProfileQuery.prepare("INSERT INTO learner_goals (goal_category, goal_identifier, profile_id) VALUES (?, ?, ?)");
+            insertProfileQuery.bindValue(0, goal->category());
+            insertProfileQuery.bindValue(1, goal->identifier());
+            insertProfileQuery.bindValue(2, learner->identifier());
+            insertProfileQuery.exec();
+        }
+    }
+    // remove deleted relations
+    QSqlQuery cleanupRelations(db);
+    cleanupRelations.prepare("DELETE FROM learner_goals WHERE ");
+    //TODO change creation of relations to same way as remove-relations: explicit connections
+
+    return false;
 }
 
-bool Storage::removeProfile(Learner* learner)
+bool Storage::removeProfile(Learner *learner)
 {
     QSqlDatabase db = database();
     QSqlQuery removeProfileQuery(db);
 
+    // delete learner
     removeProfileQuery.prepare("DELETE FROM profiles WHERE id = ?");
     removeProfileQuery.bindValue(0, learner->identifier());
     removeProfileQuery.exec();
@@ -111,10 +145,48 @@ bool Storage::removeProfile(Learner* learner)
         db.rollback();
         return false;
     }
+
+    // delete learning goal relations
+    QSqlQuery removeGoalRelationQuery(db);
+    removeGoalRelationQuery.prepare("DELETE FROM learner_goals WHERE profile_id = ?");
+    removeGoalRelationQuery.bindValue(0, learner->identifier());
+    removeGoalRelationQuery.exec();
+
+    if (removeGoalRelationQuery.lastError().isValid()) {
+        kError() << removeGoalRelationQuery.lastError().text();
+        raiseError(removeGoalRelationQuery.lastError());
+        db.rollback();
+        return false;
+    }
+
     return true;
 }
 
-QList< Learner* > Storage::loadProfiles()
+bool Storage::removeRelation(Learner *learner, LearningGoal *goal)
+{
+kDebug() << "remove relation";
+    QSqlDatabase db = database();
+    QSqlQuery removeGoalRelationQuery(db);
+    removeGoalRelationQuery.prepare(
+        "DELETE FROM learner_goals "
+        "WHERE goal_category = :goalCategory "
+        "AND goal_identifier = :goalIdentifier "
+        "AND profile_id = :profileId "
+    );
+    removeGoalRelationQuery.bindValue(":goalCategory", goal->category());
+    removeGoalRelationQuery.bindValue(":goalIdentifier", goal->identifier());
+    removeGoalRelationQuery.bindValue(":profileId", learner->identifier());
+    removeGoalRelationQuery.exec();
+    if (db.lastError().isValid()) {
+        kError() << "ExistsQuery: " << db.lastError().text();
+        raiseError(db.lastError());
+        return false;
+    }
+
+    return true;
+}
+
+QList< Learner* > Storage::loadProfiles(QList<LearningGoal*> goals)
 {
     QSqlDatabase db = database();
     QSqlQuery profileQuery(db);
@@ -125,7 +197,6 @@ QList< Learner* > Storage::loadProfiles()
         raiseError(profileQuery.lastError());
         return QList<Learner*>();
     }
-
     QList<Learner*> profiles;
     while (profileQuery.next()) {
         Learner* profile = new Learner();
@@ -133,6 +204,44 @@ QList< Learner* > Storage::loadProfiles()
         profile->setName(profileQuery.value(1).toString());
         profiles.append(profile);
     }
+
+    // associate to goals
+    QSqlQuery goalRelationQuery(db);
+    goalRelationQuery.prepare("SELECT goal_category, goal_identifier, profile_id FROM learner_goals");
+    goalRelationQuery.exec();
+    if (goalRelationQuery.lastError().isValid()) {
+        kError() << goalRelationQuery.lastError().text();
+        raiseError(goalRelationQuery.lastError());
+        return QList<Learner*>();
+    }
+    while (goalRelationQuery.next()) {
+        Learner *learner = 0;
+        LearningGoal *goal = 0;
+
+        foreach (Learner *cmpProfile, profiles) {
+            if (cmpProfile->identifier() == goalRelationQuery.value(2).toInt()) {
+                learner = cmpProfile;
+                break;
+            }
+        }
+        foreach (LearningGoal *cmpGoal, goals) {
+            if (cmpGoal->category() == goalRelationQuery.value(0).toInt()
+                && cmpGoal->identifier() == goalRelationQuery.value(1).toString())
+            {
+                goal = cmpGoal;
+                break;
+            }
+        }
+
+        if (learner->goals().contains(goal)) {
+            continue;
+        }
+
+        if (goal != 0 && learner != 0) {
+            learner->addGoal(goal);
+        }
+    }
+
     return profiles;
 }
 
@@ -285,6 +394,7 @@ bool Storage::updateSchema()
         }
     }
 
+    // table for learner profiles
     db.exec("CREATE TABLE IF NOT EXISTS profiles ("
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
             "name TEXT"
@@ -295,11 +405,25 @@ bool Storage::updateSchema()
         return false;
     }
 
+    // table for registered learning goals
     db.exec("CREATE TABLE IF NOT EXISTS goals ("
-            "category INTEGER, "    // LanguageGoal::Category
+            "category INTEGER, "    // LearningGoal::Category
             "identifier TEXT, "     // identifier, unique per Category
             "name TEXT, "           // name
             "PRIMARY KEY ( category, identifier )"
+            ")");
+    if (db.lastError().isValid()) {
+        kError() << db.lastError().text();
+        raiseError(db.lastError());
+        return false;
+    }
+
+    // table for learner - learningGoal relations
+    db.exec("CREATE TABLE IF NOT EXISTS learner_goals ("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            "goal_category INTEGER, "    // LearningGoal::Category
+            "goal_identifier TEXT, "     // LearningGoal::Identifier
+            "profile_id INTEGER "       // Learner::Identifier
             ")");
     if (db.lastError().isValid()) {
         kError() << db.lastError().text();

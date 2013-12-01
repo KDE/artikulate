@@ -71,13 +71,16 @@ QList< LearningGoal* > Learner::goals() const
     return d->m_goals;
 }
 
-void Learner::addGoal(LearnerProfile::LearningGoal* goal)
+void Learner::addGoal(LearnerProfile::LearningGoal *goal)
 {
+    if (d->m_goals.contains(goal)) {
+        return;
+    }
     d->m_goals.append(goal);
     emit goalAdded(goal, d->m_goals.count() - 1);
 }
 
-void Learner::removeGoal(LearnerProfile::LearningGoal* goal)
+void Learner::removeGoal(LearnerProfile::LearningGoal *goal)
 {
     int index = d->m_goals.indexOf(goal);
     if (index < 0) {
@@ -87,6 +90,7 @@ void Learner::removeGoal(LearnerProfile::LearningGoal* goal)
     emit goalAboutToBeRemoved(index);
     d->m_goals.removeAt(index);
     emit goalRemoved();
+    emit goalRemoved(this, goal);
 }
 
 bool Learner::hasGoal(LearningGoal* goal) const

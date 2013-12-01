@@ -34,6 +34,11 @@ ProfileManager::ProfileManager(QObject* parent)
 {
     connect (this, SIGNAL(profileAdded(Learner*,int)), this, SIGNAL(profileCountChanged()));
     connect (this, SIGNAL(profileRemoved()), this, SIGNAL(profileCountChanged()));
+
+    foreach (Learner *learner, d->m_profiles) {
+        connect (learner, SIGNAL(goalRemoved(Learner*,LearningGoal*)),
+                this, SLOT(removeLearningGoal(Learner*,LearningGoal*)));
+    }
 }
 
 ProfileManager::~ProfileManager()
@@ -75,6 +80,9 @@ Learner * ProfileManager::addProfile(const QString &name)
         setActiveProfile(learner);
     }
 
+    connect (learner, SIGNAL(goalRemoved(Learner*,LearningGoal*)),
+            this, SLOT(removeLearningGoal(Learner*,LearningGoal*)));
+
     return learner;
 }
 
@@ -98,6 +106,11 @@ void ProfileManager::removeProfile(Learner *learner)
         }
     }
     emit profileRemoved();
+}
+
+void ProfileManager::removeLearningGoal(Learner* learner, LearningGoal* goal)
+{
+    d->m_storage.removeRelation(learner, goal);
 }
 
 Learner * ProfileManager::profile(int index)

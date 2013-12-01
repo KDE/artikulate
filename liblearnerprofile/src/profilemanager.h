@@ -70,6 +70,9 @@ Q_SIGNALS:
     void profileRemoved();
     void profileCountChanged();
 
+private Q_SLOTS:
+    void removeLearningGoal(Learner *learner, LearningGoal *goal);
+
 private:
     Q_DISABLE_COPY(ProfileManager)
     const QScopedPointer<ProfileManagerPrivate> d;

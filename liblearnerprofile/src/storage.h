@@ -47,7 +47,8 @@ public:
      */
     bool storeProfile(Learner *learner);
     bool removeProfile(Learner *learner);
-    QList<Learner *> loadProfiles();
+    bool removeRelation(Learner *learner, LearningGoal *goal);
+    QList<Learner *> loadProfiles(QList< LearnerProfile::LearningGoal* > goals);
     bool storeGoal(LearningGoal *goal);
     QList<LearningGoal *> loadGoals();
 
