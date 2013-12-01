@@ -45,46 +45,48 @@ PlasmaComponents.Page {
         model: LearningGoalModel {
             profileManager: root.profileManager
         }
-        delegate : Row {
-            spacing : 10
+        delegate : CheckListItem {
             property LearningGoal goal: model.dataRole
-            width: languageList.width - 10
-            PlasmaComponents.ToolButton {
-                id: goalSelector
-                Connections {
-                    target: root.profile
-                    onGoalsChanged: {
-                        goalSelector.checked = root.profile.hasGoal(goal)
-                    }
-                }
-                Connections {
-                    target: root
-                    onProfileChanged: {
-                        if (root.profile != null) {
-                            goalSelector.checked = root.profile.hasGoal(goal)
-                        }
-                    }
-                }
-                anchors.verticalCenter: parent.verticalCenter
-                iconSource: "favorites"
-                checkable: false
-                onClicked: {
-                    if (checked) {
-                        root.profile.removeGoal(goal)
-                    } else {
-                        root.profile.addGoal(goal)
-                    }
-                }
-            }
-            PlasmaComponents.Label {
-                anchors.verticalCenter: parent.verticalCenter
-                height: paintedHeight
-                font.pointSize: theme.defaultFont.pointSize
-                text: model.title
-            }
+            width: languageList.width - scrollbar.width
+            title: model.title
+            iconSource: "favorites"
+//             PlasmaComponents.ToolButton {
+//                 id: goalSelector
+//                 Connections {
+//                     target: root.profile
+//                     onGoalsChanged: {
+//                         goalSelector.checked = root.profile.hasGoal(goal)
+//                     }
+//                 }
+//                 Connections {
+//                     target: root
+//                     onProfileChanged: {
+//                         if (root.profile != null) {
+//                             goalSelector.checked = root.profile.hasGoal(goal)
+//                         }
+//                     }
+//                 }
+//                 anchors.verticalCenter: parent.verticalCenter
+//                 iconSource: "favorites"
+//                 checkable: false
+//                 onClicked: {
+//                     if (checked) {
+//                         root.profile.removeGoal(goal)
+//                     } else {
+//                         root.profile.addGoal(goal)
+//                     }
+//                 }
+//             }
+//             PlasmaComponents.Label {
+//                 anchors.verticalCenter: parent.verticalCenter
+//                 height: paintedHeight
+//                 font.pointSize: theme.defaultFont.pointSize
+//                 text: model.title
+//             }
         }
 
         PlasmaComponents.ScrollBar {
+            id: scrollbar
             flickableItem: languageList
         }
     }

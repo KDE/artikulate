@@ -54,6 +54,7 @@ set(artikulate_qml_files
     ProfileSelector.qml
     SkeletonSelector.qml
 
+    CheckListItem.qml
     ListItem.qml
     SheetDialog.qml
 )
