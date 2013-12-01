@@ -71,6 +71,7 @@ Item {
             elide: Text.ElideRight
             anchors {
                 left: iconItem.visible? iconItem.right: parent.left
+                leftMargin: iconItem.visible ? Math.floor(theme.smallIconSize/2) : 0
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
