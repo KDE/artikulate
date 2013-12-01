@@ -46,43 +46,26 @@ PlasmaComponents.Page {
             profileManager: root.profileManager
         }
         delegate : CheckListItem {
+            id: goalSelector
             property LearningGoal goal: model.dataRole
             width: languageList.width - scrollbar.width
             title: model.title
             iconSource: "favorites"
-//             PlasmaComponents.ToolButton {
-//                 id: goalSelector
-//                 Connections {
-//                     target: root.profile
-//                     onGoalsChanged: {
-//                         goalSelector.checked = root.profile.hasGoal(goal)
-//                     }
-//                 }
-//                 Connections {
-//                     target: root
-//                     onProfileChanged: {
-//                         if (root.profile != null) {
-//                             goalSelector.checked = root.profile.hasGoal(goal)
-//                         }
-//                     }
-//                 }
-//                 anchors.verticalCenter: parent.verticalCenter
-//                 iconSource: "favorites"
-//                 checkable: false
-//                 onClicked: {
-//                     if (checked) {
-//                         root.profile.removeGoal(goal)
-//                     } else {
-//                         root.profile.addGoal(goal)
-//                     }
-//                 }
-//             }
-//             PlasmaComponents.Label {
-//                 anchors.verticalCenter: parent.verticalCenter
-//                 height: paintedHeight
-//                 font.pointSize: theme.defaultFont.pointSize
-//                 text: model.title
-//             }
+            onCheckedChanged: {
+                if (checked) {
+                    root.profile.addGoal(goal)
+                } else {
+                    root.profile.removeGoal(goal)
+                }
+            }
+            Connections {
+                target: root
+                onProfileChanged: {
+                    if (root.profile != null) {
+                        goalSelector.checked = root.profile.hasGoal(goal)
+                    }
+                }
+            }
         }
 
         PlasmaComponents.ScrollBar {
