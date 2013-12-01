@@ -90,7 +90,9 @@ Item {
                         Connections {
                             target: root
                             onProfileChanged: {
-                                goalSelector.checked = root.profile.hasGoal(goal)
+                                if (root.profile != null) {
+                                    goalSelector.checked = root.profile.hasGoal(goal)
+                                }
                             }
                         }
                         anchors.verticalCenter: parent.verticalCenter
