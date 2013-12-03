@@ -41,6 +41,10 @@ Item {
             if (languageView.count == 0) {
                 root.selectedLanguage = null
                 languageSelected(null)
+            } else {
+                // TODO remember language by learner profile
+                // currently, this triggers change of index
+                languageView.decrementCurrentIndex()
             }
         }
     }
@@ -60,7 +64,7 @@ Item {
             spacing: 10
             Connections {
                 target: languageView
-                onCurrentIndexChanged : {
+                onCurrentIndexChanged: {
                     selectedLanguage = language
                     languageSelected(language)
                 }

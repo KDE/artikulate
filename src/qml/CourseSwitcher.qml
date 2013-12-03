@@ -74,8 +74,8 @@ Item {
         ListView {
             id: courseView
 
-            width : root.width - buttonLeft.width - buttonRight.width
-            height : theme.mediumIconSize
+            width: root.width - buttonLeft.width - buttonRight.width
+            height: theme.mediumIconSize
 
             clip : true
             snapMode : ListView.SnapToItem
@@ -86,7 +86,7 @@ Item {
                 language: root.language
                 view: root.view
             }
-            onCurrentIndexChanged : {
+            onCurrentIndexChanged: {
                 selectedCourse = courseModel.course(currentIndex)
                 courseSelected(selectedCourse)
             }
