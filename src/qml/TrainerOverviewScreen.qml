@@ -90,7 +90,6 @@ FocusScope {
                 anchors.verticalCenter: parent.verticalCenter
                 width: root.width - 6 - knsDownloadButton.width - 20
                 resourceManager: globalResourceManager
-                view: kcfg_UseContributorResources ? LanguageModel.NonEmptyLanguages : LanguageModel.NonEmptyGhnsOnlyLanguages
                 onLanguageSelected: {
                     learner.setActiveGoal(Learner.Language, selectedLanguage.id)
                     root.languageSelected(selectedLanguage)

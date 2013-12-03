@@ -26,9 +26,9 @@ import artikulate 1.0
 Item {
     id: root
 
-    property ResourceManager resourceManager
     property Language selectedLanguage
-    property int view : LanguageModel.AllLanguages
+    property ResourceManager resourceManager
+    property ProfileManager manager: profileManager
 
     signal languageSelected(variant language)
 
@@ -39,14 +39,27 @@ Item {
         id: itemDelegate
 
         Row {
-            width : root.width - buttonLeft.width - buttonRight.width - 20
-            height : theme.mediumIconSize
-            spacing : 10
+            id: languageInfo
+            property LearningGoal learningGoal: model.dataRole
+            property Language language
+            onLearningGoalChanged: {
+                languageInfo.language = resourceManager.language(learningGoal)
+            }
+            width: root.width - buttonLeft.width - buttonRight.width - 20
+            height: theme.mediumIconSize
+            spacing: 10
+            Connections {
+                target: languageView
+                onCurrentIndexChanged : {
+                    selectedLanguage = language
+                    languageSelected(language)
+                }
+            }
             PlasmaCore.IconItem {
                 id: icon
-                source : "artikulate-language"
-                width : theme.mediumIconSize
-                height : theme.mediumIconSize
+                source: "artikulate-language"
+                width: theme.mediumIconSize
+                height: theme.mediumIconSize
                 anchors.verticalCenter: parent.verticalCenter
             }
             PlasmaComponents.Label {
@@ -54,51 +67,76 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 height: paintedHeight
                 font.pointSize: 1.5 * theme.defaultFont.pointSize
-                text : model.title + " / " + model.i18nTitle
+                text: language != null ? language.title + " / " + language.i18nTitle : ""
             }
         }
     }
 
+    ListView {
+        id: languageView
+
+        width: root.width - buttonLeft.width - buttonRight.width - 20
+        height: theme.mediumIconSize
+
+        clip: true
+        snapMode: ListView.SnapToItem
+        orientation: ListView.Vertical
+        model: LearningGoalModel {
+            id: learningGoalModel
+            profileManager: root.manager
+            learner: root.manager.activeProfile
+        }
+        delegate: itemDelegate
+    }
+
     Row {
-        spacing : 10
-
-        ListView {
-            id: languageView
-
-            width : root.width - buttonLeft.width - buttonRight.width - 20
-            height : theme.mediumIconSize
-
-            clip : true
-            snapMode : ListView.SnapToItem
-            orientation : ListView.Vertical
-            model: LanguageModel {
-                id : languageModel
-                view: root.view
-                resourceModel : LanguageResourceModel { resourceManager: root.resourceManager }
-            }
-            onCurrentIndexChanged : {
-                selectedLanguage = languageModel.language(currentIndex)
-                languageSelected(selectedLanguage)
-            }
-            delegate : itemDelegate
+        visible: languageView.count == 0
+        spacing: 10
+        anchors {
+            left: languageView.left
+            top: languageView.top
         }
-
-        PlasmaComponents.ToolButton {
-            id : buttonLeft
-            iconSource : "arrow-left"
-            enabled : languageView.currentIndex > 0
-            onClicked: {
-                languageView.decrementCurrentIndex()
-            }
+        PlasmaCore.IconItem {
+            id: icon
+            source: "dialog-information"
+            width: theme.mediumIconSize
+            height: theme.mediumIconSize
+            anchors.verticalCenter: parent.verticalCenter
         }
+        PlasmaComponents.Label {
+            id: favoritesUnsetInformation
+            anchors.verticalCenter: parent.verticalCenter
+            height: paintedHeight
+            font.pointSize: 1.5 * theme.defaultFont.pointSize
+            text: i18n("Please select a favorite language")
+        }
+    }
 
-        PlasmaComponents.ToolButton {
-            id : buttonRight
-            enabled : languageView.currentIndex <  languageView.count - 2
-            iconSource : "arrow-right"
-            onClicked : {
-                languageView.incrementCurrentIndex()
-            }
+    PlasmaComponents.ToolButton {
+        id: buttonLeft
+        anchors {
+            left: languageView.right
+            leftMargin: 10
+            top: languageView.top
+        }
+        iconSource: "arrow-left"
+        enabled: languageView.currentIndex > 0
+        onClicked: {
+            languageView.decrementCurrentIndex()
+        }
+    }
+
+    PlasmaComponents.ToolButton {
+        id : buttonRight
+        anchors {
+            left: buttonLeft.right
+            leftMargin: 10
+            top: languageView.top
+        }
+        enabled: languageView.currentIndex <  languageView.count - 1
+        iconSource: "arrow-right"
+        onClicked: {
+            languageView.incrementCurrentIndex()
         }
     }
 }
