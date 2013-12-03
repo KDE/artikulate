@@ -75,3 +75,8 @@ bool LanguageModel::lessThan(const QModelIndex& left, const QModelIndex& right) 
 {
     return QSortFilterProxyModel::lessThan(left, right);
 }
+
+QVariant LanguageModel::language(int row) const
+{
+    return data(index(row, 0), LanguageResourceModel::DataRole);
+}

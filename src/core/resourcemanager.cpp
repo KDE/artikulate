@@ -31,6 +31,8 @@
 #include "resources/skeletonresource.h"
 #include <ui/newcoursedialog.h>
 #include "settings.h"
+#include "liblearnerprofile/src/profilemanager.h"
+#include "liblearnerprofile/src/learninggoal.h"
 
 #include <QIODevice>
 #include <QFile>
@@ -129,6 +131,17 @@ void ResourceManager::loadLanguageResources()
     }
 }
 
+void ResourceManager::registerLearningGoals(LearnerProfile::ProfileManager *profileManger)
+{
+    foreach (LanguageResource *languageResource, languageResources()) {
+        profileManger->registerGoal(
+            LearnerProfile::LearningGoal::Language,
+            languageResource->language()->id(),
+            languageResource->language()->i18nTitle()
+            );
+    }
+}
+
 void ResourceManager::addLanguage(const KUrl &languageFile)
 {
     if (m_loadedResources.contains(languageFile.toLocalFile())) {
@@ -156,8 +169,24 @@ QList< LanguageResource* > ResourceManager::languageResources() const
 
 Language * ResourceManager::language(int index) const
 {
-    Q_ASSERT (index >= 0 && index < m_languageResources.count());
+    Q_ASSERT(index >= 0 && index < m_languageResources.count());
     return m_languageResources.at(index)->language();
+}
+
+Language * ResourceManager::language(LearnerProfile::LearningGoal *learningGoal) const
+{
+    Q_ASSERT(learningGoal->category() == LearnerProfile::LearningGoal::Language);
+    if (learningGoal->category() != LearnerProfile::LearningGoal::Language) {
+        kError() << "Cannot translate non-language learning goal to language";
+        return 0;
+    }
+    foreach (LanguageResource *resource, m_languageResources) {
+        if (resource->identifier() == learningGoal->identifier()) {
+            return resource->language();
+        }
+    }
+    kError() << "No language registered with identifier " << learningGoal->identifier() << ": aborting";
+    return 0;
 }
 
 QList< CourseResource* > ResourceManager::courseResources(Language *language)

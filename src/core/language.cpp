@@ -69,7 +69,11 @@ QString Language::i18nTitle() const
 
 void Language::seti18nTitle(const QString &title)
 {
+    if (m_i18nTitle == title) {
+        return;
+    }
     m_i18nTitle = title;
+    emit i18nTitleChanged();
 }
 
 KUrl Language::file() const

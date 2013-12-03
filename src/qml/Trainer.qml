@@ -25,11 +25,9 @@ import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
 
 Item {
-    id: trainer
+    id: root
 
     property ResourceManager resourceManager: globalResourceManager
-
-    height: parent.height
 
     function switchScreen(from, to) {
         switchScreenAnimation.from = from
@@ -50,59 +48,55 @@ Item {
     // course close button
     PlasmaComponents.ToolButton {
         id: closeButton
-        anchors { top: trainer.top; right: trainer.right; rightMargin: 30; topMargin: 30}
+        anchors { top: root.top; right: root.right; rightMargin: 30; topMargin: 30}
         visible: trainingScreen.visible
         iconSource: "go-up"
         height: 48
-        text: i18n("Close Course")
+        text: i18n("Finish Training")
         onClicked: {
-            // show home screen
-            userProfile.course = null
-            switchScreen(trainingScreen, homeScreen)
+            // show overview screen / start screen
+            userProfile.unit = null
+            switchScreen(trainingScreen, overviewScreen)
         }
     }
 
+    TrainerOverviewScreen {
+        id: overviewScreen
+        anchors.fill: parent
+        visible: false
+        focus: true
 
-    Column {
-        width: trainer.width
-        anchors { top: trainer.top }
-
-        TrainerStart {
-            id: homeScreen
-            width: parent.width
-            height: trainer.height - 30
-            visible: false
-            focus: true
-
-            onLanguageSelected: {
+        onLanguageSelected: {
+            if (language == null) {
+                availableCourseModel.language = null
+                userProfile.language = null
+            } else {
                 availableCourseModel.language = language
                 userProfile.language = language
             }
-
-            onUnitSelected: {
-                switchScreen(homeScreen, trainingScreen)
-            }
-
-            Component.onCompleted: {
-                homeScreen.reset()
-                homeScreen.visible = true
-            }
         }
 
-        TrainerCourse {
-            id: trainingScreen
-            width: parent.width
-            height: trainer.height - 30
-            visible: false
-            session: trainingSession //TODO we do not need global object for this
-            onCloseCourse: {
-                userProfile.course = null
-                switchScreen(trainingScreen, homeScreen)
-            }
-            onCloseUnit: {
-                userProfile.unit = null
-                switchScreen(trainingScreen, homeScreen)
-            }
+        onUnitSelected: {
+            switchScreen(overviewScreen, trainingScreen)
+        }
+
+        Component.onCompleted: {
+            overviewScreen.visible = true
+        }
+    }
+
+    TrainerCourse {
+        id: trainingScreen
+        anchors.fill: parent
+        visible: false
+        session: trainingSession //TODO we do not need global object for this
+        onCloseCourse: {
+            userProfile.course = null
+            switchScreen(trainingScreen, overviewScreen)
+        }
+        onCloseUnit: {
+            userProfile.unit = null
+            switchScreen(trainingScreen, overviewScreen)
         }
     }
 
@@ -122,7 +116,7 @@ Item {
             target: curtain
             property: "opacity"
             to: 1
-            duration: switchScreenAnimation.to == homeScreen ? 250 : 750
+            duration: switchScreenAnimation.to == overviewScreen ? 250 : 750
             easing.type: Easing.OutQuad
         }
         PropertyAction {
@@ -139,7 +133,7 @@ Item {
             target: curtain
             property: "opacity"
             to: 0
-            duration: switchScreenAnimation.to == homeScreen ? 250 : 750
+            duration: switchScreenAnimation.to == overviewScreen ? 250 : 750
             easing.type: Easing.InQuad
         }
         ScriptAction {

@@ -62,6 +62,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    Q_INVOKABLE QVariant course(int index) const;
 
 signals:
     void courseChanged(int index);

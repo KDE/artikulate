@@ -26,6 +26,7 @@
 #include "core/profile.h"
 #include "models/languagemodel.h"
 #include "settings.h"
+#include "liblearnerprofile/src/profilemanager.h"
 
 #include <KMainWindow>
 #include <KAction>
@@ -41,7 +42,7 @@
 #include <KStandardAction>
 #include <KApplication>
 #include <KMessageBox>
-
+#include <KNS3/DownloadDialog>
 
 #include <QGraphicsObject>
 #include <QDeclarativeItem>
@@ -50,7 +51,8 @@
 #include <QDeclarativeProperty>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QPointer>
-#include <knewstuff3/downloaddialog.h>
+
+using namespace LearnerProfile;
 
 MainWindow::MainWindow()
     : KXmlGuiWindow(0)
@@ -59,6 +61,7 @@ MainWindow::MainWindow()
     , m_editorProfile(new Profile(this))
     , m_resourceManager(new ResourceManager(this))
     , m_trainingSession(new TrainingSession(this))
+    , m_profileManager(new LearnerProfile::ProfileManager(this))
 {
     setWindowIcon(KIcon("artikulate")); // FIXME not present yet
     setWindowTitle(qAppName());
@@ -69,6 +72,7 @@ MainWindow::MainWindow()
     // load resources
     m_resourceManager->loadLanguageResources();
     m_resourceManager->loadCourseResources();
+    m_resourceManager->registerLearningGoals(m_profileManager);
 
     KDeclarative m_kdeclarative;
     m_kdeclarative.setDeclarativeEngine(m_view->engine());
@@ -79,17 +83,19 @@ MainWindow::MainWindow()
     setupActions();
 
     // set view
-    setMinimumSize(QSize(1000, 700));
-
+    m_view->setMinimumSize(QSize(1000, 700));
     m_view->setStyleSheet("background-color: transparent;");
     m_view->rootContext()->setContextObject(this);
-
     m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
 
-    m_view->rootContext()->setContextProperty("userProfile", m_trainingProfile);
-    m_view->rootContext()->setContextProperty("editorProfile", m_editorProfile);
-    m_view->rootContext()->setContextProperty("trainingSession", m_trainingSession);
+    m_view->rootContext()->setContextProperty("userProfile", m_trainingProfile); //TODO deprecated
+    m_view->rootContext()->setContextProperty("editorProfile", m_editorProfile); //TODO rename
+    m_view->rootContext()->setContextProperty("trainingSession", m_trainingSession); //TODO needed at top level?
+    m_view->rootContext()->setContextProperty("profileManager", m_profileManager);
+
     m_view->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
+
+    m_view->setStyleSheet("background-color: transparent;");
 
     // set starting screen
     m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Main.qml")));
@@ -109,6 +115,7 @@ MainWindow::~MainWindow()
 {
     // write application config
     Settings::self()->writeConfig();
+    m_profileManager->sync();
 }
 
 ResourceManager * MainWindow::resourceManager() const
@@ -136,9 +143,14 @@ void MainWindow::setupActions()
     actionCollection()->addAction("download_new_stuff", downloadsAction);
     downloadsAction->setIcon(KIcon("get-hot-new-stuff"));
 
+    KAction *configLearnerProfileAction = new KAction(i18nc("@item:inmenu", "Learner Profile"), this);
+    connect(configLearnerProfileAction, SIGNAL(triggered(bool)), this, SLOT(configLearnerProfile()));
+    actionCollection()->addAction("config_learner_profile", configLearnerProfileAction);
+    configLearnerProfileAction->setIcon(KIcon("user-identity"));
+
     KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
 
-    setupGUI(Default, "artikulateui.rc");
+    setupGUI(ToolBar | Keys | Save | Create, "artikulateui.rc");
 }
 
 void MainWindow::showCourseEditor()
@@ -218,6 +230,11 @@ void MainWindow::downloadNewStuff()
 
     //update available courses
     m_resourceManager->loadCourseResources();
+}
+
+void MainWindow::configLearnerProfile()
+{
+    kError() << "Not implemented"; //FIXME
 }
 
 bool MainWindow::queryClose()

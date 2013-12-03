@@ -41,7 +41,13 @@
 #include "models/phonememodel.h"
 #include "models/phonemegroupmodel.h"
 #include "models/phonemeunitmodel.h"
+#include "models/profilemodel.h"
 #include "models/skeletonmodel.h"
+
+#include "liblearnerprofile/src/learner.h"
+#include "liblearnerprofile/src/profilemanager.h"
+#include "liblearnerprofile/src/learninggoal.h"
+#include "liblearnerprofile/src/models/learninggoalmodel.h"
 
 #include <kdeclarative.h>
 
@@ -49,7 +55,6 @@
 #include <QGraphicsDropShadowEffect>
 #include <QScriptValue>
 #include <QScriptEngine>
-
 
 Application::Application()
     : KApplication(true)
@@ -60,6 +65,9 @@ Application::Application()
 void Application::registerQmlTypes()
 {
     qmlRegisterType<Profile>("artikulate", 1, 0, "Profile");
+    qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");
+    qmlRegisterType<LearnerProfile::ProfileManager>("artikulate", 1, 0, "ProfileManager");
+    qmlRegisterType<LearnerProfile::LearningGoal>("artikulate", 1, 0, "LearningGoal");
     qmlRegisterType<Unit>("artikulate", 1, 0, "Unit");
     qmlRegisterType<Course>("artikulate", 1, 0, "Course");
     qmlRegisterType<Language>("artikulate", 1, 0, "Language");
@@ -78,7 +86,9 @@ void Application::registerQmlTypes()
     qmlRegisterType<PhonemeModel>("artikulate", 1, 0, "PhonemeModel");
     qmlRegisterType<PhonemeGroupModel>("artikulate", 1, 0, "PhonemeGroupModel");
     qmlRegisterType<PhonemeUnitModel>("artikulate", 1, 0, "PhonemeUnitModel");
+    qmlRegisterType<ProfileModel>("artikulate", 1, 0, "ProfileModel");
     qmlRegisterType<SkeletonModel>("artikulate", 1, 0, "SkeletonModel");
+    qmlRegisterType<LearnerProfile::LearningGoalModel>("artikulate", 1, 0, "LearningGoalModel");
 
     qmlRegisterType<MainWindow>("artikulate", 1, 0, "MainWindow");
     qmlRegisterType<ApplicationBackground>("artikulate", 1, 0, "ApplicationBackground");

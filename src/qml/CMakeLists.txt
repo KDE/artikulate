@@ -28,7 +28,7 @@ set(artikulate_qml_files
     Editor.qml
     Trainer.qml
 
-    TrainerStart.qml
+    TrainerOverviewScreen.qml
     TrainerCourse.qml
     TrainerPhrase.qml
     TrainerSessionScreen.qml
@@ -38,7 +38,9 @@ set(artikulate_qml_files
     EditorSelector.qml
 
     CourseSelector.qml
+    CourseSwitcher.qml
     LanguageSelector.qml
+    LanguageSwitcher.qml
     UnitSelector.qml
     UnitEditor.qml
     PhraseEditor.qml
@@ -46,7 +48,15 @@ set(artikulate_qml_files
     PhraseEditorTypeComponent.qml
     PhraseEditorEditStateComponent.qml
     PhonemeUnitSelector.qml
+    ProfileDetailsItem.qml
+    ProfileDetailsViewUser.qml
+    ProfileDetailsViewFavorites.qml
+    ProfileSelector.qml
     SkeletonSelector.qml
+
+    CheckListItem.qml
+    ListItem.qml
+    SheetDialog.qml
 )
 
 install(FILES ${artikulate_qml_files} DESTINATION ${DATA_INSTALL_DIR}/artikulate/qml)

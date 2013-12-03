@@ -37,11 +37,13 @@ Item {
     Component {
         id: itemDelegate
 
-        PlasmaComponents.ToolButton {
-            text: model.title
-            iconSource: "artikulate-course"
-            property Unit unit: model.dataRole
-            onClicked: {
+        ListItem {
+            width : root.width - scrollbar.width - 10
+            title : model.title
+            iconSource : "artikulate-course"
+            property Unit unit : model.dataRole
+            onSelected : {
+                unitList.currentIndex = index
                 root.unitSelected(unit)
                 currentUnit = unit
             }
@@ -57,6 +59,7 @@ Item {
         delegate: itemDelegate
 
         PlasmaComponents.ScrollBar {
+            id: scrollbar
             flickableItem: unitList
         }
     }

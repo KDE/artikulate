@@ -88,9 +88,6 @@ Language * CourseModel::language() const
 
 void CourseModel::setLanguage(Language *language)
 {
-    if (!language) {
-        return;
-    }
     emit beginResetModel();
     m_language = language;
     updateResources();
@@ -149,6 +146,9 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
 
 int CourseModel::rowCount(const QModelIndex& parent) const
 {
+    if (!m_language) {
+        return 0;
+    }
     if (parent.isValid()) {
         return 0;
     }
@@ -218,6 +218,7 @@ void CourseModel::updateResources()
         return;
     }
     if (!m_language) {
+        m_resources.clear();
         return;
     }
     m_resources.clear();
@@ -256,4 +257,9 @@ void CourseModel::updateMappings()
     for (int i = 0; i < courses; i++) {
         m_signalMapper->setMapping(m_resources.at(i)->course(), i);
     }
+}
+
+QVariant CourseModel::course(int row) const
+{
+    return data(index(row, 0), CourseModel::DataRole);
 }

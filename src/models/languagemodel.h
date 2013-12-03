@@ -48,8 +48,9 @@ public:
     virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
     void setView(LanguageResourceView view);
     LanguageResourceView view() const;
+    Q_INVOKABLE QVariant language(int index) const;
 
-signals:
+Q_SIGNALS:
     void resourceModelChanged();
     void viewChanged();
 

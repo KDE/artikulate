@@ -27,16 +27,23 @@
 #include <QHash>
 #include <QStringList>
 
+#include "liblearnerprofile/src/learninggoal.h"
+
 class SkeletonResource;
 class CourseResource;
 class LanguageResource;
 class Skeleton;
 class Language;
 class Course;
+class ProfileManager;
 class KUrl;
 class QDomDocument;
 class QFile;
 class QXmlSchema;
+
+namespace LearnerProfile {
+    class ProfileManager;
+}
 
 /**
  * \class ResourceManager
@@ -63,6 +70,14 @@ public:
     void loadLanguageResources();
 
     /**
+     * Register loaded languages as learning goals in profile manager.
+     *
+     * TODO this should not be done by explicit call, but by putting data at shared data storage
+     *      for profile manager
+     */
+    void registerLearningGoals(LearnerProfile::ProfileManager *profileManger);
+
+    /**
      * returns true if a repository is used, else false
      */
     Q_INVOKABLE bool isRepositoryManager() const;
@@ -72,7 +87,15 @@ public:
      */
     QList<LanguageResource *> languageResources() const;
 
+    /**
+     * \return language by \p index
+     */
     Q_INVOKABLE Language * language(int index) const;
+
+    /**
+     * \return language by \p learningGoal
+     */
+    Q_INVOKABLE Language * language(LearnerProfile::LearningGoal* learningGoal) const;
 
     /**
      * \return list of all loaded courses for language \p language

@@ -30,6 +30,10 @@ class KActionCollection;
 class KMenu;
 class QDeclarativeView;
 
+namespace LearnerProfile {
+    class ProfileManager;
+}
+
 class MainWindow : public KXmlGuiWindow
 {
     Q_OBJECT
@@ -68,6 +72,7 @@ public slots:
     void downloadNewStuff();
     void updateTrainingPhraseFont();
     void updateKcfgUseContributorResources();
+    void configLearnerProfile();
 
 signals:
      void modeChanged(bool);
@@ -77,6 +82,7 @@ private:
     Profile *m_trainingProfile, *m_editorProfile;
     ResourceManager *m_resourceManager;
     TrainingSession *m_trainingSession;
+    LearnerProfile::ProfileManager *m_profileManager;
 };
 
 #endif // PAIRS_H

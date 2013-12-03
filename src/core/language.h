@@ -35,6 +35,7 @@ class ARTIKULATELIB_EXPORT Language : public QObject
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+    Q_PROPERTY(QString i18nTitle READ i18nTitle WRITE seti18nTitle NOTIFY i18nTitleChanged)
 
 public:
     explicit Language(QObject *parent = 0);
@@ -57,6 +58,7 @@ signals:
     void idChanged();
     void associatedLanguageItemChanged();
     void titleChanged();
+    void i18nTitleChanged();
     void phonemesChanged();
     void phonemeGroupsChanged();
 

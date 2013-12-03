@@ -89,6 +89,7 @@ set(artikulateCoreTargetLibs
 
 set(artikulateTargetLibs
     artikulatecore
+    learnerprofile
     ${KDECLARATIVE_LIBRARIES}
     ${KDE4_KDEUI_LIBS}
     ${KDE4_PLASMA_LIBS}
@@ -157,6 +158,7 @@ kde4_add_ui_files(artikulateCore_SRCS
 kde4_add_kcfg_files(artikulateCore_SRCS settings.kcfgc)
 kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})
 target_link_libraries(artikulatecore
+    learnerprofile
     ${artikulateCoreTargetLibs}
 )
 set_target_properties(artikulatecore
@@ -181,6 +183,7 @@ set(artikulate_SRCS
     models/phonememodel.cpp
     models/phonemegroupmodel.cpp
     models/phonemeunitmodel.cpp
+    models/profilemodel.cpp
     models/skeletonmodel.cpp
 
     ui/sounddevicedialogpage.cpp
@@ -197,6 +200,7 @@ kde4_add_ui_files(artikulate_SRCS
 kde4_add_kcfg_files(artikulate_SRCS settings.kcfgc)
 kde4_add_executable(artikulate ${artikulate_SRCS})
 target_link_libraries(artikulate
+    learnerprofile
     ${artikulateTargetLibs}
 )
 
