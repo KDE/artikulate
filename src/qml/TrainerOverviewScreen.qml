@@ -91,8 +91,10 @@ FocusScope {
                 width: root.width - 6 - knsDownloadButton.width - 20
                 resourceManager: globalResourceManager
                 onLanguageSelected: {
-                    learner.setActiveGoal(Learner.Language, selectedLanguage.id)
                     root.languageSelected(selectedLanguage)
+                    if (selectedLanguage != null) {
+                        learner.setActiveGoal(Learner.Language, selectedLanguage.id)
+                    }
                 }
             }
 

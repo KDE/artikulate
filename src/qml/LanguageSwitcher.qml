@@ -35,6 +35,16 @@ Item {
     width: 300
     height: Math.max(buttonLeft.height, languageView.height)
 
+    Connections {
+        target: profileManager
+        onActiveProfileChanged: {
+            if (languageView.count == 0) {
+                root.selectedLanguage = null
+                languageSelected(null)
+            }
+        }
+    }
+
     Component {
         id: itemDelegate
 
@@ -120,7 +130,7 @@ Item {
             top: languageView.top
         }
         iconSource: "arrow-left"
-        enabled: languageView.currentIndex > 0
+        enabled: languageView.currentIndex > 0 && languageView.count > 0
         onClicked: {
             languageView.decrementCurrentIndex()
         }
@@ -133,7 +143,7 @@ Item {
             leftMargin: 10
             top: languageView.top
         }
-        enabled: languageView.currentIndex <  languageView.count - 1
+        enabled: languageView.currentIndex <  languageView.count - 1 && languageView.count > 0
         iconSource: "arrow-right"
         onClicked: {
             languageView.incrementCurrentIndex()

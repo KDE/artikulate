@@ -67,8 +67,13 @@ Item {
         focus: true
 
         onLanguageSelected: {
-            availableCourseModel.language = language
-            userProfile.language = language
+            if (language == null) {
+                availableCourseModel.language = null
+                userProfile.language = null
+            } else {
+                availableCourseModel.language = language
+                userProfile.language = language
+            }
         }
 
         onUnitSelected: {
