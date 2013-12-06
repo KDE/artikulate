@@ -1,5 +1,6 @@
 /*
  *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013  Samikshan Bairagya <samikshan@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -148,11 +149,11 @@ Item {
 }
 //     ListView {
 //         id: phraseListBar
-// 
+//
 //         anchors.fill: parent
 //         width: parent.width
 //         height: parent.height
-// 
+//
 //         delegate: Item {
 //             id: phraseItem
 //             width: 10
@@ -173,7 +174,7 @@ Item {
 //         height: root.height
 //         width: root.width
 //         spacing: 0
-// 
+//
 //         Rectangle { // word
 //             id: word
 //             height: root.height
@@ -238,7 +239,7 @@ Item {
 //                 }
 //             }
 //         }
-// 
+//
 //         Rectangle { // sentence
 //             id: sentence
 //             border.color: "#800000FF"
@@ -271,7 +272,7 @@ Item {
 //                 }
 //             }
 //         }
-// 
+//
 //         Rectangle { // paragraph
 //             id: paragraph
 //             height: root.height
