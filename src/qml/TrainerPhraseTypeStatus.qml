@@ -67,6 +67,7 @@ Item {
             Rectangle {
                 id: phraseBox
                 property Phrase currentPhrase : model.dataRole
+                property bool isSelected : boxMouseArea.containsMouse
                 signal phraseSelected()
 
                 width: boxMouseArea.containsMouse ? parent.width + 15 : parent.width
@@ -125,6 +126,31 @@ Item {
                     onClicked: {
                         phraseBox.phraseSelected()
                     }
+                }
+            }
+
+            Item {
+                width: phraseText.width
+                height: phraseText.height
+                x: {
+                    if (phraseItem.x - phraseText.width/2 < 0) {
+                        return 0
+                    }
+                    if (phraseItem.x + phraseText.width/2 > progressView.width) {
+                        return (progressView.width - phraseItem.x) - phraseText.width
+                    }
+                    return -Math.floor(phraseText.width/2) + phraseItem.width/2
+                }
+                anchors {
+                    bottom: phraseBox.verticalCenter
+                    bottomMargin: 30
+                }
+                PlasmaComponents.Label {
+                    id: phraseText
+                    anchors.centerIn: parent
+                    visible: phraseBox.isSelected
+                    text: phraseBox.currentPhrase.text
+                    font.italic: true
                 }
             }
         }
