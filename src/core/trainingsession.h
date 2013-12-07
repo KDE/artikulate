@@ -53,8 +53,7 @@ public:
     Q_ENUMS(NextAction)
     enum NextAction {
         Complete,
-        Incomplete,
-        StepOver
+        Incomplete
     };
 
     // TODO workaround for QT-BUG-26415, fixed in Qt 5.0
@@ -91,6 +90,7 @@ public:
      */
     Q_INVOKABLE void next(NextAction completeCurrent);
     Q_INVOKABLE void setPhraseType(const QString &newType);
+    Q_INVOKABLE void jumpToPhrase(Phrase *phrase);
 
     // TODO workaround for QT-BUG-26415, remove after migration to Qt-5
     Q_INVOKABLE int numberPhrasesGroupedByTries(TrainingSession::Type type, int neededTries) const;

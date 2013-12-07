@@ -37,6 +37,7 @@ public:
     enum phraseRoles {
         TextRole = Qt::UserRole + 1,
         IdRole,
+        TypeRole,
         SoundFileRole,
         ExcludedRole,
         DataRole

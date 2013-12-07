@@ -1,6 +1,7 @@
 /*
  *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
+ *  Copyright 2013  Samikshan Bairagya <samikshan@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -135,6 +136,42 @@ void TrainingSession::setPhraseType(const QString &newType)
     emit currentPhraseChanged();
 }
 
+void TrainingSession::jumpToPhrase(Phrase* phrase)
+{
+    bool isPresent = false;
+    TrainingPhrase currentPhrase;
+    int index = 0;
+    foreach (TrainingPhrase trPhrase, m_phraseListUntrained.value(phrase->type())) {
+        if (trPhrase.phrase->id() == phrase->id()) {
+            isPresent = true;
+            currentPhrase = trPhrase;
+            break;
+        }
+        else {
+            index++;
+        }
+    }
+
+    if (!isPresent) { //phrase is not in list of untrained phrases
+        return;
+    }
+
+    //Reorder untrained list for the phrase type
+    m_currentType = phrase->type();
+    QList<TrainingSession::TrainingPhrase> phraseList;
+    for (int i = index; i < m_phraseListUntrained.value(m_currentType).length(); i++) {
+        phraseList.append(m_phraseListUntrained.value(m_currentType).at(i));
+    }
+    for (int i = 0; i < index; i++) {
+        phraseList.append(m_phraseListUntrained.value(m_currentType).at(i));
+    }
+    m_phraseListUntrained[m_currentType] = phraseList;
+
+    emit currentTypeChanged();
+    emit currentPhraseChanged();
+    emit progressChanged();
+}
+
 void TrainingSession::next(TrainingSession::NextAction completeCurrent)
 {
     TrainingPhrase &currentPhrase = const_cast<TrainingPhrase&>(m_phraseListUntrained.value(m_currentType).first());
@@ -142,6 +179,7 @@ void TrainingSession::next(TrainingSession::NextAction completeCurrent)
     case Complete:
         ++currentPhrase.tries;
         currentPhrase.isTrained = true;
+        currentPhrase.phrase->setTrainingState(Phrase::Trained);
         break;
     case Incomplete:
         ++currentPhrase.tries;
