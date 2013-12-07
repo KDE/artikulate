@@ -68,7 +68,7 @@ Item {
 
         Row {
             spacing: 10
-            height: parent.height
+            height: parent.height - 30
             width: parent.width
 
             Text {

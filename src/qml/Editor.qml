@@ -219,9 +219,14 @@ Item
     Column {
         id: main
 
-        anchors { top: breadcrumb.bottom; left: editor.left; topMargin: 30; leftMargin: 30 }
+        anchors {
+            top: breadcrumb.bottom
+            left: editor.left
+            topMargin: 30
+            leftMargin: 30
+        }
         width: editor.width - 60
-        height: editor.height - breadcrumb.height - 60
+        height: editor.height - breadcrumb.height - 80
         spacing: 10
 
         visible: globalResourceManager.isRepositoryManager()
@@ -252,7 +257,7 @@ Item
         EditorSelector {
             id: editCourseSelector
             width: editor.width - 60
-            height: main.height - unitSelectorCaption.height - editorTitle.height - currentCourseTitle.height
+            height: main.height - unitSelectorCaption.height - editorTitle.height - currentCourseTitle.height - 20
             onSelectedLanguageChanged: {
                 editorProfile.language = selectedLanguage
             }
@@ -300,7 +305,7 @@ Item
 
                 UnitEditor {
                     width: main.width
-                    height: main.height - editorTitle.height - 60
+                    height: main.height - editorTitle.height - 80
                     unit: editorProfile.unit
                     onCloseUnit: {
                         editorProfile.unit = null
@@ -311,7 +316,13 @@ Item
     }
 
     Column {
-        anchors { top: breadcrumb.bottom; left: editor.left; topMargin: 30; leftMargin: 30 }
+        anchors {
+            top: breadcrumb.bottom
+            left: editor.left
+            topMargin: 10
+            leftMargin: 10
+            bottomMargin: 10
+        }
         spacing: 10
         visible: !globalResourceManager.isRepositoryManager()
         Text {

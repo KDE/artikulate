@@ -25,7 +25,7 @@ import org.kde.plasma.components 0.1 as PlasmaComponents
 import artikulate 1.0
 
 FocusScope {
-    id: screen
+    id: root
 
     property TrainingSession session
     property bool finished: session.isFinished
@@ -49,12 +49,18 @@ FocusScope {
     Row {
         id: unitHeader
         height: 100
-        anchors { top: screen.top; left: screen.left; topMargin: 30; leftMargin: 30 }
+        anchors {
+            top: root.top
+            left: root.left
+            topMargin: 30
+            leftMargin: 30
+            bottomMargin: 30
+        }
         spacing: 15
 
         Column {
             id: breadcrumb
-            width: screen.width
+            width: root.width
             height: 50
             spacing: 10
 
@@ -87,21 +93,21 @@ FocusScope {
 
     Row {
         id: trainerMain
-        width: screen.width - 20
-        height: screen.height - 30 - breadcrumb.height - 50 - 50 - trainingStatusInfo.height
+        width: root.width - 20
+        height: root.height - 30 - breadcrumb.height - 50 - 50 - trainingStatusInfo.height - 30
         anchors { top: unitHeader.bottom; left: unitHeader.left; topMargin: 50 }
 
         TrainerSessionScreen {
             width: parent.width
             height: parent.height
             unit: userProfile.unit
-            session: screen.session
+            session: root.session
         }
     }
 
     Column {
         id: finishedInformation
-        anchors { top: unitHeader.bottom; left: unitHeader.left; topMargin: 20; right: screen.right }
+        anchors { top: unitHeader.bottom; left: unitHeader.left; topMargin: 20; right: root.right }
         visible: false
         spacing: 10
 
@@ -168,8 +174,8 @@ FocusScope {
             }
         }
         TrainerCourseStatistics {
-            width: screen.width - 60
-            height: screen.height - 30 - breadcrumb.height - 50 - 50
+            width: root.width - 60
+            height: root.height - 30 - breadcrumb.height - 50 - 50
         }
     }
 
@@ -184,9 +190,9 @@ FocusScope {
             font.pointSize: theme.defaultFont.pointSize
         }
         TrainerPhraseTypeStatus {
-            width: screen.width - 60
-            session: screen.session
-            sessionType: screen.session.currentType
+            width: root.width - 60
+            session: root.session
+            sessionType: root.session.currentType
             onTypeSelected: {
                 userProfile.phraseType = type
             }

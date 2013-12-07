@@ -120,11 +120,11 @@ FocusScope {
             topMargin: 10
         }
         property int columnWidth: Math.floor(root.width / 2 - line.width/2)
-        height: root.height - languageControls.height - header.height - 10 - 10
+        height: root.height - languageControls.height - header.height - 10
 
         Column {
             width: content.columnWidth
-            spacing: 30
+            spacing: 10
 
             CourseSwitcher {
                 id: courseSelector
@@ -164,10 +164,10 @@ FocusScope {
                 UnitSelector {
                     id: unitSelector
                     anchors {
-                        leftMargin: 30
+                        leftMargin: 10
                         left: parent.left
                     }
-                    width: content.columnWidth - 50
+                    width: content.columnWidth - 20
                     height: content.height - 60
                     unitModel: selectedUnitModel
                     onUnitSelected : {
@@ -181,7 +181,7 @@ FocusScope {
                 PhonemeUnitSelector {
                     id: phonemeUnitSelector
                     anchors {
-                        leftMargin: 30
+                        leftMargin: 10
                         left: parent.left
                     }
                     width: content.columnWidth
