@@ -26,7 +26,8 @@ import org.kde.plasma.components 0.1 as PlasmaComponents
 
 Item {
     id: root
-anchors.fill: parent
+
+    anchors.fill: parent
     property int viewMode
     property Learner learner: profileManager.activeProfile
 

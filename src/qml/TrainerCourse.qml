@@ -37,77 +37,97 @@ FocusScope {
         if (finished) {
             trainerMain.visible = false
             finishedInformation.visible = true
-            trainingStatusInfo.visible = false
+            progressBar.visible = false
         }
         else {
             trainerMain.visible = true
             finishedInformation.visible = false
-            trainingStatusInfo.visible = true
+            progressBar.visible = true
         }
     }
 
-    Row {
-        id: unitHeader
-        height: 100
+    PlasmaComponents.ToolBar {
+        id: header
+        width: root.width
+        // no tools yet
+    }
+
+    Rectangle {
+        id: trainingControls
+        width: parent.width
+        height: Math.max(unitIcon.height,stopButton.height) + 6
         anchors {
-            top: root.top
-            left: root.left
-            topMargin: 30
-            leftMargin: 30
-            bottomMargin: 30
+            top: header.bottom
+            topMargin: 2
         }
-        spacing: 15
+        color: theme.backgroundColor
 
-        Column {
-            id: breadcrumb
-            width: root.width
-            height: 50
-            spacing: 10
-
-            Text {
-                id: captionCourse
-                text: {
-                    if (userProfile.course == null) {
-                        ""
-                    } else {
-                        i18n("Course: %1", userProfile.course.title);
-                    }
-                }
-                font.pointSize: 28
+        Row {
+            spacing: 20
+            anchors {
+                topMargin: 3
+                top: parent.top
+                bottomMargin: 3
+                bottom: parent.bottom
+                leftMargin: 5
+                left: parent.left
             }
-            Row {
-                Text {
-                    anchors { verticalCenter: parent.verticalCenter }
-                    text: {
-                        var title = i18n("unselected")
-                        if (userProfile.unit != null) {
-                            title = userProfile.unit.title
-                        }
-                        i18n("Unit: %1", title)
+            PlasmaCore.IconItem {
+                id: unitIcon
+                source: "artikulate-course"
+                width: theme.mediumIconSize
+                height: theme.mediumIconSize
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            PlasmaComponents.Label {
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                }
+                height: paintedHeight
+                width: root.width - 2*20 - unitIcon.width - stopButton.width - 2*5
+                text: {
+                    var title = i18n("unselected")
+                    if (userProfile.unit != null) {
+                        title = userProfile.unit.title
                     }
-                    font.pointSize: 20
+                    i18n("Unit: %1", title)
+                }
+                font.pointSize: 1.5 * theme.defaultFont.pointSize
+            }
+
+            PlasmaComponents.ToolButton {
+                id: stopButton
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                }
+                iconSource: "go-up"
+                height: 48
+                text: i18n("Finish Training")
+                onClicked: {
+                    closeUnit()
                 }
             }
         }
     }
 
-    Row {
+    TrainerSessionScreen {
         id: trainerMain
-        width: root.width - 20
-        height: root.height - 30 - breadcrumb.height - 50 - 50 - trainingStatusInfo.height - 30
-        anchors { top: unitHeader.bottom; left: unitHeader.left; topMargin: 50 }
-
-        TrainerSessionScreen {
-            width: parent.width
-            height: parent.height
-            unit: userProfile.unit
-            session: root.session
+        width: root.width - 40
+        height: root.height - 30 - trainingControls.height - 50 - 50 - progressBar.height - 30
+        anchors {
+            top: trainingControls.bottom
+            left: parent.left
+            topMargin: 50
+            leftMargin: 20
         }
+        unit: userProfile.unit
+        session: root.session
     }
 
     Column {
         id: finishedInformation
-        anchors { top: unitHeader.bottom; left: unitHeader.left; topMargin: 20; right: root.right }
+        anchors { top: trainingControls.bottom; left: trainingControls.left; topMargin: 20; right: root.right }
         visible: false
         spacing: 10
 
@@ -175,13 +195,17 @@ FocusScope {
         }
         TrainerCourseStatistics {
             width: root.width - 60
-            height: root.height - 30 - breadcrumb.height - 50 - 50
+            height: root.height - 30 - trainingControls.height - 50 - 50
         }
     }
 
     Column {
-        id: trainingStatusInfo
-        anchors { top: trainerMain.bottom; left: unitHeader.left }
+        id: progressBar
+        anchors {
+            bottom: root.bottom
+            bottomMargin: 20
+            left: trainerMain.left
+        }
 
         spacing: 10
         Text {
@@ -190,7 +214,7 @@ FocusScope {
             font.pointSize: theme.defaultFont.pointSize
         }
         TrainerPhraseTypeStatus {
-            width: root.width - 60
+            width: trainerMain.width
             session: root.session
             sessionType: root.session.currentType
             onTypeSelected: {

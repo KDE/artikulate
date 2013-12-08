@@ -45,21 +45,6 @@ Item {
         resourceManager: globalResourceManager
     }
 
-    // course close button
-    PlasmaComponents.ToolButton {
-        id: closeButton
-        anchors { top: root.top; right: root.right; rightMargin: 30; topMargin: 30}
-        visible: trainingScreen.visible
-        iconSource: "go-up"
-        height: 48
-        text: i18n("Finish Training")
-        onClicked: {
-            // show overview screen / start screen
-            userProfile.unit = null
-            switchScreen(trainingScreen, overviewScreen)
-        }
-    }
-
     TrainerOverviewScreen {
         id: overviewScreen
         anchors.fill: parent
