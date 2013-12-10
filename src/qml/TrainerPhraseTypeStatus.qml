@@ -130,27 +130,36 @@ Item {
             }
 
             Item {
-                width: phraseText.width
-                height: phraseText.height
-                x: {
-                    if (phraseItem.x - phraseText.width/2 < 0) {
-                        return 0
-                    }
-                    if (phraseItem.x + phraseText.width/2 > progressView.width) {
-                        return (progressView.width - phraseItem.x) - phraseText.width
-                    }
-                    return -Math.floor(phraseText.width/2) + phraseItem.width/2
-                }
+                id: textItem
                 anchors {
                     bottom: phraseBox.verticalCenter
-                    bottomMargin: 30
+                    bottomMargin: 40
                 }
-                PlasmaComponents.Label {
+                x: {
+                    if (phraseItem.x - textItem.width/2 < 0) {
+                        return 0
+                    }
+                    if (phraseItem.x + textItem.width/2 > progressView.width) {
+                        return (progressView.width - phraseItem.x) - textItem.width
+                    }
+                    return - Math.floor(textItem.width/2) + phraseItem.width/2
+                }
+                width: phraseText.width
+                height: phraseText.height
+
+                Text {
                     id: phraseText
+                    wrapMode: Text.WordWrap
                     anchors.centerIn: parent
                     visible: phraseBox.isSelected
                     text: phraseBox.currentPhrase.text
                     font.italic: true
+                    horizontalAlignment: (phraseItem.x > root.width/2) ? Text.AlignRight : Text.AlignLeft
+                    Component.onCompleted: {
+                        if (phraseText.paintedWidth > root.width) {
+                            phraseText.width = root.width
+                        }
+                    }
                 }
             }
         }
