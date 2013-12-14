@@ -106,6 +106,10 @@ bool Learner::hasGoal(LearningGoal* goal) const
 
 void Learner::setActiveGoal(LearningGoal *goal)
 {
+    if (d->m_activeGoal.contains(goal->category()) && d->m_activeGoal[goal->category()] == goal) {
+        return;
+    }
+
     d->m_activeGoal.insert(goal->category(), goal);
     emit activeGoalChanged();
 }
@@ -115,6 +119,11 @@ void Learner::setActiveGoal(Learner::Category categoryLearner, const QString &id
     // TODO:Qt5 change method parameter to LearningGoal::Category
     // workaround for Q_INVOKABLE access of enum
     LearningGoal::Category category = static_cast<LearningGoal::Category>(categoryLearner);
+
+    if (d->m_activeGoal.contains(category) && d->m_activeGoal[category]->identifier() == identifier) {
+        return;
+    }
+
     foreach (LearningGoal *goal, d->m_goals) {
         if (goal->category() == category && goal->identifier() == identifier) {
             setActiveGoal(goal);
@@ -131,7 +140,9 @@ LearningGoal * Learner::activeGoal(Learner::Category categoryLearner) const
     // workaround for Q_INVOKABLE access of enum
     LearningGoal::Category category = static_cast<LearningGoal::Category>(categoryLearner);
     if (!d->m_activeGoal.contains(category)) {
-        kWarning() << "No current learning goal set for this category: fall back to first in list";
+        kWarning() << "(Learner " << identifier() << ") No current learning goal set for category "
+            << category
+            << " : fall back to first in list";
         foreach (LearningGoal *goal, d->m_goals) {
             if (goal->category() == category) {
                 return goal;
@@ -140,6 +151,5 @@ LearningGoal * Learner::activeGoal(Learner::Category categoryLearner) const
         kWarning() << "No learning goals of catagory " << category << " registered";
         return 0;
     }
-
     return d->m_activeGoal[category];
 }

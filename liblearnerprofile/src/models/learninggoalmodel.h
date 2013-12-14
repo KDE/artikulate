@@ -60,11 +60,13 @@ public:
 Q_SIGNALS:
     void profileManagerChanged();
     void learnerChanged();
+    void learningGoalChanged(int index);
 
 private Q_SLOTS:
     void onLearningGoalAboutToBeAdded(LearningGoal *goal, int index);
     void onLearningGoalAdded();
     void onLearningGoalAboutToBeRemoved(int index);
+    void emitLearningGoalChanged(int row);
 
 private:
     const QScopedPointer<LearningGoalModelPrivate> d;

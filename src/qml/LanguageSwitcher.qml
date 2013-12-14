@@ -35,16 +35,41 @@ Item {
     width: 300
     height: Math.max(buttonLeft.height, languageView.height)
 
+    // emit language selection
     Connections {
-        target: profileManager
-        onActiveProfileChanged: {
-            if (languageView.count == 0) {
-                root.selectedLanguage = null
-                languageSelected(null)
-            } else {
-                // TODO remember language by learner profile
-                // currently, this triggers change of index
-                languageView.decrementCurrentIndex()
+        target: buttonRight
+        onClicked: {
+            selectedLanguage = resourceManager.language(learningGoalModel.learningGoal(languageView.currentIndex))
+            languageSelected(selectedLanguage)
+        }
+    }
+    Connections {
+        target: buttonLeft
+        onClicked: {
+            selectedLanguage = resourceManager.language(learningGoalModel.learningGoal(languageView.currentIndex))
+            languageSelected(selectedLanguage)
+        }
+    }
+
+    // react on changed goals
+    Component.onCompleted: {
+        var learner = profileManager.activeProfile;
+        var goal = learner.activeGoal(Learner.Language)
+        for (var i=0; i < languageView.count; ++i) {
+            if (goal.id == learningGoalModel.learningGoal(i).id) {
+                languageView.currentIndex = i
+            }
+        }
+    }
+    Connections {
+        target: learningGoalModel
+        onLearnerChanged: {
+            var learner = profileManager.activeProfile;
+            var goal = learner.activeGoal(Learner.Language)
+            for (var i=0; i < languageView.count; ++i) {
+                if (goal.id == learningGoalModel.learningGoal(i).id) {
+                    languageView.currentIndex = i
+                }
             }
         }
     }
@@ -59,16 +84,11 @@ Item {
             onLearningGoalChanged: {
                 languageInfo.language = resourceManager.language(learningGoal)
             }
+
             width: root.width - buttonLeft.width - buttonRight.width - 20
             height: theme.mediumIconSize
             spacing: 10
-            Connections {
-                target: languageView
-                onCurrentIndexChanged: {
-                    selectedLanguage = language
-                    languageSelected(language)
-                }
-            }
+
             PlasmaCore.IconItem {
                 id: icon
                 source: "artikulate-language"

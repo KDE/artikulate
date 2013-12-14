@@ -65,7 +65,7 @@ public:
     Q_INVOKABLE bool hasGoal(LearnerProfile::LearningGoal *goal) const;
     void setActiveGoal(LearningGoal *goal);
     Q_INVOKABLE void setActiveGoal(LearnerProfile::Learner::Category category, const QString &identifier);
-    Q_INVOKABLE LearningGoal * activeGoal(LearnerProfile::Learner::Category category) const;
+    Q_INVOKABLE LearnerProfile::LearningGoal * activeGoal(LearnerProfile::Learner::Category category) const;
 
 Q_SIGNALS:
     void nameChanged();

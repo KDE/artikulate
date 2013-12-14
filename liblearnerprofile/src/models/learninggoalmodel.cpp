@@ -36,15 +36,22 @@ public:
     LearningGoalModelPrivate()
         : m_profileManager(0)
         , m_learner(0)
+        , m_signalMapper(new QSignalMapper())
     {
     }
 
-    ~LearningGoalModelPrivate() {}
+    ~LearningGoalModelPrivate()
+    {
+        delete m_signalMapper;
+    }
+
     void updateGoals();
+    void updateMappings();
 
     ProfileManager *m_profileManager;
     Learner *m_learner;
     QList<LearningGoal*> m_goals;
+    QSignalMapper *m_signalMapper;
 };
 
 void LearningGoalModelPrivate::updateGoals()
@@ -65,6 +72,17 @@ void LearningGoalModelPrivate::updateGoals()
     }
 }
 
+void LearningGoalModelPrivate::updateMappings()
+{
+    if (!m_profileManager) {
+        return;
+    }
+    int goals = m_goals.count();
+    for (int i = 0; i < goals; ++i) {
+        m_signalMapper->setMapping(m_goals.at(i), i);
+    }
+}
+
 // class LearningGoalModel
 LearningGoalModel::LearningGoalModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -75,6 +93,8 @@ LearningGoalModel::LearningGoalModel(QObject *parent)
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
     setRoleNames(roles);
+
+    connect(d->m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLearningGoalChanged(int)));
 }
 
 LearningGoalModel::~LearningGoalModel()
@@ -96,6 +116,7 @@ void LearningGoalModel::setProfileManager(ProfileManager *profileManager)
 
     d->m_profileManager = profileManager;
     d->updateGoals();
+    d->updateMappings();
     endResetModel();
 
     emit profileManagerChanged();
@@ -117,8 +138,12 @@ void LearningGoalModel::setLearner(Learner *learner)
         return;
     }
     emit beginResetModel();
+    if (d->m_learner != 0) {
+        learner->disconnect(this);
+    }
     d->m_learner = learner;
     d->updateGoals();
+    d->updateMappings();
     emit learnerChanged();
     emit endResetModel();
 }
@@ -166,6 +191,7 @@ void LearningGoalModel::onLearningGoalAboutToBeAdded(LearningGoal *goal, int ind
     Q_UNUSED(index)
     beginInsertRows(QModelIndex(), d->m_goals.count(), d->m_goals.count());
     d->m_goals.append(goal);
+    d->updateMappings();
 }
 
 void LearningGoalModel::onLearningGoalAdded()
@@ -185,7 +211,14 @@ void LearningGoalModel::onLearningGoalAboutToBeRemoved(int index)
     }
     beginRemoveRows(QModelIndex(), index, index);
     d->m_goals.removeAt(index);
+    d->updateMappings();
     endRemoveRows();
+}
+
+void LearningGoalModel::emitLearningGoalChanged(int row)
+{
+    emit learningGoalChanged(row);
+    emit dataChanged(index(row, 0), index(row, 0));
 }
 
 QVariant LearningGoalModel::headerData(int section, Qt::Orientation orientation, int role) const

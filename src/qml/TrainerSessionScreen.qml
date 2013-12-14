@@ -251,7 +251,6 @@ Item {
         }
     }
 
-
     Column {
         id: trainingControls
         anchors {

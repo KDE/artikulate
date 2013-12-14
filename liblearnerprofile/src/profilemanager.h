@@ -61,7 +61,7 @@ public:
      */
     Q_INVOKABLE void sync(LearnerProfile::Learner *learner);
     void setActiveProfile(LearnerProfile::Learner *learner);
-    Learner * activeProfile() const;
+    LearnerProfile::Learner * activeProfile() const;
 
 Q_SIGNALS:
     void activeProfileChanged();
