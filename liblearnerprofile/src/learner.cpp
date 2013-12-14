@@ -21,6 +21,7 @@
 #include "learner_p.h"
 #include "learner.h"
 #include "learninggoal.h"
+#include <QHash>
 #include <KDebug>
 
 using namespace LearnerProfile;
@@ -116,7 +117,7 @@ void Learner::setActiveGoal(Learner::Category categoryLearner, const QString &id
     LearningGoal::Category category = static_cast<LearningGoal::Category>(categoryLearner);
     foreach (LearningGoal *goal, d->m_goals) {
         if (goal->category() == category && goal->identifier() == identifier) {
-            d->m_activeGoal[category] = goal;
+            setActiveGoal(goal);
             return;
         }
     }
@@ -129,7 +130,7 @@ LearningGoal * Learner::activeGoal(Learner::Category categoryLearner) const
     // TODO:Qt5 change method parameter to LearningGoal::Category
     // workaround for Q_INVOKABLE access of enum
     LearningGoal::Category category = static_cast<LearningGoal::Category>(categoryLearner);
-    if (d->m_activeGoal.contains(category)) {
+    if (!d->m_activeGoal.contains(category)) {
         kWarning() << "No current learning goal set for this category: fall back to first in list";
         foreach (LearningGoal *goal, d->m_goals) {
             if (goal->category() == category) {

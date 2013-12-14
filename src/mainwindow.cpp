@@ -49,6 +49,7 @@
 #include <QDeclarativeView>
 #include <QDeclarativeContext>
 #include <QDeclarativeProperty>
+#include <QCloseEvent>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QPointer>
 
@@ -113,7 +114,7 @@ MainWindow::MainWindow()
 
 MainWindow::~MainWindow()
 {
-    // write application config
+    // save current settings for case of closing
     Settings::self()->writeConfig();
     m_profileManager->sync();
 }

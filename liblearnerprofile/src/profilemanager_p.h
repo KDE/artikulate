@@ -66,9 +66,21 @@ ProfileManagerPrivate::ProfileManagerPrivate()
     m_config = new KConfig("learnerprofilerc");
     KConfigGroup activeProfileGroup(m_config, "ActiveProfile");
     int lastProfileId = activeProfileGroup.readEntry("profileId", "0").toInt();
+    QList<int> activeGoalsCategories = activeProfileGroup.readEntry("activeGoalsCategories", QList<int>());
+    QList<QString> activeGoalsIdentifiers = activeProfileGroup.readEntry("activeGoalsIdentifiers", QList<QString>());
     foreach (Learner *learner, m_profiles) {
         if (learner->identifier() == lastProfileId) {
             m_activeProfile = learner;
+            // set active goals
+            if (activeGoalsCategories.count() == activeGoalsIdentifiers.count()) {
+                for (int i = 0; i < activeGoalsCategories.count(); ++i) {
+                    m_activeProfile->setActiveGoal(
+                        (Learner::Category) activeGoalsCategories.at(i),
+                        activeGoalsIdentifiers.at(i));
+                }
+            } else {
+                kError() << "Inconsistent goal category / identifier pairs found: aborting.";
+            }
             break;
         }
     }
@@ -86,6 +98,22 @@ void ProfileManagerPrivate::sync()
     if (m_activeProfile) {
         KConfigGroup activeProfileGroup(m_config, "ActiveProfile");
         activeProfileGroup.writeEntry("profileId", m_activeProfile->identifier());
+
+        // compute activer learning goals by category
+        QList<int> goalCatogries;
+        QList<QString> goalIdentifiers;
+        // compute used goals
+        foreach (LearningGoal *goal, m_activeProfile->goals()) {
+            if (!goalCatogries.contains((int) goal->category())) {
+                goalCatogries.append((int) goal->category());
+            }
+        }
+        // compute active goals
+        foreach (int category, goalCatogries) {
+            goalIdentifiers.append(m_activeProfile->activeGoal((Learner::Category) category)->identifier());
+        }
+        activeProfileGroup.writeEntry("activeGoalsCategories", goalCatogries);
+        activeProfileGroup.writeEntry("activeGoalsIdentifiers", goalIdentifiers);
     }
     else {
         kError() << "No active profile selected, aborting sync.";
