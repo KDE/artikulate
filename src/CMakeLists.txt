@@ -158,8 +158,9 @@ kde4_add_ui_files(artikulateCore_SRCS
 kde4_add_kcfg_files(artikulateCore_SRCS settings.kcfgc)
 kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})
 target_link_libraries(artikulatecore
-    learnerprofile
-    ${artikulateCoreTargetLibs}
+    LINK_PRIVATE
+        learnerprofile
+        ${artikulateCoreTargetLibs}
 )
 set_target_properties(artikulatecore
     PROPERTIES VERSION ${GENERIC_LIB_VERSION}
@@ -200,8 +201,9 @@ kde4_add_ui_files(artikulate_SRCS
 kde4_add_kcfg_files(artikulate_SRCS settings.kcfgc)
 kde4_add_executable(artikulate ${artikulate_SRCS})
 target_link_libraries(artikulate
-    learnerprofile
-    ${artikulateTargetLibs}
+    LINK_PRIVATE
+        learnerprofile
+        ${artikulateTargetLibs}
 )
 
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})
