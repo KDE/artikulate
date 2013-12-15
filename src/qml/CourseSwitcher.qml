@@ -36,6 +36,10 @@ Item {
     width: 300
     height: Math.max(buttonLeft.height, courseView.height)
 
+    Component.onCompleted: {
+        courseView.currentIndex = 0
+    }
+
     Component {
         id: itemDelegate
 
