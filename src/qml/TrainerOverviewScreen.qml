@@ -38,6 +38,11 @@ FocusScope {
         id: d
     }
 
+    Component.onCompleted: {
+        var learner = profileManager.activeProfile;
+        userProfile.language = resourceManager.language(learner.activeGoal(Learner.Language))
+    }
+
     UnitModel {
         id: selectedUnitModel
         course: userProfile.course
