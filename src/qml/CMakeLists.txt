@@ -31,7 +31,7 @@ set(artikulate_qml_files
     TrainerOverviewScreen.qml
     TrainerCourse.qml
     TrainerSessionScreen.qml
-    TrainerPhraseTypeStatus.qml
+    TrainerProgressBar.qml
     TrainerCourseStatistics.qml
 
     EditorSelector.qml

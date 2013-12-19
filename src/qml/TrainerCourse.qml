@@ -213,7 +213,7 @@ FocusScope {
             text: i18n("Training Progress")
             font.pointSize: theme.defaultFont.pointSize
         }
-        TrainerPhraseTypeStatus {
+        TrainerProgressBar {
             width: trainerMain.width
             session: root.session
             sessionType: root.session.currentType
