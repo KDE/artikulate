@@ -31,10 +31,10 @@ configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_D
 include(MacroLogFeature)
 
 # switch sound backend to QtGStreamer
-option(NO_QTMULTIMEDIA "NO_QTMULTIMEDIA" 0)
-add_feature_info(NoQtMultimedia
-    NO_QTMULTIMEDIA
-    "Use QtGStreamer for sound backend."
+option(USE_QTMULTIMEDIA "USE_QTMULTIMEDIA" 0)
+add_feature_info(UseQtMultimediaCaptureBackend
+    USE_QTMULTIMEDIA
+    "Use QtMultimedia as sound capture backend."
 )
 
 find_package(KDeclarative REQUIRED)
@@ -106,7 +106,28 @@ set(artikulateTargetLibs
 )
 
 # select backend and add files
-if (NO_QTMULTIMEDIA)
+if (USE_QTMULTIMEDIA)
+    include_directories(
+        ${QTMOBILITY_INCLUDE_DIR}
+        ${QTMOBILITY_MULTIMEDIAKIT_INCLUDE_DIR}
+    )
+    if (NOT QTMOBILITY_FOUND)
+        message(FATAL_ERROR "Could not find QtMultimedia (part of QtMobility), which is required to build Artikulate with NO_QTMULTIMEDIA=FALSE.")
+    endif()
+    message("Build with default backend QtMultimedia")
+    set(artikulateCore_SRCS
+        ${artikulateCore_SRCS}
+        core/soundbackends/qtmultimediabackend.cpp
+    )
+    set(artikulateCoreTargetLibs
+        ${artikulateCoreTargetLibs}
+        ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
+    )
+    set(artikulateeTargetLibs
+        ${artikulateTargetLibs}
+        ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
+    )
+else(USE_QTMULTIMEDIA)
     include_directories(
         ${QTGSTREAMER_INCLUDE_DIR}
     )
@@ -128,28 +149,7 @@ if (NO_QTMULTIMEDIA)
         ${QTGLIB_LIBRARIES}
         ${QTGSTREAMER_LIBRARIES}
     )
-else(NO_QTMULTIMEDIA)
-    include_directories(
-        ${QTMOBILITY_INCLUDE_DIR}
-        ${QTMOBILITY_MULTIMEDIAKIT_INCLUDE_DIR}
-    )
-    if (NOT QTMOBILITY_FOUND)
-        message(FATAL_ERROR "Could not find QtMultimedia (part of QtMobility), which is required to build Artikulate with NO_QTMULTIMEDIA=FALSE.")
-    endif()
-    message("Build with default backend QtMultimedia")
-    set(artikulateCore_SRCS
-        ${artikulateCore_SRCS}
-        core/soundbackends/qtmultimediabackend.cpp
-    )
-    set(artikulateCoreTargetLibs
-        ${artikulateCoreTargetLibs}
-        ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
-    )
-    set(artikulateeTargetLibs
-        ${artikulateTargetLibs}
-        ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
-    )
-endif(NO_QTMULTIMEDIA)
+endif(USE_QTMULTIMEDIA)
 
 # compile UI files
 kde4_add_ui_files(artikulateCore_SRCS

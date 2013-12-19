@@ -34,4 +34,4 @@
 #endif
 
 // define with 0/1 value
-#cmakedefine01 NO_QTMULTIMEDIA
+#cmakedefine01 USE_QTMULTIMEDIA

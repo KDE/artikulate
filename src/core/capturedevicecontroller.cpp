@@ -22,10 +22,10 @@
 #include "soundbackends/soundbackendinterface.h"
 #include "version.h"
 
-#if NO_QTMULTIMEDIA
-    #include "soundbackends/qtgstreamerbackend.h"
-#else
+#if USE_QTMULTIMEDIA
     #include "soundbackends/qtmultimediabackend.h"
+#else
+    #include "soundbackends/qtgstreamerbackend.h"
 #endif
 
 #include <settings.h>
@@ -61,10 +61,10 @@ public:
             return;
         }
 
-#if NO_QTMULTIMEDIA
-        m_backend = new QtGStreamerBackend();
-#else
+#if USE_QTMULTIMEDIA
         m_backend = new QtMultimediaBackend();
+#else
+        m_backend = new QtGStreamerBackend();
 #endif
 
         m_initialized = true;
