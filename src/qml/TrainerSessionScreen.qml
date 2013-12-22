@@ -48,20 +48,42 @@ Item {
             color: "white"
             border.color: "black"
             border.width: 5
-            radius: 30
 
-            // phrase text element
-            Text {
-                id: phraseText
-                objectName: "phraseText"
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
-                    verticalCenter: parent.verticalCenter
+            Flickable {
+                id: flickablePhraseBubble
+                width: parent.width
+                clip: true
+                anchors.fill: parent
+                contentWidth: parent.width
+                contentHeight: flickableColumn.height
+
+                Item {
+                    id: flickablePhraseBubbleItem
+                    anchors.fill: parent
+                    anchors.topMargin: 8
+                    anchors.bottomMargin: 8
+                    // phrase text element
+                    Column {
+                        id: flickableColumn
+                        width: parent.width
+                        Text {
+                            id: phraseText
+                            objectName: "phraseText"
+                            anchors {
+                                horizontalCenter: parent.horizontalCenter
+                                verticalCenter: parent.verticalCenter
+                            }
+                            width: parent.width - 64
+                            text: (phrase != null) ? phrase.text : ""
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                        }
+                    }
                 }
-                width: parent.width - 64
-                text: (phrase != null) ? phrase.text : ""
-                wrapMode: Text.WordWrap
-                horizontalAlignment: Text.AlignHCenter
+            }
+            PlasmaComponents.ScrollBar {
+                id: flickablePhraseBubbleScrollBar
+                flickableItem: flickablePhraseBubble
             }
         }
 
