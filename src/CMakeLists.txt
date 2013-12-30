@@ -30,7 +30,7 @@ configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_D
 
 include(MacroLogFeature)
 
-# switch sound backend to QtGStreamer
+# optionally switch (compile time) sound backend to QtMultimedia
 option(USE_QTMULTIMEDIA "USE_QTMULTIMEDIA" 0)
 add_feature_info(UseQtMultimediaCaptureBackend
     USE_QTMULTIMEDIA
@@ -112,7 +112,7 @@ if (USE_QTMULTIMEDIA)
         ${QTMOBILITY_MULTIMEDIAKIT_INCLUDE_DIR}
     )
     if (NOT QTMOBILITY_FOUND)
-        message(FATAL_ERROR "Could not find QtMultimedia (part of QtMobility), which is required to build Artikulate with NO_QTMULTIMEDIA=FALSE.")
+        message(FATAL_ERROR "Could not find QtMultimedia (part of QtMobility), which is required to build Artikulate with USE_QTMULTIMEDIA=TRUE.")
     endif()
     message("Build with default backend QtMultimedia")
     set(artikulateCore_SRCS
@@ -132,7 +132,7 @@ else(USE_QTMULTIMEDIA)
         ${QTGSTREAMER_INCLUDE_DIR}
     )
     if (NOT QTGSTREAMER_FOUND)
-        message(FATAL_ERROR "Could not find QtGStreamer, which is required to build Artikulate with NO_QTMULTIMEDIA=TRUE.")
+        message(FATAL_ERROR "Could not find QtGStreamer, which is required to build Artikulate with USE_QTMULTIMEDIA=FALSE.")
     endif()
     message("Build with alternative backend QtGStreamer")
     set(artikulateCore_SRCS
