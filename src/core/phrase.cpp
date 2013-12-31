@@ -38,8 +38,6 @@ Phrase::Phrase(QObject *parent)
     , m_editState(Unknown)
     , m_trainingState(Untrained)
     , m_excludedFromUnit(false)
-    , m_nativeSoundPlaybackState(StoppedState)
-    , m_userSoundPlaybackState(StoppedState)
 {
     // register recording file
     m_recordingBufferFile.setSuffix(".ogg");
@@ -252,78 +250,9 @@ QString Phrase::soundRecordingBufferUrl() const
     return m_recordingBufferFile.fileName();
 }
 
-void Phrase::playbackSound()
-{
-    kDebug() << "Playing authentic sound";
-    OutputDeviceController::self().play(m_nativeSoundFile);
-    m_nativeSoundPlaybackState = PlayingState;
-    connect(&OutputDeviceController::self(), SIGNAL(stopped()), this, SLOT(updatePlaybackState()));
-    emit playbackSoundStateChanged();
-}
-
-void Phrase::playbackNativeSoundBuffer()
-{
-    kDebug() << "Playing sound buffer";
-    OutputDeviceController::self().play(KUrl::fromLocalFile(m_recordingBufferFile.fileName()));
-}
-
-void Phrase::playbackUserSound()
-{
-    kDebug() << this << "Playback sound in file "<< m_recordingBufferFile.fileName();
-    OutputDeviceController::self().play(KUrl::fromLocalFile(m_recordingBufferFile.fileName()));
-    m_userSoundPlaybackState = PlayingState;
-    connect(&OutputDeviceController::self(), SIGNAL(stopped()), this, SLOT(updatePlaybackState()));
-    emit playbackUserSoundStateChanged();
-}
-
-Phrase::PlaybackState Phrase::playbackSoundState() const
-{
-    return m_nativeSoundPlaybackState;
-}
-
-Phrase::PlaybackState Phrase::playbackUserSoundState() const
-{
-    return m_userSoundPlaybackState;
-}
-
 Phrase::RecordingState Phrase::recordingState() const
 {
     return m_recordingState;
-}
-
-void Phrase::stopSound()
-{
-    OutputDeviceController::self().stop();
-    OutputDeviceController::self().disconnect();
-    emit playbackSoundStateChanged();
-}
-
-bool Phrase::isSound() const
-{
-    return !m_nativeSoundFile.fileName().isEmpty();
-}
-
-void Phrase::stopPlaybackUserSound()
-{
-    OutputDeviceController::self().stop();
-    OutputDeviceController::self().disconnect();
-    emit playbackUserSoundStateChanged();
-}
-
-void Phrase::updatePlaybackState()
-{
-    if (!OutputDeviceController::self().state() == Phonon::StoppedState) {
-        return;
-    }
-    if (playbackSoundState() == PlayingState) {
-        m_nativeSoundPlaybackState = StoppedState;
-        emit playbackSoundStateChanged();
-    }
-    if (playbackUserSoundState() == PlayingState) {
-        m_userSoundPlaybackState = StoppedState;
-        emit playbackUserSoundStateChanged();
-    }
-    OutputDeviceController::self().disconnect();
 }
 
 void Phrase::startRecordNativeSound()
@@ -391,11 +320,6 @@ void Phrase::stopRecordUserSound()
     m_recordingState = NotRecordingState;
     emit recordingStateChanged();
     emit recordingBufferChanged();
-}
-
-bool Phrase::isUserSound() const
-{
-    return !m_recordingBufferFile.fileName().isEmpty();
 }
 
 bool Phrase::isExcluded() const

@@ -53,26 +53,13 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
     Q_PROPERTY(Phrase::TrainingState trainingState READ trainingState WRITE setTrainingState NOTIFY trainingStateChanged)
     Q_PROPERTY(Unit *unit READ unit NOTIFY unitChanged)
     Q_PROPERTY(bool excluded READ isExcluded NOTIFY excludedChanged)
-    Q_PROPERTY(KUrl sound READ sound WRITE setSound NOTIFY soundChanged)
-    Q_PROPERTY(bool isSound READ isSound NOTIFY soundChanged)
-    Q_PROPERTY(bool isUserSound READ isUserSound NOTIFY userSoundChanged)
-    Q_PROPERTY(PlaybackState playbackSoundState READ playbackSoundState NOTIFY playbackSoundStateChanged)
-    //TODO this is working for now, but implementation must be revisited
-    Q_PROPERTY(PlaybackState playbackNativeSoundBufferState READ playbackSoundState NOTIFY playbackSoundStateChanged)
-    Q_PROPERTY(PlaybackState playbackUserSoundState READ playbackUserSoundState NOTIFY playbackUserSoundStateChanged)
     Q_PROPERTY(RecordingState recordingState READ recordingState NOTIFY recordingStateChanged)
 
 public:
     Q_ENUMS(EditState)
     Q_ENUMS(TrainingState)
     Q_ENUMS(Type)
-    Q_ENUMS(PlaybackState)
     Q_ENUMS(RecordingState)
-    enum PlaybackState {
-        StoppedState,
-        PlayingState,
-        PausedState
-    };
     enum RecordingState {
         CurrentlyRecordingState,
         NotRecordingState,
@@ -92,11 +79,6 @@ public:
         Sentence,
         Paragraph,
         AllTypes
-    };
-    enum CurrentPlayback {
-        None,
-        Sound,
-        UserSound
     };
 
     explicit Phrase(QObject *parent = 0);
@@ -133,11 +115,7 @@ public:
     Q_INVOKABLE bool hasPhoneme(Phoneme *phoneme);
     Q_INVOKABLE void addPhoneme(Phoneme *phoneme);
     Q_INVOKABLE void removePhoneme(Phoneme *phoneme);
-    Q_INVOKABLE void playbackSound();
-    Q_INVOKABLE void playbackNativeSoundBuffer();
-    Q_INVOKABLE void stopSound();
-    Q_INVOKABLE void playbackUserSound();
-    Q_INVOKABLE void stopPlaybackUserSound();
+
     /**
      * Start recording interface to record sound to a temporary file.
      * This temporary file will not be saved unless applyRecordedNativeSound()
@@ -154,19 +132,7 @@ public:
     Q_INVOKABLE void applyRecordedNativeSound();
     Q_INVOKABLE void startRecordUserSound();
     Q_INVOKABLE void stopRecordUserSound();
-    PlaybackState playbackSoundState() const;
-    PlaybackState playbackUserSoundState() const;
     RecordingState recordingState() const;
-
-    /**
-     * Return true if a sound file exists, otherwise false.
-     */
-    bool isSound() const;
-
-    /**
-     * Return true if a user recorded sound exists, otherwise false.
-     */
-    bool isUserSound() const;
 
 signals:
     void idChanged();
@@ -177,17 +143,11 @@ signals:
     void editStateChanged();
     void trainingStateChanged();
     void soundChanged();
-    void userSoundChanged();
     void excludedChanged();
     void phonemesChanged();
-    void playbackSoundStateChanged();
-    void playbackUserSoundStateChanged();
     void recordingStateChanged();
     void recordingBufferChanged();
     void modified();
-
-private slots:
-    void updatePlaybackState();
 
 private:
     Q_DISABLE_COPY(Phrase)
@@ -205,9 +165,6 @@ private:
     QList<Phoneme *> m_phonemes;
     KUrl m_nativeSoundFile;
     KTemporaryFile m_recordingBufferFile;
-    PlaybackState m_nativeSoundPlaybackState;
-    PlaybackState m_userSoundPlaybackState;
 };
-Q_DECLARE_METATYPE(Phrase::PlaybackState)
 
 #endif // PHRASE_H
