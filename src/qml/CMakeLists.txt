@@ -52,6 +52,7 @@ set(artikulate_qml_files
     ProfileDetailsViewFavorites.qml
     ProfileSelector.qml
     SkeletonSelector.qml
+    SoundPlayer.qml
 
     CheckListItem.qml
     ListItem.qml

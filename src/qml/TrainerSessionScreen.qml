@@ -90,31 +90,9 @@ Item {
         width: 128
         height: buttonNativePlay.height + textNativeSpeaker.height + 10
 
-        PlasmaComponents.ToolButton {
+        SoundPlayer {
             id: buttonNativePlay
-            property int soundState: phrase != null ? phrase.playbackSoundState : Phrase.StoppedState
-            height: 96
-            width: 96
-            enabled: phrase != null ? phrase.isSound : false
-            iconSource: "artikulate-media-playback-start"
-
-            onClicked: {
-                if (soundState == Phrase.PlayingState) {
-                    phrase.stopSound();
-                }
-                if (soundState == Phrase.StoppedState) {
-                    phrase.playbackSound();
-                }
-            }
-            onSoundStateChanged: {
-                // set next possible action icon
-                if (soundState == Phrase.PlayingState) {
-                    iconSource = "artikulate-media-playback-stop";
-                }
-                if (soundState == Phrase.StoppedState) {
-                    iconSource = "artikulate-media-playback-start";
-                }
-            }
+            phrase: root.phrase
         }
 
         Text {
