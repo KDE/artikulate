@@ -92,6 +92,7 @@ Item {
 
         SoundPlayer {
             id: buttonNativePlay
+            width: 96
             fileUrl: root.phrase == null ? "" : root.phrase.soundFileUrl
         }
 

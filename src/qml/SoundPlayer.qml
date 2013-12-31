@@ -30,8 +30,8 @@ Item {
 
     signal stopped()
 
-    width: 96
-    height: 96
+    width: theme.mediumIconSize
+    height: theme.mediumIconSize
 
     Player {
         id: playerBackend
