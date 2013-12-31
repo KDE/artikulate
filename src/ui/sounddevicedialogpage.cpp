@@ -45,9 +45,9 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
 //     ui->kcfg_AudioInputVolume->setMaximum(100);
 
     // set output volume slider
-    ui->kcfg_AudioOutputVolume->setTickInterval(1);
-    ui->kcfg_AudioOutputVolume->setMinimum(1);
-    ui->kcfg_AudioOutputVolume->setMaximum(100);
+    ui->kcfg_AudioOutputVolume->setTickInterval(0);
+    ui->kcfg_AudioOutputVolume->setMinimum(-100);
+    ui->kcfg_AudioOutputVolume->setMaximum(11);
 
     // devices
     QStringList devices = CaptureDeviceController::self().devices();
@@ -98,8 +98,8 @@ void SoundDeviceDialogPage::playTestSound()
         return;
     }
     QString testsoundFile = KGlobal::dirs()->findResource("appdata", QString("sounds/testsound.ogg"));
+    Settings::setAudioOutputVolume(ui->kcfg_AudioOutputVolume->value());
     OutputDeviceController::self().play(KUrl::fromLocalFile(testsoundFile));
-//     m_audioOutput->setVolume(ui->kcfg_AudioOutputVolume->value()); // FIXME set at output device
 }
 
 void SoundDeviceDialogPage::playRecordedSound()
@@ -108,8 +108,8 @@ void SoundDeviceDialogPage::playRecordedSound()
         OutputDeviceController::self().stop();
         return;
     }
+    Settings::setAudioOutputVolume(ui->kcfg_AudioOutputVolume->value());
     OutputDeviceController::self().play(KUrl::fromLocalFile(m_recordTestFile.fileName()));
-//     m_audioRecordedOutput->setVolume(ui->kcfg_AudioOutputVolume->value()); //FIXME
 }
 
 void SoundDeviceDialogPage::recordSound()
@@ -153,4 +153,3 @@ void SoundDeviceDialogPage::updatePlayButtonIcons()
         ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-start"));
     }
 }
-

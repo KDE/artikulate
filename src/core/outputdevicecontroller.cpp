@@ -99,7 +99,8 @@ void OutputDeviceController::play(const QString& filePath)
 void OutputDeviceController::play(const KUrl &filePath)
 {
     d->m_mediaObject->setCurrentSource(filePath);
-    d->m_audioOutput->setVolume(Settings::audioOutputVolume());
+    kDebug() << Settings::audioOutputVolume();
+    d->m_audioOutput->setVolumeDecibel(Settings::audioOutputVolume());
     d->m_mediaObject->play();
 
     emit started();
