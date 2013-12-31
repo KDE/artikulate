@@ -159,30 +159,9 @@ Item {
                         }
                     }
                 }
-                PlasmaComponents.ToolButton {
-                    property int userSoundState: (phrase != null) ? phrase.playbackUserSoundState : Phrase.StoppedState
-                    iconSource: "artikulate-media-playback-start"
-                    height: 96
+                SoundPlayer {
                     width: 96
-                    enabled: (phrase != null) ? phrase.isUserSound : false
-
-                    onClicked: {
-                        if (userSoundState == Phrase.PlayingState) {
-                            phrase.stopPlaybackUserSound();
-                        }
-                        if (userSoundState == Phrase.StoppedState) {
-                            phrase.playbackUserSound();
-                        }
-                    }
-                    onUserSoundStateChanged: {
-                        // set next possible action icon
-                        if (userSoundState == Phrase.PlayingState) {
-                            iconSource = "artikulate-media-playback-stop";
-                        }
-                        if (userSoundState == Phrase.StoppedState) {
-                            iconSource = "artikulate-media-playback-start";
-                        }
-                    }
+                    fileUrl: root.phrase == null ? "" : root.phrase.soundRecordingBufferUrl
                 }
             }
         }
