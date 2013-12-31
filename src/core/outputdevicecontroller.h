@@ -53,6 +53,10 @@ public:
     Phonon::State state() const;
     void stop();
     QString currentSource() const;
+    /**
+     * Set playback volumen in decibel.
+     */
+    void setVolume(int volumenDb);
 
 public Q_SLOTS:
 

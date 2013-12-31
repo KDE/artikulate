@@ -88,6 +88,7 @@ void SoundDeviceDialogPage::saveSettings()
     Settings::setAudioInputDevice(ui->kcfg_AudioInputDevice->itemText(ui->kcfg_AudioInputDevice->currentIndex()));
 //     Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
     Settings::setAudioOutputVolume(ui->kcfg_AudioOutputVolume->value());
+    OutputDeviceController::self().setVolume(ui->kcfg_AudioOutputVolume->value());
     Settings::self()->writeConfig();
 }
 
@@ -98,7 +99,7 @@ void SoundDeviceDialogPage::playTestSound()
         return;
     }
     QString testsoundFile = KGlobal::dirs()->findResource("appdata", QString("sounds/testsound.ogg"));
-    Settings::setAudioOutputVolume(ui->kcfg_AudioOutputVolume->value());
+    OutputDeviceController::self().setVolume(ui->kcfg_AudioOutputVolume->value());
     OutputDeviceController::self().play(KUrl::fromLocalFile(testsoundFile));
 }
 
@@ -108,7 +109,7 @@ void SoundDeviceDialogPage::playRecordedSound()
         OutputDeviceController::self().stop();
         return;
     }
-    Settings::setAudioOutputVolume(ui->kcfg_AudioOutputVolume->value());
+    OutputDeviceController::self().setVolume(ui->kcfg_AudioOutputVolume->value());
     OutputDeviceController::self().play(KUrl::fromLocalFile(m_recordTestFile.fileName()));
 }
 

@@ -39,7 +39,11 @@ public:
     OutputDeviceControllerPrivate(OutputDeviceController *parent)
         : m_parent(parent)
         , m_initialized(false)
+        , m_volume(0)
     {
+        // use this value only for initialization, will be modified in another thread / another
+        // static Settings object
+        m_volume = Settings::audioOutputVolume();
     }
 
     ~OutputDeviceControllerPrivate()
@@ -69,6 +73,7 @@ public:
     bool m_initialized;
     Phonon::AudioOutput *m_audioOutput;
     Phonon::MediaObject *m_mediaObject;
+    int m_volume; // output volume in Db
 };
 
 OutputDeviceController::OutputDeviceController()
@@ -99,8 +104,7 @@ void OutputDeviceController::play(const QString& filePath)
 void OutputDeviceController::play(const KUrl &filePath)
 {
     d->m_mediaObject->setCurrentSource(filePath);
-    kDebug() << Settings::audioOutputVolume();
-    d->m_audioOutput->setVolumeDecibel(Settings::audioOutputVolume());
+    d->m_audioOutput->setVolumeDecibel(d->m_volume);
     d->m_mediaObject->play();
 
     emit started();
@@ -129,3 +133,7 @@ void OutputDeviceController::updateState()
     }
 }
 
+void OutputDeviceController::setVolume(int volumenDb)
+{
+    d->m_volume = volumenDb;
+}
