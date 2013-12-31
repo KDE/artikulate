@@ -31,6 +31,7 @@
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
 #include "core/trainingsession.h"
+#include "core/player.h"
 #include "declarativeitems/applicationbackground.h"
 #include "models/coursemodel.h"
 #include "models/languagemodel.h"
@@ -76,6 +77,7 @@ void Application::registerQmlTypes()
     qmlRegisterType<Phoneme>("artikulate", 1, 0, "Phoneme");
     qmlRegisterType<PhonemeGroup>("artikulate", 1, 0, "PhonemeGroup");
     qmlRegisterType<TrainingSession>("artikulate", 1, 0, "TrainingSession");
+    qmlRegisterType<Player>("artikulate", 1, 0, "Player");
 
     qmlRegisterType<CourseModel>("artikulate", 1, 0, "CourseModel");
     qmlRegisterType<LanguageModel>("artikulate", 1, 0, "LanguageModel");
