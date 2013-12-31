@@ -42,13 +42,13 @@ Phrase::Phrase(QObject *parent)
     , m_userSoundPlaybackState(StoppedState)
 {
     // register recording file
-    m_userSoundFile.setSuffix(".ogg");
+    m_recordingBufferFile.setSuffix(".ogg");
 }
 
 Phrase::~Phrase()
 {
     // clear resources
-    m_userSoundFile.close();
+    m_recordingBufferFile.close();
 }
 
 QString Phrase::id() const
@@ -247,6 +247,11 @@ QString Phrase::soundFileUrl() const
     return m_nativeSoundFile.toLocalFile();
 }
 
+QString Phrase::soundRecordingBufferUrl() const
+{
+    return m_recordingBufferFile.fileName();
+}
+
 void Phrase::playbackSound()
 {
     kDebug() << "Playing authentic sound";
@@ -259,13 +264,13 @@ void Phrase::playbackSound()
 void Phrase::playbackNativeSoundBuffer()
 {
     kDebug() << "Playing sound buffer";
-    OutputDeviceController::self().play(KUrl::fromLocalFile(m_nativeSoundBuffer.fileName()));
+    OutputDeviceController::self().play(KUrl::fromLocalFile(m_recordingBufferFile.fileName()));
 }
 
 void Phrase::playbackUserSound()
 {
-    kDebug() << this << "Playback sound in file "<< m_userSoundFile.fileName();
-    OutputDeviceController::self().play(KUrl::fromLocalFile(m_userSoundFile.fileName()));
+    kDebug() << this << "Playback sound in file "<< m_recordingBufferFile.fileName();
+    OutputDeviceController::self().play(KUrl::fromLocalFile(m_recordingBufferFile.fileName()));
     m_userSoundPlaybackState = PlayingState;
     connect(&OutputDeviceController::self(), SIGNAL(stopped()), this, SLOT(updatePlaybackState()));
     emit playbackUserSoundStateChanged();
@@ -323,21 +328,21 @@ void Phrase::updatePlaybackState()
 
 void Phrase::startRecordNativeSound()
 {
-    m_nativeSoundBuffer.open();
+    m_recordingBufferFile.open();
     m_recordingState = CurrentlyRecordingState;
     emit recordingStateChanged();
 
-    kDebug() << "Start recording to temporary file " << m_nativeSoundBuffer.fileName();
-    CaptureDeviceController::self().startCapture(m_nativeSoundBuffer.fileName());
+    kDebug() << "Start recording to temporary file " << m_recordingBufferFile.fileName();
+    CaptureDeviceController::self().startCapture(m_recordingBufferFile.fileName());
 }
 
 void Phrase::stopRecordNativeSound()
 {
-    kDebug() << "End recording to temporary file " << m_nativeSoundBuffer.fileName();
+    kDebug() << "End recording to temporary file " << m_recordingBufferFile.fileName();
     CaptureDeviceController::self().stopCapture();
     m_recordingState = NotRecordingState;
     emit recordingStateChanged();
-    emit soundChanged();
+    emit recordingBufferChanged();
 }
 
 void Phrase::applyRecordedNativeSound()
@@ -351,13 +356,13 @@ void Phrase::applyRecordedNativeSound()
         kDebug() << "preparing write to file " << m_nativeSoundFile.toLocalFile();
     }
 
-    if (m_nativeSoundBuffer.isOpen()) {
+    if (m_recordingBufferFile.isOpen()) {
         kDebug() << "Saving buffered data.";
         QFile targetFile;
         targetFile.setFileName(m_nativeSoundFile.toLocalFile());
         if (!targetFile.exists() || targetFile.remove()) {
-            m_nativeSoundBuffer.copy(m_nativeSoundFile.toLocalFile());
-            m_nativeSoundBuffer.close();
+            m_recordingBufferFile.copy(m_nativeSoundFile.toLocalFile());
+            m_recordingBufferFile.close();
         } else {
             kError() << "Could not save buffered sound data to file, data loss!";
         }
@@ -369,28 +374,28 @@ void Phrase::applyRecordedNativeSound()
 
 void Phrase::startRecordUserSound()
 {
-    if(!m_userSoundFile.isOpen()) {
-        m_userSoundFile.open();
+    if(!m_recordingBufferFile.isOpen()) {
+        m_recordingBufferFile.open();
     }
-    kDebug() << "Start recording user sound to file " << m_userSoundFile.fileName();
-    CaptureDeviceController::self().startCapture(m_userSoundFile.fileName());
+    kDebug() << "Start recording user sound to file " << m_recordingBufferFile.fileName();
+    CaptureDeviceController::self().startCapture(m_recordingBufferFile.fileName());
     m_recordingState = CurrentlyRecordingState;
     emit recordingStateChanged();
-    m_userSoundFile.close();
+    m_recordingBufferFile.close();
 }
 
 void Phrase::stopRecordUserSound()
 {
-    kDebug() << "End recording user sound to file " << m_userSoundFile.fileName();
+    kDebug() << "End recording user sound to file " << m_recordingBufferFile.fileName();
     CaptureDeviceController::self().stopCapture();
     m_recordingState = NotRecordingState;
     emit recordingStateChanged();
-    emit userSoundChanged();
+    emit recordingBufferChanged();
 }
 
 bool Phrase::isUserSound() const
 {
-    return !m_userSoundFile.fileName().isEmpty();
+    return !m_recordingBufferFile.fileName().isEmpty();
 }
 
 bool Phrase::isExcluded() const

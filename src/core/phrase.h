@@ -47,6 +47,7 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(QString i18nText READ i18nText WRITE seti18nText NOTIFY i18nTextChanged)
     Q_PROPERTY(QString soundFileUrl READ soundFileUrl NOTIFY soundChanged)
+    Q_PROPERTY(QString soundRecordingBufferUrl READ soundRecordingBufferUrl NOTIFY recordingBufferChanged)
     Q_PROPERTY(Phrase::Type type READ type WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(Phrase::EditState editState READ editState WRITE setEditState NOTIFY editStateChanged)
     Q_PROPERTY(Phrase::TrainingState trainingState READ trainingState WRITE setTrainingState NOTIFY trainingStateChanged)
@@ -116,6 +117,7 @@ public:
     void setType(Phrase::Type type);
     void setType(const QString &typeString);
     QString soundFileUrl() const;
+    QString soundRecordingBufferUrl() const;
     Phrase::EditState editState() const;
     QString editStateString() const;
     void setEditState(Phrase::EditState state);
@@ -181,6 +183,7 @@ signals:
     void playbackSoundStateChanged();
     void playbackUserSoundStateChanged();
     void recordingStateChanged();
+    void recordingBufferChanged();
     void modified();
 
 private slots:
@@ -201,8 +204,7 @@ private:
 
     QList<Phoneme *> m_phonemes;
     KUrl m_nativeSoundFile;
-    KTemporaryFile m_nativeSoundBuffer;
-    KTemporaryFile m_userSoundFile;
+    KTemporaryFile m_recordingBufferFile;
     PlaybackState m_nativeSoundPlaybackState;
     PlaybackState m_userSoundPlaybackState;
 };

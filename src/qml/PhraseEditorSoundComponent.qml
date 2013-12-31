@@ -50,7 +50,6 @@ Item {
                 text: i18n("Existing Recording:")
             }
             SoundPlayer {
-                id: buttonNativePlay
                 fileUrl: root.phrase == null ? "" : phrase.soundFileUrl
             }
         }
@@ -90,30 +89,8 @@ Item {
                     }
                 }
             }
-            PlasmaComponents.ToolButton {
-                property int soundState: (phrase != null) ? phrase.playbackNativeSoundBufferState : Phrase.StoppedState
-
-                anchors.verticalCenter: parent.verticalCenter
-                iconSource: "artikulate-media-playback-start"
-                enabled: recordingBuffered
-
-                onClicked: {
-                    if (soundState == Phrase.PlayingState) {
-                        phrase.stopNativeSoundBuffer();
-                    }
-                    if (soundState == Phrase.StoppedState) {
-                        phrase.playbackNativeSoundBuffer();
-                    }
-                }
-                onSoundStateChanged: {
-                    // set next possible action icon
-                    if (soundState == Phrase.PlayingState) {
-                        iconSource = "artikulate-media-playback-stop";
-                    }
-                    if (soundState == Phrase.StoppedState) {
-                        iconSource = "artikulate-media-playback-start";
-                    }
-                }
+            SoundPlayer {
+                fileUrl: root.phrase == null ? "" : phrase.soundRecordingBufferUrl
             }
         }
         Row {
