@@ -51,6 +51,7 @@ void Player::setSoundFile(const KUrl &fileUrl)
 
 void Player::setSoundFile(const QString& fileUrl)
 {
+    OutputDeviceController::self().stop();
     setSoundFile(KUrl::fromLocalFile(fileUrl));
 }
 
