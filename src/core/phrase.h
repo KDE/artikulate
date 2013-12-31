@@ -46,6 +46,7 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(QString i18nText READ i18nText WRITE seti18nText NOTIFY i18nTextChanged)
+    Q_PROPERTY(QString soundFileUrl READ soundFileUrl NOTIFY soundChanged)
     Q_PROPERTY(Phrase::Type type READ type WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(Phrase::EditState editState READ editState WRITE setEditState NOTIFY editStateChanged)
     Q_PROPERTY(Phrase::TrainingState trainingState READ trainingState WRITE setTrainingState NOTIFY trainingStateChanged)
@@ -114,6 +115,7 @@ public:
     QString typeString() const;
     void setType(Phrase::Type type);
     void setType(const QString &typeString);
+    QString soundFileUrl() const;
     Phrase::EditState editState() const;
     QString editStateString() const;
     void setEditState(Phrase::EditState state);

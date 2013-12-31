@@ -92,7 +92,7 @@ Item {
 
         SoundPlayer {
             id: buttonNativePlay
-            phrase: root.phrase
+            fileUrl: root.phrase == null ? "" : root.phrase.soundFileUrl
         }
 
         Text {

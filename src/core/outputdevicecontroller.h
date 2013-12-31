@@ -48,6 +48,7 @@ public:
      */
     static OutputDeviceController & self();
 
+    void play(const QString &filePath);
     void play(const KUrl &filePath);
     Phonon::State state() const;
     void stop();

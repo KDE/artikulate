@@ -28,8 +28,8 @@
 class ARTIKULATELIB_EXPORT Player : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString soundFileUrl READ soundFile NOTIFY soundFileChanged)
-    Q_PROPERTY(PlaybackState playbackState READ state NOTIFY stateChanged)
+    Q_PROPERTY(QString soundFileUrl READ soundFile WRITE setSoundFile NOTIFY soundFileChanged)
+    Q_PROPERTY(PlaybackState state READ state NOTIFY stateChanged)
 
 public:
     Q_ENUMS(PlaybackState)

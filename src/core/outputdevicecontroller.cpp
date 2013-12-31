@@ -91,6 +91,11 @@ OutputDeviceController & OutputDeviceController::self()
     return instance;
 }
 
+void OutputDeviceController::play(const QString& filePath)
+{
+    play(KUrl::fromLocalFile(filePath));
+}
+
 void OutputDeviceController::play(const KUrl &filePath)
 {
     d->m_mediaObject->setCurrentSource(filePath);

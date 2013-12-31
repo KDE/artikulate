@@ -1,7 +1,5 @@
 /*
  *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
- *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
- *  Copyright 2013  Samikshan Bairagya <samikshan@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -30,6 +28,8 @@
 
 Player::Player(QObject *parent)
     : QObject(parent)
+    , m_soundFile(QString())
+    , m_playbackState(StoppedState)
 {
 
 }
@@ -70,8 +70,8 @@ void Player::playback()
         kError() << "Abort playing sound, no file available";
         return;
     }
-    kDebug() << this << "Playback sound in file "<< m_soundFile.fileName();
-    OutputDeviceController::self().play(KUrl::fromLocalFile(m_soundFile.fileName()));
+    kDebug() << this << "Playback sound in file "<< m_soundFile.toLocalFile();
+    OutputDeviceController::self().play(KUrl::fromLocalFile(m_soundFile.toLocalFile()));
     m_playbackState = PlayingState;
     connect(&OutputDeviceController::self(), SIGNAL(stopped()), this, SLOT(updateState()));
     emit stateChanged();

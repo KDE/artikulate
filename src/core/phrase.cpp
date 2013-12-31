@@ -242,6 +242,11 @@ void Phrase::setSound(const KUrl &soundFile)
     emit soundChanged();
 }
 
+QString Phrase::soundFileUrl() const
+{
+    return m_nativeSoundFile.toLocalFile();
+}
+
 void Phrase::playbackSound()
 {
     kDebug() << "Playing authentic sound";

@@ -26,36 +26,43 @@ import artikulate 1.0
 Item {
     id: root
 
-    property Phrase phrase
+    property string fileUrl
 
     signal stopped()
 
     width: playButton.width
     height: playButton.height
 
+    Player {
+        id: playerBackend
+        soundFileUrl: root.fileUrl
+    }
+
     PlasmaComponents.ToolButton {
         id: playButton
-        property int soundState: phrase != null ? phrase.playbackSoundState : Phrase.StoppedState
         height: 96
         width: 96
-        enabled: phrase != null ? phrase.isSound : false
+        enabled: fileUrl != ""
         iconSource: "artikulate-media-playback-start"
 
         onClicked: {
-            if (soundState == Phrase.PlayingState) {
-                phrase.stopSound();
+            if (playerBackend.state == Player.PlayingState) {
+                playerBackend.stop();
             }
-            if (soundState == Phrase.StoppedState) {
-                phrase.playbackSound();
+            if (playerBackend.state == Player.StoppedState) {
+                playerBackend.playback();
             }
         }
-        onSoundStateChanged: {
-            // set next possible action icon
-            if (soundState == Phrase.PlayingState) {
-                iconSource = "artikulate-media-playback-stop";
-            }
-            if (soundState == Phrase.StoppedState) {
-                iconSource = "artikulate-media-playback-start";
+        Connections {
+            target: playerBackend
+            onStateChanged: {
+                // set next possible action icon
+                if (playerBackend.state == Player.PlayingState) {
+                    iconSource = "artikulate-media-playback-stop";
+                }
+                if (playerBackend.state == Player.StoppedState) {
+                    iconSource = "artikulate-media-playback-start";
+                }
             }
         }
     }
