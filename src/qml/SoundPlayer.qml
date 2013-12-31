@@ -30,8 +30,8 @@ Item {
 
     signal stopped()
 
-    width: playButton.width
-    height: playButton.height
+    width: 96
+    height: 96
 
     Player {
         id: playerBackend
@@ -40,8 +40,8 @@ Item {
 
     PlasmaComponents.ToolButton {
         id: playButton
-        height: 96
-        width: 96
+        height: Math.max(root.width, root.height)
+        width: Math.max(root.width, root.height)
         enabled: fileUrl != ""
         iconSource: "artikulate-media-playback-start"
 

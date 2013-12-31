@@ -49,30 +49,9 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 text: i18n("Existing Recording:")
             }
-            PlasmaComponents.ToolButton {
-                property int soundState: (phrase != null) ? phrase.playbackSoundState : Phrase.StoppedState
-
-                anchors.verticalCenter: parent.verticalCenter
-                iconSource: "artikulate-media-playback-start"
-                enabled: { phrase != null && phrase.isSound }
-
-                onClicked: {
-                    if (soundState == Phrase.PlayingState) {
-                        phrase.stopPlaybackSound();
-                    }
-                    if (soundState == Phrase.StoppedState) {
-                        phrase.playbackSound();
-                    }
-                }
-                onSoundStateChanged: {
-                    // set next possible action icon
-                    if (soundState == Phrase.PlayingState) {
-                        iconSource = "artikulate-media-playback-stop";
-                    }
-                    if (soundState == Phrase.StoppedState) {
-                        iconSource = "artikulate-media-playback-start";
-                    }
-                }
+            SoundPlayer {
+                id: buttonNativePlay
+                fileUrl: root.phrase == null ? "" : phrase.soundFileUrl
             }
         }
         Row {
