@@ -127,19 +127,24 @@ FocusScope {
 
     Column {
         id: finishedInformation
-        anchors { top: trainingControls.bottom; left: trainingControls.left; topMargin: 20; right: root.right }
+        anchors {
+            top: trainingControls.bottom
+            left: parent.left
+            topMargin: 50
+            leftMargin: 30
+        }
         visible: false
         spacing: 10
 
         Text {
             id: results
             text: i18n("Learning Results")
-            font.pointSize: 20
         }
 
         TrainerCourseStatistics {
             width: root.width - 60
             height: root.height - 30 - trainingControls.height - 50 - 50
+            session: root.session
         }
     }
 

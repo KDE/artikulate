@@ -54,7 +54,11 @@ Item {
     }
 
     Text {
-        anchors { bottom: backgroundRect.bottom; bottomMargin: 10; horizontalCenter: backgroundRect.horizontalCenter }
+        anchors {
+            bottom: backgroundRect.bottom
+            bottomMargin: 10
+            horizontalCenter: backgroundRect.horizontalCenter
+        }
         text: i18n("Needed Tries")
     }
 
