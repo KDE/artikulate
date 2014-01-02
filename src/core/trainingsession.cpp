@@ -25,6 +25,7 @@
 #include "unit.h"
 
 #include <QList>
+#include <QHash>
 #include <KDebug>
 #include <KLocale>
 
@@ -322,6 +323,23 @@ int TrainingSession::numberPhrases(TrainingSession::Type type) const
 int TrainingSession::numberPhrases(Phrase::Type type) const
 {
     return m_phraseListTrained.value(type).length() + m_phraseListUntrained.value(type).length();
+}
+
+int TrainingSession::maximumPhrasesPerTry() const
+{
+    int maxTries = 0;
+    QHash<int, int> numberPhrases;
+    foreach (const TrainingPhrase &phrase, m_phraseListTrained[Phrase::Word]) {
+        if (!numberPhrases.contains(phrase.tries)) {
+            numberPhrases.insert(phrase.tries, 1);
+        } else {
+            numberPhrases[phrase.tries] = numberPhrases[phrase.tries] + 1;
+        }
+        if (maxTries < numberPhrases[phrase.tries]) {
+            maxTries = numberPhrases[phrase.tries];
+        }
+    }
+    return maxTries;
 }
 
 int TrainingSession::maximumTries() const

@@ -80,6 +80,14 @@ int LearningProgressModel::maximumTries() const
     return m_session->maximumTries();
 }
 
+int LearningProgressModel::maximumPhrasesPerTry() const
+{
+    if (!m_session) {
+        return 0;
+    }
+    return m_session->maximumPhrasesPerTry();
+}
+
 QVariant LearningProgressModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {

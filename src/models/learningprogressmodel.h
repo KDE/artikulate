@@ -31,6 +31,7 @@ class LearningProgressModel : public QAbstractTableModel
     Q_OBJECT
     Q_PROPERTY(TrainingSession *session READ session WRITE setSession NOTIFY sessionChanged)
     Q_PROPERTY(int maximumTries READ maximumTries NOTIFY maximumTriesChanged)
+    Q_PROPERTY(int maximumPhrasesPerTry READ maximumPhrasesPerTry NOTIFY maximumTriesChanged)
 
 public:
     enum unitRoles {
@@ -44,6 +45,7 @@ public:
     void setSession(TrainingSession *session);
     TrainingSession * session() const;
     int maximumTries() const;
+    int maximumPhrasesPerTry() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;

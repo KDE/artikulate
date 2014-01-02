@@ -104,7 +104,7 @@ Item {
                         id: wordDimension
                         dataColumn : 0
                         color: "#2DE86C"
-                        maximumValue: Math.max(0, Math.ceil(statistics.maximumTries / 4) * 4) + 20
+                        maximumValue: Math.max(0, Math.ceil(statistics.maximumPhrasesPerTry / 4) * 4) + 5
                         label: i18n("Words")
                     },
                     // expressions
@@ -112,7 +112,7 @@ Item {
                         id: expressionDimension
                         dataColumn: 1
                         color: "#327BFF"
-                        maximumValue: Math.max(0, Math.ceil(statistics.maximumTries / 4) * 4) + 20
+                        maximumValue: Math.max(0, Math.ceil(statistics.maximumPhrasesPerTry / 4) * 4) + 5
                         label: i18n("Expressions")
                     },
                     // sentences
@@ -120,7 +120,7 @@ Item {
                         id: sentenceDimension
                         dataColumn: 2
                         color: "#FFF13F"
-                        maximumValue: Math.max(0, Math.ceil(statistics.maximumTries / 4) * 4) + 20
+                        maximumValue: Math.max(0, Math.ceil(statistics.maximumPhrasesPerTry / 4) * 4) + 5
                         label: i18n("Sentences")
                     },
                     // paragraphs
@@ -128,7 +128,7 @@ Item {
                         id: paragraphDimension
                         dataColumn: 3
                         color: "#E85A02"
-                        maximumValue: Math.max(0, Math.ceil(statistics.maximumTries / 4) * 4) + 20
+                        maximumValue: Math.max(0, Math.ceil(statistics.maximumPhrasesPerTry / 4) * 4) + 5
                         label: i18n("Paragraphs")
                     }
                 ]
