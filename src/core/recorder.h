@@ -29,12 +29,12 @@ class ARTIKULATELIB_EXPORT Recorder : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString soundFileUrl READ soundFile WRITE setSoundFile NOTIFY soundFileChanged)
-    Q_PROPERTY(RecordingState state READ state NOTIFY stateChanged)
+    Q_PROPERTY(CaptureState state READ state NOTIFY stateChanged)
 
 public:
-    Q_ENUMS(RecordingState)
-    enum RecordingState {
-        CurrentlyRecordingState,
+    Q_ENUMS(CaptureState)
+    enum CaptureState {
+        RecordingState,
         StoppedState,
     };
 
@@ -43,7 +43,7 @@ public:
 
     Q_INVOKABLE void startCapture();
     Q_INVOKABLE void stop();
-    RecordingState state() const;
+    CaptureState state() const;
     void setSoundFile(const KUrl &fileUrl);
     void setSoundFile(const QString &fileUrl);
     QString soundFile() const;
@@ -58,7 +58,7 @@ private Q_SLOTS:
 private:
     Q_DISABLE_COPY(Recorder)
     KUrl m_soundFile;
-    RecordingState m_state;
+    CaptureState m_state;
 };
 
 #endif // RECORDER_H

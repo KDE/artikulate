@@ -60,7 +60,7 @@ QString Recorder::soundFile() const
     return m_soundFile.toLocalFile();
 }
 
-Recorder::RecordingState Recorder::state() const
+Recorder::CaptureState Recorder::state() const
 {
     return m_state;
 }
@@ -72,7 +72,7 @@ void Recorder::startCapture()
         return;
     }
     kDebug() << this << "Capture to file " << m_soundFile.toLocalFile();
-    m_state = CurrentlyRecordingState;
+    m_state = RecordingState;
     CaptureDeviceController::self().startCapture(m_soundFile.toLocalFile());
     connect(&CaptureDeviceController::self(), SIGNAL(captureStopped()), this, SLOT(updateState()));
     emit stateChanged();
@@ -90,7 +90,7 @@ void Recorder::updateState()
     if (!CaptureDeviceController::self().state() == CaptureDeviceController::StoppedState) {
         return;
     }
-    if (state() == CurrentlyRecordingState) {
+    if (state() == RecordingState) {
         m_state = StoppedState;
         emit stateChanged();
     }
