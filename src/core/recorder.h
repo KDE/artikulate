@@ -34,8 +34,8 @@ class ARTIKULATELIB_EXPORT Recorder : public QObject
 public:
     Q_ENUMS(CaptureState)
     enum CaptureState {
-        RecordingState,
-        StoppedState,
+        StoppedState = 0,
+        RecordingState = 1
     };
 
     explicit Recorder(QObject *parent = 0);
@@ -51,9 +51,6 @@ public:
 Q_SIGNALS:
     void stateChanged();
     void soundFileChanged();
-
-private Q_SLOTS:
-    void updateState();
 
 private:
     Q_DISABLE_COPY(Recorder)

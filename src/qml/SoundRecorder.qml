@@ -47,21 +47,25 @@ Item {
 
         onClicked: {
             if (recorderBackend.state == Recorder.RecordingState) {
+                console.log("try to stop recording");
                 recorderBackend.stop();
+                return;
             }
             if (recorderBackend.state == Recorder.StoppedState) {
+                console.log("SoundRecorder: start capture");
                 recorderBackend.startCapture();
+                return;
             }
         }
         Connections {
             target: recorderBackend
             onStateChanged: {
-                // set next possible action icon
+                // update icon
                 if (recorderBackend.state == Recorder.RecordingState) {
-                    iconSource = "artikulate-media-record-active";
+                    recordButton.iconSource = "artikulate-media-record-active";
                 }
                 if (recorderBackend.state == Recorder.StoppedState) {
-                    iconSource = "artikulate-media-record";
+                    recordButton.iconSource = "artikulate-media-record";
                 }
             }
         }

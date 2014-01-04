@@ -51,7 +51,9 @@ void Recorder::setSoundFile(const KUrl &fileUrl)
 
 void Recorder::setSoundFile(const QString& fileUrl)
 {
-    CaptureDeviceController::self().stopCapture();
+    if (CaptureDeviceController::self().state() != CaptureDeviceController::StoppedState) {
+        CaptureDeviceController::self().stopCapture();
+    }
     setSoundFile(KUrl::fromLocalFile(fileUrl));
 }
 
@@ -71,28 +73,19 @@ void Recorder::startCapture()
         kError() << "Abort capture, no output file set";
         return;
     }
+    if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState) {
+        kWarning() << "Stopped capture before starting new capture, since was still active.";
+        CaptureDeviceController::self().stopCapture();
+    }
     kDebug() << this << "Capture to file " << m_soundFile.toLocalFile();
-    m_state = RecordingState;
     CaptureDeviceController::self().startCapture(m_soundFile.toLocalFile());
-    connect(&CaptureDeviceController::self(), SIGNAL(captureStopped()), this, SLOT(updateState()));
+    m_state = RecordingState;
     emit stateChanged();
 }
 
 void Recorder::stop()
 {
     CaptureDeviceController::self().stopCapture();
-    CaptureDeviceController::self().disconnect();
+    m_state = StoppedState;
     emit stateChanged();
-}
-
-void Recorder::updateState()
-{
-    if (!CaptureDeviceController::self().state() == CaptureDeviceController::StoppedState) {
-        return;
-    }
-    if (state() == RecordingState) {
-        m_state = StoppedState;
-        emit stateChanged();
-    }
-    CaptureDeviceController::self().disconnect();
 }

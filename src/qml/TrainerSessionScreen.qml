@@ -135,34 +135,13 @@ Item {
                 anchors.centerIn: parent
                 spacing: 30
 
-                PlasmaComponents.ToolButton {
-                    property bool isRecording: false
-                    iconSource: "artikulate-media-record"
-                    height: 96
+                SoundRecorder {
                     width: 96
-
-                    onClicked: {
-                        if (!isRecording) {
-                            phrase.startRecordUserSound()
-                            isRecording = true
-                        }
-                        else {
-                            phrase.stopRecordUserSound()
-                            isRecording = false
-                        }
-                    }
-                    onIsRecordingChanged: {
-                        if (isRecording) {
-                            iconSource = "artikulate-media-record-active";
-                        }
-                        else {
-                            iconSource = "artikulate-media-record";
-                        }
-                    }
+                    fileUrl: root.phrase == null ? "" : "/tmp/foo.ogg" //root.phrase.soundRecordingBufferUrl
                 }
                 SoundPlayer {
                     width: 96
-                    fileUrl: root.phrase == null ? "" : root.phrase.soundRecordingBufferUrl
+                    fileUrl: root.phrase == null ? "" : "/tmp/foo.ogg" //root.phrase.soundRecordingBufferUrl
                 }
             }
         }

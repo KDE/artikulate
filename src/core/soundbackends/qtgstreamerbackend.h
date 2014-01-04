@@ -49,6 +49,7 @@ public:
 
 private:
     void onBusMessage(const QGst::MessagePtr &message);
+    void stopPipeline();
     QGst::BinPtr createAudioSrcBin();
 
     QGst::PropertyProbePtr m_audioProbe;

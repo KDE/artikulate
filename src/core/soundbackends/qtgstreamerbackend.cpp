@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -59,7 +59,6 @@ QtGStreamerBackend::QtGStreamerBackend()
     //we got a reference to the underlying propertyProbe, so we don't need src anymore.
     src->setState(QGst::StateNull);
 
-
     //Most sources and sinks have a "device" property which supports probe
     //and probing it returns all the available devices on the system.
     //Here we try to make use of that to list the system's devices
@@ -102,7 +101,7 @@ CaptureDeviceController::State QtGStreamerBackend::captureState()
         return CaptureDeviceController::StoppedState;
         break;
     case QGst::StatePaused:
-        return CaptureDeviceController::PausedState;
+        return CaptureDeviceController::RecordingState;
         break;
     case QGst::StatePlaying:
         return CaptureDeviceController::RecordingState;
@@ -142,13 +141,14 @@ void QtGStreamerBackend::onBusMessage(const QGst::MessagePtr & message)
     switch (message->type()) {
     case QGst::MessageEos:
         //got end-of-stream - stop the pipeline
-        stopCapture();
+        kDebug() << "EOS signal received, stopping pipeline";
+        stopPipeline();
         break;
     case QGst::MessageError:
         //check if the pipeline exists before destroying it,
         //since we could get multiple error messages
         if (m_pipeline) {
-            stopCapture();
+            stopPipeline();
         }
         kError() << "Pipeline Error:"
                  << message.staticCast<QGst::ErrorMessage>()->error().message();
@@ -193,22 +193,24 @@ void QtGStreamerBackend::startCapture(const QString &filePath)
     //connect the bus
     m_pipeline->bus()->addSignalWatch();
     QGlib::connect(m_pipeline->bus(), "message", this, &QtGStreamerBackend::onBusMessage);
-
-    //go!
     m_pipeline->setState(QGst::StatePlaying);
-    kDebug() << "Start recording";
 }
 
 void QtGStreamerBackend::stopCapture()
+{
+    if (m_pipeline) { //pipeline exists - destroy it
+        //send an end-of-stream event to flush metadata and cause an EosMessage to be delivered
+        m_pipeline->sendEvent(QGst::EosEvent::create());
+    }
+}
+
+void QtGStreamerBackend::stopPipeline()
 {
     if (!m_pipeline) {
         kWarning() << "Stopping non-existing pipeline, aborting";
         return;
     }
-    //stop recording
     m_pipeline->setState(QGst::StateNull);
-
-    //clear the pointer, destroying the pipeline as its reference count drops to zero.
     m_pipeline.clear();
 }
 
