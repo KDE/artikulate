@@ -69,6 +69,7 @@ set(artikulateCore_SRCS
     core/resources/courseresource.cpp
     core/resources/skeletonresource.cpp
     core/player.cpp
+    core/recorder.cpp
     core/soundbackends/soundbackendinterface.cpp
     ui/newcoursedialog.cpp
 )
