@@ -40,7 +40,7 @@ Item {
     Loader {
         id: statisticsGraphLoader
         // add padding
-        // TODO should become parameter in garph class
+        // TODO should become parameter in graph class
         height : Math.round(root.height - 60)
         width : Math.round(root.width - 20)
         anchors { top: root.top; topMargin: 10; left: root.left; leftMargin: 10 }
@@ -68,7 +68,6 @@ Item {
             Row {
                 spacing: 15
                 width: legendWord.width + legendExpression.width + legendSentence.width + legendParagraph.width + 3*15
-                anchors { right: parent.right; top: parent.top}
                 Graphs.LegendItem {
                     id: legendWord
                     dimension: wordDimension
@@ -86,7 +85,6 @@ Item {
                     dimension: paragraphDimension
                 }
             }
-
 
             Graphs.LineGraph {
                 height : Math.round(root.height - 60)
@@ -132,16 +130,6 @@ Item {
                         label: i18n("Paragraphs")
                     }
                 ]
-
-//             onBarEntered: {
-//                 errorsTooltip.visualParent = bar;
-//                 errorsTooltip.row = row
-//                 errorsTooltip.open()
-//             }
-//
-//             onBarExited: {
-//                 errorsTooltip.close()
-//             }
             }
         }
     }
