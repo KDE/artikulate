@@ -25,6 +25,7 @@
 #include "unit.h"
 
 #include <QList>
+#include <QHash>
 #include <KDebug>
 #include <KLocale>
 
@@ -200,9 +201,10 @@ void TrainingSession::next(TrainingSession::NextAction completeCurrent)
 
     // check for course completion
     if (m_phraseListUntrained.value(Phrase::Word).isEmpty() &&
-    m_phraseListUntrained.value(Phrase::Expression).isEmpty() &&
-    m_phraseListUntrained.value(Phrase::Sentence).isEmpty() &&
-    m_phraseListUntrained.value(Phrase::Paragraph).isEmpty() ) {
+        m_phraseListUntrained.value(Phrase::Expression).isEmpty() &&
+        m_phraseListUntrained.value(Phrase::Sentence).isEmpty() &&
+        m_phraseListUntrained.value(Phrase::Paragraph).isEmpty()
+    ) {
        emit finished();
     }
 
@@ -323,9 +325,26 @@ int TrainingSession::numberPhrases(Phrase::Type type) const
     return m_phraseListTrained.value(type).length() + m_phraseListUntrained.value(type).length();
 }
 
-int TrainingSession::maximumTries() const
+int TrainingSession::maximumPhrasesPerTry() const
 {
     int maxTries = 0;
+    QHash<int, int> numberPhrases;
+    foreach (const TrainingPhrase &phrase, m_phraseListTrained[Phrase::Word]) {
+        if (!numberPhrases.contains(phrase.tries)) {
+            numberPhrases.insert(phrase.tries, 1);
+        } else {
+            numberPhrases[phrase.tries] = numberPhrases[phrase.tries] + 1;
+        }
+        if (maxTries < numberPhrases[phrase.tries]) {
+            maxTries = numberPhrases[phrase.tries];
+        }
+    }
+    return maxTries;
+}
+
+int TrainingSession::maximumTries() const
+{
+    int maxTries = 1;
     foreach (const TrainingPhrase &phrase, m_phraseListTrained[Phrase::Word]) {
         if (maxTries < phrase.tries) {
             maxTries = phrase.tries;
@@ -346,5 +365,6 @@ int TrainingSession::maximumTries() const
             maxTries = phrase.tries;
         }
     }
+    // return bad tries plus one good try
     return maxTries;
 }

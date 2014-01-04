@@ -127,75 +127,24 @@ FocusScope {
 
     Column {
         id: finishedInformation
-        anchors { top: trainingControls.bottom; left: trainingControls.left; topMargin: 20; right: root.right }
+        anchors {
+            top: trainingControls.bottom
+            left: parent.left
+            topMargin: 50
+            leftMargin: 30
+        }
         visible: false
         spacing: 10
 
         Text {
             id: results
-            text: i18n("Results")
-            font.pointSize: 20
+            text: i18n("Learning Results")
         }
 
-        Row {
-            spacing: 15
-            anchors { right: parent.right; rightMargin: 30 }
-
-            Rectangle {
-                id: rect1
-                height: 15
-                width: 15
-                color: "#2de86c"
-            }
-
-            Text {
-                id: label1
-                text: "Word"
-                font.pointSize: 10
-            }
-
-            Rectangle {
-                id: rect2
-                height: 15
-                width: 15
-                color: "#327bff"
-            }
-
-            Text {
-                id: label2
-                text: "Expression"
-                font.pointSize: 10
-            }
-
-            Rectangle {
-                id: rect3
-                height: 15
-                width: 15
-                color: "#fff13f"
-            }
-
-            Text {
-                id: label3
-                text: "Sentence"
-                font.pointSize: 10
-            }
-
-            Rectangle {
-                id: rect4
-                height: 15
-                width: 15
-                color: "#e85a02"
-            }
-
-            Text {
-                id: label4
-                text: "Paragraph"
-                font.pointSize: 10
-            }
-        }
         TrainerCourseStatistics {
             width: root.width - 60
             height: root.height - 30 - trainingControls.height - 50 - 50
+            session: root.session
         }
     }
 

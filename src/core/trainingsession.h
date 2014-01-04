@@ -98,6 +98,15 @@ public:
 
     Q_INVOKABLE int numberPhrasesGroupedByTries(Phrase::Type type, int neededTries) const;
     Q_INVOKABLE int numberPhrases(Phrase::Type type) const;
+
+    /**
+     * \return the maximum number of phrases having the same number of tries
+     */
+    int maximumPhrasesPerTry() const;
+
+    /**
+     * \return the maximum number of tries needed for any phrase
+     */
     Q_INVOKABLE int maximumTries() const;
 
     int progressTypeWord() const;
