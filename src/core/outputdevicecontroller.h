@@ -60,7 +60,6 @@ public:
 
 public Q_SLOTS:
 
-
 Q_SIGNALS:
     void started();
     void stopped();

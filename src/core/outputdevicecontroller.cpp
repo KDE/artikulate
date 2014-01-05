@@ -106,14 +106,11 @@ void OutputDeviceController::play(const KUrl &filePath)
     d->m_mediaObject->setCurrentSource(filePath);
     d->m_audioOutput->setVolumeDecibel(d->m_volume);
     d->m_mediaObject->play();
-
-    emit started();
 }
 
 void OutputDeviceController::stop()
 {
     d->m_mediaObject->stop();
-    emit stopped();
 }
 
 Phonon::State OutputDeviceController::state() const
@@ -130,6 +127,9 @@ void OutputDeviceController::updateState()
 {
     if (d->m_mediaObject->state() == Phonon::StoppedState) {
         emit stopped();
+    }
+    if (d->m_mediaObject->state() == Phonon::PlayingState) {
+        emit started();
     }
 }
 

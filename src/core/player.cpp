@@ -67,6 +67,7 @@ Player::PlaybackState Player::state() const
 
 void Player::playback()
 {
+    OutputDeviceController::self().disconnect();
     if (m_soundFile.isEmpty()) {
         kError() << "Abort playing sound, no file available";
         return;
@@ -74,6 +75,7 @@ void Player::playback()
     kDebug() << this << "Playback sound in file "<< m_soundFile.toLocalFile();
     OutputDeviceController::self().play(KUrl::fromLocalFile(m_soundFile.toLocalFile()));
     m_playbackState = PlayingState;
+    connect(&OutputDeviceController::self(), SIGNAL(started()), this, SLOT(updateState()));
     connect(&OutputDeviceController::self(), SIGNAL(stopped()), this, SLOT(updateState()));
     emit stateChanged();
 }
@@ -82,17 +84,22 @@ void Player::stop()
 {
     OutputDeviceController::self().stop();
     OutputDeviceController::self().disconnect();
+    m_playbackState = StoppedState;
     emit stateChanged();
 }
 
 void Player::updateState()
 {
-    if (!OutputDeviceController::self().state() == Phonon::StoppedState) {
-        return;
-    }
-    if (state() == PlayingState) {
+    if (OutputDeviceController::self().state() == Phonon::StoppedState
+        && state() == PlayingState
+    ) {
         m_playbackState = StoppedState;
         emit stateChanged();
     }
-    OutputDeviceController::self().disconnect();
+    if (OutputDeviceController::self().state() == Phonon::PlayingState
+        && state() != PlayingState
+    ) {
+        m_playbackState = PlayingState;
+        emit stateChanged();
+    }
 }

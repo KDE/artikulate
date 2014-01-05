@@ -48,9 +48,11 @@ Item {
         onClicked: {
             if (playerBackend.state == Player.PlayingState) {
                 playerBackend.stop();
+                return;
             }
             if (playerBackend.state == Player.StoppedState) {
                 playerBackend.playback();
+                return;
             }
         }
         Connections {
@@ -58,10 +60,12 @@ Item {
             onStateChanged: {
                 // set next possible action icon
                 if (playerBackend.state == Player.PlayingState) {
-                    iconSource = "artikulate-media-playback-stop";
+                    playButton.iconSource = "artikulate-media-playback-stop";
+                    return
                 }
                 if (playerBackend.state == Player.StoppedState) {
-                    iconSource = "artikulate-media-playback-start";
+                    playButton.iconSource = "artikulate-media-playback-start";
+                    return
                 }
             }
         }
