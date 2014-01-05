@@ -39,7 +39,7 @@ int main(int argc, char **argv)
                 version,
                 ki18n(description),
                 KAboutData::License_GPL,
-                ki18n("Copyright (C) 2013 by Andreas Cord-Landwehr")
+                ki18n("Copyright (C) 2013-2014, The Artikulate Developers")
                 );
 
     about.addAuthor(ki18n("Andreas Cord-Landwehr"), ki18n("Original Author"), "cordlandwehr@kde.org");
