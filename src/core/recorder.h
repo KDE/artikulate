@@ -24,11 +24,12 @@
 #include "artikulatecore_export.h"
 #include <QObject>
 #include <KUrl>
+#include <KTemporaryFile>
 
 class ARTIKULATELIB_EXPORT Recorder : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString soundFileUrl READ soundFile WRITE setSoundFile NOTIFY soundFileChanged)
+    Q_PROPERTY(QString recordingFile READ recordingFile NOTIFY recordingFileChanged)
     Q_PROPERTY(CaptureState state READ state NOTIFY stateChanged)
 
 public:
@@ -44,18 +45,16 @@ public:
     Q_INVOKABLE void startCapture();
     Q_INVOKABLE void stop();
     CaptureState state() const;
-    void setSoundFile(const KUrl &fileUrl);
-    void setSoundFile(const QString &fileUrl);
-    QString soundFile() const;
+    QString recordingFile() const;
 
 Q_SIGNALS:
     void stateChanged();
-    void soundFileChanged();
+    void recordingFileChanged();
 
 private:
     Q_DISABLE_COPY(Recorder)
-    KUrl m_soundFile;
     CaptureState m_state;
+    KTemporaryFile m_recordingBufferFile;
 };
 
 #endif // RECORDER_H

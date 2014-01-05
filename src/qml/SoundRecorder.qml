@@ -26,7 +26,7 @@ import artikulate 1.0
 Item {
     id: root
 
-    property string fileUrl
+    property string outputFileUrl : recorderBackend.recordingFile
 
     signal stopped()
 
@@ -35,14 +35,12 @@ Item {
 
     Recorder {
         id: recorderBackend
-        soundFileUrl: root.fileUrl
     }
 
     PlasmaComponents.ToolButton {
         id: recordButton
         height: Math.max(root.width, root.height)
         width: Math.max(root.width, root.height)
-        enabled: fileUrl != ""
         iconSource: "artikulate-media-record"
 
         onClicked: {

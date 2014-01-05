@@ -28,38 +28,16 @@
 
 Recorder::Recorder(QObject *parent)
     : QObject(parent)
-    , m_soundFile(QString())
     , m_state(StoppedState)
 {
-
+    // register recording file
+    m_recordingBufferFile.setSuffix(".ogg");
 }
 
 Recorder::~Recorder()
 {
-    // nothing to do
-}
-
-void Recorder::setSoundFile(const KUrl &fileUrl)
-{
-    if (!fileUrl.isValid() || fileUrl.isEmpty()) {
-        kWarning() << "Not setting empty sound file path.";
-        return;
-    }
-    m_soundFile = fileUrl;
-    emit soundFileChanged();
-}
-
-void Recorder::setSoundFile(const QString& fileUrl)
-{
-    if (CaptureDeviceController::self().state() != CaptureDeviceController::StoppedState) {
-        CaptureDeviceController::self().stopCapture();
-    }
-    setSoundFile(KUrl::fromLocalFile(fileUrl));
-}
-
-QString Recorder::soundFile() const
-{
-    return m_soundFile.toLocalFile();
+    // clear resources
+    m_recordingBufferFile.close();
 }
 
 Recorder::CaptureState Recorder::state() const
@@ -69,16 +47,13 @@ Recorder::CaptureState Recorder::state() const
 
 void Recorder::startCapture()
 {
-    if (m_soundFile.isEmpty()) {
-        kError() << "Abort capture, no output file set";
-        return;
-    }
     if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState) {
         kWarning() << "Stopped capture before starting new capture, since was still active.";
         CaptureDeviceController::self().stopCapture();
     }
-    kDebug() << this << "Capture to file " << m_soundFile.toLocalFile();
-    CaptureDeviceController::self().startCapture(m_soundFile.toLocalFile());
+    m_recordingBufferFile.open();
+    kDebug() << "Start recording to temporary file " << m_recordingBufferFile.fileName();
+    CaptureDeviceController::self().startCapture(m_recordingBufferFile.fileName());
     m_state = RecordingState;
     emit stateChanged();
 }
@@ -88,4 +63,13 @@ void Recorder::stop()
     CaptureDeviceController::self().stopCapture();
     m_state = StoppedState;
     emit stateChanged();
+    emit recordingFileChanged();
+}
+
+QString Recorder::recordingFile() const
+{
+    if (!m_recordingBufferFile.isOpen()) {
+        return QString();
+    }
+    return m_recordingBufferFile.fileName();
 }

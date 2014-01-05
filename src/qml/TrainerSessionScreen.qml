@@ -136,12 +136,12 @@ Item {
                 spacing: 30
 
                 SoundRecorder {
+                    id: recorder
                     width: 96
-                    fileUrl: root.phrase == null ? "" : "/tmp/foo.ogg" //root.phrase.soundRecordingBufferUrl
                 }
                 SoundPlayer {
                     width: 96
-                    fileUrl: root.phrase == null ? "" : "/tmp/foo.ogg" //root.phrase.soundRecordingBufferUrl
+                    fileUrl: recorder.outputFileUrl
                 }
             }
         }
