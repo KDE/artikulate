@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -28,13 +28,6 @@
 #include <QList>
 #include <KTemporaryFile>
 
-namespace Phonon
-{
-class MediaObject;
-}
-
-class QAudioCaptureSource;
-class QMediaPlayer;
 class QString;
 class Phoneme;
 class Unit;
@@ -47,23 +40,15 @@ class ARTIKULATELIB_EXPORT Phrase : public QObject
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(QString i18nText READ i18nText WRITE seti18nText NOTIFY i18nTextChanged)
     Q_PROPERTY(QString soundFileUrl READ soundFileUrl NOTIFY soundChanged)
-    Q_PROPERTY(QString soundRecordingBufferUrl READ soundRecordingBufferUrl NOTIFY recordingBufferChanged)
     Q_PROPERTY(Phrase::Type type READ type WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(Phrase::EditState editState READ editState WRITE setEditState NOTIFY editStateChanged)
     Q_PROPERTY(Phrase::TrainingState trainingState READ trainingState WRITE setTrainingState NOTIFY trainingStateChanged)
     Q_PROPERTY(Unit *unit READ unit NOTIFY unitChanged)
     Q_PROPERTY(bool excluded READ isExcluded NOTIFY excludedChanged)
-    Q_PROPERTY(RecordingState recordingState READ recordingState NOTIFY recordingStateChanged)
-
 public:
     Q_ENUMS(EditState)
     Q_ENUMS(TrainingState)
     Q_ENUMS(Type)
-    Q_ENUMS(RecordingState)
-    enum RecordingState {
-        CurrentlyRecordingState,
-        NotRecordingState,
-    };
     enum EditState {
         Unknown,
         Translated,
@@ -101,7 +86,6 @@ public:
     QString soundFileUrl() const;
     Q_INVOKABLE QString soundFileOutputPath() const;
     Q_INVOKABLE void setSoundFileUrl();
-    QString soundRecordingBufferUrl() const;
     Phrase::EditState editState() const;
     QString editStateString() const;
     void setEditState(Phrase::EditState state);
@@ -118,24 +102,6 @@ public:
     Q_INVOKABLE void addPhoneme(Phoneme *phoneme);
     Q_INVOKABLE void removePhoneme(Phoneme *phoneme);
 
-    /**
-     * Start recording interface to record sound to a temporary file.
-     * This temporary file will not be saved unless applyRecordedNativeSound()
-     * is called.
-     */
-    Q_INVOKABLE void startRecordNativeSound();
-    /**
-     * Stop recording of sound. It is save even if currently no sound is recorded.
-     */
-    Q_INVOKABLE void stopRecordNativeSound();
-    /**
-     * Overwrite native sound resource file by buffered file.
-     */
-    Q_INVOKABLE void applyRecordedNativeSound();
-    Q_INVOKABLE void startRecordUserSound();
-    Q_INVOKABLE void stopRecordUserSound();
-    RecordingState recordingState() const;
-
 signals:
     void idChanged();
     void unitChanged();
@@ -147,8 +113,6 @@ signals:
     void soundChanged();
     void excludedChanged();
     void phonemesChanged();
-    void recordingStateChanged();
-    void recordingBufferChanged();
     void modified();
 
 private:
@@ -160,13 +124,10 @@ private:
     Type m_type;
     EditState m_editState;
     TrainingState m_trainingState;
-    RecordingState m_recordingState;
     Unit *m_unit;
     bool m_excludedFromUnit;
-
     QList<Phoneme *> m_phonemes;
     KUrl m_nativeSoundFile;
-    KTemporaryFile m_recordingBufferFile;
 };
 
 #endif // PHRASE_H

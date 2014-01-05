@@ -39,14 +39,12 @@ Phrase::Phrase(QObject *parent)
     , m_trainingState(Untrained)
     , m_excludedFromUnit(false)
 {
-    // register recording file
-    m_recordingBufferFile.setSuffix(".ogg");
+
 }
 
 Phrase::~Phrase()
 {
-    // clear resources
-    m_recordingBufferFile.close();
+
 }
 
 QString Phrase::id() const
@@ -261,84 +259,8 @@ void Phrase::setSoundFileUrl()
     if (soundFileOutputPath() != m_nativeSoundFile.toLocalFile()) {
         m_nativeSoundFile = KUrl::fromLocalFile(soundFileOutputPath());
         emit soundChanged();
+        emit modified();
     }
-}
-
-QString Phrase::soundRecordingBufferUrl() const
-{
-    return m_recordingBufferFile.fileName();
-}
-
-Phrase::RecordingState Phrase::recordingState() const
-{
-    return m_recordingState;
-}
-
-void Phrase::startRecordNativeSound()
-{
-    m_recordingBufferFile.open();
-    m_recordingState = CurrentlyRecordingState;
-    emit recordingStateChanged();
-
-    kDebug() << "Start recording to temporary file " << m_recordingBufferFile.fileName();
-    CaptureDeviceController::self().startCapture(m_recordingBufferFile.fileName());
-}
-
-void Phrase::stopRecordNativeSound()
-{
-    kDebug() << "End recording to temporary file " << m_recordingBufferFile.fileName();
-    CaptureDeviceController::self().stopCapture();
-    m_recordingState = NotRecordingState;
-    emit recordingStateChanged();
-    emit recordingBufferChanged();
-}
-
-void Phrase::applyRecordedNativeSound()
-{
-    if (m_nativeSoundFile.isEmpty()) {
-        QString outputDir = m_unit->course()->file().directory(KUrl::AppendTrailingSlash);
-        kDebug() << "Target directory: " << outputDir;
-
-        //TODO take care that this is proper ASCII
-        m_nativeSoundFile = KUrl::fromLocalFile(outputDir + id() + ".ogg");
-        kDebug() << "preparing write to file " << m_nativeSoundFile.toLocalFile();
-    }
-
-    if (m_recordingBufferFile.isOpen()) {
-        kDebug() << "Saving buffered data.";
-        QFile targetFile;
-        targetFile.setFileName(m_nativeSoundFile.toLocalFile());
-        if (!targetFile.exists() || targetFile.remove()) {
-            m_recordingBufferFile.copy(m_nativeSoundFile.toLocalFile());
-            m_recordingBufferFile.close();
-        } else {
-            kError() << "Could not save buffered sound data to file, data loss!";
-        }
-    } else {
-        kError() << "No buffer present.";
-    }
-    emit soundChanged();
-}
-
-void Phrase::startRecordUserSound()
-{
-    if(!m_recordingBufferFile.isOpen()) {
-        m_recordingBufferFile.open();
-    }
-    kDebug() << "Start recording user sound to file " << m_recordingBufferFile.fileName();
-    CaptureDeviceController::self().startCapture(m_recordingBufferFile.fileName());
-    m_recordingState = CurrentlyRecordingState;
-    emit recordingStateChanged();
-    m_recordingBufferFile.close();
-}
-
-void Phrase::stopRecordUserSound()
-{
-    kDebug() << "End recording user sound to file " << m_recordingBufferFile.fileName();
-    CaptureDeviceController::self().stopCapture();
-    m_recordingState = NotRecordingState;
-    emit recordingStateChanged();
-    emit recordingBufferChanged();
 }
 
 bool Phrase::isExcluded() const
