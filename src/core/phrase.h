@@ -99,6 +99,8 @@ public:
     void setType(Phrase::Type type);
     void setType(const QString &typeString);
     QString soundFileUrl() const;
+    Q_INVOKABLE QString soundFileOutputPath() const;
+    Q_INVOKABLE void setSoundFileUrl();
     QString soundRecordingBufferUrl() const;
     Phrase::EditState editState() const;
     QString editStateString() const;

@@ -44,6 +44,8 @@ public:
 
     Q_INVOKABLE void startCapture();
     Q_INVOKABLE void stop();
+    Q_INVOKABLE void storeToFile(const QString &path);
+    Q_INVOKABLE void clearBuffer();
     CaptureState state() const;
     QString recordingFile() const;
 

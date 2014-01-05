@@ -245,6 +245,25 @@ QString Phrase::soundFileUrl() const
     return m_nativeSoundFile.toLocalFile();
 }
 
+QString Phrase::soundFileOutputPath() const
+{
+    if (m_nativeSoundFile.isEmpty()) {
+        QString outputDir = m_unit->course()->file().directory(KUrl::AppendTrailingSlash);
+        //TODO take care that this is proper ASCII
+        return outputDir + id() + ".ogg";
+    } else {
+        return soundFileUrl();
+    }
+}
+
+void Phrase::setSoundFileUrl()
+{
+    if (soundFileOutputPath() != m_nativeSoundFile.toLocalFile()) {
+        m_nativeSoundFile = KUrl::fromLocalFile(soundFileOutputPath());
+        emit soundChanged();
+    }
+}
+
 QString Phrase::soundRecordingBufferUrl() const
 {
     return m_recordingBufferFile.fileName();

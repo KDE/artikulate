@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -27,7 +27,6 @@ Item {
     id: root
 
     property Phrase phrase
-    property bool recordingBuffered: false
 
     width: mediaController.width
     height: mediaController.height
@@ -59,51 +58,23 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 text: i18n("Create New Recording:")
             }
-            PlasmaComponents.ToolButton {
-                property int recordingState: (root.phrase != null) ? root.phrase.recordingState : Phrase.NotRecordingState
-                property bool isRecording: false
-
-                anchors.verticalCenter: parent.verticalCenter
-                iconSource: "artikulate-media-record"
-
-                onClicked: {
-                    if (!isRecording) { // hence, start recording
-                        isRecording = true
-                        phrase.startRecordNativeSound();
-                    }
-                    else { // hence, stop recording
-                        isRecording = false;
-                        phrase.stopRecordNativeSound();
-                        recordingBuffered = true;
-                    }
-                }
-                onRecordingStateChanged: {
-                    // set next possible action icon
-                    if (recordingState == Phrase.CurrentlyRecordingState) {
-                        iconSource = "artikulate-media-record-active";
-                        console.log("change state to active")
-                    }
-                    if (recordingState == Phrase.NotRecordingState) {
-                        iconSource = "artikulate-media-record";
-                        console.log("change state to stop")
-                    }
-                }
+            SoundRecorder {
+                id: recorder
             }
             SoundPlayer {
-                fileUrl: root.phrase == null ? "" : phrase.soundRecordingBufferUrl
+                fileUrl: recorder.outputFileUrl
             }
         }
         Row {
             anchors { left: componentTitle.left; leftMargin: 30 }
-            visible: recordingBuffered
+            visible: recorder.outputFileUrl != ""
 
             PlasmaComponents.ToolButton {
                 anchors.verticalCenter: parent.verticalCenter
                 iconSource: "dialog-ok-apply"
                 text: i18n("Replace existing recording")
                 onClicked: {
-                    phrase.applyRecordedNativeSound();
-                    recordingBuffered = false
+                    recorder.storeToFile(phrase.soundFileOutputPath())
                 }
             }
             PlasmaComponents.ToolButton {
@@ -111,7 +82,7 @@ Item {
                 iconSource: "dialog-cancel"
                 text: i18n("Dismiss")
                 onClicked: {
-                    recordingBuffered = false
+                    recorder.clearBuffer()
                 }
             }
         }

@@ -33,6 +33,15 @@ Item {
     width: theme.mediumIconSize
     height: theme.mediumIconSize
 
+    function storeToFile(filePath) {
+        recorderBackend.storeToFile(filePath);
+        phrase.setSoundFileUrl()
+    }
+
+    function clearBuffer() {
+        recorderBackend.clearBuffer()
+    }
+
     Recorder {
         id: recorderBackend
     }

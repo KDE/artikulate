@@ -73,3 +73,28 @@ QString Recorder::recordingFile() const
     }
     return m_recordingBufferFile.fileName();
 }
+
+void Recorder::storeToFile(const QString &path)
+{
+    if (m_recordingBufferFile.isOpen()) {
+        QFile targetFile;
+        targetFile.setFileName(path);
+        if (!targetFile.exists() || targetFile.remove()) {
+            m_recordingBufferFile.copy(path);
+            m_recordingBufferFile.close();
+            emit recordingFileChanged();
+        } else {
+            kError() << "Could not save buffered sound data to file, aborting.";
+        }
+    } else {
+        kError() << "No buffer present.";
+    }
+}
+
+void Recorder::clearBuffer()
+{
+    if (m_recordingBufferFile.isOpen()) {
+        m_recordingBufferFile.close();
+        emit recordingFileChanged();
+    }
+}
