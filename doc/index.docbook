@@ -31,7 +31,7 @@
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
-<copyright><year>2014</year><holder>The Artikulate Developers</holder></copyright>
+<copyright><year>2014</year><holder>The &artikulate; Developers</holder></copyright>
 
 <date>2014-XX-XX</date>
 <releaseinfo>0.3.0 &kde; 4.13</releaseinfo>
@@ -42,7 +42,7 @@
 <para>
 &artikulate; is a pronunciation trainer, which helps in improving and perfecting pronunciation skills.
 Learners train their pronunciation by recording their own voices and comparing them to native speaker recordings.
-&artikulate; is part of the KDE Education Project.
+&artikulate; is part of the &kde; Education Project.
 </para>
 </abstract>
 
@@ -74,7 +74,7 @@ By repeating and comparing own recordings of spoken phrases to the recordings of
     <listitem><para>adapt the pronunciation to follow the native speakers.</para></listitem>
 </itemizedlist>
 For best learning outcome, specifically designed courses for every supported language are necessary.
-Those courses can concentrate on training special scenarios (like ordering food in a restaurant) but can also focus on learning how to pronunce difficult syllables and words of a particular language correctly.
+Those courses can concentrate on training special scenarios (like ordering food in a restaurant) but can also focus on learning how to pronounce difficult syllables and words of a particular language correctly.
 </para>
 </sect1>
 
@@ -88,7 +88,7 @@ This chapter explains how to make the first steps in &artikulate;, especially ho
 <title>1. Create a User Profile</title>
 <para>
 For every learner, there has to be one user profile that collects the learning progress.
-This allows multiple people to use &artikulate; on the same computer, each beign able to have his/her private learning statistics.
+This allows multiple people to use &artikulate; on the same computer, each being able to have his/her private learning statistics.
 To create a user profile, click on the <guilabel>New User</guilabel> button at the top left of the window, and then <guilabel>Create New Profile</guilabel>.
 You can edit your name with the <guilabel>Edit</guilabel> button.
 </para>
@@ -124,7 +124,7 @@ Close the Learner Profile dialog by selecting your profile with <guilabel>Use Se
 <para>
 For this guide assume that we would like to learn Polish and hence want to download a course for Polish.
 You can download courses through  <menuchoice><guimenu>File</guimenu> <guimenuitem>Download New Language Course</guimenuitem></menuchoice> or by clicking at the orange star at the top right.
-A download window will appear, listing the available languages provided by the KDE Community.
+A download window will appear, listing the available languages provided by the &kde; Community.
 You can sort through them using the order by functions at the right.
 Download the Polish course by clicking on <guilabel>Install</guilabel>.
 </para>
@@ -175,7 +175,7 @@ The training view is the most important view in &artikulate;.
 Whenever starting a training, this view is opened and will be present until the training of the selected training unit is finished or the learner stops the training.
 In the center of this screen, there are controls for playing a native speaker recording, the text of the corresponding phrase and controls to record and playback the learner's own voice.
 When a learner judges to be done with training the pronunciation of the current phrase, by clicking <guilabel>OK</guilabel> the current phrase is marked as done and a next phrase is selected.
-Otherwise, when clicking on <guilabel>Retry Later</guilabel>, a next pharse is selected but the current phrase will be displayed later again.
+Otherwise, when clicking on <guilabel>Retry Later</guilabel>, a next phrase is selected but the current phrase will be displayed later again.
 </para>
 
 <para>
@@ -189,8 +189,8 @@ Otherwise, if not yet satisfied with the recording, the learner either can retry
 
 <para>
 &artikulate; units are composed of a list of phrases of different lengths (words, expressions, sentences, and paragraphs).
-A learner can see the current learning progress at the bottom when looking at the progress bar.
-The progressbar also allows switching between phrases.
+A learner can see the current learning progress at the bottom when looking at <link linkend="screens-training-progressbar">the progress bar</link>.
+The progress bar also allows switching between phrases.
 </para>
 
 <para>
@@ -211,12 +211,6 @@ At any time the learner can choose to stop training by clicking at the <guilabel
 
 <sect2 id="screens-training-sound-controls">
 <title>Sound Controls</title>
-<para>
-    The document selector bar is used to select the current graph document and further the current data structure.
-    Using the visual graph editor tools to create data structures elements will automatically add those newly created elements to the current data structure.
-    Also, this bar gives direct access to delete existing or create new data structures within the current document.
-</para>
-
 <itemizedlist>
 <listitem><para>
 <inlinemediaobject><imageobject>
@@ -229,7 +223,7 @@ At any time the learner can choose to stop training by clicking at the <guilabel
 <inlinemediaobject><imageobject>
 <imagedata fileref="hi32-action-artikulate-media-playback-start.png" format="PNG"/></imageobject>
 </inlinemediaobject>
-<guilabel>Playback</guilabel>: Play a soundfile. If active, click again to stop.
+<guilabel>Playback</guilabel>: Play a sound file. If active, click again to stop.
 </para></listitem>
 
 </itemizedlist>
@@ -342,7 +336,7 @@ The available types are:
 <title>&artikulate; Specific Instructions</title>
 <para>
 Further guidelines on how to compile &artikulate; are available in
-<ulink url="http://techbase.kde.org/Projects/Edu/Artikulate"><citetitle>&artikulate;'s technical documentation</citetitle></ulink> at the KDE TechBase.
+<ulink url="http://techbase.kde.org/Projects/Edu/Artikulate"><citetitle>&artikulate;'s technical documentation</citetitle></ulink> at the &kde; TechBase.
 </para>
 </sect2>
 
