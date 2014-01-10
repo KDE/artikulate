@@ -39,7 +39,7 @@ add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS -fexcept
 # subdirectories to build
 add_subdirectory(data)
 add_subdirectory(schemes)
-#add_subdirectory(doc)
+add_subdirectory(doc)
 add_subdirectory(src)
 add_subdirectory(sounds)
 add_subdirectory(images)
