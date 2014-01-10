@@ -152,10 +152,6 @@ target_link_libraries(artikulatecore
         learnerprofile
         ${artikulateCoreTargetLibs}
 )
-set_target_properties(artikulatecore
-    PROPERTIES VERSION ${GENERIC_LIB_VERSION}
-    SOVERSION ${GENERIC_LIB_SOVERSION}
-)
 install(TARGETS artikulatecore ${INSTALL_TARGETS_DEFAULT_ARGS})
 install( FILES artikulate.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 

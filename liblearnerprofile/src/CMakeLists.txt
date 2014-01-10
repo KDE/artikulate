@@ -41,8 +41,4 @@ target_link_libraries(
         ${QT_QTSQL_LIBRARY}
 )
 
-set_target_properties( learnerprofile
-    PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
-)
-
 install( TARGETS learnerprofile ${INSTALL_TARGETS_DEFAULT_ARGS} )
