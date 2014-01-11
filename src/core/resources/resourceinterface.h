@@ -40,7 +40,7 @@ public:
         SkeletonResourceType
     };
 
-    ResourceInterface(ResourceManager *resourceManager);
+    explicit ResourceInterface(ResourceManager *resourceManager);
 
     virtual ~ResourceInterface();
 
