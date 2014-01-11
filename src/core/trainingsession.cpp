@@ -142,7 +142,7 @@ void TrainingSession::jumpToPhrase(Phrase* phrase)
     bool isPresent = false;
     TrainingPhrase currentPhrase;
     int index = 0;
-    foreach (TrainingPhrase trPhrase, m_phraseListUntrained.value(phrase->type())) {
+    foreach (const TrainingPhrase &trPhrase, m_phraseListUntrained.value(phrase->type())) {
         if (trPhrase.phrase->id() == phrase->id()) {
             isPresent = true;
             currentPhrase = trPhrase;
