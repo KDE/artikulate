@@ -18,8 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "resources/skeletonresource.h"
 #include "skeleton.h"
+#include "resources/skeletonresource.h"
 #include "course.h"
 #include "unit.h"
 #include "language.h"
