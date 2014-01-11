@@ -18,8 +18,8 @@
  *  License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "learner_p.h"
 #include "learner.h"
+#include "learner_p.h"
 #include "learninggoal.h"
 #include <QHash>
 #include <KDebug>

@@ -25,10 +25,9 @@
 #include "learninggoal.h"
 #include <QObject>
 
-class LearnerPrivate;
-
 namespace LearnerProfile
 {
+class LearnerPrivate;
 class LearningGoal;
 
 /**

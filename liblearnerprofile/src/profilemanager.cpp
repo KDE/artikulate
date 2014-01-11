@@ -18,8 +18,8 @@
  *  License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "profilemanager_p.h"
 #include "profilemanager.h"
+#include "profilemanager_p.h"
 #include "learner.h"
 
 #include <QObject>
