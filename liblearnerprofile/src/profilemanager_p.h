@@ -18,6 +18,9 @@
  *  License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef PROFILEMANAGER_P_H
+#define PROFILEMANAGER_P_H
+
 #include "learner.h"
 #include "storage.h"
 
@@ -127,3 +130,5 @@ void ProfileManagerPrivate::sync()
 }
 
 }
+
+#endif // PROFILEMANAGER_P_H

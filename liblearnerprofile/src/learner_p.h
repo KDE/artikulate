@@ -18,6 +18,9 @@
  *  License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef LEARNER_P_H
+#define LEARNER_P_H
+
 #include <QString>
 #include <QList>
 #include <QHash>
@@ -39,3 +42,5 @@ public:
     QHash<LearningGoal::Category, LearningGoal*> m_activeGoal;
 };
 }
+
+#endif // LEARNER_P_H
