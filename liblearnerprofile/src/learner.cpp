@@ -30,7 +30,7 @@ Learner::Learner(QObject *parent)
     : QObject(parent)
     , d(new LearnerPrivate)
 {
-    connect(this, SIGNAL(goalAdded(LearningGoal*,int)), this, SIGNAL(goalCountChanged()));
+    connect(this, SIGNAL(goalAdded()), this, SIGNAL(goalCountChanged()));
     connect(this, SIGNAL(goalRemoved()), this, SIGNAL(goalCountChanged()));
 }
 
@@ -77,8 +77,9 @@ void Learner::addGoal(LearnerProfile::LearningGoal *goal)
     if (d->m_goals.contains(goal)) {
         return;
     }
+    emit goalAboutToBeAdded(goal, d->m_goals.count());
     d->m_goals.append(goal);
-    emit goalAdded(goal, d->m_goals.count() - 1);
+    emit goalAdded();
 }
 
 void Learner::removeGoal(LearnerProfile::LearningGoal *goal)

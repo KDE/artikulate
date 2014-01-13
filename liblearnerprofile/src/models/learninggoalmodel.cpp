@@ -144,6 +144,9 @@ void LearningGoalModel::setLearner(Learner *learner)
     d->m_learner = learner;
     d->updateGoals();
     d->updateMappings();
+    connect(learner, SIGNAL(goalAboutToBeAdded(LearningGoal*,int)), this, SLOT(onLearningGoalAboutToBeAdded(LearningGoal*,int)));
+    connect(learner, SIGNAL(goalAdded()), this, SLOT(onLearningGoalAdded()));
+    connect(learner, SIGNAL(goalAboutToBeRemoved(int)), this, SLOT(onLearningGoalAboutToBeRemoved(int)));
     emit learnerChanged();
     emit endResetModel();
 }

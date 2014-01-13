@@ -69,7 +69,8 @@ public:
 Q_SIGNALS:
     void nameChanged();
     void identifierChanged();
-    void goalAdded(LearningGoal*,int);
+    void goalAboutToBeAdded(LearningGoal*,int);
+    void goalAdded();
     void goalAboutToBeRemoved(int);
     void goalRemoved();
     void goalRemoved(Learner*, LearningGoal*);
