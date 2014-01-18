@@ -50,7 +50,7 @@ Item {
             anchors { top: parent.top }
 
             PlasmaComponents.TabButton {
-                text: i18n("User")
+                text: i18n("Learner")
                 tab: userPage
             }
             PlasmaComponents.TabButton {

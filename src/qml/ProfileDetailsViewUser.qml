@@ -153,7 +153,7 @@ PlasmaComponents.Page {
                 property string name
                 id: deleteConfirmationLabel
                 width: parent.width
-                text: i18n("Do you really want to delete the profile \"<b>%1</b>\"?", name)
+                text: i18n("Do you really want to delete this identity \"<b>%1</b>\"?", name)
                 wrapMode: Text.Wrap
                 horizontalAlignment: Text.AlignHCenter
             }

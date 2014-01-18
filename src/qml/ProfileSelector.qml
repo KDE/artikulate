@@ -30,7 +30,7 @@ FocusScope {
     signal profileChosen(variant profile)
 
     function createNewProfile() {
-        var profile = profileManager.addProfile(i18n("Unnamed User"))
+        var profile = profileManager.addProfile(i18n("Unnamed Identity"))
         profileForm.profile = profile
     }
 
@@ -82,7 +82,7 @@ FocusScope {
                         }
                         width: list.width - scrollBar.width
                         title: isNewButton?
-                                   i18n("Create New Profile"):
+                                   i18n("Create New Learner Identity"):
                                    index < profileManager.profileCount? profileManager.profile(index).name: null
                         label.font.italic: isNewButton
                         iconSource: isNewButton? "list-add": "user-identity"
@@ -130,7 +130,7 @@ FocusScope {
             id: selectButton
             anchors.horizontalCenter: parent.horizontalCenter
             iconSource: "go-next-view"
-            text: i18n("Use Selected Profile")
+            text: i18n("Use Selected Identity")
             enabled: list.currentIndex !== -1 && list.currentIndex < profileManager.profileCount
             onClicked: {
                 root.profileChosen(profileManager.profile(list.currentIndex))
