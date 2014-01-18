@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -40,6 +40,9 @@ FocusScope {
 
     Component.onCompleted: {
         var learner = profileManager.activeProfile;
+        if (learner == null) {
+            return;
+        }
         userProfile.language = resourceManager.language(learner.activeGoal(Learner.Language))
     }
 
@@ -54,7 +57,7 @@ FocusScope {
         tools: Row {
             PlasmaComponents.ToolButton {
                 text: profileManager.activeProfile == null
-                    ? i18n("User Identity")
+                    ? i18n("Create Learner Identity")
                     : profileManager.activeProfile.name
                 iconSource: "user-identity"
                 onClicked: {
@@ -94,12 +97,36 @@ FocusScope {
                 id: languageSwitcher
                 anchors.verticalCenter: parent.verticalCenter
                 width: root.width - 6 - knsDownloadButton.width - 20
+                visible: learner != null
                 resourceManager: globalResourceManager
                 onLanguageSelected: {
                     root.languageSelected(selectedLanguage)
                     if (selectedLanguage != null) {
                         learner.setActiveGoal(Learner.Language, selectedLanguage.id)
                     }
+                }
+            }
+            Row { // show information when no user profile exists
+                width: root.width - 6 - knsDownloadButton.width - 20
+                visible: learner == null
+                spacing: 10
+                anchors {
+                    left: languageView.left
+                    top: languageView.top
+                }
+                PlasmaCore.IconItem {
+                    id: icon
+                    source: "dialog-information"
+                    width: theme.mediumIconSize
+                    height: theme.mediumIconSize
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                PlasmaComponents.Label {
+                    id: favoritesUnsetInformation
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: paintedHeight
+                    font.pointSize: 1.5 * theme.defaultFont.pointSize
+                    text: i18n("Start by creating a learner identity")
                 }
             }
 

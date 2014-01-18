@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -54,6 +54,9 @@ Item {
     // react on changed goals
     Component.onCompleted: {
         var learner = profileManager.activeProfile;
+        if (!learner) {
+            return
+        }
         var goal = learner.activeGoal(Learner.Language)
         for (var i=0; i < languageView.count; ++i) {
             if (goal.id == learningGoalModel.learningGoal(i).id) {
