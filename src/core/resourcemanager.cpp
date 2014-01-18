@@ -115,10 +115,6 @@ void ResourceManager::loadCourseResources()
         QString directory = courseFile.directory().section('/', -1);
         addCourse(courseFile);
     }
-    QStringList skeletonFiles = KGlobal::dirs()->findAllResources("appdata",QString("skeletons/*.xml"));
-    foreach (const QString &file, skeletonFiles) {
-        addSkeleton(KUrl::fromLocalFile(file));
-    }
 }
 
 void ResourceManager::loadLanguageResources()

@@ -34,7 +34,6 @@ CourseModel::CourseModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_resourceManager(0)
     , m_language(0)
-    , m_view(OnlyGetHotNewStuffResources)
     , m_signalMapper(new QSignalMapper(this))
 {
     QHash<int, QByteArray> roles;
@@ -45,6 +44,11 @@ CourseModel::CourseModel(QObject *parent)
     setRoleNames(roles);
 
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitCourseChanged(int)));
+}
+
+CourseModel::~CourseModel()
+{
+
 }
 
 void CourseModel::setResourceManager(ResourceManager *resourceManager)
@@ -60,7 +64,7 @@ void CourseModel::setResourceManager(ResourceManager *resourceManager)
     }
 
     m_resourceManager = resourceManager;
-
+    m_resources.clear();
     if (m_resourceManager) {
         connect(m_resourceManager, SIGNAL(courseResourceAboutToBeAdded(CourseResource*,int)),
                 SLOT(onCourseResourceAboutToBeAdded(CourseResource*,int)));
@@ -68,9 +72,10 @@ void CourseModel::setResourceManager(ResourceManager *resourceManager)
                 SLOT(onCourseResourceAdded()));
         connect(m_resourceManager, SIGNAL(courseResourceAboutToBeRemoved(int)),
                 SLOT(onCourseResourceAboutToBeRemoved(int)));
-        updateResources();
     }
-
+    if (m_language && m_resourceManager) {
+        m_resources = m_resourceManager->courseResources(m_language);
+    }
     endResetModel();
 
     emit resourceManagerChanged();
@@ -90,25 +95,11 @@ void CourseModel::setLanguage(Language *language)
 {
     emit beginResetModel();
     m_language = language;
-    updateResources();
-    emit languageChanged();
-    emit endResetModel();
-}
-
-CourseModel::CourseResourceView CourseModel::view() const
-{
-    return m_view;
-}
-
-void CourseModel::setView(CourseModel::CourseResourceView view)
-{
-    if (m_view == view) {
-        return;
+    m_resources.clear();
+    if (m_language) {
+        m_resources = m_resourceManager->courseResources(m_language);
     }
-    emit beginResetModel();
-    m_view = view;
-    updateResources();
-    emit viewChanged();
+    emit languageChanged();
     emit endResetModel();
 }
 
@@ -137,6 +128,8 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
         return course->description();
     case IdRole:
         return course->id();
+    case ContributerResourceRole:
+        return m_resources.at(index.row())->isContributorResource();
     case DataRole:
         return QVariant::fromValue<QObject*>(course);
     default:
@@ -157,14 +150,6 @@ int CourseModel::rowCount(const QModelIndex& parent) const
 
 void CourseModel::onCourseResourceAboutToBeAdded(CourseResource *resource, int index)
 {
-    // do nothing when view does not show resource
-    if (resource->isContributorResource() == true && m_view == OnlyGetHotNewStuffResources) {
-        return;
-    }
-    if (!resource->isContributorResource() == true && m_view == OnlyContributorResources) {
-        return;
-    }
-
     beginInsertRows(QModelIndex(), m_resources.count(), m_resources.count());
     m_resources.append(resource);
 
@@ -210,41 +195,6 @@ QVariant CourseModel::headerData(int section, Qt::Orientation orientation, int r
         return QVariant(section + 1);
     }
     return QVariant(i18nc("@title:column", "Course"));
-}
-
-void CourseModel::updateResources()
-{
-    if (!m_resourceManager) {
-        return;
-    }
-    if (!m_language) {
-        m_resources.clear();
-        return;
-    }
-    m_resources.clear();
-    QList<CourseResource*> resources = m_resourceManager->courseResources(m_language);
-    switch (m_view) {
-    case CourseModel::AllResources:
-        m_resources = resources;
-        break;
-    case CourseModel::OnlyContributorResources:
-        foreach(CourseResource *resource, resources) {
-            if (!resource->isContributorResource()) {
-                continue;
-            }
-            m_resources.append(resource);
-        }
-        break;
-    case CourseModel::OnlyGetHotNewStuffResources:
-        foreach(CourseResource *resource, resources) {
-            if (resource->isContributorResource()) {
-                continue;
-            }
-            m_resources.append(resource);
-        }
-        break;
-    }
-    updateMappings();
 }
 
 void CourseModel::updateMappings()

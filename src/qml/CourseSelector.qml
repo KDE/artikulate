@@ -29,7 +29,7 @@ Item {
     property ResourceManager resourceManager
     property Language language
     property Course selectedCourse
-    property int view : CourseModel.AllResources
+    property int view : CourseFilterModel.AllResources
 
     signal courseSelected(variant course)
 
@@ -57,10 +57,12 @@ Item {
         height: 30 * courseList.count
         visible: courseList.count > 0
         anchors.fill: parent
-        model: CourseModel {
-            resourceManager: root.resourceManager
-            language: root.language
+        model: CourseFilterModel {
             view: root.view
+            courseModel: CourseModel {
+                resourceManager: root.resourceManager
+                language: root.language
+            }
         }
         delegate: courseDelegate
     }

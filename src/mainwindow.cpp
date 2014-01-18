@@ -222,12 +222,8 @@ void MainWindow::updateKcfgUseContributorResources()
 
 void MainWindow::downloadNewStuff()
 {
-    QPointer<KNS3::DownloadDialog> dialog(new KNS3::DownloadDialog("artikulate.knsrc", this));
-    if ( dialog->exec() == QDialog::Accepted ) {
-        // do nothing
-    }
-
-    delete dialog;
+    KNS3::DownloadDialog dialog("artikulate.knsrc", this);
+    dialog.exec();
 
     //update available courses
     m_resourceManager->loadCourseResources();

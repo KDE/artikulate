@@ -142,7 +142,7 @@ Column {
                 id: courseSelector
                 width: root.width
                 height: root.height - modeSelector.height - rowLanguageInformation.height - buttonAddCourse.height - 40
-                view: CourseModel.OnlyContributorResources
+                view: CourseFilterModel.OnlyContributorResources
                 resourceManager: globalResourceManager
                 language: selectedLanguage
                 onCourseSelected: {

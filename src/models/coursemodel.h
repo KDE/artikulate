@@ -35,30 +35,22 @@ class CourseModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(ResourceManager *resourceManager READ resourceManager WRITE setResourceManager NOTIFY resourceManagerChanged)
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
-    Q_PROPERTY(CourseResourceView view READ view WRITE setView NOTIFY viewChanged)
 
 public:
-    Q_ENUMS(CourseResourceView);
-    enum CourseResourceView {
-        OnlyGetHotNewStuffResources,
-        OnlyContributorResources,
-        AllResources
-    };
-
     enum courseRoles {
         TitleRole = Qt::UserRole + 1,
         DescriptionRole,
         IdRole,
+        ContributerResourceRole,
         DataRole
     };
 
     explicit CourseModel(QObject *parent = 0);
+    ~CourseModel();
     void setResourceManager(ResourceManager *resourceManager);
     ResourceManager * resourceManager() const;
     void setLanguage(Language *language);
     Language * language() const;
-    CourseResourceView view() const;
-    void setView(CourseResourceView view);
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
@@ -78,18 +70,11 @@ private slots:
 
 private:
     /**
-     * Updates internal list of course resources. Before calling this method, emit beginResetModel()
-     * and after completion of this method emit endResetModel().
-     */
-    void updateResources();
-
-    /**
      * Updates internal mappings of course signals.
      */
     void updateMappings();
     ResourceManager *m_resourceManager;
     Language *m_language;
-    CourseResourceView m_view;
     QList<CourseResource*> m_resources;
     QSignalMapper *m_signalMapper;
 };

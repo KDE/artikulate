@@ -157,7 +157,7 @@ FocusScope {
             CourseSwitcher {
                 id: courseSelector
                 resourceManager: globalResourceManager
-                view: kcfg_UseContributorResources ? CourseModel.AllResources : CourseModel.OnlyGetHotNewStuffResources
+                view: kcfg_UseContributorResources ? CourseFilterModel.AllResources : CourseFilterModel.OnlyGetHotNewStuffResources
                 language: userProfile.language
                 onCourseSelected: {
                     userProfile.course = course

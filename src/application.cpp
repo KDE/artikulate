@@ -35,6 +35,7 @@
 #include "core/recorder.h"
 #include "declarativeitems/applicationbackground.h"
 #include "models/coursemodel.h"
+#include "models/coursefiltermodel.h"
 #include "models/languagemodel.h"
 #include "models/languageresourcemodel.h"
 #include "models/learningprogressmodel.h"
@@ -83,6 +84,7 @@ void Application::registerQmlTypes()
     qmlRegisterType<Recorder>("artikulate", 1, 0, "Recorder");
 
     qmlRegisterType<CourseModel>("artikulate", 1, 0, "CourseModel");
+    qmlRegisterType<CourseFilterModel>("artikulate", 1, 0, "CourseFilterModel");
     qmlRegisterType<LanguageModel>("artikulate", 1, 0, "LanguageModel");
     qmlRegisterType<LanguageResourceModel>("artikulate", 1, 0, "LanguageResourceModel");
     qmlRegisterType<LearningProgressModel>("artikulate", 1, 0, "LearningProgressModel");

@@ -29,7 +29,7 @@ Item {
     property ResourceManager resourceManager
     property Language language
     property Course selectedCourse
-    property int view : CourseModel.AllResources
+    property int view : CourseFilterModel.AllResources
 
     signal courseSelected(variant course)
 
@@ -81,21 +81,25 @@ Item {
             width: root.width - buttonLeft.width - buttonRight.width
             height: theme.mediumIconSize
 
-            clip : true
-            snapMode : ListView.SnapToItem
-            orientation : ListView.Horizontal
-            model : CourseModel {
-                id : courseModel
-                resourceManager : root.resourceManager
-                language: root.language
+            clip: true
+            snapMode: ListView.SnapToItem
+            orientation: ListView.Horizontal
+            model: CourseFilterModel {
                 view: root.view
+                courseModel: CourseModel {
+                    id: courseModel
+                    resourceManager : root.resourceManager
+                    language: root.language
+                }
             }
             onCurrentIndexChanged: {
                 if (courseModel.language == null) {
                     return;
                 }
-                selectedCourse = courseModel.course(currentIndex)
-                courseSelected(selectedCourse)
+                if (courseModel.course(currentIndex) != null) {
+                    selectedCourse = courseModel.course(currentIndex)
+                    courseSelected(selectedCourse)
+                }
             }
             delegate : itemDelegate
         }

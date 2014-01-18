@@ -162,6 +162,7 @@ set(artikulate_SRCS
     application.cpp
 
     models/coursemodel.cpp
+    models/coursefiltermodel.cpp
     models/languagemodel.cpp
     models/languageresourcemodel.cpp
     models/learningprogressmodel.cpp
