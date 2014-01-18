@@ -1,6 +1,6 @@
 /*
  *  Copyright 2012  Sebastian Gottfried <sebastiangottfried@web.de>
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -58,9 +58,7 @@ PlasmaComponents.Page {
                 }
             }
             checked: { // initialization with initial profile
-                if (root.profile != null) {
-                    goalSelector.checked = root.profile.hasGoal(goal)
-                }
+                root.profile != null ? root.profile.hasGoal(goal) : false
             }
             Connections { // update after profile changes
                 target: root

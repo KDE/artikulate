@@ -91,6 +91,9 @@ Item {
                 view: root.view
             }
             onCurrentIndexChanged: {
+                if (courseModel.language == null) {
+                    return;
+                }
                 selectedCourse = courseModel.course(currentIndex)
                 courseSelected(selectedCourse)
             }

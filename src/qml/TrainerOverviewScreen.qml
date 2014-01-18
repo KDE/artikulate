@@ -110,10 +110,6 @@ FocusScope {
                 width: root.width - 6 - knsDownloadButton.width - 20
                 visible: learner == null
                 spacing: 10
-                anchors {
-                    left: languageView.left
-                    top: languageView.top
-                }
                 PlasmaCore.IconItem {
                     id: icon
                     source: "dialog-information"
