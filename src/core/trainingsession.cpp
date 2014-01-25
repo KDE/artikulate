@@ -31,6 +31,8 @@
 
 TrainingSession::TrainingSession(QObject *parent)
     : QObject(parent)
+    , m_title(QString())
+    , m_currentType(Phrase::AllTypes)
 {
     m_phraseListTrained.insert(Phrase::Word, QList<TrainingPhrase>());
     m_phraseListTrained.insert(Phrase::Expression, QList<TrainingPhrase>());
@@ -68,7 +70,6 @@ Phrase * TrainingSession::currentPhrase() const
     }
     return m_phraseListUntrained.value(m_currentType).first().phrase;
 }
-
 
 Phrase::Type TrainingSession::currentType() const
 {

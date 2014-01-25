@@ -33,7 +33,12 @@ class LearningGoal;
 class LearnerPrivate {
 
 public:
-    LearnerPrivate() {}
+    LearnerPrivate()
+        : m_name(QString())
+        , m_identifier(-1)
+    {
+
+    }
     ~LearnerPrivate() {}
 
     QString m_name;
