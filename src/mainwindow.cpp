@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -24,9 +24,11 @@
 #include "ui/appearencedialogpage.h"
 #include "core/resourcemanager.h"
 #include "core/profile.h"
+#include "core/resources/courseresource.h"
 #include "models/languagemodel.h"
 #include "settings.h"
 #include "liblearnerprofile/src/profilemanager.h"
+#include <liblearnerprofile/src/learner.h>
 
 #include <KMainWindow>
 #include <KAction>
@@ -227,6 +229,26 @@ void MainWindow::downloadNewStuff()
 
     //update available courses
     m_resourceManager->loadCourseResources();
+
+    // add languages of new courses to favorite languages
+    foreach (const KNS3::Entry &entry, dialog.changedEntries()) {
+        foreach (const QString &path, entry.installedFiles()) {
+            if (!path.endsWith(".xml")) {
+                continue;
+            }
+            CourseResource *resource = new CourseResource(m_resourceManager, path);
+            foreach (LearningGoal *goal, m_profileManager->goals()) {
+                if (goal->category() == LearningGoal::Language
+                    && goal->identifier() == resource->language()
+                ) {
+                    // Learner::addGoal() checks for uniqueness of added goals
+                    m_profileManager->activeProfile()->addGoal(goal);
+                    break;
+                }
+            }
+            resource->deleteLater();
+        }
+    }
 }
 
 void MainWindow::configLearnerProfile()
