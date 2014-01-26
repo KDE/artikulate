@@ -31,7 +31,7 @@ configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_D
 include(MacroLogFeature)
 
 # optionally switch (compile time) sound backend to QtMultimedia
-option(USE_QTMULTIMEDIA "USE_QTMULTIMEDIA" 0)
+option(USE_QTMULTIMEDIA "USE_QTMULTIMEDIA" 1)
 add_feature_info(UseQtMultimediaCaptureBackend
     USE_QTMULTIMEDIA
     "Use QtMultimedia as sound capture backend."
