@@ -51,16 +51,12 @@ QtMultimediaBackend::QtMultimediaBackend()
         kDebug() << " + " << containerName;
     }
 
-    // check and set input device
-    if (Settings::audioInputDevice().isEmpty()) {
-        kDebug() << "Audio device not set, using default value.";
-        Settings::setAudioInputDevice(m_captureSource->activeAudioInput());
-    }
-    if (m_captureSource->audioInputs().contains(Settings::audioInputDevice())) {
-        m_captureSource->setAudioInput(Settings::audioInputDevice());
+    // set input device
+    if (!Settings::audioInputDevice().isEmpty()) {
+        setDevice(Settings::audioInputDevice());
     } else {
-        kError() << "Could not set audio input device, device " << Settings::audioInputDevice()
-            << "is unknown. Using default device.";
+        kDebug() << "No audio input setting available, default to first in device list";
+        setDevice(devices().first());
     }
 
     // check code
