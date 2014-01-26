@@ -151,7 +151,7 @@ void MainWindow::setupActions()
 
     KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
 
-    setupGUI(ToolBar | Keys | Save | Create, "artikulateui.rc");
+    setupGUI(Keys | Save | Create, "artikulateui.rc");
 }
 
 void MainWindow::showCourseEditor()
