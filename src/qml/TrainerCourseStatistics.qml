@@ -39,11 +39,8 @@ Item {
 
     Loader {
         id: statisticsChartLoader
-        // add padding
-        // TODO should become parameter in graph class
-        height : Math.round(root.height - 60)
-        width : Math.round(root.width - 20)
-        anchors { top: root.top; topMargin: 10; left: root.left; leftMargin: 10 }
+        height: Math.round(root.height - 60)
+        width: Math.round(root.width - 20)
     }
 
     Rectangle {
@@ -68,27 +65,37 @@ Item {
             Row {
                 spacing: 15
                 width: legendWord.width + legendExpression.width + legendSentence.width + legendParagraph.width + 3*15
+                height:legendWord.height*2
+                Item { // dummy
+                    width: legendWord.height
+                    height: legendWord.height
+                }
                 Charts.LegendItem {
                     id: legendWord
+                    anchors.verticalCenter: parent.verticalCenter
                     dimension: wordDimension
                 }
                 Charts.LegendItem {
                     id: legendExpression
+                    anchors.verticalCenter: parent.verticalCenter
                     dimension: expressionDimension
                 }
                 Charts.LegendItem {
                     id: legendSentence
+                    anchors.verticalCenter: parent.verticalCenter
                     dimension: sentenceDimension
                 }
                 Charts.LegendItem {
                     id: legendParagraph
+                    anchors.verticalCenter: parent.verticalCenter
                     dimension: paragraphDimension
                 }
             }
 
             Charts.LineChart {
-                height : Math.round(root.height - 60)
-                width : Math.round(root.width - 20)
+                height: Math.round(root.height - 60)
+                width: Math.round(root.width - 20)
+                padding: 20
                 model: LearningProgressModel {
                     id: statistics
                     session: root.session
@@ -100,7 +107,7 @@ Item {
                     // words
                     Charts.Dimension {
                         id: wordDimension
-                        dataColumn : 0
+                        dataColumn: 0
                         color: "#2DE86C"
                         maximumValue: Math.max(0, Math.ceil(statistics.maximumPhrasesPerTry / 4) * 4) + 5
                         label: i18n("Words")
