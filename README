@@ -16,7 +16,7 @@ and runtime dependencies:
 * KDE-runtime >= 4.11.1
 
 RUNTIME DEPENDENCIES:
-* libkqmlgraphplugin
+* QtQuick plugin: kqtquickcharts (repository: git.kde.org:kqmlgraphplugin)
 
 LICENSING:
 The whole codebase is licensed as GPL-2+ with the additional KDE e.V. clause.

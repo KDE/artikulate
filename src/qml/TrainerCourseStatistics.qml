@@ -22,7 +22,7 @@
 import QtQuick 1.1
 import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
-import org.kde.graphs 0.1 as Graphs
+import org.kde.charts 0.1 as Charts
 import artikulate 1.0
 
 Item {
@@ -33,12 +33,12 @@ Item {
 
     onFinishedChanged : {
         if (finished) {
-            statisticsGraphLoader.sourceComponent = statisticsGraph
+            statisticsChartLoader.sourceComponent = statisticsChart
         }
     }
 
     Loader {
-        id: statisticsGraphLoader
+        id: statisticsChartLoader
         // add padding
         // TODO should become parameter in graph class
         height : Math.round(root.height - 60)
@@ -63,30 +63,30 @@ Item {
     }
 
     Component {
-        id : statisticsGraph
+        id : statisticsChart
         Column {
             Row {
                 spacing: 15
                 width: legendWord.width + legendExpression.width + legendSentence.width + legendParagraph.width + 3*15
-                Graphs.LegendItem {
+                Charts.LegendItem {
                     id: legendWord
                     dimension: wordDimension
                 }
-                Graphs.LegendItem {
+                Charts.LegendItem {
                     id: legendExpression
                     dimension: expressionDimension
                 }
-                Graphs.LegendItem {
+                Charts.LegendItem {
                     id: legendSentence
                     dimension: sentenceDimension
                 }
-                Graphs.LegendItem {
+                Charts.LegendItem {
                     id: legendParagraph
                     dimension: paragraphDimension
                 }
             }
 
-            Graphs.LineGraph {
+            Charts.LineChart {
                 height : Math.round(root.height - 60)
                 width : Math.round(root.width - 20)
                 model: LearningProgressModel {
@@ -98,7 +98,7 @@ Item {
 
                 dimensions: [
                     // words
-                    Graphs.Dimension {
+                    Charts.Dimension {
                         id: wordDimension
                         dataColumn : 0
                         color: "#2DE86C"
@@ -106,7 +106,7 @@ Item {
                         label: i18n("Words")
                     },
                     // expressions
-                    Graphs.Dimension {
+                    Charts.Dimension {
                         id: expressionDimension
                         dataColumn: 1
                         color: "#327BFF"
@@ -114,7 +114,7 @@ Item {
                         label: i18n("Expressions")
                     },
                     // sentences
-                    Graphs.Dimension {
+                    Charts.Dimension {
                         id: sentenceDimension
                         dataColumn: 2
                         color: "#FFF13F"
@@ -122,7 +122,7 @@ Item {
                         label: i18n("Sentences")
                     },
                     // paragraphs
-                    Graphs.Dimension {
+                    Charts.Dimension {
                         id: paragraphDimension
                         dataColumn: 3
                         color: "#E85A02"
