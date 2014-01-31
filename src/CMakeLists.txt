@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -28,18 +28,23 @@ set(ARTIKULATE_VERSION_PATCH 70)
 
 configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
 
-include(MacroLogFeature)
-
-# optionally switch (compile time) sound backend to QtMultimedia
-option(USE_QTMULTIMEDIA "USE_QTMULTIMEDIA" 1)
-add_feature_info(UseQtMultimediaCaptureBackend
-    USE_QTMULTIMEDIA
-    "Use QtMultimedia as sound capture backend."
-)
-
 find_package(KDeclarative REQUIRED)
 find_package(QtMobility COMPONENTS MultimediaKit QUIET)
 find_package(QtGStreamer QUIET)
+
+# print information about built recording backends
+message("----------------------------------")
+message("Building following recording backends:")
+if (QTGSTREAMER_FOUND)
+    message("  * QtGStreamer recording backend")
+endif(QTGSTREAMER_FOUND)
+if (QTMOBILITY_FOUND)
+    message("  * QtMultimedia recording backend (default)")
+endif(QTMOBILITY_FOUND)
+if (NOT QTGSTREAMER_FOUND AND NOT QTMOBILITY_FOUND)
+    message(FATAL_ERROR "No recording backend built: either QtGStreamer or QtMultimedia are required.")
+endif()
+message("----------------------------------")
 
 add_subdirectory(qml)
 
@@ -96,15 +101,11 @@ set(
 )
 
 # select backend and add files
-if (USE_QTMULTIMEDIA)
+if (QTMOBILITY_FOUND)
     include_directories(
         ${QTMOBILITY_INCLUDE_DIR}
         ${QTMOBILITY_MULTIMEDIAKIT_INCLUDE_DIR}
     )
-    if (NOT QTMOBILITY_FOUND)
-        message(FATAL_ERROR "Could not find QtMultimedia (part of QtMobility), which is required to build Artikulate with USE_QTMULTIMEDIA=TRUE.")
-    endif()
-    message("Build with default backend QtMultimedia")
     set(artikulateCore_SRCS
         ${artikulateCore_SRCS}
         core/soundbackends/qtmultimediabackend.cpp
@@ -117,14 +118,12 @@ if (USE_QTMULTIMEDIA)
         ${artikulateTargetLibs}
         ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
     )
-else(USE_QTMULTIMEDIA)
+endif(QTMOBILITY_FOUND)
+
+if(QTGSTREAMER_FOUND)
     include_directories(
         ${QTGSTREAMER_INCLUDE_DIR}
     )
-    if (NOT QTGSTREAMER_FOUND)
-        message(FATAL_ERROR "Could not find QtGStreamer, which is required to build Artikulate with USE_QTMULTIMEDIA=FALSE.")
-    endif()
-    message("Build with alternative backend QtGStreamer")
     set(artikulateCore_SRCS
         ${artikulateCore_SRCS}
         core/soundbackends/qtgstreamerbackend.cpp
@@ -139,7 +138,7 @@ else(USE_QTMULTIMEDIA)
         ${QTGLIB_LIBRARIES}
         ${QTGSTREAMER_LIBRARIES}
     )
-endif(USE_QTMULTIMEDIA)
+endif(QTGSTREAMER_FOUND)
 
 # compile UI files
 kde4_add_ui_files(artikulateCore_SRCS

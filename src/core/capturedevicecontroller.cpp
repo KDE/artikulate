@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -22,9 +22,10 @@
 #include "soundbackends/soundbackendinterface.h"
 #include "version.h"
 
-#if USE_QTMULTIMEDIA
+#if QTMOBILITY_FOUND
     #include "soundbackends/qtmultimediabackend.h"
-#else
+#endif
+#if QTGSTREAMER_FOUND
     #include "soundbackends/qtgstreamerbackend.h"
 #endif
 
@@ -52,26 +53,28 @@ public:
 
     ~CaptureDeviceControllerPrivate()
     {
-        m_backend->deleteLater();
+        qDeleteAll(m_backends);
     }
 
     void lazyInit()
     {
         if (m_initialized) {
             return;
-        }
 
-#if USE_QTMULTIMEDIA
-        m_backend = new QtMultimediaBackend();
-#else
-        m_backend = new QtGStreamerBackend();
+        }
+    // add QtMobility as first backend
+#if QTMOBILITY_FOUND
+        m_backend.append(new QtMultimediaBackend());
+#endif
+#if QTMOBILITY_FOUND
+        m_backend.append(new QtGStreamerBackend());
 #endif
 
         m_initialized = true;
     }
 
     QObject *m_parent;
-    SoundBackendInterface *m_backend;
+    QList<SoundBackendInterface*> m_backends;
     bool m_initialized;
 };
 
@@ -93,27 +96,27 @@ CaptureDeviceController & CaptureDeviceController::self()
 
 void CaptureDeviceController::startCapture(const QString &filePath)
 {
-    d->m_backend->startCapture(filePath);
+    d->m_backends.first()->startCapture(filePath);
     emit captureStarted();
 }
 
 void CaptureDeviceController::stopCapture()
 {
-    d->m_backend->stopCapture();
+    d->m_backends.first()->stopCapture();
     emit captureStopped();
 }
 
 void CaptureDeviceController::setDevice(const QString &deviceIdentifier)
 {
-    d->m_backend->setDevice(deviceIdentifier);
+    d->m_backends.first()->setDevice(deviceIdentifier);
 }
 
 QList< QString > CaptureDeviceController::devices() const
 {
-    return d->m_backend->devices();
+    return d->m_backends.first()->devices();
 }
 
 CaptureDeviceController::State CaptureDeviceController::state() const
 {
-    return d->m_backend->captureState();
+    return d->m_backends.first()->captureState();
 }
