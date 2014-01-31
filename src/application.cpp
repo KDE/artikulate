@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -40,6 +40,7 @@
 #include "models/languageresourcemodel.h"
 #include "models/learningprogressmodel.h"
 #include "models/unitmodel.h"
+#include "models/unitfiltermodel.h"
 #include "models/phrasemodel.h"
 #include "models/phrasefiltermodel.h"
 #include "models/phonememodel.h"
@@ -89,6 +90,7 @@ void Application::registerQmlTypes()
     qmlRegisterType<LanguageResourceModel>("artikulate", 1, 0, "LanguageResourceModel");
     qmlRegisterType<LearningProgressModel>("artikulate", 1, 0, "LearningProgressModel");
     qmlRegisterType<UnitModel>("artikulate", 1, 0, "UnitModel");
+    qmlRegisterType<UnitFilterModel>("artikulate", 1, 0, "UnitFilterModel");
     qmlRegisterType<PhraseModel>("artikulate", 1, 0, "PhraseModel");
     qmlRegisterType<PhraseFilterModel>("artikulate", 1, 0, "PhraseFilterModel");
     qmlRegisterType<PhonemeModel>("artikulate", 1, 0, "PhonemeModel");

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,11 +18,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
 #include "unitmodel.h"
 #include "core/course.h"
 #include "core/unit.h"
+#include "core/phrase.h"
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
@@ -37,7 +36,7 @@ UnitModel::UnitModel(QObject *parent)
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
-    roles[NumberPhrasesRole] = "numberPhrases";
+    roles[ContainsTrainingData] = "containsTrainingData";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
     setRoleNames(roles);
@@ -99,8 +98,13 @@ QVariant UnitModel::data(const QModelIndex& index, int role) const
         return QVariant(unit->title());
     case TitleRole:
         return unit->title();
-    case NumberPhrasesRole:
-        return unit->phraseList().count();
+    case ContainsTrainingData:
+        foreach (Phrase *phrase, unit->phraseList()) {
+            if (phrase->editState() == Phrase::Completed) {
+                return true;
+            }
+        }
+        return false;
     case IdRole:
         return unit->id();
     case DataRole:

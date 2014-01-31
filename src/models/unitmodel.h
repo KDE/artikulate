@@ -35,10 +35,10 @@ class UnitModel : public QAbstractListModel
 
 public:
     enum unitRoles {
-        TitleRole = Qt::UserRole + 1,
-        NumberPhrasesRole,
-        IdRole,
-        DataRole
+        TitleRole = Qt::UserRole + 1,   //!< title of unit
+        IdRole,                         //!< unique identifier of unit
+        ContainsTrainingData,           //!< boolean value indicating whether unit has phrase with native recordings
+        DataRole                        //!< access to Unit object
     };
 
     explicit UnitModel(QObject *parent = 0);

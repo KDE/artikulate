@@ -189,17 +189,27 @@ FocusScope {
 //         }
 
             Column {
-                UnitSelector {
-                    id: unitSelector
-                    anchors {
-                        leftMargin: 10
-                        left: parent.left
-                    }
+                ListView {
+                    id: unitList
                     width: content.columnWidth - 20
                     height: content.height - 60
-                    unitModel: selectedUnitModel
-                    onUnitSelected : {
-                        userProfile.unit = unit
+                    clip: true
+                    model: UnitFilterModel {
+                        unitModel: selectedUnitModel
+                    }
+                    delegate: ListItem {
+                        width : unitList.width - unitListScrollbar.width - 10
+                        title : model.title
+                        iconSource : "artikulate-course"
+                        property Unit unit : model.dataRole
+                        onSelected : {
+                            unitList.currentIndex = index
+                            userProfile.unit = unit
+                        }
+                    }
+                    PlasmaComponents.ScrollBar {
+                        id: unitListScrollbar
+                        flickableItem: unitList
                     }
                 }
             }
