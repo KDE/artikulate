@@ -20,7 +20,7 @@
 
 #include "capturedevicecontroller.h"
 #include "soundbackends/soundbackendinterface.h"
-#include "version.h"
+#include "config.h"
 
 #if QTMOBILITY_FOUND
     #include "soundbackends/qtmultimediabackend.h"
@@ -53,7 +53,10 @@ public:
 
     ~CaptureDeviceControllerPrivate()
     {
-        qDeleteAll(m_backends);
+        for (int i = 0; i < m_backends.size(); ++i) {
+            m_backends.at(i)->deleteLater();
+        }
+        m_backends.clear();
     }
 
     void lazyInit()
@@ -64,13 +67,23 @@ public:
         }
     // add QtMobility as first backend
 #if QTMOBILITY_FOUND
-        m_backend.append(new QtMultimediaBackend());
+        kDebug() << "initilaize QtMultimediaBackend";
+        m_backends.append(new QtMultimediaBackend());
 #endif
-#if QTMOBILITY_FOUND
-        m_backend.append(new QtGStreamerBackend());
+#if QTGSTREAMER_FOUND
+        kDebug() << "initilaize QtGStreamerBackend";
+        m_backends.append(new QtGStreamerBackend());
 #endif
 
         m_initialized = true;
+    }
+
+    SoundBackendInterface * backend() const
+    {
+        if (m_backends.isEmpty()) {
+            return 0;
+        }
+        return m_backends.first();
     }
 
     QObject *m_parent;
@@ -96,27 +109,27 @@ CaptureDeviceController & CaptureDeviceController::self()
 
 void CaptureDeviceController::startCapture(const QString &filePath)
 {
-    d->m_backends.first()->startCapture(filePath);
+    d->backend()->startCapture(filePath);
     emit captureStarted();
 }
 
 void CaptureDeviceController::stopCapture()
 {
-    d->m_backends.first()->stopCapture();
+    d->backend()->stopCapture();
     emit captureStopped();
 }
 
 void CaptureDeviceController::setDevice(const QString &deviceIdentifier)
 {
-    d->m_backends.first()->setDevice(deviceIdentifier);
+    d->backend()->setDevice(deviceIdentifier);
 }
 
 QList< QString > CaptureDeviceController::devices() const
 {
-    return d->m_backends.first()->devices();
+    return d->backend()->devices();
 }
 
 CaptureDeviceController::State CaptureDeviceController::state() const
 {
-    return d->m_backends.first()->captureState();
+    return d->backend()->captureState();
 }

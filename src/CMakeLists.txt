@@ -26,8 +26,6 @@ set(ARTIKULATE_VERSION_MAJOR 0)
 set(ARTIKULATE_VERSION_MINOR 2)
 set(ARTIKULATE_VERSION_PATCH 70)
 
-configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
-
 find_package(KDeclarative REQUIRED)
 find_package(QtMobility COMPONENTS MultimediaKit QUIET)
 find_package(QtGStreamer QUIET)
@@ -45,6 +43,11 @@ if (NOT QTGSTREAMER_FOUND AND NOT QTMOBILITY_FOUND)
     message(FATAL_ERROR "No recording backend built: either QtGStreamer or QtMultimedia are required.")
 endif()
 message("----------------------------------")
+
+# set config files after packages are searched
+configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
+configure_file("${artikulate_SOURCE_DIR}/config.h.cmake" "${artikulate_BINARY_DIR}/config.h" @ONLY)
+
 
 add_subdirectory(qml)
 
