@@ -289,6 +289,9 @@ void TrainingSession::createFromUnit(Unit * unit)
 
     setTitle(unit->title());
     foreach(Phrase *phrase, unit->phraseList()) {
+        // reset every training status
+        phrase->setTrainingState(Phrase::Untrained);
+
         if (phrase->sound().isEmpty()
             || phrase->isExcluded() == true)
         {
