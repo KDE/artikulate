@@ -1,6 +1,6 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
- *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013       Oindrila Gupta <oindrila.gupta92@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -91,6 +91,7 @@ public:
     Q_INVOKABLE void next(NextAction completeCurrent);
     Q_INVOKABLE void setPhraseType(const QString &newType);
     Q_INVOKABLE void jumpToPhrase(Phrase *phrase);
+    Q_INVOKABLE void stop();
 
     // TODO workaround for QT-BUG-26415, remove after migration to Qt-5
     Q_INVOKABLE int numberPhrasesGroupedByTries(TrainingSession::Type type, int neededTries) const;

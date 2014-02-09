@@ -1,7 +1,7 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
- *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
- *  Copyright 2013  Samikshan Bairagya <samikshan@gmail.com>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013       Oindrila Gupta <oindrila.gupta92@gmail.com>
+ *  Copyright 2013       Samikshan Bairagya <samikshan@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -265,6 +265,15 @@ void TrainingSession::next(TrainingSession::NextAction completeCurrent)
     emit currentTypeChanged();
     emit currentPhraseChanged();
     emit progressChanged();
+}
+
+void TrainingSession::stop()
+{
+    m_phraseListUntrained[Phrase::Word].clear();
+    m_phraseListUntrained[Phrase::Expression].clear();
+    m_phraseListUntrained[Phrase::Sentence].clear();
+    m_phraseListUntrained[Phrase::Paragraph].clear();
+    emit finished();
 }
 
 void TrainingSession::createFromUnit(Unit * unit)

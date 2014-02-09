@@ -103,9 +103,13 @@ FocusScope {
                 }
                 iconSource: "go-up"
                 height: 48
-                text: i18n("Finish Training")
+                text: !root.finished ? i18n("Finish Training") : i18n("Close")
                 onClicked: {
-                    closeUnit()
+                    if (!root.finished) {
+                        session.stop()
+                    } else {
+                        closeUnit()
+                    }
                 }
             }
         }
