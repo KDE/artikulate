@@ -171,8 +171,9 @@ Language * ResourceManager::language(int index) const
 
 Language * ResourceManager::language(LearnerProfile::LearningGoal *learningGoal) const
 {
-    if (!learningGoal) return 0;
-    Q_ASSERT(learningGoal->category() == LearnerProfile::LearningGoal::Language);
+    if (!learningGoal) {
+        return 0;
+    }
     if (learningGoal->category() != LearnerProfile::LearningGoal::Language) {
         kError() << "Cannot translate non-language learning goal to language";
         return 0;
