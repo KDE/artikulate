@@ -48,20 +48,22 @@ Item {
             color: "white"
             border.color: "black"
             border.width: 5
+            radius: 30
 
             Flickable {
                 id: flickablePhraseBubble
-                width: parent.width
+                x: parent.x + 15
+                y: parent.y + 15
+                width: parent.width - 30
+                height: parent.height - 30
                 clip: true
-                anchors.fill: parent
-                contentWidth: parent.width
+
                 contentHeight: flickableColumn.height
 
                 Item {
                     id: flickablePhraseBubbleItem
-                    anchors.fill: parent
-                    anchors.topMargin: 8
-                    anchors.bottomMargin: 8
+                    x: parent.x + 5
+                    width: parent.width - 10
                     // phrase text element
                     Column {
                         id: flickableColumn
@@ -69,11 +71,7 @@ Item {
                         Text {
                             id: phraseText
                             objectName: "phraseText"
-                            anchors {
-                                horizontalCenter: parent.horizontalCenter
-                                verticalCenter: parent.verticalCenter
-                            }
-                            width: parent.width - 64
+                            width: parent.width - 15
                             text: (phrase != null) ? phrase.text : ""
                             wrapMode: Text.WordWrap
                             horizontalAlignment: Text.AlignHCenter
