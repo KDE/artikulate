@@ -49,6 +49,7 @@ public:
     Q_INVOKABLE LearnerProfile::Learner * addProfile(const QString &name);
     Q_INVOKABLE void removeProfile(LearnerProfile::Learner *learner);
     Q_INVOKABLE LearnerProfile::Learner * profile(int index);
+    Q_INVOKABLE void openImageFileDialog();
     QList< LearningGoal* > goals() const;
     /**
      * Register learning goal if not registered yet. The registered goals will be stored at the

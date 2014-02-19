@@ -49,8 +49,26 @@ PlasmaComponents.Page {
         id: imageLearner
         width: 120
         height: 120
-        anchors { right: root.right; topMargin: 30; rightMargin: 30; top: root.top }
-        source: "../images/user-identity.png"
+        anchors {
+            top: root.top
+            right: root.right
+            topMargin: 30
+            rightMargin: 30
+        }
+        cache: false
+        source: profile.imageUrl ? profile.imageUrl : "../images/user-identity.png"
+
+        Connections {
+            target: profile
+            onImageUrlChanged: {
+                imageLearner.source = "" // trigger reload
+                if (profile.imageUrl) {
+                    imageLearner.source = profile.imageUrl
+                } else {
+                    imageLearner.source = "../images/user-identity.png"
+                }
+            }
+        }
     }
 
     PlasmaComponents.Label {
@@ -84,6 +102,11 @@ PlasmaComponents.Page {
             text: i18n("Delete")
             enabled: profileManager.profileCount > 1
             onClicked: root.state = "deleteConfirmation"
+        }
+        PlasmaComponents.ToolButton {
+            iconSource: "insert-image"
+            text: i18n("Change Image")
+            onClicked: profileManager.openImageFileDialog()
         }
     }
 

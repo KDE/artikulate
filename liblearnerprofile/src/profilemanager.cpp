@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -25,10 +25,13 @@
 #include <QObject>
 #include <QList>
 #include <KDebug>
+#include <KFileDialog>
+#include <QtGui>
+#include <KLocale>
 
 using namespace LearnerProfile;
 
-ProfileManager::ProfileManager(QObject* parent)
+ProfileManager::ProfileManager(QObject *parent)
     : QObject(parent)
     , d(new ProfileManagerPrivate)
 {
@@ -56,6 +59,12 @@ QList< Learner* > ProfileManager::profiles() const
 int ProfileManager::profileCount() const
 {
     return profiles().length();
+}
+
+void ProfileManager::openImageFileDialog()
+{
+    KUrl imageUrl = KFileDialog::getImageOpenUrl();
+    d->m_activeProfile->importImage(imageUrl.toLocalFile());
 }
 
 Learner * ProfileManager::addProfile(const QString &name)

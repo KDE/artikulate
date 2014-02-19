@@ -38,6 +38,7 @@ target_link_libraries(
     learnerprofile
     LINK_PRIVATE
         ${KDE4_KDECORE_LIBS}
+        ${KDE4_KFILE_LIBS}
         ${QT_QTSQL_LIBRARY}
 )
 

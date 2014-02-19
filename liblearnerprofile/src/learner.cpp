@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,11 @@
 #include "learner_p.h"
 #include "learninggoal.h"
 #include <QHash>
+#include <QFileInfo>
+#include <QPixmap>
 #include <KDebug>
+#include <KGlobal>
+#include <KStandardDirs>
 
 using namespace LearnerProfile;
 
@@ -65,6 +69,28 @@ void Learner::setIdentifier(int identifier)
     }
     d->m_identifier = identifier;
     emit identifierChanged();
+}
+
+QString Learner::imageUrl() const
+{
+    QString path = d->imageUrl();
+    if (!QFileInfo(path).exists()) {
+        return QString();
+    }
+    return path;
+}
+
+void Learner::importImage(const QString &path)
+{
+    if (!QFileInfo(path).exists()) {
+        kWarning() << "image path points to a non-existing file, aborting: " << path;
+        return;
+    }
+    QPixmap image = QPixmap(path);
+    image = image.scaled(120, 120);
+    image.save(d->imageUrl());
+    emit imageUrlChanged();
+    kDebug() << "saved scaled image from " << path << " at " << d->imageUrl();
 }
 
 QList< LearningGoal* > Learner::goals() const

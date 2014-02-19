@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -38,6 +38,7 @@ class LIBLEARNERPROFILE_EXPORT Learner : public QObject
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(int id READ identifier WRITE setIdentifier NOTIFY identifierChanged)
+    Q_PROPERTY(QString imageUrl READ imageUrl NOTIFY imageUrlChanged)
     Q_PROPERTY(QList<LearnerProfile::LearningGoal*> goals READ goals NOTIFY goalCountChanged)
 
 public:
@@ -56,6 +57,8 @@ public:
 
     QString name() const;
     void setName(const QString &name);
+    QString imageUrl() const;
+    void importImage(const QString &path);
     int identifier() const;
     void setIdentifier(int identifier);
     QList<LearningGoal *> goals() const;
@@ -68,6 +71,7 @@ public:
 
 Q_SIGNALS:
     void nameChanged();
+    void imageUrlChanged();
     void identifierChanged();
     void goalAboutToBeAdded(LearningGoal*,int);
     void goalAdded();

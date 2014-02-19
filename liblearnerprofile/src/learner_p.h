@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -24,6 +24,8 @@
 #include <QString>
 #include <QList>
 #include <QHash>
+#include <KGlobal>
+#include <KStandardDirs>
 #include "learninggoal.h"
 
 namespace LearnerProfile
@@ -37,9 +39,14 @@ public:
         : m_name(QString())
         , m_identifier(-1)
     {
-
     }
     ~LearnerPrivate() {}
+
+    QString imageUrl() const
+    {
+        QString relPath = QString("images/learner%1.png").arg(m_identifier);
+        return KGlobal::dirs()->locateLocal("appdata", relPath);
+    }
 
     QString m_name;
     int m_identifier;
