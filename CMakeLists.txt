@@ -30,7 +30,7 @@ set ( CMAKE_MODULE_PATH
      ${CMAKE_MODULE_PATH}
 )
 
-find_package(KDE4 4.10.0 REQUIRED)
+find_package(KDE4 4.11.1 REQUIRED)
 include(KDE4Defaults)
 
 include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES} ${QT4_INCLUDES})
