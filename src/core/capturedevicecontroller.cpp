@@ -63,7 +63,6 @@ public:
     {
         if (m_initialized) {
             return;
-
         }
     // add QtMobility as first backend
 #if QTMOBILITY_FOUND
@@ -74,7 +73,6 @@ public:
         kDebug() << "initilaize QtGStreamerBackend";
         m_backends.append(new QtGStreamerBackend());
 #endif
-
         m_initialized = true;
     }
 
@@ -83,6 +81,12 @@ public:
         if (m_backends.isEmpty()) {
             return 0;
         }
+        foreach (SoundBackendInterface *backend, m_backends) {
+            if (Settings::recordingBackend() == backend->identifier()) {
+                return backend;
+            }
+        }
+        kDebug() << "could not understand backend configuration setting, default to first found";
         return m_backends.first();
     }
 
