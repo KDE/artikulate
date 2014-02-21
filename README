@@ -5,6 +5,16 @@ files are maintained in a separate repository "artikulate-data".
 For detailed explanation how to contribute new languages and/or new courses, please refer to the
 information at techbase: http://techbase.kde.org/Projects/Edu/Artikulate
 
+PACKAGING:
+Libraries:
+The following libraries are exclusively used internally in Artikulate.
+* liblearnerprofile
+* artikulatecore
+Dependency Preferences:
+If available you should build against QtMultimedia. There are known combinations of PulseAudio,
+QtGstreamer0.10 and GStreamer0.10 that lead to deadlocks. This problem will only be solved by the
+upcoming port to GStreamer1.x.
+
 BUILDING:
 Artikulate has the following build dependencies:
 * KDElibs >= 4.10.x
@@ -12,11 +22,10 @@ Artikulate has the following build dependencies:
 * CMake >= 2.8.9
 * EITHER QtMobility with component QtMultimedia
   OR QtGStreamer
-and runtime dependencies:
-* KDE-runtime >= 4.11.1
 
 RUNTIME DEPENDENCIES:
-* QtQuick plugin: kqtquickcharts (repository: git.kde.org:kqmlgraphplugin)
+* QtQuick plugin: kqtquickcharts (part of KDE Edu)
+* KDE-runtime >= 4.11.1
 
 LICENSING:
 The whole codebase is licensed as GPL-2+ with the additional KDE e.V. clause.
