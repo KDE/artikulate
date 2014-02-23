@@ -32,7 +32,7 @@
       <default code="true">defaultFont</default>
     </entry>
     <entry name="RecordingBackend" type="String">
-      <label>Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on runtim if available.</label>
+      <label>Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on runtime if available.</label>
       <default>qtmultimediabackend</default>
     </entry>
   </group>
