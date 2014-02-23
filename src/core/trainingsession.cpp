@@ -23,6 +23,7 @@
 #include "trainingsession.h"
 #include "phrase.h"
 #include "unit.h"
+#include "core/outputdevicecontroller.h"
 
 #include <QList>
 #include <QHash>
@@ -273,6 +274,9 @@ void TrainingSession::stop()
     m_phraseListUntrained[Phrase::Expression].clear();
     m_phraseListUntrained[Phrase::Sentence].clear();
     m_phraseListUntrained[Phrase::Paragraph].clear();
+    // Stop playback of recorded voice if a training session is finished
+    // by the user during playback
+    OutputDeviceController::self().stop();
     emit finished();
 }
 
