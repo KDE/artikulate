@@ -138,11 +138,12 @@ FocusScope {
             leftMargin: 30
         }
         visible: false
-        spacing: 10
+        spacing: 20
 
-        Text {
+        PlasmaComponents.Label {
             id: results
-            text: i18n("Learning Results")
+            text: i18n("Phrases Grouped by Attemps")
+            font.pointSize: 1.5 * theme.defaultFont.pointSize
         }
 
         TrainerCourseStatistics {

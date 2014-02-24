@@ -56,7 +56,7 @@ Item {
             bottomMargin: 10
             horizontalCenter: backgroundRect.horizontalCenter
         }
-        text: i18n("Needed Tries")
+        text: i18n("Attempts")
     }
 
     Component {
