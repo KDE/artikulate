@@ -47,7 +47,7 @@ Item {
         if (sessionType == Phrase.Paragraph){
             phraseTypeString = "Paragraphs"
         }
-        trainingText.text= i18n("Difficulty: %1", phraseTypeString)
+        trainingText.text= i18n("Category: %1", phraseTypeString)
     }
 
     width: 1500
