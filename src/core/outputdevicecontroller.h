@@ -54,7 +54,7 @@ public:
     void stop();
     QString currentSource() const;
     /**
-     * Set playback volumen in decibel.
+     * Set playback volume in decibels.
      */
     void setVolume(int volumenDb);
 

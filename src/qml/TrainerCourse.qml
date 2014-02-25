@@ -142,7 +142,7 @@ FocusScope {
 
         PlasmaComponents.Label {
             id: results
-            text: i18n("Phrases Grouped by Attemps")
+            text: i18n("Phrases Grouped by Attempts")
             font.pointSize: 1.5 * theme.defaultFont.pointSize
         }
 
