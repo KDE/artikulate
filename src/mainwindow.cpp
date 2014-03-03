@@ -233,7 +233,7 @@ void MainWindow::downloadNewStuff()
     // add languages of new courses to favorite languages
     foreach (const KNS3::Entry &entry, dialog.changedEntries()) {
         foreach (const QString &path, entry.installedFiles()) {
-            if (!path.endsWith(".xml")) {
+            if (!path.endsWith(QLatin1String(".xml"))) {
                 continue;
             }
             CourseResource *resource = new CourseResource(m_resourceManager, path);
