@@ -20,7 +20,7 @@
 
 #include "capturedevicecontroller.h"
 #include "soundbackends/soundbackendinterface.h"
-#include "config.h"
+#include <config.h>
 
 #if QTMOBILITY_FOUND
     #include "soundbackends/qtmultimediabackend.h"
