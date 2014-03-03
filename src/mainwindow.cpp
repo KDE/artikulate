@@ -224,31 +224,32 @@ void MainWindow::updateKcfgUseContributorResources()
 
 void MainWindow::downloadNewStuff()
 {
-    KNS3::DownloadDialog dialog("artikulate.knsrc", this);
-    dialog.exec();
+    QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog("artikulate.knsrc", this);
+    if (dialog->exec() == QDialog::Accepted) {
+        //update available courses
+        m_resourceManager->loadCourseResources();
 
-    //update available courses
-    m_resourceManager->loadCourseResources();
-
-    // add languages of new courses to favorite languages
-    foreach (const KNS3::Entry &entry, dialog.changedEntries()) {
-        foreach (const QString &path, entry.installedFiles()) {
-            if (!path.endsWith(".xml")) {
-                continue;
-            }
-            CourseResource *resource = new CourseResource(m_resourceManager, path);
-            foreach (LearningGoal *goal, m_profileManager->goals()) {
-                if (goal->category() == LearningGoal::Language
-                    && goal->identifier() == resource->language()
-                ) {
-                    // Learner::addGoal() checks for uniqueness of added goals
-                    m_profileManager->activeProfile()->addGoal(goal);
-                    break;
+        // add languages of new courses to favorite languages
+        foreach (const KNS3::Entry &entry, dialog->changedEntries()) {
+            foreach (const QString &path, entry.installedFiles()) {
+                if (!path.endsWith(QLatin1String(".xml"))) {
+                    continue;
                 }
+                CourseResource *resource = new CourseResource(m_resourceManager, path);
+                foreach (LearningGoal *goal, m_profileManager->goals()) {
+                    if (goal->category() == LearningGoal::Language
+                        && goal->identifier() == resource->language()
+                    ) {
+                        // Learner::addGoal() checks for uniqueness of added goals
+                        m_profileManager->activeProfile()->addGoal(goal);
+                        break;
+                    }
+                }
+                resource->deleteLater();
             }
-            resource->deleteLater();
         }
     }
+    delete dialog;
 }
 
 void MainWindow::configLearnerProfile()
