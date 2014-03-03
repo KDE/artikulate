@@ -26,7 +26,6 @@
 #include <QList>
 #include <KDebug>
 #include <KFileDialog>
-#include <QtGui>
 #include <KLocale>
 
 using namespace LearnerProfile;
