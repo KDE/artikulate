@@ -81,135 +81,192 @@ Item
     }
 
     PlasmaComponents.ToolBar {
-        id: breadcrumb
+        id: header
         anchors { top: editor.top; left: editor.left}
         width: editor.width
-        height: 30
 
-        tools: Row {
+        tools: Item {
             width: parent.width
-            anchors { leftMargin: 3; rightMargin: 3 }
-            spacing: 5
+            height: buttonUpdateFromPrototype.height
+            anchors {
+                leftMargin: 3
+                rightMargin: 3
+            }
 
+            PlasmaComponents.ToolButton { // sync button for skeleton
+                id: buttonUpdateFromPrototype
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                }
+                text: i18n("Update from Course Prototype")
+                iconSource: "svn-update"
+                flat: true
+                enabled: { editorProfile.course != null }
+                onClicked: {
+                    globalResourceManager.updateCourseFromSkeleton(editorProfile.course);
+                }
+            }
+
+            PlasmaComponents.ToolButton { // unselect-button for language
+                id: buttonCloseEditor
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    right: parent.right
+                }
+                iconSource: "go-up"
+                text: i18n("Close Editor")
+                visible: {
+                    if (editorProfile.course != null) return false;
+                    else return true;
+                }
+                flat: true
+                onClicked: {
+                    editCourseSelector.unselect()
+                    closeEditor()
+                }
+            }
+            // course edit control buttons
             Row {
-                id: selectorInformation
-                width: 300
-                height: parent.height
-                anchors.verticalCenter: parent.verticalCenter
-
-                Row {
-                    visible: !editCourseSelector.isSkeleton
-                    Text {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: i18n("<strong>Language:</strong> %1", editor.currentLanguageName)
+                anchors {
+                    right: parent.right
+                }
+                PlasmaComponents.ToolButton {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: i18n("OK")
+                    visible: {
+                        if (editorProfile.course != null) return editorProfile.course.modified;
+                        else return false;
                     }
-                    PlasmaComponents.ToolButton { // unselect-button for language
-                        id: unselectLanguage
-                        anchors.verticalCenter: parent.verticalCenter
-                        iconSource: "dialog-close"
-                        flat: true
-                        enabled: editorProfile.language != null
-                        onClicked: {
-                            editCourseSelector.unselect()
-                        }
+                    enabled: {
+                        if (editorProfile.course != null) return editorProfile.course.modified;
+                        else return false;
                     }
-                    Text {
-                        anchors { verticalCenter: parent.verticalCenter }
-                        text: i18n("<strong>Course:</strong> %1", editor.currentCourseName)
-                    }
-                    PlasmaComponents.ToolButton { // sync button for skeleton
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: i18n("Update from Course Prototype")
-                        iconSource: "svn-update"
-                        flat: true
-                        enabled: { editorProfile.course != null }
-                        onClicked: {
-                            globalResourceManager.updateCourseFromSkeleton(editorProfile.course);
-                        }
+                    iconSource: "dialog-ok-apply"
+                    onClicked: {
+                        editorProfile.course.sync();
+                        editCourseSelector.unselect()
                     }
                 }
-                Row {
-                    visible: editCourseSelector.isSkeleton
-                    Text {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: i18n("<strong>Skeleton:</strong> %1", editor.currentCourseName)
+                PlasmaComponents.ToolButton {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: i18n("Cancel")
+                    visible: {
+                        if (editorProfile.course != null) return editorProfile.course.modified;
+                        else return false;
                     }
-                    PlasmaComponents.ToolButton { // unselect-button for language
-                        anchors.verticalCenter: parent.verticalCenter
-                        iconSource: "dialog-close"
-                        flat: true
-                        enabled: editorProfile.course != null
-                        onClicked: {
-                            editCourseSelector.unselect()
-                        }
+                    enabled: {
+                        if (editorProfile.course != null) return editorProfile.course.modified;
+                        else return false;
+                    }
+                    iconSource: "dialog-cancel"
+                    onClicked: {
+                        globalResourceManager.reloadCourseOrSkeleton(editorProfile.course)
+                        editCourseSelector.unselect()
+                    }
+                }
+                PlasmaComponents.ToolButton {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: i18n("Close Course")
+                    visible: {
+                        if (editorProfile.course != null) return !editorProfile.course.modified;
+                        else return false;
+                    }
+                    iconSource: "go-up"
+                    onClicked: {
+                        editCourseSelector.unselect()
                     }
                 }
             }
+        }
+    }
+
+    Rectangle {
+        id: breadcrumb
+        width: parent.width
+        height: languageIcon.height + 6
+        anchors {
+            top: header.bottom
+            topMargin: 2
+        }
+        color: theme.backgroundColor
+
+        Row {
+            id: selectorInformation
+            height: 30
+
+            spacing: 20
+            anchors {
+                topMargin: 3
+                top: parent.top
+                bottomMargin: 3
+                bottom: parent.bottom
+                leftMargin: 5
+                left: parent.left
+            }
+
             Row {
-                width: breadcrumb.width - selectorInformation.width - 10
-                layoutDirection: Qt.RightToLeft
-                Row {
-                    PlasmaComponents.ToolButton {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: i18n("OK")
-                        visible: {
-                            if (editorProfile.course != null) return editorProfile.course.modified;
-                            else return false;
-                        }
-                        enabled: {
-                            if (editorProfile.course != null) return editorProfile.course.modified;
-                            else return false;
-                        }
-                        iconSource: "dialog-ok-apply"
-                        onClicked: {
-                            editorProfile.course.sync();
-                            editCourseSelector.unselect()
-                        }
-                    }
-                    PlasmaComponents.ToolButton {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: i18n("Cancel")
-                        visible: {
-                            if (editorProfile.course != null) return editorProfile.course.modified;
-                            else return false;
-                        }
-                        enabled: {
-                            if (editorProfile.course != null) return editorProfile.course.modified;
-                            else return false;
-                        }
-                        iconSource: "dialog-cancel"
-                        onClicked: {
-                            globalResourceManager.reloadCourseOrSkeleton(editorProfile.course)
-                            editCourseSelector.unselect()
-                        }
-                    }
-                    PlasmaComponents.ToolButton {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: i18n("Close Course")
-                        visible: {
-                            if (editorProfile.course != null) return !editorProfile.course.modified;
-                            else return false;
-                        }
-                        iconSource: "dialog-close"
-                        onClicked: {
-                            editCourseSelector.unselect()
-                        }
+                visible: !editCourseSelector.isSkeleton
+                spacing: 10
+                PlasmaCore.IconItem {
+                    id: languageIcon
+                    source: "artikulate-language"
+                    width: theme.mediumIconSize
+                    height: theme.mediumIconSize
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                PlasmaComponents.ToolButton { // unselect-button for language
+                    id: unselectLanguage
+                    anchors.verticalCenter: parent.verticalCenter
+                    iconSource: "go-up"
+                    flat: true
+                    enabled: editorProfile.language != null
+                    onClicked: {
+                        editCourseSelector.unselect()
                     }
                 }
-                Row {
-                    PlasmaComponents.ToolButton { // unselect-button for language
-                        anchors.verticalCenter: parent.verticalCenter
-                        iconSource: "go-up"
-                        text: i18n("Close Editor")
-                        visible: {
-                            if (editorProfile.course != null) return false;
-                            else return true;
-                        }
-                        flat: true
-                        onClicked: {
-                            editCourseSelector.unselect()
-                            closeEditor()
-                        }
+                PlasmaComponents.Label {
+                    visible: editorProfile.language != null
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: editor.currentLanguageName
+                    font.pointSize: 1.5 * theme.defaultFont.pointSize
+                }
+
+                Item { //dummy
+                    height: parent.height
+                    width: 20
+                }
+
+                PlasmaCore.IconItem {
+                    id: courseIcon
+                    visible: editorProfile.language != null && editorProfile.course != null
+                    source: "artikulate-course"
+                    width: theme.mediumIconSize
+                    height: theme.mediumIconSize
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                PlasmaComponents.Label {
+                    anchors {
+                        verticalCenter: parent.verticalCenter
+                    }
+                    visible: editorProfile.language != null && editorProfile.course != null
+                    text: editor.currentCourseName
+                    font.pointSize: 1.5 * theme.defaultFont.pointSize
+                }
+            }
+            Row {
+                visible: editCourseSelector.isSkeleton
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: i18n("<strong>Skeleton:</strong> %1", editor.currentCourseName)
+                }
+                PlasmaComponents.ToolButton { // unselect-button for language
+                    anchors.verticalCenter: parent.verticalCenter
+                    iconSource: "go-up"
+                    flat: true
+                    enabled: editorProfile.course != null
+                    onClicked: {
+                        editCourseSelector.unselect()
                     }
                 }
             }
@@ -231,11 +288,6 @@ Item
 
         visible: globalResourceManager.isRepositoryManager()
 
-        Text {
-            id: editorTitle
-            text: i18n("Editor")
-            font.pointSize: 28;
-        }
         Row {
             id: currentCourseTitle
             spacing: 10
@@ -257,7 +309,7 @@ Item
         EditorSelector {
             id: editCourseSelector
             width: editor.width - 60
-            height: main.height - unitSelectorCaption.height - editorTitle.height - currentCourseTitle.height - 20
+            height: main.height - unitSelectorCaption.height - currentCourseTitle.height - 20
             onSelectedLanguageChanged: {
                 editorProfile.language = selectedLanguage
             }
@@ -292,7 +344,7 @@ Item
                 }
                 UnitSelector {
                     id: unitSelector
-                    height: main.height - unitSelectorCaption.height - unitAddButton.height - editorTitle.height - currentCourseTitle.height
+                    height: main.height - unitSelectorCaption.height - unitAddButton.height - currentCourseTitle.height
                     unitModel: selectedUnitModel
                     onUnitSelected: {
                         editorProfile.unit = unit;
@@ -305,7 +357,7 @@ Item
 
                 UnitEditor {
                     width: main.width
-                    height: main.height - editorTitle.height - 80
+                    height: main.height - 80
                     unit: editorProfile.unit
                     onCloseUnit: {
                         editorProfile.unit = null
