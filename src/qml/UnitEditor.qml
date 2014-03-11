@@ -145,7 +145,7 @@ Item {
                 anchors.verticalCenter: unitBreadcrumb.verticalCenter
                 text: i18n("Unit: ")
                 iconSource: "go-up"
-                font.pointSize: 20;
+                font.pointSize: 1.5 * theme.defaultFont.pointSize
                 onClicked: {
                     closeUnit()
                     phraseEditor.close()
@@ -162,7 +162,7 @@ Item {
                         return i18n("unselected");
                     }
                 }
-                font.pointSize: 20;
+                font.pointSize: 1.5 * theme.defaultFont.pointSize
             }
             PlasmaComponents.TextField {
                 id: unitTitleInput

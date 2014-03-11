@@ -246,6 +246,12 @@ FocusScope {
         Column {
             width: Math.floor(root.width / 2 - line.width/2)
 
+            // dummy item
+            Item {
+                height: Math.floor(content.height * 0.2)
+                width: parent.width
+            }
+
             PlasmaComponents.Button {
                 id: selectButton
                 anchors.horizontalCenter: parent.horizontalCenter
