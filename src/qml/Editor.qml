@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -288,28 +288,10 @@ Item
 
         visible: globalResourceManager.isRepositoryManager()
 
-        Row {
-            id: currentCourseTitle
-            spacing: 10
-            Text {
-                text: {
-                    if (editCourseSelector.isSkeleton)
-                        i18n("Course Skeleton:")
-                    else
-                        i18n("Course:")
-                }
-                font.pointSize: 20;
-            }
-            Text {
-                text: currentCourseName
-                font.pointSize: 20;
-            }
-        }
-
         EditorSelector {
             id: editCourseSelector
             width: editor.width - 60
-            height: main.height - unitSelectorCaption.height - currentCourseTitle.height - 20
+            height: main.height - unitSelectorCaption.height - 20
             onSelectedLanguageChanged: {
                 editorProfile.language = selectedLanguage
             }
@@ -320,7 +302,10 @@ Item
         }
 
         Item {
-            anchors { top: currentCourseTitle.bottom; topMargin: 30 }
+            anchors {
+                top: main.top
+                topMargin: 30
+            }
             visible: editorProfile.course != null
 
             Column {
@@ -331,7 +316,7 @@ Item
                 Text {
                     id: unitSelectorCaption
                     text: i18n("Units")
-                    font.pointSize: 20;
+                    font.pointSize: 1.5 * theme.defaultFont.pointSize
                 }
                 PlasmaComponents.ToolButton {
                     id: unitAddButton
@@ -344,7 +329,7 @@ Item
                 }
                 UnitSelector {
                     id: unitSelector
-                    height: main.height - unitSelectorCaption.height - unitAddButton.height - currentCourseTitle.height
+                    height: main.height - unitSelectorCaption.height - unitAddButton.height
                     unitModel: selectedUnitModel
                     onUnitSelected: {
                         editorProfile.unit = unit;
