@@ -215,6 +215,10 @@ void MainWindow::showSettingsDialog()
 void MainWindow::updateTrainingPhraseFont()
 {
     QObject *phraseText = m_view->rootObject()->findChild<QObject*>("phraseText");
+    if (!phraseText) {
+        kDebug() << "no phraseText context object found, aborting";
+        return;
+    }
     QFont f = phraseText->property("font").value<QFont>();
     phraseText->setProperty("font", Settings::trainingPhraseFont());
 }
