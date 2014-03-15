@@ -95,7 +95,7 @@ set(
 set(
     artikulateTargetLibs
     artikulatecore
-    learnerprofile
+    artikulatelearnerprofile
     ${KDECLARATIVE_LIBRARIES}
     ${KDE4_PLASMA_LIBS}
     ${KDE4_KIO_LIBS}
@@ -151,10 +151,19 @@ kde4_add_kcfg_files(artikulateCore_SRCS settings.kcfgc)
 kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})
 target_link_libraries(artikulatecore
     LINK_PRIVATE
-        learnerprofile
+        artikulatelearnerprofile
         ${artikulateCoreTargetLibs}
 )
-install(TARGETS artikulatecore ${INSTALL_TARGETS_DEFAULT_ARGS})
+set_target_properties(
+    artikulatecore
+    PROPERTIES
+        VERSION ${GENERIC_LIB_VERSION}
+        SOVERSION ${GENERIC_LIB_SOVERSION}
+)
+install(
+    TARGETS artikulatecore
+    DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS}
+)
 install( FILES artikulate.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 
 # set the source code files from which Artikulate is compiled
@@ -193,7 +202,7 @@ kde4_add_kcfg_files(artikulate_SRCS settings.kcfgc)
 kde4_add_executable(artikulate ${artikulate_SRCS})
 target_link_libraries(artikulate
     LINK_PRIVATE
-        learnerprofile
+        artikulatelearnerprofile
         ${artikulateTargetLibs}
 )
 

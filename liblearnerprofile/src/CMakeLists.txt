@@ -23,7 +23,7 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-set( learnerprofile_LIB_SRCS
+set(learnerprofile_LIB_SRCS
     learner.cpp
     learninggoal.cpp
     profilemanager.cpp
@@ -32,14 +32,24 @@ set( learnerprofile_LIB_SRCS
     models/learninggoalmodel.cpp
 )
 
-kde4_add_library( learnerprofile SHARED ${learnerprofile_LIB_SRCS} )
+kde4_add_library(artikulatelearnerprofile SHARED ${learnerprofile_LIB_SRCS})
 
 target_link_libraries(
-    learnerprofile
+    artikulatelearnerprofile
     LINK_PRIVATE
         ${KDE4_KDECORE_LIBS}
         ${KDE4_KFILE_LIBS}
         ${QT_QTSQL_LIBRARY}
 )
 
-install( TARGETS learnerprofile ${INSTALL_TARGETS_DEFAULT_ARGS} )
+set_target_properties(
+    artikulatelearnerprofile
+    PROPERTIES
+        VERSION ${GENERIC_LIB_VERSION}
+        SOVERSION ${GENERIC_LIB_SOVERSION}
+)
+
+install(
+    TARGETS artikulatelearnerprofile
+    ${INSTALL_TARGETS_DEFAULT_ARGS}
+)
