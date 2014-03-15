@@ -61,17 +61,19 @@ Learners train their pronunciation by recording their own voices and comparing t
 <chapter id="introduction">
 <title>Introduction</title>
 <para>
-&artikulate; is a pronunciation trainer that helps improving and perfecting a learner's pronunciation skills for a foreign language. For this, it provides courses with native speaker recordings of the target language. The learner can select a set of phrases, record her/his own voice when speaking the phrases, and compare the results to the native speaker's recordings.
+&artikulate; is a pronunciation trainer that helps improving and perfecting a learner's pronunciation skills for a foreign language.
+For this, it provides courses with native speaker recordings of the target language for download.
+The learner download a corses for selected language, selects a group of phrases, starts to record her/his own voice when speaking the phrases himself/herself, and compares the results to the native speaker's recordings by listening to both.
 </para>
 
 <sect1 id="introduction-concept">
 <title>The Learning Concept</title>
 <para>
-The learning concept of this language learning is as follows.
+The study concept of this language learning application is as follows.
 By repeating and comparing own recordings of spoken phrases to the recordings of (a representative set of) native speakers, a learner can
 <itemizedlist>
-    <listitem><para>identify weaknesses in speaking the foreign language and</para></listitem>
-    <listitem><para>adapt the pronunciation to follow the native speakers.</para></listitem>
+    <listitem><para>identify weaknesses when speaking the foreign language and</para></listitem>
+    <listitem><para>adapt the pronunciation to coincide with the native speaker's pronunciation.</para></listitem>
 </itemizedlist>
 For best learning outcome, specifically designed courses for every supported language are necessary.
 Those courses can concentrate on training special scenarios (like ordering food in a restaurant) but can also focus on learning how to pronounce difficult syllables and words of a particular language correctly.
@@ -81,19 +83,20 @@ Those courses can concentrate on training special scenarios (like ordering food 
 <sect1 id="introduction-first-steps">
 <title>First Steps in &artikulate;</title>
 <para>
-This chapter explains how to make the first steps in &artikulate;, especially how to create a learner profile, how to select a language and get the native speaker recordings, and how to start training.
+This chapter explains how to make the first steps in &artikulate;, especially how to create a learner identity, how to select a language and how to get native speaker recordings to start training.
 </para>
 
 <sect2>
-<title>1. Create a User Profile</title>
+<title>1. Create a Learner Identity</title>
 <para>
-For every learner, there has to be one user profile that collects the learning progress.
-This allows multiple people to use &artikulate; on the same computer, each being able to have his/her private learning statistics.
-To create a user profile, click on the <guilabel>New User</guilabel> button at the top left of the window, and then <guilabel>Create New Profile</guilabel>.
-You can edit your name with the <guilabel>Edit</guilabel> button.
+For every learner, there has to be one user identity that saves the learning progress.
+This also allows multiple people to use &artikulate; on the same computer, each being able to have his/her private learning goals.
+To create a user identity, click on the <guilabel>Create Learner Identity</guilabel> button (if starting &artikulate; for the first time) or otherwise the button with the name of the currently selected learner identity at the top left of the window.
+In the opening dialog, then select <guilabel>Create New Learner Identity</guilabel>.
+You can edit your name with the <guilabel>Edit</guilabel> button and set a picture if you like.
 </para>
 <screenshot>
-<screeninfo>Create a user profile.</screeninfo>
+<screeninfo>Create a learner identity.</screeninfo>
 <mediaobject>
 <imageobject>
 <imagedata fileref="first-steps-1-create-profile.png" format="PNG" />
@@ -105,9 +108,10 @@ You can edit your name with the <guilabel>Edit</guilabel> button.
 <sect2>
 <title>2. Select a Language</title>
 <para>
-Setting the learning language(s) of a learner is done in the <guilabel>Favorite Languages</guilabel> tab by clicking at any language you would like to learn.
-The star will turn colored once it is selected.
-Close the Learner Profile dialog by selecting your profile with <guilabel>Use Selected Profile</guilabel>.
+Setting the training language(s) of a learner is done in the <guilabel>Favorite Languages</guilabel> tab by activating (clicking at) the languages.
+The star symbol corresponding to each language will turn colored once it is selected.
+Close the Learner Identity dialog by selecting your identity with <guilabel>Use Selected Identity</guilabel>.
+Note that when downloading courses, the course language will automatically be activated for the currently selected learner identity.
 </para>
 <screenshot>
 <screeninfo>Set favorite languages.</screeninfo>
@@ -122,14 +126,14 @@ Close the Learner Profile dialog by selecting your profile with <guilabel>Use Se
 <sect2>
 <title>3. Download a Language Course</title>
 <para>
-For this guide assume that we would like to learn Polish and hence want to download a course for Polish.
-You can download courses through  <menuchoice><guimenu>File</guimenu> <guimenuitem>Download New Language Course</guimenuitem></menuchoice> or by clicking at the orange star at the top right.
+For this tutorial, we assume that we would like to learn Polish and hence that we want to download a course for Polish.
+You can download courses through <menuchoice><guimenu>File</guimenu> <guimenuitem>Download New Language Course</guimenuitem></menuchoice> or by clicking at the orange star at the top right.
 A download window will appear, listing the available languages provided by the &kde; Community.
 You can sort through them using the order by functions at the right.
-Download the Polish course by clicking on <guilabel>Install</guilabel>.
+We download the Polish course by clicking on <guilabel>Install</guilabel>.
 </para>
 <screenshot>
-<screeninfo>Set favorite languages.</screeninfo>
+<screeninfo>Download course.</screeninfo>
 <mediaobject>
 <imageobject>
 <imagedata fileref="first-steps-3-download-course.png" format="PNG" />
@@ -141,8 +145,8 @@ Download the Polish course by clicking on <guilabel>Install</guilabel>.
 <sect2>
 <title>4. Start Training</title>
 <para>
-Courses consist of multiple training units.
-Select one of the training units that are available at the left panel, and then click on <guilabel>Start Training</guilabel>.
+Courses consist of multiple training units, each usually grouping a set of phrases according to a scenario.
+Select one of the training units available at the left panel, and then click on <guilabel>Start Training</guilabel>.
 </para>
 <screenshot>
 <screeninfo>Select unit and start training.</screeninfo>
@@ -157,7 +161,7 @@ Select one of the training units that are available at the left panel, and then 
 <sect2>
 <title>Finish Training / Statistics </title>
 <para>
-After completing through all the phrases in a course, you'll be presented with the statistics screen.
+After completing through all the phrases in a training unit, you will see a statistics screen for the completed training.
 You can see how many tries it took for the various types of phrases.
 The statistics screen is closed by click on the <guilabel>Finish Training</guilabel> button at the top right.
 </para>
@@ -172,8 +176,8 @@ The statistics screen is closed by click on the <guilabel>Finish Training</guila
 <title>The Training Screen</title>
 <para>
 The training view is the most important view in &artikulate;.
-Whenever starting a training, this view is opened and will be present until the training of the selected training unit is finished or the learner stops the training.
-In the center of this screen, there are controls for playing a native speaker recording, the text of the corresponding phrase and controls to record and playback the learner's own voice.
+Whenever starting a training, this view is opened and will be presented until the training of the selected training unit is finished or the learner stops the training.
+In the center of this screen, there are controls for playing a native speaker recording, the text of the corresponding phrase, and controls to record and playback the learner's own voice.
 When a learner judges to be done with training the pronunciation of the current phrase, by clicking <guilabel>OK</guilabel> the current phrase is marked as done and a next phrase is selected.
 Otherwise, when clicking on <guilabel>Retry Later</guilabel>, a next phrase is selected but the current phrase will be displayed later again.
 </para>
@@ -188,13 +192,13 @@ Otherwise, if not yet satisfied with the recording, the learner either can retry
 </para>
 
 <para>
-&artikulate; units are composed of a list of phrases of different lengths (words, expressions, sentences, and paragraphs).
+&artikulate;'s units are composed of a list of phrases of different lengths (words, expressions, sentences, and paragraphs).
 A learner can see the current learning progress at the bottom when looking at <link linkend="screens-training-progressbar">the progress bar</link>.
 The progress bar also allows switching between phrases.
 </para>
 
 <para>
-At any time the learner can choose to stop training by clicking at the <guilabel>Finish</guilabel> button.
+At any time, the learner can choose to stop training by clicking at the <guilabel>Finish</guilabel> button.
 </para>
 
 <screenshot>
@@ -258,7 +262,7 @@ At any time the learner can choose to stop training by clicking at the <guilabel
 <sect2 id="screens-training-progressbar">
 <title>Progress Bar</title>
 <para>
-The progress bar displays the learning progress in the current unit.
+The progress bar displays the learning progress for the current unit.
 It consists of blocks representing the phrases in the current unit, whereas the color of a block explains the length of the phrase.
 You can hover over these blocks to see the phrases and click on them to switch the currently trained phrase.
 Dark elements are already trained, light ones are untrained.
@@ -270,9 +274,7 @@ Dark elements are already trained, light ones are untrained.
 <imagedata fileref="screen-training-progressbar.png" format="PNG" />
 </imageobject>
 <textobject>
-<phrase>
-    The progress bar for the current unit.
-</phrase>
+<phrase>The progress bar for the current unit.</phrase>
 </textobject>
 </mediaobject>
 </screenshot>
