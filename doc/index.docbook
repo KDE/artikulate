@@ -419,7 +419,7 @@ In either case, you will be presented the list of units of the course, where you
 <sect2>
 <title>Edit a Unit</title>
 <para>
-When opening a unit for edit, you will see the list of its phrases (see below).
+When opening a unit for editing, you will see the list of its phrases (see below).
 One line of this list contains the following information:
 <orderedlist>
     <listitem><para>edit button: open this phrase for edit</para></listitem>
@@ -435,9 +435,51 @@ One line of this list contains the following information:
 <imageobject>
 <imagedata fileref="editor-screenshot-unit.png" format="PNG" />
 </imageobject>
-<caption><para>Editor view with list of phrases inside a unit.</para></caption>
+<caption><para>Editor View: list of phrases within a unit.</para></caption>
 </mediaobject>
 </screenshot>
+</sect2>
+
+<sect2>
+<title>Edit a Phrase</title>
+<para>
+When opening a phrase for editing, you will see the phrase editor as shown below.
+This edit interface contains the following elements:
+<itemizedlist>
+    <listitem><para>the phrase text as it will be shown in the trainer</para></listitem>
+    <listitem><para>the original phrase, if using a course skeleton</para></listitem>
+    <listitem><para>the edit state of the phrase</para></listitem>
+    <listitem><para>the type/length of the phrase</para></listitem>
+    <listitem><para>recording buttons for the native speaker recordings</para></listitem>
+    <listitem><para>buttons to denote intersting phonemes of the phrase (currently not used in training mode)</para></listitem>
+</itemizedlist>
+You can close the phrase editing interface with
+<inlinemediaobject><imageobject>
+<imagedata fileref="editor-apply.png" format="PNG"/></imageobject>
+</inlinemediaobject>
+to accept the changes you did, or with
+<inlinemediaobject><imageobject>
+<imagedata fileref="editor-cancel.png" format="PNG"/></imageobject>
+</inlinemediaobject>
+to discard your changes.
+</para>
+<screenshot>
+<screeninfo>Editor View: editing view for a phrase.</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="editor-screenshot-editing-phrase.png" format="PNG" />
+</imageobject>
+<caption><para>Editor View: editing view for a phrase.</para></caption>
+</mediaobject>
+</screenshot>
+</sect2>
+
+<sect2>
+<title>Update from Course Prototype</title>
+<para>
+If the currently edited course derives from a skeleton, then the course can be updated from the latest version of the skeleton by using the button <guilabel>Update from Course Prototype</guilabel> at the top left of the screen.
+This button is deactivated if the course is not derived from a course skeleton.
+</para>
 </sect2>
 </sect1>
 </chapter>
