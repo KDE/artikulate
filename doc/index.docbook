@@ -306,7 +306,7 @@ The editor only edits files outside of the training course set, i.e., the set of
 <imageobject>
 <imagedata fileref="editor-screenshot-unit.png" format="PNG" />
 </imageobject>
-<caption>Editor view with list of phrases inside a unit.</caption>
+<caption><para>Editor view with list of phrases inside a unit.</para></caption>
 </mediaobject>
 </screenshot>
 
@@ -317,12 +317,13 @@ The editor only edits files outside of the training course set, i.e., the set of
 <title>Editor Notions</title>
 <para>
 For the course editor we use a specific set of terms, which is also used for the following descriptions.
+</para>
 <variablelist>
 <varlistentry>
     <term>Language:</term>
     <listitem>
     <para>
-        Languages are only available in Artikulate if they are given by language specifications.
+        Languages are only available in &artikulate; if they are given by language specifications.
     </para>
     </listitem>
 </varlistentry>
@@ -368,6 +369,7 @@ For the course editor we use a specific set of terms, which is also used for the
     </listitem>
 </varlistentry>
 </variablelist>
+<para>
 A course is associated with a specific language, consists of different units and each unit is given by a sequence of phrases in different lengths.
 </para>
 </sect2>
@@ -380,7 +382,7 @@ In that folder, the editor searches for editable courses and skeleton files and 
 </para>
 <para>
 The course repository can be set in the configuration dialog.
-It can be found at <menuchoice><guimenu>Settings</guimenu> <guimenuitem>Configure Artikulate</guimenuitem></menuchoice> and the course settings are at the menu option <guilabel>Course Resources</guilabel>.
+It can be found at <menuchoice><guimenu>Settings</guimenu> <guimenuitem>Configure &artikulate;</guimenuitem></menuchoice> and the course settings are at the menu option <guilabel>Course Resources</guilabel>.
 </para>
 <screenshot>
 <screeninfo>Set course repository for editor.</screeninfo>
@@ -388,7 +390,7 @@ It can be found at <menuchoice><guimenu>Settings</guimenu> <guimenuitem>Configur
 <imageobject>
 <imagedata fileref="editor-set-repository.png" format="PNG" />
 </imageobject>
-<caption>Set course repository for editor.</caption>
+<caption><para>Set course repository for editor.</para></caption>
 </mediaobject>
 </screenshot>
 </sect2>
