@@ -360,10 +360,30 @@ For the course editor we use a specific set of terms, which is also used for the
     <para>
         Phrases are given by a text string and a recording by a native speaker. We differ phrases by their lengths. The following phrase lengths exists
         <itemizedlist>
-        <listitem><para>word: a single word, letter, or number</para></listitem>
-        <listitem><para>expression: an expression of several words that does not form a complete sentence</para></listitem>
-        <listitem><para>sentence: a complete sentence</para></listitem>
-        <listitem><para>paragraph: several sentences (usually 2-3)</para></listitem>
+        <listitem>
+        <para><inlinemediaobject><imageobject>
+        <imagedata fileref="hi32-action-artikulate-word.png" format="PNG"/></imageobject>
+        </inlinemediaobject>
+        word: a single word, letter, or number</para>
+        </listitem>
+        <listitem>
+        <para><inlinemediaobject><imageobject>
+        <imagedata fileref="hi32-action-artikulate-expression.png" format="PNG"/></imageobject>
+        </inlinemediaobject>
+        expression: an expression of several words that does not form a complete sentence</para>
+        </listitem>
+        <listitem>
+        <para><inlinemediaobject><imageobject>
+        <imagedata fileref="hi32-action-artikulate-sentence.png" format="PNG"/></imageobject>
+        </inlinemediaobject>
+        sentence: a complete sentence</para>
+        </listitem>
+        <listitem>
+        <para><inlinemediaobject><imageobject>
+        <imagedata fileref="hi32-action-artikulate-paragraph.png" format="PNG"/></imageobject>
+        </inlinemediaobject>
+        paragraph: several sentences (usually 2-3)</para>
+        </listitem>
         </itemizedlist>
     </para>
     </listitem>
