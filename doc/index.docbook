@@ -445,14 +445,16 @@ One line of this list contains the following information:
 <para>
 When opening a phrase for editing, you will see the phrase editor as shown below.
 This edit interface contains the following elements:
+</para>
 <itemizedlist>
     <listitem><para>the phrase text as it will be shown in the trainer</para></listitem>
     <listitem><para>the original phrase, if using a course skeleton</para></listitem>
     <listitem><para>the edit state of the phrase</para></listitem>
     <listitem><para>the type/length of the phrase</para></listitem>
     <listitem><para>recording buttons for the native speaker recordings</para></listitem>
-    <listitem><para>buttons to denote intersting phonemes of the phrase (currently not used in training mode)</para></listitem>
+    <listitem><para>buttons to denote interesting phonemes of the phrase (currently not used in training mode)</para></listitem>
 </itemizedlist>
+<para>
 You can close the phrase editing interface with
 <inlinemediaobject><imageobject>
 <imagedata fileref="editor-apply.png" format="PNG"/></imageobject>
