@@ -63,7 +63,7 @@ Learners train their pronunciation by recording their own voices and comparing t
 <para>
 &artikulate; is a pronunciation trainer that helps improving and perfecting a learner's pronunciation skills for a foreign language.
 For this, it provides courses with native speaker recordings of the target language for download.
-The learner download a corses for selected language, selects a group of phrases, starts to record her/his own voice when speaking the phrases himself/herself, and compares the results to the native speaker's recordings by listening to both.
+The learner download courses for selected language, selects a group of phrases, starts to record her/his own voice when speaking the phrases himself/herself, and compares the results to the native speaker's recordings by listening to both.
 </para>
 
 <sect1 id="introduction-concept">
@@ -289,7 +289,198 @@ The available types are:
 </itemizedlist>
 </para>
 </sect2>
+</sect1>
+</chapter>
 
+<chapter>
+<title>Editor</title>
+<para>
+The integrated course editor is an advanced tool for language course contributors that allows the creation and collaborative work on language courses for &artikulate;.
+On the one hand it allows the creation of language courses and recording of the native speaker sound files.
+On the hand, it enables work on so called <emphasis>skeletons</emphasis>, which are language course prototypes that allow easy and fast creation of new courses derived from a prototype.
+The editor only edits files outside of the training course set, i.e., the set of courses downloaded in &artikulate;.
+</para>
+
+<sect1>
+<title>Overview</title>
+
+<sect2>
+<title>Editor Notions</title>
+<para>
+For the course editor we use a specific set of terms, which is also used for the following descriptions.
+</para>
+<variablelist>
+<varlistentry>
+    <term>Language:</term>
+    <listitem>
+    <para>
+        Languages are only available in &artikulate; if they are given by language specifications.
+    </para>
+    </listitem>
+</varlistentry>
+<varlistentry>
+    <term>Course:</term>
+    <listitem>
+    <para>
+        A course is associated to one language and contains a list of units.
+    </para>
+    </listitem>
+</varlistentry>
+<varlistentry>
+    <term>Unit:</term>
+    <listitem>
+    <para>
+        A unit consists of phrases that are "somehow" homogeneous.
+        E.g. those can be phrases spoken in a restaurant or phrases spoken at a conversation at the street by a tourist searching for the way.
+    </para>
+    </listitem>
+</varlistentry>
+<varlistentry>
+    <term>Course Skeletons:</term>
+    <listitem>
+    <para>
+        A course skeleton forms the prototype of a course.
+        This is, skeletons help to ease creation of courses in several languages as they state a set of units and phrases (in English) that then can be used as a blueprint to create a course in a new language.
+        Updates of course skeletons can also be imported into courses that are created from a skeleton.
+    </para>
+    </listitem>
+</varlistentry>
+<varlistentry>
+    <term>Phrases:</term>
+    <listitem>
+    <para>
+        Phrases are given by a text string and a recording by a native speaker. We differ phrases by their lengths. The following phrase lengths exists
+        <itemizedlist>
+        <listitem>
+        <para><inlinemediaobject><imageobject>
+        <imagedata fileref="hi32-action-artikulate-word.png" format="PNG"/></imageobject>
+        </inlinemediaobject>
+        word: a single word, letter, or number</para>
+        </listitem>
+        <listitem>
+        <para><inlinemediaobject><imageobject>
+        <imagedata fileref="hi32-action-artikulate-expression.png" format="PNG"/></imageobject>
+        </inlinemediaobject>
+        expression: an expression of several words that does not form a complete sentence</para>
+        </listitem>
+        <listitem>
+        <para><inlinemediaobject><imageobject>
+        <imagedata fileref="hi32-action-artikulate-sentence.png" format="PNG"/></imageobject>
+        </inlinemediaobject>
+        sentence: a complete sentence</para>
+        </listitem>
+        <listitem>
+        <para><inlinemediaobject><imageobject>
+        <imagedata fileref="hi32-action-artikulate-paragraph.png" format="PNG"/></imageobject>
+        </inlinemediaobject>
+        paragraph: several sentences (usually 2-3)</para>
+        </listitem>
+        </itemizedlist>
+    </para>
+    </listitem>
+</varlistentry>
+</variablelist>
+<para>
+A course is associated with a specific language, consists of different units and each unit is given by a sequence of phrases in different lengths.
+</para>
+</sect2>
+
+<sect2>
+<title>Set Storage Folder/Course Repository</title>
+<para>
+The editor operates within a separate folder (in the following called <emphasis>repository</emphasis>, as it is recommended to be under some version control system).
+In that folder, the editor searches for editable courses and skeleton files and also stores new files.
+</para>
+<para>
+The course repository can be set in the configuration dialog.
+It can be found at <menuchoice><guimenu>Settings</guimenu> <guimenuitem>Configure &artikulate;</guimenuitem></menuchoice> and the course settings are at the menu option <guilabel>Course Resources</guilabel>.
+</para>
+<screenshot>
+<screeninfo>Set course repository for editor.</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="editor-set-repository.png" format="PNG" />
+</imageobject>
+<caption><para>Set course repository for editor.</para></caption>
+</mediaobject>
+</screenshot>
+</sect2>
+</sect1>
+
+<sect1>
+<title>Edit a Course</title>
+<para>
+The editor can be started from the main menu with <menuchoice><guimenu>Mode</guimenu> <guimenuitem>Course Editor mode</guimenuitem></menuchoice>.
+There you have the options to work on existing skeleton files or to create new courses or edit existing ones.
+After selecting a language, you can open an existing course to edit it, or otherwise use <guilabel>New Course</guilabel> to create a new course for this language.
+In either case, you will be presented the list of units of the course, where you can create new units or open existing ones for edit.
+</para>
+
+<sect2>
+<title>Edit a Unit</title>
+<para>
+When opening a unit for editing, you will see the list of its phrases (see below).
+One line of this list contains the following information:
+<orderedlist>
+    <listitem><para>edit button: open this phrase for edit</para></listitem>
+    <listitem><para>phrase type: icon that denotes the type of this phrase (e.g., word, expression)</para></listitem>
+    <listitem><para>edit state: a colored block that denotes the edit state of this phrase (red: unknown/no state set; orange: translated state; green: completed state</para></listitem>
+    <listitem><para>the phrase</para></listitem>
+    <listitem><para>exclude button: if course derives from a course skeleton, this button allows excluding the phrase from the unit</para></listitem>
+</orderedlist>
+</para>
+<screenshot>
+<screeninfo>Editor View: list of phrases within a unit.</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="editor-screenshot-unit.png" format="PNG" />
+</imageobject>
+<caption><para>Editor View: list of phrases within a unit.</para></caption>
+</mediaobject>
+</screenshot>
+</sect2>
+
+<sect2>
+<title>Edit a Phrase</title>
+<para>
+When opening a phrase for editing, you will see the phrase editor as shown below.
+This edit interface contains the following elements:
+<itemizedlist>
+    <listitem><para>the phrase text as it will be shown in the trainer</para></listitem>
+    <listitem><para>the original phrase, if using a course skeleton</para></listitem>
+    <listitem><para>the edit state of the phrase</para></listitem>
+    <listitem><para>the type/length of the phrase</para></listitem>
+    <listitem><para>recording buttons for the native speaker recordings</para></listitem>
+    <listitem><para>buttons to denote intersting phonemes of the phrase (currently not used in training mode)</para></listitem>
+</itemizedlist>
+You can close the phrase editing interface with
+<inlinemediaobject><imageobject>
+<imagedata fileref="editor-apply.png" format="PNG"/></imageobject>
+</inlinemediaobject>
+to accept the changes you did, or with
+<inlinemediaobject><imageobject>
+<imagedata fileref="editor-cancel.png" format="PNG"/></imageobject>
+</inlinemediaobject>
+to discard your changes.
+</para>
+<screenshot>
+<screeninfo>Editor View: editing view for a phrase.</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="editor-screenshot-editing-phrase.png" format="PNG" />
+</imageobject>
+<caption><para>Editor View: editing view for a phrase.</para></caption>
+</mediaobject>
+</screenshot>
+</sect2>
+
+<sect2>
+<title>Update from Course Prototype</title>
+<para>
+If the currently edited course derives from a skeleton, then the course can be updated from the latest version of the skeleton by using the button <guilabel>Update from Course Prototype</guilabel> at the top left of the screen.
+This button is deactivated if the course is not derived from a course skeleton.
+</para>
+</sect2>
 </sect1>
 </chapter>
 

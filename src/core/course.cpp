@@ -295,7 +295,7 @@ void Course::setModified(bool modified)
 void Course::sync()
 {
     if (!m_file.isValid() || m_file.isEmpty() || m_resource == 0) {
-        kWarning() << "No file path set, aborting sync operation.";
+        kError() << "Path" << m_file.toLocalFile() << "not valid, aborting sync operation.";
         return;
     }
     m_resource->sync();

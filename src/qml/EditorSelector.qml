@@ -82,7 +82,7 @@ Column {
             Text {
                 id: textSelectLanguage
                 text: i18n("Select Course Language:")
-                font.pointSize: 20;
+                font.pointSize: 1.5 * theme.defaultFont.pointSize
             }
             LanguageSelector {
                 id: languageSelector
@@ -110,7 +110,7 @@ Column {
                     anchors.verticalCenter: parent.verticalCenter
                     text: i18n("Language: ")
                     iconSource: "go-up"
-                    font.pointSize: 20;
+                    font.pointSize: 1.5 * theme.defaultFont.pointSize
                     onClicked: {
                         unselect()
                     }
@@ -125,7 +125,7 @@ Column {
                             return i18n("unselected");
                         }
                     }
-                    font.pointSize: 20;
+                    font.pointSize: 1.5 * theme.defaultFont.pointSize
                 }
             }
 
@@ -135,7 +135,7 @@ Column {
                 iconSource: "document-new"
                 enabled: selectedLanguage != null
                 onClicked: {
-                    globalResourceManager.newCourseDialog();
+                    globalResourceManager.newCourseDialog(root.selectedLanguage);
                 }
             }
             CourseSelector {
@@ -158,7 +158,7 @@ Column {
 
         Text {
             text: i18n("Select Skeleton:")
-            font.pointSize: 20;
+            font.pointSize: 1.5 * theme.defaultFont.pointSize
         }
         SkeletonSelector {
             id: skeletonSelector

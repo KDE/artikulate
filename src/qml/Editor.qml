@@ -259,10 +259,13 @@ Item
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
                     text: i18n("<strong>Skeleton:</strong> %1", editor.currentCourseName)
+                    font.pointSize: 1.5 * theme.defaultFont.pointSize
                 }
                 PlasmaComponents.ToolButton { // unselect-button for language
                     anchors.verticalCenter: parent.verticalCenter
                     iconSource: "go-up"
+                    width: theme.mediumIconSize
+                    height: theme.mediumIconSize
                     flat: true
                     enabled: editorProfile.course != null
                     onClicked: {
@@ -302,10 +305,6 @@ Item
         }
 
         Item {
-            anchors {
-                top: main.top
-                topMargin: 30
-            }
             visible: editorProfile.course != null
 
             Column {
@@ -364,7 +363,7 @@ Item
         visible: !globalResourceManager.isRepositoryManager()
         Text {
             text: i18n("No Course Repository Selected")
-            font.pointSize: 28
+            font.pointSize: 1.5 * theme.defaultFont.pointSize
         }
         Text {
             text: i18n("Editor is only available when Artikulate works on a course data repository. Please see program settings.")

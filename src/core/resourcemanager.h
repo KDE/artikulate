@@ -176,7 +176,7 @@ public:
      */
     QList<SkeletonResource *> skeletonResources();
 
-    Q_INVOKABLE void newCourseDialog();
+    Q_INVOKABLE void newCourseDialog(Language* language = 0);
 
 signals:
     void languageResourceAdded();
