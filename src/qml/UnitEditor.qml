@@ -208,7 +208,6 @@ Item {
 
         PlasmaComponents.ToolButton {
             id: addPhraseButton
-            anchors.top: unitBreadcrumb.bottom
             text: i18n("Add Phrase")
             iconSource: "document-new"
             enabled: root.unit != null && !root.editMode
