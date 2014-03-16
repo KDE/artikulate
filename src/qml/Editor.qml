@@ -302,10 +302,6 @@ Item
         }
 
         Item {
-            anchors {
-                top: main.top
-                topMargin: 30
-            }
             visible: editorProfile.course != null
 
             Column {
