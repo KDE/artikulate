@@ -424,7 +424,7 @@ One line of this list contains the following information:
 <orderedlist>
     <listitem><para>edit button: open this phrase for edit</para></listitem>
     <listitem><para>phrase type: icon that denotes the type of this phrase (e.g., word, expression)</para></listitem>
-    <listitem><para>edit state: a colored block that denotes the edit state of this phrase (red: unknown/no state set; orange: translated state; green: completed state</para></listitem>
+    <listitem><para>edit state: a colored block that denotes the edit state of this phrase (red: unknown/no state set; orange: translated state; green: completed state)</para></listitem>
     <listitem><para>the phrase</para></listitem>
     <listitem><para>exclude button: if course derives from a course skeleton, this button allows excluding the phrase from the unit</para></listitem>
 </orderedlist>
