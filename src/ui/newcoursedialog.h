@@ -26,6 +26,7 @@
 
 class ResourceManager;
 class CourseResource;
+class Language;
 
 class NewCourseDialog :
     public KDialog
@@ -35,6 +36,7 @@ class NewCourseDialog :
 public:
     explicit NewCourseDialog(ResourceManager *resourceMgr);
     virtual ~NewCourseDialog();
+    void setLanguage(Language *language);
     CourseResource * courseResource() const;
 
 public slots:
@@ -42,6 +44,7 @@ public slots:
 
 private:
     Ui::NewCourseDialog *ui;
+    Language *m_fixedLanguage;
     ResourceManager *m_resourceManager;
     CourseResource *m_createdCourse;
 };

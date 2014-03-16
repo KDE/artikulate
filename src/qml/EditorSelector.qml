@@ -135,7 +135,7 @@ Column {
                 iconSource: "document-new"
                 enabled: selectedLanguage != null
                 onClicked: {
-                    globalResourceManager.newCourseDialog();
+                    globalResourceManager.newCourseDialog(root.selectedLanguage);
                 }
             }
             CourseSelector {

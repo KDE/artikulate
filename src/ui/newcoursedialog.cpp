@@ -33,6 +33,7 @@
 
 NewCourseDialog::NewCourseDialog(ResourceManager *m_resourceManager)
     : KDialog(0)
+    , m_fixedLanguage(0)
     , m_resourceManager(m_resourceManager)
     , m_createdCourse(0)
 {
@@ -70,15 +71,24 @@ NewCourseDialog::~NewCourseDialog()
     delete ui;
 }
 
+void NewCourseDialog::setLanguage(Language *language)
+{
+    ui->language->setVisible(false);
+    ui->labelLanguage->setVisible(false);
+    m_fixedLanguage = language;
+}
+
 void NewCourseDialog::createCourse()
 {
-    // set language
-    Language * language = 0;
-    QString selectedLanguage = ui->language->itemData(ui->language->currentIndex()).toString();
-    foreach (LanguageResource *resource, m_resourceManager->languageResources()) {
-        if (resource->identifier() == selectedLanguage) {
-            language = resource->language();
-            break;
+    // set language from dialog if not set yet
+    Language * language = m_fixedLanguage;
+    if (!language) {
+        QString selectedLanguage = ui->language->itemData(ui->language->currentIndex()).toString();
+        foreach (LanguageResource *resource, m_resourceManager->languageResources()) {
+            if (resource->identifier() == selectedLanguage) {
+                language = resource->language();
+                break;
+            }
         }
     }
 
