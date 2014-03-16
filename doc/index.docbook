@@ -300,15 +300,6 @@ On the one hand it allows the creation of language courses and recording of the 
 On the hand, it enables work on so called <emphasis>skeletons</emphasis>, which are language course prototypes that allow easy and fast creation of new courses derived from a prototype.
 The editor only edits files outside of the training course set, i.e., the set of courses downloaded in &artikulate;.
 </para>
-<screenshot>
-<screeninfo>The Editor.</screeninfo>
-<mediaobject>
-<imageobject>
-<imagedata fileref="editor-screenshot-unit.png" format="PNG" />
-</imageobject>
-<caption><para>Editor view with list of phrases inside a unit.</para></caption>
-</mediaobject>
-</screenshot>
 
 <sect1>
 <title>Overview</title>
@@ -395,7 +386,7 @@ A course is associated with a specific language, consists of different units and
 </sect2>
 
 <sect2>
-<title>Storage Folder/Course Repository</title>
+<title>Set Storage Folder/Course Repository</title>
 <para>
 The editor operates within a separate folder (in the following called <emphasis>repository</emphasis>, as it is recommended to be under some version control system).
 In that folder, the editor searches for editable courses and skeleton files and also stores new files.
@@ -416,6 +407,39 @@ It can be found at <menuchoice><guimenu>Settings</guimenu> <guimenuitem>Configur
 </sect2>
 </sect1>
 
+<sect1>
+<title>Edit a Course</title>
+<para>
+The editor can be started from the main menu with <menuchoice><guimenu>Mode</guimenu> <guimenuitem>Course Editor mode</guimenuitem></menuchoice>.
+There you have the options to work on existing skeleton files or to create new courses or edit existing ones.
+After selecting a language, you can open an existing course to edit it, or otherwise use <guilabel>New Course</guilabel> to create a new course for this language.
+In either case, you will be presented the list of units of the course, where you can create new units or open existing ones for edit.
+</para>
+
+<sect2>
+<title>Edit a Unit</title>
+<para>
+When opening a unit for edit, you will see the list of its phrases (see below).
+One line of this list contains the following information:
+<orderedlist>
+    <listitem><para>edit button: open this phrase for edit</para></listitem>
+    <listitem><para>phrase type: icon that denotes the type of this phrase (e.g., word, expression)</para></listitem>
+    <listitem><para>edit state: a colored block that denotes the edit state of this phrase (red: unknown/no state set; orange: translated state; green: completed state</para></listitem>
+    <listitem><para>the phrase</para></listitem>
+    <listitem><para>exclude button: if course derives from a course skeleton, this button allows excluding the phrase from the unit</para></listitem>
+</orderedlist>
+</para>
+<screenshot>
+<screeninfo>Editor View: list of phrases within a unit.</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="editor-screenshot-unit.png" format="PNG" />
+</imageobject>
+<caption><para>Editor view with list of phrases inside a unit.</para></caption>
+</mediaobject>
+</screenshot>
+</sect2>
+</sect1>
 </chapter>
 
 
