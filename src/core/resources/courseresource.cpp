@@ -34,6 +34,7 @@
 #include <QIODevice>
 #include <QFile>
 #include <QFileInfo>
+#include <QDir>
 
 #include <KDebug>
 
@@ -227,6 +228,13 @@ void CourseResource::sync()
     root.appendChild(unitListElement);
 
     // write back to file
+    QFileInfo info(path().directory());    // create directories if necessary
+    if (!info.exists()) {
+        kDebug() << "create xml output file directory, not existing";
+        QDir dir;
+        dir.mkpath(path().directory());
+    }
+
     //TODO port to KSaveFile
     QFile file;
     file.setFileName(path().toLocalFile());
