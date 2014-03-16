@@ -359,8 +359,11 @@ void ResourceManager::removeCourse(Course *course)
 void ResourceManager::newCourseDialog()
 {
     QPointer<NewCourseDialog> dialog = new NewCourseDialog(this);
-    if (dialog->exec() == QDialog::Accepted ) {
+    if (dialog->exec() == QDialog::Accepted) {
+        CourseResource *tempCourse = dialog->courseResource();
+        tempCourse->setContributorResource(true);
         addCourseResource(dialog->courseResource());
+        emit languageCoursesChanged();
     }
 }
 

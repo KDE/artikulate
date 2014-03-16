@@ -33,6 +33,7 @@
 #include <QDomDocument>
 #include <QIODevice>
 #include <QFile>
+#include <QFileInfo>
 
 #include <KDebug>
 
@@ -310,16 +311,20 @@ QObject * CourseResource::resource()
         return d->m_courseResource;
     }
 
-    if (!path().isLocalFile()) {
-        kWarning() << "Cannot open course file at " << path().toLocalFile() << ", aborting.";
-        return 0;
+    // if file does not exist, create new course
+    QFileInfo info(d->m_path.toLocalFile());
+    if (!info.exists()) {
+        d->m_courseResource = new Course(this);
+        d->m_courseResource->setId(d->m_identifier);
+        d->m_courseResource->setTitle(d->m_title);
+        return d->m_courseResource;
     }
 
+    // load existing file
     QXmlSchema schema = loadXmlSchema("course");
     if (!schema.isValid()) {
         return 0;
     }
-
     QDomDocument document = loadDomDocument(path(), schema);
     if (document.isNull()) {
         kWarning() << "Could not parse document " << path().toLocalFile() << ", aborting.";

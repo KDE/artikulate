@@ -90,18 +90,19 @@ void NewCourseDialog::createCourse()
         .arg(language->id());
 
     m_createdCourse = new CourseResource(m_resourceManager, KUrl::fromLocalFile(path));
+    Q_ASSERT(m_createdCourse);
 
     Course *course = m_createdCourse->course();
+    Q_ASSERT(course);
     course->setId(QUuid::createUuid().toString());
     course->setTitle(ui->title->text());
     course->setDescription(ui->description->toHtml());
+    course->setFile(KUrl::fromLocalFile(path));
+    course->setLanguage(language);
 
     // set skeleton
     QString skeletonId = ui->skeletonSelector->itemData(ui->skeletonSelector->currentIndex()).toString();
     course->setForeignId(skeletonId);
-
-    // check that language actually exists
-    Q_ASSERT(course->language());
 }
 
 CourseResource * NewCourseDialog::courseResource() const
