@@ -289,8 +289,111 @@ The available types are:
 </itemizedlist>
 </para>
 </sect2>
-
 </sect1>
+</chapter>
+
+<chapter>
+<title>Editor</title>
+<para>
+The integrated course editor is an advanced tool for language course contributors that allows the creation and collaborative work on language courses for &artikulate;.
+On the one hand it allows the creation of language courses and recording of the native speaker sound files.
+On the hand, it enables work on so called <emphasis>skeletons</emphasis>, which are language course prototypes that allow easy and fast creation of new courses derived from a prototype.
+The editor only edits files outside of the training course set, i.e., the set of courses downloaded in &artikulate;.
+</para>
+<screenshot>
+<screeninfo>The Editor.</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="editor-screenshot-unit.png" format="PNG" />
+</imageobject>
+<caption>Editor view with list of phrases inside a unit.</caption>
+</mediaobject>
+</screenshot>
+
+<sect1>
+<title>Overview</title>
+
+<sect2>
+<title>Editor Notions</title>
+<para>
+For the course editor we use a specific set of terms, which is also used for the following descriptions.
+<variablelist>
+<varlistentry>
+    <term>Language:</term>
+    <listitem>
+    <para>
+        Languages are only available in Artikulate if they are given by language specifications.
+    </para>
+    </listitem>
+</varlistentry>
+<varlistentry>
+    <term>Course:</term>
+    <listitem>
+    <para>
+        A course is associated to one language and contains a list of units.
+    </para>
+    </listitem>
+</varlistentry>
+<varlistentry>
+    <term>Unit:</term>
+    <listitem>
+    <para>
+        A unit consists of phrases that are "somehow" homogeneous.
+        E.g. those can be phrases spoken in a restaurant or phrases spoken at a conversation at the street by a tourist searching for the way.
+    </para>
+    </listitem>
+</varlistentry>
+<varlistentry>
+    <term>Course Skeletons:</term>
+    <listitem>
+    <para>
+        A course skeleton forms the prototype of a course.
+        This is, skeletons help to ease creation of courses in several languages as they state a set of units and phrases (in English) that then can be used as a blueprint to create a course in a new language.
+        Updates of course skeletons can also be imported into courses that are created from a skeleton.
+    </para>
+    </listitem>
+</varlistentry>
+<varlistentry>
+    <term>Phrases:</term>
+    <listitem>
+    <para>
+        Phrases are given by a text string and a recording by a native speaker. We differ phrases by their lengths. The following phrase lengths exists
+        <itemizedlist>
+        <listitem><para>word: a single word, letter, or number</para></listitem>
+        <listitem><para>expression: an expression of several words that does not form a complete sentence</para></listitem>
+        <listitem><para>sentence: a complete sentence</para></listitem>
+        <listitem><para>paragraph: several sentences (usually 2-3)</para></listitem>
+        </itemizedlist>
+    </para>
+    </listitem>
+</varlistentry>
+</variablelist>
+A course is associated with a specific language, consists of different units and each unit is given by a sequence of phrases in different lengths.
+</para>
+</sect2>
+
+<sect2>
+<title>Storage Folder/Course Repository</title>
+<para>
+The editor operates within a separate folder (in the following called <emphasis>repository</emphasis>, as it is recommended to be under some version control system).
+In that folder, the editor searches for editable courses and skeleton files and also stores new files.
+</para>
+<para>
+The course repository can be set in the configuration dialog.
+It can be found at <menuchoice><guimenu>Settings</guimenu> <guimenuitem>Configure Artikulate</guimenuitem></menuchoice> and the course settings are at the menu option <guilabel>Course Resources</guilabel>.
+</para>
+<screenshot>
+<screeninfo>Set course repository for editor.</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="editor-set-repository.png" format="PNG" />
+</imageobject>
+<caption>Set course repository for editor.</caption>
+</mediaobject>
+</screenshot>
+</sect2>
+</sect1>
+
 </chapter>
 
 
