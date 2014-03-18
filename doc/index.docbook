@@ -53,7 +53,7 @@ Learners train their pronunciation by recording their own voices and comparing t
 <keyword>course</keyword>
 <keyword>unit</keyword>
 <keyword>phrase</keyword>
-<keyword>user profile</keyword>
+<keyword>learner profile</keyword>
 </keywordset>
 
 </bookinfo>
@@ -89,9 +89,9 @@ This chapter explains how to make the first steps in &artikulate;, especially ho
 <sect2>
 <title>1. Create a Learner Identity</title>
 <para>
-For every learner, there has to be one user identity that saves the learning progress.
+For every learner, there has to be one learner identity that saves the learning progress.
 This also allows multiple people to use &artikulate; on the same computer, each being able to have his/her private learning goals.
-To create a user identity, click on the <guilabel>Create Learner Identity</guilabel> button (if starting &artikulate; for the first time) or otherwise the button with the name of the currently selected learner identity at the top left of the window.
+To create a learner identity, click on the <guilabel>Create Learner Identity</guilabel> button (if starting &artikulate; for the first time) or otherwise the button with the name of the currently selected learner identity at the top left of the window.
 In the opening dialog, then select <guilabel>Create New Learner Identity</guilabel>.
 You can edit your name with the <guilabel>Edit</guilabel> button and set a picture if you like.
 </para>
@@ -186,7 +186,7 @@ Otherwise, when clicking on <guilabel>Retry Later</guilabel>, a next phrase is s
 For training the pronunciation of a current phrase, the learner shall first play the native speaker's recording by pressing at the <guilabel>Playback</guilabel> button at the left.
 The next step is to press on the <guilabel>Record</guilabel> button and read the presented phrase aloud.
 A further press on the <guilabel>Record</guilabel> button stops the recording and the recording can then be played with the corresponding <guilabel>Playback</guilabel> button.
-By listening to both recordings, the user shall judge if the phrase was pronounced correctly or not.
+By listening to both recordings, the learner shall judge if the phrase was pronounced correctly or not.
 If it was pronounced correctly, clicking on <guilabel>OK</guilabel> marks the phrase as learned and proceeds with the next phrase.
 Otherwise, if not yet satisfied with the recording, the learner either can retry recording by again clicking on <guilabel>Record</guilabel> or schedule the phrase for later training by clicking on <guilabel>Retry Later</guilabel>.
 </para>
