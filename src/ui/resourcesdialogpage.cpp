@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -35,12 +35,6 @@ ResourcesDialogPage::ResourcesDialogPage(ResourceManager *m_resourceManager)
 {
     ui = new Ui::ResourcesDialogPage;
     ui->setupUi(this);
-
-    // activate path selector only if repository should be used
-    connect(ui->kcfg_UseCourseRepository, SIGNAL(toggled(bool)), this, SLOT(updateHints()));
-    connect(ui->kcfg_CourseRepositoryPath, SIGNAL(textChanged(QString)), this, SLOT(updateHints()));
-
-    updateHints();
 }
 
 ResourcesDialogPage::~ResourcesDialogPage()
@@ -48,27 +42,11 @@ ResourcesDialogPage::~ResourcesDialogPage()
     delete ui;
 }
 
-void ResourcesDialogPage::updateHints()
-{
-    if (ui->kcfg_UseCourseRepository->isChecked() != Settings::useCourseRepository()
-        || ui->kcfg_UseCourseRepository->text() != Settings::courseRepositoryPath() )
-    {
-        m_restartNeeded = true;
-    } else {
-        m_restartNeeded = false;
-    }
-    // TODO
-    // when doing this, a simple reload of the resource manager should be enough
-    // proper reload mechanism not implemented yet
-//     ui->restartInfo->setVisible(m_restartNeeded);//FIXME tell resource manager to reload
-}
-
 void ResourcesDialogPage::loadSettings()
 {
     // setup Ui with stored settings
     ui->kcfg_CourseRepositoryPath->setText(Settings::courseRepositoryPath());
     ui->kcfg_UseCourseRepository->setChecked(Settings::useCourseRepository());
-//     ui->restartInfo->setVisible(false); //FIXME tell resource manager
 }
 
 void ResourcesDialogPage::saveSettings()
@@ -77,4 +55,7 @@ void ResourcesDialogPage::saveSettings()
     Settings::setUseCourseRepository(ui->kcfg_UseCourseRepository->isChecked());
     Settings::setCourseRepositoryPath(ui->kcfg_CourseRepositoryPath->text());
     Settings::self()->writeConfig();
+
+    // reloading resources
+    m_resourceManager->loadCourseResources();
 }

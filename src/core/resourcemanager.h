@@ -52,6 +52,7 @@ namespace LearnerProfile {
 class ARTIKULATELIB_EXPORT ResourceManager : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool isRepositoryManager READ isRepositoryManager NOTIFY repositoryChanged);
 
 public:
     explicit ResourceManager(QObject *parent = 0);
@@ -78,7 +79,7 @@ public:
     void registerLearningGoals(LearnerProfile::ProfileManager *profileManger);
 
     /**
-     * returns true if a repository is used, else false
+     * \return \c true if a repository is used, else \c false
      */
     Q_INVOKABLE bool isRepositoryManager() const;
 
@@ -183,6 +184,7 @@ signals:
     void languageResourceAboutToBeAdded(LanguageResource*,int);
     void languageResourceRemoved();
     void languageResourceAboutToBeRemoved(int);
+    void repositoryChanged();
     void courseResourceAdded();
     void courseResourceAboutToBeAdded(CourseResource*,int);
     void courseResourceAboutToBeRemoved(int);

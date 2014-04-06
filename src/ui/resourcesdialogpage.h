@@ -39,7 +39,6 @@ public:
 public slots:
     void saveSettings();
     void loadSettings();
-    void updateHints();
 
 private:
     Ui::ResourcesDialogPage *ui;
