@@ -55,6 +55,9 @@ ResourceManager::ResourceManager(QObject *parent)
 
 void ResourceManager::loadCourseResources()
 {
+    // reload config, could be changed in dialogs
+    Settings::self()->readConfig();
+
     // register skeleton resources
     QDir skeletonRepository = QDir(Settings::courseRepositoryPath());
     skeletonRepository.setFilter(QDir::Files | QDir::Hidden);
@@ -115,6 +118,10 @@ void ResourceManager::loadCourseResources()
         QString directory = courseFile.directory().section('/', -1);
         addCourse(courseFile);
     }
+
+    //TODO this signal should only be emitted when repository was added/removed
+    // yet the call to this method is very seldom and emitting it too often is not that harmful
+    emit repositoryChanged();
 }
 
 void ResourceManager::loadLanguageResources()

@@ -289,7 +289,7 @@ Item
         height: editor.height - breadcrumb.height - 80
         spacing: 10
 
-        visible: globalResourceManager.isRepositoryManager()
+        visible: globalResourceManager.isRepositoryManager
 
         EditorSelector {
             id: editCourseSelector
@@ -360,7 +360,7 @@ Item
             bottomMargin: 10
         }
         spacing: 10
-        visible: !globalResourceManager.isRepositoryManager()
+        visible: !globalResourceManager.isRepositoryManager
         Text {
             text: i18n("No Course Repository Selected")
             font.pointSize: 1.5 * theme.defaultFont.pointSize
