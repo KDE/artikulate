@@ -235,6 +235,13 @@ void MainWindow::downloadNewStuff()
         //update available courses
         m_resourceManager->loadCourseResources();
 
+        if (!m_profileManager->activeProfile()) {
+            kWarning() << "Not registering course language for favorite languages:"
+                << " no active learner profile set";
+            delete dialog;
+            return;
+        }
+
         // add languages of new courses to favorite languages
         foreach (const KNS3::Entry &entry, dialog->changedEntries()) {
             foreach (const QString &path, entry.installedFiles()) {
