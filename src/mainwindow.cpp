@@ -107,6 +107,11 @@ MainWindow::MainWindow()
     // settings from kcfg values
     updateTrainingPhraseFont();
 
+    // create training profile if none exists:
+    if (!m_profileManager->activeProfile()) {
+        m_profileManager->addProfile("Unnamed Identity"); //TODO use i18n for 4.14
+    }
+
     // set initial view
     m_view->rootObject()->setProperty("viewMode", Trainer);
 
@@ -234,6 +239,13 @@ void MainWindow::downloadNewStuff()
     if (dialog->exec() == QDialog::Accepted) {
         //update available courses
         m_resourceManager->loadCourseResources();
+
+        if (!m_profileManager->activeProfile()) {
+            kWarning() << "Not registering course language for favorite languages:"
+                << " no active learner profile set";
+            delete dialog;
+            return;
+        }
 
         // add languages of new courses to favorite languages
         foreach (const KNS3::Entry &entry, dialog->changedEntries()) {
