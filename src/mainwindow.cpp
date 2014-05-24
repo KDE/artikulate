@@ -87,7 +87,7 @@ MainWindow::MainWindow()
     setupActions();
 
     // set view
-    m_view->setMinimumSize(QSize(1000, 700));
+    m_view->resize(QSize(800, 600));
     m_view->setStyleSheet("background-color: transparent;");
     m_view->rootContext()->setContextObject(this);
     m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
