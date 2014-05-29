@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<component type="desktop">
+  <id>artikulate.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <name>Artikulate</name>
+  <summary>Artikulate Pronunciation Trainer</summary>
+  <description>
+    <p>Artikulate is a pronunciation trainer that helps improving and perfecting a learner's pronunciation skills for a foreign language. It provides courses with native speaker recordings for several training languages. The learner downloads those courses, selects a category of phrases to train, then starts with recording her/his own voice when speaking the phrases and comparing the results to the native speaker's recordings by listening to both. By adjusting and repeating the own pronunciation, the learner can improve his/her skill.</p>
+  </description>
+  <url type="homepage">http://edu.kde.org/artikulate/</url>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=artikulate</url>
+  <url type="help">http://docs.kde.org/stable/en/kdeedu/artikulate/index.html</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>http://edu.kde.org/images/screenshots/resized/artikulate.png</image>
+    </screenshot>
+  </screenshots>
+  <project_group>KDE</project_group>
+  <provides>
+    <binary>artikulate</binary>
+  </provides>
+</component>
