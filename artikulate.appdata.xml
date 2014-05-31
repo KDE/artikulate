@@ -1,12 +1,29 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <component type="desktop">
   <id>artikulate.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Artikulate</name>
+  <name xml:lang="nl">Artikulate</name>
+  <name xml:lang="pt">Artikulate</name>
+  <name xml:lang="pt-BR">Artikulate</name>
+  <name xml:lang="sv">Artikulate</name>
+  <name xml:lang="uk">Artikulate</name>
+  <name xml:lang="x-test">xxArtikulatexx</name>
   <summary>Artikulate Pronunciation Trainer</summary>
+  <summary xml:lang="nl">Artikulate Trainingsprogramma voor uitspraak</summary>
+  <summary xml:lang="pt">Treino de Pronúncia Artikulate</summary>
+  <summary xml:lang="pt-BR">Treinador de Pronúncia Artikulate</summary>
+  <summary xml:lang="sv">Artikulate uttalsövning</summary>
+  <summary xml:lang="uk">Програма для навчання вимові Artikulate</summary>
+  <summary xml:lang="x-test">xxArtikulate Pronunciation Trainerxx</summary>
   <description>
     <p>Artikulate is a pronunciation trainer that helps improving and perfecting a learner's pronunciation skills for a foreign language. It provides courses with native speaker recordings for several training languages. The learner downloads those courses, selects a category of phrases to train, then starts with recording her/his own voice when speaking the phrases and comparing the results to the native speaker's recordings by listening to both. By adjusting and repeating the own pronunciation, the learner can improve his/her skill.</p>
+    <p xml:lang="nl">Artikulate is een trainingsprogramma voor uitspraak dat helpt om het uitspreken van een vreemde taal van een leerling te verbeteren en te perfectioneren. Het biedt lessen met opnamen van sprekers in de eigen taal voor training in verschillende talen. De leerling downloadt deze lessen, selecteert een categorie van te leren frasen, start daarna met het opnemen van haar/zijn eigen stem bij het uitspreken van de frasen en vergelijkt de resultaten met die van de opnamen van de spreker in de eigen taal door naar beiden te luisteren. Door de eigen uitspraak aan te passen en te herhalen, kan de leerling zijn/haar prestaties verbeteren.</p>
+    <p xml:lang="pt">O Artikulate é um treinador de pronúncia que ajuda a melhorar e a aperfeiçoar os dotes de pronúncia de um aluno para uma dada língua estrangeira. Fornece exercícios com gravações de locutores nativos para diversas línguas de treino. O aluno pode transferir esses exercícios, escolher uma categoria de frases a treinar, começando depois a gravar a sua própria voz a falar as frases e a comparar os resultados com as gravações do locutor nativo, ouvindo-os a ambos. Ao ajustar e ao repetir a sua própria pronúncia, o aluno poderá melhorar as suas aptidões.</p>
+    <p xml:lang="sv">Artikulate är ett uttalsövningsprogram som hjälper till att förbättra och fullkomna en elevs uttalsfärdighet på ett främmande språk. Det tillhandahåller kurser med inspelningar av infödda på ett flertal övningsspråk. Eleven laddar ner kurserna, väljer en kategori meningar att öva på, och börjar därefter med att spela in sin egen röst vid uppläsning av meningarna och jämför därefter resultatet med de inföddas inspelningar genom att lyssna på båda. Genom att justera och upprepa sitt eget uttal, kan eleven förbättra sina färdigheter.</p>
+    <p xml:lang="uk">Artikulate — програма для навчання вимові, яка допомагає у покращенні та удосконаленні навичок учня з вимови слів іноземною мовою. У програмі передбачено курси, записані людьми, для яких мова є рідною, створені декількома мовами. Учень може отримати такий курс, вибрати категорію фраз для навчання і розпочати записування власних спроб вимовити фразу та порівняння з еталонними записами. Коригуючи і повторюючи вимов, учень може покращити власні навички.</p>
+    <p xml:lang="x-test">xxArtikulate is a pronunciation trainer that helps improving and perfecting a learner's pronunciation skills for a foreign language. It provides courses with native speaker recordings for several training languages. The learner downloads those courses, selects a category of phrases to train, then starts with recording her/his own voice when speaking the phrases and comparing the results to the native speaker's recordings by listening to both. By adjusting and repeating the own pronunciation, the learner can improve his/her skill.xx</p>
   </description>
   <url type="homepage">http://edu.kde.org/artikulate/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=artikulate</url>
