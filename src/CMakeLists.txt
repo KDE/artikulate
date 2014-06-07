@@ -27,27 +27,11 @@ set(ARTIKULATE_VERSION_MINOR 3)
 set(ARTIKULATE_VERSION_PATCH 50)
 
 find_package(KDeclarative REQUIRED)
-find_package(QtMobility COMPONENTS MultimediaKit QUIET)
-find_package(QtGStreamer QUIET)
-
-# print information about built recording backends
-message("----------------------------------")
-message("Building following recording backends:")
-if (QTGSTREAMER_FOUND)
-    message("  * QtGStreamer recording backend")
-endif(QTGSTREAMER_FOUND)
-if (QTMOBILITY_FOUND)
-    message("  * QtMultimedia recording backend (default)")
-endif(QTMOBILITY_FOUND)
-if (NOT QTGSTREAMER_FOUND AND NOT QTMOBILITY_FOUND)
-    message(FATAL_ERROR "No recording backend built: either QtGStreamer or QtMultimedia are required.")
-endif()
-message("----------------------------------")
+find_package(QtGStreamer REQUIRED)
 
 # set config files after packages are searched
 configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
 configure_file("${artikulate_SOURCE_DIR}/config.h.cmake" "${artikulate_BINARY_DIR}/config.h" @ONLY)
-
 
 add_subdirectory(qml)
 
@@ -103,45 +87,23 @@ set(
     ${KDE4_KNEWSTUFF3_LIBS}
 )
 
-# select backend and add files
-if (QTMOBILITY_FOUND)
-    include_directories(
-        ${QTMOBILITY_INCLUDE_DIR}
-        ${QTMOBILITY_MULTIMEDIAKIT_INCLUDE_DIR}
+include_directories(
+    ${QTGSTREAMER_INCLUDE_DIR}
     )
-    set(artikulateCore_SRCS
-        ${artikulateCore_SRCS}
-        core/soundbackends/qtmultimediabackend.cpp
+set(artikulateCore_SRCS
+    ${artikulateCore_SRCS}
+    core/soundbackends/qtgstreamerbackend.cpp
     )
-    set(artikulateCoreTargetLibs
-        ${artikulateCoreTargetLibs}
-        ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
+set(artikulateCoreTargetLibs
+    ${artikulateCoreTargetLibs}
+    ${QTGLIB_LIBRARIES}
+    ${QTGSTREAMER_LIBRARIES}
     )
-    set(artikulateeTargetLibs
-        ${artikulateTargetLibs}
-        ${QTMOBILITY_MULTIMEDIAKIT_LIBRARY}
+set(artikulateeTargetLibs
+    ${artikulateTargetLibs}
+    ${QTGLIB_LIBRARIES}
+    ${QTGSTREAMER_LIBRARIES}
     )
-endif(QTMOBILITY_FOUND)
-
-if(QTGSTREAMER_FOUND)
-    include_directories(
-        ${QTGSTREAMER_INCLUDE_DIR}
-    )
-    set(artikulateCore_SRCS
-        ${artikulateCore_SRCS}
-        core/soundbackends/qtgstreamerbackend.cpp
-    )
-    set(artikulateCoreTargetLibs
-        ${artikulateCoreTargetLibs}
-        ${QTGLIB_LIBRARIES}
-        ${QTGSTREAMER_LIBRARIES}
-    )
-    set(artikulateeTargetLibs
-        ${artikulateTargetLibs}
-        ${QTGLIB_LIBRARIES}
-        ${QTGSTREAMER_LIBRARIES}
-    )
-endif(QTGSTREAMER_FOUND)
 
 # compile UI files
 kde4_add_ui_files(artikulateCore_SRCS
