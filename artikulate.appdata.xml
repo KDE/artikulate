@@ -5,6 +5,7 @@
   <project_license>GPL-2.0+</project_license>
   <name>Artikulate</name>
   <name xml:lang="es">Artikulate</name>
+  <name xml:lang="hu">Artikulate</name>
   <name xml:lang="nds">Artikulate</name>
   <name xml:lang="nl">Artikulate</name>
   <name xml:lang="pl">Artikulate</name>
@@ -17,6 +18,7 @@
   <name xml:lang="x-test">xxArtikulatexx</name>
   <summary>Artikulate Pronunciation Trainer</summary>
   <summary xml:lang="es">Entrenador de pronunciación Artikulate</summary>
+  <summary xml:lang="hu">Artikulate kiejtés oktató</summary>
   <summary xml:lang="nds">Utspraak-Lehrer Artikulate</summary>
   <summary xml:lang="nl">Artikulate Trainingsprogramma voor uitspraak</summary>
   <summary xml:lang="pl">Trener artykułowanej wymowy</summary>
