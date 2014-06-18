@@ -26,6 +26,7 @@
 #include <QString>
 
 #include <QGst/global.h>
+#include <QGst/PropertyProbe>
 #include <QGst/Pipeline>
 
 class QtGStreamerBackend : public SoundBackendInterface
@@ -51,6 +52,7 @@ private:
     void stopPipeline();
     QGst::BinPtr createAudioSrcBin();
 
+    QGst::PropertyProbePtr m_audioProbe;
     QGst::PipelinePtr m_pipeline;
     QString m_device;
     QMap<QString, QString> m_availableDevices; //!> (identifier,human readable name)

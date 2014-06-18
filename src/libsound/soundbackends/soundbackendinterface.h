@@ -22,7 +22,7 @@
 #define SOUNDBACKENDINTERFACE_H
 
 #include <QObject>
-#include "../capturedevicecontroller.h"
+#include "core/capturedevicecontroller.h"
 
 class SoundBackendInterface : public QObject
 {

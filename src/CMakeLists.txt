@@ -40,6 +40,7 @@ include_directories(
     ${QT_INCLUDE}
     ${KDE4_INCLUDES}
     ${CMAKE_CURRENT_BINARY_DIR}
+    ${artikulate_SOURCE_DIR}
 )
 
 # set the source code files from which Artikulate is compiled
@@ -62,7 +63,7 @@ set(artikulateCore_SRCS
     core/resources/skeletonresource.cpp
     core/player.cpp
     core/recorder.cpp
-    core/soundbackends/soundbackendinterface.cpp
+    libsound/soundbackends/soundbackendinterface.cpp
     ui/newcoursedialog.cpp
 )
 
@@ -92,7 +93,7 @@ include_directories(
     )
 set(artikulateCore_SRCS
     ${artikulateCore_SRCS}
-    core/soundbackends/qtgstreamerbackend.cpp
+    libsound/soundbackends/qtgstreamerbackend.cpp
     )
 set(artikulateCoreTargetLibs
     ${artikulateCoreTargetLibs}
