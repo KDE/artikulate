@@ -19,14 +19,14 @@
  */
 
 #include "capturedevicecontroller.h"
-#include "soundbackends/soundbackendinterface.h"
+#include "libsound/soundbackends/soundbackendinterface.h"
 #include <config.h>
 
 #if QTMOBILITY_FOUND
     #include "soundbackends/qtmultimediabackend.h"
 #endif
 #if QTGSTREAMER_FOUND
-    #include "soundbackends/qtgstreamerbackend.h"
+    #include "libsound/soundbackends/qtgstreamerbackend.h"
 #endif
 
 #include <settings.h>
