@@ -19,7 +19,6 @@
  */
 
 #include "qtgstreamerbackend.h"
-#include "settings.h"
 
 #include <QGlib/Error>
 #include <QGlib/Connect>

@@ -19,7 +19,7 @@
  */
 
 #include "player.h"
-#include "outputdevicecontroller.h"
+#include "libsound/src/outputdevicecontroller.h"
 
 #include <QList>
 #include <KDebug>

@@ -19,8 +19,8 @@
  */
 
 #include "sounddevicedialogpage.h"
-#include <core/capturedevicecontroller.h>
-#include <core/outputdevicecontroller.h>
+#include "libsound/src/capturedevicecontroller.h"
+#include "libsound/src/outputdevicecontroller.h"
 #include "settings.h"
 
 #include <KLocale>

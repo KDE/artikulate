@@ -23,7 +23,7 @@
 #include "trainingsession.h"
 #include "phrase.h"
 #include "unit.h"
-#include "core/outputdevicecontroller.h"
+#include "libsound/src/outputdevicecontroller.h"
 
 #include <QList>
 #include <QHash>

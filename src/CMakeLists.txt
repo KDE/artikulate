@@ -27,7 +27,6 @@ set(ARTIKULATE_VERSION_MINOR 3)
 set(ARTIKULATE_VERSION_PATCH 50)
 
 find_package(KDeclarative REQUIRED)
-find_package(QtGStreamer REQUIRED)
 
 # set config files after packages are searched
 configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
@@ -55,56 +54,14 @@ set(artikulateCore_SRCS
     core/profile.cpp
     core/skeleton.cpp
     core/trainingsession.cpp
-    core/capturedevicecontroller.cpp
-    core/outputdevicecontroller.cpp
     core/resources/resourceinterface.cpp
     core/resources/languageresource.cpp
     core/resources/courseresource.cpp
     core/resources/skeletonresource.cpp
     core/player.cpp
     core/recorder.cpp
-    libsound/soundbackends/soundbackendinterface.cpp
     ui/newcoursedialog.cpp
 )
-
-set(
-    artikulateCoreTargetLibs
-    ${KDECLARATIVE_LIBRARIES}
-    ${KDE4_KIO_LIBS}
-    ${QT_QTDECLARATIVE_LIBRARY}
-    ${QT_QTXMLPATTERNS_LIBRARY}
-    ${QT_QTSQL_LIBRARY}
-    ${PHONON_LIBS}
-)
-
-set(
-    artikulateTargetLibs
-    artikulatecore
-    artikulatelearnerprofile
-    ${KDECLARATIVE_LIBRARIES}
-    ${KDE4_PLASMA_LIBS}
-    ${KDE4_KIO_LIBS}
-    ${QT_QTDECLARATIVE_LIBRARY}
-    ${KDE4_KNEWSTUFF3_LIBS}
-)
-
-include_directories(
-    ${QTGSTREAMER_INCLUDE_DIR}
-    )
-set(artikulateCore_SRCS
-    ${artikulateCore_SRCS}
-    libsound/soundbackends/qtgstreamerbackend.cpp
-    )
-set(artikulateCoreTargetLibs
-    ${artikulateCoreTargetLibs}
-    ${QTGLIB_LIBRARIES}
-    ${QTGSTREAMER_LIBRARIES}
-    )
-set(artikulateeTargetLibs
-    ${artikulateTargetLibs}
-    ${QTGLIB_LIBRARIES}
-    ${QTGSTREAMER_LIBRARIES}
-    )
 
 # compile UI files
 kde4_add_ui_files(artikulateCore_SRCS
@@ -115,7 +72,12 @@ kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})
 target_link_libraries(artikulatecore
     LINK_PRIVATE
         artikulatelearnerprofile
-        ${artikulateCoreTargetLibs}
+        artikulatesound
+        ${KDECLARATIVE_LIBRARIES}
+        ${KDE4_KIO_LIBS}
+        ${QT_QTDECLARATIVE_LIBRARY}
+        ${QT_QTXMLPATTERNS_LIBRARY}
+        ${QT_QTSQL_LIBRARY}
 )
 set_target_properties(
     artikulatecore
@@ -127,7 +89,7 @@ install(
     TARGETS artikulatecore
     DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS}
 )
-install( FILES artikulate.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
+install(FILES artikulate.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR})
 
 # set the source code files from which Artikulate is compiled
 set(artikulate_SRCS
@@ -166,7 +128,13 @@ kde4_add_executable(artikulate ${artikulate_SRCS})
 target_link_libraries(artikulate
     LINK_PRIVATE
         artikulatelearnerprofile
-        ${artikulateTargetLibs}
+        artikulatesound
+        artikulatecore
+        ${KDECLARATIVE_LIBRARIES}
+        ${KDE4_PLASMA_LIBS}
+        ${KDE4_KIO_LIBS}
+        ${QT_QTDECLARATIVE_LIBRARY}
+        ${KDE4_KNEWSTUFF3_LIBS}
 )
 
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})

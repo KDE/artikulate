@@ -18,69 +18,72 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef OUTPUTDEVICECONTROLLER_H
-#define OUTPUTDEVICECONTROLLER_H
+#ifndef CAPTUREDEVICECONTROLLER_H
+#define CAPTUREDEVICECONTROLLER_H
 
-#include "artikulatecore_export.h"
+#include "libsound_export.h"
 
 #include <QObject>
-#include <Phonon/AudioOutput>
-#include <Phonon/MediaObject>
 
-class OutputDeviceControllerPrivate;
+class CaptureDeviceControllerPrivate;
 class KUrl;
 
 /**
- * \class OutputDeviceController
+ * \class CaptureDeviceController
  *
- * This singelton class provides a controller for the sound output device.
+ * This singelton class provides a controller for the sound capture device.
  */
-class ARTIKULATELIB_EXPORT OutputDeviceController : public QObject
+class LIBSOUND_EXPORT CaptureDeviceController : public QObject
 {
     Q_OBJECT
 
 public:
+    enum State
+    {
+        StoppedState,
+        RecordingState,
+        PausedState
+    };
+
     /**
      * Returns self reference to the controller. First call of this method initializes
-     * output device controller.
+     * capture device controller.
      *
      * \return self reference
      */
-    static OutputDeviceController & self();
+    static CaptureDeviceController & self();
 
-    void play(const QString &filePath);
-    void play(const KUrl &filePath);
-    Phonon::State state() const;
-    void stop();
-    QString currentSource() const;
+    void startCapture(const QString &filePath);
+    CaptureDeviceController::State state() const;
+    void stopCapture();
+    void setDevice(const QString &deviceIdentifier);
+
     /**
-     * Set playback volume in decibels.
+     * \return list of available capture devices
      */
-    void setVolume(int volumenDb);
+    QList<QString> devices() const;
 
 public Q_SLOTS:
 
-Q_SIGNALS:
-    void started();
-    void stopped();
 
-private Q_SLOTS:
-    void updateState();
+Q_SIGNALS:
+    void captureStarted();
+    void captureStopped();
 
 private:
-    Q_DISABLE_COPY(OutputDeviceController)
+    Q_DISABLE_COPY(CaptureDeviceController)
     /**
      * \internal
      * Private constructor, \ref self().
      */
-    OutputDeviceController();
+    CaptureDeviceController();
 
     /**
      * Private destructor.
      */
-    ~OutputDeviceController();
+    ~CaptureDeviceController();
 
-    const QScopedPointer<OutputDeviceControllerPrivate> d;
+    const QScopedPointer<CaptureDeviceControllerPrivate> d;
 };
 
 #endif

@@ -19,9 +19,7 @@
  */
 
 #include "outputdevicecontroller.h"
-#include <settings.h>
-
-#include <QUrl>
+#include <KUrl>
 #include <KDebug>
 
 /**
@@ -43,7 +41,7 @@ public:
     {
         // use this value only for initialization, will be modified in another thread / another
         // static Settings object
-        m_volume = Settings::audioOutputVolume();
+        //m_volume = Settings::audioOutputVolume(); //TODO currently not use anywhere
     }
 
     ~OutputDeviceControllerPrivate()
@@ -104,7 +102,7 @@ void OutputDeviceController::play(const QString& filePath)
 void OutputDeviceController::play(const KUrl &filePath)
 {
     d->m_mediaObject->setCurrentSource(filePath);
-    d->m_audioOutput->setVolumeDecibel(d->m_volume);
+//     d->m_audioOutput->setVolumeDecibel(d->m_volume);
     d->m_mediaObject->play();
 }
 
