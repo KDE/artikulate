@@ -92,7 +92,10 @@ QGst::BinPtr QtGStreamerBackend::createAudioSrcBin()
         kError() << "Failed to create audio source bin:" << error;
         return QGst::BinPtr();
     }
+    QGst::ElementPtr src = audioBin->getElementByName("audiosrc");
+    //autoaudiosrc creates the actual source in the READY state
 
+    src->setState(QGst::StateReady);
     return audioBin;
 }
 
@@ -144,7 +147,7 @@ void QtGStreamerBackend::startCapture(const QString &filePath)
     m_pipeline->add(audioSrcBin, mux, sink);
 
     //link elements
-    QGst::PadPtr audioPad = mux->getRequestPad("sink_%d");
+    QGst::PadPtr audioPad = mux->getRequestPad("audio_%u");
     audioSrcBin->getStaticPad("src")->link(audioPad);
 
     mux->link(sink);
