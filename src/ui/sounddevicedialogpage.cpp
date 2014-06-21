@@ -54,6 +54,7 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
     for (int i=0; i < devices.length(); ++i) {
         ui->kcfg_AudioInputDevice->insertItem(i, devices.at(i), i);
     }
+    //TODO Gst::Device will allow selecting devices again with GStreamer 1.4
 
     // temporary file for recording test
     m_recordTestFile.setSuffix(".ogg");

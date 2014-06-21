@@ -176,7 +176,7 @@ QStringList QtGStreamerCaptureBackend::devices() const
     //TODO qtgstreamer backend currently only provides access to default backend,
     // reenable selection by using Gst::Device
 
-    return m_availableDevices.keys();
+    return m_availableDevices.values();
 }
 
 void QtGStreamerCaptureBackend::setDevice(const QString& deviceIdentifier)
