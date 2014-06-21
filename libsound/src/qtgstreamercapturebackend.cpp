@@ -18,7 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "qtgstreamerbackend.h"
+#include "qtgstreamercapturebackend.h"
 
 #include <QGlib/Error>
 #include <QGlib/Connect>
@@ -34,7 +34,7 @@
 #include <KDebug>
 #include <KLocale>
 
-QtGStreamerBackend::QtGStreamerBackend()
+QtGStreamerCaptureBackend::QtGStreamerCaptureBackend()
 {
     QGst::init();
 
@@ -50,17 +50,12 @@ QtGStreamerBackend::QtGStreamerBackend()
     m_availableDevices.insert("", i18nc("default sound device", "Default"));
 }
 
-QtGStreamerBackend::~QtGStreamerBackend()
+QtGStreamerCaptureBackend::~QtGStreamerCaptureBackend()
 {
     m_pipeline.clear();
 }
 
-QString QtGStreamerBackend::identifier()
-{
-    return QLatin1String("qtgstreamerbackend");
-}
-
-CaptureDeviceController::State QtGStreamerBackend::captureState()
+CaptureDeviceController::State QtGStreamerCaptureBackend::captureState()
 {
     if (!m_pipeline) {
         return CaptureDeviceController::StoppedState;
@@ -81,7 +76,7 @@ CaptureDeviceController::State QtGStreamerBackend::captureState()
     }
 }
 
-QGst::BinPtr QtGStreamerBackend::createAudioSrcBin()
+QGst::BinPtr QtGStreamerCaptureBackend::createAudioSrcBin()
 {
     QGst::BinPtr audioBin;
 
@@ -99,7 +94,7 @@ QGst::BinPtr QtGStreamerBackend::createAudioSrcBin()
     return audioBin;
 }
 
-void QtGStreamerBackend::onBusMessage(const QGst::MessagePtr & message)
+void QtGStreamerCaptureBackend::onBusMessage(const QGst::MessagePtr & message)
 {
     switch (message->type()) {
     case QGst::MessageEos:
@@ -121,7 +116,7 @@ void QtGStreamerBackend::onBusMessage(const QGst::MessagePtr & message)
     }
 }
 
-void QtGStreamerBackend::startCapture(const QString &filePath)
+void QtGStreamerCaptureBackend::startCapture(const QString &filePath)
 {
     // clear pipeline if still existing
     if (m_pipeline) {
@@ -154,11 +149,11 @@ void QtGStreamerBackend::startCapture(const QString &filePath)
 
     //connect the bus
     m_pipeline->bus()->addSignalWatch();
-    QGlib::connect(m_pipeline->bus(), "message", this, &QtGStreamerBackend::onBusMessage);
+    QGlib::connect(m_pipeline->bus(), "message", this, &QtGStreamerCaptureBackend::onBusMessage);
     m_pipeline->setState(QGst::StatePlaying);
 }
 
-void QtGStreamerBackend::stopCapture()
+void QtGStreamerCaptureBackend::stopCapture()
 {
     if (m_pipeline) { //pipeline exists - destroy it
         //send an end-of-stream event to flush metadata and cause an EosMessage to be delivered
@@ -166,7 +161,7 @@ void QtGStreamerBackend::stopCapture()
     }
 }
 
-void QtGStreamerBackend::stopPipeline()
+void QtGStreamerCaptureBackend::stopPipeline()
 {
     if (!m_pipeline) {
         kWarning() << "Stopping non-existing pipeline, aborting";
@@ -176,7 +171,7 @@ void QtGStreamerBackend::stopPipeline()
     m_pipeline.clear();
 }
 
-QStringList QtGStreamerBackend::devices() const
+QStringList QtGStreamerCaptureBackend::devices() const
 {
     //TODO qtgstreamer backend currently only provides access to default backend,
     // reenable selection by using Gst::Device
@@ -184,7 +179,7 @@ QStringList QtGStreamerBackend::devices() const
     return m_availableDevices.keys();
 }
 
-void QtGStreamerBackend::setDevice(const QString& deviceIdentifier)
+void QtGStreamerCaptureBackend::setDevice(const QString& deviceIdentifier)
 {
     //TODO add sanity check
     m_device = deviceIdentifier;

@@ -32,8 +32,7 @@ include_directories(
 set(sound_LIB_SRCS
     capturedevicecontroller.cpp
     outputdevicecontroller.cpp
-    qtgstreamerbackend.cpp
-    soundbackendinterface.cpp
+    qtgstreamercapturebackend.cpp
 )
 
 kde4_add_library(artikulatesound SHARED ${sound_LIB_SRCS})

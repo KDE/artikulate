@@ -19,8 +19,7 @@
  */
 
 #include "capturedevicecontroller.h"
-#include "soundbackendinterface.h"
-#include "qtgstreamerbackend.h"
+#include "qtgstreamercapturebackend.h"
 #include <config.h>
 #include <QUrl>
 #include <QStringList>
@@ -46,10 +45,8 @@ public:
 
     ~CaptureDeviceControllerPrivate()
     {
-        for (int i = 0; i < m_backends.size(); ++i) {
-            m_backends.at(i)->deleteLater();
-        }
-        m_backends.clear();
+        delete m_backend;
+        m_backend = 0;
     }
 
     void lazyInit()
@@ -57,18 +54,18 @@ public:
         if (m_initialized) {
             return;
         }
-        m_backends.append(new QtGStreamerBackend());
+        m_backend = new QtGStreamerCaptureBackend();
         m_initialized = true;
     }
 
-    SoundBackendInterface * backend() const
+    QtGStreamerCaptureBackend * backend() const
     {
-        Q_ASSERT(m_backends.count() > 0);
-        return m_backends.first();
+        Q_ASSERT(m_backend);
+        return m_backend;
     }
 
     QObject *m_parent;
-    QList<SoundBackendInterface*> m_backends;
+    QtGStreamerCaptureBackend *m_backend;
     bool m_initialized;
 };
 
