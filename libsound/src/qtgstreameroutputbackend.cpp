@@ -40,7 +40,7 @@ QtGStreamerOutputBackend::QtGStreamerOutputBackend()
 
 QtGStreamerOutputBackend::~QtGStreamerOutputBackend()
 {
-
+    m_pipeline.clear();
 }
 
 void QtGStreamerOutputBackend::setUri(const QString & uri)
