@@ -36,8 +36,9 @@ class OutputDeviceControllerPrivate
 public:
     OutputDeviceControllerPrivate(OutputDeviceController *parent)
         : m_parent(parent)
-        , m_initialized(false)
+        , m_backend(0)
         , m_volume(0)
+        , m_initialized(false)
     {
         // use this value only for initialization, will be modified in another thread / another
         // static Settings object
