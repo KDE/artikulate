@@ -145,7 +145,6 @@ void QtGStreamerBackend::startCapture(const QString &filePath)
 
     //link elements
     QGst::PadPtr audioPad = mux->getRequestPad("sink_%d");
-    audioPad->listProperties().first()->name();
     audioSrcBin->getStaticPad("src")->link(audioPad);
 
     mux->link(sink);
