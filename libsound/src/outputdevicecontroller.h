@@ -63,6 +63,7 @@ public:
     void setVolume(int volumenDb);
 
 public Q_SLOTS:
+    void emitChangedState();
 
 Q_SIGNALS:
     void started();

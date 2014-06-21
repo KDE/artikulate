@@ -58,6 +58,7 @@ public:
             return;
         }
         m_backend = new QtGStreamerOutputBackend();
+        m_parent->connect(m_backend, SIGNAL(stateChanged()), m_parent, SLOT(emitChangedState()));
         m_initialized = true;
     }
 
@@ -125,14 +126,20 @@ OutputDeviceController::State OutputDeviceController::state() const
         return OutputDeviceController::StoppedState;
     }
 }
-/*
-QString OutputDeviceController::currentSource() const
-{
-    return d->m_mediaObject->currentSource().fileName();
-}*/
-
 
 void OutputDeviceController::setVolume(int volumenDb)
 {
     d->m_volume = volumenDb;
+}
+
+void OutputDeviceController::emitChangedState()
+{
+    if (state() == OutputDeviceController::StoppedState) {
+        emit stopped();
+        return;
+    }
+    if (state() == OutputDeviceController::PlayingState) {
+        emit started();
+        return;
+    }
 }
