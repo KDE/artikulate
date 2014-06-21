@@ -25,9 +25,6 @@
 #include "course.h"
 #include "settings.h"
 
-#include <phonon/AudioOutput>
-#include <phonon/MediaObject>
-
 #include <KDebug>
 #include <KSaveFile>
 #include <KTemporaryFile>

@@ -41,7 +41,6 @@ kde4_add_library(artikulatesound SHARED ${sound_LIB_SRCS})
 target_link_libraries(
     artikulatesound
     LINK_PRIVATE
-        ${PHONON_LIBS}
         ${QTGLIB_LIBRARIES}
         ${QTGLIB_LIBRARY}
         ${QTGSTREAMER_LIBRARIES}
