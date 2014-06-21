@@ -46,8 +46,8 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
 
     // set output volume slider
     ui->kcfg_AudioOutputVolume->setTickInterval(0);
-    ui->kcfg_AudioOutputVolume->setMinimum(-100);
-    ui->kcfg_AudioOutputVolume->setMaximum(11);
+    ui->kcfg_AudioOutputVolume->setMinimum(0);
+    ui->kcfg_AudioOutputVolume->setMaximum(20);
 
     // devices
     QStringList devices = CaptureDeviceController::self().devices();
@@ -87,7 +87,7 @@ void SoundDeviceDialogPage::saveSettings()
 {
     Settings::setAudioInputDevice(ui->kcfg_AudioInputDevice->itemText(ui->kcfg_AudioInputDevice->currentIndex()));
 //     Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
-    Settings::setAudioOutputVolume(ui->kcfg_AudioOutputVolume->value());
+    Settings::setAudioOutputVolume((int) ui->kcfg_AudioOutputVolume->value());
     OutputDeviceController::self().setVolume(ui->kcfg_AudioOutputVolume->value());
     Settings::self()->writeConfig();
 }

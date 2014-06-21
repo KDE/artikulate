@@ -38,12 +38,8 @@ public:
     OutputDeviceControllerPrivate(OutputDeviceController *parent)
         : m_parent(parent)
         , m_backend(0)
-        , m_volume(0)
         , m_initialized(false)
     {
-        // use this value only for initialization, will be modified in another thread / another
-        // static Settings object
-        //m_volume = Settings::audioOutputVolume(); //TODO currently not use anywhere
         m_backend = new QtGStreamerOutputBackend();
     }
 
@@ -59,6 +55,7 @@ public:
         }
         m_backend = new QtGStreamerOutputBackend();
         m_parent->connect(m_backend, SIGNAL(stateChanged()), m_parent, SLOT(emitChangedState()));
+        m_volume = m_backend->volume();
         m_initialized = true;
     }
 
@@ -70,7 +67,7 @@ public:
 
     OutputDeviceController *m_parent;
     QtGStreamerOutputBackend *m_backend;
-    int m_volume; // output volume in Db
+    int m_volume; // volume as cubic value
     bool m_initialized;
 };
 
@@ -94,7 +91,7 @@ OutputDeviceController & OutputDeviceController::self()
 void OutputDeviceController::play(const QString& filePath)
 {
     d->backend()->setUri(filePath);
-//     d->m_audioOutput->setVolumeDecibel(d->m_volume); //TODO
+    d->backend()->setVolume(d->m_volume);
     d->backend()->play();
     emit started();
 }
@@ -127,9 +124,16 @@ OutputDeviceController::State OutputDeviceController::state() const
     }
 }
 
-void OutputDeviceController::setVolume(int volumenDb)
+void OutputDeviceController::setVolume(int volume)
 {
-    d->m_volume = volumenDb;
+    // backend only accepts volume, when there is a pipeline
+    // store value here and set it when playing
+    d->m_volume = volume;
+}
+
+int OutputDeviceController::volume() const
+{
+    return d->backend()->volume();
 }
 
 void OutputDeviceController::emitChangedState()

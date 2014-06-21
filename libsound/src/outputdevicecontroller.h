@@ -57,10 +57,8 @@ public:
     OutputDeviceController::State state() const;
     void stop();
     QString currentSource() const;
-    /**
-     * Set playback volume in decibels.
-     */
-    void setVolume(int volumenDb);
+    void setVolume(int volume);
+    int volume() const;
 
 public Q_SLOTS:
     void emitChangedState();

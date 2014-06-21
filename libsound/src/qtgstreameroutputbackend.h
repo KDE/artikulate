@@ -39,6 +39,9 @@ public:
 
     QTime position() const;
     void setPosition(const QTime & pos);
+    /**
+     * volume as cubic value
+     */
     int volume() const;
 
     QTime length() const;
