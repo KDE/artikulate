@@ -161,6 +161,13 @@ void QtGStreamerOutputBackend::stop()
         //so, to inform the ui, we have to emit this signal manually.
         Q_EMIT stateChanged();
     }
+    //TODO this is a temporary fix:
+    // the pipeline should not be cleared after every stop, but only when the backend is destructed
+    // or specifically resetted. Cause of the problem, both QtGStreamerOutputBackend is globally static
+    // object and can be destructed _after_ the also globally static object QGlib::Private::ConnectionsStore
+    // is destroyed. With calling QGst::Pipeline destructor by destructing QtGStreamerOutputBackend,
+    // we get a crash.
+    m_pipeline.clear();
 }
 
 void QtGStreamerOutputBackend::onBusMessage(const QGst::MessagePtr &message)
