@@ -26,6 +26,7 @@
 #include <QGst/Pipeline>
 #include <QGst/ElementFactory>
 #include <QGst/Bus>
+#include <QGst/Init>
 #include <QGst/Message>
 #include <QGst/Query>
 #include <QGst/ClockTime>
@@ -34,7 +35,7 @@
 
 QtGStreamerOutputBackend::QtGStreamerOutputBackend()
 {
-
+    QGst::init();
 }
 
 QtGStreamerOutputBackend::~QtGStreamerOutputBackend()
@@ -105,7 +106,6 @@ int QtGStreamerOutputBackend::volume() const
 
     return 0;
 }
-
 
 void QtGStreamerOutputBackend::setVolume(int volume)
 {

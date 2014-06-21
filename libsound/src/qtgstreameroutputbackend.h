@@ -27,7 +27,6 @@
 #include <QGst/Global>
 #include <QGst/Pipeline>
 
-
 class QtGStreamerOutputBackend : public QObject
 {
     Q_OBJECT

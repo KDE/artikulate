@@ -22,10 +22,7 @@
 #define OUTPUTDEVICECONTROLLER_H
 
 #include "libsound_export.h"
-
 #include <QObject>
-#include <Phonon/AudioOutput>
-#include <Phonon/MediaObject>
 
 class OutputDeviceControllerPrivate;
 class KUrl;
@@ -40,6 +37,13 @@ class LIBSOUND_EXPORT OutputDeviceController : public QObject
     Q_OBJECT
 
 public:
+    enum State
+    {
+        StoppedState,
+        PlayingState,
+        PausedState
+    };
+
     /**
      * Returns self reference to the controller. First call of this method initializes
      * output device controller.
@@ -50,7 +54,7 @@ public:
 
     void play(const QString &filePath);
     void play(const KUrl &filePath);
-    Phonon::State state() const;
+    OutputDeviceController::State state() const;
     void stop();
     QString currentSource() const;
     /**
@@ -63,9 +67,6 @@ public Q_SLOTS:
 Q_SIGNALS:
     void started();
     void stopped();
-
-private Q_SLOTS:
-    void updateState();
 
 private:
     Q_DISABLE_COPY(OutputDeviceController)

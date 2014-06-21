@@ -94,7 +94,7 @@ void SoundDeviceDialogPage::saveSettings()
 
 void SoundDeviceDialogPage::playTestSound()
 {
-    if (OutputDeviceController::self().state() == Phonon::PlayingState) {
+    if (OutputDeviceController::self().state() == OutputDeviceController::PlayingState) {
         OutputDeviceController::self().stop();
         return;
     }
@@ -105,7 +105,7 @@ void SoundDeviceDialogPage::playTestSound()
 
 void SoundDeviceDialogPage::playRecordedSound()
 {
-    if (OutputDeviceController::self().state() == Phonon::PlayingState) {
+    if (OutputDeviceController::self().state() == OutputDeviceController::PlayingState) {
         OutputDeviceController::self().stop();
         return;
     }
@@ -132,10 +132,10 @@ void SoundDeviceDialogPage::updatePlayButtonIcons()
 {
     // default sound output test
     switch (OutputDeviceController::self().state()) {
-    case Phonon::PlayingState:
+    case OutputDeviceController::PlayingState:
         ui->buttonPlayTestSound->setIcon(KIcon("media-playback-stop"));
         break;
-    case Phonon::StoppedState:
+    case OutputDeviceController::StoppedState:
         ui->buttonPlayTestSound->setIcon(KIcon("media-playback-start"));
         break;
     default:
@@ -144,10 +144,10 @@ void SoundDeviceDialogPage::updatePlayButtonIcons()
 
     // recorded sound output test
     switch (OutputDeviceController::self().state()) {
-    case Phonon::PlayingState:
+    case OutputDeviceController::PlayingState:
         ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-stop"));
         break;
-    case Phonon::StoppedState:
+    case OutputDeviceController::StoppedState:
         ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-start"));
         break;
     default:
