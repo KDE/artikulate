@@ -23,7 +23,7 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-find_package(QtGStreamer REQUIRED)
+find_package(QtGStreamer 1.1.90 REQUIRED)
 
 include_directories(
     ${QTGSTREAMER_INCLUDE_DIR}
