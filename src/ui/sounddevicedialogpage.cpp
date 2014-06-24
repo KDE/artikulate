@@ -19,8 +19,8 @@
  */
 
 #include "sounddevicedialogpage.h"
-#include <core/capturedevicecontroller.h>
-#include <core/outputdevicecontroller.h>
+#include "libsound/src/capturedevicecontroller.h"
+#include "libsound/src/outputdevicecontroller.h"
 #include "settings.h"
 
 #include <KLocale>
@@ -46,14 +46,15 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
 
     // set output volume slider
     ui->kcfg_AudioOutputVolume->setTickInterval(0);
-    ui->kcfg_AudioOutputVolume->setMinimum(-100);
-    ui->kcfg_AudioOutputVolume->setMaximum(11);
+    ui->kcfg_AudioOutputVolume->setMinimum(0);
+    ui->kcfg_AudioOutputVolume->setMaximum(20);
 
     // devices
     QStringList devices = CaptureDeviceController::self().devices();
     for (int i=0; i < devices.length(); ++i) {
         ui->kcfg_AudioInputDevice->insertItem(i, devices.at(i), i);
     }
+    //TODO Gst::Device will allow selecting devices again with GStreamer 1.4
 
     // temporary file for recording test
     m_recordTestFile.setSuffix(".ogg");
@@ -87,14 +88,14 @@ void SoundDeviceDialogPage::saveSettings()
 {
     Settings::setAudioInputDevice(ui->kcfg_AudioInputDevice->itemText(ui->kcfg_AudioInputDevice->currentIndex()));
 //     Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
-    Settings::setAudioOutputVolume(ui->kcfg_AudioOutputVolume->value());
+    Settings::setAudioOutputVolume((int) ui->kcfg_AudioOutputVolume->value());
     OutputDeviceController::self().setVolume(ui->kcfg_AudioOutputVolume->value());
     Settings::self()->writeConfig();
 }
 
 void SoundDeviceDialogPage::playTestSound()
 {
-    if (OutputDeviceController::self().state() == Phonon::PlayingState) {
+    if (OutputDeviceController::self().state() == OutputDeviceController::PlayingState) {
         OutputDeviceController::self().stop();
         return;
     }
@@ -105,7 +106,7 @@ void SoundDeviceDialogPage::playTestSound()
 
 void SoundDeviceDialogPage::playRecordedSound()
 {
-    if (OutputDeviceController::self().state() == Phonon::PlayingState) {
+    if (OutputDeviceController::self().state() == OutputDeviceController::PlayingState) {
         OutputDeviceController::self().stop();
         return;
     }
@@ -132,10 +133,10 @@ void SoundDeviceDialogPage::updatePlayButtonIcons()
 {
     // default sound output test
     switch (OutputDeviceController::self().state()) {
-    case Phonon::PlayingState:
+    case OutputDeviceController::PlayingState:
         ui->buttonPlayTestSound->setIcon(KIcon("media-playback-stop"));
         break;
-    case Phonon::StoppedState:
+    case OutputDeviceController::StoppedState:
         ui->buttonPlayTestSound->setIcon(KIcon("media-playback-start"));
         break;
     default:
@@ -144,10 +145,10 @@ void SoundDeviceDialogPage::updatePlayButtonIcons()
 
     // recorded sound output test
     switch (OutputDeviceController::self().state()) {
-    case Phonon::PlayingState:
+    case OutputDeviceController::PlayingState:
         ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-stop"));
         break;
-    case Phonon::StoppedState:
+    case OutputDeviceController::StoppedState:
         ui->buttonPlayRecordedTestSound->setIcon(KIcon("media-playback-start"));
         break;
     default:

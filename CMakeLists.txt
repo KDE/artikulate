@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -25,11 +25,6 @@
 
 project(artikulate)
 
-set ( CMAKE_MODULE_PATH
-     ${CMAKE_SOURCE_DIR}/cmake/modules
-     ${CMAKE_MODULE_PATH}
-)
-
 find_package(KDE4 4.11.1 REQUIRED)
 include(KDE4Defaults)
 
@@ -44,7 +39,7 @@ add_subdirectory(src)
 add_subdirectory(sounds)
 add_subdirectory(images)
 add_subdirectory(icons)
-
+add_subdirectory(libsound)
 add_subdirectory(liblearnerprofile)
 
 # Build Tests if KDE_TEST is on

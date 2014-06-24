@@ -18,11 +18,11 @@
     </entry>
     <entry name="AudioInputVolume" type="Int">
       <label>Audio input volume</label>
-      <default>90</default>
+      <default>10</default>
     </entry>
     <entry name="AudioOutputVolume" type="Int">
       <label>Audio output volume</label>
-      <default>90</default>
+      <default>10</default>
     </entry>
     <entry name="TrainingPhraseFont" type="Font">
       <label>Font</label>

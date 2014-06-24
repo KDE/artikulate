@@ -19,14 +19,11 @@
  */
 
 #include "phrase.h"
-#include "capturedevicecontroller.h"
-#include "outputdevicecontroller.h"
+#include "libsound/src/capturedevicecontroller.h"
+#include "libsound/src/outputdevicecontroller.h"
 #include "unit.h"
 #include "course.h"
 #include "settings.h"
-
-#include <phonon/AudioOutput>
-#include <phonon/MediaObject>
 
 #include <KDebug>
 #include <KSaveFile>

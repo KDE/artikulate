@@ -21,7 +21,7 @@
 #ifndef CAPTUREDEVICECONTROLLER_H
 #define CAPTUREDEVICECONTROLLER_H
 
-#include "artikulatecore_export.h"
+#include "libsound_export.h"
 
 #include <QObject>
 
@@ -33,7 +33,7 @@ class KUrl;
  *
  * This singelton class provides a controller for the sound capture device.
  */
-class ARTIKULATELIB_EXPORT CaptureDeviceController : public QObject
+class LIBSOUND_EXPORT CaptureDeviceController : public QObject
 {
     Q_OBJECT
 

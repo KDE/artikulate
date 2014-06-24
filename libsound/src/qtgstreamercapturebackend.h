@@ -18,19 +18,40 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- #include "soundbackendinterface.h"
+#ifndef QTGSTREAMERCAPTUREBACKEND_H
+#define QTGSTREAMERCAPTUREBACKEND_H
 
-QString SoundBackendInterface::identifier()
+#include "capturedevicecontroller.h"
+
+#include <QString>
+
+#include <QGst/global.h>
+#include <QGst/Pipeline>
+
+class QtGStreamerCaptureBackend : public QObject
 {
-    return "ERROR_unset";
-}
+    Q_OBJECT
 
-SoundBackendInterface::SoundBackendInterface(): QObject()
-{
+public:
+    QtGStreamerCaptureBackend();
 
-}
+    ~QtGStreamerCaptureBackend();
 
-SoundBackendInterface::~SoundBackendInterface()
-{
+    void startCapture(const QString &filePath);
+    void stopCapture();
+    CaptureDeviceController::State captureState();
 
-}
+    QStringList devices() const;
+    void setDevice(const QString &deviceIdentifier);
+
+private:
+    void onBusMessage(const QGst::MessagePtr &message);
+    void stopPipeline();
+    QGst::BinPtr createAudioSrcBin();
+    QGst::PipelinePtr m_pipeline;
+    QString m_device;
+    QMap<QString, QString> m_availableDevices; //!> (identifier,human readable name)
+};
+
+
+#endif

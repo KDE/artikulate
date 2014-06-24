@@ -28,7 +28,8 @@
 #include "models/languagemodel.h"
 #include "settings.h"
 #include "liblearnerprofile/src/profilemanager.h"
-#include <liblearnerprofile/src/learner.h>
+#include "liblearnerprofile/src/learner.h"
+#include "libsound/src/outputdevicecontroller.h"
 
 #include <KMainWindow>
 #include <KAction>
@@ -72,6 +73,9 @@ MainWindow::MainWindow()
     setCentralWidget(m_view);
 
     setAutoSaveSettings();
+
+    // load saved sound settings
+    OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
 
     // load resources
     m_resourceManager->loadLanguageResources();

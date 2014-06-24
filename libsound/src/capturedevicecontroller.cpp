@@ -19,18 +19,10 @@
  */
 
 #include "capturedevicecontroller.h"
-#include "soundbackends/soundbackendinterface.h"
+#include "qtgstreamercapturebackend.h"
 #include <config.h>
-
-#if QTMOBILITY_FOUND
-    #include "soundbackends/qtmultimediabackend.h"
-#endif
-#if QTGSTREAMER_FOUND
-    #include "soundbackends/qtgstreamerbackend.h"
-#endif
-
-#include <settings.h>
 #include <QUrl>
+#include <QStringList>
 #include <KDebug>
 
 /**
@@ -53,10 +45,8 @@ public:
 
     ~CaptureDeviceControllerPrivate()
     {
-        for (int i = 0; i < m_backends.size(); ++i) {
-            m_backends.at(i)->deleteLater();
-        }
-        m_backends.clear();
+        delete m_backend;
+        m_backend = 0;
     }
 
     void lazyInit()
@@ -64,34 +54,18 @@ public:
         if (m_initialized) {
             return;
         }
-    // add QtMobility as first backend
-#if QTMOBILITY_FOUND
-        kDebug() << "initilaize QtMultimediaBackend";
-        m_backends.append(new QtMultimediaBackend());
-#endif
-#if QTGSTREAMER_FOUND
-        kDebug() << "initilaize QtGStreamerBackend";
-        m_backends.append(new QtGStreamerBackend());
-#endif
+        m_backend = new QtGStreamerCaptureBackend();
         m_initialized = true;
     }
 
-    SoundBackendInterface * backend() const
+    QtGStreamerCaptureBackend * backend() const
     {
-        if (m_backends.isEmpty()) {
-            return 0;
-        }
-        foreach (SoundBackendInterface *backend, m_backends) {
-            if (Settings::recordingBackend() == backend->identifier()) {
-                return backend;
-            }
-        }
-        kDebug() << "could not understand backend configuration setting, default to first found";
-        return m_backends.first();
+        Q_ASSERT(m_backend);
+        return m_backend;
     }
 
     QObject *m_parent;
-    QList<SoundBackendInterface*> m_backends;
+    QtGStreamerCaptureBackend *m_backend;
     bool m_initialized;
 };
 

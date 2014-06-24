@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -19,9 +19,8 @@
  */
 
 #include "outputdevicecontroller.h"
-#include <settings.h>
-
-#include <QUrl>
+#include "qtgstreameroutputbackend.h"
+#include <KUrl>
 #include <KDebug>
 
 /**
@@ -38,42 +37,38 @@ class OutputDeviceControllerPrivate
 public:
     OutputDeviceControllerPrivate(OutputDeviceController *parent)
         : m_parent(parent)
+        , m_backend(0)
         , m_initialized(false)
-        , m_volume(0)
     {
-        // use this value only for initialization, will be modified in another thread / another
-        // static Settings object
-        m_volume = Settings::audioOutputVolume();
+        m_backend = new QtGStreamerOutputBackend();
     }
 
     ~OutputDeviceControllerPrivate()
     {
-        m_mediaObject->disconnect();
-        m_mediaObject->deleteLater();
-        m_audioOutput->deleteLater();
+        delete m_backend;
     }
 
-    bool lazyInit()
+    void lazyInit()
     {
         if (m_initialized) {
-            return false;
+            return;
         }
-
-        m_audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory);
-        m_mediaObject = new Phonon::MediaObject();
-
-        // initialize
-        Phonon::createPath(m_mediaObject, m_audioOutput);
-
+        m_backend = new QtGStreamerOutputBackend();
+        m_parent->connect(m_backend, SIGNAL(stateChanged()), m_parent, SLOT(emitChangedState()));
+        m_volume = m_backend->volume();
         m_initialized = true;
-        return true;
+    }
+
+    QtGStreamerOutputBackend * backend() const
+    {
+        Q_ASSERT(m_backend);
+        return m_backend;
     }
 
     OutputDeviceController *m_parent;
+    QtGStreamerOutputBackend *m_backend;
+    int m_volume; // volume as cubic value
     bool m_initialized;
-    Phonon::AudioOutput *m_audioOutput;
-    Phonon::MediaObject *m_mediaObject;
-    int m_volume; // output volume in Db
 };
 
 OutputDeviceController::OutputDeviceController()
@@ -89,51 +84,66 @@ OutputDeviceController::~OutputDeviceController()
 OutputDeviceController & OutputDeviceController::self()
 {
     static OutputDeviceController instance;
-    if (instance.d->lazyInit()) {
-        connect(instance.d->m_mediaObject, SIGNAL(stateChanged(Phonon::State,Phonon::State)),
-                &instance, SLOT(updateState()));
-    }
+    instance.d->lazyInit();
     return instance;
 }
 
 void OutputDeviceController::play(const QString& filePath)
 {
-    play(KUrl::fromLocalFile(filePath));
+    d->backend()->setUri(filePath);
+    d->backend()->setVolume(d->m_volume);
+    d->backend()->play();
+    emit started();
 }
 
 void OutputDeviceController::play(const KUrl &filePath)
 {
-    d->m_mediaObject->setCurrentSource(filePath);
-    d->m_audioOutput->setVolumeDecibel(d->m_volume);
-    d->m_mediaObject->play();
+    play(filePath.toLocalFile());
 }
 
 void OutputDeviceController::stop()
 {
-    d->m_mediaObject->stop();
+    d->backend()->stop();
+    emit stopped();
 }
 
-Phonon::State OutputDeviceController::state() const
+OutputDeviceController::State OutputDeviceController::state() const
 {
-    return d->m_mediaObject->state();
+    switch (d->backend()->state()) {
+    case QGst::StateNull:
+        return OutputDeviceController::StoppedState;
+        break;
+    case QGst::StatePaused:
+        return OutputDeviceController::PlayingState;
+        break;
+    case QGst::StatePlaying:
+        return OutputDeviceController::PlayingState;
+        break;
+    default:
+        return OutputDeviceController::StoppedState;
+    }
 }
 
-QString OutputDeviceController::currentSource() const
+void OutputDeviceController::setVolume(int volume)
 {
-    return d->m_mediaObject->currentSource().fileName();
+    // backend only accepts volume, when there is a pipeline
+    // store value here and set it when playing
+    d->m_volume = volume;
 }
 
-void OutputDeviceController::updateState()
+int OutputDeviceController::volume() const
 {
-    if (d->m_mediaObject->state() == Phonon::StoppedState) {
+    return d->backend()->volume();
+}
+
+void OutputDeviceController::emitChangedState()
+{
+    if (state() == OutputDeviceController::StoppedState) {
         emit stopped();
+        return;
     }
-    if (d->m_mediaObject->state() == Phonon::PlayingState) {
+    if (state() == OutputDeviceController::PlayingState) {
         emit started();
+        return;
     }
-}
-
-void OutputDeviceController::setVolume(int volumenDb)
-{
-    d->m_volume = volumenDb;
 }

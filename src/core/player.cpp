@@ -19,7 +19,7 @@
  */
 
 #include "player.h"
-#include "outputdevicecontroller.h"
+#include "libsound/src/outputdevicecontroller.h"
 
 #include <QList>
 #include <KDebug>
@@ -90,13 +90,13 @@ void Player::stop()
 
 void Player::updateState()
 {
-    if (OutputDeviceController::self().state() == Phonon::StoppedState
+    if (OutputDeviceController::self().state() == OutputDeviceController::StoppedState
         && state() == PlayingState
     ) {
         m_playbackState = StoppedState;
         emit stateChanged();
     }
-    if (OutputDeviceController::self().state() == Phonon::PlayingState
+    if (OutputDeviceController::self().state() == OutputDeviceController::PlayingState
         && state() != PlayingState
     ) {
         m_playbackState = PlayingState;

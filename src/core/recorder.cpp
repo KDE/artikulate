@@ -19,7 +19,7 @@
  */
 
 #include "recorder.h"
-#include "capturedevicecontroller.h"
+#include "libsound/src/capturedevicecontroller.h"
 
 #include <QList>
 #include <KDebug>
