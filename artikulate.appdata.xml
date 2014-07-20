@@ -9,6 +9,7 @@
   <name xml:lang="de">Artikulate</name>
   <name xml:lang="en-GB">Artikulate</name>
   <name xml:lang="es">Artikulate</name>
+  <name xml:lang="et">Artikulate</name>
   <name xml:lang="hu">Artikulate</name>
   <name xml:lang="nds">Artikulate</name>
   <name xml:lang="nl">Artikulate</name>
@@ -26,6 +27,7 @@
   <summary xml:lang="da">Artikulate udtaletræning</summary>
   <summary xml:lang="en-GB">Artikulate Pronunciation Trainer</summary>
   <summary xml:lang="es">Entrenador de pronunciación Artikulate</summary>
+  <summary xml:lang="et">Häälduse harjutaja Artikulate</summary>
   <summary xml:lang="hu">Artikulate kiejtés oktató</summary>
   <summary xml:lang="nds">Utspraak-Lehrer Artikulate</summary>
   <summary xml:lang="nl">Artikulate Trainingsprogramma voor uitspraak</summary>
@@ -43,6 +45,7 @@
     <p xml:lang="da">Artikulate er udtaletræning som hjælper med at forbedre og perfektionere din udtale af et fremmedsprog. Det leverer kurser med modersmåloptagelser for flere øvelsessprog. Eleven downloader disse kurser, vælger en kategori af fraser der skal øves, og begynder så at optage sin egen stemme når fraserne udtales og sammenligner resultaterne med modersmåloptagelserne ved at lytte til begge. Ved at justere og gentage den egen udtale, kan eleven forbedre sine evner.</p>
     <p xml:lang="en-GB">Artikulate is a pronunciation trainer that helps improving and perfecting a learner's pronunciation skills for a foreign language. It provides courses with native speaker recordings for several training languages. The learner downloads those courses, selects a category of phrases to train, then starts with recording her/his own voice when speaking the phrases and comparing the results to the native speaker's recordings by listening to both. By adjusting and repeating the own pronunciation, the learner can improve his/her skill.</p>
     <p xml:lang="es">Artikulate es un entrenador de pronunciación que ayuda a mejorar y perfeccionar la pronunciación de un idioma extranjero por parte del estudiante. Para ello, proporciona cursos que se pueden descargar con grabaciones de hablantes nativos de varios idiomas. El estudiante descarga los cursos, selecciona un conjunto de frases, graba su propia voz al repetir las frases y luego al escucharlas, compara los resultados con las grabaciones de hablantes nativos. Estudiante puede mejorar su pronunciación mediante el ajuste y la repetición.</p>
+    <p xml:lang="et">Artikulate on häälduse harjutamise abiline, mis aitab õppuril täiendada ja täiustada võõrkeele hääldamisoskust. Rakendus pakub mitme keele kursuseid, millele vastavat keelt emakeelena kõnelejad on loonud salvestisi. Õppur laadib kursused alla, valib väljendite kategooria, mida ta soovib harjutada, ning hakkab siis salvestama enda häält, kui ta lausub etteantud fraase, võrreldes hiljem neid emakeeles kõneleja salvestustega. Oma hääldust kohendades ja väljendeid korrates saab võõrkeeleoskust tublisti edendada.</p>
     <p xml:lang="nds">Artikulate is en Utspraak-Lehrprogramm dat dor bi hölpen schall, de Utspraak vun en Schöler to verbetern. Dat höllt Lexen mit Opnahmen vun Moderspraaklers för en Reeg vun Spraken praat. De Schöler laadt de Lexen daal, söcht en Kategorie vun Utdrück ut, de he lehren will, nimmt sien egen Stimm op, wenn he de Utdrück weddergifft un vergliekt dat mit de Opnahmen vun de Moderspraaklers. So kann he sien egen Utspraak verbetern.</p>
     <p xml:lang="nl">Artikulate is een trainingsprogramma voor uitspraak dat helpt om het uitspreken van een vreemde taal van een leerling te verbeteren en te perfectioneren. Het biedt lessen met opnamen van sprekers in de eigen taal voor training in verschillende talen. De leerling downloadt deze lessen, selecteert een categorie van te leren frasen, start daarna met het opnemen van haar/zijn eigen stem bij het uitspreken van de frasen en vergelijkt de resultaten met die van de opnamen van de spreker in de eigen taal door naar beiden te luisteren. Door de eigen uitspraak aan te passen en te herhalen, kan de leerling zijn/haar prestaties verbeteren.</p>
     <p xml:lang="pl">Artikulate jest programem do ćwiczenia wymowy, który pomaga ulepszać umiejętności wymowy uczącego się w obcym języku. Zapewnia lekcje z nagraniami rodowitego mówcy dla kilku języków. Uczący się pobiera te lekcje, wybiera kategorię wyrażeń do przećwiczenia, a następnie zaczyna nagrywać swój własny głos porównując przy tym swoje wyniki z głosem rodowitego mówcy, poprzez słuchanie obu. Poprzez dostrajanie i powtarzanie wymowy, uczący się może polepszyć własne umiejętności.</p>
