@@ -33,8 +33,6 @@ ecm_optional_add_subdirectory(qml)
 
 # set include directories
 include_directories(
-    ${QT_INCLUDE}
-    ${KDE4_INCLUDES}
     ${CMAKE_CURRENT_BINARY_DIR}
     ${artikulate_SOURCE_DIR}
 )
@@ -71,11 +69,6 @@ target_link_libraries(artikulatecore
         artikulatelearnerprofile
         artikulatesound
         Qt5::XmlPatterns
-        ${KDECLARATIVE_LIBRARIES}
-        ${KDE4_KIO_LIBS}
-        ${QT_QTDECLARATIVE_LIBRARY}
-        ${QT_QTXMLPATTERNS_LIBRARY}
-        ${QT_QTSQL_LIBRARY}
         KF5::ConfigGui
         KF5::WidgetsAddons
 )
@@ -128,9 +121,6 @@ target_link_libraries(artikulate
         artikulatelearnerprofile
         artikulatesound
         artikulatecore
-        ${KDECLARATIVE_LIBRARIES}
-        ${KDE4_PLASMA_LIBS}
-        ${KDE4_KIO_LIBS}
         Qt5::Quick
         Qt5::QuickWidgets
         KF5::ConfigWidgets
