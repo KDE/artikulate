@@ -22,9 +22,9 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <KApplication>
+#include <QApplication>
 
-class Application : public KApplication
+class Application : public QApplication
 {
     Q_OBJECT
 

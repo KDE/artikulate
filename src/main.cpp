@@ -23,7 +23,6 @@
 // #include "version.h"
 
 #include <KAboutData>
-#include <KCmdLineArgs>
 #include <KLocalizedString>
 #include <QDebug>
 
