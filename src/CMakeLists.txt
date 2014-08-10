@@ -22,12 +22,12 @@
 #  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
-set(ARTIKULATE_VERSION_MAJOR 0)
-set(ARTIKULATE_VERSION_MINOR 4)
-set(ARTIKULATE_VERSION_PATCH 50)
 
-# set config files after packages are searched
-configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
+ecm_setup_version(0.4.50
+    VARIABLE_PREFIX ARTIKULATE
+    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/version.h"
+    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/ArtikulateConfigVersion.cmake"
+)
 
 ecm_optional_add_subdirectory(qml)
 

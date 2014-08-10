@@ -20,22 +20,17 @@
 
 #include "mainwindow.h"
 #include "application.h"
-// #include "version.h"
+#include "version.h"
 
 #include <KAboutData>
 #include <KLocalizedString>
 #include <QDebug>
 
-static const char description[] =
-    I18N_NOOP("Learn and practice pronunciation.");
-
-static const char version[] = "0.4.50"; //ARTIKULATE_VERSION_STR; //FIXME
-
 int main(int argc, char **argv)
 {
     KAboutData aboutData("artikulate",
                          ki18nc("@title Displayed program name", "Artikulate").toString(),
-                         version,
+                         ARTIKULATE_VERSION_STRING,
                          ki18nc("@title KAboutData: short program description", "Artikulate Pronunciation Trainer").toString(),
                          KAboutLicense::GPL_V2,
                          ki18nc("@info:credit", "(c) 2013-2014 The Artikulate Developers").toString(),

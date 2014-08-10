@@ -33,6 +33,7 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings)
 include(ECMOptionalAddSubdirectory)
+include(ECMSetupVersion)
 include(FeatureSummary)
 
 find_package(Qt5 REQUIRED COMPONENTS
