@@ -37,7 +37,7 @@
 #include <KCmdLineArgs>
 #include <KDialog>
 #include <KGlobal>
-#include <KIcon>
+#include <QIcon>
 #include <KLocale>
 #include <KDeclarative/KDeclarative>
 #include <KConfigDialog>
@@ -69,7 +69,7 @@ MainWindow::MainWindow()
     , m_trainingSession(new TrainingSession(this))
     , m_profileManager(new LearnerProfile::ProfileManager(this))
 {
-    setWindowIcon(KIcon("artikulate")); // FIXME not present yet
+    setWindowIcon(QIcon::fromTheme("artikulate")); // FIXME not present yet
     setWindowTitle(qAppName());
     setAutoSaveSettings();
 
@@ -142,24 +142,24 @@ void MainWindow::setupActions()
     connect(editorAction, SIGNAL(triggered()), SLOT(switchMode()));
     connect(this, SIGNAL(modeChanged(bool)), editorAction, SLOT(setChecked(bool)));
     actionCollection()->addAction("editor", editorAction);
-    editorAction->setIcon(KIcon("artikulate-course-editor"));
+    editorAction->setIcon(QIcon::fromTheme("artikulate-course-editor"));
     editorAction->setCheckable(true);
     editorAction->setChecked(false);
 
     KAction *settingsAction = new KAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
     connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
     actionCollection()->addAction("settings", settingsAction);
-    settingsAction->setIcon(KIcon("configure"));
+    settingsAction->setIcon(QIcon::fromTheme("configure"));
 
     KAction *downloadsAction = new KAction(i18nc("@item:inmenu", "Download New Language Course"), this);
     connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(downloadNewStuff()));
     actionCollection()->addAction("download_new_stuff", downloadsAction);
-    downloadsAction->setIcon(KIcon("get-hot-new-stuff"));
+    downloadsAction->setIcon(QIcon::fromTheme("get-hot-new-stuff"));
 
     KAction *configLearnerProfileAction = new KAction(i18nc("@item:inmenu", "Learner Profile"), this);
     connect(configLearnerProfileAction, SIGNAL(triggered(bool)), this, SLOT(configLearnerProfile()));
     actionCollection()->addAction("config_learner_profile", configLearnerProfileAction);
-    configLearnerProfileAction->setIcon(KIcon("user-identity"));
+    configLearnerProfileAction->setIcon(QIcon::fromTheme("user-identity"));
 
     KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
 
