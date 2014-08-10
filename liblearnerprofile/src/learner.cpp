@@ -26,7 +26,6 @@
 #include <QPixmap>
 #include <QDebug>
 #include <KGlobal>
-#include <KStandardDirs>
 
 using namespace LearnerProfile;
 

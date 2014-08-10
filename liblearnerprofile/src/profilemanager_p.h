@@ -27,7 +27,6 @@
 #include <QDebug>
 #include <KConfig>
 #include <KConfigGroup>
-#include <KStandardDirs>
 
 #include <QString>
 #include <QList>

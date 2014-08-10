@@ -31,7 +31,6 @@
 #include <qtest_kde.h>
 #include <QDebug>
 #include <KTemporaryFile>
-#include <KStandardDirs>
 
 #include <QIODevice>
 #include <QFile>

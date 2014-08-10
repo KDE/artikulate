@@ -24,7 +24,7 @@
 #include "settings.h"
 
 #include <KLocale>
-#include <KStandardDirs>
+#include <QStandardPaths>
 
 SoundDeviceDialogPage::SoundDeviceDialogPage()
     : QWidget(0)
@@ -99,7 +99,7 @@ void SoundDeviceDialogPage::playTestSound()
         OutputDeviceController::self().stop();
         return;
     }
-    QString testsoundFile = KGlobal::dirs()->findResource("appdata", QString("sounds/testsound.ogg"));
+    QString testsoundFile = QStandardPaths::locate(QStandardPaths::DataLocation, QString("sounds/testsound.ogg"));
     OutputDeviceController::self().setVolume(ui->kcfg_AudioOutputVolume->value());
     OutputDeviceController::self().play(QUrl::fromLocalFile(testsoundFile));
 }

@@ -21,14 +21,13 @@
 #include "resourceinterface.h"
 
 #include <QDebug>
-#include <KStandardDirs>
 #include <QUrl>
-
 #include <QIODevice>
 #include <QXmlSchema>
 #include <QXmlSchemaValidator>
 #include <QDomDocument>
 #include <QFile>
+#include <QStandardPaths>
 
 ResourceInterface::ResourceInterface(ResourceManager *resourceManager)
     : QObject()
@@ -65,7 +64,7 @@ void ResourceInterface::reload()
 QXmlSchema ResourceInterface::loadXmlSchema(const QString &schemeName) const
 {
     QString relPath = QString("schemes/%1.xsd").arg(schemeName);
-    QUrl file = QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", relPath));
+    QUrl file = QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, relPath));
 
     QXmlSchema schema;
     if (schema.load(file) == false) {

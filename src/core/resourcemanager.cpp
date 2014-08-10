@@ -44,9 +44,9 @@
 #include <QDir>
 
 #include <KGlobal>
-#include <KStandardDirs>
 #include <QDebug>
 #include <QUrl>
+#include <QStandardPaths>
 
 ResourceManager::ResourceManager(QObject *parent)
     : QObject(parent)
@@ -110,7 +110,7 @@ void ResourceManager::loadCourseResources()
     }
 
     // register GHNS course resources
-    QStringList courseFiles = KGlobal::dirs()->findAllResources("data",QString("artikulate/courses/*/*/*.xml"));
+    QStringList courseFiles = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QString("artikulate/courses/*/*/*.xml"));
     foreach (const QString &file, courseFiles) {
         QUrl courseFile = QUrl::fromLocalFile(file);
         // get directory name, which is the language identifier for this course
@@ -128,7 +128,7 @@ void ResourceManager::loadLanguageResources()
 {
     // load language resources
     // all other resources are only loaded on demand
-    QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
+    QStringList languageFiles = QStandardPaths::locateAll(QStandardPaths::DataLocation, QString("languages/*.xml"));
     foreach (const QString &file, languageFiles) {
         addLanguage(QUrl::fromLocalFile(file));
     }

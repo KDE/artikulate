@@ -39,7 +39,6 @@
 #include <KGlobal>
 #include <KIcon>
 #include <KLocale>
-#include <KStandardDirs>
 #include <kdeclarative.h>
 #include <KConfigDialog>
 #include <QDebug>
@@ -56,6 +55,7 @@
 #include <QCloseEvent>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QPointer>
+#include <QStandardPaths>
 
 using namespace LearnerProfile;
 
@@ -106,7 +106,7 @@ MainWindow::MainWindow()
     m_view->setStyleSheet("background-color: transparent;");
 
     // set starting screen
-    m_view->setSource(QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", "qml/Main.qml")));
+    m_view->setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
 
     // settings from kcfg values
     updateTrainingPhraseFont();

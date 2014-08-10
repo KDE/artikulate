@@ -21,13 +21,13 @@
 #include "storage.h"
 #include "learner.h"
 
-#include <KStandardDirs>
 #include <QDebug>
 #include <KLocale>
 
 #include <QSqlError>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QStandardPaths>
 
 using namespace LearnerProfile;
 
@@ -325,7 +325,7 @@ QSqlDatabase Storage::database()
         return QSqlDatabase::database(QSqlDatabase::defaultConnection);
     }
 
-    QString path = KGlobal::dirs()->locateLocal("appdata", "learnerdata.db");
+    QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "learnerdata.db";
     qDebug() << "Database path: " << path;
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");

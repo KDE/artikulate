@@ -28,7 +28,6 @@
 #include <qtest_kde.h>
 #include <QDebug>
 #include <KTemporaryFile>
-#include <KStandardDirs>
 #include <QUrl>
 
 #include <QIODevice>
@@ -36,6 +35,7 @@
 #include <QXmlSchema>
 #include <QXmlSchemaValidator>
 #include <QDomDocument>
+#include <QStandardPaths>
 
 TestLanguageFiles::TestLanguageFiles()
 {
@@ -57,7 +57,7 @@ void TestLanguageFiles::cleanup()
 QXmlSchema TestLanguageFiles::loadXmlSchema(const QString &schemeName) const
 {
     QString relPath = QString("schemes/%1.xsd").arg(schemeName);
-    QUrl file = QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", relPath));
+    QUrl file = QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, relPath));
 
     QXmlSchema schema;
     if (schema.load(file) == false) {
@@ -98,7 +98,7 @@ void TestLanguageFiles::languageSchemeValidationTest()
 void TestLanguageFiles::checkIdUniqueness()
 {
     ResourceManager manager;
-    QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("data/languages/*.xml"));
+    QStringList languageFiles = QStandardPaths::locateAll(QStandardPaths::DataLocation, QString("data/languages/*.xml"));
     foreach (const QString &file, languageFiles) {
         qDebug() << "File being parsed: " << file;
         QStringList idList;
