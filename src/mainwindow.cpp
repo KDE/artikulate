@@ -32,7 +32,7 @@
 #include "libsound/src/outputdevicecontroller.h"
 
 #include <KMainWindow>
-#include <KAction>
+#include <QAction>
 #include <KActionCollection>
 #include <KCmdLineArgs>
 #include <KDialog>
@@ -138,7 +138,7 @@ ResourceManager * MainWindow::resourceManager() const
 
 void MainWindow::setupActions()
 {
-    KAction *editorAction = new KAction(i18nc("@option:check", "Course Editor mode"), this);
+    QAction *editorAction = new QAction(i18nc("@option:check", "Course Editor mode"), this);
     connect(editorAction, SIGNAL(triggered()), SLOT(switchMode()));
     connect(this, SIGNAL(modeChanged(bool)), editorAction, SLOT(setChecked(bool)));
     actionCollection()->addAction("editor", editorAction);
@@ -146,17 +146,17 @@ void MainWindow::setupActions()
     editorAction->setCheckable(true);
     editorAction->setChecked(false);
 
-    KAction *settingsAction = new KAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
+    QAction *settingsAction = new QAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
     connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
     actionCollection()->addAction("settings", settingsAction);
     settingsAction->setIcon(QIcon::fromTheme("configure"));
 
-    KAction *downloadsAction = new KAction(i18nc("@item:inmenu", "Download New Language Course"), this);
+    QAction *downloadsAction = new QAction(i18nc("@item:inmenu", "Download New Language Course"), this);
     connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(downloadNewStuff()));
     actionCollection()->addAction("download_new_stuff", downloadsAction);
     downloadsAction->setIcon(QIcon::fromTheme("get-hot-new-stuff"));
 
-    KAction *configLearnerProfileAction = new KAction(i18nc("@item:inmenu", "Learner Profile"), this);
+    QAction *configLearnerProfileAction = new QAction(i18nc("@item:inmenu", "Learner Profile"), this);
     connect(configLearnerProfileAction, SIGNAL(triggered(bool)), this, SLOT(configLearnerProfile()));
     actionCollection()->addAction("config_learner_profile", configLearnerProfileAction);
     configLearnerProfileAction->setIcon(QIcon::fromTheme("user-identity"));
