@@ -64,11 +64,11 @@ set(artikulateCore_SRCS
 )
 
 # compile UI files
-kde4_add_ui_files(artikulateCore_SRCS
+qt5_wrap_ui(artikulateCore_SRCS
     ui/newcoursedialog.ui
 )
-kde4_add_kcfg_files(artikulateCore_SRCS settings.kcfgc)
-kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})
+kconfig_add_kcfg_files (artikulateCore_SRCS settings.kcfgc)
+add_library(artikulatecore SHARED ${artikulateCore_SRCS})
 target_link_libraries(artikulatecore
     LINK_PRIVATE
         artikulatelearnerprofile
@@ -118,13 +118,13 @@ set(artikulate_SRCS
 
     declarativeitems/applicationbackground.cpp
 )
-kde4_add_ui_files(artikulate_SRCS
+qt5_wrap_ui (artikulate_SRCS
     ui/resourcesdialogpage.ui
     ui/sounddevicedialogpage.ui
     ui/appearencedialogpage.ui
 )
-kde4_add_kcfg_files(artikulate_SRCS settings.kcfgc)
-kde4_add_executable(artikulate ${artikulate_SRCS})
+kconfig_add_kcfg_files (artikulate_SRCS settings.kcfgc)
+add_executable(artikulate ${artikulate_SRCS})
 target_link_libraries(artikulate
     LINK_PRIVATE
         artikulatelearnerprofile

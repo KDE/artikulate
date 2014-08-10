@@ -36,7 +36,7 @@ set(sound_LIB_SRCS
     qtgstreameroutputbackend.cpp
 )
 
-kde4_add_library(artikulatesound SHARED ${sound_LIB_SRCS})
+add_library(artikulatesound SHARED ${sound_LIB_SRCS})
 
 target_link_libraries(
     artikulatesound

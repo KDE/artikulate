@@ -23,7 +23,8 @@
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-add_subdirectory(actions)
+#add_subdirectory(actions)
 
-kde4_install_icons(${ICON_INSTALL_DIR})
-kde4_update_iconcache()
+#FIXME
+# kde4_install_icons(${ICON_INSTALL_DIR})
+# kde4_update_iconcache()

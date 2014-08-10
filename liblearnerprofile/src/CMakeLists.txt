@@ -32,7 +32,7 @@ set(learnerprofile_LIB_SRCS
     models/learninggoalmodel.cpp
 )
 
-kde4_add_library(artikulatelearnerprofile SHARED ${learnerprofile_LIB_SRCS})
+add_library(artikulatelearnerprofile SHARED ${learnerprofile_LIB_SRCS})
 
 target_link_libraries(
     artikulatelearnerprofile

@@ -25,16 +25,27 @@
 
 project(artikulate)
 
-find_package(KDE4 4.11.1 REQUIRED)
-include(KDE4Defaults)
+cmake_minimum_required(VERSION 2.8.12)
+find_package(ECM 0.0.11 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES} ${QT4_INCLUDES})
-add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS -fexceptions)
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+include(FeatureSummary)
+
+find_package(Qt5 REQUIRED COMPONENTS
+    Widgets
+)
+find_package(KF5 REQUIRED COMPONENTS
+    Config
+    I18n
+)
 
 # subdirectories to build
 add_subdirectory(data)
 add_subdirectory(schemes)
-add_subdirectory(doc)
+# add_subdirectory(doc) //FIXME
 add_subdirectory(src)
 add_subdirectory(sounds)
 add_subdirectory(images)
@@ -42,14 +53,9 @@ add_subdirectory(icons)
 add_subdirectory(libsound)
 add_subdirectory(liblearnerprofile)
 
-# Build Tests if KDE_TEST is on
-if(KDE4_BUILD_TESTS)
-    enable_testing()
-    add_subdirectory(autotests)
-endif(KDE4_BUILD_TESTS)
-
 # files to install in the artikulate project root directory
 install(PROGRAMS artikulate.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES artikulate.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/)
 
-macro_display_feature_log()
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+
