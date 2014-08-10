@@ -37,7 +37,7 @@ include(FeatureSummary)
 find_package(Qt5 REQUIRED COMPONENTS
     Widgets
 )
-find_package(KF5 REQUIRED COMPONENTS
+find_package(KF5 CONFIG REQUIRED COMPONENTS
     Config
     I18n
 )

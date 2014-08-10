@@ -25,6 +25,8 @@
 
 find_package(Qt5GStreamer 1.1.90 REQUIRED)
 
+set (CMAKE_CXX_FLAGS "-fexceptions") #FIXME workaround: build with exceptions as required by qtgstreamer
+
 include_directories(
     ${QTGSTREAMER_INCLUDE_DIR}
 )
