@@ -27,7 +27,7 @@
 
 #include <QDebug>
 #include <KSaveFile>
-#include <KTemporaryFile>
+#include <QTemporaryFile>
 #include <sys/stat.h>
 
 Phrase::Phrase(QObject *parent)

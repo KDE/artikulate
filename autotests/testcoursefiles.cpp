@@ -30,7 +30,7 @@
 
 #include <qtest_kde.h>
 #include <QDebug>
-#include <KTemporaryFile>
+#include <QTemporaryFile>
 
 #include <QIODevice>
 #include <QFile>
@@ -85,8 +85,7 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     QVERIFY(manager.courseResources(manager.languageResources().first()->language()).count() == 1);
 
     Course *testCourse = manager.courseResources(manager.languageResources().first()->language()).first()->course();
-    KTemporaryFile outputFile;
-    outputFile.setSuffix(".xml");
+    QTemporaryFile outputFile;
     outputFile.open();
     QUrl oldFileName = testCourse->file();
     testCourse->setFile(QUrl::fromLocalFile(outputFile.fileName()));

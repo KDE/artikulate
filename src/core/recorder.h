@@ -24,7 +24,7 @@
 #include "artikulatecore_export.h"
 #include <QObject>
 #include <QUrl>
-#include <KTemporaryFile>
+#include <QTemporaryFile>
 
 class ARTIKULATELIB_EXPORT Recorder : public QObject
 {
@@ -56,7 +56,7 @@ Q_SIGNALS:
 private:
     Q_DISABLE_COPY(Recorder)
     CaptureState m_state;
-    KTemporaryFile m_recordingBufferFile;
+    QTemporaryFile m_recordingBufferFile;
 };
 
 #endif // RECORDER_H

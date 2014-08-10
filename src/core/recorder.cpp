@@ -23,15 +23,16 @@
 
 #include <QList>
 #include <QDebug>
+#include <QDir>
 #include <QUrl>
 #include <QString>
 
 Recorder::Recorder(QObject *parent)
     : QObject(parent)
     , m_state(StoppedState)
+    , m_recordingBufferFile(QLatin1String("XXXXXX.ogg"))
 {
-    // register recording file
-    m_recordingBufferFile.setSuffix(".ogg");
+
 }
 
 Recorder::~Recorder()

@@ -26,6 +26,7 @@
 #include "phrase.h"
 #include <QObject>
 #include <QList>
+#include <QMap>
 
 class QString;
 class Phrase;

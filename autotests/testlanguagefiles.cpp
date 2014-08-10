@@ -27,7 +27,7 @@
 
 #include <qtest_kde.h>
 #include <QDebug>
-#include <KTemporaryFile>
+#include <QTemporaryFile>
 #include <QUrl>
 
 #include <QIODevice>

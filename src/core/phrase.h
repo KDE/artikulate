@@ -26,7 +26,7 @@
 #include <QObject>
 #include <QUrl>
 #include <QList>
-#include <KTemporaryFile>
+#include <QTemporaryFile>
 
 class QString;
 class Phoneme;

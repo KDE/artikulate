@@ -57,7 +57,6 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
     //TODO Gst::Device will allow selecting devices again with GStreamer 1.4
 
     // temporary file for recording test
-    m_recordTestFile.setSuffix(".ogg");
     m_recordTestFile.open();
 
     // connections
