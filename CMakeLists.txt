@@ -40,6 +40,7 @@ find_package(Qt5 REQUIRED COMPONENTS
 find_package(KF5 CONFIG REQUIRED COMPONENTS
     Config
     I18n
+    KDELibs4Support
 )
 
 # subdirectories to build

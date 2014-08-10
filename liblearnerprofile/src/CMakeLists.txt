@@ -39,6 +39,7 @@ target_link_libraries(
         Qt5::Core
         Qt5::Gui
         KF5::Config
+        KF5::KDELibs4Support
 )
 
 set_target_properties(
