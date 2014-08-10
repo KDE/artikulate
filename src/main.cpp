@@ -20,34 +20,42 @@
 
 #include "mainwindow.h"
 #include "application.h"
-#include "version.h"
+// #include "version.h"
 
 #include <KAboutData>
 #include <KCmdLineArgs>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 
 static const char description[] =
     I18N_NOOP("Learn and practice pronunciation.");
 
-static const char version[] = ARTIKULATE_VERSION_STR;
+static const char version[] = "0.4.50"; //ARTIKULATE_VERSION_STR; //FIXME
 
 int main(int argc, char **argv)
 {
-    KAboutData about("artikulate", 0,
-                ki18n("Artikulate Pronunciation Trainer"),
-                version,
-                ki18n(description),
-                KAboutData::License_GPL,
-                ki18n("Copyright (C) 2013-2014, The Artikulate Developers")
-                );
+    KAboutData aboutData("artikulate",
+                         ki18nc("@title Displayed program name", "Artikulate").toString(),
+                         version,
+                         ki18nc("@title KAboutData: short program description", "Artikulate Pronunciation Trainer").toString(),
+                         KAboutLicense::GPL_V2,
+                         ki18nc("@info:credit", "(c) 2013-2014 The Artikulate Developers").toString(),
+                         ki18nc("@title Short program description", "Training your ponunciation in a foreign language.").toString()
+                        );
 
-    about.addAuthor(ki18n("Andreas Cord-Landwehr"), ki18n("Original Author"), "cordlandwehr@kde.org");
-    about.addAuthor(ki18n("Samikshan Bairagya"), ki18n("Developer"), "samikshan@gmail.com");
-    about.addAuthor(ki18n("Oindrila Gupta"), ki18n("Developer and Course Data"));
-    about.addAuthor(ki18n("Magdalena Konkiewicz"), ki18n("Developer and Course Data"));
+    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Andreas Cord-Landwehr").toString(),
+                        ki18nc("@info:credit Role", "Original Author").toString(),
+                        "cordlandwehr@kde.org");
 
-    KCmdLineArgs::init(argc, argv, &about);
+    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Samikshan Bairagya").toString(),
+                        ki18nc("@info:credit Role", "Developer").toString(),
+                        "samikshan@gmail.com");
+
+    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Oindrila Gupta").toString(),
+                        ki18nc("@info:credit Role", "Developer and Course Data").toString());
+
+    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Magdalena Konkiewicz").toString(),
+                        ki18nc("@info:credit Role", "Developer and Course Data").toString());
 
     Application app;
 

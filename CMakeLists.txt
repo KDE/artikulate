@@ -41,6 +41,7 @@ find_package(Qt5 REQUIRED COMPONENTS
 )
 find_package(KF5 CONFIG REQUIRED COMPONENTS
     Config
+    CoreAddons
     I18n
     KDELibs4Support
 )
