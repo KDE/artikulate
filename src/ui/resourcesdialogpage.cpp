@@ -25,7 +25,7 @@
 #include "core/course.h"
 #include "settings.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QUuid>
 
 ResourcesDialogPage::ResourcesDialogPage(ResourceManager *m_resourceManager)

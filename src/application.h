@@ -29,7 +29,7 @@ class Application : public QApplication
     Q_OBJECT
 
 public:
-    explicit Application();
+    explicit Application(int argc, char **argv);
 
 private:
     void registerQmlTypes();

@@ -24,8 +24,7 @@
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
-
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 
 using namespace LearnerProfile;
@@ -145,8 +144,10 @@ void ProfileModel::onProfileAboutToBeRemoved(int index)
 
 void ProfileModel::emitProfileChanged(int row)
 {
-    reset(); //FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
-             //      to exclude possible new excluded phrases
+    beginResetModel();
+    endResetModel();
+        //FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
+        //      to exclude possible new excluded phrases
     emit profileChanged(row);
     emit dataChanged(index(row, 0), index(row, 0));
 }

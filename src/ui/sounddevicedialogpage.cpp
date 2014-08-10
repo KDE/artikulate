@@ -23,7 +23,7 @@
 #include "libsound/src/outputdevicecontroller.h"
 #include "settings.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QStandardPaths>
 
 SoundDeviceDialogPage::SoundDeviceDialogPage()

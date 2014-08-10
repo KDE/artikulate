@@ -47,7 +47,7 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
     CoreAddons
     Declarative
     I18n
-    KDELibs4Support
+    KIO
     NewStuff
     WidgetsAddons
 )

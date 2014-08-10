@@ -34,16 +34,13 @@
 #include <KMainWindow>
 #include <QAction>
 #include <KActionCollection>
-#include <KCmdLineArgs>
-#include <KDialog>
-#include <KGlobal>
 #include <QIcon>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KDeclarative/KDeclarative>
 #include <KConfigDialog>
 #include <QDebug>
 #include <KStandardAction>
-#include <KApplication>
+#include <QApplication>
 #include <KMessageBox>
 #include <KNS3/DownloadDialog>
 
@@ -160,7 +157,7 @@ void MainWindow::setupActions()
     actionCollection()->addAction("config_learner_profile", configLearnerProfileAction);
     configLearnerProfileAction->setIcon(QIcon::fromTheme("user-identity"));
 
-    KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
+//     KStandardAction::quit(kapp, SLOT(quit()), actionCollection()); //FIXME port this
 
     setupGUI(Keys | Save | Create, "artikulateui.rc");
 }

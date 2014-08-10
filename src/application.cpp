@@ -59,8 +59,8 @@
 #include <KDeclarative/KDeclarative>
 #include <QGraphicsDropShadowEffect>
 
-Application::Application()
-    : KApplication(true)
+Application::Application(int argc, char **argv)
+    : QApplication(argc, argv)
 {
     registerQmlTypes();
 }

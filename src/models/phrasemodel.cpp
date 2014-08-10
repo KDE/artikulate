@@ -21,12 +21,9 @@
 #include "phrasemodel.h"
 #include "core/unit.h"
 #include "core/phrase.h"
-
 #include <QAbstractListModel>
 #include <QSignalMapper>
-
-#include <KLocale>
-#include <QDebug>
+#include <KLocalizedString>
 
 PhraseModel::PhraseModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -174,8 +171,10 @@ void PhraseModel::onPhrasesRemoved()
 
 void PhraseModel::emitPhraseChanged(int row)
 {
-    reset(); //FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
-             //      to exclude possible new excluded phrases
+    beginResetModel();
+    endResetModel();
+        //FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
+        //      to exclude possible new excluded phrases
     emit phraseChanged(row);
     emit dataChanged(index(row, 0), index(row, 0));
 }

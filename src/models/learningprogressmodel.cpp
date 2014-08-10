@@ -21,7 +21,7 @@
 #include "learningprogressmodel.h"
 #include "core/trainingsession.h"
 #include <QAbstractTableModel>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 
 LearningProgressModel::LearningProgressModel(QObject *parent)

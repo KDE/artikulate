@@ -23,7 +23,7 @@
 
 #include <QSortFilterProxyModel>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 
 LanguageModel::LanguageModel(QObject* parent)
