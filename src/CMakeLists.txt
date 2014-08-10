@@ -29,7 +29,7 @@ set(ARTIKULATE_VERSION_PATCH 50)
 # set config files after packages are searched
 configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
 
-add_subdirectory(qml)
+ecm_optional_add_subdirectory(qml)
 
 # set include directories
 include_directories(

@@ -32,6 +32,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings)
+include(ECMOptionalAddSubdirectory)
 include(FeatureSummary)
 
 find_package(Qt5 REQUIRED COMPONENTS
@@ -53,19 +54,18 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
 )
 
 # subdirectories to build
-add_subdirectory(data)
-add_subdirectory(schemes)
-# add_subdirectory(doc) //FIXME
-add_subdirectory(src)
-add_subdirectory(sounds)
-add_subdirectory(images)
-add_subdirectory(icons)
-add_subdirectory(libsound)
-add_subdirectory(liblearnerprofile)
+ecm_optional_add_subdirectory(data)
+ecm_optional_add_subdirectory(schemes)
+# ecm_optional_add_subdirectory(doc) //FIXME
+ecm_optional_add_subdirectory(src)
+ecm_optional_add_subdirectory(sounds)
+ecm_optional_add_subdirectory(images)
+ecm_optional_add_subdirectory(icons)
+ecm_optional_add_subdirectory(libsound)
+ecm_optional_add_subdirectory(liblearnerprofile)
 
 # files to install in the artikulate project root directory
 install(PROGRAMS artikulate.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES artikulate.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
-

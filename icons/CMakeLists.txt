@@ -23,7 +23,7 @@
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-#add_subdirectory(actions)
+#ecm_optional_add_subdirectory(actions)
 
 #FIXME
 # kde4_install_icons(${ICON_INSTALL_DIR})

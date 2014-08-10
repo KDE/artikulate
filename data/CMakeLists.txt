@@ -23,5 +23,5 @@
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-add_subdirectory(languages)
+ecm_optional_add_subdirectory(languages)
 
