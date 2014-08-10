@@ -26,7 +26,7 @@
 #include <QSignalMapper>
 
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 using namespace LearnerProfile;
 

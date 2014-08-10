@@ -28,7 +28,7 @@
 #include <QSignalMapper>
 
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 CourseModel::CourseModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -172,7 +172,7 @@ void CourseModel::onCourseResourceAboutToBeRemoved(int index)
     int modelIndex = m_resources.indexOf(originalResource);
 
     if (modelIndex == -1) {
-        kWarning() << "Cannot remove course from model, not registered";
+        qWarning() << "Cannot remove course from model, not registered";
         return;
     }
     beginRemoveRows(QModelIndex(), modelIndex, modelIndex);
@@ -200,7 +200,7 @@ QVariant CourseModel::headerData(int section, Qt::Orientation orientation, int r
 void CourseModel::updateMappings()
 {
     if (!m_language) {
-        kDebug() << "Aborting to update mappings, language not set.";
+        qDebug() << "Aborting to update mappings, language not set.";
         return;
     }
     int courses = m_resources.count();

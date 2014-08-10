@@ -26,7 +26,7 @@
 #include "resourcemanager.h"
 #include "phonemegroup.h"
 
-#include <KDebug>
+#include <QDebug>
 #include <KLocale>
 #include <QStringList>
 #include <QPair>
@@ -46,7 +46,7 @@ Skeleton::~Skeleton()
 void Skeleton::sync()
 {
     if (!file().isValid() || file().isEmpty() || m_resource == 0) {
-        kWarning() << "No file path set, aborting sync operation.";
+        qWarning() << "No file path set, aborting sync operation.";
         return;
     }
     m_resource->sync();

@@ -22,7 +22,7 @@
 #include "models/languagemodel.h"
 #include "phoneme.h"
 #include "phonemegroup.h"
-#include <KDebug>
+#include <QDebug>
 #include <KLocale>
 #include <KGlobal>
 
@@ -105,7 +105,7 @@ PhonemeGroup * Language::addPhonemeGroup(const QString &identifier, const QStrin
     QList<PhonemeGroup *>::ConstIterator iter = m_phonemeGroups.constBegin();
     while (iter != m_phonemeGroups.constEnd()) {
         if (QString::compare((*iter)->id(), identifier) == 0) {
-            kWarning() << "Prononciation Group identifier already registered, aborting";
+            qWarning() << "Prononciation Group identifier already registered, aborting";
             return 0;
         }
         ++iter;

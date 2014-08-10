@@ -24,7 +24,7 @@
 #include <QSortFilterProxyModel>
 
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 UnitFilterModel::UnitFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)

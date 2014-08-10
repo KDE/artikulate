@@ -29,7 +29,7 @@
 #include <QSignalMapper>
 
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 LanguageResourceModel::LanguageResourceModel(QObject* parent)
     : QAbstractListModel(parent)
@@ -158,7 +158,7 @@ void LanguageResourceModel::onLanguageResourceAboutToBeRemoved(int index)
     int modelIndex = m_resources.indexOf(originalResource);
 
     if (modelIndex == -1) {
-        kWarning() << "Cannot remove language from model, not registered";
+        qWarning() << "Cannot remove language from model, not registered";
         return;
     }
     beginRemoveRows(QModelIndex(), modelIndex, modelIndex);

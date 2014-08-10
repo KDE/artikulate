@@ -28,7 +28,7 @@
 #include <QStringList>
 #include <QUuid>
 
-#include <KDebug>
+#include <QDebug>
 #include <KLocale>
 #include <KUrl>
 
@@ -106,7 +106,7 @@ void Unit::addPhrase(Phrase *phrase)
     QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
     while (iter != m_phraseList.constEnd()) {
         if (phrase->id() == (*iter)->id()) {
-            kWarning() << "Phrase is already contained in this unit, aborting";
+            qWarning() << "Phrase is already contained in this unit, aborting";
             return;
         }
         ++iter;
@@ -155,7 +155,7 @@ void Unit::excludeSkeletonPhrase(const QString &phraseId)
             return;
         }
     }
-    kWarning() << "Could not exclude phrase with ID " << phraseId << ", no phrase with this ID.";
+    qWarning() << "Could not exclude phrase with ID " << phraseId << ", no phrase with this ID.";
 }
 
 void Unit::includeSkeletonPhrase(const QString &phraseId)
@@ -167,5 +167,5 @@ void Unit::includeSkeletonPhrase(const QString &phraseId)
             return;
         }
     }
-    kWarning() << "Could not include phrase with ID " << phraseId << ", no phrase with this ID.";
+    qWarning() << "Could not include phrase with ID " << phraseId << ", no phrase with this ID.";
 }

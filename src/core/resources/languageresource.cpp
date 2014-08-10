@@ -30,7 +30,7 @@
 #include <QIODevice>
 #include <QFile>
 
-#include <KDebug>
+#include <QDebug>
 
 class LanguageResourcePrivate
 {
@@ -87,7 +87,7 @@ LanguageResource::LanguageResource(ResourceManager *resourceManager, const KUrl 
             }
         }
         if (xml.hasError()) {
-            kError() << "Error occurred when reading Language XML file:" << path.toLocalFile();
+            qCritical() << "Error occurred when reading Language XML file:" << path.toLocalFile();
         }
     }
     xml.clear();
@@ -142,7 +142,7 @@ QObject * LanguageResource::resource()
     }
 
     if (!d->m_path.isLocalFile()) {
-        kWarning() << "Cannot open language file at " << d->m_path.toLocalFile() << ", aborting.";
+        qWarning() << "Cannot open language file at " << d->m_path.toLocalFile() << ", aborting.";
         return 0;
     }
 
@@ -153,7 +153,7 @@ QObject * LanguageResource::resource()
 
     QDomDocument document = loadDomDocument(d->m_path, schema);
     if (document.isNull()) {
-        kWarning() << "Could not parse document " << d->m_path.toLocalFile() << ", aborting.";
+        qWarning() << "Could not parse document " << d->m_path.toLocalFile() << ", aborting.";
         return 0;
     }
 

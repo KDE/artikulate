@@ -45,7 +45,7 @@
 
 #include <KGlobal>
 #include <KStandardDirs>
-#include <KDebug>
+#include <QDebug>
 #include <KUrl>
 
 ResourceManager::ResourceManager(QObject *parent)
@@ -62,7 +62,7 @@ void ResourceManager::loadCourseResources()
     QDir skeletonRepository = QDir(Settings::courseRepositoryPath());
     skeletonRepository.setFilter(QDir::Files | QDir::Hidden);
     if (!skeletonRepository.cd("skeletons")) {
-        kError() << "There is no subdirectory \"skeletons\" in directory " << skeletonRepository.path()
+        qCritical() << "There is no subdirectory \"skeletons\" in directory " << skeletonRepository.path()
             << " cannot load skeletons.";
     } else {
         // read skeletons
@@ -76,7 +76,7 @@ void ResourceManager::loadCourseResources()
     // register contributor course files
     QDir courseRepository = QDir(Settings::courseRepositoryPath());
     if (!courseRepository.cd("courses")) {
-        kError() << "There is no subdirectory \"courses\" in directory " << courseRepository.path()
+        qCritical() << "There is no subdirectory \"courses\" in directory " << courseRepository.path()
             << " cannot load courses.";
     } else {
         // find courses
@@ -182,7 +182,7 @@ Language * ResourceManager::language(LearnerProfile::LearningGoal *learningGoal)
         return 0;
     }
     if (learningGoal->category() != LearnerProfile::LearningGoal::Language) {
-        kError() << "Cannot translate non-language learning goal to language";
+        qCritical() << "Cannot translate non-language learning goal to language";
         return 0;
     }
     foreach (LanguageResource *resource, m_languageResources) {
@@ -190,7 +190,7 @@ Language * ResourceManager::language(LearnerProfile::LearningGoal *learningGoal)
             return resource->language();
         }
     }
-    kError() << "No language registered with identifier " << learningGoal->identifier() << ": aborting";
+    qCritical() << "No language registered with identifier " << learningGoal->identifier() << ": aborting";
     return 0;
 }
 
@@ -218,11 +218,11 @@ Course * ResourceManager::course(Language *language, int index) const
 void ResourceManager::reloadCourseOrSkeleton(Course *courseOrSkeleton)
 {
     if (!courseOrSkeleton) {
-        kError() << "Cannot reload non-existing course";
+        qCritical() << "Cannot reload non-existing course";
         return;
     }
     if (!courseOrSkeleton->file().isValid()) {
-        kError() << "Cannot reload temporary file, aborting.";
+        qCritical() << "Cannot reload temporary file, aborting.";
         return;
     }
 
@@ -248,7 +248,7 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
 {
     //TODO implement status information that are shown at mainwindow
     if (course->foreignId().isEmpty())  {
-        kError() << "No skeleton ID specified, aborting update.";
+        qCritical() << "No skeleton ID specified, aborting update.";
         return;
     }
     Course *skeleton = 0;
@@ -261,7 +261,7 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
         ++iter;
     }
     if (!skeleton)  {
-        kError() << "Could not find skeleton with id " << course->foreignId() << ", aborting update.";
+        qCritical() << "Could not find skeleton with id " << course->foreignId() << ", aborting update.";
         return;
     }
 
@@ -315,14 +315,14 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
     }
     // FIXME deassociate removed phrases
 
-    kDebug() << "Update performed!";
+    qDebug() << "Update performed!";
 }
 
 CourseResource * ResourceManager::addCourse(const KUrl &courseFile)
 {
     CourseResource *resource = new CourseResource(this, courseFile);
     if (resource->language().isEmpty()) {
-        kError() << "Could not load course, language unknown:" << courseFile.toLocalFile();
+        qCritical() << "Could not load course, language unknown:" << courseFile.toLocalFile();
         return 0;
     }
 

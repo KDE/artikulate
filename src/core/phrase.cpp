@@ -25,7 +25,7 @@
 #include "course.h"
 #include "settings.h"
 
-#include <KDebug>
+#include <QDebug>
 #include <KSaveFile>
 #include <KTemporaryFile>
 #include <sys/stat.h>
@@ -144,7 +144,7 @@ void Phrase::setType(const QString &typeString)
         setType(Paragraph);
         return;
     }
-    kWarning() << "Cannot set type from unknown identifier, aborting";
+    qWarning() << "Cannot set type from unknown identifier, aborting";
     return;
 }
 
@@ -193,7 +193,7 @@ void Phrase::setEditState(const QString &stateString)
         setEditState(Completed);
         return;
     }
-    kWarning() << "Cannot set edit state from unknown identifier " << stateString << ", aborting";
+    qWarning() << "Cannot set edit state from unknown identifier " << stateString << ", aborting";
     return;
 }
 
@@ -230,7 +230,7 @@ KUrl Phrase::sound() const
 void Phrase::setSound(const KUrl &soundFile)
 {
     if (!soundFile.isValid() || soundFile.isEmpty()) {
-        kWarning() << "Not setting empty sound file path.";
+        qWarning() << "Not setting empty sound file path.";
         return;
     }
     m_nativeSoundFile = soundFile;

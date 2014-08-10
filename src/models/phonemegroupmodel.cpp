@@ -27,7 +27,7 @@
 #include <QSignalMapper>
 
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 PhonemeGroupModel::PhonemeGroupModel(QObject *parent)
     : QAbstractListModel(parent)

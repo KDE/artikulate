@@ -19,7 +19,7 @@
  */
 
 #include "profile.h"
-#include <KDebug>
+#include <QDebug>
 
 #include "core/language.h"
 #include "core/course.h"

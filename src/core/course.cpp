@@ -26,7 +26,7 @@
 #include "resourcemanager.h"
 #include "phonemegroup.h"
 
-#include <KDebug>
+#include <QDebug>
 #include <KLocale>
 #include <QStringList>
 #include <QPair>
@@ -148,7 +148,7 @@ void Course::addUnit(Unit *unit)
     QList<Unit*>::ConstIterator iter = m_unitList.constBegin();
     while (iter != m_unitList.constEnd()) {
         if (unit->id() == (*iter)->id()) {
-            kWarning() << "Unit already contained in this course, aborting";
+            qWarning() << "Unit already contained in this course, aborting";
             return;
         }
         ++iter;
@@ -177,7 +177,7 @@ Unit * Course::createUnit()
     QString id = QUuid::createUuid().toString();
     while (unitIds.contains(id)) {
         id = QUuid::createUuid();
-        kWarning() << "Unit id generator has found a collision, recreating id.";
+        qWarning() << "Unit id generator has found a collision, recreating id.";
     }
 
     // create unit
@@ -202,7 +202,7 @@ Phrase * Course::createPhrase(Unit *unit)
     QString id = QUuid::createUuid().toString();
     while (phraseIds.contains(id)) {
         id = QUuid::createUuid();
-        kWarning() << "Phrase id generator has found a collision, recreating id.";
+        qWarning() << "Phrase id generator has found a collision, recreating id.";
     }
 
     // create unit
@@ -260,7 +260,7 @@ PhonemeGroup * Course::phonemeGroup(Unit *unit) const
 void Course::addPhonemeGroup(PhonemeGroup *phonemeGroup)
 {
     if (m_phonemeUnitList.contains(phonemeGroup)) {
-        kWarning() << "Phoneme group already contained in this course, aborting";
+        qWarning() << "Phoneme group already contained in this course, aborting";
         return;
     }
     emit phonemeGroupAboutToBeAdded(phonemeGroup, m_phonemeGroupList.count());
@@ -295,7 +295,7 @@ void Course::setModified(bool modified)
 void Course::sync()
 {
     if (!m_file.isValid() || m_file.isEmpty() || m_resource == 0) {
-        kError() << "Path" << m_file.toLocalFile() << "not valid, aborting sync operation.";
+        qCritical() << "Path" << m_file.toLocalFile() << "not valid, aborting sync operation.";
         return;
     }
     m_resource->sync();
@@ -337,5 +337,5 @@ void Course::registerPhrasePhonemes(Phrase *phrase)
 
 void Course::removePhrasePhonemes(Phrase* phrase)
 {
-    kError() << "Not yet implemented!";
+    qCritical() << "Not yet implemented!";
 }

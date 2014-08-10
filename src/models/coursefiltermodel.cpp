@@ -24,7 +24,7 @@
 #include <QSortFilterProxyModel>
 
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 CourseFilterModel::CourseFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)

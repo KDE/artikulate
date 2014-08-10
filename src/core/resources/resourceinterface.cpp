@@ -20,7 +20,7 @@
 
 #include "resourceinterface.h"
 
-#include <KDebug>
+#include <QDebug>
 #include <KStandardDirs>
 #include <KUrl>
 
@@ -54,12 +54,12 @@ bool ResourceInterface::isContributorResource() const
 
 void ResourceInterface::sync()
 {
-    kWarning() << "Resource does not implement syncing.";
+    qWarning() << "Resource does not implement syncing.";
 }
 
 void ResourceInterface::reload()
 {
-    kWarning() << "Resource does not implement reloading.";
+    qWarning() << "Resource does not implement reloading.";
 }
 
 QXmlSchema ResourceInterface::loadXmlSchema(const QString &schemeName) const
@@ -69,7 +69,7 @@ QXmlSchema ResourceInterface::loadXmlSchema(const QString &schemeName) const
 
     QXmlSchema schema;
     if (schema.load(file) == false) {
-        kWarning() << "Schema at file " << file.toLocalFile() << " is invalid.";
+        qWarning() << "Schema at file " << file.toLocalFile() << " is invalid.";
     }
     return schema;
 }
@@ -79,7 +79,7 @@ QDomDocument ResourceInterface::loadDomDocument(const KUrl &path, const QXmlSche
     QDomDocument document;
     QXmlSchemaValidator validator(schema);
     if (!validator.validate(path)) {
-        kWarning() << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
+        qWarning() << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
         return document;
     }
 
@@ -87,10 +87,10 @@ QDomDocument ResourceInterface::loadDomDocument(const KUrl &path, const QXmlSche
     QFile file(path.toLocalFile());
     if (file.open(QIODevice::ReadOnly)) {
         if (!document.setContent(&file, &errorMsg)) {
-            kWarning() << errorMsg;
+            qWarning() << errorMsg;
         }
     } else {
-        kWarning() << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
+        qWarning() << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
     }
     return document;
 }

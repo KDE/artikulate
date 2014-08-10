@@ -24,7 +24,7 @@
 #include "learner.h"
 #include "storage.h"
 
-#include <KDebug>
+#include <QDebug>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KStandardDirs>
@@ -82,13 +82,13 @@ ProfileManagerPrivate::ProfileManagerPrivate()
                         activeGoalsIdentifiers.at(i));
                 }
             } else {
-                kError() << "Inconsistent goal category / identifier pairs found: aborting.";
+                qCritical() << "Inconsistent goal category / identifier pairs found: aborting.";
             }
             break;
         }
     }
     if (m_activeProfile == 0) {
-        kDebug() << "No last active profile found, falling back to first found profile";
+        qDebug() << "No last active profile found, falling back to first found profile";
         if (m_profiles.size() > 0) {
             m_activeProfile = m_profiles.at(0);
         }
@@ -119,7 +119,7 @@ void ProfileManagerPrivate::sync()
         activeProfileGroup.writeEntry("activeGoalsIdentifiers", goalIdentifiers);
     }
     else {
-        kError() << "No active profile selected, aborting sync.";
+        qCritical() << "No active profile selected, aborting sync.";
     }
     m_config->sync();
 

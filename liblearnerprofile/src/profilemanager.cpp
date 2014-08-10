@@ -24,7 +24,7 @@
 
 #include <QObject>
 #include <QList>
-#include <KDebug>
+#include <QDebug>
 #include <KFileDialog>
 #include <KLocale>
 
@@ -98,7 +98,7 @@ void ProfileManager::removeProfile(Learner *learner)
 {
     int index = d->m_profiles.indexOf(learner);
     if (index < 0) {
-        kWarning() << "Profile was not found, aborting";
+        qWarning() << "Profile was not found, aborting";
         return;
     }
     emit profileAboutToBeRemoved(index);

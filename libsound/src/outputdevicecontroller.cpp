@@ -21,7 +21,7 @@
 #include "outputdevicecontroller.h"
 #include "qtgstreameroutputbackend.h"
 #include <KUrl>
-#include <KDebug>
+#include <QDebug>
 
 /**
  * \class OutputDeviceControllerPrivate

@@ -24,7 +24,7 @@
 #include <QSortFilterProxyModel>
 
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 LanguageModel::LanguageModel(QObject* parent)
     : QSortFilterProxyModel(parent)

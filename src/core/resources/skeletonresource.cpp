@@ -33,7 +33,7 @@
 #include <QIODevice>
 #include <QFile>
 
-#include <KDebug>
+#include <QDebug>
 
 class SkeletonResourcePrivate
 {
@@ -92,7 +92,7 @@ SkeletonResource::SkeletonResource(ResourceManager *resourceManager, const KUrl 
             }
         }
         if (xml.hasError()) {
-            kError() << "Error occurred when reading Skeleton XML file:" << path.toLocalFile();
+            qCritical() << "Error occurred when reading Skeleton XML file:" << path.toLocalFile();
         }
     }
     xml.clear();
@@ -158,13 +158,13 @@ void SkeletonResource::sync()
 
     // if resource was never loaded, it cannot be changed
     if (d->m_skeletonResource == 0) {
-        kDebug() << "Aborting sync, skeleton was not parsed.";
+        qDebug() << "Aborting sync, skeleton was not parsed.";
         return;
     }
 
 //     // not writing back if not modified
 //     if (!d->m_skeletonResource->modified()) {
-//         kDebug() << "Aborting sync, skeleton was not modified.";
+//         qDebug() << "Aborting sync, skeleton was not modified.";
 //         return;
 //     }
 
@@ -233,7 +233,7 @@ void SkeletonResource::sync()
     QFile file;
     file.setFileName(path().toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
-        kWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+        qWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;
     }
 
@@ -243,7 +243,7 @@ void SkeletonResource::sync()
 
 void SkeletonResource::reload()
 {
-    kError() << "NOT IMPLEMENTED";
+    qCritical() << "NOT IMPLEMENTED";
 }
 
 bool SkeletonResource::isOpen() const
@@ -266,7 +266,7 @@ QObject * SkeletonResource::resource()
     }
 
     if (!path().isLocalFile()) {
-        kWarning() << "Cannot open skeleton file at " << path().toLocalFile() << ", aborting.";
+        qWarning() << "Cannot open skeleton file at " << path().toLocalFile() << ", aborting.";
         return 0;
     }
 
@@ -277,7 +277,7 @@ QObject * SkeletonResource::resource()
 
     QDomDocument document = loadDomDocument(path(), schema);
     if (document.isNull()) {
-        kWarning() << "Could not parse document " << path().toLocalFile() << ", aborting.";
+        qWarning() << "Could not parse document " << path().toLocalFile() << ", aborting.";
         return 0;
     }
 

@@ -22,7 +22,7 @@
 #include "learner.h"
 
 #include <KStandardDirs>
-#include <KDebug>
+#include <QDebug>
 #include <KLocale>
 
 #include <QSqlError>
@@ -59,7 +59,7 @@ bool Storage::storeProfile(Learner *learner)
     idExistsQuery.bindValue(":id", learner->identifier());
     idExistsQuery.exec();
     if (db.lastError().isValid()) {
-        kError() << "ExistsQuery: " << db.lastError().text();
+        qCritical() << "ExistsQuery: " << db.lastError().text();
         raiseError(db.lastError());
         return false;
     }
@@ -86,7 +86,7 @@ bool Storage::storeProfile(Learner *learner)
         updateProfileQuery.bindValue(":name", learner->name());
         updateProfileQuery.exec();
         if (updateProfileQuery.lastError().isValid()) {
-            kError() << updateProfileQuery.lastError().text();
+            qCritical() << updateProfileQuery.lastError().text();
             raiseError(updateProfileQuery.lastError());
             db.rollback();
             return false;
@@ -106,7 +106,7 @@ bool Storage::storeProfile(Learner *learner)
         relationExistsQuery.bindValue(":profileId", learner->identifier());
         relationExistsQuery.exec();
         if (db.lastError().isValid()) {
-            kError() << "ExistsQuery: " << db.lastError().text();
+            qCritical() << "ExistsQuery: " << db.lastError().text();
             raiseError(db.lastError());
             return false;
         }
@@ -140,7 +140,7 @@ bool Storage::removeProfile(Learner *learner)
     removeProfileQuery.exec();
 
     if (removeProfileQuery.lastError().isValid()) {
-        kError() << removeProfileQuery.lastError().text();
+        qCritical() << removeProfileQuery.lastError().text();
         raiseError(removeProfileQuery.lastError());
         db.rollback();
         return false;
@@ -153,7 +153,7 @@ bool Storage::removeProfile(Learner *learner)
     removeGoalRelationQuery.exec();
 
     if (removeGoalRelationQuery.lastError().isValid()) {
-        kError() << removeGoalRelationQuery.lastError().text();
+        qCritical() << removeGoalRelationQuery.lastError().text();
         raiseError(removeGoalRelationQuery.lastError());
         db.rollback();
         return false;
@@ -164,7 +164,7 @@ bool Storage::removeProfile(Learner *learner)
 
 bool Storage::removeRelation(Learner *learner, LearningGoal *goal)
 {
-kDebug() << "remove relation";
+qDebug() << "remove relation";
     QSqlDatabase db = database();
     QSqlQuery removeGoalRelationQuery(db);
     removeGoalRelationQuery.prepare(
@@ -178,7 +178,7 @@ kDebug() << "remove relation";
     removeGoalRelationQuery.bindValue(":profileId", learner->identifier());
     removeGoalRelationQuery.exec();
     if (db.lastError().isValid()) {
-        kError() << "ExistsQuery: " << db.lastError().text();
+        qCritical() << "ExistsQuery: " << db.lastError().text();
         raiseError(db.lastError());
         return false;
     }
@@ -193,7 +193,7 @@ QList< Learner* > Storage::loadProfiles(QList<LearningGoal*> goals)
     profileQuery.prepare("SELECT id, name FROM profiles");
     profileQuery.exec();
     if (profileQuery.lastError().isValid()) {
-        kError() << profileQuery.lastError().text();
+        qCritical() << profileQuery.lastError().text();
         raiseError(profileQuery.lastError());
         return QList<Learner*>();
     }
@@ -210,7 +210,7 @@ QList< Learner* > Storage::loadProfiles(QList<LearningGoal*> goals)
     goalRelationQuery.prepare("SELECT goal_category, goal_identifier, profile_id FROM learner_goals");
     goalRelationQuery.exec();
     if (goalRelationQuery.lastError().isValid()) {
-        kError() << goalRelationQuery.lastError().text();
+        qCritical() << goalRelationQuery.lastError().text();
         raiseError(goalRelationQuery.lastError());
         return QList<Learner*>();
     }
@@ -256,7 +256,7 @@ bool Storage::storeGoal(LearningGoal *goal)
     goalExistsQuery.bindValue(":category", static_cast<int>(goal->category()));
     goalExistsQuery.exec();
     if (db.lastError().isValid()) {
-        kError() << "ExistsQuery: " << db.lastError().text();
+        qCritical() << "ExistsQuery: " << db.lastError().text();
         raiseError(db.lastError());
         return false;
     }
@@ -286,7 +286,7 @@ bool Storage::storeGoal(LearningGoal *goal)
         updateGoalQuery.bindValue(":name", goal->name());
         updateGoalQuery.exec();
         if (updateGoalQuery.lastError().isValid()) {
-            kError() << updateGoalQuery.lastError().text();
+            qCritical() << updateGoalQuery.lastError().text();
             raiseError(updateGoalQuery.lastError());
             db.rollback();
             return false;
@@ -302,7 +302,7 @@ QList< LearningGoal* > Storage::loadGoals()
     goalQuery.prepare("SELECT category, identifier, name FROM goals");
     goalQuery.exec();
     if (goalQuery.lastError().isValid()) {
-        kError() << goalQuery.lastError().text();
+        qCritical() << goalQuery.lastError().text();
         raiseError(goalQuery.lastError());
         return QList<LearningGoal*>();
     }
@@ -326,18 +326,18 @@ QSqlDatabase Storage::database()
     }
 
     QString path = KGlobal::dirs()->locateLocal("appdata", "learnerdata.db");
-    kDebug() << "Database path: " << path;
+    qDebug() << "Database path: " << path;
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(path);
     if (!db.open()) {
-        kError() << "Could not open database: " << db.lastError().text();
+        qCritical() << "Could not open database: " << db.lastError().text();
         raiseError(db.lastError());
         return db;
     }
 
     if (!updateSchema()) {
-        kError() << "Database scheme not correct.";
+        qCritical() << "Database scheme not correct.";
         return db;
     }
 
@@ -355,14 +355,14 @@ bool Storage::updateSchema()
             "value TEXT"
             ")");
     if (db.lastError().isValid()) {
-        kError() << db.lastError().text();
+        qCritical() << db.lastError().text();
         raiseError(db.lastError());
         return false;
     }
 
     QSqlQuery versionQuery = db.exec("SELECT value FROM metadata WHERE key = 'version'");
     if (db.lastError().isValid()) {
-        kError() << db.lastError().text();
+        qCritical() << db.lastError().text();
         raiseError(db.lastError());
         return false;
     }
@@ -377,18 +377,18 @@ bool Storage::updateSchema()
     }
     else {
         if (!db.transaction()) {
-            kWarning() <<  db.lastError().text();
+            qWarning() <<  db.lastError().text();
             raiseError(db.lastError());
             return false;
         }
         db.exec("INSERT INTO metadata (key, value) VALUES ('version', '1')");
         if (db.lastError().isValid()) {
-            kError() << db.lastError().text();
+            qCritical() << db.lastError().text();
             raiseError(db.lastError());
             return false;
         }
         if (!db.commit()) {
-            kError() << db.lastError().text();
+            qCritical() << db.lastError().text();
             raiseError(db.lastError());
             return false;
         }
@@ -400,7 +400,7 @@ bool Storage::updateSchema()
             "name TEXT"
             ")");
     if (db.lastError().isValid()) {
-        kError() << db.lastError().text();
+        qCritical() << db.lastError().text();
         raiseError(db.lastError());
         return false;
     }
@@ -413,7 +413,7 @@ bool Storage::updateSchema()
             "PRIMARY KEY ( category, identifier )"
             ")");
     if (db.lastError().isValid()) {
-        kError() << db.lastError().text();
+        qCritical() << db.lastError().text();
         raiseError(db.lastError());
         return false;
     }
@@ -426,7 +426,7 @@ bool Storage::updateSchema()
             "profile_id INTEGER "       // Learner::Identifier
             ")");
     if (db.lastError().isValid()) {
-        kError() << db.lastError().text();
+        qCritical() << db.lastError().text();
         raiseError(db.lastError());
         return false;
     }

@@ -25,7 +25,7 @@
 #include <KAboutData>
 #include <KCmdLineArgs>
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 static const char description[] =
     I18N_NOOP("Learn and practice pronunciation.");

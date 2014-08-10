@@ -26,7 +26,7 @@
 #include <QSignalMapper>
 
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 using namespace LearnerProfile;
 
@@ -209,7 +209,7 @@ void LearningGoalModel::onLearningGoalAboutToBeRemoved(int index)
     }
 
     if (index < 0 || d->m_goals.count() <= index) {
-        kWarning() << "Cannot remove learning goal from model, not registered";
+        qWarning() << "Cannot remove learning goal from model, not registered";
         return;
     }
     beginRemoveRows(QModelIndex(), index, index);

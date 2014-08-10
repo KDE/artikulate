@@ -22,7 +22,7 @@
 #include "libsound/src/outputdevicecontroller.h"
 
 #include <QList>
-#include <KDebug>
+#include <QDebug>
 #include <KUrl>
 #include <QString>
 
@@ -42,7 +42,7 @@ Player::~Player()
 void Player::setSoundFile(const KUrl &fileUrl)
 {
     if (!fileUrl.isValid() || fileUrl.isEmpty()) {
-        kWarning() << "Not setting empty sound file path.";
+        qWarning() << "Not setting empty sound file path.";
         return;
     }
     m_soundFile = fileUrl;
@@ -69,10 +69,10 @@ void Player::playback()
 {
     OutputDeviceController::self().disconnect();
     if (m_soundFile.isEmpty()) {
-        kError() << "Abort playing sound, no file available";
+        qCritical() << "Abort playing sound, no file available";
         return;
     }
-    kDebug() << this << "Playback sound in file "<< m_soundFile.toLocalFile();
+    qDebug() << this << "Playback sound in file "<< m_soundFile.toLocalFile();
     OutputDeviceController::self().play(KUrl::fromLocalFile(m_soundFile.toLocalFile()));
     m_playbackState = PlayingState;
     connect(&OutputDeviceController::self(), SIGNAL(started()), this, SLOT(updateState()));

@@ -28,7 +28,7 @@
 #include <QSignalMapper>
 
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 SkeletonModel::SkeletonModel(QObject *parent)
     : QAbstractListModel(parent)

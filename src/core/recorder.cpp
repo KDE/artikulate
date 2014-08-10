@@ -22,7 +22,7 @@
 #include "libsound/src/capturedevicecontroller.h"
 
 #include <QList>
-#include <KDebug>
+#include <QDebug>
 #include <KUrl>
 #include <QString>
 
@@ -48,11 +48,11 @@ Recorder::CaptureState Recorder::state() const
 void Recorder::startCapture()
 {
     if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState) {
-        kWarning() << "Stopped capture before starting new capture, since was still active.";
+        qWarning() << "Stopped capture before starting new capture, since was still active.";
         CaptureDeviceController::self().stopCapture();
     }
     m_recordingBufferFile.open();
-    kDebug() << "Start recording to temporary file " << m_recordingBufferFile.fileName();
+    qDebug() << "Start recording to temporary file " << m_recordingBufferFile.fileName();
     CaptureDeviceController::self().startCapture(m_recordingBufferFile.fileName());
     m_state = RecordingState;
     emit stateChanged();
@@ -84,10 +84,10 @@ void Recorder::storeToFile(const QString &path)
             m_recordingBufferFile.close();
             emit recordingFileChanged();
         } else {
-            kError() << "Could not save buffered sound data to file, aborting.";
+            qCritical() << "Could not save buffered sound data to file, aborting.";
         }
     } else {
-        kError() << "No buffer present.";
+        qCritical() << "No buffer present.";
     }
 }
 

@@ -27,7 +27,7 @@
 
 #include <QList>
 #include <QHash>
-#include <KDebug>
+#include <QDebug>
 #include <KLocale>
 
 TrainingSession::TrainingSession(QObject *parent)

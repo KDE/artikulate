@@ -36,7 +36,7 @@
 #include <QFileInfo>
 #include <QDir>
 
-#include <KDebug>
+#include <QDebug>
 
 class CourseResourcePrivate
 {
@@ -101,7 +101,7 @@ CourseResource::CourseResource(ResourceManager *resourceManager, const KUrl &pat
             }
         }
         if (xml.hasError()) {
-            kError() << "Error occurred when reading Course XML file:" << path.toLocalFile();
+            qCritical() << "Error occurred when reading Course XML file:" << path.toLocalFile();
         }
     }
     xml.clear();
@@ -158,13 +158,13 @@ void CourseResource::sync()
 
     // if resource was never loaded, it cannot be changed
     if (d->m_courseResource == 0) {
-        kDebug() << "Aborting sync, course was not parsed.";
+        qDebug() << "Aborting sync, course was not parsed.";
         return;
     }
 
 //     // not writing back if not modified
 //     if (!d->m_courseResource->modified()) {
-//         kDebug() << "Aborting sync, course was not modified.";
+//         qDebug() << "Aborting sync, course was not modified.";
 //         return;
 //     }
 
@@ -230,7 +230,7 @@ void CourseResource::sync()
     // write back to file
     QFileInfo info(path().directory());    // create directories if necessary
     if (!info.exists()) {
-        kDebug() << "create xml output file directory, not existing";
+        qDebug() << "create xml output file directory, not existing";
         QDir dir;
         dir.mkpath(path().directory());
     }
@@ -239,7 +239,7 @@ void CourseResource::sync()
     QFile file;
     file.setFileName(path().toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
-        kWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+        qWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;
     }
 
@@ -335,7 +335,7 @@ QObject * CourseResource::resource()
     }
     QDomDocument document = loadDomDocument(path(), schema);
     if (document.isNull()) {
-        kWarning() << "Could not parse document " << path().toLocalFile() << ", aborting.";
+        qWarning() << "Could not parse document " << path().toLocalFile() << ", aborting.";
         return 0;
     }
 
@@ -361,7 +361,7 @@ QObject * CourseResource::resource()
         }
     }
     if (d->m_courseResource->language() == 0) {
-        kWarning() << "Language ID" << language << "unknown, could not register any language, aborting";
+        qWarning() << "Language ID" << language << "unknown, could not register any language, aborting";
         return 0;
     }
 
@@ -424,7 +424,7 @@ Phrase* CourseResource::parsePhrase(QDomElement phraseNode, Unit* parentUnit) co
     {
         QString id = phonemeID.text();
         if (id.isEmpty()) {
-            kError() << "Phoneme ID string is empty for phrase "<< phrase->id() <<", aborting.";
+            qCritical() << "Phoneme ID string is empty for phrase "<< phrase->id() <<", aborting.";
             continue;
         }
         foreach (Phoneme *phoneme, phonemes) {

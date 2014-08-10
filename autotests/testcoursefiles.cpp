@@ -29,7 +29,7 @@
 #include "../src/settings.h"
 
 #include <qtest_kde.h>
-#include <KDebug>
+#include <QDebug>
 #include <KTemporaryFile>
 #include <KStandardDirs>
 
@@ -97,7 +97,7 @@ void TestCourseFiles::fileLoadSaveCompleteness()
 
     QFile file(outputFile.fileName());
     if (!file.open(QIODevice::ReadOnly)) {
-        kFatal() << "Could not open file to read.";
+        qFatal() << "Could not open file to read.";
     }
 
     //TODO this only works, since the resource manager not checks uniqueness of course ids!

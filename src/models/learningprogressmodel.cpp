@@ -22,7 +22,7 @@
 #include "core/trainingsession.h"
 #include <QAbstractTableModel>
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 LearningProgressModel::LearningProgressModel(QObject *parent)
     : QAbstractTableModel(parent)
@@ -91,7 +91,7 @@ int LearningProgressModel::maximumPhrasesPerTry() const
 QVariant LearningProgressModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        kWarning() << "Invalid index requested";
+        qWarning() << "Invalid index requested";
         return QVariant();
     }
 

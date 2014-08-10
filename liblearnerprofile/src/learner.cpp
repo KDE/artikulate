@@ -24,7 +24,7 @@
 #include <QHash>
 #include <QFileInfo>
 #include <QPixmap>
-#include <KDebug>
+#include <QDebug>
 #include <KGlobal>
 #include <KStandardDirs>
 
@@ -83,14 +83,14 @@ QString Learner::imageUrl() const
 void Learner::importImage(const QString &path)
 {
     if (!QFileInfo(path).exists()) {
-        kWarning() << "image path points to a non-existing file, aborting: " << path;
+        qWarning() << "image path points to a non-existing file, aborting: " << path;
         return;
     }
     QPixmap image = QPixmap(path);
     image = image.scaled(120, 120);
     image.save(d->imageUrl());
     emit imageUrlChanged();
-    kDebug() << "saved scaled image from " << path << " at " << d->imageUrl();
+    qDebug() << "saved scaled image from " << path << " at " << d->imageUrl();
 }
 
 QList< LearningGoal* > Learner::goals() const
@@ -112,7 +112,7 @@ void Learner::removeGoal(LearnerProfile::LearningGoal *goal)
 {
     int index = d->m_goals.indexOf(goal);
     if (index < 0) {
-        kError() << "Cannot remove goal, not found: aborting";
+        qCritical() << "Cannot remove goal, not found: aborting";
         return;
     }
     emit goalAboutToBeRemoved(index);
@@ -157,7 +157,7 @@ void Learner::setActiveGoal(Learner::Category categoryLearner, const QString &id
             return;
         }
     }
-    kError() << "Could not select learning goal with ID " << identifier
+    qCritical() << "Could not select learning goal with ID " << identifier
         << ": not registered for this learner";
 }
 
@@ -167,7 +167,7 @@ LearningGoal * Learner::activeGoal(Learner::Category categoryLearner) const
     // workaround for Q_INVOKABLE access of enum
     LearningGoal::Category category = static_cast<LearningGoal::Category>(categoryLearner);
     if (!d->m_activeGoal.contains(category)) {
-        kWarning() << "(Learner " << identifier() << ") No current learning goal set for category "
+        qWarning() << "(Learner " << identifier() << ") No current learning goal set for category "
             << category
             << " : fall back to first in list";
         foreach (LearningGoal *goal, d->m_goals) {
@@ -175,7 +175,7 @@ LearningGoal * Learner::activeGoal(Learner::Category categoryLearner) const
                 return goal;
             }
         }
-        kWarning() << "No learning goals of catagory " << category << " registered";
+        qWarning() << "No learning goals of catagory " << category << " registered";
         return 0;
     }
     return d->m_activeGoal[category];

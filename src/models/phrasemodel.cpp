@@ -26,7 +26,7 @@
 #include <QSignalMapper>
 
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 PhraseModel::PhraseModel(QObject *parent)
     : QAbstractListModel(parent)

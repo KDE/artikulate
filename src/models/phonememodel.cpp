@@ -26,7 +26,7 @@
 #include <QSignalMapper>
 
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 PhonemeModel::PhonemeModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -141,7 +141,7 @@ QVariant PhonemeModel::headerData(int section, Qt::Orientation orientation, int 
 void PhonemeModel::updateMappings()
 {
     if (!m_language) {
-        kDebug() << "Aborting to update mappings, language not set.";
+        qDebug() << "Aborting to update mappings, language not set.";
         return;
     }
     int phonemes = m_language->phonemes().count();

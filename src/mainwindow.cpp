@@ -42,7 +42,7 @@
 #include <KStandardDirs>
 #include <kdeclarative.h>
 #include <KConfigDialog>
-#include <KDebug>
+#include <QDebug>
 #include <KStandardAction>
 #include <KApplication>
 #include <KMessageBox>
@@ -225,7 +225,7 @@ void MainWindow::updateTrainingPhraseFont()
 {
     QObject *phraseText = m_view->rootObject()->findChild<QObject*>("phraseText");
     if (!phraseText) {
-        kDebug() << "no phraseText context object found, aborting";
+        qDebug() << "no phraseText context object found, aborting";
         return;
     }
     QFont f = phraseText->property("font").value<QFont>();
@@ -245,7 +245,7 @@ void MainWindow::downloadNewStuff()
         m_resourceManager->loadCourseResources();
 
         if (!m_profileManager->activeProfile()) {
-            kWarning() << "Not registering course language for favorite languages:"
+            qWarning() << "Not registering course language for favorite languages:"
                 << " no active learner profile set";
             delete dialog;
             return;
@@ -276,7 +276,7 @@ void MainWindow::downloadNewStuff()
 
 void MainWindow::configLearnerProfile()
 {
-    kError() << "Not implemented"; //FIXME
+    qCritical() << "Not implemented"; //FIXME
 }
 
 bool MainWindow::queryClose()

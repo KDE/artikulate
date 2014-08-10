@@ -27,7 +27,7 @@
 #include <QSignalMapper>
 
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 UnitModel::UnitModel(QObject *parent)
     : QAbstractListModel(parent)
