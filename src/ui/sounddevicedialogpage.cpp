@@ -89,7 +89,7 @@ void SoundDeviceDialogPage::saveSettings()
 //     Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
     Settings::setAudioOutputVolume((int) ui->kcfg_AudioOutputVolume->value());
     OutputDeviceController::self().setVolume(ui->kcfg_AudioOutputVolume->value());
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 }
 
 void SoundDeviceDialogPage::playTestSound()

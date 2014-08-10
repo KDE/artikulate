@@ -42,6 +42,6 @@ void AppearenceDialogPage::loadSettings()
 void AppearenceDialogPage::saveSettings()
 {
     Settings::setTrainingPhraseFont(ui->kcfg_TrainingPhraseFont->font());
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 }
 

@@ -54,7 +54,7 @@ void ResourcesDialogPage::saveSettings()
     // save settings
     Settings::setUseCourseRepository(ui->kcfg_UseCourseRepository->isChecked());
     Settings::setCourseRepositoryPath(ui->kcfg_CourseRepositoryPath->text());
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 
     // reloading resources
     m_resourceManager->loadCourseResources();

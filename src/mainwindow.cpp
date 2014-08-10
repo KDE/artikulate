@@ -126,7 +126,7 @@ MainWindow::MainWindow()
 MainWindow::~MainWindow()
 {
     // save current settings for case of closing
-    Settings::self()->writeConfig();
+    Settings::self()->save();
     m_profileManager->sync();
 }
 

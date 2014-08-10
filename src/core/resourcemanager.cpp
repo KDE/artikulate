@@ -56,7 +56,7 @@ ResourceManager::ResourceManager(QObject *parent)
 void ResourceManager::loadCourseResources()
 {
     // reload config, could be changed in dialogs
-    Settings::self()->readConfig();
+    Settings::self()->load();
 
     // register skeleton resources
     QDir skeletonRepository = QDir(Settings::courseRepositoryPath());
