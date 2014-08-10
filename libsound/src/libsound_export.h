@@ -21,15 +21,13 @@
 #ifndef LIBSOUND_EXPORT_H
 #define LIBSOUND_EXPORT_H
 
-// needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#define KDE_EXPORT __attribute__ ((visibility("default")))
+#define KDE_IMPORT __attribute__ ((visibility("default")))
 
 #ifndef LIBSOUND_EXPORT
 # if defined(MAKE_LIBSOUND_LIB)
-   // We are building this library
 #  define LIBSOUND_EXPORT KDE_EXPORT
 # else
-   // We are using this library
 #  define LIBSOUND_EXPORT KDE_IMPORT
 # endif
 #endif

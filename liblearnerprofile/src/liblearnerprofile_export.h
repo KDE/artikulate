@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -21,15 +21,13 @@
 #ifndef LIBLEARNERPROFILE_EXPORT_H
 #define LIBLEARNERPROFILE_EXPORT_H
 
-// needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#define KDE_EXPORT __attribute__ ((visibility("default")))
+#define KDE_IMPORT __attribute__ ((visibility("default")))
 
 #ifndef LIBLEARNERPROFILE_EXPORT
 # if defined(MAKE_LIBLEARNERPROFILE_LIB)
-   // We are building this library
 #  define LIBLEARNERPROFILE_EXPORT KDE_EXPORT
 # else
-   // We are using this library
 #  define LIBLEARNERPROFILE_EXPORT KDE_IMPORT
 # endif
 #endif
