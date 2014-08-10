@@ -34,7 +34,7 @@ class ARTIKULATELIB_EXPORT LanguageResource : public ResourceInterface
     Q_OBJECT
 
 public:
-    explicit LanguageResource(ResourceManager *resourceManager, const KUrl &path);
+    explicit LanguageResource(ResourceManager *resourceManager, const QUrl &path);
 
     virtual ~LanguageResource();
 
@@ -71,7 +71,7 @@ public:
     /**
      * \return path to resource file
      */
-    virtual KUrl path() const;
+    virtual QUrl path() const;
 
     /**
      * \return reference to the loaded resource

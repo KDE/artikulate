@@ -24,7 +24,7 @@
 #include "artikulatecore_export.h"
 #include <QObject>
 #include <QMap>
-#include <KUrl>
+#include <QUrl>
 
 class ResourceInterface;
 class CourseResource;
@@ -57,8 +57,8 @@ public:
     void setLanguage(Language *language);
     QString description() const;
     void setDescription(const QString &description);
-    KUrl file() const;
-    void setFile(const KUrl &file);
+    QUrl file() const;
+    void setFile(const QUrl &file);
     QList<Unit *> unitList() const;
     QList<Unit *> phonemeUnitList(PhonemeGroup *phonemeGroup) const;
     /**
@@ -128,7 +128,7 @@ private:
     QString m_title;
     QString m_description;
     Language *m_language;
-    KUrl m_file;
+    QUrl m_file;
     bool m_modified;
     QList<Unit *> m_unitList;
     QList<PhonemeGroup *> m_phonemeGroupList;

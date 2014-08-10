@@ -22,7 +22,7 @@
 
 #include <QDebug>
 #include <KStandardDirs>
-#include <KUrl>
+#include <QUrl>
 
 #include <QIODevice>
 #include <QXmlSchema>
@@ -65,7 +65,7 @@ void ResourceInterface::reload()
 QXmlSchema ResourceInterface::loadXmlSchema(const QString &schemeName) const
 {
     QString relPath = QString("schemes/%1.xsd").arg(schemeName);
-    KUrl file = KUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", relPath));
+    QUrl file = QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", relPath));
 
     QXmlSchema schema;
     if (schema.load(file) == false) {
@@ -74,7 +74,7 @@ QXmlSchema ResourceInterface::loadXmlSchema(const QString &schemeName) const
     return schema;
 }
 
-QDomDocument ResourceInterface::loadDomDocument(const KUrl &path, const QXmlSchema &schema) const
+QDomDocument ResourceInterface::loadDomDocument(const QUrl &path, const QXmlSchema &schema) const
 {
     QDomDocument document;
     QXmlSchemaValidator validator(schema);

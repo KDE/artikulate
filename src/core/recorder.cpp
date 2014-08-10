@@ -23,7 +23,7 @@
 
 #include <QList>
 #include <QDebug>
-#include <KUrl>
+#include <QUrl>
 #include <QString>
 
 Recorder::Recorder(QObject *parent)

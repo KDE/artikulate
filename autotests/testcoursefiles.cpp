@@ -65,12 +65,12 @@ void TestCourseFiles::cleanup()
 
 void TestCourseFiles::courseSchemeValidationTest()
 {
-    KUrl schemeFile = KUrl::fromLocalFile("schemes/course.xsd");
+    QUrl schemeFile = QUrl::fromLocalFile("schemes/course.xsd");
     QXmlSchema courseSchema;
     QVERIFY(courseSchema.load(schemeFile));
     QVERIFY(courseSchema.isValid());
 
-    KUrl skeletonFile = KUrl::fromLocalFile("schemes/skeleton.xsd");
+    QUrl skeletonFile = QUrl::fromLocalFile("schemes/skeleton.xsd");
     QXmlSchema skeletonScheme;
     QVERIFY(skeletonScheme.load(skeletonFile));
     QVERIFY(skeletonScheme.isValid());
@@ -79,8 +79,8 @@ void TestCourseFiles::courseSchemeValidationTest()
 void TestCourseFiles::fileLoadSaveCompleteness()
 {
     ResourceManager manager;
-    manager.addLanguage(KUrl::fromLocalFile("data/languages/de.xml"));
-    manager.addCourse(KUrl::fromLocalFile("data/courses/de.xml"));
+    manager.addLanguage(QUrl::fromLocalFile("data/languages/de.xml"));
+    manager.addCourse(QUrl::fromLocalFile("data/courses/de.xml"));
 
     // test to encure further logic
     QVERIFY(manager.courseResources(manager.languageResources().first()->language()).count() == 1);
@@ -89,8 +89,8 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     KTemporaryFile outputFile;
     outputFile.setSuffix(".xml");
     outputFile.open();
-    KUrl oldFileName = testCourse->file();
-    testCourse->setFile(KUrl::fromLocalFile(outputFile.fileName()));
+    QUrl oldFileName = testCourse->file();
+    testCourse->setFile(QUrl::fromLocalFile(outputFile.fileName()));
     testCourse->setLanguage(manager.languageResources().first()->language());
     testCourse->sync();
     testCourse->setFile(oldFileName); // restore for later tests
@@ -101,7 +101,7 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     }
 
     //TODO this only works, since the resource manager not checks uniqueness of course ids!
-    manager.addCourse(KUrl::fromLocalFile(outputFile.fileName()));
+    manager.addCourse(QUrl::fromLocalFile(outputFile.fileName()));
     Course *compareCourse = manager.courseResources(manager.languageResources().first()->language()).last()->course();
 
     // test that we actually call the different files

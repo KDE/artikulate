@@ -36,7 +36,7 @@ class Skeleton;
 class Language;
 class Course;
 class ProfileManager;
-class KUrl;
+class QUrl;
 class QDomDocument;
 class QFile;
 class QXmlSchema;
@@ -124,7 +124,7 @@ public:
      *
      * \param languageFile is the local XML file containing the language
      */
-    void addLanguage(const KUrl &languageFile);
+    void addLanguage(const QUrl &languageFile);
 
     /**
      * Adds course to resource manager by parsing the given course specification file.
@@ -132,7 +132,7 @@ public:
      * \param courseFile is the local XML file containing the course
      * \return true if loaded successfully, otherwise false
      */
-    CourseResource * addCourse(const KUrl &courseFile);
+    CourseResource * addCourse(const QUrl &courseFile);
 
     /**
      * Adds course to resource manager. If the course's language is not registered, the language
@@ -155,7 +155,7 @@ public:
      *
      * \param resource the skeleton resource to add to resource manager
      */
-    void addSkeleton(const KUrl &skeletonFile);
+    void addSkeleton(const QUrl &skeletonFile);
 
     /**
      * Adds skeleton resource to resource manager

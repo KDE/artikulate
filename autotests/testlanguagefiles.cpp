@@ -29,7 +29,7 @@
 #include <QDebug>
 #include <KTemporaryFile>
 #include <KStandardDirs>
-#include <KUrl>
+#include <QUrl>
 
 #include <QIODevice>
 #include <QFile>
@@ -57,7 +57,7 @@ void TestLanguageFiles::cleanup()
 QXmlSchema TestLanguageFiles::loadXmlSchema(const QString &schemeName) const
 {
     QString relPath = QString("schemes/%1.xsd").arg(schemeName);
-    KUrl file = KUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", relPath));
+    QUrl file = QUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", relPath));
 
     QXmlSchema schema;
     if (schema.load(file) == false) {
@@ -66,7 +66,7 @@ QXmlSchema TestLanguageFiles::loadXmlSchema(const QString &schemeName) const
     return schema;
 }
 
-QDomDocument TestLanguageFiles::loadDomDocument(const KUrl &path, const QXmlSchema &schema) const
+QDomDocument TestLanguageFiles::loadDomDocument(const QUrl &path, const QXmlSchema &schema) const
 {
     QDomDocument document;
     QXmlSchemaValidator validator(schema);
@@ -89,7 +89,7 @@ QDomDocument TestLanguageFiles::loadDomDocument(const KUrl &path, const QXmlSche
 
 void TestLanguageFiles::languageSchemeValidationTest()
 {
-    KUrl languageFile = KUrl::fromLocalFile("schemes/language.xsd");
+    QUrl languageFile = QUrl::fromLocalFile("schemes/language.xsd");
     QXmlSchema languageSchema;
     QVERIFY(languageSchema.load(languageFile));
     QVERIFY(languageSchema.isValid());
@@ -102,7 +102,7 @@ void TestLanguageFiles::checkIdUniqueness()
     foreach (const QString &file, languageFiles) {
         qDebug() << "File being parsed: " << file;
         QStringList idList;
-        const KUrl &languageFile = KUrl::fromLocalFile(file);
+        const QUrl &languageFile = QUrl::fromLocalFile(file);
         QVERIFY(languageFile.isLocalFile());
 
         QXmlSchema schema = loadXmlSchema("language");

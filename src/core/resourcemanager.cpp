@@ -46,7 +46,7 @@
 #include <KGlobal>
 #include <KStandardDirs>
 #include <QDebug>
-#include <KUrl>
+#include <QUrl>
 
 ResourceManager::ResourceManager(QObject *parent)
     : QObject(parent)
@@ -69,7 +69,7 @@ void ResourceManager::loadCourseResources()
         QFileInfoList list = skeletonRepository.entryInfoList();
         for (int i = 0; i < list.size(); ++i) {
             QFileInfo fileInfo = list.at(i);
-            addSkeleton(KUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+            addSkeleton(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
         }
     }
 
@@ -112,10 +112,10 @@ void ResourceManager::loadCourseResources()
     // register GHNS course resources
     QStringList courseFiles = KGlobal::dirs()->findAllResources("data",QString("artikulate/courses/*/*/*.xml"));
     foreach (const QString &file, courseFiles) {
-        KUrl courseFile = KUrl::fromLocalFile(file);
+        QUrl courseFile = QUrl::fromLocalFile(file);
         // get directory name, which is the language identifier for this course
         // TODO allow usage of non-language ID named course folders
-        QString directory = courseFile.directory().section('/', -1);
+        QString directory = courseFile.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path().section('/', -1);
         addCourse(courseFile);
     }
 
@@ -130,7 +130,7 @@ void ResourceManager::loadLanguageResources()
     // all other resources are only loaded on demand
     QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("languages/*.xml"));
     foreach (const QString &file, languageFiles) {
-        addLanguage(KUrl::fromLocalFile(file));
+        addLanguage(QUrl::fromLocalFile(file));
     }
 }
 
@@ -145,7 +145,7 @@ void ResourceManager::registerLearningGoals(LearnerProfile::ProfileManager *prof
     }
 }
 
-void ResourceManager::addLanguage(const KUrl &languageFile)
+void ResourceManager::addLanguage(const QUrl &languageFile)
 {
     if (m_loadedResources.contains(languageFile.toLocalFile())) {
         return;
@@ -230,7 +230,7 @@ void ResourceManager::reloadCourseOrSkeleton(Course *courseOrSkeleton)
     if (courseOrSkeleton->language()) { // only course files have a language
         //TODO better add a check if this is contained in the course list
         // to catch possible errors
-        KUrl file = courseOrSkeleton->file();
+        QUrl file = courseOrSkeleton->file();
         m_loadedResources.removeOne(courseOrSkeleton->file().toLocalFile());
         removeCourse(courseOrSkeleton);
         addCourse(file);
@@ -318,7 +318,7 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
     qDebug() << "Update performed!";
 }
 
-CourseResource * ResourceManager::addCourse(const KUrl &courseFile)
+CourseResource * ResourceManager::addCourse(const QUrl &courseFile)
 {
     CourseResource *resource = new CourseResource(this, courseFile);
     if (resource->language().isEmpty()) {
@@ -377,7 +377,7 @@ void ResourceManager::newCourseDialog(Language *language)
     }
 }
 
-void ResourceManager::addSkeleton(const KUrl &skeletonFile)
+void ResourceManager::addSkeleton(const QUrl &skeletonFile)
 {
     SkeletonResource *resource = new SkeletonResource(this, skeletonFile);
     addSkeletonResource(resource);

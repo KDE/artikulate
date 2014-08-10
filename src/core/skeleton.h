@@ -25,7 +25,7 @@
 #include "course.h"
 #include <QObject>
 #include <QMap>
-#include <KUrl>
+#include <QUrl>
 
 class ResourceInterface;
 class SkeletonResource;

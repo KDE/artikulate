@@ -26,7 +26,7 @@
 #include <QObject>
 
 class CaptureDeviceControllerPrivate;
-class KUrl;
+class QUrl;
 
 /**
  * \class CaptureDeviceController

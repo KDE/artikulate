@@ -76,12 +76,12 @@ void Language::seti18nTitle(const QString &title)
     emit i18nTitleChanged();
 }
 
-KUrl Language::file() const
+QUrl Language::file() const
 {
     return m_file;
 }
 
-void Language::setFile(const KUrl& file)
+void Language::setFile(const QUrl &file)
 {
     m_file = file;
 }

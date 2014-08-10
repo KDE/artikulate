@@ -41,7 +41,7 @@ public:
     /**
      * Create course resource from file.
      */
-    explicit CourseResource(ResourceManager *resourceManager, const KUrl &path);
+    explicit CourseResource(ResourceManager *resourceManager, const QUrl &path);
 
     virtual ~CourseResource();
 
@@ -85,7 +85,7 @@ public:
     /**
      * \return path to resource file
      */
-    virtual KUrl path() const;
+    virtual QUrl path() const;
 
     /**
      * \return reference to the loaded resource

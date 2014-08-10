@@ -26,7 +26,7 @@
 #include "phrase.h"
 #include <QObject>
 #include <QList>
-#include <KUrl>
+#include <QUrl>
 
 class QString;
 class Language;

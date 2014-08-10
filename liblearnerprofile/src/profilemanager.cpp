@@ -62,7 +62,7 @@ int ProfileManager::profileCount() const
 
 void ProfileManager::openImageFileDialog()
 {
-    KUrl imageUrl = KFileDialog::getImageOpenUrl();
+    QUrl imageUrl = KFileDialog::getImageOpenUrl();
     d->m_activeProfile->importImage(imageUrl.toLocalFile());
 }
 

@@ -24,7 +24,7 @@
 #include <QObject>
 
 class ResourceManager;
-class KUrl;
+class QUrl;
 class QXmlSchema;
 class QDomDocument;
 
@@ -87,7 +87,7 @@ public:
     /**
      * \return path to resource file
      */
-    virtual KUrl path() const = 0;
+    virtual QUrl path() const = 0;
 
     /**
      * Write changes to resource back to file.
@@ -122,7 +122,7 @@ public:
      * \param scheme is the XML schema describing the DOM
      * \return the loaded DOM document
      */
-    QDomDocument loadDomDocument(const KUrl &path, const QXmlSchema &schema) const;
+    QDomDocument loadDomDocument(const QUrl &path, const QXmlSchema &schema) const;
 
 private:
     bool m_contributorResource; //!< identifies this resource as an editable resource

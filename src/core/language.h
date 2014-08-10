@@ -24,7 +24,7 @@
 #include "artikulatecore_export.h"
 #include <QObject>
 #include <QList>
-#include <KUrl>
+#include <QUrl>
 
 class QString;
 class Phoneme;
@@ -47,8 +47,8 @@ public:
     void seti18nTitle(const QString &title);
     QString i18nTitle() const;
     void setTitle(const QString &title);
-    KUrl file() const;
-    void setFile(const KUrl &file);
+    QUrl file() const;
+    void setFile(const QUrl &file);
     QList<Phoneme *> phonemes() const;
     Phoneme * addPhoneme(const QString &identifier, const QString &title);
     QList<PhonemeGroup *> phonemeGroups() const;
@@ -67,7 +67,7 @@ private:
     QString m_id;
     QString m_title;
     QString m_i18nTitle;
-    KUrl m_file;
+    QUrl m_file;
     QList<PhonemeGroup *> m_phonemeGroups;
 };
 

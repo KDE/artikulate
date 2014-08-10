@@ -46,7 +46,7 @@ public:
     }
 
     ResourceManager *m_resourceManager;
-    KUrl m_path;
+    QUrl m_path;
     ResourceInterface::Type m_type;
     QString m_identifier;
     QString m_title;
@@ -54,7 +54,7 @@ public:
     Language *m_languageResource;
 };
 
-LanguageResource::LanguageResource(ResourceManager *resourceManager, const KUrl &path)
+LanguageResource::LanguageResource(ResourceManager *resourceManager, const QUrl &path)
     : ResourceInterface(resourceManager)
     , d(new LanguageResourcePrivate(resourceManager))
 {
@@ -130,7 +130,7 @@ bool LanguageResource::isOpen() const
     return (d->m_languageResource != 0);
 }
 
-KUrl LanguageResource::path() const
+QUrl LanguageResource::path() const
 {
     return d->m_path;
 }

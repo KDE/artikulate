@@ -128,12 +128,12 @@ void Course::setLanguage(Language *language)
     emit languageChanged();
 }
 
-KUrl Course::file() const
+QUrl Course::file() const
 {
     return m_file;
 }
 
-void Course::setFile(const KUrl &file)
+void Course::setFile(const QUrl &file)
 {
     m_file = file;
 }

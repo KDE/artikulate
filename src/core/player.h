@@ -23,7 +23,7 @@
 
 #include "artikulatecore_export.h"
 #include <QObject>
-#include <KUrl>
+#include <QUrl>
 
 class ARTIKULATELIB_EXPORT Player : public QObject
 {
@@ -45,7 +45,7 @@ public:
     Q_INVOKABLE void playback();
     Q_INVOKABLE void stop();
     PlaybackState state() const;
-    void setSoundFile(const KUrl &fileUrl);
+    void setSoundFile(const QUrl &fileUrl);
     void setSoundFile(const QString &fileUrl);
     QString soundFile() const;
 
@@ -58,7 +58,7 @@ private Q_SLOTS:
 
 private:
     Q_DISABLE_COPY(Player)
-    KUrl m_soundFile;
+    QUrl m_soundFile;
     PlaybackState m_playbackState;
 };
 

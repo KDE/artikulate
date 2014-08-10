@@ -222,12 +222,12 @@ void Phrase::setUnit(Unit *unit)
     emit unitChanged();
 }
 
-KUrl Phrase::sound() const
+QUrl Phrase::sound() const
 {
     return m_nativeSoundFile;
 }
 
-void Phrase::setSound(const KUrl &soundFile)
+void Phrase::setSound(const QUrl &soundFile)
 {
     if (!soundFile.isValid() || soundFile.isEmpty()) {
         qWarning() << "Not setting empty sound file path.";
@@ -245,7 +245,7 @@ QString Phrase::soundFileUrl() const
 QString Phrase::soundFileOutputPath() const
 {
     if (m_nativeSoundFile.isEmpty()) {
-        QString outputDir = m_unit->course()->file().directory(KUrl::AppendTrailingSlash);
+        QString outputDir = m_unit->course()->file().directory(QUrl::AppendTrailingSlash);
         //TODO take care that this is proper ASCII
         return outputDir + id() + ".ogg";
     } else {
@@ -256,7 +256,7 @@ QString Phrase::soundFileOutputPath() const
 void Phrase::setSoundFileUrl()
 {
     if (soundFileOutputPath() != m_nativeSoundFile.toLocalFile()) {
-        m_nativeSoundFile = KUrl::fromLocalFile(soundFileOutputPath());
+        m_nativeSoundFile = QUrl::fromLocalFile(soundFileOutputPath());
         emit soundChanged();
         emit modified();
     }

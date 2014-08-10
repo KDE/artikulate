@@ -23,7 +23,7 @@
 
 #include "artikulatecore_export.h"
 #include <QObject>
-#include <KUrl>
+#include <QUrl>
 #include <KTemporaryFile>
 
 class ARTIKULATELIB_EXPORT Recorder : public QObject

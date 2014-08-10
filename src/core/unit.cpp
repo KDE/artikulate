@@ -30,7 +30,7 @@
 
 #include <QDebug>
 #include <KLocale>
-#include <KUrl>
+#include <QUrl>
 
 Unit::Unit(QObject *parent)
     : QObject(parent)

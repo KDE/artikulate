@@ -52,7 +52,7 @@ public:
     }
 
     ResourceManager *m_resourceManager;
-    KUrl m_path;
+    QUrl m_path;
     ResourceInterface::Type m_type;
     QString m_identifier;
     QString m_title;
@@ -61,7 +61,7 @@ public:
     Course *m_courseResource;
 };
 
-CourseResource::CourseResource(ResourceManager *resourceManager, const KUrl &path)
+CourseResource::CourseResource(ResourceManager *resourceManager, const QUrl &path)
     : ResourceInterface(resourceManager)
     , d(new CourseResourcePrivate(resourceManager))
 {
@@ -237,7 +237,8 @@ void CourseResource::sync()
 
     //TODO port to KSaveFile
     QFile file;
-    file.setFileName(path().toLocalFile());
+    file = file.adjusted(QUrl::RemoveFilename);
+    file.setPath(file.path() + path().toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         qWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;
@@ -305,7 +306,7 @@ bool CourseResource::isOpen() const
     return (d->m_courseResource != 0);
 }
 
-KUrl CourseResource::path() const
+QUrl CourseResource::path() const
 {
     if (d->m_courseResource) {
         return d->m_courseResource->file();
@@ -406,7 +407,7 @@ Phrase* CourseResource::parsePhrase(QDomElement phraseNode, Unit* parentUnit) co
     phrase->seti18nText(phraseNode.firstChildElement("i18nText").text());
     phrase->setUnit(parentUnit);
     if (!phraseNode.firstChildElement("soundFile").text().isEmpty()) {
-        phrase->setSound(KUrl::fromLocalFile(
+        phrase->setSound(QUrl::fromLocalFile(
                 path().directory() + '/' + phraseNode.firstChildElement("soundFile").text())
             );
     }

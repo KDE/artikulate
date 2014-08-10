@@ -99,7 +99,7 @@ void NewCourseDialog::createCourse()
         .arg(ui->identifier->text())
         .arg(language->id());
 
-    m_createdCourse = new CourseResource(m_resourceManager, KUrl::fromLocalFile(path));
+    m_createdCourse = new CourseResource(m_resourceManager, QUrl::fromLocalFile(path));
     Q_ASSERT(m_createdCourse);
 
     Course *course = m_createdCourse->course();
@@ -107,7 +107,7 @@ void NewCourseDialog::createCourse()
     course->setId(QUuid::createUuid().toString());
     course->setTitle(ui->title->text());
     course->setDescription(ui->description->toHtml());
-    course->setFile(KUrl::fromLocalFile(path));
+    course->setFile(QUrl::fromLocalFile(path));
     course->setLanguage(language);
 
     // set skeleton

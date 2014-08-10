@@ -49,7 +49,7 @@ public:
     }
 
     ResourceManager *m_resourceManager;
-    KUrl m_path;
+    QUrl m_path;
     ResourceInterface::Type m_type;
     QString m_identifier;
     QString m_title;
@@ -57,7 +57,7 @@ public:
     Skeleton *m_skeletonResource;
 };
 
-SkeletonResource::SkeletonResource(ResourceManager *resourceManager, const KUrl &path)
+SkeletonResource::SkeletonResource(ResourceManager *resourceManager, const QUrl &path)
     : ResourceInterface(resourceManager)
     , d(new SkeletonResourcePrivate(resourceManager))
 {
@@ -231,7 +231,8 @@ void SkeletonResource::sync()
     // write back to file
     //TODO port to KSaveFile
     QFile file;
-    file.setFileName(path().toLocalFile());
+    file = file.adjusted(QUrl::RemoveFilename);
+    file.setPath(file.path() + path().toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         qWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;
@@ -251,7 +252,7 @@ bool SkeletonResource::isOpen() const
     return (d->m_skeletonResource != 0);
 }
 
-KUrl SkeletonResource::path() const
+QUrl SkeletonResource::path() const
 {
     if (d->m_skeletonResource) {
         return d->m_skeletonResource->file();
