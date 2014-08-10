@@ -28,7 +28,6 @@ set(learnerprofile_LIB_SRCS
     learninggoal.cpp
     profilemanager.cpp
     storage.cpp
-
     models/learninggoalmodel.cpp
 )
 
@@ -38,6 +37,8 @@ target_link_libraries(
     artikulatelearnerprofile
     LINK_PUBLIC
         Qt5::Core
+        Qt5::Gui
+        KF5::Config
 )
 
 set_target_properties(

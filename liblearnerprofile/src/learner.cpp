@@ -25,7 +25,6 @@
 #include <QFileInfo>
 #include <QPixmap>
 #include <QDebug>
-#include <KGlobal>
 
 using namespace LearnerProfile;
 

@@ -31,6 +31,8 @@ find_package(KDeclarative REQUIRED)
 # set config files after packages are searched
 configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
 
+set (CMAKE_CXX_FLAGS "-fexceptions") #FIXME workaround: build with exceptions as required by qtgstreamer
+
 add_subdirectory(qml)
 
 # set include directories
@@ -72,6 +74,7 @@ target_link_libraries(artikulatecore
     LINK_PRIVATE
         artikulatelearnerprofile
         artikulatesound
+        KF5::Config
         ${KDECLARATIVE_LIBRARIES}
         ${KDE4_KIO_LIBS}
         ${QT_QTDECLARATIVE_LIBRARY}
