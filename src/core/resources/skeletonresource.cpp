@@ -230,9 +230,7 @@ void SkeletonResource::sync()
 
     // write back to file
     //TODO port to KSaveFile
-    QFile file;
-    file = file.adjusted(QUrl::RemoveFilename);
-    file.setPath(file.path() + path().toLocalFile());
+    QFile file(path().toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         qWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;

@@ -176,7 +176,7 @@ Unit * Course::createUnit()
     }
     QString id = QUuid::createUuid().toString();
     while (unitIds.contains(id)) {
-        id = QUuid::createUuid();
+        id = QUuid::createUuid().toString();
         qWarning() << "Unit id generator has found a collision, recreating id.";
     }
 
@@ -201,7 +201,7 @@ Phrase * Course::createPhrase(Unit *unit)
     }
     QString id = QUuid::createUuid().toString();
     while (phraseIds.contains(id)) {
-        id = QUuid::createUuid();
+        id = QUuid::createUuid().toString();
         qWarning() << "Phrase id generator has found a collision, recreating id.";
     }
 

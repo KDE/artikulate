@@ -245,7 +245,7 @@ QString Phrase::soundFileUrl() const
 QString Phrase::soundFileOutputPath() const
 {
     if (m_nativeSoundFile.isEmpty()) {
-        QString outputDir = m_unit->course()->file().directory(QUrl::AppendTrailingSlash);
+        QString outputDir = m_unit->course()->file().path() + '/';
         //TODO take care that this is proper ASCII
         return outputDir + id() + ".ogg";
     } else {

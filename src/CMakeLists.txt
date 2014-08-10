@@ -69,10 +69,10 @@ qt5_wrap_ui(artikulateCore_SRCS
 kconfig_add_kcfg_files (artikulateCore_SRCS settings.kcfgc)
 add_library(artikulatecore SHARED ${artikulateCore_SRCS})
 target_link_libraries(artikulatecore
-    LINK_PRIVATE
+    LINK_PUBLIC
         artikulatelearnerprofile
         artikulatesound
-        KF5::Config
+        Qt5::XmlPatterns
         ${KDECLARATIVE_LIBRARIES}
         ${KDE4_KIO_LIBS}
         ${QT_QTDECLARATIVE_LIBRARY}

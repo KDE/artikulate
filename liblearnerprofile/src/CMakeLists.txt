@@ -38,7 +38,7 @@ target_link_libraries(
     LINK_PUBLIC
         Qt5::Core
         Qt5::Gui
-        KF5::Config
+        Qt5::Sql
         KF5::KDELibs4Support
 )
 

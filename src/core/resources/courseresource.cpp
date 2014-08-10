@@ -228,17 +228,15 @@ void CourseResource::sync()
     root.appendChild(unitListElement);
 
     // write back to file
-    QFileInfo info(path().directory());    // create directories if necessary
+    QFileInfo info(path().path());    // create directories if necessary
     if (!info.exists()) {
         qDebug() << "create xml output file directory, not existing";
         QDir dir;
-        dir.mkpath(path().directory());
+        dir.mkpath(path().path());
     }
 
     //TODO port to KSaveFile
-    QFile file;
-    file = file.adjusted(QUrl::RemoveFilename);
-    file.setPath(file.path() + path().toLocalFile());
+    QFile file(path().toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         qWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;
@@ -408,7 +406,7 @@ Phrase* CourseResource::parsePhrase(QDomElement phraseNode, Unit* parentUnit) co
     phrase->setUnit(parentUnit);
     if (!phraseNode.firstChildElement("soundFile").text().isEmpty()) {
         phrase->setSound(QUrl::fromLocalFile(
-                path().directory() + '/' + phraseNode.firstChildElement("soundFile").text())
+                path().path() + '/' + phraseNode.firstChildElement("soundFile").text())
             );
     }
     phrase->setType(phraseNode.firstChildElement("type").text());

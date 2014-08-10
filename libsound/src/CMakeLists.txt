@@ -47,7 +47,6 @@ target_link_libraries(
         ${QTGLIB_LIBRARY}
         ${QTGSTREAMER_LIBRARIES}
         KF5::I18n
-        KF5::Config
 )
 
 set_target_properties(
