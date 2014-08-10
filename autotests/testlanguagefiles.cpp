@@ -25,7 +25,7 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 
-#include <qtest_kde.h>
+#include <QTest>
 #include <QDebug>
 #include <QTemporaryFile>
 #include <QUrl>
@@ -39,9 +39,10 @@
 
 TestLanguageFiles::TestLanguageFiles()
 {
-    KGlobal::dirs()->addResourceDir("appdata" , "./autotests/data");
-    KGlobal::dirs()->addResourceDir("appdata" , "./autotests");
-    KGlobal::dirs()->addResourceDir("appdata" , "./");
+    //FIXME port this
+//     KGlobal::dirs()->addResourceDir("appdata" , "./autotests/data");
+//     KGlobal::dirs()->addResourceDir("appdata" , "./autotests");
+//     KGlobal::dirs()->addResourceDir("appdata" , "./");
 }
 
 void TestLanguageFiles::init()
@@ -135,4 +136,4 @@ void TestLanguageFiles::checkIdUniqueness()
 }
 
 
-QTEST_KDEMAIN_CORE(TestLanguageFiles)
+QTEST_MAIN(TestLanguageFiles)

@@ -28,7 +28,7 @@
 #include "core/resources/courseresource.h"
 #include "../src/settings.h"
 
-#include <qtest_kde.h>
+#include <QTest>
 #include <QDebug>
 #include <QTemporaryFile>
 
@@ -45,21 +45,22 @@ TestCourseFiles::TestCourseFiles()
 
 void TestCourseFiles::init()
 {
-    KGlobal::dirs()->addResourceDir("appdata" , "./testcourses/");
-    KGlobal::dirs()->addResourceDir("appdata" , "./");
-    KGlobal::dirs()->addResourceDir("appdata" , "./autotests/");
-    KGlobal::dirs()->addResourceDir("appdata" , "./autotests/testcourses/");
+    //FIXME has to be ported
+//     KGlobal::dirs()->addResourceDir("appdata" , "./testcourses/");
+//     KGlobal::dirs()->addResourceDir("appdata" , "./");
+//     KGlobal::dirs()->addResourceDir("appdata" , "./autotests/");
+//     KGlobal::dirs()->addResourceDir("appdata" , "./autotests/testcourses/");
 
     systemUseCourseRepositoryValue = Settings::useCourseRepository();
     Settings::setUseCourseRepository(false);
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 }
 
 void TestCourseFiles::cleanup()
 {
     // reset value
     Settings::setUseCourseRepository(systemUseCourseRepositoryValue);
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 }
 
 void TestCourseFiles::courseSchemeValidationTest()
@@ -95,7 +96,7 @@ void TestCourseFiles::fileLoadSaveCompleteness()
 
     QFile file(outputFile.fileName());
     if (!file.open(QIODevice::ReadOnly)) {
-        qFatal() << "Could not open file to read.";
+        qCritical() << "Could not open file to read.";
     }
 
     //TODO this only works, since the resource manager not checks uniqueness of course ids!
@@ -137,4 +138,4 @@ void TestCourseFiles::fileLoadSaveCompleteness()
 }
 
 
-QTEST_KDEMAIN_CORE(TestCourseFiles)
+QTEST_MAIN(TestCourseFiles)

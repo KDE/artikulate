@@ -31,6 +31,7 @@ find_package(KF5DocTools)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 include(KDEInstallDirs)
+include(ECMAddTests)
 include(KDECMakeSettings)
 include(KDECompilerSettings)
 include(ECMInstallIcons)
@@ -44,6 +45,7 @@ find_package(Qt5 REQUIRED COMPONENTS
     XmlPatterns
     Quick
     QuickWidgets
+    Test
 )
 find_package(KF5 CONFIG REQUIRED COMPONENTS
     Config
@@ -66,6 +68,7 @@ ecm_optional_add_subdirectory(images)
 ecm_optional_add_subdirectory(icons)
 ecm_optional_add_subdirectory(libsound)
 ecm_optional_add_subdirectory(liblearnerprofile)
+ecm_optional_add_subdirectory(autotests)
 
 # files to install in the artikulate project root directory
 install(PROGRAMS artikulate.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
