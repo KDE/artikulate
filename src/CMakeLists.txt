@@ -30,7 +30,6 @@ find_package(KDeclarative REQUIRED)
 
 # set config files after packages are searched
 configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
-configure_file("${artikulate_SOURCE_DIR}/config.h.cmake" "${artikulate_BINARY_DIR}/config.h" @ONLY)
 
 add_subdirectory(qml)
 
