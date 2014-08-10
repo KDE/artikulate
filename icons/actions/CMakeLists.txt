@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -23,5 +23,51 @@
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-kde4_install_icons(${DATA_INSTALL_DIR}/artikulate/icons)
-kde4_update_iconcache()
+ecm_install_icons(
+  ICONS
+    128-actions-artikulate-media-playback-start.png
+    128-actions-artikulate-media-playback-stop.png
+    128-actions-artikulate-media-record-active.png
+    128-actions-artikulate-media-record.png
+    16-actions-artikulate-course.png
+    16-actions-artikulate-expression.png
+    16-actions-artikulate-language.png
+    16-actions-artikulate-paragraph.png
+    16-actions-artikulate-sentence.png
+    16-actions-artikulate-word.png
+    32-actions-artikulate-course-editor.png
+    32-actions-artikulate-course.png
+    32-actions-artikulate-expression.png
+    32-actions-artikulate-language.png
+    32-actions-artikulate-media-native-speaker-play.png
+    32-actions-artikulate-media-playback-start.png
+    32-actions-artikulate-media-playback-stop.png
+    32-actions-artikulate-media-record-active.png
+    32-actions-artikulate-media-record.png
+    32-actions-artikulate-paragraph.png
+    32-actions-artikulate-sentence.png
+    32-actions-artikulate-word.png
+    48-actions-artikulate-course.png
+    48-actions-artikulate-expression.png
+    48-actions-artikulate-language.png
+    48-actions-artikulate-paragraph.png
+    48-actions-artikulate-sentence.png
+    48-actions-artikulate-word.png
+    64-actions-artikulate-course-editor.png
+    64-actions-artikulate-expression.png
+    64-actions-artikulate-paragraph.png
+    64-actions-artikulate-sentence.png
+    64-actions-artikulate-word.png
+    sc-actions-artikulate-course-editor.svgz
+    sc-actions-artikulate-expression.svgz
+    sc-actions-artikulate-media-playback-start.svgz
+    sc-actions-artikulate-media-playback-stop.svgz
+    sc-actions-artikulate-media-record-active.svg
+    sc-actions-artikulate-media-record.svgz
+    sc-actions-artikulate-paragraph.svgz
+    sc-actions-artikulate-sentence.svgz
+    sc-actions-artikulate-word.svgz
+
+  DESTINATION ${ICON_INSTALL_DIR}
+  THEME hicolor
+)

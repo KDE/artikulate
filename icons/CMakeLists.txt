@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -23,8 +23,18 @@
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-#ecm_optional_add_subdirectory(actions)
+ecm_optional_add_subdirectory(actions)
 
-#FIXME
-# kde4_install_icons(${ICON_INSTALL_DIR})
-# kde4_update_iconcache()
+ecm_install_icons(
+  ICONS
+    16-apps-artikulate.png
+    32-apps-artikulate.png
+    48-apps-artikulate.png
+    64-apps-artikulate.png
+    sc-apps-artikulate.svgz
+
+  DESTINATION ${ICON_INSTALL_DIR}
+  THEME hicolor
+)
+
+
