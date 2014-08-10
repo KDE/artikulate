@@ -39,6 +39,7 @@ target_link_libraries(
         Qt5::Core
         Qt5::Gui
         Qt5::Sql
+        Qt5::Widgets
         KF5::ConfigCore
         KF5::KDELibs4Support
 )

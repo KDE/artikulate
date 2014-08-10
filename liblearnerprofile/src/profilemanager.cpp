@@ -27,7 +27,7 @@
 #include <QDebug>
 #include <KConfigCore/KConfig>
 #include <KConfigCore/KConfigGroup>
-#include <KFileDialog>
+#include <QFileDialog>
 #include <KLocalizedString>
 
 using namespace LearnerProfile;
@@ -157,7 +157,10 @@ int ProfileManager::profileCount() const
 
 void ProfileManager::openImageFileDialog()
 {
-    QUrl imageUrl = KFileDialog::getImageOpenUrl();
+    QUrl imageUrl = QFileDialog::getOpenFileName(0,
+        i18n("Open Image"),
+        "",
+        i18n("Image Files (*.png *.jpg *.bmp)"));
     d->m_activeProfile->importImage(imageUrl.toLocalFile());
 }
 
