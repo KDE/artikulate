@@ -48,6 +48,10 @@ public:
 
     explicit LearningGoalModel(QObject *parent = 0);
     virtual ~LearningGoalModel();
+    /**
+     * Reimplemented from QAbstractListModel::roleNames()
+     */
+    virtual QHash<int,QByteArray> roleNames() const;
     void setProfileManager(ProfileManager *profileManager);
     ProfileManager * profileManager() const;
     void setLearner(Learner *learner);
