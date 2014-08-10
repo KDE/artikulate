@@ -26,7 +26,6 @@
 #include "settings.h"
 
 #include <QDebug>
-#include <KSaveFile>
 #include <QTemporaryFile>
 #include <sys/stat.h>
 

@@ -23,8 +23,7 @@
 #include "phoneme.h"
 #include "phonemegroup.h"
 #include <QDebug>
-#include <KLocale>
-#include <KGlobal>
+#include <KLocalizedString>
 
 Language::Language(QObject *parent)
     : QObject(parent)

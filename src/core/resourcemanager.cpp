@@ -42,8 +42,6 @@
 #include <QDomDocument>
 #include <QUuid>
 #include <QDir>
-
-#include <KGlobal>
 #include <QDebug>
 #include <QUrl>
 #include <QStandardPaths>

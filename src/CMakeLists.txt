@@ -77,6 +77,7 @@ target_link_libraries(artikulatecore
         ${QT_QTXMLPATTERNS_LIBRARY}
         ${QT_QTSQL_LIBRARY}
         KF5::ConfigGui
+        KF5::WidgetsAddons
 )
 set_target_properties(
     artikulatecore

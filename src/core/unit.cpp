@@ -29,7 +29,7 @@
 #include <QUuid>
 
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QUrl>
 
 Unit::Unit(QObject *parent)

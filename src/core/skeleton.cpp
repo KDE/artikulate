@@ -27,7 +27,7 @@
 #include "phonemegroup.h"
 
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QStringList>
 #include <QPair>
 #include <QUuid>

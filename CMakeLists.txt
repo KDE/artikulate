@@ -49,6 +49,7 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
     I18n
     KDELibs4Support
     NewStuff
+    WidgetsAddons
 )
 
 # subdirectories to build

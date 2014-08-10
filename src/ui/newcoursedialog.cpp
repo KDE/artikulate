@@ -27,25 +27,36 @@
 #include "core/resources/courseresource.h"
 #include "core/resources/skeletonresource.h"
 #include "settings.h"
-
-#include <KLocale>
+#include <KLocalizedString>
+#include <KStandardGuiItem>
+#include <QPushButton>
 #include <QUuid>
+#include <QDialogButtonBox>
 
 NewCourseDialog::NewCourseDialog(ResourceManager *m_resourceManager)
-    : KDialog(0)
+    : QDialog(0)
     , m_fixedLanguage(0)
     , m_resourceManager(m_resourceManager)
     , m_createdCourse(0)
 {
-    setPlainCaption(i18n("Create New Course"));
-    setButtons(KDialog::Ok | KDialog::Cancel);
-    setDefaultButton(KDialog::Ok);
+    setWindowTitle(i18n("Create New Course"));
 
     QWidget *widget = new QWidget(this);
     ui = new Ui::NewCourseDialog;
 
     ui->setupUi(widget);
-    setMainWidget(widget);
+
+    QDialogButtonBox *buttons = new QDialogButtonBox(this);
+    QPushButton *okButton = new QPushButton;
+    KGuiItem::assign(okButton, KStandardGuiItem::ok());
+    okButton->setShortcut(Qt::Key_Return);
+    buttons->addButton(okButton, QDialogButtonBox::AcceptRole);
+    widget->layout()->addWidget(buttons);
+    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+    QPushButton *cancelButton = new QPushButton;
+    KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
+    okButton->setShortcut(Qt::Key_Cancel);
+    buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
 
     //FIXME only allow creation when data repository is set
     //FIXME only allow creation when unique ID is given: check this and give feedback
