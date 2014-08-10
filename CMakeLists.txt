@@ -43,6 +43,7 @@ find_package(Qt5 REQUIRED COMPONENTS
 )
 find_package(KF5 CONFIG REQUIRED COMPONENTS
     Config
+    ConfigWidgets
     CoreAddons
     Declarative
     I18n

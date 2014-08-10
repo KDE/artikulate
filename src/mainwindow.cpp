@@ -196,7 +196,6 @@ void MainWindow::showSettingsDialog()
         return;
     }
     QPointer<KConfigDialog> dialog = new KConfigDialog(this, "settings", Settings::self());
-    dialog->setButtons(KDialog::Cancel | KDialog::Ok);
 
     ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_resourceManager);
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();

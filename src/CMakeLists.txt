@@ -131,6 +131,7 @@ target_link_libraries(artikulate
         ${KDE4_KIO_LIBS}
         Qt5::Quick
         Qt5::QuickWidgets
+        KF5::ConfigWidgets
         KF5::Declarative
         KF5::NewStuff
 )
