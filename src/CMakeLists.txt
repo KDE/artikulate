@@ -126,7 +126,7 @@ qt5_wrap_ui (artikulate_SRCS
 kconfig_add_kcfg_files (artikulate_SRCS settings.kcfgc)
 add_executable(artikulate ${artikulate_SRCS})
 target_link_libraries(artikulate
-    LINK_PRIVATE
+    LINK_PUBLIC
         artikulatelearnerprofile
         artikulatesound
         artikulatecore
@@ -134,7 +134,7 @@ target_link_libraries(artikulate
         ${KDE4_PLASMA_LIBS}
         ${KDE4_KIO_LIBS}
         ${QT_QTDECLARATIVE_LIBRARY}
-        ${KDE4_KNEWSTUFF3_LIBS}
+        KF5::NewStuff
 )
 
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})

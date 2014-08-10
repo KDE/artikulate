@@ -44,6 +44,7 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
     CoreAddons
     I18n
     KDELibs4Support
+    NewStuff
 )
 
 # subdirectories to build
