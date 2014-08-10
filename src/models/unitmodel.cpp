@@ -34,14 +34,18 @@ UnitModel::UnitModel(QObject *parent)
     , m_course(0)
     , m_signalMapper(new QSignalMapper(this))
 {
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
+}
+
+QHash< int, QByteArray > UnitModel::roleNames() const
+{
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[ContainsTrainingData] = "containsTrainingData";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
+    return roles;
 }
 
 void UnitModel::setCourse(Course *course)

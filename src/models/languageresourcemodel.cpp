@@ -27,8 +27,7 @@
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
-
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 
 LanguageResourceModel::LanguageResourceModel(QObject* parent)
@@ -37,15 +36,19 @@ LanguageResourceModel::LanguageResourceModel(QObject* parent)
     , m_view(LanguageModel::NonEmptyGhnsOnlyLanguages)
     , m_signalMapper(new QSignalMapper(this))
 {
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLanguageChanged(int)));
+}
+
+QHash< int, QByteArray > LanguageResourceModel::roleNames() const
+{
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[I18nTitleRole] = "i18nTitle";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
     roles[CourseNumberRole] = "courseNumberRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLanguageChanged(int)));
+    return roles;
 }
 
 void LanguageResourceModel::setResourceManager(ResourceManager *resourceManager)

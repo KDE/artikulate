@@ -35,13 +35,17 @@ ProfileModel::ProfileModel(QObject *parent)
     , m_profileManager(0)
     , m_signalMapper(new QSignalMapper(this))
 {
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitProfileChanged(int)));
+}
+
+QHash< int, QByteArray > ProfileModel::roleNames() const
+{
     QHash<int, QByteArray> roles;
     roles[IdRole] = "id";
     roles[NameRole] = "name";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitProfileChanged(int)));
+    return roles;
 }
 
 void ProfileModel::setProfileManager(ProfileManager *profileManager)

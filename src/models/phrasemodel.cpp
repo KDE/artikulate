@@ -33,6 +33,15 @@ PhraseModel::PhraseModel(QObject *parent)
     , m_unit(0)
     , m_signalMapper(new QSignalMapper(this))
 {
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhraseChanged(int)));
+
+    // connect all phrase number operations to single signal
+    connect(this, SIGNAL(typeChanged()), this, SIGNAL(countChanged()));
+    connect(this, SIGNAL(unitChanged()), this, SIGNAL(countChanged()));
+}
+
+QHash< int, QByteArray > PhraseModel::roleNames() const
+{
     QHash<int, QByteArray> roles;
     roles[TextRole] = "text";
     roles[SoundFileRole] = "soundFile";
@@ -40,13 +49,8 @@ PhraseModel::PhraseModel(QObject *parent)
     roles[TypeRole] = "type";
     roles[ExcludedRole] = "excludedRole";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhraseChanged(int)));
-
-    // connect all phrase number operations to single signal
-    connect(this, SIGNAL(typeChanged()), this, SIGNAL(countChanged()));
-    connect(this, SIGNAL(unitChanged()), this, SIGNAL(countChanged()));
+    return roles;
 }
 
 void PhraseModel::setUnit(Unit *unit)

@@ -28,10 +28,16 @@ LearningProgressModel::LearningProgressModel(QObject *parent)
     : QAbstractTableModel(parent)
     , m_session(0)
 {
+
+}
+
+QHash< int, QByteArray > LearningProgressModel::roleNames() const
+{
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
+
+    return roles;
 }
 
 int LearningProgressModel::rowCount(const QModelIndex& parent) const

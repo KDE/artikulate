@@ -27,7 +27,7 @@
 #include <QAbstractListModel>
 #include <QSignalMapper>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 
 CourseModel::CourseModel(QObject *parent)
@@ -36,19 +36,23 @@ CourseModel::CourseModel(QObject *parent)
     , m_language(0)
     , m_signalMapper(new QSignalMapper(this))
 {
-    QHash<int, QByteArray> roles;
-    roles[TitleRole] = "title";
-    roles[DescriptionRole] = "description";
-    roles[IdRole] = "id";
-    roles[DataRole] = "dataRole";
-    setRoleNames(roles);
-
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitCourseChanged(int)));
 }
 
 CourseModel::~CourseModel()
 {
 
+}
+
+QHash< int, QByteArray > CourseModel::roleNames() const
+{
+    QHash<int, QByteArray> roles;
+    roles[TitleRole] = "title";
+    roles[DescriptionRole] = "description";
+    roles[IdRole] = "id";
+    roles[DataRole] = "dataRole";
+
+    return roles;
 }
 
 void CourseModel::setResourceManager(ResourceManager *resourceManager)

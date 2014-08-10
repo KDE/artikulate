@@ -45,6 +45,10 @@ public:
 
     explicit SkeletonModel(QObject *parent = 0);
     void setResourceManager(ResourceManager *resourceManager);
+    /**
+     * Reimplemented from QAbstractListModel::roleNames()
+     */
+    virtual QHash<int,QByteArray> roleNames() const;
     ResourceManager * resourceManager() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;

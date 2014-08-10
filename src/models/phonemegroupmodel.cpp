@@ -34,13 +34,17 @@ PhonemeGroupModel::PhonemeGroupModel(QObject *parent)
     , m_course(0)
     , m_signalMapper(new QSignalMapper(this))
 {
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeGroupChanged(int)));
+}
+
+QHash< int, QByteArray > PhonemeGroupModel::roleNames() const
+{
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeGroupChanged(int)));
+    return roles;
 }
 
 void PhonemeGroupModel::setCourse(Course *course)

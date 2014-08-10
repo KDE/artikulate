@@ -33,13 +33,17 @@ PhonemeModel::PhonemeModel(QObject *parent)
     , m_language(0)
     , m_signalMapper(new QSignalMapper(this))
 {
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeChanged(int)));
+}
+
+QHash< int, QByteArray > PhonemeModel::roleNames() const
+{
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeChanged(int)));
+    return roles;
 }
 
 Language * PhonemeModel::language() const

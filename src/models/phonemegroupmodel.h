@@ -40,6 +40,10 @@ public:
     };
 
     explicit PhonemeGroupModel(QObject *parent = 0);
+    /**
+     * Reimplemented from QAbstractListModel::roleNames()
+     */
+    virtual QHash<int,QByteArray> roleNames() const;
     void setCourse(Course *course);
     Course * course() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;

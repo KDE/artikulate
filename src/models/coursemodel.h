@@ -47,6 +47,10 @@ public:
 
     explicit CourseModel(QObject *parent = 0);
     ~CourseModel();
+    /**
+     * Reimplemented from QAbstractListModel::roleNames()
+     */
+    virtual QHash<int,QByteArray> roleNames() const;
     void setResourceManager(ResourceManager *resourceManager);
     ResourceManager * resourceManager() const;
     void setLanguage(Language *language);

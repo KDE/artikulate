@@ -44,6 +44,10 @@ public:
     };
 
     explicit PhraseModel(QObject *parent = 0);
+    /**
+     * Reimplemented from QAbstractListModel::roleNames()
+     */
+    virtual QHash<int,QByteArray> roleNames() const;
     void setUnit(Unit *unit);
     Unit * unit() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;

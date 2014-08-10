@@ -35,17 +35,21 @@ PhonemeUnitModel::PhonemeUnitModel(QObject *parent)
     , m_phonemeGroup(0)
     , m_signalMapper(new QSignalMapper(this))
 {
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
+    connect(this, SIGNAL(phonemeGroupChanged()), this, SIGNAL(countChanged()));
+    connect(this, SIGNAL(courseChanged()), this, SIGNAL(countChanged()));
+}
+
+QHash< int, QByteArray > PhonemeUnitModel::roleNames() const
+{
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[NumberPhrasesRole] = "numberPhrases";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
     roles[PhonemeGroupRole] = "phonemeGroupRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
-    connect(this, SIGNAL(phonemeGroupChanged()), this, SIGNAL(countChanged()));
-    connect(this, SIGNAL(courseChanged()), this, SIGNAL(countChanged()));
+    return roles;
 }
 
 void PhonemeUnitModel::setCourse(Course *course)

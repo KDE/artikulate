@@ -35,14 +35,18 @@ SkeletonModel::SkeletonModel(QObject *parent)
     , m_resourceManager(0)
     , m_signalMapper(new QSignalMapper(this))
 {
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitSkeletonChanged(int)));
+}
+
+QHash< int, QByteArray > SkeletonModel::roleNames() const
+{
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[DescriptionRole] = "description";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitSkeletonChanged(int)));
+    return roles;
 }
 
 void SkeletonModel::setResourceManager(ResourceManager *resourceManager)

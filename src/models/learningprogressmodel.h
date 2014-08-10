@@ -42,6 +42,10 @@ public:
     };
 
     explicit LearningProgressModel(QObject *parent = 0);
+    /**
+     * Reimplemented from QAbstractListModel::roleNames()
+     */
+    virtual QHash<int,QByteArray> roleNames() const;
     void setSession(TrainingSession *session);
     TrainingSession * session() const;
     int maximumTries() const;

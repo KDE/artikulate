@@ -41,6 +41,10 @@ public:
     };
 
     explicit PhonemeModel(QObject *parent = 0);
+    /**
+     * Reimplemented from QAbstractListModel::roleNames()
+     */
+    virtual QHash<int,QByteArray> roleNames() const;
     void setLanguage(Language *language);
     Language * language() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
