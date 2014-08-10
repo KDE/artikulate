@@ -27,6 +27,7 @@ project(artikulate)
 
 cmake_minimum_required(VERSION 2.8.12)
 find_package(ECM 1.0.0 REQUIRED NO_MODULE)
+find_package(KF5DocTools)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 include(KDEInstallDirs)
@@ -57,7 +58,7 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
 # subdirectories to build
 ecm_optional_add_subdirectory(data)
 ecm_optional_add_subdirectory(schemes)
-# ecm_optional_add_subdirectory(doc) //FIXME
+ecm_optional_add_subdirectory(doc)
 ecm_optional_add_subdirectory(src)
 ecm_optional_add_subdirectory(sounds)
 ecm_optional_add_subdirectory(images)
