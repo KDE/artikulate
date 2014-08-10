@@ -41,7 +41,7 @@ target_link_libraries(
         Qt5::Sql
         Qt5::Widgets
         KF5::ConfigCore
-        KF5::KDELibs4Support
+        KF5::I18n
 )
 
 set_target_properties(

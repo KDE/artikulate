@@ -25,7 +25,7 @@
 #include <QAbstractListModel>
 #include <QSignalMapper>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 
 using namespace LearnerProfile;

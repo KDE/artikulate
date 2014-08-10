@@ -22,7 +22,7 @@
 #include "learner.h"
 
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 
 #include <QSqlError>
 #include <QSqlDatabase>
