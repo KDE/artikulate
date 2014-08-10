@@ -36,10 +36,8 @@ add_library(artikulatelearnerprofile SHARED ${learnerprofile_LIB_SRCS})
 
 target_link_libraries(
     artikulatelearnerprofile
-    LINK_PRIVATE
-        ${KDE4_KDECORE_LIBS}
-        ${KDE4_KFILE_LIBS}
-        ${QT_QTSQL_LIBRARY}
+    LINK_PUBLIC
+        Qt5::Core
 )
 
 set_target_properties(
