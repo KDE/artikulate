@@ -30,9 +30,8 @@
 #include <QGst/Event>
 #include <QGst/Message>
 #include <QGst/Bus>
-
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 
 QtGStreamerCaptureBackend::QtGStreamerCaptureBackend()
 {

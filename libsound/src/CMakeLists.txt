@@ -42,11 +42,12 @@ add_library(artikulatesound SHARED ${sound_LIB_SRCS})
 
 target_link_libraries(
     artikulatesound
-    LINK_PRIVATE
+    LINK_PUBLIC
         ${QTGLIB_LIBRARIES}
         ${QTGLIB_LIBRARY}
         ${QTGSTREAMER_LIBRARIES}
-        ${KDE4_KDECORE_LIBS}
+        KF5::I18n
+        KF5::Config
 )
 
 set_target_properties(
