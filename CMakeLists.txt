@@ -38,10 +38,13 @@ find_package(Qt5 REQUIRED COMPONENTS
     Widgets
     Sql
     XmlPatterns
+    Quick
+    QuickWidgets
 )
 find_package(KF5 CONFIG REQUIRED COMPONENTS
     Config
     CoreAddons
+    Declarative
     I18n
     KDELibs4Support
     NewStuff

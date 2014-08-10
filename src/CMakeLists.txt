@@ -26,8 +26,6 @@ set(ARTIKULATE_VERSION_MAJOR 0)
 set(ARTIKULATE_VERSION_MINOR 4)
 set(ARTIKULATE_VERSION_PATCH 50)
 
-find_package(KDeclarative REQUIRED)
-
 # set config files after packages are searched
 configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
 
@@ -115,8 +113,6 @@ set(artikulate_SRCS
     ui/sounddevicedialogpage.cpp
     ui/appearencedialogpage.cpp
     ui/resourcesdialogpage.cpp
-
-    declarativeitems/applicationbackground.cpp
 )
 qt5_wrap_ui (artikulate_SRCS
     ui/resourcesdialogpage.ui
@@ -133,7 +129,9 @@ target_link_libraries(artikulate
         ${KDECLARATIVE_LIBRARIES}
         ${KDE4_PLASMA_LIBS}
         ${KDE4_KIO_LIBS}
-        ${QT_QTDECLARATIVE_LIBRARY}
+        Qt5::Quick
+        Qt5::QuickWidgets
+        KF5::Declarative
         KF5::NewStuff
 )
 

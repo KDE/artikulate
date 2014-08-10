@@ -28,7 +28,8 @@
 class Profile;
 class KActionCollection;
 class KMenu;
-class QDeclarativeView;
+class QQuickView;
+class QQuickWidget;
 
 namespace LearnerProfile {
     class ProfileManager;
@@ -78,7 +79,7 @@ signals:
      void modeChanged(bool);
 
 private:
-    QDeclarativeView *m_view;
+    QQuickWidget *m_widget;
     Profile *m_trainingProfile, *m_editorProfile;
     ResourceManager *m_resourceManager;
     TrainingSession *m_trainingSession;

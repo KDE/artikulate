@@ -24,8 +24,6 @@
 
 #include <KApplication>
 
-class QDeclarativeEngine;
-
 class Application : public KApplication
 {
     Q_OBJECT

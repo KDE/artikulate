@@ -33,7 +33,6 @@
 #include "core/trainingsession.h"
 #include "core/player.h"
 #include "core/recorder.h"
-#include "declarativeitems/applicationbackground.h"
 #include "models/coursemodel.h"
 #include "models/coursefiltermodel.h"
 #include "models/languagemodel.h"
@@ -54,12 +53,11 @@
 #include "liblearnerprofile/src/learninggoal.h"
 #include "liblearnerprofile/src/models/learninggoalmodel.h"
 
-#include <kdeclarative.h>
-
-#include <qdeclarative.h>
+#include <QQmlComponent>
+#include <QQmlContext>
+#include <QQmlEngine>
+#include <KDeclarative/KDeclarative>
 #include <QGraphicsDropShadowEffect>
-#include <QScriptValue>
-#include <QScriptEngine>
 
 Application::Application()
     : KApplication(true)
@@ -101,5 +99,4 @@ void Application::registerQmlTypes()
     qmlRegisterType<LearnerProfile::LearningGoalModel>("artikulate", 1, 0, "LearningGoalModel");
 
     qmlRegisterType<MainWindow>("artikulate", 1, 0, "MainWindow");
-    qmlRegisterType<ApplicationBackground>("artikulate", 1, 0, "ApplicationBackground");
 }

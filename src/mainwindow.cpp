@@ -39,7 +39,7 @@
 #include <KGlobal>
 #include <KIcon>
 #include <KLocale>
-#include <kdeclarative.h>
+#include <KDeclarative/KDeclarative>
 #include <KConfigDialog>
 #include <QDebug>
 #include <KStandardAction>
@@ -48,10 +48,11 @@
 #include <KNS3/DownloadDialog>
 
 #include <QGraphicsObject>
-#include <QDeclarativeItem>
-#include <QDeclarativeView>
-#include <QDeclarativeContext>
-#include <QDeclarativeProperty>
+#include <QQuickItem>
+#include <QQuickView>
+#include <QQmlContext>
+#include <QQmlProperty>
+#include <QQuickWidget>
 #include <QCloseEvent>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QPointer>
@@ -61,7 +62,7 @@ using namespace LearnerProfile;
 
 MainWindow::MainWindow()
     : KXmlGuiWindow(0)
-    , m_view(new QDeclarativeView(this))
+    , m_widget(new QQuickWidget(this)) //FIXME set MainWindow*
     , m_trainingProfile(new Profile(this))
     , m_editorProfile(new Profile(this))
     , m_resourceManager(new ResourceManager(this))
@@ -70,8 +71,6 @@ MainWindow::MainWindow()
 {
     setWindowIcon(KIcon("artikulate")); // FIXME not present yet
     setWindowTitle(qAppName());
-    setCentralWidget(m_view);
-
     setAutoSaveSettings();
 
     // load saved sound settings
@@ -82,8 +81,8 @@ MainWindow::MainWindow()
     m_resourceManager->loadCourseResources();
     m_resourceManager->registerLearningGoals(m_profileManager);
 
-    KDeclarative m_kdeclarative;
-    m_kdeclarative.setDeclarativeEngine(m_view->engine());
+    KDeclarative::KDeclarative m_kdeclarative;
+    m_kdeclarative.setDeclarativeEngine(m_widget->engine());
     m_kdeclarative.initialize();
     m_kdeclarative.setupBindings(); //TODO use result for determining touch/desktop version
 
@@ -91,22 +90,21 @@ MainWindow::MainWindow()
     setupActions();
 
     // set view
-    m_view->resize(QSize(800, 600));
-    m_view->setStyleSheet("background-color: transparent;");
-    m_view->rootContext()->setContextObject(this);
-    m_view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    m_widget->resize(QSize(800, 600));
+    m_widget->setStyleSheet("background-color: transparent;");
+    m_widget->rootContext()->setContextObject(this);
 
-    m_view->rootContext()->setContextProperty("userProfile", m_trainingProfile); //TODO deprecated
-    m_view->rootContext()->setContextProperty("editorProfile", m_editorProfile); //TODO rename
-    m_view->rootContext()->setContextProperty("trainingSession", m_trainingSession); //TODO needed at top level?
-    m_view->rootContext()->setContextProperty("profileManager", m_profileManager);
+    m_widget->rootContext()->setContextProperty("userProfile", m_trainingProfile); //TODO deprecated
+    m_widget->rootContext()->setContextProperty("editorProfile", m_editorProfile); //TODO rename
+    m_widget->rootContext()->setContextProperty("trainingSession", m_trainingSession); //TODO needed at top level?
+    m_widget->rootContext()->setContextProperty("profileManager", m_profileManager);
 
-    m_view->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
+    m_widget->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 
-    m_view->setStyleSheet("background-color: transparent;");
+    m_widget->setStyleSheet("background-color: transparent;");
 
     // set starting screen
-    m_view->setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
+    m_widget->setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
 
     // settings from kcfg values
     updateTrainingPhraseFont();
@@ -117,11 +115,13 @@ MainWindow::MainWindow()
     }
 
     // set initial view
-    m_view->rootObject()->setProperty("viewMode", Trainer);
+    m_widget->rootObject()->setProperty("viewMode", Trainer);
 
     // set font for the phrase in trainer to default from kcfg file
-    QObject *phraseText = m_view->rootObject()->findChild<QObject*>("phraseText");
+    QObject *phraseText = m_widget->rootObject()->findChild<QObject*>("phraseText");
     phraseText->setProperty("font", Settings::trainingPhraseFont());
+
+    setCentralWidget(m_widget);
 }
 
 MainWindow::~MainWindow()
@@ -168,21 +168,21 @@ void MainWindow::setupActions()
 
 void MainWindow::showCourseEditor()
 {
-    m_view->rootObject()->setProperty("viewMode", Editor);
+    m_widget->rootObject()->setProperty("viewMode", Editor);
     // untoggle editor view mode
     emit modeChanged(true);
 }
 
 void MainWindow::closeCourseEditor()
 {
-    m_view->rootObject()->setProperty("viewMode", Trainer);
+    m_widget->rootObject()->setProperty("viewMode", Trainer);
     // toggle editor view mode
     emit modeChanged(false);
 }
 
 void MainWindow::switchMode()
 {
-    if (m_view->rootObject()->property("viewMode") == Trainer){
+    if (m_widget->rootObject()->property("viewMode") == Trainer){
          showCourseEditor();
     }
     else {
@@ -223,7 +223,7 @@ void MainWindow::showSettingsDialog()
 
 void MainWindow::updateTrainingPhraseFont()
 {
-    QObject *phraseText = m_view->rootObject()->findChild<QObject*>("phraseText");
+    QObject *phraseText = m_widget->rootObject()->findChild<QObject*>("phraseText");
     if (!phraseText) {
         qDebug() << "no phraseText context object found, aborting";
         return;
@@ -234,7 +234,7 @@ void MainWindow::updateTrainingPhraseFont()
 
 void MainWindow::updateKcfgUseContributorResources()
 {
-    m_view->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
+    m_widget->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 }
 
 void MainWindow::downloadNewStuff()
