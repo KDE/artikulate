@@ -25,9 +25,10 @@
 #include <QObject>
 #include <QList>
 #include <QDebug>
-#include <KConfigGroup>
+#include <KConfigCore/KConfig>
+#include <KConfigCore/KConfigGroup>
 #include <KFileDialog>
-#include <KLocale>
+#include <KLocalizedString>
 
 using namespace LearnerProfile;
 
