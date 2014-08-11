@@ -65,7 +65,7 @@ public:
 
     bool queryClose();
 
-public slots:
+public Q_SLOTS:
     void showCourseEditor();
     void closeCourseEditor();
     void switchMode();
@@ -75,7 +75,7 @@ public slots:
     void updateKcfgUseContributorResources();
     void configLearnerProfile();
 
-signals:
+Q_SIGNALS:
      void modeChanged(bool);
 
 private:

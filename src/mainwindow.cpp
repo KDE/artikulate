@@ -107,6 +107,8 @@ MainWindow::MainWindow()
 
     // set initial view
     rootObject()->setProperty("viewMode", Trainer);
+    connect(rootObject(), SIGNAL(downloadNewStuff()),
+            this, SLOT(downloadNewStuff()));
 
     // set font for the phrase in trainer to default from kcfg file
     QObject *phraseText = rootObject()->findChild<QObject*>("phraseText");

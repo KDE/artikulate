@@ -24,6 +24,8 @@ import artikulate 1.0
 Item {
     id: root
 
+    signal downloadNewStuff();
+
     Item {
         id: theme
         property string backgroundColor: "#ffffff"
