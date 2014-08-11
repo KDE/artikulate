@@ -65,32 +65,14 @@ Item {
     }
 
     Item {
-        id: slider
-        width: parent.width
-        height: parent.height
-
-        //FIXME
-//         PlasmaCore.FrameSvgItem {
-//             anchors {
-//                 fill: parent
-//                 leftMargin: 10
-//                 rightMargin: 10
-//                 bottomMargin: 10
-//             }
-//             imagePath: "dialogs/background"
-//             enabledBorders: PlasmaCore.FrameSvg.LeftBorder + PlasmaCore.FrameSvg.RightBorder + PlasmaCore.FrameSvg.BottomBorder
-//
-            Item {
-                id: contentArea
-                anchors {
-                    fill: parent
-                    leftMargin: parent.margins.left + innerMargin
-                    rightMargin: parent.margins.right + innerMargin
-                    topMargin: parent.margins.top + innerMargin
-                    bottomMargin: parent.margins.bottom + innerMargin
-                }
-            }
-//         }
+        id: contentArea
+        anchors {
+            fill: parent
+            topMargin: 10
+            rightMargin: 10
+            bottomMargin: 10
+            leftMargin: 10
+        }
     }
 
     state: "closed"
