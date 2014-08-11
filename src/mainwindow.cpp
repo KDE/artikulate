@@ -58,17 +58,15 @@
 using namespace LearnerProfile;
 
 MainWindow::MainWindow()
-    : KXmlGuiWindow(0)
-    , m_widget(new QQuickWidget(this)) //FIXME set MainWindow*
-    , m_trainingProfile(new Profile(this))
+    : m_trainingProfile(new Profile(this))
     , m_editorProfile(new Profile(this))
     , m_resourceManager(new ResourceManager(this))
     , m_trainingSession(new TrainingSession(this))
     , m_profileManager(new LearnerProfile::ProfileManager(this))
 {
-    setWindowIcon(QIcon::fromTheme("artikulate")); // FIXME not present yet
-    setWindowTitle(qAppName());
-    setAutoSaveSettings();
+//     setWindowIcon(QIcon::fromTheme("artikulate")); // FIXME not present yet
+//     setWindowTitle(qAppName());
+//     setAutoSaveSettings();
 
     // load saved sound settings
     OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
@@ -79,28 +77,25 @@ MainWindow::MainWindow()
     m_resourceManager->registerLearningGoals(m_profileManager);
 
     KDeclarative::KDeclarative m_kdeclarative;
-    m_kdeclarative.setDeclarativeEngine(m_widget->engine());
+    m_kdeclarative.setDeclarativeEngine(engine());
     m_kdeclarative.setupBindings(); //TODO use result for determining touch/desktop version
 
     // create menu
     setupActions();
 
     // set view
-    m_widget->resize(QSize(800, 600));
-    m_widget->setStyleSheet("background-color: transparent;");
-    m_widget->rootContext()->setContextObject(this);
+    resize(QSize(800, 600));
+    rootContext()->setContextObject(this);
 
-    m_widget->rootContext()->setContextProperty("userProfile", m_trainingProfile); //TODO deprecated
-    m_widget->rootContext()->setContextProperty("editorProfile", m_editorProfile); //TODO rename
-    m_widget->rootContext()->setContextProperty("trainingSession", m_trainingSession); //TODO needed at top level?
-    m_widget->rootContext()->setContextProperty("profileManager", m_profileManager);
+    rootContext()->setContextProperty("userProfile", m_trainingProfile); //TODO deprecated
+    rootContext()->setContextProperty("editorProfile", m_editorProfile); //TODO rename
+    rootContext()->setContextProperty("trainingSession", m_trainingSession); //TODO needed at top level?
+    rootContext()->setContextProperty("profileManager", m_profileManager);
 
-    m_widget->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
-
-    m_widget->setStyleSheet("background-color: transparent;");
+    rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 
     // set starting screen
-    m_widget->setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
+    setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
 
     // settings from kcfg values
     updateTrainingPhraseFont();
@@ -111,13 +106,11 @@ MainWindow::MainWindow()
     }
 
     // set initial view
-    m_widget->rootObject()->setProperty("viewMode", Trainer);
+    rootObject()->setProperty("viewMode", Trainer);
 
     // set font for the phrase in trainer to default from kcfg file
-    QObject *phraseText = m_widget->rootObject()->findChild<QObject*>("phraseText");
+    QObject *phraseText = rootObject()->findChild<QObject*>("phraseText");
     phraseText->setProperty("font", Settings::trainingPhraseFont());
-
-    setCentralWidget(m_widget);
 }
 
 MainWindow::~MainWindow()
@@ -134,51 +127,52 @@ ResourceManager * MainWindow::resourceManager() const
 
 void MainWindow::setupActions()
 {
-    QAction *editorAction = new QAction(i18nc("@option:check", "Course Editor mode"), this);
-    connect(editorAction, SIGNAL(triggered()), SLOT(switchMode()));
-    connect(this, SIGNAL(modeChanged(bool)), editorAction, SLOT(setChecked(bool)));
-    actionCollection()->addAction("editor", editorAction);
-    editorAction->setIcon(QIcon::fromTheme("artikulate-course-editor"));
-    editorAction->setCheckable(true);
-    editorAction->setChecked(false);
-
-    QAction *settingsAction = new QAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
-    connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
-    actionCollection()->addAction("settings", settingsAction);
-    settingsAction->setIcon(QIcon::fromTheme("configure"));
-
-    QAction *downloadsAction = new QAction(i18nc("@item:inmenu", "Download New Language Course"), this);
-    connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(downloadNewStuff()));
-    actionCollection()->addAction("download_new_stuff", downloadsAction);
-    downloadsAction->setIcon(QIcon::fromTheme("get-hot-new-stuff"));
-
-    QAction *configLearnerProfileAction = new QAction(i18nc("@item:inmenu", "Learner Profile"), this);
-    connect(configLearnerProfileAction, SIGNAL(triggered(bool)), this, SLOT(configLearnerProfile()));
-    actionCollection()->addAction("config_learner_profile", configLearnerProfileAction);
-    configLearnerProfileAction->setIcon(QIcon::fromTheme("user-identity"));
-
-//     KStandardAction::quit(kapp, SLOT(quit()), actionCollection()); //FIXME port this
-
-    setupGUI(Keys | Save | Create, "artikulateui.rc");
+    //FIXME port actions
+//     QAction *editorAction = new QAction(i18nc("@option:check", "Course Editor mode"), this);
+//     connect(editorAction, SIGNAL(triggered()), SLOT(switchMode()));
+//     connect(this, SIGNAL(modeChanged(bool)), editorAction, SLOT(setChecked(bool)));
+//     actionCollection()->addAction("editor", editorAction);
+//     editorAction->setIcon(QIcon::fromTheme("artikulate-course-editor"));
+//     editorAction->setCheckable(true);
+//     editorAction->setChecked(false);
+//
+//     QAction *settingsAction = new QAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
+//     connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
+//     actionCollection()->addAction("settings", settingsAction);
+//     settingsAction->setIcon(QIcon::fromTheme("configure"));
+//
+//     QAction *downloadsAction = new QAction(i18nc("@item:inmenu", "Download New Language Course"), this);
+//     connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(downloadNewStuff()));
+//     actionCollection()->addAction("download_new_stuff", downloadsAction);
+//     downloadsAction->setIcon(QIcon::fromTheme("get-hot-new-stuff"));
+//
+//     QAction *configLearnerProfileAction = new QAction(i18nc("@item:inmenu", "Learner Profile"), this);
+//     connect(configLearnerProfileAction, SIGNAL(triggered(bool)), this, SLOT(configLearnerProfile()));
+//     actionCollection()->addAction("config_learner_profile", configLearnerProfileAction);
+//     configLearnerProfileAction->setIcon(QIcon::fromTheme("user-identity"));
+//
+// //     KStandardAction::quit(kapp, SLOT(quit()), actionCollection()); //FIXME port this
+//
+//     setupGUI(Keys | Save | Create, "artikulateui.rc");
 }
 
 void MainWindow::showCourseEditor()
 {
-    m_widget->rootObject()->setProperty("viewMode", Editor);
+    rootObject()->setProperty("viewMode", Editor);
     // untoggle editor view mode
     emit modeChanged(true);
 }
 
 void MainWindow::closeCourseEditor()
 {
-    m_widget->rootObject()->setProperty("viewMode", Trainer);
+    rootObject()->setProperty("viewMode", Trainer);
     // toggle editor view mode
     emit modeChanged(false);
 }
 
 void MainWindow::switchMode()
 {
-    if (m_widget->rootObject()->property("viewMode") == Trainer){
+    if (rootObject()->property("viewMode") == Trainer){
          showCourseEditor();
     }
     else {
@@ -191,7 +185,7 @@ void MainWindow::showSettingsDialog()
     if (KConfigDialog::showDialog("settings")) {
         return;
     }
-    QPointer<KConfigDialog> dialog = new KConfigDialog(this, "settings", Settings::self());
+    QPointer<KConfigDialog> dialog = new KConfigDialog(0, "settings", Settings::self());
 
     ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_resourceManager);
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
@@ -218,7 +212,7 @@ void MainWindow::showSettingsDialog()
 
 void MainWindow::updateTrainingPhraseFont()
 {
-    QObject *phraseText = m_widget->rootObject()->findChild<QObject*>("phraseText");
+    QObject *phraseText = rootObject()->findChild<QObject*>("phraseText");
     if (!phraseText) {
         qDebug() << "no phraseText context object found, aborting";
         return;
@@ -229,12 +223,12 @@ void MainWindow::updateTrainingPhraseFont()
 
 void MainWindow::updateKcfgUseContributorResources()
 {
-    m_widget->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
+    rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 }
 
 void MainWindow::downloadNewStuff()
 {
-    QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog("artikulate.knsrc", this);
+    QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog("artikulate.knsrc");
     if (dialog->exec() == QDialog::Accepted) {
         //update available courses
         m_resourceManager->loadCourseResources();
@@ -280,7 +274,7 @@ bool MainWindow::queryClose()
         return true;
     }
 
-    int result = KMessageBox::warningYesNoCancel(this, i18nc("@info",
+    int result = KMessageBox::warningYesNoCancel(0, i18nc("@info",
         "The currently open course contains unsaved changes. Do you want to save them?"));
 
     switch(result) {

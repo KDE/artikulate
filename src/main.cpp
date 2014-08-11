@@ -53,8 +53,10 @@ int main(int argc, char **argv)
 
     Application app(argc, argv);
 
-    MainWindow *widget = new MainWindow;
-    widget->show();
+    MainWindow * mainWindow = new MainWindow();
+    QSize size(800, 600);
+    mainWindow->setMinimumSize(size);
+    mainWindow->show();
 
     return app.exec();
 }

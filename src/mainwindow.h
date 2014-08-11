@@ -21,7 +21,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <KXmlGuiWindow>
+#include <QQuickView>
 #include "core/resourcemanager.h"
 #include "core/trainingsession.h"
 
@@ -35,7 +35,7 @@ namespace LearnerProfile {
     class ProfileManager;
 }
 
-class MainWindow : public KXmlGuiWindow
+class MainWindow : public QQuickView
 {
     Q_OBJECT
     Q_PROPERTY(ResourceManager *globalResourceManager READ resourceManager CONSTANT)
@@ -79,7 +79,6 @@ signals:
      void modeChanged(bool);
 
 private:
-    QQuickWidget *m_widget;
     Profile *m_trainingProfile, *m_editorProfile;
     ResourceManager *m_resourceManager;
     TrainingSession *m_trainingSession;
