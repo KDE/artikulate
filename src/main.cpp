@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 
     Application app(argc, argv);
 
-    MainWindow * mainWindow = new MainWindow();
+    MainWindow *mainWindow = new MainWindow();
     QSize size(800, 600);
     mainWindow->setMinimumSize(size);
     mainWindow->show();

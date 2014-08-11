@@ -107,11 +107,13 @@ MainWindow::MainWindow()
     }
 
     // set initial view
-    rootObject()->setProperty("viewMode", Trainer);
+//     rootObject()->setProperty("viewMode", Trainer); //FIXME
 
     // set font for the phrase in trainer to default from kcfg file
     QObject *phraseText = rootObject()->findChild<QObject*>("phraseText");
-    phraseText->setProperty("font", Settings::trainingPhraseFont());
+    if (phraseText) {
+        phraseText->setProperty("font", Settings::trainingPhraseFont());
+    }
 }
 
 MainWindow::~MainWindow()

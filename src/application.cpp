@@ -18,7 +18,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include "application.h"
 
 #include "mainwindow.h"
@@ -59,7 +58,7 @@
 #include <KDeclarative/KDeclarative>
 #include <QGraphicsDropShadowEffect>
 
-Application::Application(int argc, char **argv)
+Application::Application(int& argc, char** argv)
     : QApplication(argc, argv)
 {
     registerQmlTypes();

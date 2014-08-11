@@ -43,6 +43,7 @@ find_package(Qt5 REQUIRED COMPONENTS
     Widgets
     Sql
     XmlPatterns
+    Qml
     Quick
     QuickWidgets
     Test

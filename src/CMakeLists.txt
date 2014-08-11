@@ -121,6 +121,7 @@ target_link_libraries(artikulate
         artikulatelearnerprofile
         artikulatesound
         artikulatecore
+        Qt5::Qml
         Qt5::Quick
         Qt5::QuickWidgets
         KF5::ConfigWidgets
