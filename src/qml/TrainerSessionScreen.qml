@@ -1,6 +1,6 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
- *  Copyright 2013  Magdalena Konkiewicz <konkiewicz.m@gmail.com>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013       Magdalena Konkiewicz <konkiewicz.m@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -19,9 +19,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 Item {
@@ -79,10 +78,11 @@ Item {
                     }
                 }
             }
-            PlasmaComponents.ScrollBar {
-                id: flickablePhraseBubbleScrollBar
-                flickableItem: flickablePhraseBubble
-            }
+//FIXME
+//             PlasmaComponents.ScrollBar {
+//                 id: flickablePhraseBubbleScrollBar
+//                 flickableItem: flickablePhraseBubble
+//             }
         }
 
         Image {
@@ -216,18 +216,18 @@ Item {
             verticalCenter: phraseBubble.verticalCenter
         }
         width: Math.max(buttonApply.width, buttonStepOver.width)
-        PlasmaComponents.ToolButton {
+        ToolButton {
             id: buttonApply
             height: 96
-            iconSource: "dialog-ok-apply"
+            iconName: "dialog-ok-apply"
             onClicked: {
                 session.next(TrainingSession.Complete)
             }
         }
-        PlasmaComponents.ToolButton {
+        ToolButton {
             id: buttonStepOver
             height: 96
-            iconSource: "object-rotate-left"
+            iconName: "object-rotate-left"
             onClicked: {
                 session.next(TrainingSession.Incomplete)
             }

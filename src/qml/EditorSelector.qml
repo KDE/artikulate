@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,9 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 Column {
@@ -44,11 +43,11 @@ Column {
         }
     }
 
-    PlasmaComponents.ButtonColumn {
+    Column {
         id: modeSelector
-        exclusive: true
+//         exclusive: true //FIXME
 
-        PlasmaComponents.ToolButton {
+        ToolButton {
             id: editCourses
             checkable: true
             text: i18n("Edit Courses")
@@ -58,7 +57,7 @@ Column {
                 }
             }
         }
-        PlasmaComponents.ToolButton {
+        ToolButton {
             id: editSkeletons
             checkable: true
             text: i18n("Edit Skeletons")
@@ -82,7 +81,7 @@ Column {
             Text {
                 id: textSelectLanguage
                 text: i18n("Select Course Language:")
-                font.pointSize: 1.5 * theme.defaultFont.pointSize
+                font.pointSize: 1.5 * theme.fontPointSize
             }
             LanguageSelector {
                 id: languageSelector
@@ -106,11 +105,11 @@ Column {
             Row {
                 id: rowLanguageInformation
                 spacing: 10
-                PlasmaComponents.ToolButton {
+                ToolButton {
                     anchors.verticalCenter: parent.verticalCenter
                     text: i18n("Language: ")
-                    iconSource: "go-up"
-                    font.pointSize: 1.5 * theme.defaultFont.pointSize
+                    iconName: "go-up"
+                    height: 1.5 * theme.fontPointSize
                     onClicked: {
                         unselect()
                     }
@@ -125,14 +124,14 @@ Column {
                             return i18n("unselected");
                         }
                     }
-                    font.pointSize: 1.5 * theme.defaultFont.pointSize
+                    font.pointSize: 1.5 * theme.fontPointSize
                 }
             }
 
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 id: buttonAddCourse
                 text: i18n("New Course")
-                iconSource: "document-new"
+                iconName: "document-new"
                 enabled: selectedLanguage != null
                 onClicked: {
                     globalResourceManager.newCourseDialog(root.selectedLanguage);
@@ -158,7 +157,7 @@ Column {
 
         Text {
             text: i18n("Select Skeleton:")
-            font.pointSize: 1.5 * theme.defaultFont.pointSize
+            font.pointSize: 1.5 * theme.fontPointSize
         }
         SkeletonSelector {
             id: skeletonSelector

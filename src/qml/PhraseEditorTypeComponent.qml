@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,9 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 Item {
@@ -74,11 +73,11 @@ Item {
             font.pointSize: 14;
         }
 
-        PlasmaComponents.ButtonRow { // controls for setting type
+        Row {
             id: phraseTypeRow
             anchors { verticalCenter: componentTitle.verticalCenter }
 
-            PlasmaComponents.Button {
+            Button {
                 id: buttonWord
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
                 checkable: true
@@ -88,7 +87,7 @@ Item {
                     root.selectedType = Phrase.Word
                 }
             }
-            PlasmaComponents.Button {
+            Button {
                 id: buttonExpression
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
                 checkable: true
@@ -98,7 +97,7 @@ Item {
                     root.selectedType = Phrase.Expression
                 }
             }
-            PlasmaComponents.Button {
+            Button {
                 id: buttonSentence
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
                 checkable: true
@@ -108,7 +107,7 @@ Item {
                     root.selectedType = Phrase.Sentence
                 }
             }
-            PlasmaComponents.Button {
+            Button {
                 id: buttonParagraph
                 anchors.verticalCenter: phraseTypeRow.verticalCenter
                 checkable: true

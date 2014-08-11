@@ -19,10 +19,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.locale 0.1 as Locale
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 Item {
@@ -32,57 +30,58 @@ Item {
     property ProfileManager manager: profileManager
 
     signal deletionRequest();
-
+/*
     Locale.Locale {
         id: locale
-    }
+    }*/
 
-    Item {
-        id: infoContainer
-        width: root.width
-        height: root.height
-        anchors.centerIn: parent
-        visible: profile != null
-
-        PlasmaComponents.TabBar {
-            id: tabbar
-            width: parent.width
-            anchors { top: parent.top }
-
-            PlasmaComponents.TabButton {
-                text: i18n("Learner")
-                tab: userPage
-            }
-            PlasmaComponents.TabButton {
-                text: i18n("Favorite Languages")
-                tab: favoriteLanguages
-            }
-        }
-
-        PlasmaComponents.TabGroup {
-            width: parent.width
-            height: root.height - tabbar.height
-            anchors {
-                top: tabbar.bottom
-                left: tabbar.left
-                right: tabbar.right
-            }
-            ProfileDetailsViewUser {
-                id: userPage
-                profile: root.profile
-                onDeletionRequest: {
-                    root.deletionRequest()
-                }
-            }
-
-            ProfileDetailsViewFavorites {
-                id: favoriteLanguages
-                anchors.fill: parent
-                width: parent.width
-                height: parent.height
-                profile: root.profile
-                profileManager: root.manager
-            }
-        }
-    }
+//FIXME
+//     Item {
+//         id: infoContainer
+//         width: root.width
+//         height: root.height
+//         anchors.centerIn: parent
+//         visible: profile != null
+//
+//         PlasmaComponents.TabBar {
+//             id: tabbar
+//             width: parent.width
+//             anchors { top: parent.top }
+//
+//             PlasmaComponents.TabButton {
+//                 text: i18n("Learner")
+//                 tab: userPage
+//             }
+//             PlasmaComponents.TabButton {
+//                 text: i18n("Favorite Languages")
+//                 tab: favoriteLanguages
+//             }
+//         }
+//
+//         PlasmaComponents.TabGroup {
+//             width: parent.width
+//             height: root.height - tabbar.height
+//             anchors {
+//                 top: tabbar.bottom
+//                 left: tabbar.left
+//                 right: tabbar.right
+//             }
+//             ProfileDetailsViewUser {
+//                 id: userPage
+//                 profile: root.profile
+//                 onDeletionRequest: {
+//                     root.deletionRequest()
+//                 }
+//             }
+//
+//             ProfileDetailsViewFavorites {
+//                 id: favoriteLanguages
+//                 anchors.fill: parent
+//                 width: parent.width
+//                 height: parent.height
+//                 profile: root.profile
+//                 profileManager: root.manager
+//             }
+//         }
+//     }
 }

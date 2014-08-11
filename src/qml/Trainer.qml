@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,11 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-
+import QtQuick 2.1
 import artikulate 1.0
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
 
 Item {
     id: root
@@ -33,11 +30,6 @@ Item {
         switchScreenAnimation.from = from
         switchScreenAnimation.to = to
         switchScreenAnimation.start()
-    }
-
-    ApplicationBackground {
-        id: background
-        anchors.fill: parent
     }
 
     CourseModel {
@@ -92,8 +84,7 @@ Item {
         opacity: 0
     }
 
-    SequentialAnimation
-    {
+    SequentialAnimation {
         id: switchScreenAnimation
         property Item from
         property Item to

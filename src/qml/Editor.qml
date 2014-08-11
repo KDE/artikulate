@@ -18,10 +18,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
+import QtQuick 2.1
+import QtQuick.Controls 1.2
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
 
 Item
 {
@@ -70,22 +70,17 @@ Item
         }
     }
 
-    ApplicationBackground {
-        id: background
-        anchors.fill: parent
-    }
-
     UnitModel {
         id: selectedUnitModel
         course: editorProfile.course
     }
 
-    PlasmaComponents.ToolBar {
+    ToolBar {
         id: header
         anchors { top: editor.top; left: editor.left}
         width: editor.width
 
-        tools: Item {
+        Item {
             width: parent.width
             height: buttonUpdateFromPrototype.height
             anchors {
@@ -93,34 +88,32 @@ Item
                 rightMargin: 3
             }
 
-            PlasmaComponents.ToolButton { // sync button for skeleton
+            ToolButton { // sync button for skeleton
                 id: buttonUpdateFromPrototype
                 anchors {
                     verticalCenter: parent.verticalCenter
                     left: parent.left
                 }
                 text: i18n("Update from Course Prototype")
-                iconSource: "svn-update"
-                flat: true
+                iconName: "svn-update"
                 enabled: { editorProfile.course != null }
                 onClicked: {
                     globalResourceManager.updateCourseFromSkeleton(editorProfile.course);
                 }
             }
 
-            PlasmaComponents.ToolButton { // unselect-button for language
+            ToolButton { // unselect-button for language
                 id: buttonCloseEditor
                 anchors {
                     verticalCenter: parent.verticalCenter
                     right: parent.right
                 }
-                iconSource: "go-up"
+                iconName: "go-up"
                 text: i18n("Close Editor")
                 visible: {
                     if (editorProfile.course != null) return false;
                     else return true;
                 }
-                flat: true
                 onClicked: {
                     editCourseSelector.unselect()
                     closeEditor()
@@ -131,7 +124,7 @@ Item
                 anchors {
                     right: parent.right
                 }
-                PlasmaComponents.ToolButton {
+                ToolButton {
                     anchors.verticalCenter: parent.verticalCenter
                     text: i18n("OK")
                     visible: {
@@ -142,13 +135,13 @@ Item
                         if (editorProfile.course != null) return editorProfile.course.modified;
                         else return false;
                     }
-                    iconSource: "dialog-ok-apply"
+                    iconName: "dialog-ok-apply"
                     onClicked: {
                         editorProfile.course.sync();
                         editCourseSelector.unselect()
                     }
                 }
-                PlasmaComponents.ToolButton {
+                ToolButton {
                     anchors.verticalCenter: parent.verticalCenter
                     text: i18n("Cancel")
                     visible: {
@@ -159,20 +152,20 @@ Item
                         if (editorProfile.course != null) return editorProfile.course.modified;
                         else return false;
                     }
-                    iconSource: "dialog-cancel"
+                    iconName: "dialog-cancel"
                     onClicked: {
                         globalResourceManager.reloadCourseOrSkeleton(editorProfile.course)
                         editCourseSelector.unselect()
                     }
                 }
-                PlasmaComponents.ToolButton {
+                ToolButton {
                     anchors.verticalCenter: parent.verticalCenter
                     text: i18n("Close Course")
                     visible: {
                         if (editorProfile.course != null) return !editorProfile.course.modified;
                         else return false;
                     }
-                    iconSource: "go-up"
+                    iconName: "go-up"
                     onClicked: {
                         editCourseSelector.unselect()
                     }
@@ -208,28 +201,27 @@ Item
             Row {
                 visible: !editCourseSelector.isSkeleton
                 spacing: 10
-                PlasmaCore.IconItem {
+                QIconItem {
                     id: languageIcon
-                    source: "artikulate-language"
+                    icon: "artikulate-language"
                     width: theme.mediumIconSize
                     height: theme.mediumIconSize
                     anchors.verticalCenter: parent.verticalCenter
                 }
-                PlasmaComponents.ToolButton { // unselect-button for language
+                ToolButton { // unselect-button for language
                     id: unselectLanguage
                     anchors.verticalCenter: parent.verticalCenter
-                    iconSource: "go-up"
-                    flat: true
+                    iconName: "go-up"
                     enabled: editorProfile.language != null
                     onClicked: {
                         editCourseSelector.unselect()
                     }
                 }
-                PlasmaComponents.Label {
+                Label {
                     visible: editorProfile.language != null
                     anchors.verticalCenter: parent.verticalCenter
                     text: editor.currentLanguageName
-                    font.pointSize: 1.5 * theme.defaultFont.pointSize
+                    font.pointSize: 1.5 * theme.fontPointSize
                 }
 
                 Item { //dummy
@@ -237,21 +229,21 @@ Item
                     width: 20
                 }
 
-                PlasmaCore.IconItem {
+                QIconItem {
                     id: courseIcon
                     visible: editorProfile.language != null && editorProfile.course != null
-                    source: "artikulate-course"
+                    icon: "artikulate-course"
                     width: theme.mediumIconSize
                     height: theme.mediumIconSize
                     anchors.verticalCenter: parent.verticalCenter
                 }
-                PlasmaComponents.Label {
+                Label {
                     anchors {
                         verticalCenter: parent.verticalCenter
                     }
                     visible: editorProfile.language != null && editorProfile.course != null
                     text: editor.currentCourseName
-                    font.pointSize: 1.5 * theme.defaultFont.pointSize
+                    font.pointSize: 1.5 * theme.fontPointSize
                 }
             }
             Row {
@@ -261,12 +253,11 @@ Item
                     text: i18n("<strong>Skeleton:</strong> %1", editor.currentCourseName)
                     font.pointSize: 1.5 * theme.defaultFont.pointSize
                 }
-                PlasmaComponents.ToolButton { // unselect-button for language
+                ToolButton { // unselect-button for language
                     anchors.verticalCenter: parent.verticalCenter
-                    iconSource: "go-up"
+                    iconName: "go-up"
                     width: theme.mediumIconSize
                     height: theme.mediumIconSize
-                    flat: true
                     enabled: editorProfile.course != null
                     onClicked: {
                         editCourseSelector.unselect()
@@ -317,10 +308,10 @@ Item
                     text: i18n("Units")
                     font.pointSize: 1.5 * theme.defaultFont.pointSize
                 }
-                PlasmaComponents.ToolButton {
+                ToolButton {
                     id: unitAddButton
                     text: i18n("Add Unit")
-                    iconSource: "document-new"
+                    iconName: "document-new"
                     enabled: editorProfile.course != null
                     onClicked: {
                         editorProfile.course.createUnit()

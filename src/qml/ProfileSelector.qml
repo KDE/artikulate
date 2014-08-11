@@ -1,6 +1,6 @@
 /*
- *  Copyright 2012  Sebastian Gottfried <sebastiangottfried@web.de>
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2012       Sebastian Gottfried <sebastiangottfried@web.de>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -19,9 +19,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 FocusScope {
@@ -59,7 +58,7 @@ FocusScope {
             width: parent.width
             spacing: 10
 
-            Item {
+            ScrollView {
                 id: listContainer
                 height: parent.height
                 width: Math.round((parent.width - parent.spacing) / 2)
@@ -85,7 +84,7 @@ FocusScope {
                                    i18n("Create New Learner Identity"):
                                    index < profileManager.profileCount? profileManager.profile(index).name: null
                         label.font.italic: isNewButton
-                        iconSource: isNewButton? "list-add": "user-identity"
+                        iconName: isNewButton? "list-add": "user-identity"
                         onSelected: {
                             list.currentIndex = index
                             if (isNewButton) {
@@ -97,22 +96,18 @@ FocusScope {
                         }
                     }
                 }
-
-                PlasmaComponents.ScrollBar {
-                    id: scrollBar
-                    flickableItem: list
-                }
             }
 
-            PlasmaCore.SvgItem {
-                id: line
-                width: naturalSize.width
-                height: parent.height
-                elementId: "vertical-line"
-                svg: PlasmaCore.Svg {
-                    imagePath: "widgets/line"
-                }
-            }
+            //FIXME
+//             PlasmaCore.SvgItem {
+//                 id: line
+//                 width: naturalSize.width
+//                 height: parent.height
+//                 elementId: "vertical-line"
+//                 svg: PlasmaCore.Svg {
+//                     imagePath: "widgets/line"
+//                 }
+//             }
 
             ProfileDetailsItem {
                 id: profileForm
@@ -126,10 +121,10 @@ FocusScope {
             }
         }
 
-        PlasmaComponents.Button {
+        Button {
             id: selectButton
             anchors.horizontalCenter: parent.horizontalCenter
-            iconSource: "go-next-view"
+            iconName: "go-next-view"
             text: i18n("Use Selected Identity")
             enabled: list.currentIndex !== -1 && list.currentIndex < profileManager.profileCount
             onClicked: {

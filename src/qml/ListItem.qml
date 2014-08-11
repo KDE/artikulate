@@ -1,5 +1,6 @@
 /*
  *  Copyright 2012  Sebastian Gottfried <sebastiangottfried@web.de>
+ *  Copyright 2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,27 +19,26 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.qtextracomponents 0.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
+import org.kde.kquickcontrolsaddons 2.0
 
 Item {
     id: root
     property alias title: label.text
-    property string iconSource
+    property string iconName
     property alias label: label
     signal selected
     height: padding.height + bg.margins.top + bg.margins.bottom
     state: ListView.isCurrentItem? "selected": mouseArea.containsMouse? "hover": "normal"
 
-    PlasmaCore.FrameSvgItem {
-        id: bg
-        imagePath: "widgets/viewitem"
-        prefix: "hover"
-        opacity: 0
-        anchors.fill: parent
-    }
+//     PlasmaCore.FrameSvgItem {
+//         id: bg
+//         imagePath: "widgets/viewitem"
+//         prefix: "hover"
+//         opacity: 0
+//         anchors.fill: parent
+//     }
 
     Item {
         id: padding
@@ -56,17 +56,17 @@ Item {
 
         QIconItem {
             id: iconItem
-            visible: !!root.iconSource
+            visible: !!root.iconName
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
             }
-            icon: QIcon(root.iconSource)
+            icon: QIcon(root.iconName)
             width: theme.smallIconSize
             height: theme.smallIconSize
         }
 
-        PlasmaComponents.Label {
+        Label {
             id: label
             elide: Text.ElideRight
             anchors {

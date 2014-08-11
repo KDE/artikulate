@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,9 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 Item {
@@ -79,7 +78,7 @@ Item {
                 Row { // controls for setting phrase
                     id: inputLine
                     height: 30
-                    PlasmaComponents.TextField {
+                    TextField {
                         id: phraseInput
                         property Phrase phrase : root.phrase
                         width: root.width - buttonAccept.width - buttonCancel.width - 15
@@ -97,23 +96,23 @@ Item {
                             close()
                         }
                     }
-                    PlasmaComponents.ToolButton {
+                    ToolButton {
                         id: buttonAccept
                         width: 48
                         height: 48
                         anchors.verticalCenter: inputLine.verticalCenter
-                        iconSource: "dialog-ok-apply"
+                        iconName: "dialog-ok-apply"
                         onClicked: {
                             applyChanges()
                             close()
                         }
                     }
-                    PlasmaComponents.ToolButton {
+                    ToolButton {
                         id: buttonCancel
                         width: 48
                         height: 48
                         anchors.verticalCenter: inputLine.verticalCenter
-                        iconSource: "dialog-cancel"
+                        iconName: "dialog-cancel"
                         onClicked: {
                             phraseInput.text = root.phrase.text
                             phraseEditStateSetter.updateCheckedStates()
@@ -156,7 +155,7 @@ Item {
                 Component {
                     id: phonemeItem
                     Text {
-                        PlasmaComponents.Button {
+                        Button {
                             width: 100
                             text: model.title
                             checkable: true

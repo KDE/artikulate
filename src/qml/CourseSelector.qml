@@ -18,9 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 Item {
@@ -39,10 +38,10 @@ Item {
     Component {
         id: courseDelegate
 
-        PlasmaComponents.ToolButton {
+        ToolButton {
             property Course course: model.dataRole
-            iconSource: "artikulate-course"
-            text : model.title
+            iconName: "artikulate-course"
+            text: model.title
             onClicked: {
                 root.selectedCourse = course
                 courseSelected(course)

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,10 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
-import org.kde.plasma.extras 0.1 as PlasmaExtras
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 Item {
@@ -50,9 +48,9 @@ Item {
 
             property Phrase phrase: model.dataRole
 
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 id: enableEdit
-                iconSource: "document-properties"
+                iconName: "document-properties"
                 enabled: !phrase.excluded
                 onClicked: {
                     editMode = true
@@ -119,9 +117,9 @@ Item {
                 wrapMode: Text.WordWrap
             }
 
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 id: excludeButton
-                iconSource: phrase.excluded ? "list-add" : "list-remove"
+                iconName: phrase.excluded ? "list-add" : "list-remove"
                 onClicked: {
                     if (!phrase.excluded) {
                         unit.excludeSkeletonPhrase(phrase.id)
@@ -141,11 +139,11 @@ Item {
             height: 30
             spacing: 10
 
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 anchors.verticalCenter: unitBreadcrumb.verticalCenter
                 text: i18n("Unit: ")
-                iconSource: "go-up"
-                font.pointSize: 1.5 * theme.defaultFont.pointSize
+                iconName: "go-up"
+                height: 1.5 * theme.defaultFont.pointSize
                 onClicked: {
                     closeUnit()
                     phraseEditor.close()
@@ -164,7 +162,7 @@ Item {
                 }
                 font.pointSize: 1.5 * theme.defaultFont.pointSize
             }
-            PlasmaComponents.TextField {
+            TextField {
                 id: unitTitleInput
                 visible: unitBreadcrumb.editMode
                 anchors.verticalCenter: unitBreadcrumb.verticalCenter
@@ -177,39 +175,39 @@ Item {
             }
 
             // edit buttons
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 id: enableUnitEdit
                 anchors.verticalCenter: unitBreadcrumb.verticalCenter
-                iconSource: "document-properties"
+                iconName: "document-properties"
                 enabled: root.unit != null
                 visible: !unitBreadcrumb.editMode
                 onClicked: {
                     unitBreadcrumb.editMode = !unitBreadcrumb.editMode
                 }
             }
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 anchors.verticalCenter: unitBreadcrumb.verticalCenter
                 visible: unitBreadcrumb.editMode
-                iconSource: "dialog-ok-apply"
+                iconName: "dialog-ok-apply"
                 onClicked: {
                     root.unit.title = unitTitleInput.text
                     unitBreadcrumb.editMode = false
                 }
             }
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 anchors.verticalCenter: unitBreadcrumb.verticalCenter
                 visible: unitBreadcrumb.editMode
-                iconSource: "dialog-cancel"
+                iconName: "dialog-cancel"
                 onClicked: {
                     unitBreadcrumb.editMode = false
                 }
             }
         }
 
-        PlasmaComponents.ToolButton {
+        ToolButton {
             id: addPhraseButton
             text: i18n("Add Phrase")
-            iconSource: "document-new"
+            iconName: "document-new"
             enabled: root.unit != null && !root.editMode
             onClicked: {
                 root.unit.course.createPhrase(unit)
@@ -220,22 +218,20 @@ Item {
             width: root.width
             height: root.height - unitBreadcrumb.height - 10
 
-            ListView {
-                id: phraseList
-                visible: !root.editMode
-                anchors.fill: parent
-                clip: true
-                model: PhraseFilterModel
-                {
-                    hideExcluded: false
-                    phraseModel: PhraseModel {
-                        unit: root.unit
+            ScrollView {
+                ListView {
+                    id: phraseList
+                    visible: !root.editMode
+                    anchors.fill: parent
+                    clip: true
+                    model: PhraseFilterModel
+                    {
+                        hideExcluded: false
+                        phraseModel: PhraseModel {
+                            unit: root.unit
+                        }
                     }
-                }
-                delegate: itemDelegate
-
-                PlasmaComponents.ScrollBar {
-                    flickableItem: phraseList
+                    delegate: itemDelegate
                 }
             }
             PhraseEditor {

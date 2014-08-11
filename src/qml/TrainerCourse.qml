@@ -1,6 +1,6 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
- *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013       Oindrila Gupta <oindrila.gupta92@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -19,9 +19,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 FocusScope {
@@ -46,7 +46,7 @@ FocusScope {
         }
     }
 
-    PlasmaComponents.ToolBar {
+    ToolBar {
         id: header
         width: root.width
         // no tools yet
@@ -72,15 +72,15 @@ FocusScope {
                 leftMargin: 5
                 left: parent.left
             }
-            PlasmaCore.IconItem {
+            QIconItem {
                 id: unitIcon
-                source: "artikulate-course"
+                icon: "artikulate-course"
                 width: theme.mediumIconSize
                 height: theme.mediumIconSize
                 anchors.verticalCenter: parent.verticalCenter
             }
 
-            PlasmaComponents.Label {
+            Label {
                 anchors {
                     verticalCenter: parent.verticalCenter
                 }
@@ -96,12 +96,12 @@ FocusScope {
                 font.pointSize: 1.5 * theme.defaultFont.pointSize
             }
 
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 id: stopButton
                 anchors {
                     verticalCenter: parent.verticalCenter
                 }
-                iconSource: "go-up"
+                iconName: "go-up"
                 height: 48
                 text: !root.finished ? i18n("Finish Training") : i18n("Close")
                 onClicked: {
@@ -140,7 +140,7 @@ FocusScope {
         visible: false
         spacing: 20
 
-        PlasmaComponents.Label {
+        Label {
             id: results
             text: i18n("Phrases Grouped by Attempts")
             font.pointSize: 1.5 * theme.defaultFont.pointSize
@@ -165,7 +165,7 @@ FocusScope {
         Text {
             id: trainingText
             text: i18n("Training Progress")
-            font.pointSize: theme.defaultFont.pointSize
+            font.pointSize: theme.fontPointSize
         }
         TrainerProgressBar {
             width: trainerMain.width

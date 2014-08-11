@@ -19,8 +19,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 PlasmaComponents.Page {
@@ -30,49 +30,46 @@ PlasmaComponents.Page {
     property Learner profile: null
     property ProfileManager profileManager: null
 
-    ListView {
-        id: languageList
-        width: root.width
-        height: favoriteLanguages.height
-        anchors {
-            left: root.left
-            topMargin: 30
-            leftMargin: 30
-            top: root.top
-        }
-        clip: true
-        model: LearningGoalModel {
-            profileManager: root.profileManager
-        }
-        delegate : CheckListItem {
-            id: goalSelector
-            property LearningGoal goal: model.dataRole
-            width: languageList.width - scrollbar.width
-            title: model.title
-            iconSource: "favorites"
-            onStateChanged: {
-                if (checked) {
-                    root.profile.addGoal(goal)
-                } else {
-                    root.profile.removeGoal(goal)
+    ScrollView {
+        ListView {
+            id: languageList
+            width: root.width
+            height: favoriteLanguages.height
+            anchors {
+                left: root.left
+                topMargin: 30
+                leftMargin: 30
+                top: root.top
+            }
+            clip: true
+            model: LearningGoalModel {
+                profileManager: root.profileManager
+            }
+            delegate : CheckListItem {
+                id: goalSelector
+                property LearningGoal goal: model.dataRole
+                width: languageList.width - scrollbar.width
+                title: model.title
+                iconName: "favorites"
+                onStateChanged: {
+                    if (checked) {
+                        root.profile.addGoal(goal)
+                    } else {
+                        root.profile.removeGoal(goal)
+                    }
                 }
-            }
-            checked: { // initialization with initial profile
-                root.profile != null ? root.profile.hasGoal(goal) : false
-            }
-            Connections { // update after profile changes
-                target: root
-                onProfileChanged: {
-                    if (root.profile != null) {
-                        goalSelector.checked = root.profile.hasGoal(goal)
+                checked: { // initialization with initial profile
+                    root.profile != null ? root.profile.hasGoal(goal) : false
+                }
+                Connections { // update after profile changes
+                    target: root
+                    onProfileChanged: {
+                        if (root.profile != null) {
+                            goalSelector.checked = root.profile.hasGoal(goal)
+                        }
                     }
                 }
             }
-        }
-
-        PlasmaComponents.ScrollBar {
-            id: scrollbar
-            flickableItem: languageList
         }
     }
 }

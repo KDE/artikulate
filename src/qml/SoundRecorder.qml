@@ -18,9 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 Item {
@@ -46,11 +45,11 @@ Item {
         id: recorderBackend
     }
 
-    PlasmaComponents.ToolButton {
+    ToolButton {
         id: recordButton
         height: Math.max(root.width, root.height)
         width: Math.max(root.width, root.height)
-        iconSource: "artikulate-media-record"
+        iconName: "artikulate-media-record"
 
         onClicked: {
             if (recorderBackend.state == Recorder.RecordingState) {

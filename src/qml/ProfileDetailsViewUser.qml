@@ -19,10 +19,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.locale 0.1 as Locale
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 PlasmaComponents.Page {
@@ -71,7 +69,7 @@ PlasmaComponents.Page {
         }
     }
 
-    PlasmaComponents.Label {
+    Label {
         anchors {
             right: imageLearner.left
             rightMargin: 30
@@ -92,19 +90,19 @@ PlasmaComponents.Page {
             top: imageLearner.bottom
             topMargin: 30
         }
-        PlasmaComponents.ToolButton {
-            iconSource: "document-edit"
+        ToolButton {
+            iconName: "document-edit"
             text: i18n("Edit")
             onClicked: root.state = "editor"
         }
-        PlasmaComponents.ToolButton {
-            iconSource: "edit-delete"
+        ToolButton {
+            iconName: "edit-delete"
             text: i18n("Delete")
             enabled: profileManager.profileCount > 1
             onClicked: root.state = "deleteConfirmation"
         }
-        PlasmaComponents.ToolButton {
-            iconSource: "insert-image"
+        ToolButton {
+            iconName: "insert-image"
             text: i18n("Change Image")
             onClicked: profileManager.openImageFileDialog()
         }
@@ -124,7 +122,7 @@ PlasmaComponents.Page {
             id: profileForm
 
             property alias name: nameTextField.text
-            property alias doneButtonIconSource: doneBtn.iconSource
+            property alias doneButtonIconSource: doneBtn.iconName
             property alias doneButtonText: doneBtn.text
 
             width: parent.width
@@ -132,18 +130,18 @@ PlasmaComponents.Page {
 
             spacing: 15
 
-            PlasmaComponents.TextField {
+            TextField {
                 id: nameTextField
                 width: parent.width
                 placeholderText: i18n("Name")
             }
 
-            PlasmaComponents.Button {
+            Button {
                 id: doneBtn
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: i18n("Done")
                 enabled: nameTextField.text !== ""
-                iconSource: "dialog-ok"
+                iconName: "dialog-ok"
                 onClicked: {
                     root.profile.name = profileForm.name
                     if (root.profile.id === -1) {
@@ -172,7 +170,7 @@ PlasmaComponents.Page {
             height: parent.height
             spacing: 15
 
-            PlasmaComponents.Label {
+            Label {
                 property string name
                 id: deleteConfirmationLabel
                 width: parent.width
@@ -183,14 +181,14 @@ PlasmaComponents.Page {
             Row {
                 spacing: 10
                 anchors.horizontalCenter: parent.horizontalCenter
-                PlasmaComponents.ToolButton {
-                    iconSource: "edit-delete"
+                ToolButton {
+                    iconName: "edit-delete"
                     text: i18n("Delete")
                     onClicked: {
                         deletionRequest()
                     }
                 }
-                PlasmaComponents.ToolButton {
+                ToolButton {
                     text: i18n("Cancel")
                     onClicked: root.state = "info"
                 }

@@ -18,8 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
+import QtQuick 2.1
 
 Item {
     id: root
@@ -70,16 +69,17 @@ Item {
         width: parent.width
         height: parent.height
 
-        PlasmaCore.FrameSvgItem {
-            anchors {
-                fill: parent
-                leftMargin: 10
-                rightMargin: 10
-                bottomMargin: 10
-            }
-            imagePath: "dialogs/background"
-            enabledBorders: PlasmaCore.FrameSvg.LeftBorder + PlasmaCore.FrameSvg.RightBorder + PlasmaCore.FrameSvg.BottomBorder
-
+        //FIXME
+//         PlasmaCore.FrameSvgItem {
+//             anchors {
+//                 fill: parent
+//                 leftMargin: 10
+//                 rightMargin: 10
+//                 bottomMargin: 10
+//             }
+//             imagePath: "dialogs/background"
+//             enabledBorders: PlasmaCore.FrameSvg.LeftBorder + PlasmaCore.FrameSvg.RightBorder + PlasmaCore.FrameSvg.BottomBorder
+//
             Item {
                 id: contentArea
                 anchors {
@@ -90,7 +90,7 @@ Item {
                     bottomMargin: parent.margins.bottom + innerMargin
                 }
             }
-        }
+//         }
     }
 
     state: "closed"

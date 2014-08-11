@@ -18,9 +18,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 Item {
@@ -92,18 +92,18 @@ Item {
             height: theme.mediumIconSize
             spacing: 10
 
-            PlasmaCore.IconItem {
+            QIconItem {
                 id: icon
-                source: "artikulate-language"
+                icon: "artikulate-language"
                 width: theme.mediumIconSize
                 height: theme.mediumIconSize
                 anchors.verticalCenter: parent.verticalCenter
             }
-            PlasmaComponents.Label {
+            Label {
                 id: languageTitleLabel
                 anchors.verticalCenter: parent.verticalCenter
                 height: paintedHeight
-                font.pointSize: 1.5 * theme.defaultFont.pointSize
+                font.pointSize: 1.5 * theme.fontPointSize
                 text: language != null ? language.title + " / " + language.i18nTitle : ""
             }
         }
@@ -133,37 +133,37 @@ Item {
             left: languageView.left
             top: languageView.top
         }
-        PlasmaCore.IconItem {
+        QIconItem {
             id: icon
-            source: "dialog-information"
+            icon: "dialog-information"
             width: theme.mediumIconSize
             height: theme.mediumIconSize
             anchors.verticalCenter: parent.verticalCenter
         }
-        PlasmaComponents.Label {
+        Label {
             id: favoritesUnsetInformation
             anchors.verticalCenter: parent.verticalCenter
             height: paintedHeight
-            font.pointSize: 1.5 * theme.defaultFont.pointSize
+            font.pointSize: 1.5 * theme.fontPointSize
             text: i18n("Please select a favorite language")
         }
     }
 
-    PlasmaComponents.ToolButton {
+    ToolButton {
         id: buttonLeft
         anchors {
             left: languageView.right
             leftMargin: 10
             top: languageView.top
         }
-        iconSource: "arrow-left"
+        iconName: "arrow-left"
         enabled: languageView.currentIndex > 0 && languageView.count > 0
         onClicked: {
             languageView.decrementCurrentIndex()
         }
     }
 
-    PlasmaComponents.ToolButton {
+    ToolButton {
         id : buttonRight
         anchors {
             left: buttonLeft.right
@@ -171,7 +171,7 @@ Item {
             top: languageView.top
         }
         enabled: languageView.currentIndex <  languageView.count - 1 && languageView.count > 0
-        iconSource: "arrow-right"
+        iconName: "arrow-right"
         onClicked: {
             languageView.incrementCurrentIndex()
         }

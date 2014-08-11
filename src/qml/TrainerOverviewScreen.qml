@@ -18,9 +18,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.0
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 FocusScope {
@@ -51,15 +52,15 @@ FocusScope {
         course: userProfile.course
     }
 
-    PlasmaComponents.ToolBar {
+    ToolBar {
         id: header
         width: root.width
-        tools: Row {
-            PlasmaComponents.ToolButton {
+        RowLayout {
+            ToolButton {
                 text: profileManager.activeProfile == null
                     ? i18n("Create Learner Identity")
                     : profileManager.activeProfile.name
-                iconSource: "user-identity"
+                iconName: "user-identity"
                 onClicked: {
                     if (profileSelectorSheet.isOpen()) {
                         profileSelectorSheet.close()
@@ -110,27 +111,28 @@ FocusScope {
                 width: root.width - 6 - knsDownloadButton.width - 20
                 visible: learner == null
                 spacing: 10
-                PlasmaCore.IconItem {
+                QIconItem {
                     id: icon
-                    source: "dialog-information"
+                    icon: "dialog-information"
                     width: theme.mediumIconSize
                     height: theme.mediumIconSize
                     anchors.verticalCenter: parent.verticalCenter
                 }
-                PlasmaComponents.Label {
+                Label {
                     id: favoritesUnsetInformation
                     anchors.verticalCenter: parent.verticalCenter
                     height: paintedHeight
-                    font.pointSize: 1.5 * theme.defaultFont.pointSize
+                    font.pointSize: 1.5 * theme.fontPointSize
                     text: i18n("Start by creating a learner identity")
                 }
             }
 
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 id: knsDownloadButton
-                iconSource: "get-hot-new-stuff"
-                anchors { verticalCenter : parent.verticalCenter }
-                flat: false
+                iconName: "get-hot-new-stuff"
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                }
                 enabled: true
                 onClicked : {
                     downloadNewStuff()
@@ -147,7 +149,7 @@ FocusScope {
             leftMargin: 10
             topMargin: 10
         }
-        property int columnWidth: Math.floor(root.width / 2 - line.width/2)
+//         property int columnWidth: Math.floor(root.width / 2 - line.width/2)
         height: root.height - languageControls.height - header.height - 10
 
         Column {
@@ -188,7 +190,7 @@ FocusScope {
 //             }
 //         }
 
-            Column {
+            ScrollView {
                 ListView {
                     id: unitList
                     width: content.columnWidth - 20
@@ -200,16 +202,12 @@ FocusScope {
                     delegate: ListItem {
                         width : unitList.width - unitListScrollbar.width - 10
                         title : model.title
-                        iconSource : "artikulate-course"
+                        iconName : "artikulate-course"
                         property Unit unit : model.dataRole
                         onSelected : {
                             unitList.currentIndex = index
                             userProfile.unit = unit
                         }
-                    }
-                    PlasmaComponents.ScrollBar {
-                        id: unitListScrollbar
-                        flickableItem: unitList
                     }
                 }
             }
@@ -233,18 +231,18 @@ FocusScope {
             }
         }
 
-        PlasmaCore.SvgItem {
-            id: line
-            width: naturalSize.width
-            height: parent.height
-            elementId: "vertical-line"
-            svg: PlasmaCore.Svg {
-                imagePath : "widgets/line"
-            }
-        }
+//         PlasmaCore.SvgItem {
+//             id: line
+//             width: naturalSize.width
+//             height: parent.height
+//             elementId: "vertical-line"
+//             svg: PlasmaCore.Svg {
+//                 imagePath : "widgets/line"
+//             }
+//         }
 
         Column {
-            width: Math.floor(root.width / 2 - line.width/2)
+//             width: Math.floor(root.width / 2 - line.width/2)
 
             // dummy item
             Item {
@@ -252,10 +250,10 @@ FocusScope {
                 width: parent.width
             }
 
-            PlasmaComponents.Button {
+            Button {
                 id: selectButton
                 anchors.horizontalCenter: parent.horizontalCenter
-                iconSource : "go-next-view"
+                iconName : "go-next-view"
                 text: i18n("Start Training")
                 enabled: userProfile.unit != null
                 onClicked: {

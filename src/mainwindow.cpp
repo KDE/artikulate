@@ -85,7 +85,7 @@ MainWindow::MainWindow()
 
     // set view
     resize(QSize(800, 600));
-    rootContext()->setContextObject(this);
+    rootContext()->setContextProperty("globalResourceManager", m_resourceManager);
 
     rootContext()->setContextProperty("userProfile", m_trainingProfile); //TODO deprecated
     rootContext()->setContextProperty("editorProfile", m_editorProfile); //TODO rename
@@ -95,8 +95,7 @@ MainWindow::MainWindow()
     rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 
     // set starting screen
-//     setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml"))); //FIXME
-    setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Stub.qml")));
+    setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
 
     // settings from kcfg values
     updateTrainingPhraseFont();
@@ -107,7 +106,7 @@ MainWindow::MainWindow()
     }
 
     // set initial view
-//     rootObject()->setProperty("viewMode", Trainer); //FIXME
+    rootObject()->setProperty("viewMode", Trainer);
 
     // set font for the phrase in trainer to default from kcfg file
     QObject *phraseText = rootObject()->findChild<QObject*>("phraseText");

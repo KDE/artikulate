@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,9 +18,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 Item {
@@ -44,32 +44,32 @@ Item {
         id: itemDelegate
 
         Row {
-            width : root.width - buttonLeft.width - buttonRight.width
-            height : theme.mediumIconSize
-            spacing : 10
-            PlasmaCore.IconItem {
+            width: root.width - buttonLeft.width - buttonRight.width
+            height: theme.mediumIconSize
+            spacing: 10
+            QIconItem {
                 id: icon
-                source : "artikulate-course"
-                width : theme.smallMediumIconSize
-                height : theme.smallMediumIconSize
+                icon: "artikulate-course"
+                width: theme.smallMediumIconSize
+                height: theme.smallMediumIconSize
                 anchors.verticalCenter: parent.verticalCenter
             }
-            PlasmaComponents.Label {
+            Label {
                 id: courseTitleLabel
                 anchors.verticalCenter: parent.verticalCenter
                 height: paintedHeight
-                font.pointSize: theme.defaultFont.pointSize
-                text : model.title
+                font.pointSize: theme.fontPointSize
+                text: model.title
             }
         }
     }
 
     Row {
         spacing : 10
-        PlasmaComponents.ToolButton {
+        ToolButton {
             id : buttonLeft
-            iconSource : "arrow-left"
-            enabled : courseView.currentIndex > 0
+            iconName: "arrow-left"
+            enabled: courseView.currentIndex > 0
             onClicked: {
                 languageView.decrementCurrentIndex()
             }
@@ -104,11 +104,11 @@ Item {
             delegate : itemDelegate
         }
 
-        PlasmaComponents.ToolButton {
-            id : buttonRight
-            enabled : courseView.currentIndex <  courseView.count - 2
-            iconSource : "arrow-right"
-            onClicked : {
+        ToolButton {
+            id: buttonRight
+            enabled: courseView.currentIndex <  courseView.count - 2
+            iconName: "arrow-right"
+            onClicked: {
                 courseView.incrementCurrentIndex()
             }
         }
