@@ -1,5 +1,5 @@
 /*
- *  Copyright 2012  Sebastian Gottfried <sebastiangottfried@web.de>
+ *  Copyright 2012       Sebastian Gottfried <sebastiangottfried@web.de>
  *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
@@ -23,8 +23,9 @@ import QtQuick 2.1
 import QtQuick.Controls 1.2
 import artikulate 1.0
 
-PlasmaComponents.Page {
+Tab {
     id: root
+    title: i18n("Favorite Languages")
     anchors.fill: parent
 
     property Learner profile: null
@@ -48,7 +49,7 @@ PlasmaComponents.Page {
             delegate : CheckListItem {
                 id: goalSelector
                 property LearningGoal goal: model.dataRole
-                width: languageList.width - scrollbar.width
+                width: languageList.width - 10
                 title: model.title
                 iconName: "favorites"
                 onStateChanged: {

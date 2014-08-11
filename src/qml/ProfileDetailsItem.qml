@@ -1,6 +1,6 @@
 /*
- *  Copyright 2012  Sebastian Gottfried <sebastiangottfried@web.de>
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2012       Sebastian Gottfried <sebastiangottfried@web.de>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -21,6 +21,7 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 1.2
+import QtQuick.Controls.Styles 1.2
 import artikulate 1.0
 
 Item {
@@ -35,53 +36,54 @@ Item {
         id: locale
     }*/
 
-//FIXME
-//     Item {
-//         id: infoContainer
-//         width: root.width
-//         height: root.height
-//         anchors.centerIn: parent
-//         visible: profile != null
-//
-//         PlasmaComponents.TabBar {
-//             id: tabbar
-//             width: parent.width
-//             anchors { top: parent.top }
-//
-//             PlasmaComponents.TabButton {
-//                 text: i18n("Learner")
-//                 tab: userPage
-//             }
-//             PlasmaComponents.TabButton {
-//                 text: i18n("Favorite Languages")
-//                 tab: favoriteLanguages
-//             }
-//         }
-//
-//         PlasmaComponents.TabGroup {
-//             width: parent.width
-//             height: root.height - tabbar.height
-//             anchors {
-//                 top: tabbar.bottom
-//                 left: tabbar.left
-//                 right: tabbar.right
-//             }
-//             ProfileDetailsViewUser {
-//                 id: userPage
-//                 profile: root.profile
-//                 onDeletionRequest: {
-//                     root.deletionRequest()
-//                 }
-//             }
-//
-//             ProfileDetailsViewFavorites {
-//                 id: favoriteLanguages
-//                 anchors.fill: parent
-//                 width: parent.width
-//                 height: parent.height
-//                 profile: root.profile
-//                 profileManager: root.manager
-//             }
-//         }
-//     }
+    Item {
+        id: infoContainer
+        width: root.width
+        height: root.height
+        anchors.centerIn: parent
+        visible: profile != null
+
+        TabView {
+            anchors.fill: parent
+            anchors.margins: 4
+
+            ProfileDetailsViewUser {
+                id: userPage
+                width: parent.width
+                height: parent.height
+                profile: root.profile
+                onDeletionRequest: {
+                    root.deletionRequest()
+                }
+            }
+
+            ProfileDetailsViewFavorites {
+                id: favoriteLanguages
+                width: parent.width
+                height: parent.height
+                profile: root.profile
+                profileManager: root.manager
+            }
+
+        style: TabViewStyle {
+            frameOverlap: 1
+            tab: Rectangle {
+                id: tabRect
+                color: styleData.selected ? "#c0e7f9" : "#ffffff"
+                border.width: 0
+                implicitWidth: Math.max(text.width + 8, 80)
+                implicitHeight: 24
+                Text {
+                    id: text
+                    anchors.centerIn: parent
+                    text: styleData.title
+                    color: "black"
+                }
+            }
+            frame: Rectangle {
+                color: "#c0e7f9"
+            }
+        }
+        }
+    }
 }

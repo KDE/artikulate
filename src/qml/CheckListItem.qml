@@ -27,23 +27,20 @@ Item {
     id: root
 
     property alias title: label.text
-    property string iconSource
+    property string iconName
     property alias label: label
     property bool checked: false
 
     signal stateChanged(bool checked)
 
-    height: padding.height + bg.margins.top + bg.margins.bottom
+    height: 15 + 30 + 15
     state: mouseArea.containsMouse? "hover": "normal"
 
-//FIXME
-//     PlasmaCore.FrameSvgItem {
-//         id: bg
-//         imagePath: "widgets/viewitem"
-//         prefix: "hover"
-//         opacity: 0
-//         anchors.fill: parent
-//     }
+    Rectangle {
+        id: bg
+        radius: 8
+        anchors.fill: parent
+    }
 
     Item {
         id: padding
@@ -51,10 +48,10 @@ Item {
 
         anchors {
             fill: parent
-            topMargin: bg.margins.top
-            rightMargin: bg.margins.right
-            bottomMargin: bg.margins.bottom
-            leftMargin: bg.margins.left
+            topMargin: 5
+            rightMargin: 5
+            bottomMargin: 5
+            leftMargin: 5
         }
 
         width: parent.width
@@ -62,12 +59,12 @@ Item {
 
         QIconItem {
             id: iconItem
-            visible: !!root.iconSource
+            visible: !!root.iconName
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
             }
-            icon: root.iconSource
+            icon: root.iconName
             width: theme.smallIconSize
             height: theme.smallIconSize
             enabled: root.checked
@@ -109,30 +106,7 @@ Item {
             name: "hover"
             PropertyChanges {
                 target: bg
-                opacity: 1
-            }
-        }
-    ]
-
-    transitions: [
-        Transition {
-            from: "normal"
-            to: "hover"
-            NumberAnimation {
-                target: bg
-                property: "opacity"
-                duration: 250
-                easing.type: Easing.OutCubic
-            }
-        },
-        Transition {
-            from: "hover"
-            to: "normal"
-            NumberAnimation {
-                target: bg
-                property: "opacity"
-                duration: 250
-                easing.type: Easing.OutCubic
+                opacity: 1.7
             }
         }
     ]
