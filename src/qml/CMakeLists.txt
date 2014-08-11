@@ -24,6 +24,7 @@
 ###
 
 set(artikulate_qml_files
+    Stub.qml
     Main.qml
     Editor.qml
     Trainer.qml

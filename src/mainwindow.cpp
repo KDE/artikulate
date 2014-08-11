@@ -95,7 +95,8 @@ MainWindow::MainWindow()
     rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 
     // set starting screen
-    setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
+//     setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml"))); //FIXME
+    setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Stub.qml")));
 
     // settings from kcfg values
     updateTrainingPhraseFont();
