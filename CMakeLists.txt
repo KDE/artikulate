@@ -47,7 +47,7 @@ find_package(Qt5 REQUIRED COMPONENTS
     QuickWidgets
     Test
 )
-find_package(KF5 CONFIG REQUIRED COMPONENTS
+find_package(KF5 REQUIRED COMPONENTS
     Config
     ConfigWidgets
     CoreAddons
