@@ -126,9 +126,18 @@ void ResourceManager::loadLanguageResources()
 {
     // load language resources
     // all other resources are only loaded on demand
-    QStringList languageFiles = QStandardPaths::locateAll(QStandardPaths::DataLocation, QString("languages/*.xml"));
-    foreach (const QString &file, languageFiles) {
-        addLanguage(QUrl::fromLocalFile(file));
+    QStringList dirs = QStandardPaths::standardLocations(QStandardPaths::DataLocation);
+    foreach (const QString &testdir, dirs) {
+        QDir dir(testdir + "/languages/");
+        dir.setFilter(QDir::Files | QDir::NoSymLinks);
+        QFileInfoList list = dir.entryInfoList();
+        for (int i = 0; i < list.size(); ++i) {
+            QFileInfo fileInfo = list.at(i);
+            if (fileInfo.completeSuffix() != "xml") {
+                continue;
+            }
+            addLanguage(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+        }
     }
 }
 
