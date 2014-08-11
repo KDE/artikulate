@@ -79,7 +79,7 @@ FocusScope {
                                 }
                             }
                         }
-                        width: list.width - scrollBar.width
+                        width: list.width - 10
                         title: isNewButton?
                                    i18n("Create New Learner Identity"):
                                    index < profileManager.profileCount? profileManager.profile(index).name: null
@@ -98,20 +98,9 @@ FocusScope {
                 }
             }
 
-            //FIXME
-//             PlasmaCore.SvgItem {
-//                 id: line
-//                 width: naturalSize.width
-//                 height: parent.height
-//                 elementId: "vertical-line"
-//                 svg: PlasmaCore.Svg {
-//                     imagePath: "widgets/line"
-//                 }
-//             }
-
             ProfileDetailsItem {
                 id: profileForm
-                width: parent.width - listContainer.width - line.width - 2 * parent.spacing
+                width: parent.width - listContainer.width - parent.spacing
                 height: parent.height
 
                 onDeletionRequest: {

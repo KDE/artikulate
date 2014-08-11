@@ -29,30 +29,35 @@ Item {
     property string iconName
     property alias label: label
     signal selected
-    height: padding.height + bg.margins.top + bg.margins.bottom
+    height: Math.max(label.height + 15 + 15, 15 + 15 + 30)
     state: ListView.isCurrentItem? "selected": mouseArea.containsMouse? "hover": "normal"
 
-//     PlasmaCore.FrameSvgItem {
-//         id: bg
-//         imagePath: "widgets/viewitem"
-//         prefix: "hover"
-//         opacity: 0
-//         anchors.fill: parent
-//     }
+    Rectangle {
+        id: bg
+        color: "#3daee6"
+        border.color: "#3daee6"
+        border.width: 2
+        opacity: 0
+        radius: 4
+        anchors {
+            fill: parent
+            topMargin: 5
+            rightMargin: 5
+            bottomMargin: 5
+            leftMargin: 5
+        }
+    }
 
     Item {
         id: padding
 
         anchors {
             fill: parent
-            topMargin: bg.margins.top
-            rightMargin: bg.margins.right
-            bottomMargin: bg.margins.bottom
-            leftMargin: bg.margins.left
+            topMargin: 10
+            rightMargin: 10
+            bottomMargin: 10
+            leftMargin: 10
         }
-
-        width: parent.width
-        height: Math.max(label.height, label.height)
 
         QIconItem {
             id: iconItem
@@ -61,7 +66,7 @@ Item {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
             }
-            icon: QIcon(root.iconName)
+            icon: root.iconName
             width: theme.smallIconSize
             height: theme.smallIconSize
         }
@@ -91,6 +96,7 @@ Item {
             name: "normal"
             PropertyChanges {
                 target: bg
+                color: "#3daee6"
                 opacity: 0
             }
         },
@@ -98,16 +104,16 @@ Item {
             name: "hover"
             PropertyChanges {
                 target: bg
-                opacity: 1
-                prefix: "hover"
+                opacity: 0.3
+                color: "#3daee6"
             }
         },
         State {
             name: "selected"
             PropertyChanges {
                 target: bg
-                opacity: 1
-                prefix: "selected"
+                opacity: 0.7
+                color: "#c0e7f9"
             }
         }
     ]

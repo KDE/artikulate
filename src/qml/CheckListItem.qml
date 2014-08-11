@@ -110,7 +110,6 @@ Item {
             PropertyChanges {
                 target: bg
                 opacity: 1
-                prefix: "hover"
             }
         }
     ]
