@@ -22,6 +22,7 @@
 #include "learner.h"
 
 #include <QDebug>
+#include <QDir>
 #include <KLocalizedString>
 
 #include <QSqlError>
@@ -326,6 +327,12 @@ QSqlDatabase Storage::database()
     }
 
     QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "learnerdata.db";
+
+    // create data directory if it does not exist
+    QDir dir = QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    if (!dir.exists()) {
+        dir.mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    }
     qDebug() << "Database path: " << path;
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
