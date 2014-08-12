@@ -81,20 +81,10 @@ Item {
         State {
             name: "open"
             PropertyChanges { target: bg; opacity: 1.0 }
-            PropertyChanges { target: slider; y: 0 }
         },
         State {
             name: "closed"
             PropertyChanges { target: bg; opacity: 0 }
-            PropertyChanges { target: slider; y: -slider.parent.height }
-        }
-    ]
-
-    transitions: [
-        Transition {
-            from: "*"
-            to: "*"
-            NumberAnimation { target: slider; property: "y"; duration: 300; easing.type: Easing.InOutQuad }
         }
     ]
 }
