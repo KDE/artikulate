@@ -36,6 +36,13 @@ Item {
     width: 300
     height: Math.max(buttonLeft.height, courseView.height)
 
+    onLanguageChanged: {
+        if (courseModel.course(courseView.currentIndex) != null) {
+            selectedCourse = courseModel.course(courseView.currentIndex)
+            courseSelected(selectedCourse)
+        }
+    }
+
     Component.onCompleted: {
         courseView.currentIndex = 0
     }
