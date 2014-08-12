@@ -102,7 +102,7 @@ MainWindow::MainWindow()
 
     // create training profile if none exists:
     if (!m_profileManager->activeProfile()) {
-        m_profileManager->addProfile("Unnamed Identity"); //TODO use i18n for 4.14
+        m_profileManager->addProfile(i18n("Unnamed Identity")); //TODO use i18n for 4.14
     }
 
     // set initial view
