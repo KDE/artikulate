@@ -23,25 +23,25 @@ import QtQuick 2.1
 import QtQuick.Controls 1.2
 import artikulate 1.0
 
-Tab {
+Item {
     id: root
-    title: i18n("Favorite Languages")
     anchors.fill: parent
 
     property Learner profile: null
     property ProfileManager profileManager: null
 
     ScrollView {
+        anchors {
+            fill: parent
+            topMargin: 5
+            rightMargin: 5
+            bottomMargin: 5
+            leftMargin: 5
+        }
         ListView {
             id: languageList
             width: root.width
             height: favoriteLanguages.height
-            anchors {
-                left: root.left
-                topMargin: 30
-                leftMargin: 30
-                top: root.top
-            }
             clip: true
             model: LearningGoalModel {
                 profileManager: root.profileManager

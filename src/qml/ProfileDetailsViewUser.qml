@@ -23,9 +23,8 @@ import QtQuick 2.1
 import QtQuick.Controls 1.2
 import artikulate 1.0
 
-Tab {
+Item {
     id: root
-    title: i18n("Learner")
     anchors.fill: parent
 
     property Learner profile: null
@@ -44,160 +43,161 @@ Tab {
 
     onProfileChanged: update()
 
-    Column {
+    Image {
+        id: imageLearner
+        width: 120
+        height: 120
         anchors {
             top: root.top
             right: root.right
             topMargin: 30
             leftMargin: 30
         }
-        Row {
-            Image {
-                id: imageLearner
-                width: 120
-                height: 120
-                fillMode: Image.Pad
-                cache: false
-                source: profile.imageUrl ? profile.imageUrl : "../images/user-identity.png"
+        fillMode: Image.Pad
+        cache: false
+        source: profile.imageUrl ? profile.imageUrl : "../images/user-identity.png"
 
-                Connections {
-                    target: profile
-                    onImageUrlChanged: {
-                        imageLearner.source = "" // trigger reload
-                        if (profile.imageUrl) {
-                            imageLearner.source = profile.imageUrl
-                        } else {
-                            imageLearner.source = "../images/user-identity.png"
-                        }
-                    }
+        Connections {
+            target: profile
+            onImageUrlChanged: {
+                imageLearner.source = "" // trigger reload
+                if (profile.imageUrl) {
+                    imageLearner.source = profile.imageUrl
+                } else {
+                    imageLearner.source = "../images/user-identity.png"
                 }
             }
+        }
+    }
+
+    Label {
+        anchors {
+            top: imageLearner.top
+            topMargin: Math.floor(0.25 * imageLearner.height)
+            leftMargin: 30
+            left: parent.left
+        }
+        height: paintedHeight
+        font.pointSize: theme.fontPointSize * 1.2
+        text: root.profile != null ? root.profile.name : ""
+    }
+
+
+    Row {
+        id: editComponent
+        spacing: 10
+        visible: root.state == "info"
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: imageLearner.bottom
+            topMargin: 30
+        }
+        ToolButton {
+            iconName: "document-edit"
+            text: i18n("Edit")
+            onClicked: root.state = "editor"
+        }
+        ToolButton {
+            iconName: "edit-delete"
+            text: i18n("Delete")
+            enabled: profileManager.profileCount > 1
+            onClicked: root.state = "deleteConfirmation"
+        }
+        ToolButton {
+            iconName: "insert-image"
+            text: i18n("Change Image")
+            onClicked: profileManager.openImageFileDialog()
+        }
+    }
+
+    Item {
+        id: editorContainer
+        visible: false
+        width: parent.width - 40
+        height: editorContainer.height
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: imageLearner.bottom
+            topMargin: 30
+        }
+
+        Column {
+            id: profileForm
+
+            property alias name: nameTextField.text
+            property alias doneButtonIconSource: doneBtn.iconName
+            property alias doneButtonText: doneBtn.text
+
+            width: parent.width
+            height: editorContainer.height
+
+            spacing: 15
+
+            TextField {
+                id: nameTextField
+                width: parent.width
+                placeholderText: i18n("Name")
+            }
+
+            Button {
+                id: doneBtn
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: i18n("Done")
+                enabled: nameTextField.text !== ""
+                iconName: "dialog-ok"
+                onClicked: {
+                    root.profile.name = profileForm.name
+                    if (root.profile.id === -1) {
+                        profileManager.addProfile(profile)
+                    }
+                    else {
+                        profileManager.sync(root.profile)
+                    }
+                    root.update()
+                    root.state = "info"
+                }
+            }
+        }
+    }
+
+    Item {
+        id: deleteConfirmationContainer
+        width: parent.width - 40
+        height: editorContainer.height
+        visible: false
+
+        anchors {
+            top: editComponent.top
+            leftMargin: 20
+            left: parent.left
+        }
+        Column {
+            width: parent.width
+            height: parent.height
+            spacing: 15
 
             Label {
-                anchors {
-                    top: imageLearner.top
-                    topMargin: Math.floor(0.25 * imageLearner.height)
-                }
-                height: paintedHeight
-                font.pointSize: theme.fontPointSize * 1.2
-                text: root.profile != null ? root.profile.name : ""
-            }
-        }
-
-
-        Row {
-            id: editComponent
-            spacing: 10
-            visible: root.state == "info"
-            anchors {
-                horizontalCenter: parent.horizontalCenter
-                top: imageLearner.bottom
-                topMargin: 30
-            }
-            ToolButton {
-                iconName: "document-edit"
-                text: i18n("Edit")
-                onClicked: root.state = "editor"
-            }
-            ToolButton {
-                iconName: "edit-delete"
-                text: i18n("Delete")
-                enabled: profileManager.profileCount > 1
-                onClicked: root.state = "deleteConfirmation"
-            }
-            ToolButton {
-                iconName: "insert-image"
-                text: i18n("Change Image")
-                onClicked: profileManager.openImageFileDialog()
-            }
-        }
-
-        Item {
-            id: editorContainer
-            visible: false
-            width: parent.width - 40
-            height: editorContainer.height
-            anchors {
-                horizontalCenter: parent.horizontalCenter
-                top: imageLearner.bottom
-                topMargin: 30
-            }
-
-            Column {
-                id: profileForm
-
-                property alias name: nameTextField.text
-                property alias doneButtonIconSource: doneBtn.iconName
-                property alias doneButtonText: doneBtn.text
-
+                property string name
+                id: deleteConfirmationLabel
                 width: parent.width
-                height: editorContainer.height
-
-                spacing: 15
-
-                TextField {
-                    id: nameTextField
-                    width: parent.width
-                    placeholderText: i18n("Name")
-                }
-
-                Button {
-                    id: doneBtn
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: i18n("Done")
-                    enabled: nameTextField.text !== ""
-                    iconName: "dialog-ok"
+                text: i18n("Do you really want to delete this identity \"<b>%1</b>\"?", name)
+                wrapMode: Text.Wrap
+                horizontalAlignment: Text.AlignHCenter
+            }
+            Row {
+                spacing: 10
+                anchors.horizontalCenter: parent.horizontalCenter
+                ToolButton {
+                    iconName: "edit-delete"
+                    text: i18n("Delete")
                     onClicked: {
-                        root.profile.name = profileForm.name
-                        if (root.profile.id === -1) {
-                            profileManager.addProfile(profile)
-                        }
-                        else {
-                            profileManager.sync(root.profile)
-                        }
-                        root.update()
-                        root.state = "info"
+                        deletionRequest()
                     }
                 }
-            }
-        }
-
-        Item {
-            id: deleteConfirmationContainer
-            width: parent.width - 40
-            height: editorContainer.height
-            visible: false
-
-            anchors {
-                top: editComponent.top
-            }
-            Column {
-                width: parent.width
-                height: parent.height
-                spacing: 15
-
-                Label {
-                    property string name
-                    id: deleteConfirmationLabel
-                    width: parent.width
-                    text: i18n("Do you really want to delete this identity \"<b>%1</b>\"?", name)
-                    wrapMode: Text.Wrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
-                Row {
-                    spacing: 10
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    ToolButton {
-                        iconName: "edit-delete"
-                        text: i18n("Delete")
-                        onClicked: {
-                            deletionRequest()
-                        }
-                    }
-                    ToolButton {
-                        text: i18n("Cancel")
-                        onClicked: root.state = "info"
-                    }
+                ToolButton {
+                    iconName: "dialog-cancel"
+                    text: i18n("Cancel")
+                    onClicked: root.state = "info"
                 }
             }
         }

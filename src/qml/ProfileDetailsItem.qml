@@ -47,22 +47,29 @@ Item {
             anchors.fill: parent
             anchors.margins: 4
 
-            ProfileDetailsViewUser {
-                id: userPage
-                width: parent.width
-                height: parent.height
-                profile: root.profile
-                onDeletionRequest: {
-                    root.deletionRequest()
+            Tab {
+                id: leanerTab
+                title: i18n("Learner")
+                ProfileDetailsViewUser {
+                    id: userPage
+                    width: parent.width
+                    height: parent.height
+                    profile: root.profile
+                    onDeletionRequest: {
+                        root.deletionRequest()
+                    }
                 }
             }
 
-            ProfileDetailsViewFavorites {
-                id: favoriteLanguages
-                width: parent.width
-                height: parent.height
-                profile: root.profile
-                profileManager: root.manager
+            Tab {
+                title: i18n("Favorite Languages")
+                ProfileDetailsViewFavorites {
+                    id: favoriteLanguages
+                    width: parent.width
+                    height: parent.height
+                    profile: root.profile
+                    profileManager: root.manager
+                }
             }
 
         style: TabViewStyle {
