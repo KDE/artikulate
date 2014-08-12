@@ -42,6 +42,7 @@
 #include <QDomDocument>
 #include <QUuid>
 #include <QDir>
+#include <QDirIterator>
 #include <QDebug>
 #include <QUrl>
 #include <QStandardPaths>
@@ -108,13 +109,21 @@ void ResourceManager::loadCourseResources()
     }
 
     // register GHNS course resources
-    QStringList courseFiles = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QString("artikulate/courses/*/*/*.xml"));
-    foreach (const QString &file, courseFiles) {
-        QUrl courseFile = QUrl::fromLocalFile(file);
-        // get directory name, which is the language identifier for this course
-        // TODO allow usage of non-language ID named course folders
-        QString directory = courseFile.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path().section('/', -1);
-        addCourse(courseFile);
+    QStringList dirs = QStandardPaths::standardLocations(QStandardPaths::DataLocation);
+    foreach (const QString &testdir, dirs) {
+        QDirIterator it(testdir + "/courses/", QDirIterator::Subdirectories);
+        while (it.hasNext()) {
+            QDir dir(it.next());
+            dir.setFilter(QDir::Files | QDir::NoSymLinks);
+            QFileInfoList list = dir.entryInfoList();
+            for (int i = 0; i < list.size(); ++i) {
+                QFileInfo fileInfo = list.at(i);
+                if (fileInfo.completeSuffix() != "xml") {
+                    continue;
+                }
+                addCourse(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+            }
+        }
     }
 
     //TODO this signal should only be emitted when repository was added/removed
