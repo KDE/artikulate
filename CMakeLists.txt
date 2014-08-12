@@ -57,6 +57,7 @@ find_package(KF5 REQUIRED COMPONENTS
     KIO
     NewStuff
     WidgetsAddons
+    XmlGui
 )
 
 # subdirectories to build

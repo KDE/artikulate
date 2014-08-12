@@ -128,6 +128,7 @@ target_link_libraries(artikulate
         KF5::Declarative
         KF5::KIOWidgets
         KF5::NewStuff
+        KF5::XmlGui
 )
 
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})

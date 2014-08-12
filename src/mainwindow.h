@@ -21,21 +21,21 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QQuickView>
+#include <KXmlGuiWindow>
+#include <QQuickWidget>
 #include "core/resourcemanager.h"
 #include "core/trainingsession.h"
 
 class Profile;
 class KActionCollection;
 class KMenu;
-class QQuickView;
 class QQuickWidget;
 
 namespace LearnerProfile {
     class ProfileManager;
 }
 
-class MainWindow : public QQuickView
+class MainWindow : public KXmlGuiWindow
 {
     Q_OBJECT
     Q_PROPERTY(ResourceManager *globalResourceManager READ resourceManager CONSTANT)
@@ -83,6 +83,7 @@ private:
     ResourceManager *m_resourceManager;
     TrainingSession *m_trainingSession;
     LearnerProfile::ProfileManager *m_profileManager;
+    QQuickWidget *m_widget;
 };
 
 #endif // PAIRS_H
