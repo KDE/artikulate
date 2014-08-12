@@ -191,16 +191,16 @@ FocusScope {
 //         }
 
             ScrollView {
+                width: content.columnWidth - 20
+                height: content.height - 60
                 ListView {
                     id: unitList
-                    width: content.columnWidth - 20
-                    height: content.height - 60
                     clip: true
                     model: UnitFilterModel {
                         unitModel: selectedUnitModel
                     }
                     delegate: ListItem {
-                        width : unitList.width - unitListScrollbar.width - 10
+                        width : unitList.width - 10 - 10
                         title : model.title
                         iconName : "artikulate-course"
                         property Unit unit : model.dataRole

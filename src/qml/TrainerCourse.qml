@@ -96,7 +96,7 @@ FocusScope {
                 font.pointSize: 1.5 * theme.defaultFont.pointSize
             }
 
-            ToolButton {
+            Button {
                 id: stopButton
                 anchors {
                     verticalCenter: parent.verticalCenter
