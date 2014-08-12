@@ -124,6 +124,10 @@ Item {
             learner: root.manager.activeProfile
         }
         delegate: itemDelegate
+        onCountChanged: {
+            selectedLanguage = resourceManager.language(learningGoalModel.learningGoal(languageView.currentIndex))
+            languageSelected(selectedLanguage)
+        }
     }
 
     Row {
