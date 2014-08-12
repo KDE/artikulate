@@ -92,18 +92,18 @@ Item {
             top: imageLearner.bottom
             topMargin: 30
         }
-        ToolButton {
+        Button {
             iconName: "document-edit"
             text: i18n("Edit")
             onClicked: root.state = "editor"
         }
-        ToolButton {
+        Button {
             iconName: "edit-delete"
             text: i18n("Delete")
             enabled: profileManager.profileCount > 1
             onClicked: root.state = "deleteConfirmation"
         }
-        ToolButton {
+        Button {
             iconName: "insert-image"
             text: i18n("Change Image")
             onClicked: profileManager.openImageFileDialog()
@@ -187,14 +187,14 @@ Item {
             Row {
                 spacing: 10
                 anchors.horizontalCenter: parent.horizontalCenter
-                ToolButton {
+                Button {
                     iconName: "edit-delete"
                     text: i18n("Delete")
                     onClicked: {
                         deletionRequest()
                     }
                 }
-                ToolButton {
+                Button {
                     iconName: "dialog-cancel"
                     text: i18n("Cancel")
                     onClicked: root.state = "info"

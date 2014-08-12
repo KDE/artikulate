@@ -56,7 +56,7 @@ FocusScope {
         id: header
         width: root.width
         RowLayout {
-            ToolButton {
+            Button {
                 text: profileManager.activeProfile == null
                     ? i18n("Create Learner Identity")
                     : profileManager.activeProfile.name

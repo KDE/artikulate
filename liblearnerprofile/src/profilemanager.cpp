@@ -263,9 +263,11 @@ Learner * ProfileManager::activeProfile() const
 
 void ProfileManager::setActiveProfile(Learner* learner)
 {
+qDebug() << "XXXX";
     if (learner == d->m_activeProfile) {
         return;
     }
+qDebug() << "XXXX 2";
     d->m_activeProfile = learner;
     emit activeProfileChanged();
 }
