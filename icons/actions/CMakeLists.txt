@@ -62,7 +62,7 @@ ecm_install_icons(
     sc-actions-artikulate-expression.svgz
     sc-actions-artikulate-media-playback-start.svgz
     sc-actions-artikulate-media-playback-stop.svgz
-    sc-actions-artikulate-media-record-active.svg
+    sc-actions-artikulate-media-record-active.svgz
     sc-actions-artikulate-media-record.svgz
     sc-actions-artikulate-paragraph.svgz
     sc-actions-artikulate-sentence.svgz
