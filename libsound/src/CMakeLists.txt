@@ -23,7 +23,7 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-find_package(QtGStreamer 1.1.90 REQUIRED)
+find_package(QtGStreamer 1.2.0 REQUIRED)
 
 include_directories(
     ${QTGSTREAMER_INCLUDE_DIR}
@@ -58,3 +58,4 @@ install(
     TARGETS artikulatesound
     ${INSTALL_TARGETS_DEFAULT_ARGS}
 )
+
