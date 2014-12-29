@@ -44,6 +44,7 @@ public slots:
     void recordSound();
     void updatePlayButtonIcons();
     void stopPlaying();
+    void setVolume(int volume);
 
 private:
     Ui::SoundDeviceDialogPage *ui;
