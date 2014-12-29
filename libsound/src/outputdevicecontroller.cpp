@@ -128,6 +128,7 @@ void OutputDeviceController::setVolume(int volume)
 {
     // backend only accepts volume, when there is a pipeline
     // store value here and set it when playing
+    d->backend()->setVolume(volume);
     d->m_volume = volume;
 }
 

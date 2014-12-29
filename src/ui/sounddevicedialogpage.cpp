@@ -61,6 +61,7 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
     m_recordTestFile.open();
 
     // connections
+    connect(ui->kcfg_AudioOutputVolume, SIGNAL(valueChanged(int)), this, SLOT(setVolume(int)));
     connect(ui->buttonPlayTestSound, SIGNAL(clicked(bool)), this, SLOT(playTestSound()));
     connect(ui->buttonPlayRecordedTestSound, SIGNAL(clicked(bool)), this, SLOT(playRecordedSound()));
     connect(ui->buttonRecordTestSound, SIGNAL(clicked(bool)), this, SLOT(recordSound()));
@@ -82,6 +83,11 @@ void SoundDeviceDialogPage::loadSettings()
         ui->kcfg_AudioInputDevice->findText(Settings::audioInputDevice()));
 //     ui->kcfg_AudioInputVolume->setValue(Settings::audioInputVolume());
     ui->kcfg_AudioOutputVolume->setValue(Settings::audioOutputVolume());
+}
+
+void SoundDeviceDialogPage::setVolume(int volume)
+{
+    OutputDeviceController::self().setVolume(volume);
 }
 
 void SoundDeviceDialogPage::saveSettings()
@@ -112,6 +118,11 @@ void SoundDeviceDialogPage::playRecordedSound()
     }
     OutputDeviceController::self().setVolume(ui->kcfg_AudioOutputVolume->value());
     OutputDeviceController::self().play(KUrl::fromLocalFile(m_recordTestFile.fileName()));
+}
+
+void SoundDeviceDialogPage::stopPlaying()
+{
+    OutputDeviceController::self().stop();
 }
 
 void SoundDeviceDialogPage::recordSound()
