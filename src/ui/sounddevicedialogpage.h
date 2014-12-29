@@ -43,6 +43,7 @@ public slots:
     void playRecordedSound();
     void recordSound();
     void updatePlayButtonIcons();
+    void stopPlaying();
 
 private:
     Ui::SoundDeviceDialogPage *ui;

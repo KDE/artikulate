@@ -114,6 +114,11 @@ void SoundDeviceDialogPage::playRecordedSound()
     OutputDeviceController::self().play(KUrl::fromLocalFile(m_recordTestFile.fileName()));
 }
 
+void SoundDeviceDialogPage::stopPlaying()
+{
+    OutputDeviceController::self().stop();
+}
+
 void SoundDeviceDialogPage::recordSound()
 {
     if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState)
