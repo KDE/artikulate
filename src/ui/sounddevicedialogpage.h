@@ -44,6 +44,7 @@ public slots:
     void recordSound();
     void updatePlayButtonIcons();
     void stopPlaying();
+    void stopRecord();
     void setVolume(int volume);
 
 private:
