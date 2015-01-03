@@ -218,6 +218,7 @@ void MainWindow::showSettingsDialog()
     connect(dialog, SIGNAL(accepted()), SLOT(updateTrainingPhraseFont()));
     connect(dialog, SIGNAL(accepted()), SLOT(updateKcfgUseContributorResources()));
     connect(dialog, SIGNAL(finished()), soundDialog, SLOT(stopPlaying()));
+    connect(dialog, SIGNAL(finished()), soundDialog, SLOT(stopRecord()));
 
     dialog->exec();
 }

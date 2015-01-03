@@ -129,15 +129,22 @@ void SoundDeviceDialogPage::recordSound()
 {
     if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState)
     {
-        CaptureDeviceController::self().stopCapture();
-        ui->buttonRecordTestSound->setIcon(KIcon("media-record"));
-        ui->buttonPlayRecordedTestSound->setEnabled(true);
+        stopRecord();
         return;
     }
 
     ui->buttonRecordTestSound->setIcon(KIcon("artikulate-media-record-active"));
     CaptureDeviceController::self().setDevice(ui->kcfg_AudioInputDevice->currentText());
     CaptureDeviceController::self().startCapture(m_recordTestFile.fileName());
+}
+
+void SoundDeviceDialogPage::stopRecord()
+{
+    if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState) {
+        CaptureDeviceController::self().stopCapture();
+        ui->buttonRecordTestSound->setIcon(KIcon("media-record"));
+        ui->buttonPlayRecordedTestSound->setEnabled(true);
+    }
 }
 
 void SoundDeviceDialogPage::updatePlayButtonIcons()
