@@ -80,9 +80,9 @@ MainWindow::MainWindow()
     m_resourceManager->loadCourseResources();
     m_resourceManager->registerLearningGoals(m_profileManager);
 
-    KDeclarative::KDeclarative m_kdeclarative;
-    m_kdeclarative.setDeclarativeEngine(m_widget->engine());
-    m_kdeclarative.setupBindings(); //TODO use result for determining touch/desktop version
+    KDeclarative::KDeclarative kdeclarative;
+    kdeclarative.setDeclarativeEngine(m_widget->engine());
+    kdeclarative.setupBindings(); //TODO use result for determining touch/desktop version
 
     // create menu
     setupActions();
