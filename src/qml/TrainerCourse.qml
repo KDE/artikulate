@@ -145,12 +145,12 @@ FocusScope {
             text: i18n("Phrases Grouped by Attempts")
             font.pointSize: 1.5 * theme.defaultFont.pointSize
         }
-
-        TrainerCourseStatistics {
-            width: root.width - 60
-            height: root.height - 30 - trainingControls.height - 50 - 50
-            session: root.session
-        }
+//TODO comment statistics out for now, they have to be integrated into main view
+//         TrainerCourseStatistics {
+//             width: root.width - 60
+//             height: root.height - 30 - trainingControls.height - 50 - 50
+//             session: root.session
+//         }
     }
 
     Column {
