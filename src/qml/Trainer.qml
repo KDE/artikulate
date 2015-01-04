@@ -57,9 +57,6 @@ Item {
                 resourceManager: globalResourceManager
                 onLanguageSelected: {
                     trainingSession2.language = selectedLanguage
-                    if (selectedLanguage != null) {
-                        learner.setActiveGoal(Learner.Language, selectedLanguage.id)
-                    }
                 }
             }
 
@@ -78,7 +75,7 @@ Item {
             ColumnLayout {
                 ScrollView {
                     Layout.minimumWidth: 300
-                    Layout.minimumHeight: 700 - selectButton.height
+                    Layout.minimumHeight: 700
                     ListView {
                         id: unitList
                         clip: true
@@ -93,19 +90,9 @@ Item {
                             onSelected : {
                                 unitList.currentIndex = index
                                 trainingSession2.unit = unit
+                                trainingSession.createFromUnit(trainingSession2.unit)
                             }
                         }
-                    }
-                }
-
-                Button {
-                    id: selectButton
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    iconName : "go-next-view"
-                    text: i18n("Start Training")
-                    enabled: trainingSession2.unit != null
-                    onClicked: {
-                        trainingSession.createFromUnit(trainingSession2.unit)
                     }
                 }
             }
