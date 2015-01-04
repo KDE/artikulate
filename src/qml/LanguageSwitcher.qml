@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -28,7 +28,6 @@ Item {
 
     property Language selectedLanguage
     property ResourceManager resourceManager
-    property ProfileManager manager: profileManager
 
     signal languageSelected(variant language)
 
@@ -39,40 +38,23 @@ Item {
     Connections {
         target: buttonRight
         onClicked: {
-            selectedLanguage = resourceManager.language(learningGoalModel.learningGoal(languageView.currentIndex))
+            selectedLanguage = languageModel.language(languageView.currentIndex)
             languageSelected(selectedLanguage)
         }
     }
     Connections {
         target: buttonLeft
         onClicked: {
-            selectedLanguage = resourceManager.language(learningGoalModel.learningGoal(languageView.currentIndex))
+            selectedLanguage = languageModel.language(languageView.currentIndex)
             languageSelected(selectedLanguage)
         }
     }
 
     // react on changed goals
     Component.onCompleted: {
-        var learner = profileManager.activeProfile;
-        if (!learner) {
-            return
-        }
-        var goal = learner.activeGoal(Learner.Language)
-        for (var i=0; i < languageView.count; ++i) {
-            if (goal.id == learningGoalModel.learningGoal(i).id) {
+        for (var i = 0; i < languageView.count; ++i) {
+            if (trainingSession2.language.id == languageModel.language(i).id) {
                 languageView.currentIndex = i
-            }
-        }
-    }
-    Connections {
-        target: learningGoalModel
-        onLearnerChanged: {
-            var learner = profileManager.activeProfile;
-            var goal = learner.activeGoal(Learner.Language)
-            for (var i=0; i < languageView.count; ++i) {
-                if (goal.id == learningGoalModel.learningGoal(i).id) {
-                    languageView.currentIndex = i
-                }
             }
         }
     }
@@ -82,11 +64,7 @@ Item {
 
         Row {
             id: languageInfo
-            property LearningGoal learningGoal: model.dataRole
-            property Language language
-            onLearningGoalChanged: {
-                languageInfo.language = resourceManager.language(learningGoal)
-            }
+            property Language language: model.dataRole
 
             width: root.width - buttonLeft.width - buttonRight.width - 20
             height: theme.mediumIconSize
@@ -118,16 +96,12 @@ Item {
         clip: true
         snapMode: ListView.SnapToItem
         orientation: ListView.Vertical
-        model: LearningGoalModel {
-            id: learningGoalModel
-            profileManager: root.manager
-            learner: root.manager.activeProfile
+        model: LanguageModel {
+            id: languageModel
+            view:  LanguageModel.NonEmptyGhnsOnlyLanguages
+            resourceModel: LanguageResourceModel { resourceManager: root.resourceManager }
         }
         delegate: itemDelegate
-        onCountChanged: {
-            selectedLanguage = resourceManager.language(learningGoalModel.learningGoal(languageView.currentIndex))
-            languageSelected(selectedLanguage)
-        }
     }
 
     Row {
@@ -149,7 +123,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             height: paintedHeight
             font.pointSize: 1.5 * theme.fontPointSize
-            text: i18n("Please select a favorite language")
+            text: i18n("Please download a course") + languageModel.rows
         }
     }
 
