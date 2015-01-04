@@ -1,6 +1,6 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gkde.org>
- *  Copyright 2013  Samikshan Bairagya <samikshan@gmail.com>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@gkde.org>
+ *  Copyright 2013       Samikshan Bairagya <samikshan@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -48,14 +48,14 @@ public:
     void setSortOption(SortOption option = Id);
     SortOption sortOption() const;
     int filteredCount() const;
-    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
-    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const Q_DECL_OVERRIDE;
+    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const Q_DECL_OVERRIDE;
     void setHideExcluded(bool hide=true);
     bool isHideExcluded() const;
     void setHideNotRecorded(bool hide=true);
     bool isHideNotRecorded() const;
 
-signals:
+Q_SIGNALS:
     void phraseModelChanged();
     void hideExcludedChanged();
     void hideNotRecordedChanged();
