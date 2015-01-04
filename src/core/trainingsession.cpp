@@ -177,6 +177,9 @@ void TrainingSession::jumpToPhrase(Phrase* phrase)
 
 void TrainingSession::next(TrainingSession::NextAction completeCurrent)
 {
+    if (m_phraseListUntrained.value(m_currentType).isEmpty()) {
+        return;
+    }
     TrainingPhrase &currentPhrase = const_cast<TrainingPhrase&>(m_phraseListUntrained.value(m_currentType).first());
     switch(completeCurrent) {
     case Complete:

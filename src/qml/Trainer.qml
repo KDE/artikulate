@@ -107,14 +107,33 @@ Item {
                     }
                 }
 
-                TrainerCourse {
-                    width: 800
-                    height: 600
+                TrainerSessionScreen {
+                    id: trainerMain
+                    width: 800 //root.width - 40
+                    height: 800//root.height - 30
+                    unit: trainingSession2.unit
                     session: trainingSession
+                }
+
+                Column {
+                    id: progressBar
+
+                    spacing: 10
+                    Text {
+                        id: trainingText
+                        text: i18n("Training Progress")
+                        font.pointSize: theme.fontPointSize
+                    }
+                    TrainerProgressBar {
+                        width: trainerMain.width
+                        session: trainingSession
+                        onTypeSelected: {
+                            trainingSession2.phraseType = type
+                        }
+                    }
                 }
             }
         }
-
     }
 
     Rectangle {

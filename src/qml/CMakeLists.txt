@@ -25,16 +25,14 @@
 
 set(artikulate_qml_files
     Main.qml
-    Editor.qml
-    Trainer.qml
 
-    TrainerCourse.qml
+    Trainer.qml
     TrainerSessionScreen.qml
     TrainerProgressBar.qml
     TrainerCourseStatistics.qml
 
+    Editor.qml
     EditorSelector.qml
-
     CourseSelector.qml
     CourseSwitcher.qml
     LanguageSelector.qml
