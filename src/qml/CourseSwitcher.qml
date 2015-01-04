@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -36,10 +36,13 @@ Item {
     width: 300
     height: Math.max(buttonLeft.height, courseView.height)
 
-    onLanguageChanged: {
-        if (courseModel.course(courseView.currentIndex) != null) {
-            selectedCourse = courseModel.course(courseView.currentIndex)
-            courseSelected(selectedCourse)
+    Connections {
+        target: courseModel
+        onLanguageChanged: {
+            if (courseModel.course(courseView.currentIndex) != null) {
+                selectedCourse = courseModel.course(courseView.currentIndex)
+                courseSelected(selectedCourse)
+            }
         }
     }
 
@@ -95,7 +98,7 @@ Item {
                 view: root.view
                 courseModel: CourseModel {
                     id: courseModel
-                    resourceManager : root.resourceManager
+                    resourceManager: root.resourceManager
                     language: root.language
                 }
             }
@@ -108,7 +111,7 @@ Item {
                     courseSelected(selectedCourse)
                 }
             }
-            delegate : itemDelegate
+            delegate: itemDelegate
         }
 
         ToolButton {

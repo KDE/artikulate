@@ -41,11 +41,6 @@ Item {
         resourceManager: globalResourceManager
     }
 
-    UnitModel {
-        id: selectedUnitModel
-        course: trainingSession2.course
-    }
-
     ColumnLayout {
         RowLayout {
             spacing: 6
@@ -80,7 +75,7 @@ Item {
                         id: unitList
                         clip: true
                         model: UnitFilterModel {
-                            unitModel: selectedUnitModel
+                            unitModel: UnitModel { course: trainingSession2.course }
                         }
                         delegate: ListItem {
                             width : unitList.width - 10 - 10

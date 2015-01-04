@@ -22,6 +22,7 @@
 #include "core/course.h"
 #include "core/unit.h"
 #include "core/phrase.h"
+#include "core/language.h"
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
