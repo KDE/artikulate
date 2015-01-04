@@ -43,6 +43,7 @@
 #include <KMessageBox>
 #include <KNS3/DownloadDialog>
 
+#include <QDebug>
 #include <QGraphicsObject>
 #include <QQuickItem>
 #include <QQuickView>
@@ -50,8 +51,8 @@
 #include <QQmlProperty>
 #include <QQuickWidget>
 #include <QCloseEvent>
-#include <QtCore/QCoreApplication>
-#include <QtCore/QPointer>
+#include <QCoreApplication>
+#include <QPointer>
 #include <QStandardPaths>
 
 using namespace LearnerProfile;
@@ -73,6 +74,9 @@ MainWindow::MainWindow()
 
     // load resources
     m_resourceManager->loadLanguageResources();
+    if (m_resourceManager->languageResources().count() == 0) {
+        qFatal("No language resources found, cannot start application.");
+    }
     m_resourceManager->loadCourseResources();
     m_resourceManager->registerLearningGoals(m_profileManager);
 
