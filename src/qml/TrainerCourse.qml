@@ -93,7 +93,7 @@ FocusScope {
                     }
                     i18n("Unit: %1", title)
                 }
-                font.pointSize: 1.5 * theme.defaultFont.pointSize
+                font.pointSize: 1.5 * theme.fontPointSize
             }
 
             Button {
@@ -143,7 +143,7 @@ FocusScope {
         Label {
             id: results
             text: i18n("Phrases Grouped by Attempts")
-            font.pointSize: 1.5 * theme.defaultFont.pointSize
+            font.pointSize: 1.5 * theme.fontPointSize
         }
 //TODO comment statistics out for now, they have to be integrated into main view
 //         TrainerCourseStatistics {

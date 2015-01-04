@@ -143,7 +143,7 @@ Item {
                 anchors.verticalCenter: unitBreadcrumb.verticalCenter
                 text: i18n("Unit: ")
                 iconName: "go-up"
-                height: 1.5 * theme.defaultFont.pointSize
+                height: 1.5 * theme.fontPointSize
                 onClicked: {
                     closeUnit()
                     phraseEditor.close()
@@ -160,7 +160,7 @@ Item {
                         return i18n("unselected");
                     }
                 }
-                font.pointSize: 1.5 * theme.defaultFont.pointSize
+                font.pointSize: 1.5 * theme.fontPointSize
             }
             TextField {
                 id: unitTitleInput

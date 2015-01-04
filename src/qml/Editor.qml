@@ -251,7 +251,7 @@ Item
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
                     text: i18n("<strong>Skeleton:</strong> %1", editor.currentCourseName)
-                    font.pointSize: 1.5 * theme.defaultFont.pointSize
+                    font.pointSize: 1.5 * theme.fontPointSize
                 }
                 ToolButton { // unselect-button for language
                     anchors.verticalCenter: parent.verticalCenter
@@ -306,7 +306,7 @@ Item
                 Text {
                     id: unitSelectorCaption
                     text: i18n("Units")
-                    font.pointSize: 1.5 * theme.defaultFont.pointSize
+                    font.pointSize: 1.5 * theme.fontPointSize
                 }
                 ToolButton {
                     id: unitAddButton
@@ -354,7 +354,7 @@ Item
         visible: !globalResourceManager.isRepositoryManager
         Text {
             text: i18n("No Course Repository Selected")
-            font.pointSize: 1.5 * theme.defaultFont.pointSize
+            font.pointSize: 1.5 * theme.fontPointSize
         }
         Text {
             text: i18n("Editor is only available when Artikulate works on a course data repository. Please see program settings.")
