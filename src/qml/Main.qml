@@ -39,17 +39,32 @@ Item {
     property int viewMode
     property Learner learner: profileManager.activeProfile
 
-    Trainer {
+    Loader {
         anchors.fill: parent
-        visible: root.viewMode == MainWindow.Trainer
+        sourceComponent: {
+            if (root.viewMode == MainWindow.Trainer) {
+                trainerComponent
+            }
+            if (root.viewMode == MainWindow.Editor) {
+                editorComponent
+            }
+        }
     }
 
-    Editor {
-        anchors.fill: parent
-        visible: root.viewMode == MainWindow.Editor
+    Component {
+        id: trainerComponent
+        Trainer {
+            anchors.fill: parent
+        }
+    }
 
-        onCloseEditor: {
-            switchMode()
+    Component {
+        id: editorComponent
+        Editor {
+            anchors.fill: parent
+            onCloseEditor: {
+                switchMode()
+            }
         }
     }
 }

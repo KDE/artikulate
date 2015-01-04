@@ -28,7 +28,6 @@ set(artikulate_qml_files
     Editor.qml
     Trainer.qml
 
-    TrainerOverviewScreen.qml
     TrainerCourse.qml
     TrainerSessionScreen.qml
     TrainerProgressBar.qml
