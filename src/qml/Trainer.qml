@@ -106,7 +106,6 @@ Item {
                     enabled: trainingSession2.unit != null
                     onClicked: {
                         trainingSession.createFromUnit(trainingSession2.unit)
-                        root.unitSelected(trainingSession2.unit)
                     }
                 }
             }
