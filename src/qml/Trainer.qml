@@ -26,6 +26,14 @@ import artikulate 1.0
 Item {
     id: root
 
+    anchors {
+        fill: parent
+        topMargin: 6
+        rightMargin: 6
+        bottomMargin: 6
+        leftMargin: 6
+    }
+
     property ResourceManager resourceManager: globalResourceManager
 
     Component.onCompleted: {
@@ -42,6 +50,7 @@ Item {
     }
 
     ColumnLayout {
+        id: content
         RowLayout {
             spacing: 6
             LanguageSwitcher {
@@ -64,29 +73,29 @@ Item {
                 enabled: true
                 onClicked: downloadNewStuff()
             }
+            Text{ text: content.height}
         }
 
         RowLayout {
-            ColumnLayout {
-                ScrollView {
-                    Layout.minimumWidth: 300
-                    Layout.minimumHeight: 700
-                    ListView {
-                        id: unitList
-                        clip: true
-                        model: UnitFilterModel {
-                            unitModel: UnitModel { course: trainingSession2.course }
-                        }
-                        delegate: ListItem {
-                            width : unitList.width - 10 - 10
-                            title : model.title
-                            iconName : "artikulate-course"
-                            property Unit unit : model.dataRole
-                            onSelected : {
-                                unitList.currentIndex = index
-                                trainingSession2.unit = unit
-                                trainingSession.createFromUnit(trainingSession2.unit)
-                            }
+            ScrollView {
+                Layout.fillHeight: true
+                Layout.preferredWidth: 300
+                Layout.preferredHeight: content.height - languageSwitcher.height - 12
+                ListView {
+                    id: unitList
+                    clip: true
+                    model: UnitFilterModel {
+                        unitModel: UnitModel { course: trainingSession2.course }
+                    }
+                    delegate: ListItem {
+                        width : unitList.width - 10 - 10
+                        title : model.title
+                        iconName : "artikulate-course"
+                        property Unit unit : model.dataRole
+                        onSelected : {
+                            unitList.currentIndex = index
+                            trainingSession2.unit = unit
+                            trainingSession.createFromUnit(trainingSession2.unit)
                         }
                     }
                 }
