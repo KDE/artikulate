@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -19,6 +19,8 @@
  */
 
 import QtQuick 2.1
+import QtQuick.Layouts 1.1
+import QtQuick.Controls 1.3
 import artikulate 1.0
 
 Item {
@@ -26,10 +28,12 @@ Item {
 
     property ResourceManager resourceManager: globalResourceManager
 
-    function switchScreen(from, to) {
-        switchScreenAnimation.from = from
-        switchScreenAnimation.to = to
-        switchScreenAnimation.start()
+    Component.onCompleted: {
+        var learner = profileManager.activeProfile;
+        if (learner == null) {
+            return;
+        }
+        userProfile.language = globalResourceManager.language(learner.activeGoal(Learner.Language))
     }
 
     CourseModel {
@@ -37,44 +41,94 @@ Item {
         resourceManager: globalResourceManager
     }
 
-    TrainerOverviewScreen {
-        id: overviewScreen
-        anchors.fill: parent
-        visible: false
-        focus: true
+    UnitModel {
+        id: selectedUnitModel
+        course: userProfile.course
+    }
 
-        onLanguageSelected: {
-            if (language == null) {
-                availableCourseModel.language = null
-                userProfile.language = null
-            } else {
-                availableCourseModel.language = language
-                userProfile.language = language
+    ColumnLayout {
+        RowLayout {
+            spacing: 6
+            LanguageSwitcher {
+                id: languageSwitcher
+                width: 400
+                anchors.verticalCenter: parent.verticalCenter
+                visible: learner != null
+                resourceManager: globalResourceManager
+                onLanguageSelected: {
+                    userProfile.language = selectedLanguage
+                    if (selectedLanguage != null) {
+                        learner.setActiveGoal(Learner.Language, selectedLanguage.id)
+                    }
+                }
+            }
+
+            ToolButton {
+                id: knsDownloadButton
+                iconName: "get-hot-new-stuff"
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                }
+                enabled: true
+                onClicked: downloadNewStuff()
             }
         }
 
-        onUnitSelected: {
-            switchScreen(overviewScreen, trainingScreen)
+        RowLayout {
+            ColumnLayout {
+                ScrollView {
+                    Layout.minimumWidth: 300
+                    Layout.minimumHeight: 700 - selectButton.height
+                    ListView {
+                        id: unitList
+                        clip: true
+                        model: UnitFilterModel {
+                            unitModel: selectedUnitModel
+                        }
+                        delegate: ListItem {
+                            width : unitList.width - 10 - 10
+                            title : model.title
+                            iconName : "artikulate-course"
+                            property Unit unit : model.dataRole
+                            onSelected : {
+                                unitList.currentIndex = index
+                                userProfile.unit = unit
+                            }
+                        }
+                    }
+                }
+
+                Button {
+                    id: selectButton
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    iconName : "go-next-view"
+                    text: i18n("Start Training")
+                    enabled: userProfile.unit != null
+                    onClicked: {
+                        trainingSession.createFromUnit(userProfile.unit)
+                        root.unitSelected(userProfile.unit)
+                    }
+                }
+            }
+            ColumnLayout {
+                CourseSwitcher {
+                    id: courseSelector
+                    resourceManager: globalResourceManager
+                    view: kcfg_UseContributorResources ? CourseFilterModel.AllResources : CourseFilterModel.OnlyGetHotNewStuffResources
+                    language: userProfile.language
+                    onCourseSelected: {
+                        userProfile.course = course
+                    }
+                }
+
+                TrainerCourse {
+                    width: 800
+                    height: 600
+                    session: trainingSession
+                }
+            }
         }
 
-        Component.onCompleted: {
-            overviewScreen.visible = true
-        }
-    }
-
-    TrainerCourse {
-        id: trainingScreen
-        anchors.fill: parent
-        visible: false
-        session: trainingSession //TODO we do not need global object for this
-        onCloseCourse: {
-            userProfile.course = null
-            switchScreen(trainingScreen, overviewScreen)
-        }
-        onCloseUnit: {
-            userProfile.unit = null
-            switchScreen(trainingScreen, overviewScreen)
-        }
     }
 
     Rectangle {
@@ -84,38 +138,21 @@ Item {
         opacity: 0
     }
 
-    SequentialAnimation {
-        id: switchScreenAnimation
-        property Item from
-        property Item to
-        NumberAnimation {
-            target: curtain
-            property: "opacity"
-            to: 1
-            duration: switchScreenAnimation.to == overviewScreen ? 250 : 750
-            easing.type: Easing.OutQuad
-        }
-        PropertyAction {
-            target: switchScreenAnimation.from
-            property: "visible"
-            value: false
-        }
-        PropertyAction {
-            target: switchScreenAnimation.to
-            property: "visible"
-            value: true
-        }
-        NumberAnimation {
-            target: curtain
-            property: "opacity"
-            to: 0
-            duration: switchScreenAnimation.to == overviewScreen ? 250 : 750
-            easing.type: Easing.InQuad
-        }
-        ScriptAction {
-            script: {
-                switchScreenAnimation.to.forceActiveFocus()
-            }
-        }
-    }
+    //FIXME setup dialog deactivated for refactoring
+//     SheetDialog {
+//         id: profileSelectorSheet
+//         anchors {
+//             top: root.top
+//             topMargin: header.height
+//             left: root.left
+//             bottom: root.bottom
+//             right: root.right
+//         }
+//         content: ProfileSelector {
+//             anchors.fill: parent
+//             onProfileChosen: {
+//                 profileSelectorSheet.close()
+//             }
+//         }
+//     }
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -102,7 +102,7 @@ MainWindow::MainWindow()
     m_widget->setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
 
     // settings from kcfg values
-    updateTrainingPhraseFont();
+//     updateTrainingPhraseFont(); //FIXME deactivated while porting
 
     // create training profile if none exists:
     if (!m_profileManager->activeProfile()) {
