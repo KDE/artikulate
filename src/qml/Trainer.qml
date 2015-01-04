@@ -33,7 +33,7 @@ Item {
         if (learner == null) {
             return;
         }
-        userProfile.language = globalResourceManager.language(learner.activeGoal(Learner.Language))
+        trainingSession2.language = globalResourceManager.language(learner.activeGoal(Learner.Language))
     }
 
     CourseModel {
@@ -43,7 +43,7 @@ Item {
 
     UnitModel {
         id: selectedUnitModel
-        course: userProfile.course
+        course: trainingSession2.course
     }
 
     ColumnLayout {
@@ -56,7 +56,7 @@ Item {
                 visible: learner != null
                 resourceManager: globalResourceManager
                 onLanguageSelected: {
-                    userProfile.language = selectedLanguage
+                    trainingSession2.language = selectedLanguage
                     if (selectedLanguage != null) {
                         learner.setActiveGoal(Learner.Language, selectedLanguage.id)
                     }
@@ -92,7 +92,7 @@ Item {
                             property Unit unit : model.dataRole
                             onSelected : {
                                 unitList.currentIndex = index
-                                userProfile.unit = unit
+                                trainingSession2.unit = unit
                             }
                         }
                     }
@@ -103,10 +103,10 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     iconName : "go-next-view"
                     text: i18n("Start Training")
-                    enabled: userProfile.unit != null
+                    enabled: trainingSession2.unit != null
                     onClicked: {
-                        trainingSession.createFromUnit(userProfile.unit)
-                        root.unitSelected(userProfile.unit)
+                        trainingSession.createFromUnit(trainingSession2.unit)
+                        root.unitSelected(trainingSession2.unit)
                     }
                 }
             }
@@ -115,9 +115,9 @@ Item {
                     id: courseSelector
                     resourceManager: globalResourceManager
                     view: kcfg_UseContributorResources ? CourseFilterModel.AllResources : CourseFilterModel.OnlyGetHotNewStuffResources
-                    language: userProfile.language
+                    language: trainingSession2.language
                     onCourseSelected: {
-                        userProfile.course = course
+                        trainingSession2.course = course
                     }
                 }
 

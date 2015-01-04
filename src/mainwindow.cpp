@@ -23,7 +23,8 @@
 #include "ui/sounddevicedialogpage.h"
 #include "ui/appearencedialogpage.h"
 #include "core/resourcemanager.h"
-#include "core/profile.h"
+#include "core/trainingsession2.h"
+#include "core/editorsession.h"
 #include "core/resources/courseresource.h"
 #include "models/languagemodel.h"
 #include "settings.h"
@@ -58,8 +59,8 @@
 using namespace LearnerProfile;
 
 MainWindow::MainWindow()
-    : m_trainingProfile(new Profile(this))
-    , m_editorProfile(new Profile(this))
+    : m_trainingSession2(new TrainingSession2(this))
+    , m_editorSession(new EditorSession(this))
     , m_resourceManager(new ResourceManager(this))
     , m_trainingSession(new TrainingSession(this))
     , m_profileManager(new LearnerProfile::ProfileManager(this))
@@ -91,9 +92,9 @@ MainWindow::MainWindow()
     m_widget->resize(QSize(800, 600));
     m_widget->rootContext()->setContextProperty("globalResourceManager", m_resourceManager);
 
-    m_widget->rootContext()->setContextProperty("userProfile", m_trainingProfile); //TODO deprecated
-    m_widget->rootContext()->setContextProperty("editorProfile", m_editorProfile); //TODO rename
-    m_widget->rootContext()->setContextProperty("trainingSession", m_trainingSession); //TODO needed at top level?
+    m_widget->rootContext()->setContextProperty("trainingSession2", m_trainingSession2);
+    m_widget->rootContext()->setContextProperty("trainingSession", m_trainingSession); //TODO deprecated
+    m_widget->rootContext()->setContextProperty("editorSession", m_editorSession);
     m_widget->rootContext()->setContextProperty("profileManager", m_profileManager);
 
     m_widget->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
@@ -281,7 +282,7 @@ void MainWindow::configLearnerProfile()
 
 bool MainWindow::queryClose()
 {
-    if (!m_editorProfile->course() || m_editorProfile->course()->modified() == false) {
+    if (!m_editorSession->course() || m_editorSession->course()->modified() == false) {
         return true;
     }
 
@@ -290,7 +291,7 @@ bool MainWindow::queryClose()
 
     switch(result) {
     case KMessageBox::Yes:
-        m_editorProfile->course()->sync();
+        m_editorSession->course()->sync();
         return true;
     case KMessageBox::No:
         return true;

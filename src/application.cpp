@@ -21,7 +21,6 @@
 #include "application.h"
 
 #include "mainwindow.h"
-#include "core/profile.h"
 #include "core/course.h"
 #include "core/language.h"
 #include "core/resourcemanager.h"
@@ -30,6 +29,8 @@
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
 #include "core/trainingsession.h"
+#include "core/trainingsession2.h"
+#include "core/editorsession.h"
 #include "core/player.h"
 #include "core/recorder.h"
 #include "models/coursemodel.h"
@@ -66,7 +67,7 @@ Application::Application(int& argc, char** argv)
 
 void Application::registerQmlTypes()
 {
-    qmlRegisterType<Profile>("artikulate", 1, 0, "Profile");
+    qmlRegisterType<EditorSession>("artikulate", 1, 0, "EditorSession");
     qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");
     qmlRegisterType<LearnerProfile::ProfileManager>("artikulate", 1, 0, "ProfileManager");
     qmlRegisterType<LearnerProfile::LearningGoal>("artikulate", 1, 0, "LearningGoal");
@@ -77,7 +78,9 @@ void Application::registerQmlTypes()
     qmlRegisterType<Phrase>("artikulate", 1, 0, "Phrase");
     qmlRegisterType<Phoneme>("artikulate", 1, 0, "Phoneme");
     qmlRegisterType<PhonemeGroup>("artikulate", 1, 0, "PhonemeGroup");
+    qmlRegisterType<EditorSession>("artikulate", 1, 0, "EditorSession");
     qmlRegisterType<TrainingSession>("artikulate", 1, 0, "TrainingSession");
+    qmlRegisterType<TrainingSession2>("artikulate", 1, 0, "TrainingSession2");
     qmlRegisterType<Player>("artikulate", 1, 0, "Player");
     qmlRegisterType<Recorder>("artikulate", 1, 0, "Recorder");
 

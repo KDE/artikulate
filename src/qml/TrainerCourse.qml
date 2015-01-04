@@ -88,8 +88,8 @@ FocusScope {
                 width: root.width - 2*20 - unitIcon.width - stopButton.width - 2*5
                 text: {
                     var title = i18n("unselected")
-                    if (userProfile.unit != null) {
-                        title = userProfile.unit.title
+                    if (trainingSession2.unit != null) {
+                        title = trainingSession2.unit.title
                     }
                     i18n("Unit: %1", title)
                 }
@@ -125,7 +125,7 @@ FocusScope {
             topMargin: 50
             leftMargin: 20
         }
-        unit: userProfile.unit
+        unit: trainingSession2.unit
         session: root.session
     }
 
@@ -172,7 +172,7 @@ FocusScope {
             session: root.session
             sessionType: root.session.currentType
             onTypeSelected: {
-                userProfile.phraseType = type
+                trainingSession2.phraseType = type
             }
         }
     }

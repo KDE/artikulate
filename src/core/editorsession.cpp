@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,16 +18,14 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "profile.h"
-#include <QDebug>
-
+#include "editorsession.h"
 #include "core/language.h"
 #include "core/course.h"
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/phonemegroup.h"
 
-Profile::Profile(QObject *parent)
+EditorSession::EditorSession(QObject *parent)
     : QObject(parent)
     , m_language(0)
     , m_course(0)
@@ -38,12 +36,12 @@ Profile::Profile(QObject *parent)
 
 }
 
-Language * Profile::language() const
+Language * EditorSession::language() const
 {
     return m_language;
 }
 
-void Profile::setLanguage(Language *language)
+void EditorSession::setLanguage(Language *language)
 {
     if (m_language == language) {
         return;
@@ -54,12 +52,12 @@ void Profile::setLanguage(Language *language)
     emit languageChanged();
 }
 
-Course * Profile::course() const
+Course * EditorSession::course() const
 {
     return m_course;
 }
 
-void Profile::setCourse(Course *course)
+void EditorSession::setCourse(Course *course)
 {
     if (m_course == course) {
         return;
@@ -69,12 +67,12 @@ void Profile::setCourse(Course *course)
     emit courseChanged();
 }
 
-Unit * Profile::unit() const
+Unit * EditorSession::unit() const
 {
     return m_unit;
 }
 
-void Profile::setUnit(Unit *unit)
+void EditorSession::setUnit(Unit *unit)
 {
     if (m_unit == unit) {
         return;
@@ -83,12 +81,12 @@ void Profile::setUnit(Unit *unit)
     return unitChanged();
 }
 
-PhonemeGroup * Profile::phonemeGroup() const
+PhonemeGroup * EditorSession::phonemeGroup() const
 {
     return m_phonemeGroup;
 }
 
-void Profile::setPhonemeGroup(PhonemeGroup* phonemeGroup)
+void EditorSession::setPhonemeGroup(PhonemeGroup* phonemeGroup)
 {
     if (m_phonemeGroup == phonemeGroup) {
         return;
@@ -97,12 +95,12 @@ void Profile::setPhonemeGroup(PhonemeGroup* phonemeGroup)
     emit phonemeGroupChanged();
 }
 
-Phrase::Type Profile::phraseType() const
+Phrase::Type EditorSession::phraseType() const
 {
     return m_type;
 }
 
-void Profile::setPhraseType(Phrase::Type type)
+void EditorSession::setPhraseType(Phrase::Type type)
 {
     if (m_type == type) {
         return;

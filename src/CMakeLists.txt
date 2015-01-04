@@ -46,9 +46,10 @@ set(artikulateCore_SRCS
     core/phoneme.cpp
     core/phonemegroup.cpp
     core/unit.cpp
-    core/profile.cpp
     core/skeleton.cpp
+    core/editorsession.cpp
     core/trainingsession.cpp
+    core/trainingsession2.cpp
     core/resources/resourceinterface.cpp
     core/resources/languageresource.cpp
     core/resources/courseresource.cpp

@@ -27,9 +27,9 @@ Item
 {
     id: editor
 
-    property Language currentLanguage: editorProfile.language
-    property Course currentCourse: editorProfile.course
-    property Unit currentUnit: editorProfile.unit
+    property Language currentLanguage: editorSession.language
+    property Course currentCourse: editorSession.course
+    property Unit currentUnit: editorSession.unit
     property Course currentSkeleton
     property string currentLanguageName: i18n("Unselected")
     property string currentCourseName: i18n("Unselected")
@@ -41,38 +41,38 @@ Item
     height: 400 //parent.height
 
     onCurrentCourseChanged: {
-        editorProfile.unit = null
-        if (editorProfile.course == null) {
+        editorSession.unit = null
+        if (editorSession.course == null) {
             editor.currentCourseName = i18n("Unselected");
         }
         else {
-            editor.currentCourseName = editorProfile.course.title;
+            editor.currentCourseName = editorSession.course.title;
         }
     }
 
     onCurrentLanguageChanged: {
-        editorProfile.unit = null
-        editorProfile.course = null
-        if (editorProfile.language == null) {
+        editorSession.unit = null
+        editorSession.course = null
+        if (editorSession.language == null) {
             currentLanguageName = i18n("Unselected");
         }
         else {
-            editor.currentLanguageName = editorProfile.language.title;
+            editor.currentLanguageName = editorSession.language.title;
         }
     }
 
     onCurrentUnitChanged: {
-        if (editorProfile.unit == null) {
+        if (editorSession.unit == null) {
             editor.currentUnitName = i18n("Unselected");
         }
         else {
-            editor.currentUnitName = editorProfile.unit.title;
+            editor.currentUnitName = editorSession.unit.title;
         }
     }
 
     UnitModel {
         id: selectedUnitModel
-        course: editorProfile.course
+        course: editorSession.course
     }
 
     ToolBar {
@@ -96,9 +96,9 @@ Item
                 }
                 text: i18n("Update from Course Prototype")
                 iconName: "svn-update"
-                enabled: { editorProfile.course != null }
+                enabled: { editorSession.course != null }
                 onClicked: {
-                    globalResourceManager.updateCourseFromSkeleton(editorProfile.course);
+                    globalResourceManager.updateCourseFromSkeleton(editorSession.course);
                 }
             }
 
@@ -111,7 +111,7 @@ Item
                 iconName: "go-up"
                 text: i18n("Close Editor")
                 visible: {
-                    if (editorProfile.course != null) return false;
+                    if (editorSession.course != null) return false;
                     else return true;
                 }
                 onClicked: {
@@ -128,16 +128,16 @@ Item
                     anchors.verticalCenter: parent.verticalCenter
                     text: i18n("OK")
                     visible: {
-                        if (editorProfile.course != null) return editorProfile.course.modified;
+                        if (editorSession.course != null) return editorSession.course.modified;
                         else return false;
                     }
                     enabled: {
-                        if (editorProfile.course != null) return editorProfile.course.modified;
+                        if (editorSession.course != null) return editorSession.course.modified;
                         else return false;
                     }
                     iconName: "dialog-ok-apply"
                     onClicked: {
-                        editorProfile.course.sync();
+                        editorSession.course.sync();
                         editCourseSelector.unselect()
                     }
                 }
@@ -145,16 +145,16 @@ Item
                     anchors.verticalCenter: parent.verticalCenter
                     text: i18n("Cancel")
                     visible: {
-                        if (editorProfile.course != null) return editorProfile.course.modified;
+                        if (editorSession.course != null) return editorSession.course.modified;
                         else return false;
                     }
                     enabled: {
-                        if (editorProfile.course != null) return editorProfile.course.modified;
+                        if (editorSession.course != null) return editorSession.course.modified;
                         else return false;
                     }
                     iconName: "dialog-cancel"
                     onClicked: {
-                        globalResourceManager.reloadCourseOrSkeleton(editorProfile.course)
+                        globalResourceManager.reloadCourseOrSkeleton(editorSession.course)
                         editCourseSelector.unselect()
                     }
                 }
@@ -162,7 +162,7 @@ Item
                     anchors.verticalCenter: parent.verticalCenter
                     text: i18n("Close Course")
                     visible: {
-                        if (editorProfile.course != null) return !editorProfile.course.modified;
+                        if (editorSession.course != null) return !editorSession.course.modified;
                         else return false;
                     }
                     iconName: "go-up"
@@ -212,13 +212,13 @@ Item
                     id: unselectLanguage
                     anchors.verticalCenter: parent.verticalCenter
                     iconName: "go-up"
-                    enabled: editorProfile.language != null
+                    enabled: editorSession.language != null
                     onClicked: {
                         editCourseSelector.unselect()
                     }
                 }
                 Label {
-                    visible: editorProfile.language != null
+                    visible: editorSession.language != null
                     anchors.verticalCenter: parent.verticalCenter
                     text: editor.currentLanguageName
                     font.pointSize: 1.5 * theme.fontPointSize
@@ -231,7 +231,7 @@ Item
 
                 QIconItem {
                     id: courseIcon
-                    visible: editorProfile.language != null && editorProfile.course != null
+                    visible: editorSession.language != null && editorSession.course != null
                     icon: "artikulate-course"
                     width: theme.mediumIconSize
                     height: theme.mediumIconSize
@@ -241,7 +241,7 @@ Item
                     anchors {
                         verticalCenter: parent.verticalCenter
                     }
-                    visible: editorProfile.language != null && editorProfile.course != null
+                    visible: editorSession.language != null && editorSession.course != null
                     text: editor.currentCourseName
                     font.pointSize: 1.5 * theme.fontPointSize
                 }
@@ -258,7 +258,7 @@ Item
                     iconName: "go-up"
                     width: theme.mediumIconSize
                     height: theme.mediumIconSize
-                    enabled: editorProfile.course != null
+                    enabled: editorSession.course != null
                     onClicked: {
                         editCourseSelector.unselect()
                     }
@@ -287,21 +287,21 @@ Item
             width: editor.width - 60
             height: main.height - unitSelectorCaption.height - 20
             onSelectedLanguageChanged: {
-                editorProfile.language = selectedLanguage
+                editorSession.language = selectedLanguage
             }
             onSelectedCourseChanged: {
-                editorProfile.language = selectedLanguage
-                editorProfile.course = selectedCourse
+                editorSession.language = selectedLanguage
+                editorSession.course = selectedCourse
             }
         }
 
         Item {
-            visible: editorProfile.course != null
+            visible: editorSession.course != null
 
             Column {
                 id: unitSelectorColumn
                 width: 200
-                visible: (editorProfile.unit == null)
+                visible: (editorSession.unit == null)
 
                 Text {
                     id: unitSelectorCaption
@@ -312,9 +312,9 @@ Item
                     id: unitAddButton
                     text: i18n("Add Unit")
                     iconName: "document-new"
-                    enabled: editorProfile.course != null
+                    enabled: editorSession.course != null
                     onClicked: {
-                        editorProfile.course.createUnit()
+                        editorSession.course.createUnit()
                     }
                 }
                 UnitSelector {
@@ -322,20 +322,20 @@ Item
                     height: main.height - unitSelectorCaption.height - unitAddButton.height
                     unitModel: selectedUnitModel
                     onUnitSelected: {
-                        editorProfile.unit = unit;
+                        editorSession.unit = unit;
                     }
                 }
             }
 
             Column {
-                visible: (editorProfile.unit != null)
+                visible: (editorSession.unit != null)
 
                 UnitEditor {
                     width: main.width
                     height: main.height - 80
-                    unit: editorProfile.unit
+                    unit: editorSession.unit
                     onCloseUnit: {
-                        editorProfile.unit = null
+                        editorSession.unit = null
                     }
                 }
             }

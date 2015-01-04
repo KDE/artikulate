@@ -26,7 +26,8 @@
 #include "core/resourcemanager.h"
 #include "core/trainingsession.h"
 
-class Profile;
+class TrainingSession2;
+class EditorSession;
 class KActionCollection;
 class KMenu;
 class QQuickWidget;
@@ -79,7 +80,8 @@ Q_SIGNALS:
      void modeChanged(bool);
 
 private:
-    Profile *m_trainingProfile, *m_editorProfile;
+    TrainingSession2 *m_trainingSession2;
+    EditorSession *m_editorSession;
     ResourceManager *m_resourceManager;
     TrainingSession *m_trainingSession;
     LearnerProfile::ProfileManager *m_profileManager;

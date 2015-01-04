@@ -18,15 +18,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROFILE_H
-#define PROFILE_H
+#ifndef TRAININGSESSION2_H
+#define TRAININGSESSION2_H
 
 #include "artikulatecore_export.h"
 #include "course.h"
 #include "phrase.h"
-#include <QObject>
-#include <QList>
-#include <QUrl>
 
 class QString;
 class Language;
@@ -35,21 +32,18 @@ class Unit;
 class PhonemeGroup;
 
 /**
- * \class Profile
- * Objects of this class describe the current set values for language, course, unit, etc.
- * by a user.
+ * \class TrainingSession2
+ * Global training session object, which eventually will replace TrainingSession.
  */
-class ARTIKULATELIB_EXPORT Profile : public QObject
+class ARTIKULATELIB_EXPORT TrainingSession2 : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
-    Q_PROPERTY(PhonemeGroup *phonemeGroup READ phonemeGroup WRITE setPhonemeGroup NOTIFY phonemeGroupChanged)
-    Q_PROPERTY(Phrase::Type phraseType READ phraseType WRITE setPhraseType NOTIFY phraseTypeChanged)
 
 public:
-    explicit Profile(QObject *parent = 0);
+    explicit TrainingSession2(QObject *parent = 0);
 
     Language * language() const;
     void setLanguage(Language *language);
@@ -62,20 +56,16 @@ public:
     Phrase::Type phraseType() const;
     void setPhraseType(Phrase::Type type);
 
-signals:
+Q_SIGNALS:
     void languageChanged();
     void courseChanged();
     void unitChanged();
-    void phonemeGroupChanged();
-    void phraseTypeChanged(Phrase::Type);
 
 private:
-    Q_DISABLE_COPY(Profile)
+    Q_DISABLE_COPY(TrainingSession2)
     Language *m_language;
     Course *m_course;
     Unit *m_unit;
-    PhonemeGroup *m_phonemeGroup;
-    Phrase::Type m_type;
 };
 
-#endif // PROFILE_H
+#endif

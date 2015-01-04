@@ -175,7 +175,7 @@ Item {
             sortOption: PhraseFilterModel.Type
             phraseModel: PhraseModel {
                 id: progressBarModel
-                unit: userProfile.unit
+                unit: trainingSession2.unit
             }
         }
     }
