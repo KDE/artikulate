@@ -38,6 +38,7 @@ include(ECMInstallIcons)
 include(ECMOptionalAddSubdirectory)
 include(ECMSetupVersion)
 include(FeatureSummary)
+include(GenerateExportHeader)
 
 find_package(Qt5 REQUIRED COMPONENTS
     Widgets

@@ -32,6 +32,7 @@ set(learnerprofile_LIB_SRCS
 )
 
 add_library(artikulatelearnerprofile SHARED ${learnerprofile_LIB_SRCS})
+generate_export_header(artikulatelearnerprofile BASE_NAME liblearnerprofile)
 
 target_link_libraries(
     artikulatelearnerprofile

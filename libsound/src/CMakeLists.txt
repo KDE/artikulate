@@ -40,6 +40,7 @@ set(sound_LIB_SRCS
 )
 
 add_library(artikulatesound SHARED ${sound_LIB_SRCS})
+generate_export_header(artikulatesound BASE_NAME libsound)
 
 target_link_libraries(
     artikulatesound

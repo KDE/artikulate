@@ -21,7 +21,7 @@
 #ifndef LEARNINGGOALMODEL_H
 #define LEARNINGGOALMODEL_H
 
-#include "../liblearnerprofile_export.h"
+#include "liblearnerprofile_export.h"
 #include <QAbstractListModel>
 #include <QObject>
 
