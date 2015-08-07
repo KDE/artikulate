@@ -73,7 +73,7 @@ ecm_optional_add_subdirectory(liblearnerprofile)
 ecm_optional_add_subdirectory(autotests)
 
 # files to install in the artikulate project root directory
-install(PROGRAMS artikulate.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES artikulate.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/)
+install(PROGRAMS org.kde.artikulate.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(FILES org.kde.artikulate.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
