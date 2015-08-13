@@ -116,6 +116,38 @@ qt5_wrap_ui (artikulate_SRCS
     ui/appearencedialogpage.ui
 )
 kconfig_add_kcfg_files (artikulate_SRCS settings.kcfgc)
+
+set(artikulate_editor_SRCS
+    main_editor.cpp
+    application.cpp
+
+    models/coursemodel.cpp
+    models/coursefiltermodel.cpp
+    models/languagemodel.cpp
+    models/languageresourcemodel.cpp
+    models/learningprogressmodel.cpp
+    models/unitmodel.cpp
+    models/unitfiltermodel.cpp
+    models/phrasemodel.cpp
+    models/phrasefiltermodel.cpp
+    models/phonememodel.cpp
+    models/phonemegroupmodel.cpp
+    models/phonemeunitmodel.cpp
+    models/profilemodel.cpp
+    models/skeletonmodel.cpp
+
+    ui/sounddevicedialogpage.cpp
+    ui/appearencedialogpage.cpp
+    ui/resourcesdialogpage.cpp
+)
+qt5_wrap_ui (artikulate_editor_SRCS
+    ui/resourcesdialogpage.ui
+    ui/sounddevicedialogpage.ui
+    ui/appearencedialogpage.ui
+)
+kconfig_add_kcfg_files (artikulate_editor_SRCS settings.kcfgc)
+
+# executables
 add_executable(artikulate ${artikulate_SRCS})
 target_link_libraries(artikulate
     LINK_PUBLIC
@@ -132,6 +164,23 @@ target_link_libraries(artikulate
         KF5::XmlGui
 )
 
+add_executable(artikulate_editor ${artikulate_editor_SRCS})
+target_link_libraries(artikulate_editor
+    LINK_PUBLIC
+        artikulatelearnerprofile
+        artikulatesound
+        artikulatecore
+        Qt5::Qml
+        Qt5::Quick
+        Qt5::QuickWidgets
+        KF5::ConfigWidgets
+        KF5::Declarative
+        KF5::KIOWidgets
+        KF5::NewStuff
+        KF5::XmlGui
+)
+
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 install(TARGETS artikulate ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS artikulate_editor ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES artikulateui.rc DESTINATION  ${KXMLGUI_INSTALL_DIR}/artikulate)

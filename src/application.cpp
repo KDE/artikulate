@@ -20,7 +20,6 @@
 
 #include "application.h"
 
-#include "mainwindow.h"
 #include "core/course.h"
 #include "core/language.h"
 #include "core/resourcemanager.h"
@@ -99,6 +98,4 @@ void Application::registerQmlTypes()
     qmlRegisterType<ProfileModel>("artikulate", 1, 0, "ProfileModel");
     qmlRegisterType<SkeletonModel>("artikulate", 1, 0, "SkeletonModel");
     qmlRegisterType<LearnerProfile::LearningGoalModel>("artikulate", 1, 0, "LearningGoalModel");
-
-    qmlRegisterType<MainWindow>("artikulate", 1, 0, "MainWindow");
 }

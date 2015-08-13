@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,9 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mainwindow.h"
-#include "application.h"
 #include "version.h"
+#include "application.h"
 
 #include <KAboutData>
 #include <KLocalizedString>
@@ -28,36 +27,25 @@
 
 int main(int argc, char **argv)
 {
-    KAboutData aboutData("artikulate",
-                         ki18nc("@title Displayed program name", "Artikulate").toString(),
+    KAboutData aboutData("artikulate_editor",
+                         ki18nc("@title Displayed program name", "Artikulate Editor").toString(),
                          ARTIKULATE_VERSION_STRING,
-                         ki18nc("@title KAboutData: short program description", "Artikulate Pronunciation Trainer").toString(),
+                         ki18nc("@title KAboutData: short program description", "Artikulate Course Editor").toString(),
                          KAboutLicense::GPL_V2,
-                         ki18nc("@info:credit", "(c) 2013-2014 The Artikulate Developers").toString(),
-                         ki18nc("@title Short program description", "Training your ponunciation in a foreign language.").toString()
+                         ki18nc("@info:credit", "(c) 2013-2015 The Artikulate Developers").toString(),
+                         ki18nc("@title Short program description", "Edit Artikulate course files.").toString()
                         );
 
     aboutData.addAuthor(ki18nc("@info:credit Developer name", "Andreas Cord-Landwehr").toString(),
                         ki18nc("@info:credit Role", "Original Author").toString(),
                         "cordlandwehr@kde.org");
 
-    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Samikshan Bairagya").toString(),
-                        ki18nc("@info:credit Role", "Developer").toString(),
-                        "samikshan@gmail.com");
-
-    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Oindrila Gupta").toString(),
-                        ki18nc("@info:credit Role", "Developer and Course Data").toString());
-
-    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Magdalena Konkiewicz").toString(),
-                        ki18nc("@info:credit Role", "Developer and Course Data").toString());
-
     Application app(argc, argv);
 
-    qmlRegisterType<MainWindow>("artikulate", 1, 0, "MainWindow");
-    MainWindow *mainWindow = new MainWindow();
-    QSize size(800, 600);
-    mainWindow->setMinimumSize(size);
-    mainWindow->show();
+//     MainWindow *mainWindow = new MainWindow();
+//     QSize size(800, 600);
+//     mainWindow->setMinimumSize(size);
+//     mainWindow->show();
 
     return app.exec();
 }
