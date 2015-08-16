@@ -135,9 +135,9 @@ void ResourceManager::loadLanguageResources()
 {
     // load language resources
     // all other resources are only loaded on demand
-    QStringList dirs = QStandardPaths::standardLocations(QStandardPaths::DataLocation);
+    QStringList dirs = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
     foreach (const QString &testdir, dirs) {
-        QDir dir(testdir + "/languages/");
+        QDir dir(testdir + "/artikulate/languages/");
         dir.setFilter(QDir::Files | QDir::NoSymLinks);
         QFileInfoList list = dir.entryInfoList();
         for (int i = 0; i < list.size(); ++i) {
