@@ -20,6 +20,7 @@
 
 #include "version.h"
 #include "application.h"
+#include "mainwindow_editor.h"
 
 #include <KAboutData>
 #include <KLocalizedString>
@@ -42,10 +43,10 @@ int main(int argc, char **argv)
 
     Application app(argc, argv);
 
-//     MainWindow *mainWindow = new MainWindow();
-//     QSize size(800, 600);
-//     mainWindow->setMinimumSize(size);
-//     mainWindow->show();
+    MainWindowEditor *mainWindow = new MainWindowEditor();
+    QSize size(800, 600);
+    mainWindow->setMinimumSize(size);
+    mainWindow->show();
 
     return app.exec();
 }

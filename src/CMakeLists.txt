@@ -119,6 +119,7 @@ kconfig_add_kcfg_files (artikulate_SRCS settings.kcfgc)
 
 set(artikulate_editor_SRCS
     main_editor.cpp
+    mainwindow_editor.cpp
     application.cpp
 
     models/coursemodel.cpp
@@ -167,7 +168,6 @@ target_link_libraries(artikulate
 add_executable(artikulate_editor ${artikulate_editor_SRCS})
 target_link_libraries(artikulate_editor
     LINK_PUBLIC
-        artikulatelearnerprofile
         artikulatesound
         artikulatecore
         Qt5::Qml
@@ -183,4 +183,5 @@ target_link_libraries(artikulate_editor
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 install(TARGETS artikulate ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS artikulate_editor ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(FILES artikulateui.rc DESTINATION  ${KXMLGUI_INSTALL_DIR}/artikulate)
+install(FILES artikulateui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/artikulate)
+install(FILES artikulateui_editor.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/artikulate)
