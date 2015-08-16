@@ -90,7 +90,7 @@ MainWindowEditor::MainWindowEditor()
     m_widget->setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Editor.qml")));
     m_widget->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
-    setupGUI();
+    createGUI("artikulateui_editor.rc");
     setCentralWidget(m_widget);
 }
 
