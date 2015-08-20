@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -64,10 +64,10 @@ void ResourceInterface::reload()
 QXmlSchema ResourceInterface::loadXmlSchema(const QString &schemeName) const
 {
     QString relPath = QString("schemes/%1.xsd").arg(schemeName);
-    QUrl file = QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, relPath));
+    QUrl file = QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "artikulate/" + relPath));
 
     QXmlSchema schema;
-    if (schema.load(file) == false) {
+    if (file.isEmpty() || schema.load(file) == false) {
         qWarning() << "Schema at file " << file.toLocalFile() << " is invalid.";
     }
     return schema;
