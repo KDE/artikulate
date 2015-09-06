@@ -258,7 +258,7 @@ void MainWindow::downloadNewStuff()
                 if (!path.endsWith(QLatin1String(".xml"))) {
                     continue;
                 }
-                CourseResource *resource = new CourseResource(m_resourceManager, path);
+                CourseResource *resource = new CourseResource(m_resourceManager, QUrl::fromLocalFile(path));
                 foreach (LearningGoal *goal, m_profileManager->goals()) {
                     if (goal->category() == LearningGoal::Language
                         && goal->identifier() == resource->language()

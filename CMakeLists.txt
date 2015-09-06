@@ -61,6 +61,10 @@ find_package(KF5 REQUIRED COMPONENTS
     XmlGui
 )
 
+add_definitions(
+    -DQT_NO_URL_CAST_FROM_STRING
+)
+
 # subdirectories to build
 ecm_optional_add_subdirectory(data)
 ecm_optional_add_subdirectory(schemes)

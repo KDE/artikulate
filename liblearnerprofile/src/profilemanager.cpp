@@ -157,11 +157,11 @@ int ProfileManager::profileCount() const
 
 void ProfileManager::openImageFileDialog()
 {
-    QUrl imageUrl = QFileDialog::getOpenFileName(0,
+    QString imageUrl = QFileDialog::getOpenFileName(0,
         i18n("Open Image"),
         "",
         i18n("Image Files (*.png *.jpg *.bmp)"));
-    d->m_activeProfile->importImage(imageUrl.toLocalFile());
+    d->m_activeProfile->importImage(imageUrl);
 }
 
 Learner * ProfileManager::addProfile(const QString &name)

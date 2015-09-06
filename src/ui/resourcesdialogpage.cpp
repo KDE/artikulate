@@ -45,7 +45,7 @@ ResourcesDialogPage::~ResourcesDialogPage()
 void ResourcesDialogPage::loadSettings()
 {
     // setup Ui with stored settings
-    ui->kcfg_CourseRepositoryPath->setUrl(QUrl::fromLocalFile(Settings::courseRepositoryPath()).toLocalFile());
+    ui->kcfg_CourseRepositoryPath->setUrl(QUrl(Settings::courseRepositoryPath()));
     ui->kcfg_UseCourseRepository->setChecked(Settings::useCourseRepository());
 }
 
