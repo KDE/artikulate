@@ -40,6 +40,15 @@ Item
     width: 400 //parent.width
     height: 400 //parent.height
 
+    Item {
+        id: theme
+        property string backgroundColor: "#ffffff"
+        property int smallIconSize: 18
+        property int smallMediumIconSize: 22
+        property int mediumIconSize: 32
+        property int fontPointSize: 11
+    }
+
     onCurrentCourseChanged: {
         editorSession.unit = null
         if (editorSession.course == null) {
