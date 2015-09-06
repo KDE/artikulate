@@ -58,7 +58,7 @@ using namespace LearnerProfile;
 MainWindowEditor::MainWindowEditor()
     : m_editorSession(new EditorSession(this))
     , m_resourceManager(new ResourceManager(this))
-    , m_widget (new QQuickWidget)
+    , m_widget(new QQuickWidget)
 {
     setWindowIcon(QIcon::fromTheme("artikulate"));
     setWindowTitle(qAppName());
