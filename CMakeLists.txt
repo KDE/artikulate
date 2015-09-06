@@ -26,7 +26,7 @@
 project(artikulate)
 
 cmake_minimum_required(VERSION 3.0.0)
-find_package(ECM 1.0.0 REQUIRED NO_MODULE)
+find_package(ECM 5.13.0 REQUIRED NO_MODULE)
 find_package(KF5DocTools)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
