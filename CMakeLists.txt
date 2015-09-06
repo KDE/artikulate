@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -25,7 +25,7 @@
 
 project(artikulate)
 
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.0.0)
 find_package(ECM 1.0.0 REQUIRED NO_MODULE)
 find_package(KF5DocTools)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
