@@ -58,7 +58,7 @@ void ResourceManager::loadCourseResources()
     Settings::self()->load();
 
     // register skeleton resources
-    QDir skeletonRepository = QDir(Settings::courseRepositoryPath());
+    QDir skeletonRepository = QDir(QUrl(Settings::courseRepositoryPath()).toLocalFile());
     skeletonRepository.setFilter(QDir::Files | QDir::Hidden);
     if (!skeletonRepository.cd("skeletons")) {
         qCritical() << "There is no subdirectory \"skeletons\" in directory " << skeletonRepository.path()
@@ -73,7 +73,7 @@ void ResourceManager::loadCourseResources()
     }
 
     // register contributor course files
-    QDir courseRepository = QDir(Settings::courseRepositoryPath());
+    QDir courseRepository = QDir(QUrl(Settings::courseRepositoryPath()).toLocalFile());
     if (!courseRepository.cd("courses")) {
         qCritical() << "There is no subdirectory \"courses\" in directory " << courseRepository.path()
             << " cannot load courses.";
