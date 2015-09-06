@@ -141,8 +141,6 @@ void MainWindowEditor::showSettingsDialog()
     connect(dialog, SIGNAL(accepted()), resourceDialog, SLOT(saveSettings()));
     connect(dialog, SIGNAL(accepted()), soundDialog, SLOT(saveSettings()));
     connect(dialog, SIGNAL(accepted()), appearenceDialog, SLOT(saveSettings()));
-    connect(dialog, SIGNAL(accepted()), SLOT(updateTrainingPhraseFont()));
-    connect(dialog, SIGNAL(accepted()), SLOT(updateKcfgUseContributorResources()));
 
     dialog->exec();
 }
