@@ -99,8 +99,8 @@ void ResourceManager::loadCourseResources()
 
                 // find and add course files
                 foreach (const QFileInfo &courseInfo, courses) {
-                    CourseResource * course = addCourse(courseInfo.filePath());
-                    if (course != 0) {
+                    CourseResource * course = addCourse(QUrl::fromLocalFile(courseInfo.filePath()));
+                    if (course != nullptr) {
                         course->setContributorResource(true);
                     }
                 }
