@@ -28,14 +28,6 @@ Item
 {
     id: root
 
-    property Language currentLanguage: editorSession.language
-    property Course currentCourse: editorSession.course
-    property Unit currentUnit: editorSession.unit
-    property Course currentSkeleton
-    property string currentLanguageName: i18n("Unselected")
-    property string currentCourseName: i18n("Unselected")
-    property string currentUnitName: i18n("Unselected")
-
     signal closeEditor()
 
     width: 400 //parent.width
@@ -48,36 +40,6 @@ Item
         property int smallMediumIconSize: 22
         property int mediumIconSize: 32
         property int fontPointSize: 11
-    }
-
-    onCurrentCourseChanged: {
-        editorSession.unit = null
-        if (editorSession.course == null) {
-            root.currentCourseName = i18n("Unselected");
-        }
-        else {
-            root.currentCourseName = editorSession.course.title;
-        }
-    }
-
-    onCurrentLanguageChanged: {
-        editorSession.unit = null
-        editorSession.course = null
-        if (editorSession.language == null) {
-            currentLanguageName = i18n("Unselected");
-        }
-        else {
-            root.currentLanguageName = editorSession.language.title;
-        }
-    }
-
-    onCurrentUnitChanged: {
-        if (editorSession.unit == null) {
-            root.currentUnitName = i18n("Unselected");
-        }
-        else {
-            root.currentUnitName = editorSession.unit.title;
-        }
     }
 
     UnitModel {
@@ -121,6 +83,7 @@ Item
                 Layout.minimumWidth: 200
                 Layout.fillWidth: true
                 model: LanguageModel {
+                    id: languageModel
                     view: LanguageModel.AllLanguages
                     resourceModel: LanguageResourceModel {
                         resourceManager: g_resourceManager
@@ -128,58 +91,30 @@ Item
                 }
                 textRole: "i18nTitle"
                 onCurrentIndexChanged: {
-                    console.log(currentIndex) //FIXME
+                    editorSession.language = languageModel.language(currentIndex)
                 }
             }
             ToolButton { //TODO activate
                 text: i18n("Edit Skeleton")
             }
         }
-
-//         Item {
-//             visible: editorSession.course != null
-//
-//             Column {
-//                 id: unitSelectorColumn
-//                 width: 200
-//                 visible: (editorSession.unit == null)
-//
-//                 Text {
-//                     id: unitSelectorCaption
-//                     text: i18n("Units")
-//                     font.pointSize: 1.5 * theme.fontPointSize
-//                 }
-//                 ToolButton {
-//                     id: unitAddButton
-//                     text: i18n("Add Unit")
-//                     iconName: "document-new"
-//                     enabled: editorSession.course != null
-//                     onClicked: {
-//                         editorSession.course.createUnit()
-//                     }
-//                 }
-//                 UnitSelector {
-//                     id: unitSelector
-//                     height: main.height - unitSelectorCaption.height - unitAddButton.height
-//                     unitModel: selectedUnitModel
-//                     onUnitSelected: {
-//                         editorSession.unit = unit;
-//                     }
-//                 }
-//             }
-//
-//             Column {
-//                 visible: (editorSession.unit != null)
-//
-//                 UnitEditor {
-//                     width: main.width
-//                     height: main.height - 80
-//                     unit: editorSession.unit
-//                     onCloseUnit: {
-//                         editorSession.unit = null
-//                     }
-//                 }
-//             }
-//         }
+        RowLayout {
+            Label {
+                text: i18n("Course")
+            }
+            ComboBox {
+                Layout.minimumWidth: 200
+                Layout.fillWidth: true
+                model: CourseModel {
+                    id: courseModel
+                    resourceManager: g_resourceManager
+                    language: editorSession.language
+                }
+                textRole: "title"
+                onCurrentIndexChanged: {
+                    editorSession.course = courseModel.course(currentIndex)
+                }
+            }
+        }
     }
 }

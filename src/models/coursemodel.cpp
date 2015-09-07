@@ -23,17 +23,15 @@
 #include "core/course.h"
 #include "core/resourcemanager.h"
 #include "core/resources/courseresource.h"
-
 #include <QAbstractListModel>
-#include <QSignalMapper>
-
-#include <KLocalizedString>
 #include <QDebug>
+#include <QSignalMapper>
+#include <KLocalizedString>
 
 CourseModel::CourseModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_resourceManager(0)
-    , m_language(0)
+    , m_resourceManager(nullptr)
+    , m_language(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitCourseChanged(int)));
