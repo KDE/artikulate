@@ -32,7 +32,6 @@ set(artikulate_qml_files
     TrainerCourseStatistics.qml
 
     Editor.qml
-    CourseSelector.qml
     CourseSwitcher.qml
     LanguageSwitcher.qml
     PhraseEditor.qml
