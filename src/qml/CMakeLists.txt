@@ -36,7 +36,6 @@ set(artikulate_qml_files
     CourseSwitcher.qml
     LanguageSwitcher.qml
     UnitSelector.qml
-    UnitEditor.qml
     PhraseEditor.qml
     PhraseEditorSoundComponent.qml
     PhraseEditorTypeComponent.qml
