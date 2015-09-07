@@ -42,11 +42,13 @@ class ARTIKULATELIB_EXPORT EditorSession : public QObject
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
+    Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
     Q_PROPERTY(PhonemeGroup *phonemeGroup READ phonemeGroup WRITE setPhonemeGroup NOTIFY phonemeGroupChanged)
     Q_PROPERTY(Phrase::Type phraseType READ phraseType WRITE setPhraseType NOTIFY phraseTypeChanged)
 
+    //TODO use phrase
 public:
-    explicit EditorSession(QObject *parent = 0);
+    explicit EditorSession(QObject *parent = nullptr);
 
     Language * language() const;
     void setLanguage(Language *language);
@@ -54,6 +56,8 @@ public:
     void setCourse(Course *course);
     Unit * unit() const;
     void setUnit(Unit *unit);
+    Phrase * phrase() const;
+    void setPhrase(Phrase *phrase);
     PhonemeGroup * phonemeGroup() const;
     void setPhonemeGroup(PhonemeGroup *phonemeGroup);
     Phrase::Type phraseType() const;
@@ -63,6 +67,7 @@ Q_SIGNALS:
     void languageChanged();
     void courseChanged();
     void unitChanged();
+    void phraseChanged();
     void phonemeGroupChanged();
     void phraseTypeChanged(Phrase::Type);
 
@@ -71,6 +76,7 @@ private:
     Language *m_language;
     Course *m_course;
     Unit *m_unit;
+    Phrase *m_phrase;
     PhonemeGroup *m_phonemeGroup;
     Phrase::Type m_type;
 };

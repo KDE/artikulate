@@ -140,6 +140,7 @@ Item
                         role: "text"
                     }
                     model: PhraseModel {
+                        id: phraseModel
                         course: editorSession.course
                     }
                     itemDelegate: Item {
@@ -150,7 +151,15 @@ Item
                             text: styleData.value
                         }
                     }
+                    onClicked: {
+                        editorSession.phrase = phraseModel.phrase(index)
+                    }
                 }
+            }
+            PhraseEditor {
+                phrase: editorSession.phrase
+                Layout.minimumWidth: Math.floor(main.width * 0.6)
+                Layout.fillHeight: true
             }
         }
     }

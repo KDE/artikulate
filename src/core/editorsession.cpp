@@ -64,6 +64,7 @@ void EditorSession::setCourse(Course *course)
         return;
     }
     setUnit(nullptr);
+    setPhrase(nullptr);
     m_course = course;
     emit courseChanged();
 }
@@ -79,7 +80,23 @@ void EditorSession::setUnit(Unit *unit)
         return;
     }
     m_unit = unit;
+    setPhrase(nullptr);
     return unitChanged();
+}
+
+void EditorSession::setPhrase(Phrase *phrase)
+{
+    if (m_phrase == phrase) {
+        return;
+    }
+    setUnit(phrase->unit());
+    m_phrase = phrase;
+    return phraseChanged();
+}
+
+Phrase * EditorSession::phrase() const
+{
+    return m_phrase;
 }
 
 PhonemeGroup * EditorSession::phonemeGroup() const
