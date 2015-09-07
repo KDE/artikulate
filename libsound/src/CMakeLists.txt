@@ -23,7 +23,7 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-find_package(Qt5GStreamer 1.1.90 REQUIRED)
+find_package(Qt5GStreamer 1.2.0 REQUIRED)
 
 # enable exceptions for this library
 kde_enable_exceptions()
