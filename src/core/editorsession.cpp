@@ -31,6 +31,7 @@ EditorSession::EditorSession(QObject *parent)
     , m_language(nullptr)
     , m_course(nullptr)
     , m_unit(nullptr)
+    , m_phrase(nullptr)
     , m_phonemeGroup(nullptr)
     , m_type(Phrase::Word)
 {
