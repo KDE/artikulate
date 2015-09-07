@@ -24,13 +24,13 @@
 
 #include <QSortFilterProxyModel>
 
-class PhraseModel;
+class PhraseListModel;
 class QSignalMapper;
 
 class PhraseFilterModel : public QSortFilterProxyModel
 {
     Q_OBJECT
-    Q_PROPERTY(PhraseModel *phraseModel READ phraseModel WRITE setPhraseModel NOTIFY phraseModelChanged)
+    Q_PROPERTY(PhraseListModel *phraseModel READ phraseModel WRITE setPhraseModel NOTIFY phraseModelChanged)
     Q_PROPERTY(bool hideExcluded READ isHideExcluded WRITE setHideExcluded NOTIFY hideExcludedChanged)
     Q_PROPERTY(bool hideNotRecorded READ isHideNotRecorded WRITE setHideNotRecorded NOTIFY hideNotRecordedChanged)
     Q_PROPERTY(SortOption sortOption READ sortOption WRITE setSortOption NOTIFY sortOptionChanged)
@@ -43,8 +43,8 @@ public:
         Type
     };
     explicit PhraseFilterModel(QObject *parent = nullptr);
-    PhraseModel * phraseModel() const;
-    void setPhraseModel(PhraseModel* phraseModel);
+    PhraseListModel * phraseModel() const;
+    void setPhraseModel(PhraseListModel* phraseModel);
     void setSortOption(SortOption option = Id);
     SortOption sortOption() const;
     int filteredCount() const;
@@ -63,7 +63,7 @@ Q_SIGNALS:
     void filteredCountChanged();
 
 private:
-    PhraseModel *m_phraseModel;
+    PhraseListModel *m_phraseModel;
     bool m_hideExcluded;
     bool m_hideNotRecorded;
     SortOption m_sortOption;

@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -98,7 +98,7 @@ set(artikulate_SRCS
     models/learningprogressmodel.cpp
     models/unitmodel.cpp
     models/unitfiltermodel.cpp
-    models/phrasemodel.cpp
+    models/phraselistmodel.cpp
     models/phrasefiltermodel.cpp
     models/phonememodel.cpp
     models/phonemegroupmodel.cpp
@@ -129,7 +129,7 @@ set(artikulate_editor_SRCS
     models/learningprogressmodel.cpp
     models/unitmodel.cpp
     models/unitfiltermodel.cpp
-    models/phrasemodel.cpp
+    models/phraselistmodel.cpp
     models/phrasefiltermodel.cpp
     models/phonememodel.cpp
     models/phonemegroupmodel.cpp

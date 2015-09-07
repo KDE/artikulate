@@ -227,7 +227,7 @@ Item {
                     model: PhraseFilterModel
                     {
                         hideExcluded: false
-                        phraseModel: PhraseModel {
+                        phraseModel: PhraseListModel {
                             unit: root.unit
                         }
                     }

@@ -173,7 +173,7 @@ Item {
             hideNotRecorded: true
             hideExcluded: true
             sortOption: PhraseFilterModel.Type
-            phraseModel: PhraseModel {
+            phraseModel: PhraseListModel {
                 id: progressBarModel
                 unit: trainingSession2.unit
             }

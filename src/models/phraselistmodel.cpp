@@ -18,16 +18,16 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "phrasemodel.h"
+#include "phraselistmodel.h"
 #include "core/unit.h"
 #include "core/phrase.h"
 #include <QAbstractListModel>
 #include <QSignalMapper>
 #include <KLocalizedString>
 
-PhraseModel::PhraseModel(QObject *parent)
+PhraseListModel::PhraseListModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_unit(0)
+    , m_unit(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhraseChanged(int)));
@@ -37,7 +37,7 @@ PhraseModel::PhraseModel(QObject *parent)
     connect(this, SIGNAL(unitChanged()), this, SIGNAL(countChanged()));
 }
 
-QHash< int, QByteArray > PhraseModel::roleNames() const
+QHash< int, QByteArray > PhraseListModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TextRole] = "text";
@@ -50,7 +50,7 @@ QHash< int, QByteArray > PhraseModel::roleNames() const
     return roles;
 }
 
-void PhraseModel::setUnit(Unit *unit)
+void PhraseListModel::setUnit(Unit *unit)
 {
     if (m_unit == unit) {
         return;
@@ -88,12 +88,12 @@ void PhraseModel::setUnit(Unit *unit)
     emit unitChanged();
 }
 
-Unit * PhraseModel::unit() const
+Unit * PhraseListModel::unit() const
 {
     return m_unit;
 }
 
-QVariant PhraseModel::data(const QModelIndex &index, int role) const
+QVariant PhraseListModel::data(const QModelIndex &index, int role) const
 {
     Q_ASSERT(m_unit);
 
@@ -131,7 +131,7 @@ QVariant PhraseModel::data(const QModelIndex &index, int role) const
     }
 }
 
-int PhraseModel::rowCount(const QModelIndex &parent) const
+int PhraseListModel::rowCount(const QModelIndex &parent) const
 {
     if (!m_unit) {
         return 0;
@@ -143,7 +143,7 @@ int PhraseModel::rowCount(const QModelIndex &parent) const
     return m_unit->phraseList().count();
 }
 
-void PhraseModel::onPhraseAboutToBeAdded(Phrase *phrase, int index)
+void PhraseListModel::onPhraseAboutToBeAdded(Phrase *phrase, int index)
 {
     connect(phrase, SIGNAL(textChanged()), m_signalMapper, SLOT(map()));
     connect(phrase, SIGNAL(typeChanged()), m_signalMapper, SLOT(map()));
@@ -151,25 +151,25 @@ void PhraseModel::onPhraseAboutToBeAdded(Phrase *phrase, int index)
     beginInsertRows(QModelIndex(), index, index);
 }
 
-void PhraseModel::onPhraseAdded()
+void PhraseListModel::onPhraseAdded()
 {
     updateMappings();
     endInsertRows();
     emit countChanged();
 }
 
-void PhraseModel::onPhrasesAboutToBeRemoved(int first, int last)
+void PhraseListModel::onPhrasesAboutToBeRemoved(int first, int last)
 {
     beginRemoveRows(QModelIndex(), first, last);
 }
 
-void PhraseModel::onPhrasesRemoved()
+void PhraseListModel::onPhrasesRemoved()
 {
     endRemoveRows();
     emit countChanged();
 }
 
-void PhraseModel::emitPhraseChanged(int row)
+void PhraseListModel::emitPhraseChanged(int row)
 {
     beginResetModel();
     endResetModel();
@@ -179,7 +179,7 @@ void PhraseModel::emitPhraseChanged(int row)
     emit dataChanged(index(row, 0), index(row, 0));
 }
 
-QVariant PhraseModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant PhraseListModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role != Qt::DisplayRole) {
         return QVariant();
@@ -190,7 +190,7 @@ QVariant PhraseModel::headerData(int section, Qt::Orientation orientation, int r
     return QVariant(i18nc("@title:column", "Phrase"));
 }
 
-int PhraseModel::count() const
+int PhraseListModel::count() const
 {
     if (!m_unit) {
         return 0;
@@ -198,7 +198,7 @@ int PhraseModel::count() const
     return m_unit->phraseList().count();
 }
 
-void PhraseModel::updateMappings()
+void PhraseListModel::updateMappings()
 {
     if (!m_unit) {
         return;

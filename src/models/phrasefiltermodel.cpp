@@ -20,22 +20,22 @@
  */
 
 #include "phrasefiltermodel.h"
-#include "models/phrasemodel.h"
+#include "models/phraselistmodel.h"
 
 #include <QSortFilterProxyModel>
 
 #include <KLocalizedString>
 #include <QDebug>
 
-PhraseFilterModel::PhraseFilterModel(QObject* parent)
+PhraseFilterModel::PhraseFilterModel(QObject *parent)
     : QSortFilterProxyModel(parent)
-    , m_phraseModel(0)
+    , m_phraseModel(nullptr)
     , m_hideExcluded(true)
 {
     setHideExcluded(true);
 }
 
-PhraseModel * PhraseFilterModel::phraseModel() const
+PhraseListModel * PhraseFilterModel::phraseModel() const
 {
     return m_phraseModel;
 }
@@ -64,7 +64,7 @@ bool PhraseFilterModel::isHideNotRecorded() const
     return m_hideNotRecorded;
 }
 
-void PhraseFilterModel::setPhraseModel(PhraseModel* phraseModel)
+void PhraseFilterModel::setPhraseModel(PhraseListModel* phraseModel)
 {
     if (phraseModel == m_phraseModel) {
         return;
@@ -98,7 +98,7 @@ int PhraseFilterModel::filteredCount() const
 bool PhraseFilterModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
 {
     if (m_sortOption == Type) {
-        return sourceModel()->data(left, PhraseModel::TypeRole).toInt() < sourceModel()->data(right, PhraseModel::TypeRole).toInt();
+        return sourceModel()->data(left, PhraseListModel::TypeRole).toInt() < sourceModel()->data(right, PhraseListModel::TypeRole).toInt();
     }
     return QSortFilterProxyModel::lessThan(left, right);
 }
@@ -108,8 +108,8 @@ bool PhraseFilterModel::filterAcceptsRow(int source_row, const QModelIndex &sour
     int result = true;
     if (m_hideNotRecorded || m_hideExcluded) {
         QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
-        bool notRecorded = sourceModel()->data(index, PhraseModel::SoundFileRole).value<QUrl>().isEmpty();
-        bool excluded = sourceModel()->data(index, PhraseModel::ExcludedRole).toBool();
+        bool notRecorded = sourceModel()->data(index, PhraseListModel::SoundFileRole).value<QUrl>().isEmpty();
+        bool excluded = sourceModel()->data(index, PhraseListModel::ExcludedRole).toBool();
         result = !(notRecorded || excluded);
     }
     return result;

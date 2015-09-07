@@ -18,8 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PHRASEMODEL_H
-#define PHRASEMODEL_H
+#ifndef PHRASELISTMODEL_H
+#define PHRASELISTMODEL_H
 
 #include <QAbstractListModel>
 #include "core/phrase.h"
@@ -27,7 +27,7 @@
 class Unit;
 class QSignalMapper;
 
-class PhraseModel : public QAbstractListModel
+class PhraseListModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
@@ -43,7 +43,7 @@ public:
         DataRole
     };
 
-    explicit PhraseModel(QObject *parent = nullptr);
+    explicit PhraseListModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
@@ -81,4 +81,4 @@ private:
     QSignalMapper *m_signalMapper;
 };
 
-#endif // PHRASEMODEL_H
+#endif
