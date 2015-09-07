@@ -42,7 +42,7 @@ public:
         AllLanguages
     };
 
-    explicit LanguageModel(QObject *parent = 0);
+    explicit LanguageModel(QObject *parent = nullptr);
     LanguageResourceModel * resourceModel() const;
     void setResourceModel(LanguageResourceModel *resourceModel);
     virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const Q_DECL_OVERRIDE;
@@ -60,3 +60,4 @@ private:
 };
 
 #endif
+

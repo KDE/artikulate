@@ -195,11 +195,11 @@ Language * ResourceManager::language(int index) const
 Language * ResourceManager::language(LearnerProfile::LearningGoal *learningGoal) const
 {
     if (!learningGoal) {
-        return 0;
+        return nullptr;
     }
     if (learningGoal->category() != LearnerProfile::LearningGoal::Language) {
         qCritical() << "Cannot translate non-language learning goal to language";
-        return 0;
+        return nullptr;
     }
     foreach (LanguageResource *resource, m_languageResources) {
         if (resource->identifier() == learningGoal->identifier()) {
@@ -207,7 +207,7 @@ Language * ResourceManager::language(LearnerProfile::LearningGoal *learningGoal)
         }
     }
     qCritical() << "No language registered with identifier " << learningGoal->identifier() << ": aborting";
-    return 0;
+    return nullptr;
 }
 
 QList< CourseResource* > ResourceManager::courseResources(Language *language)
@@ -267,7 +267,7 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
         qCritical() << "No skeleton ID specified, aborting update.";
         return;
     }
-    Course *skeleton = 0;
+    Course *skeleton = nullptr;
     QList<SkeletonResource *>::ConstIterator iter = m_skeletonResources.constBegin();
     while (iter != m_skeletonResources.constEnd()) {
         if ((*iter)->identifier() == course->foreignId()) {
@@ -284,7 +284,7 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
     // update now
     foreach (Unit *unitSkeleton, skeleton->unitList()) {
         // import unit if not exists
-        Unit *currentUnit = 0;
+        Unit *currentUnit = nullptr;
         bool found = false;
         foreach (Unit *unit, course->unitList()) {
             if (unit->foreignId() == unitSkeleton->id()) {
@@ -339,12 +339,12 @@ CourseResource * ResourceManager::addCourse(const QUrl &courseFile)
     CourseResource *resource = new CourseResource(this, courseFile);
     if (resource->language().isEmpty()) {
         qCritical() << "Could not load course, language unknown:" << courseFile.toLocalFile();
-        return 0;
+        return nullptr;
     }
 
     // skip already loaded resources
     if (m_loadedResources.contains(courseFile.toLocalFile())) {
-        return 0;
+        return nullptr;
     }
     m_loadedResources.append(courseFile.toLocalFile());
     addCourseResource(resource);
@@ -369,7 +369,7 @@ void ResourceManager::addCourseResource(CourseResource *resource)
 
 void ResourceManager::removeCourse(Course *course)
 {
-    for (int index=0; index < m_courseResources[course->language()->id()].length(); index++) {
+    for (int index = 0; index < m_courseResources[course->language()->id()].length(); ++index) {
         if (m_courseResources[course->language()->id()].at(index)->course() == course) {
             emit courseResourceAboutToBeRemoved(index);
             m_courseResources[course->language()->id()].removeAt(index);
@@ -382,7 +382,7 @@ void ResourceManager::removeCourse(Course *course)
 void ResourceManager::newCourseDialog(Language *language)
 {
     QPointer<NewCourseDialog> dialog = new NewCourseDialog(this);
-    if (language != 0) {
+    if (language != nullptr) {
         dialog->setLanguage(language);
     }
     if (dialog->exec() == QDialog::Accepted) {
@@ -413,7 +413,7 @@ void ResourceManager::addSkeletonResource(SkeletonResource *resource)
 
 void ResourceManager::removeSkeleton(Skeleton *skeleton)
 {
-    for (int index=0; index < m_skeletonResources.length(); ++index) {
+    for (int index = 0; index < m_skeletonResources.length(); ++index) {
         if (m_skeletonResources.at(index)->identifier() == skeleton->id()) {
             emit skeletonAboutToBeRemoved(index, index);
             m_skeletonResources.removeAt(index);
