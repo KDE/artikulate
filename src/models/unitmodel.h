@@ -41,7 +41,7 @@ public:
         DataRole                        //!< access to Unit object
     };
 
-    explicit UnitModel(QObject *parent = 0);
+    explicit UnitModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */

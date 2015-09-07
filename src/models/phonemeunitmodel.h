@@ -45,7 +45,7 @@ public:
         PhonemeGroupRole
     };
 
-    explicit PhonemeUnitModel(QObject *parent = 0);
+    explicit PhonemeUnitModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */

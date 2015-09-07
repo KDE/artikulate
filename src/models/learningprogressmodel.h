@@ -41,7 +41,7 @@ public:
         DataRole
     };
 
-    explicit LearningProgressModel(QObject *parent = 0);
+    explicit LearningProgressModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */

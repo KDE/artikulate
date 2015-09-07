@@ -40,7 +40,7 @@ public:
         DataRole
     };
 
-    explicit PhonemeModel(QObject *parent = 0);
+    explicit PhonemeModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */

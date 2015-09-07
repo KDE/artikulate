@@ -42,7 +42,7 @@ public:
         Id,
         Type
     };
-    explicit PhraseFilterModel(QObject *parent = 0);
+    explicit PhraseFilterModel(QObject *parent = nullptr);
     PhraseModel * phraseModel() const;
     void setPhraseModel(PhraseModel* phraseModel);
     void setSortOption(SortOption option = Id);

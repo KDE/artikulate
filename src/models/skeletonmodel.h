@@ -43,7 +43,7 @@ public:
         DataRole
     };
 
-    explicit SkeletonModel(QObject *parent = 0);
+    explicit SkeletonModel(QObject *parent = nullptr);
     void setResourceManager(ResourceManager *resourceManager);
     /**
      * Reimplemented from QAbstractListModel::roleNames()

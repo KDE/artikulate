@@ -40,7 +40,7 @@ public:
         OnlyContributorResources = 2,
         AllResources = 3
     };
-    explicit CourseFilterModel(QObject *parent = 0);
+    explicit CourseFilterModel(QObject *parent = nullptr);
     CourseModel * courseModel() const;
     void setCourseModel(CourseModel* courseModel);
     int filteredCount() const;

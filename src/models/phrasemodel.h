@@ -43,7 +43,7 @@ public:
         DataRole
     };
 
-    explicit PhraseModel(QObject *parent = 0);
+    explicit PhraseModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */

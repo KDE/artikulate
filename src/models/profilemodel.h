@@ -42,7 +42,7 @@ public:
         DataRole
     };
 
-    explicit ProfileModel(QObject *parent = 0);
+    explicit ProfileModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */

@@ -33,7 +33,7 @@ class UnitFilterModel : public QSortFilterProxyModel
     Q_PROPERTY(int filteredCount READ filteredCount NOTIFY filteredCountChanged)
 
 public:
-    explicit UnitFilterModel(QObject *parent = 0);
+    explicit UnitFilterModel(QObject *parent = nullptr);
     UnitModel * unitModel() const;
     void setUnitModel(UnitModel* unitModel);
     int filteredCount() const;

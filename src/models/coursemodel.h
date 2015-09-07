@@ -45,7 +45,7 @@ public:
         DataRole
     };
 
-    explicit CourseModel(QObject *parent = 0);
+    explicit CourseModel(QObject *parent = nullptr);
     virtual ~CourseModel();
     /**
      * Reimplemented from QAbstractListModel::roleNames()
