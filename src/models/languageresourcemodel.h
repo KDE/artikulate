@@ -43,7 +43,7 @@ public:
         CourseNumberRole
     };
 
-    explicit LanguageResourceModel(QObject *parent = 0);
+    explicit LanguageResourceModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */

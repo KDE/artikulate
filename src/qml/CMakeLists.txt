@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -32,10 +32,8 @@ set(artikulate_qml_files
     TrainerCourseStatistics.qml
 
     Editor.qml
-    EditorSelector.qml
     CourseSelector.qml
     CourseSwitcher.qml
-    LanguageSelector.qml
     LanguageSwitcher.qml
     UnitSelector.qml
     UnitEditor.qml

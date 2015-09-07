@@ -32,7 +32,7 @@
 
 LanguageResourceModel::LanguageResourceModel(QObject* parent)
     : QAbstractListModel(parent)
-    , m_resourceManager(0)
+    , m_resourceManager(nullptr)
     , m_view(LanguageModel::NonEmptyGhnsOnlyLanguages)
     , m_signalMapper(new QSignalMapper(this))
 {
@@ -89,7 +89,7 @@ ResourceManager * LanguageResourceModel::resourceManager() const
     return m_resourceManager;
 }
 
-QVariant LanguageResourceModel::data(const QModelIndex& index, int role) const
+QVariant LanguageResourceModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
         return QVariant();
@@ -122,12 +122,11 @@ QVariant LanguageResourceModel::data(const QModelIndex& index, int role) const
     }
 }
 
-int LanguageResourceModel::rowCount(const QModelIndex& parent) const
+int LanguageResourceModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid()) {
         return 0;
     }
-
     return m_resources.count();
 }
 

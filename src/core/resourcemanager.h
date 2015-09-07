@@ -53,6 +53,7 @@ class ARTIKULATELIB_EXPORT ResourceManager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool isRepositoryManager READ isRepositoryManager NOTIFY repositoryChanged);
+    Q_PROPERTY(QString repositoryUrl READ repositoryUrl NOTIFY repositoryChanged);
 
 public:
     explicit ResourceManager(QObject *parent = 0);
@@ -82,6 +83,11 @@ public:
      * \return \c true if a repository is used, else \c false
      */
     Q_INVOKABLE bool isRepositoryManager() const;
+
+    /**
+     * \return path to working repository, if one is set
+     */
+    QString repositoryUrl() const;
 
     /**
      * \return list of all available language specifications

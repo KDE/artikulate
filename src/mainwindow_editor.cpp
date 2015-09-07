@@ -83,7 +83,7 @@ MainWindowEditor::MainWindowEditor()
 
     // set view
     m_widget->resize(QSize(800, 600));
-    m_widget->rootContext()->setContextProperty("globalResourceManager", m_resourceManager);
+    m_widget->rootContext()->setContextProperty("g_resourceManager", m_resourceManager);
     m_widget->rootContext()->setContextProperty("editorSession", m_editorSession);
 
     // set starting screen

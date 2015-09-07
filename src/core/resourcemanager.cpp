@@ -181,6 +181,11 @@ bool ResourceManager::isRepositoryManager() const
     return !Settings::courseRepositoryPath().isEmpty();
 }
 
+QString ResourceManager::repositoryUrl() const
+{
+    return QUrl(Settings::courseRepositoryPath()).toLocalFile();
+}
+
 QList< LanguageResource* > ResourceManager::languageResources() const
 {
     return m_languageResources;
