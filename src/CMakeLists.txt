@@ -98,6 +98,7 @@ set(artikulate_SRCS
     models/learningprogressmodel.cpp
     models/unitmodel.cpp
     models/unitfiltermodel.cpp
+    models/phrasemodel.cpp
     models/phraselistmodel.cpp
     models/phrasefiltermodel.cpp
     models/phonememodel.cpp
@@ -129,6 +130,7 @@ set(artikulate_editor_SRCS
     models/learningprogressmodel.cpp
     models/unitmodel.cpp
     models/unitfiltermodel.cpp
+    models/phrasemodel.cpp
     models/phraselistmodel.cpp
     models/phrasefiltermodel.cpp
     models/phonememodel.cpp

@@ -70,7 +70,7 @@ void LanguageModel::setResourceModel(LanguageResourceModel *resourceModel)
     }
 }
 
-bool LanguageModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
+bool LanguageModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
     return QSortFilterProxyModel::lessThan(left, right);
 }

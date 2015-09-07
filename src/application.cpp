@@ -39,6 +39,7 @@
 #include "models/learningprogressmodel.h"
 #include "models/unitmodel.h"
 #include "models/unitfiltermodel.h"
+#include "models/phrasemodel.h"
 #include "models/phraselistmodel.h"
 #include "models/phrasefiltermodel.h"
 #include "models/phonememodel.h"
@@ -90,6 +91,7 @@ void Application::registerQmlTypes()
     qmlRegisterType<LearningProgressModel>("artikulate", 1, 0, "LearningProgressModel");
     qmlRegisterType<UnitModel>("artikulate", 1, 0, "UnitModel");
     qmlRegisterType<UnitFilterModel>("artikulate", 1, 0, "UnitFilterModel");
+    qmlRegisterType<PhraseModel>("artikulate", 1, 0, "PhraseModel");
     qmlRegisterType<PhraseListModel>("artikulate", 1, 0, "PhraseListModel");
     qmlRegisterType<PhraseFilterModel>("artikulate", 1, 0, "PhraseFilterModel");
     qmlRegisterType<PhonemeModel>("artikulate", 1, 0, "PhonemeModel");

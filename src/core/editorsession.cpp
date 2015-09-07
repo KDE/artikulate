@@ -24,13 +24,14 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/phonemegroup.h"
+#include <QDebug>
 
 EditorSession::EditorSession(QObject *parent)
     : QObject(parent)
-    , m_language(0)
-    , m_course(0)
-    , m_unit(0)
-    , m_phonemeGroup(0)
+    , m_language(nullptr)
+    , m_course(nullptr)
+    , m_unit(nullptr)
+    , m_phonemeGroup(nullptr)
     , m_type(Phrase::Word)
 {
 
@@ -46,8 +47,8 @@ void EditorSession::setLanguage(Language *language)
     if (m_language == language) {
         return;
     }
-    setCourse(0);
-    setUnit(0);
+    setCourse(nullptr);
+    setUnit(nullptr);
     m_language = language;
     emit languageChanged();
 }
@@ -62,7 +63,7 @@ void EditorSession::setCourse(Course *course)
     if (m_course == course) {
         return;
     }
-    setUnit(0);
+    setUnit(nullptr);
     m_course = course;
     emit courseChanged();
 }

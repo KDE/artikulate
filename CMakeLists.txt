@@ -40,7 +40,7 @@ include(ECMSetupVersion)
 include(FeatureSummary)
 include(GenerateExportHeader)
 
-find_package(Qt5 REQUIRED COMPONENTS
+find_package(Qt5 5.5 REQUIRED COMPONENTS
     Widgets
     Sql
     XmlPatterns

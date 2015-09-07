@@ -19,7 +19,7 @@
  */
 
 import QtQuick 2.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.2
 import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
@@ -76,6 +76,7 @@ Item
         }
 
         RowLayout {
+            id: languageRow
             Label {
                 text: i18n("Language")
             }
@@ -99,20 +100,56 @@ Item
             }
         }
         RowLayout {
+            id: courseRow
             Label {
                 text: i18n("Course")
             }
             ComboBox {
+                id: combo
                 Layout.minimumWidth: 200
                 Layout.fillWidth: true
                 model: CourseModel {
                     id: courseModel
                     resourceManager: g_resourceManager
                     language: editorSession.language
+                    onLanguageChanged: {
+                        if (courseModel.course(0)) {
+                            editorSession.course = courseModel.course(0)
+                        }
+                    }
                 }
                 textRole: "title"
                 onCurrentIndexChanged: {
-                    editorSession.course = courseModel.course(currentIndex)
+                    if (courseModel.course(currentIndex)) {
+                        editorSession.course = courseModel.course(currentIndex)
+                    }
+                }
+            }
+        }
+        RowLayout {
+            id: mainRow
+            height: main.height - languageRow.height - courseRow.height - 2 * 15
+            ScrollView {
+                Layout.minimumWidth: Math.floor(main.width * 0.3)
+                Layout.fillHeight: true
+                TreeView {
+                    height: mainRow.height
+                    width: Math.floor(main.width * 0.3) - 20
+                    TableViewColumn {
+                        title: i18n("Units & Phrases")
+                        role: "text"
+                    }
+                    model: PhraseModel {
+                        course: editorSession.course
+                    }
+                    itemDelegate: Item {
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            color: styleData.textColor
+                            elide: styleData.elideMode
+                            text: styleData.value
+                        }
+                    }
                 }
             }
         }
