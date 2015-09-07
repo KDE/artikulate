@@ -44,7 +44,6 @@ set(artikulate_qml_files
     ProfileDetailsViewUser.qml
     ProfileDetailsViewFavorites.qml
     ProfileSelector.qml
-    SkeletonSelector.qml
     SoundPlayer.qml
     SoundRecorder.qml
 
