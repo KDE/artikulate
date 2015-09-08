@@ -43,21 +43,13 @@ Item {
         if (root.phrase) {
             root.__changedPhraseType = root.phrase.type
             root.__changedPhraseEditState = root.phrase.editState
-            root.__changedPhraseText = root.phrase.text
         }
-    }
-
-    function close()
-    {
-        root.phrase = null
-        editorClosed()
     }
 
     function applyChanges()
     {
         root.phrase.type = root.__changedPhraseType
         root.phrase.editState = root.__changedPhraseEditState
-        root.phrase.text = root.__changedPhraseText
     }
 
     Component {
@@ -75,50 +67,27 @@ Item {
             Column {
                 id: textEdit
                 height: inputLine.height + originalPhraseInfo.height
+                width: parent.width
                 spacing: 5
-                Row { // controls for setting phrase
+                RowLayout { // controls for setting phrase
                     id: inputLine
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
                     height: 30
                     TextField {
                         id: phraseInput
-                        property Phrase phrase : root.phrase
-                        width: root.width - buttonAccept.width - buttonCancel.width - 15
+                        property Phrase phrase: root.phrase
+                        Layout.fillWidth: true
                         text: root.phrase.text
                         anchors.verticalCenter: inputLine.verticalCenter
-                        onTextChanged: root.__changedPhraseText = text
+                        onTextChanged: root.phrase.text = text
                         onPhraseChanged: {
                             if (root.phrase != null)
                                 text = root.phrase.text
                             else
                                 text = ""
-                        }
-                        onAccepted: {
-                            applyChanges()
-                            close()
-                        }
-                    }
-                    ToolButton {
-                        id: buttonAccept
-                        width: 48
-                        height: 48
-                        anchors.verticalCenter: inputLine.verticalCenter
-                        iconName: "dialog-ok-apply"
-                        onClicked: {
-                            applyChanges()
-                            close()
-                        }
-                    }
-                    ToolButton {
-                        id: buttonCancel
-                        width: 48
-                        height: 48
-                        anchors.verticalCenter: inputLine.verticalCenter
-                        iconName: "dialog-cancel"
-                        onClicked: {
-                            phraseInput.text = root.phrase.text
-                            phraseEditStateSetter.updateCheckedStates()
-                            phraseTypeSetter.updateCheckedStates()
-                            close()
                         }
                     }
                 }
