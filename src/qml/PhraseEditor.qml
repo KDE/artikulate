@@ -160,7 +160,6 @@ Item {
                         width: 48
                         height: 48
                         enabled: editorSession.hasPreviousPhrase
-                        anchors.verticalCenter: inputLine.verticalCenter
                         iconName: "go-previous"
                         onClicked: {
                             editorSession.switchToPreviousPhrase()
@@ -170,7 +169,6 @@ Item {
                         width: 48
                         height: 48
                         enabled: editorSession.hasNextPhrase
-                        anchors.verticalCenter: inputLine.verticalCenter
                         iconName: "go-next"
                         onClicked: {
                             editorSession.switchToNextPhrase()
