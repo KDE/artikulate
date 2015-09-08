@@ -35,13 +35,6 @@ Item {
         updateCheckedStates();
     }
 
-    onPhraseChanged: {
-        updateCheckedStates();
-        if (phrase != null) {
-            selectedState = phrase.editState
-        }
-    }
-
     function updateCheckedStates()
     {
         if (root.phrase == null) {
