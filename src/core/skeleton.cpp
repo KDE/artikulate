@@ -45,7 +45,7 @@ Skeleton::~Skeleton()
 
 void Skeleton::sync()
 {
-    if (!file().isValid() || file().isEmpty() || m_resource == 0) {
+    if (!file().isValid() || file().isEmpty() || m_resource == nullptr) {
         qWarning() << "No file path set, aborting sync operation.";
         return;
     }

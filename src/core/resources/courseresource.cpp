@@ -297,12 +297,12 @@ QDomElement CourseResource::serializePhrase(Phrase *phrase, QDomDocument &docume
 void CourseResource::close()
 {
     d->m_courseResource->deleteLater();
-    d->m_courseResource = 0;
+    d->m_courseResource = nullptr;
 }
 
 bool CourseResource::isOpen() const
 {
-    return (d->m_courseResource != 0);
+    return (d->m_courseResource != nullptr);
 }
 
 QUrl CourseResource::path() const

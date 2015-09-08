@@ -35,7 +35,7 @@ class ARTIKULATELIB_EXPORT Skeleton : public Course
     Q_OBJECT
 
 public:
-    explicit Skeleton(ResourceInterface *resource = 0);
+    explicit Skeleton(ResourceInterface *resource = nullptr);
     ~Skeleton();
 
     /**

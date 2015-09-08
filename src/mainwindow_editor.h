@@ -54,7 +54,7 @@ public:
 
     virtual QSize sizeHint() const { return QSize(1000, 700); }
 
-    bool queryClose();
+    virtual bool queryClose();
 
 public Q_SLOTS:
     void showSettingsDialog();

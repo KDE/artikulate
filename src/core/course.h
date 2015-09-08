@@ -92,7 +92,7 @@ public:
     /**
      * \return true if the course was modified after the last sync, otherwise false
      */
-    bool modified() const;
+    virtual bool modified() const;
 
     /**
      * Writes course object back to file and set \ref modified state to false.
@@ -100,7 +100,7 @@ public:
      */
     virtual Q_INVOKABLE void sync();
 
-public slots:
+public Q_SLOTS:
     void setModified(bool modified = true);
     void registerPhrasePhonemes(Phrase *phrase);
     void removePhrasePhonemes(Phrase *phrase);

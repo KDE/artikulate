@@ -40,7 +40,7 @@ class SkeletonResourcePrivate
 public:
     SkeletonResourcePrivate(ResourceManager *resourceManager)
         : m_resourceManager(resourceManager)
-        , m_skeletonResource(0)
+        , m_skeletonResource(nullptr)
     {
     }
 
@@ -147,7 +147,7 @@ ResourceInterface::Type SkeletonResource::type() const
 void SkeletonResource::close()
 {
     d->m_skeletonResource->deleteLater();
-    d->m_skeletonResource = 0;
+    d->m_skeletonResource = nullptr;
 }
 
 void SkeletonResource::sync()
@@ -157,7 +157,7 @@ void SkeletonResource::sync()
     Q_ASSERT(!path().isEmpty());
 
     // if resource was never loaded, it cannot be changed
-    if (d->m_skeletonResource == 0) {
+    if (!d->m_skeletonResource) {
         qDebug() << "Aborting sync, skeleton was not parsed.";
         return;
     }
@@ -247,7 +247,7 @@ void SkeletonResource::reload()
 
 bool SkeletonResource::isOpen() const
 {
-    return (d->m_skeletonResource != 0);
+    return (d->m_skeletonResource != nullptr);
 }
 
 QUrl SkeletonResource::path() const
@@ -260,24 +260,24 @@ QUrl SkeletonResource::path() const
 
 QObject * SkeletonResource::resource()
 {
-    if (d->m_skeletonResource != 0) {
+    if (d->m_skeletonResource) {
         return d->m_skeletonResource;
     }
 
     if (!path().isLocalFile()) {
         qWarning() << "Cannot open skeleton file at " << path().toLocalFile() << ", aborting.";
-        return 0;
+        return nullptr;
     }
 
     QXmlSchema schema = loadXmlSchema("skeleton");
     if (!schema.isValid()) {
-        return 0;
+        return nullptr;
     }
 
     QDomDocument document = loadDomDocument(path(), schema);
     if (document.isNull()) {
         qWarning() << "Could not parse document " << path().toLocalFile() << ", aborting.";
-        return 0;
+        return nullptr;
     }
 
     // create skeleton

@@ -40,7 +40,7 @@ class ARTIKULATELIB_EXPORT Unit : public QObject
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
 
 public:
-    explicit Unit(QObject *parent = 0);
+    explicit Unit(QObject *parent = nullptr);
     ~Unit();
 
     QString id() const;
@@ -64,7 +64,7 @@ public:
     Q_INVOKABLE void excludeSkeletonPhrase(const QString &phraseId);
     Q_INVOKABLE void includeSkeletonPhrase(const QString &phraseId);
 
-signals:
+Q_SIGNALS:
     void idChanged();
     void titleChanged();
     void courseChanged();

@@ -163,6 +163,24 @@ void ResourceManager::sync()
     }
 }
 
+bool ResourceManager::modified() const
+{
+    QMap< QString, QList< CourseResource* > >::const_iterator iter;
+    for (iter = m_courseResources.constBegin(); iter != m_courseResources.constEnd(); ++iter) {
+        foreach (auto courseRes, iter.value()) {
+            if (courseRes->isOpen() && courseRes->course()->modified()) {
+                return true;
+            }
+        }
+    }
+    foreach (auto courseRes, m_skeletonResources) {
+        if (courseRes->isOpen() && courseRes->skeleton()->modified()) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void ResourceManager::registerLearningGoals(LearnerProfile::ProfileManager *profileManger)
 {
     foreach (LanguageResource *languageResource, languageResources()) {

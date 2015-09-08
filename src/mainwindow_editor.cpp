@@ -154,16 +154,16 @@ void MainWindowEditor::save()
 
 bool MainWindowEditor::queryClose()
 {
-    if (!m_editorSession->course() || m_editorSession->course()->modified() == false) {
+    if (!m_resourceManager->modified()) {
         return true;
     }
 
-    int result = KMessageBox::warningYesNoCancel(0, i18nc("@info",
+    int result = KMessageBox::warningYesNoCancel(nullptr, i18nc("@info",
         "The currently open course contains unsaved changes. Do you want to save them?"));
 
     switch(result) {
     case KMessageBox::Yes:
-        m_editorSession->course()->sync();
+        m_resourceManager->sync();
         return true;
     case KMessageBox::No:
         return true;

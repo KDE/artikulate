@@ -54,9 +54,9 @@ void PhraseModel::setCourse(Course *course)
     if (m_course) {
         m_course->disconnect(this);
         foreach (auto unit, m_course->unitList()) {
-            unit->disconnect();
+            unit->disconnect(this);
             foreach (auto phrase, unit->phraseList()) {
-                phrase->disconnect();
+                phrase->disconnect(this);
             }
         }
     }

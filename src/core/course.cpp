@@ -35,7 +35,7 @@
 Course::Course(ResourceInterface *resource)
     : QObject(resource)
     , m_resource(qobject_cast<CourseResource*>(resource))
-    , m_language(0)
+    , m_language(nullptr)
     , m_modified(false)
 {
 }
@@ -156,7 +156,9 @@ void Course::addUnit(Unit *unit)
     emit unitAboutToBeAdded(unit, m_unitList.length());
     m_unitList.append(unit);
 
-    connect(unit, SIGNAL(modified()), this, SLOT(setModified()));
+    connect(unit, &Unit::modified, [=]() {
+        setModified(true);
+    });
 
     // these connections are only present for "normal units" and take care to register
     // there phrases also at phoneme units
@@ -164,7 +166,7 @@ void Course::addUnit(Unit *unit)
     connect(unit, SIGNAL(phraseRemoved(Phrase*)), this, SLOT(removePhrasePhonemes(Phrase*)));
 
     emit unitAdded();
-    setModified();
+    setModified(true);
 }
 
 Unit * Course::createUnit()

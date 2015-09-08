@@ -66,7 +66,7 @@ public:
         AllTypes
     };
 
-    explicit Phrase(QObject *parent = 0);
+    explicit Phrase(QObject *parent = nullptr);
     ~Phrase();
 
     QString id() const;
@@ -102,7 +102,7 @@ public:
     Q_INVOKABLE void addPhoneme(Phoneme *phoneme);
     Q_INVOKABLE void removePhoneme(Phoneme *phoneme);
 
-signals:
+Q_SIGNALS:
     void idChanged();
     void unitChanged();
     void textChanged();

@@ -37,7 +37,14 @@ Phrase::Phrase(QObject *parent)
     , m_unit(nullptr)
     , m_excludedFromUnit(false)
 {
-
+    connect(this, &Phrase::idChanged, this, &Phrase::modified);
+    connect(this, &Phrase::typeChanged, this, &Phrase::modified);
+    connect(this, &Phrase::textChanged, this, &Phrase::modified);
+    connect(this, &Phrase::soundChanged, this, &Phrase::modified);
+    connect(this, &Phrase::editStateChanged, this, &Phrase::modified);
+    connect(this, &Phrase::i18nTextChanged, this, &Phrase::modified);
+    connect(this, &Phrase::phonemesChanged, this, &Phrase::modified);
+    connect(this, &Phrase::excludedChanged, this, &Phrase::modified);
 }
 
 Phrase::~Phrase()

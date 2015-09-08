@@ -77,6 +77,11 @@ public:
     void sync();
 
     /**
+     * \return \c true if any course or skeleton is modified, otherwise \c false
+     */
+    bool modified() const;
+
+    /**
      * Register loaded languages as learning goals in profile manager.
      *
      * TODO this should not be done by explicit call, but by putting data at shared data storage
