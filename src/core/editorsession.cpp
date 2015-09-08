@@ -127,3 +127,59 @@ void EditorSession::setPhraseType(Phrase::Type type)
     m_type = type;
     emit phraseTypeChanged(type);
 }
+
+Phrase * EditorSession::previousPhrase() const
+{
+    if (!m_phrase) {
+        return nullptr;
+    }
+    const int index = m_phrase->unit()->phraseList().indexOf(m_phrase);
+    if (index > 0) {
+        return m_phrase->unit()->phraseList().at(index - 1);
+    } else {
+        Unit *unit = m_phrase->unit();
+        int uIndex = unit->course()->unitList().indexOf(unit);
+        if (uIndex > 0) {
+            return unit->course()->unitList().at(uIndex - 1)->phraseList().last();
+        }
+    }
+    return nullptr;
+}
+
+Phrase * EditorSession::nextPhrase() const
+{
+    if (!m_phrase) {
+        return nullptr;
+    }
+    const int index = m_phrase->unit()->phraseList().indexOf(m_phrase);
+    if (index < m_phrase->unit()->phraseList().length() - 1) {
+        return m_phrase->unit()->phraseList().at(index + 1);
+    } else {
+        Unit *unit = m_phrase->unit();
+        int uIndex = unit->course()->unitList().indexOf(unit);
+        if (uIndex < unit->course()->unitList().length() - 1) {
+            return unit->course()->unitList().at(uIndex + 1)->phraseList().first();
+        }
+    }
+    return nullptr;
+}
+
+void EditorSession::switchToPreviousPhrase()
+{
+    setPhrase(previousPhrase());
+}
+
+void EditorSession::switchToNextPhrase()
+{
+    setPhrase(nextPhrase());
+}
+
+bool EditorSession::hasPreviousPhrase() const
+{
+    return previousPhrase() != nullptr;
+}
+
+bool EditorSession::hasNextPhrase() const
+{
+    return nextPhrase() != nullptr;
+}

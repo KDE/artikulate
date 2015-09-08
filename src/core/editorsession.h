@@ -45,8 +45,9 @@ class ARTIKULATELIB_EXPORT EditorSession : public QObject
     Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
     Q_PROPERTY(PhonemeGroup *phonemeGroup READ phonemeGroup WRITE setPhonemeGroup NOTIFY phonemeGroupChanged)
     Q_PROPERTY(Phrase::Type phraseType READ phraseType WRITE setPhraseType NOTIFY phraseTypeChanged)
+    Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
+    Q_PROPERTY(bool hasPreviousPhrase READ hasPreviousPhrase NOTIFY phraseChanged)
 
-    //TODO use phrase
 public:
     explicit EditorSession(QObject *parent = nullptr);
 
@@ -62,6 +63,14 @@ public:
     void setPhonemeGroup(PhonemeGroup *phonemeGroup);
     Phrase::Type phraseType() const;
     void setPhraseType(Phrase::Type type);
+    bool hasPreviousPhrase() const;
+    bool hasNextPhrase() const;
+    Q_INVOKABLE void switchToPreviousPhrase();
+    Q_INVOKABLE void switchToNextPhrase();
+
+private:
+    Phrase * nextPhrase() const;
+    Phrase * previousPhrase() const;
 
 Q_SIGNALS:
     void languageChanged();

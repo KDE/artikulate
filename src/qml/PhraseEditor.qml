@@ -20,6 +20,7 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.2
 import artikulate 1.0
 
 Item {
@@ -184,11 +185,34 @@ Item {
                         }
                     delegate: phonemeItem
                 }
+                RowLayout {
+                    id: controls
+                    ToolButton {
+                        width: 48
+                        height: 48
+                        enabled: editorSession.hasPreviousPhrase
+                        anchors.verticalCenter: inputLine.verticalCenter
+                        iconName: "go-previous"
+                        onClicked: {
+                            editorSession.switchToPreviousPhrase()
+                        }
+                    }
+                    ToolButton {
+                        width: 48
+                        height: 48
+                        enabled: editorSession.hasNextPhrase
+                        anchors.verticalCenter: inputLine.verticalCenter
+                        iconName: "go-next"
+                        onClicked: {
+                            editorSession.switchToNextPhrase()
+                        }
+                    }
+                }
             }
         }
     }
 
-    Row {
+    ColumnLayout {
         id: phraseRow
 
         Loader {
