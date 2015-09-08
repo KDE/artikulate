@@ -30,7 +30,7 @@
 
 PhonemeModel::PhonemeModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_language(0)
+    , m_language(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeChanged(int)));

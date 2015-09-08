@@ -26,7 +26,7 @@
 
 LearningProgressModel::LearningProgressModel(QObject *parent)
     : QAbstractTableModel(parent)
-    , m_session(0)
+    , m_session(nullptr)
 {
 
 }

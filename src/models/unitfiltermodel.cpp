@@ -28,7 +28,7 @@
 
 UnitFilterModel::UnitFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)
-    , m_unitModel(0)
+    , m_unitModel(nullptr)
 {
 
 }

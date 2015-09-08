@@ -31,7 +31,7 @@
 
 SkeletonModel::SkeletonModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_resourceManager(0)
+    , m_resourceManager(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitSkeletonChanged(int)));

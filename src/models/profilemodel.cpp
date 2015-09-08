@@ -31,7 +31,7 @@ using namespace LearnerProfile;
 
 ProfileModel::ProfileModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_profileManager(0)
+    , m_profileManager(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitProfileChanged(int)));

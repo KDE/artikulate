@@ -31,7 +31,7 @@
 
 PhonemeGroupModel::PhonemeGroupModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_course(0)
+    , m_course(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeGroupChanged(int)));

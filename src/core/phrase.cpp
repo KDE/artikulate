@@ -34,7 +34,7 @@ Phrase::Phrase(QObject *parent)
     , m_type(Phrase::AllTypes)
     , m_editState(Unknown)
     , m_trainingState(Untrained)
-    , m_unit(0)
+    , m_unit(nullptr)
     , m_excludedFromUnit(false)
 {
 

@@ -28,7 +28,7 @@
 
 CourseFilterModel::CourseFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)
-    , m_courseModel(0)
+    , m_courseModel(nullptr)
     , m_view(CourseFilterModel::AllResources)
 {
 
