@@ -83,6 +83,7 @@ Item
             ComboBox {
                 Layout.minimumWidth: 200
                 Layout.fillWidth: true
+                enabled: !buttonEditSkeleton.checked
                 model: LanguageModel {
                     id: languageModel
                     view: LanguageModel.AllLanguages
@@ -95,8 +96,11 @@ Item
                     editorSession.language = languageModel.language(currentIndex)
                 }
             }
-            ToolButton { //TODO activate
+            Button {
+                id: buttonEditSkeleton
                 text: i18n("Edit Skeleton")
+                iconName: "code-class"
+                checkable: true
             }
         }
         RowLayout {
@@ -105,7 +109,8 @@ Item
                 text: i18n("Course")
             }
             ComboBox {
-                id: combo
+                id: comboCourse
+                visible: !buttonEditSkeleton.checked
                 Layout.minimumWidth: 200
                 Layout.fillWidth: true
                 model: CourseModel {
@@ -122,6 +127,32 @@ Item
                 onCurrentIndexChanged: {
                     if (courseModel.course(currentIndex)) {
                         editorSession.course = courseModel.course(currentIndex)
+                    }
+                }
+                onVisibleChanged: {
+                    if (visible && courseModel.course(currentIndex)) {
+                        editorSession.course = courseModel.course(currentIndex)
+                    }
+                }
+            }
+            ComboBox {
+                id: comboSkeleton
+                visible: buttonEditSkeleton.checked
+                Layout.minimumWidth: 200
+                Layout.fillWidth: true
+                model: SkeletonModel {
+                    id: skeletonModel
+                    resourceManager: g_resourceManager
+                }
+                textRole: "title"
+                onCurrentIndexChanged: {
+                    if (skeletonModel.course(currentIndex)) {
+                        editorSession.course = skeletonModel.course(currentIndex)
+                    }
+                }
+                onVisibleChanged: {
+                    if (visible && skeletonModel.course(currentIndex)) {
+                        editorSession.course = skeletonModel.course(currentIndex)
                     }
                 }
             }

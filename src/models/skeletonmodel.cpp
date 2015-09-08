@@ -174,7 +174,12 @@ int SkeletonModel::count() const
 void SkeletonModel::updateMappings()
 {
     int skeletons = m_resourceManager->skeletonResources().count();
-    for (int i = 0; i < skeletons; i++) {
+    for (int i = 0; i < skeletons; ++i) {
         m_signalMapper->setMapping(m_resourceManager->skeletonResources().at(i)->skeleton(), i);
     }
+}
+
+QVariant SkeletonModel::course(int row) const
+{
+    return data(index(row, 0), SkeletonModel::DataRole);
 }
