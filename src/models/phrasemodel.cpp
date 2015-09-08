@@ -180,6 +180,15 @@ QModelIndex PhraseModel::index(int row, int column, const QModelIndex &parent) c
     return QModelIndex();
 }
 
+QModelIndex PhraseModel::index(Phrase *phrase) const
+{
+    if (!phrase) {
+        return QModelIndex();
+    }
+    Unit *unit = phrase->unit();
+    return createIndex(unit->phraseList().indexOf(phrase), 0, unit);
+}
+
 void PhraseModel::onPhraseAboutToBeAdded(Phrase *phrase, int index)
 {
     int unitIndex = m_course->unitList().indexOf(phrase->unit());

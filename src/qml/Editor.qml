@@ -21,6 +21,7 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.2
+import QtQml.Models 2.2
 import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
@@ -164,6 +165,7 @@ Item
                 Layout.minimumWidth: Math.floor(main.width * 0.3)
                 Layout.fillHeight: true
                 TreeView {
+                    id: phraseTree
                     height: mainRow.height
                     width: Math.floor(main.width * 0.3) - 20
                     TableViewColumn {
@@ -173,6 +175,9 @@ Item
                     model: PhraseModel {
                         id: phraseModel
                         course: editorSession.course
+                    }
+                    selection: ItemSelectionModel {
+                        model: phraseTree.model
                     }
                     itemDelegate: Item {
                         Text {
@@ -184,6 +189,14 @@ Item
                     }
                     onClicked: {
                         editorSession.phrase = phraseModel.phrase(index)
+                    }
+                    Connections {
+                        target: editorSession
+                        onPhraseChanged: {
+                            phraseTree.selection.setCurrentIndex(
+                                phraseModel.index(editorSession.phrase),
+                                ItemSelectionModel.ClearAndSelect)
+                        }
                     }
                 }
             }
