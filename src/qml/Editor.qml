@@ -189,6 +189,7 @@ Item
             }
             PhraseEditor {
                 phrase: editorSession.phrase
+                isSkeletonPhrase: buttonEditSkeleton.checked
                 Layout.minimumWidth: Math.floor(main.width * 0.6)
                 Layout.fillHeight: true
             }

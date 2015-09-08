@@ -27,14 +27,12 @@ Item {
     id: root
 
     property Phrase phrase
+    property bool isSkeletonPhrase: false
 
     // use for saving
     property int __changedPhraseType
     property int __changedPhraseEditState
     property string __changedPhraseText
-
-
-    signal editorClosed()
 
     width: 500
     height: editLoader.height
@@ -58,7 +56,7 @@ Item {
         Row {
             width: root.width
             height: {
-                if (!editCourseSelector.isSkeleton)
+                if (!root.isSkeletonPhrase)
                     textEdit.height + phonemeGrid.height + phraseEditStateSetter.height + phraseRecorder.height + phraseTypeSetter.height;
                 else { // height if only editing skeleton
                     textEdit.height + phraseTypeSetter.height;
@@ -105,7 +103,7 @@ Item {
 
                 PhraseEditorEditStateComponent {
                     id: phraseEditStateSetter
-                    visible: !editCourseSelector.isSkeleton
+                    visible: !root.isSkeletonPhrase
                     phrase: root.phrase
                     onSelectedEditStateChanged: root.__changedPhraseEditState = selectedEditState
                 }
@@ -118,7 +116,7 @@ Item {
 
                 PhraseEditorSoundComponent {
                     id: phraseRecorder
-                    visible: !editCourseSelector.isSkeleton
+                    visible: !root.isSkeletonPhrase
                     phrase: root.phrase
                 }
 
