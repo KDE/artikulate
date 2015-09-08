@@ -101,13 +101,6 @@ Item {
                     }
                 }
 
-                PhraseEditorEditStateComponent {
-                    id: phraseEditStateSetter
-                    visible: !root.isSkeletonPhrase
-                    phrase: root.phrase
-                    onSelectedEditStateChanged: root.__changedPhraseEditState = selectedEditState
-                }
-
                 PhraseEditorTypeComponent {
                     id: phraseTypeSetter
                     phrase: root.phrase
@@ -154,7 +147,22 @@ Item {
                 }
                 RowLayout {
                     id: controls
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    PhraseEditorEditStateComponent {
+                        id: phraseEditStateSetter
+                        visible: !root.isSkeletonPhrase
+                        phrase: root.phrase
+                        onSelectedEditStateChanged: root.__changedPhraseEditState = selectedEditState
+                    }
+                    Label { // dummy
+                        Layout.fillWidth: true
+                    }
+
                     ToolButton {
+                        Layout.alignment: Qt.AlignBottom
                         width: 48
                         height: 48
                         enabled: editorSession.hasPreviousPhrase
@@ -164,6 +172,7 @@ Item {
                         }
                     }
                     ToolButton {
+                        Layout.alignment: Qt.AlignBottom
                         width: 48
                         height: 48
                         enabled: editorSession.hasNextPhrase
