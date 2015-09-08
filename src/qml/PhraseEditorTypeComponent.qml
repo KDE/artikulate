@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -19,14 +19,14 @@
  */
 
 import QtQuick 2.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.2
 import artikulate 1.0
 
 Item {
     id: root
 
     property Phrase phrase
-    property int selectedType
 
     width: typeController.width
     height: typeController.height
@@ -37,9 +37,6 @@ Item {
 
     onPhraseChanged: {
         updateCheckedStates()
-        if (phrase != null) {
-            root.selectedType = phrase.type
-        }
     }
 
     function updateCheckedStates()
@@ -63,59 +60,43 @@ Item {
         }
     }
 
-    Row {
+    GroupBox {
         id: typeController
-        spacing: 10
+        title: i18n("Difficulty:")
 
-        Text {
-            id: componentTitle
-            text: i18n("Length:")
-            font.pointSize: 14;
-        }
-
-        Row {
-            id: phraseTypeRow
-            anchors { verticalCenter: componentTitle.verticalCenter }
-
-            Button {
+        RowLayout {
+            ExclusiveGroup { id: editTypeGroup }
+            RadioButton {
                 id: buttonWord
-                anchors.verticalCenter: phraseTypeRow.verticalCenter
-                checkable: true
                 text: i18n("Word")
-                checked: {root.selectedType == Phrase.Word}
                 onClicked: {
-                    root.selectedType = Phrase.Word
+                    root.phrase.type = Phrase.Word
                 }
+                exclusiveGroup: editTypeGroup
             }
-            Button {
+            RadioButton {
                 id: buttonExpression
-                anchors.verticalCenter: phraseTypeRow.verticalCenter
-                checkable: true
                 text: i18n("Expression")
-                checked: {root.selectedType == Phrase.Expression}
                 onClicked: {
-                    root.selectedType = Phrase.Expression
+                    root.phrase.type = Phrase.Expression
                 }
+                exclusiveGroup: editTypeGroup
             }
-            Button {
+            RadioButton {
                 id: buttonSentence
-                anchors.verticalCenter: phraseTypeRow.verticalCenter
-                checkable: true
                 text: i18n("Sentence")
-                checked: {root.selectedType == Phrase.Sentence}
                 onClicked: {
-                    root.selectedType = Phrase.Sentence
+                    root.phrase.type = Phrase.Sentence
                 }
+                exclusiveGroup: editTypeGroup
             }
-            Button {
+            RadioButton {
                 id: buttonParagraph
-                anchors.verticalCenter: phraseTypeRow.verticalCenter
-                checkable: true
                 text: i18n("Paragraph")
-                checked: {root.selectedType == Phrase.Paragraph}
                 onClicked: {
-                    root.selectedType = Phrase.Paragraph
+                    root.phrase.type = Phrase.Paragraph
                 }
+                exclusiveGroup: editTypeGroup
             }
         }
     }

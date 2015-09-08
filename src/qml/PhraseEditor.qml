@@ -31,24 +31,10 @@ Item {
 
     // use for saving
     property int __changedPhraseType
-    property int __changedPhraseEditState
     property string __changedPhraseText
 
     width: 500
     height: editLoader.height
-
-    onPhraseChanged: {
-        if (root.phrase) {
-            root.__changedPhraseType = root.phrase.type
-            root.__changedPhraseEditState = root.phrase.editState
-        }
-    }
-
-    function applyChanges()
-    {
-        root.phrase.type = root.__changedPhraseType
-        root.phrase.editState = root.__changedPhraseEditState
-    }
 
     Component {
         id: editComponent
@@ -104,7 +90,6 @@ Item {
                 PhraseEditorTypeComponent {
                     id: phraseTypeSetter
                     phrase: root.phrase
-                    onSelectedTypeChanged: root.__changedPhraseType = selectedType
                 }
 
                 PhraseEditorSoundComponent {
@@ -155,7 +140,6 @@ Item {
                         id: phraseEditStateSetter
                         visible: !root.isSkeletonPhrase
                         phrase: root.phrase
-                        onSelectedEditStateChanged: root.__changedPhraseEditState = selectedEditState
                     }
                     Label { // dummy
                         Layout.fillWidth: true
