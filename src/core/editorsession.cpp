@@ -87,7 +87,7 @@ void EditorSession::setUnit(Unit *unit)
 
 void EditorSession::setPhrase(Phrase *phrase)
 {
-    if (m_phrase == phrase) {
+    if (!phrase || m_phrase == phrase) {
         return;
     }
     setUnit(phrase->unit());
