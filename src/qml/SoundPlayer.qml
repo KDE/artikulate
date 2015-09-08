@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -42,7 +42,7 @@ Item {
         height: Math.max(root.width, root.height)
         width: Math.max(root.width, root.height)
         enabled: fileUrl != ""
-        iconName: "artikulate-media-playback-start"
+        iconName: "media-playback-start"
 
         onClicked: {
             if (playerBackend.state == Player.PlayingState) {
@@ -59,11 +59,11 @@ Item {
             onStateChanged: {
                 // set next possible action icon
                 if (playerBackend.state == Player.PlayingState) {
-                    playButton.iconSource = "artikulate-media-playback-stop";
+                    playButton.iconSource = "media-playback-stop";
                     return
                 }
                 if (playerBackend.state == Player.StoppedState) {
-                    playButton.iconSource = "artikulate-media-playback-start";
+                    playButton.iconSource = "amedia-playback-start";
                     return
                 }
             }

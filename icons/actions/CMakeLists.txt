@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -25,10 +25,6 @@
 
 ecm_install_icons(
   ICONS
-    128-actions-artikulate-media-playback-start.png
-    128-actions-artikulate-media-playback-stop.png
-    128-actions-artikulate-media-record-active.png
-    128-actions-artikulate-media-record.png
     16-actions-artikulate-course.png
     16-actions-artikulate-expression.png
     16-actions-artikulate-language.png
@@ -39,11 +35,6 @@ ecm_install_icons(
     32-actions-artikulate-course.png
     32-actions-artikulate-expression.png
     32-actions-artikulate-language.png
-    32-actions-artikulate-media-native-speaker-play.png
-    32-actions-artikulate-media-playback-start.png
-    32-actions-artikulate-media-playback-stop.png
-    32-actions-artikulate-media-record-active.png
-    32-actions-artikulate-media-record.png
     32-actions-artikulate-paragraph.png
     32-actions-artikulate-sentence.png
     32-actions-artikulate-word.png
@@ -60,10 +51,6 @@ ecm_install_icons(
     64-actions-artikulate-word.png
     sc-actions-artikulate-course-editor.svgz
     sc-actions-artikulate-expression.svgz
-    sc-actions-artikulate-media-playback-start.svgz
-    sc-actions-artikulate-media-playback-stop.svgz
-    sc-actions-artikulate-media-record-active.svgz
-    sc-actions-artikulate-media-record.svgz
     sc-actions-artikulate-paragraph.svgz
     sc-actions-artikulate-sentence.svgz
     sc-actions-artikulate-word.svgz

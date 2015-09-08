@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2014-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -49,7 +49,7 @@ Item {
         id: recordButton
         height: Math.max(root.width, root.height)
         width: Math.max(root.width, root.height)
-        iconName: "artikulate-media-record"
+        iconName: "media-record"
 
         onClicked: {
             if (recorderBackend.state == Recorder.RecordingState) {
@@ -68,10 +68,10 @@ Item {
             onStateChanged: {
                 // update icon
                 if (recorderBackend.state == Recorder.RecordingState) {
-                    recordButton.iconSource = "artikulate-media-record-active";
+                    recordButton.iconSource = "media-playback-stop";
                 }
                 if (recorderBackend.state == Recorder.StoppedState) {
-                    recordButton.iconSource = "artikulate-media-record";
+                    recordButton.iconSource = "media-record";
                 }
             }
         }
