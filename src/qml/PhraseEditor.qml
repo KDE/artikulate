@@ -48,24 +48,31 @@ Item {
                     textEdit.height + phraseTypeSetter.height;
                 }
             }
-            Column {
+            ColumnLayout {
                 id: textEdit
                 height: inputLine.height + originalPhraseInfo.height
                 width: parent.width
                 spacing: 5
+
+                Row {
+                    id: originalPhraseInfo
+                    property string originalPhrase : (root.phrase != null) ? root.phrase.i18nText : ""
+                    spacing: 10
+                    visible: { root.phrase != null && originalPhrase != "" && !root.isSkeletonPhrase}
+                    Text {
+                        text: i18n("Original Phrase:") + " <i>" + originalPhraseInfo.originalPhrase + "</i>"
+                        width: root.width - 70
+                        wrapMode: Text.WordWrap
+                    }
+                }
                 RowLayout { // controls for setting phrase
                     id: inputLine
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
-                    height: 30
-                    TextField {
+                    TextArea {
                         id: phraseInput
                         property Phrase phrase: root.phrase
                         Layout.fillWidth: true
+                        Layout.maximumHeight: 100
                         text: root.phrase.text
-                        anchors.verticalCenter: inputLine.verticalCenter
                         onTextChanged: root.phrase.text = text
                         onPhraseChanged: {
                             if (root.phrase != null)
@@ -73,17 +80,6 @@ Item {
                             else
                                 text = ""
                         }
-                    }
-                }
-                Row {
-                    id: originalPhraseInfo
-                    property string originalPhrase : (root.phrase != null) ? root.phrase.i18nText : ""
-                    spacing: 10
-                    visible: { root.phrase != null && originalPhrase != "" }
-                    Text {
-                        text: i18n("Original Phrase:") + " <i>" + originalPhraseInfo.originalPhrase + "</i>"
-                        width: root.width - 70
-                        wrapMode: Text.WordWrap
                     }
                 }
 
