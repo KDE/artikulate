@@ -150,6 +150,19 @@ void ResourceManager::loadLanguageResources()
     }
 }
 
+void ResourceManager::sync()
+{
+    QMap< QString, QList< CourseResource* > >::iterator iter;
+    for (iter = m_courseResources.begin(); iter != m_courseResources.end(); ++iter) {
+        foreach (auto courseRes, iter.value()) {
+            courseRes->sync();
+        }
+    }
+    foreach (auto courseRes, m_skeletonResources) {
+        courseRes->sync();
+    }
+}
+
 void ResourceManager::registerLearningGoals(LearnerProfile::ProfileManager *profileManger)
 {
     foreach (LanguageResource *languageResource, languageResources()) {

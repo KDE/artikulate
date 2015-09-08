@@ -58,6 +58,7 @@ public:
 
 public Q_SLOTS:
     void showSettingsDialog();
+    void save();
 
 Q_SIGNALS:
      void modeChanged(bool);

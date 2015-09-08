@@ -72,6 +72,11 @@ public:
     void loadLanguageResources();
 
     /**
+     * save all changes to course resources
+     */
+    void sync();
+
+    /**
      * Register loaded languages as learning goals in profile manager.
      *
      * TODO this should not be done by explicit call, but by putting data at shared data storage

@@ -90,6 +90,10 @@ MainWindowEditor::MainWindowEditor()
     m_widget->setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "artikulate/qml/Editor.qml")));
     m_widget->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
+
+    QAction *newAct = KStandardAction::save(this, SLOT(save()), actionCollection());
+    actionCollection()->addAction("save", newAct);
+
     createGUI("artikulateui_editor.rc");
     setCentralWidget(m_widget);
 }
@@ -141,6 +145,11 @@ void MainWindowEditor::showSettingsDialog()
     connect(dialog, &QDialog::accepted, appearenceDialog, &AppearenceDialogPage::saveSettings);
 
     dialog->exec();
+}
+
+void MainWindowEditor::save()
+{
+    m_resourceManager->sync();
 }
 
 bool MainWindowEditor::queryClose()

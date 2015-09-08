@@ -162,6 +162,7 @@ void CourseResource::sync()
         return;
     }
 
+//TODO
 //     // not writing back if not modified
 //     if (!d->m_courseResource->modified()) {
 //         qDebug() << "Aborting sync, course was not modified.";
