@@ -193,8 +193,9 @@ Item
                     Connections {
                         target: editorSession
                         onPhraseChanged: {
+                            phraseTree.expand(phraseModel.indexUnit(editorSession.phrase.unit))
                             phraseTree.selection.setCurrentIndex(
-                                phraseModel.index(editorSession.phrase),
+                                phraseModel.indexPhrase(editorSession.phrase),
                                 ItemSelectionModel.ClearAndSelect)
                         }
                     }

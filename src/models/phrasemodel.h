@@ -50,7 +50,8 @@ public:
     virtual QModelIndex index(int row, int column, const QModelIndex &parent) const Q_DECL_OVERRIDE;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
     Q_INVOKABLE Phrase * phrase(const QModelIndex &index) const;
-    Q_INVOKABLE QModelIndex index(Phrase *phrase) const;
+    Q_INVOKABLE QModelIndex indexPhrase(Phrase *phrase) const;
+    Q_INVOKABLE QModelIndex indexUnit(Unit *unit) const;
 
 Q_SIGNALS:
     void phraseChanged(int index);
