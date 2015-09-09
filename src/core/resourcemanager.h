@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -37,9 +37,6 @@ class Language;
 class Course;
 class ProfileManager;
 class QUrl;
-class QDomDocument;
-class QFile;
-class QXmlSchema;
 
 namespace LearnerProfile {
     class ProfileManager;
@@ -56,7 +53,7 @@ class ARTIKULATELIB_EXPORT ResourceManager : public QObject
     Q_PROPERTY(QString repositoryUrl READ repositoryUrl NOTIFY repositoryChanged);
 
 public:
-    explicit ResourceManager(QObject *parent = 0);
+    explicit ResourceManager(QObject *parent = nullptr);
 
     /**
      * Load all course resources.
@@ -193,9 +190,9 @@ public:
      */
     QList<SkeletonResource *> skeletonResources();
 
-    Q_INVOKABLE void newCourseDialog(Language* language = 0);
+    Q_INVOKABLE void newCourseDialog(Language* language = nullptr);
 
-signals:
+Q_SIGNALS:
     void languageResourceAdded();
     void languageResourceAboutToBeAdded(LanguageResource*,int);
     void languageResourceRemoved();
