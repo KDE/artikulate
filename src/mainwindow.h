@@ -24,12 +24,8 @@
 #include <KXmlGuiWindow>
 #include <QQuickWidget>
 #include "core/resourcemanager.h"
-#include "core/trainingsession.h"
 
-class TrainingSession2;
-class EditorSession;
-class KActionCollection;
-class KMenu;
+class TrainingSession;
 class QQuickWidget;
 
 namespace LearnerProfile {
@@ -39,7 +35,6 @@ namespace LearnerProfile {
 class MainWindow : public KXmlGuiWindow
 {
     Q_OBJECT
-    Q_PROPERTY(ResourceManager *globalResourceManager READ resourceManager CONSTANT)
 
 public:
     /**
@@ -68,9 +63,8 @@ public Q_SLOTS:
     void configLearnerProfile();
 
 private:
-    TrainingSession2 *m_trainingSession2;
-    ResourceManager *m_resourceManager;
     TrainingSession *m_trainingSession;
+    ResourceManager *m_resourceManager;
     LearnerProfile::ProfileManager *m_profileManager;
     QQuickWidget *m_widget;
 };

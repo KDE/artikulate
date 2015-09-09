@@ -49,7 +49,6 @@ set(artikulateCore_SRCS
     core/skeleton.cpp
     core/editorsession.cpp
     core/trainingsession.cpp
-    core/trainingsession2.cpp
     core/resources/resourceinterface.cpp
     core/resources/languageresource.cpp
     core/resources/courseresource.cpp
@@ -95,7 +94,7 @@ set(artikulate_SRCS
     models/coursefiltermodel.cpp
     models/languagemodel.cpp
     models/languageresourcemodel.cpp
-    models/learningprogressmodel.cpp
+#     models/learningprogressmodel.cpp //TODO must be adapted to new trainingsession
     models/unitmodel.cpp
     models/unitfiltermodel.cpp
     models/phrasemodel.cpp
@@ -127,7 +126,7 @@ set(artikulate_editor_SRCS
     models/coursefiltermodel.cpp
     models/languagemodel.cpp
     models/languageresourcemodel.cpp
-    models/learningprogressmodel.cpp
+#     models/learningprogressmodel.cpp //TODO must be adapted to new trainingsession
     models/unitmodel.cpp
     models/unitfiltermodel.cpp
     models/phrasemodel.cpp

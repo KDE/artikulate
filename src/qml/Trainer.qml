@@ -34,19 +34,19 @@ Item {
         leftMargin: 6
     }
 
-    property ResourceManager resourceManager: globalResourceManager
+    property ResourceManager resourceManager: g_resourceManager
 
     Component.onCompleted: {
         var learner = profileManager.activeProfile;
         if (learner == null) {
             return;
         }
-        trainingSession2.language = globalResourceManager.language(learner.activeGoal(Learner.Language))
+        g_trainingSession.language = g_resourceManager.language(learner.activeGoal(Learner.Language))
     }
 
     CourseModel {
         id: availableCourseModel
-        resourceManager: globalResourceManager
+        resourceManager: g_resourceManager
     }
 
     ColumnLayout {
@@ -58,9 +58,9 @@ Item {
                 width: 400
                 anchors.verticalCenter: parent.verticalCenter
                 visible: learner != null
-                resourceManager: globalResourceManager
+                resourceManager: g_resourceManager
                 onLanguageSelected: {
-                    trainingSession2.language = selectedLanguage
+                    g_trainingSession.language = selectedLanguage
                 }
             }
 
@@ -85,7 +85,7 @@ Item {
                     id: unitList
                     clip: true
                     model: UnitFilterModel {
-                        unitModel: UnitModel { course: trainingSession2.course }
+                        unitModel: UnitModel { course: g_trainingSession.course }
                     }
                     delegate: ListItem {
                         width : unitList.width - 10 - 10
@@ -94,8 +94,8 @@ Item {
                         property Unit unit : model.dataRole
                         onSelected : {
                             unitList.currentIndex = index
-                            trainingSession2.unit = unit
-                            trainingSession.createFromUnit(trainingSession2.unit)
+                            g_trainingSession.unit = unit
+                            trainingSession.createFromUnit(g_trainingSession.unit)
                         }
                     }
                 }
@@ -103,11 +103,11 @@ Item {
             ColumnLayout {
                 CourseSwitcher {
                     id: courseSelector
-                    resourceManager: globalResourceManager
+                    resourceManager: g_resourceManager
                     view: kcfg_UseContributorResources ? CourseFilterModel.AllResources : CourseFilterModel.OnlyGetHotNewStuffResources
-                    language: trainingSession2.language
+                    language: g_trainingSession.language
                     onCourseSelected: {
-                        trainingSession2.course = course
+                        g_trainingSession.course = course
                     }
                 }
 
@@ -115,7 +115,7 @@ Item {
                     id: trainerMain
                     width: 800 //root.width - 40
                     height: 800//root.height - 30
-                    unit: trainingSession2.unit
+                    unit: g_trainingSession.unit
                     session: trainingSession
                 }
 
@@ -132,7 +132,7 @@ Item {
                         width: trainerMain.width
                         session: trainingSession
                         onTypeSelected: {
-                            trainingSession2.phraseType = type
+                            g_trainingSession.phraseType = type
                         }
                     }
                 }

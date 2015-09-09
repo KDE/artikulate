@@ -28,7 +28,6 @@
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
 #include "core/trainingsession.h"
-#include "core/trainingsession2.h"
 #include "core/editorsession.h"
 #include "core/player.h"
 #include "core/recorder.h"
@@ -80,7 +79,6 @@ void Application::registerQmlTypes()
     qmlRegisterType<PhonemeGroup>("artikulate", 1, 0, "PhonemeGroup");
     qmlRegisterType<EditorSession>("artikulate", 1, 0, "EditorSession");
     qmlRegisterType<TrainingSession>("artikulate", 1, 0, "TrainingSession");
-    qmlRegisterType<TrainingSession2>("artikulate", 1, 0, "TrainingSession2");
     qmlRegisterType<Player>("artikulate", 1, 0, "Player");
     qmlRegisterType<Recorder>("artikulate", 1, 0, "Recorder");
 
@@ -88,7 +86,7 @@ void Application::registerQmlTypes()
     qmlRegisterType<CourseFilterModel>("artikulate", 1, 0, "CourseFilterModel");
     qmlRegisterType<LanguageModel>("artikulate", 1, 0, "LanguageModel");
     qmlRegisterType<LanguageResourceModel>("artikulate", 1, 0, "LanguageResourceModel");
-    qmlRegisterType<LearningProgressModel>("artikulate", 1, 0, "LearningProgressModel");
+//     qmlRegisterType<LearningProgressModel>("artikulate", 1, 0, "LearningProgressModel");//TODO must be ported to new trainingsession
     qmlRegisterType<UnitModel>("artikulate", 1, 0, "UnitModel");
     qmlRegisterType<UnitFilterModel>("artikulate", 1, 0, "UnitFilterModel");
     qmlRegisterType<PhraseModel>("artikulate", 1, 0, "PhraseModel");

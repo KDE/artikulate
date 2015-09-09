@@ -53,7 +53,7 @@ Item {
     // react on changed goals
     Component.onCompleted: {
         for (var i = 0; i < languageView.count; ++i) {
-            if (trainingSession2.language.id == languageModel.language(i).id) {
+            if (g_trainingSession.language.id == languageModel.language(i).id) {
                 languageView.currentIndex = i
             }
         }

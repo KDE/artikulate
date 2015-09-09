@@ -23,7 +23,7 @@
 #include "ui/sounddevicedialogpage.h"
 #include "ui/appearencedialogpage.h"
 #include "core/resourcemanager.h"
-#include "core/trainingsession2.h"
+#include "core/trainingsession.h"
 #include "core/editorsession.h"
 #include "core/resources/courseresource.h"
 #include "models/languagemodel.h"
@@ -59,11 +59,10 @@
 using namespace LearnerProfile;
 
 MainWindow::MainWindow()
-    : m_trainingSession2(new TrainingSession2(this))
-    , m_resourceManager(new ResourceManager(this))
-    , m_trainingSession(new TrainingSession(this))
+    : m_resourceManager(new ResourceManager(this))
     , m_profileManager(new LearnerProfile::ProfileManager(this))
-    , m_widget (new QQuickWidget)
+    , m_trainingSession(new TrainingSession(this))
+    , m_widget(new QQuickWidget)
 {
     setWindowIcon(QIcon::fromTheme("artikulate"));
     setWindowTitle(qAppName());
@@ -89,10 +88,8 @@ MainWindow::MainWindow()
 
     // set view
     m_widget->resize(QSize(800, 600));
-    m_widget->rootContext()->setContextProperty("globalResourceManager", m_resourceManager);
-
-    m_widget->rootContext()->setContextProperty("trainingSession2", m_trainingSession2);
-    m_widget->rootContext()->setContextProperty("trainingSession", m_trainingSession); //TODO deprecated
+    m_widget->rootContext()->setContextProperty("g_resourceManager", m_resourceManager);
+    m_widget->rootContext()->setContextProperty("g_trainingSession", m_trainingSession);
     m_widget->rootContext()->setContextProperty("profileManager", m_profileManager);
 
     m_widget->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
