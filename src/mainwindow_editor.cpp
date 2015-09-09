@@ -116,7 +116,7 @@ void MainWindowEditor::setupActions()
     actionCollection()->addAction("settings", settingsAction);
     settingsAction->setIcon(QIcon::fromTheme("configure"));
 
-    KStandardAction::quit(qApp, SLOT(quit()), actionCollection());
+    KStandardAction::quit(this, SLOT(quit()), actionCollection());
 
     setupGUI(Keys | Save | Create, "artikulateui_editor.rc");
 }
@@ -150,6 +150,13 @@ void MainWindowEditor::showSettingsDialog()
 void MainWindowEditor::save()
 {
     m_resourceManager->sync();
+}
+
+void MainWindowEditor::quit()
+{
+    if (queryClose()) {
+        qApp->quit();
+    }
 }
 
 bool MainWindowEditor::queryClose()
