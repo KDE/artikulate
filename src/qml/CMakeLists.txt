@@ -25,7 +25,7 @@
 
 set(artikulate_qml_files
     Main.qml
-
+ 
     Trainer.qml
     TrainerSessionScreen.qml
     TrainerProgressBar.qml

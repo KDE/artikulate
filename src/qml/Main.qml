@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -39,32 +39,8 @@ Item {
     property int viewMode
     property Learner learner: profileManager.activeProfile
 
-    Loader {
+    Trainer {
         anchors.fill: parent
-        sourceComponent: {
-            if (root.viewMode == MainWindow.Trainer) {
-                trainerComponent
-            }
-            if (root.viewMode == MainWindow.Editor) {
-                editorComponent
-            }
-        }
     }
 
-    Component {
-        id: trainerComponent
-        Trainer {
-            anchors.fill: parent
-        }
-    }
-
-    Component {
-        id: editorComponent
-        Editor {
-            anchors.fill: parent
-            onCloseEditor: {
-                switchMode()
-            }
-        }
-    }
 }

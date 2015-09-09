@@ -12,12 +12,6 @@
       <Action name="download_new_stuff" />
     </Menu>
 
-    <Menu name="mode" >
-      <text>M&amp;ode</text>
-      <Action name="editor" />
-      <Action name="trainer" />
-    </Menu>
-
     <Menu name="settings" >
       <Action name="settings" />
 <!--       <Action name="config_learner_profile" /> -->

@@ -32,35 +32,34 @@
 #include "liblearnerprofile/src/learner.h"
 #include "libsound/src/outputdevicecontroller.h"
 
-#include <QAction>
 #include <KActionCollection>
-#include <QIcon>
-#include <KLocalizedString>
-#include <KDeclarative/KDeclarative>
 #include <KConfigDialog>
-#include <QDebug>
-#include <KStandardAction>
-#include <QApplication>
+#include <KDeclarative/KDeclarative>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <KNS3/DownloadDialog>
+#include <KStandardAction>
 
-#include <QDebug>
-#include <QGraphicsObject>
-#include <QQuickItem>
-#include <QQuickView>
-#include <QQmlContext>
-#include <QQmlProperty>
-#include <QQuickWidget>
+#include <QAction>
+#include <QApplication>
 #include <QCloseEvent>
 #include <QCoreApplication>
+#include <QDebug>
+#include <QDebug>
+#include <QGraphicsObject>
+#include <QIcon>
 #include <QPointer>
+#include <QQmlContext>
+#include <QQmlProperty>
+#include <QQuickItem>
+#include <QQuickView>
+#include <QQuickWidget>
 #include <QStandardPaths>
 
 using namespace LearnerProfile;
 
 MainWindow::MainWindow()
     : m_trainingSession2(new TrainingSession2(this))
-    , m_editorSession(new EditorSession(this))
     , m_resourceManager(new ResourceManager(this))
     , m_trainingSession(new TrainingSession(this))
     , m_profileManager(new LearnerProfile::ProfileManager(this))
@@ -94,7 +93,6 @@ MainWindow::MainWindow()
 
     m_widget->rootContext()->setContextProperty("trainingSession2", m_trainingSession2);
     m_widget->rootContext()->setContextProperty("trainingSession", m_trainingSession); //TODO deprecated
-    m_widget->rootContext()->setContextProperty("editorSession", m_editorSession);
     m_widget->rootContext()->setContextProperty("profileManager", m_profileManager);
 
     m_widget->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
@@ -111,7 +109,6 @@ MainWindow::MainWindow()
     }
 
     // set initial view
-    m_widget->rootObject()->setProperty("viewMode", Trainer);
     connect(m_widget->rootObject(), SIGNAL(downloadNewStuff()),
             this, SLOT(downloadNewStuff()));
 
@@ -140,14 +137,6 @@ ResourceManager * MainWindow::resourceManager() const
 
 void MainWindow::setupActions()
 {
-    QAction *editorAction = new QAction(i18nc("@option:check", "Course Editor mode"), this);
-    connect(editorAction, SIGNAL(triggered()), SLOT(switchMode()));
-    connect(this, SIGNAL(modeChanged(bool)), editorAction, SLOT(setChecked(bool)));
-    actionCollection()->addAction("editor", editorAction);
-    editorAction->setIcon(QIcon::fromTheme("artikulate-course-editor"));
-    editorAction->setCheckable(true);
-    editorAction->setChecked(false);
-
     QAction *settingsAction = new QAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
     connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
     actionCollection()->addAction("settings", settingsAction);
@@ -166,30 +155,6 @@ void MainWindow::setupActions()
     KStandardAction::quit(qApp, SLOT(quit()), actionCollection());
 
     setupGUI(Keys | Save | Create, "artikulateui.rc");
-}
-
-void MainWindow::showCourseEditor()
-{
-    m_widget->rootObject()->setProperty("viewMode", Editor);
-    // untoggle editor view mode
-    emit modeChanged(true);
-}
-
-void MainWindow::closeCourseEditor()
-{
-    m_widget->rootObject()->setProperty("viewMode", Trainer);
-    // toggle editor view mode
-    emit modeChanged(false);
-}
-
-void MainWindow::switchMode()
-{
-    if (m_widget->rootObject()->property("viewMode") == Trainer){
-         showCourseEditor();
-    }
-    else {
-        closeCourseEditor();
-    }
 }
 
 void MainWindow::showSettingsDialog()
@@ -247,7 +212,7 @@ void MainWindow::downloadNewStuff()
 
         if (!m_profileManager->activeProfile()) {
             qWarning() << "Not registering course language for favorite languages:"
-                << " no active learner profile set";
+                << "no active learner profile set";
             delete dialog;
             return;
         }
@@ -282,20 +247,6 @@ void MainWindow::configLearnerProfile()
 
 bool MainWindow::queryClose()
 {
-    if (!m_editorSession->course() || m_editorSession->course()->modified() == false) {
-        return true;
-    }
-
-    int result = KMessageBox::warningYesNoCancel(0, i18nc("@info",
-        "The currently open course contains unsaved changes. Do you want to save them?"));
-
-    switch(result) {
-    case KMessageBox::Yes:
-        m_editorSession->course()->sync();
-        return true;
-    case KMessageBox::No:
-        return true;
-    default:
-        return false;
-    }
+    // FIXME make sure all learner data is written to database
+    return true;
 }
