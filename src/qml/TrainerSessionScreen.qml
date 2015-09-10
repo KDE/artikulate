@@ -140,6 +140,7 @@ Item {
                 Layout.alignment: Qt.AlignVCenter
                 text: i18n("Skip")
                 font.pointSize: 24
+                color: g_trainingSession.hasNextPhrase ? "black" : "grey"
             }
             ToolButton {
                 height: 96
@@ -147,6 +148,10 @@ Item {
                 QIconItem {
                     anchors.fill: parent
                     icon: "go-next"
+                    state: g_trainingSession.hasNextPhrase ? QIconItem.DefaultState : QIconItem.DisabledState//TODO KF5.15 change to "enabled:"
+                }
+                onClicked: {
+                    g_trainingSession.skipPhrase()
                 }
             }
             Text { //dummy
@@ -163,6 +168,9 @@ Item {
                 QIconItem {
                     anchors.fill: parent
                     icon: "dialog-ok"
+                }
+                onClicked: {
+                    g_trainingSession.showNextPhrase()
                 }
             }
         }

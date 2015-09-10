@@ -41,6 +41,7 @@ class ARTIKULATELIB_EXPORT TrainingSession : public QObject
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
+    Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
 
 public:
     explicit TrainingSession(QObject *parent = nullptr);
@@ -57,6 +58,10 @@ public:
     void setPhraseType(Phrase::Type type);
     Phrase * phrase() const;
     void setPhrase(Phrase *phrase);
+    bool hasPreviousPhrase() const;
+    bool hasNextPhrase() const;
+    Q_INVOKABLE void showNextPhrase();
+    Q_INVOKABLE void skipPhrase();
 
 Q_SIGNALS:
     void languageChanged();
@@ -64,8 +69,9 @@ Q_SIGNALS:
     void unitChanged();
     void phraseChanged();
 
-private:
+private:;
     Q_DISABLE_COPY(TrainingSession)
+    Phrase * nextPhrase() const;
     Language *m_language;
     Course *m_course;
     Unit *m_unit;

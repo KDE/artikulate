@@ -24,6 +24,7 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/phonemegroup.h"
+#include <QDebug>
 
 TrainingSession::TrainingSession(QObject *parent)
     : QObject(parent)
@@ -93,4 +94,39 @@ void TrainingSession::setPhrase(Phrase *phrase)
     setUnit(phrase->unit());
     m_phrase = phrase;
     return phraseChanged();
+}
+
+Phrase * TrainingSession::nextPhrase() const
+{
+    if (!m_phrase) {
+        return nullptr;
+    }
+    const int index = m_phrase->unit()->phraseList().indexOf(m_phrase);
+    if (index < m_phrase->unit()->phraseList().length() - 1) {
+        return m_phrase->unit()->phraseList().at(index + 1);
+    } else {
+        Unit *unit = m_phrase->unit();
+        int uIndex = unit->course()->unitList().indexOf(unit);
+        if (uIndex < unit->course()->unitList().length() - 1) {
+            return unit->course()->unitList().at(uIndex + 1)->phraseList().first();
+        }
+    }
+    return nullptr;
+}
+
+void TrainingSession::showNextPhrase()
+{
+    setPhrase(nextPhrase());
+}
+
+void TrainingSession::skipPhrase()
+{
+    //FIXME
+    qWarning() << "Learning profile update not implemented";
+    showNextPhrase();
+}
+
+bool TrainingSession::hasNextPhrase() const
+{
+    return nextPhrase() != nullptr;
 }
