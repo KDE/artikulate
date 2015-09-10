@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *  Copyright 2013       Magdalena Konkiewicz <konkiewicz.m@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
@@ -21,215 +21,116 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.2
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 Item {
     id: root
+    width: 500
+    height: 500
 
-    property Unit unit
-    property TrainingSession session
-    property Phrase phrase: session.currentPhrase
-
-    // text bubble
-    Item {
-        id: phraseBubble
+    ColumnLayout {
+        id: main
         anchors {
-            left: parent.left
-            top: parent.top
-            leftMargin: 30
-        }
-        width: Math.floor(parent.width * 0.7)
-        height: Math.floor(parent.width * 0.2)
-
-        Rectangle {
-            id: phraseBubbleRect
-            anchors.fill: parent
-            color: "white"
-            border.color: "black"
-            border.width: 5
-            radius: 30
-
-            Flickable {
-                id: flickablePhraseBubble
-                x: parent.x + 15
-                y: parent.y + 15
-                width: parent.width - 30
-                height: parent.height - 30
-                clip: true
-
-                contentHeight: flickableColumn.height
-
-                Item {
-                    id: flickablePhraseBubbleItem
-                    x: parent.x + 5
-                    width: parent.width - 10
-                    // phrase text element
-                    Column {
-                        id: flickableColumn
-                        width: parent.width
-                        Text {
-                            id: phraseText
-                            objectName: "phraseText"
-                            width: parent.width - 15
-                            text: (phrase != null) ? phrase.text : ""
-                            wrapMode: Text.WordWrap
-                            horizontalAlignment: Text.AlignHCenter
-                        }
-                    }
-                }
-            }
-//FIXME
-//             PlasmaComponents.ScrollBar {
-//                 id: flickablePhraseBubbleScrollBar
-//                 flickableItem: flickablePhraseBubble
-//             }
-        }
-
-        Image {
-            id: hook
-            anchors {
-                top: phraseBubbleRect.bottom
-                topMargin: -2
-                left: phraseBubbleRect.left
-                leftMargin: 170
-            }
-            width: 120
-            height: 60
-            source: "../images/speak-hook.png"
-        }
-    }
-
-    Item {
-        id: audioControls
-        anchors {
-            top: phraseBubble.bottom
-            left: phraseBubble.left
-            topMargin: 30
-            leftMargin: 70
-        }
-        width: 128
-        height: buttonNativePlay.height + textNativeSpeaker.height + 10
-
-        SoundPlayer {
-            id: buttonNativePlay
-            width: 96
-            height: 96
-            fileUrl: root.phrase == null ? "" : root.phrase.soundFileUrl
+            fill: parent
+            topMargin: 10
+            leftMargin: 10
+            rightMargin: 10
+            bottomMargin: 10 + languageSwitcher.height//FIXME workaround
         }
 
         Text {
-            id: textNativeSpeaker
-            text: i18n("Native Speaker")
-            anchors {
-                top: buttonNativePlay.bottom
-                topMargin: 10
-                horizontalCenter: buttonNativePlay.horizontalCenter
-            }
-            font.pointSize: 14
-            color: "gray"
-        }
-    }
-
-    Item {
-        id: learnerBubble
-        anchors {
-            left: phraseBubble.left
-            top: phraseBubble.bottom
-            leftMargin: Math.floor(phraseBubble.width * 2/3)
-            topMargin: 40
-        }
-        width: Math.floor(parent.width * 0.5)
-        height: 120
-
-        Rectangle {
-            id: learnerBubbleRect
-            anchors.fill: parent
-            color: "white"
-            border.color: "black"
-            border.width: 5
-            radius: 30
-
-            Row {
-                width: 2*96 + 30
-                height: 96
-                anchors.centerIn: parent
-                spacing: 30
-
-                SoundRecorder {
-                    id: recorder
-                    width: 96
+            Layout.fillWidth: true
+            Layout.preferredHeight: 30
+            font.pointSize: 24
+            text: {
+                if (g_trainingSession.unit == null) {
+                    return "";
                 }
-                SoundPlayer {
-                    width: 96
-                    fileUrl: recorder.outputFileUrl
+                return g_trainingSession.unit.title
+            }
+        }
+
+        RowLayout {
+            Layout.alignment: Qt.AlignCenter
+            Layout.fillWidth: true
+            ColumnLayout {
+                Layout.alignment: Qt.AlignTop
+                Layout.fillWidth: true
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 200
+                    color: "lightsteelblue"
+                    Text {
+                        id: phraseText
+                        anchors {
+                            fill: parent
+                            leftMargin: 10
+                            rightMargin: 10
+                            topMargin: 10
+                            bottomMargin: 10
+                        }
+                        objectName: "phraseText"
+                        text: (g_trainingSession.phrase != null) ? g_trainingSession.phrase.text : ""
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
                 }
-            }
-        }
 
-        Image {
-            id: learnerBubbleHook
-            anchors {
-                top: learnerBubble.bottom
-                topMargin: -2
-                left: learnerBubble.left
-                leftMargin: 140
-            }
-            width: 120
-            height: 60
-            source: "../images/speak-hook.png"
-        }
-
-        Item {
-            anchors {
-                top: learnerBubble.bottom
-                left: learnerBubble.left
-                topMargin: 30
-                leftMargin: 40
-            }
-            width: 128
-            height: imageLearner.height + textLearner.height + 10
-
-            Image {
-                id: imageLearner
-                width: 128
-                height: 128
-                source: "../images/user-identity.png"
-            }
-            Text {
-                id: textLearner
-                anchors {
-                    top: imageLearner.bottom
-                    topMargin: 10
-                    horizontalCenter: imageLearner.horizontalCenter
+                RowLayout {
+                    Layout.alignment: Qt.AlignCenter
+                    Text {
+                        Layout.alignment: Qt.AlignVCenter
+                        text: i18n("Listen:")
+                        font.pointSize: 24
+                    }
+                    SoundPlayer {
+                        id: buttonNativePlay
+                        Layout.alignment: Qt.AlignVCenter
+                        width: 96
+                        height: 96
+                        fileUrl: g_trainingSession.phrase == null ? "" : g_trainingSession.phrase.soundFileUrl
+                    }
                 }
-                text: i18n("Learner (You)")
-                font.pointSize: 14
-                color: "gray"
-            }
-        }
-    }
 
-    Column {
-        id: trainingControls
-        anchors {
-            right: learnerBubble.right
-            verticalCenter: phraseBubble.verticalCenter
-        }
-        width: Math.max(buttonApply.width, buttonStepOver.width)
-        ToolButton {
-            id: buttonApply
-            height: 96
-            iconName: "dialog-ok-apply"
-            onClicked: {
-                session.next(TrainingSession.Complete)
             }
-        }
-        ToolButton {
-            id: buttonStepOver
-            height: 96
-            iconName: "object-rotate-left"
-            onClicked: {
-                session.next(TrainingSession.Incomplete)
+            ColumnLayout {
+                Layout.fillHeight: true
+                Layout.preferredWidth: 300
+                Layout.fillWidth: true
+                QIconItem {
+                    Layout.alignment: Qt.AlignCenter
+                    width: 200
+                    height: 200
+                    icon: "user-identity"
+                }
+                RowLayout {
+                    Layout.alignment: Qt.AlignCenter
+                    Text {
+                        Layout.alignment: Qt.AlignVCenter
+                        text: i18n("Record:")
+                        font.pointSize: 24
+                    }
+                    SoundRecorder {
+                        id: recorder
+                        Layout.alignment: Qt.AlignVCenter
+                        width: 96
+                        height: 96
+                    }
+                    Text {
+                        Layout.alignment: Qt.AlignVCenter
+                        text: i18n("Play:")
+                        font.pointSize: 24
+                    }
+                    SoundPlayer {
+                        Layout.alignment: Qt.AlignVCenter
+                        width: 96
+                        height: 96
+                        fileUrl: recorder.outputFileUrl
+                    }
+                }
             }
         }
     }

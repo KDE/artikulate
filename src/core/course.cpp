@@ -304,6 +304,11 @@ void Course::sync()
     setModified(false);
 }
 
+bool Course::isContributorResource() const
+{
+    return m_resource->isContributorResource();
+}
+
 void Course::registerPhrasePhonemes(Phrase *phrase)
 {
     // iterate over all phonemes of this phrase

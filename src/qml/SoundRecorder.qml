@@ -20,6 +20,7 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 1.2
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 Item {
@@ -49,7 +50,11 @@ Item {
         id: recordButton
         height: Math.max(root.width, root.height)
         width: Math.max(root.width, root.height)
-        iconName: "media-record"
+        QIconItem {
+            id: iconItem
+            anchors.fill: parent
+            icon: "media-record"
+        }
 
         onClicked: {
             if (recorderBackend.state == Recorder.RecordingState) {
@@ -68,10 +73,10 @@ Item {
             onStateChanged: {
                 // update icon
                 if (recorderBackend.state == Recorder.RecordingState) {
-                    recordButton.iconSource = "media-playback-stop";
+                    iconItem.icon = "media-playback-stop";
                 }
                 if (recorderBackend.state == Recorder.StoppedState) {
-                    recordButton.iconSource = "media-record";
+                    iconItem.icon = "media-record";
                 }
             }
         }

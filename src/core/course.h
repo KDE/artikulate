@@ -100,6 +100,8 @@ public:
      */
     virtual Q_INVOKABLE void sync();
 
+    bool isContributorResource() const;
+
 public Q_SLOTS:
     void setModified(bool modified = true);
     void registerPhrasePhonemes(Phrase *phrase);

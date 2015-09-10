@@ -40,6 +40,7 @@ class ARTIKULATELIB_EXPORT TrainingSession : public QObject
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
+    Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
 
 public:
     explicit TrainingSession(QObject *parent = nullptr);
@@ -54,17 +55,21 @@ public:
     void setPhonemeGroup(PhonemeGroup *phonemeGroup);
     Phrase::Type phraseType() const;
     void setPhraseType(Phrase::Type type);
+    Phrase * phrase() const;
+    void setPhrase(Phrase *phrase);
 
 Q_SIGNALS:
     void languageChanged();
     void courseChanged();
     void unitChanged();
+    void phraseChanged();
 
 private:
     Q_DISABLE_COPY(TrainingSession)
     Language *m_language;
     Course *m_course;
     Unit *m_unit;
+    Phrase *m_phrase;
 };
 
 #endif

@@ -29,8 +29,6 @@ Item
 {
     id: root
 
-    signal closeEditor()
-
     width: 400 //parent.width
     height: 400 //parent.height
 

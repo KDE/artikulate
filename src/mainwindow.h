@@ -63,8 +63,8 @@ public Q_SLOTS:
     void configLearnerProfile();
 
 private:
-    TrainingSession *m_trainingSession;
     ResourceManager *m_resourceManager;
+    TrainingSession *m_trainingSession;
     LearnerProfile::ProfileManager *m_profileManager;
     QQuickWidget *m_widget;
 };

@@ -20,6 +20,7 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 1.2
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 Item {
@@ -42,7 +43,11 @@ Item {
         height: Math.max(root.width, root.height)
         width: Math.max(root.width, root.height)
         enabled: fileUrl != ""
-        iconName: "media-playback-start"
+        QIconItem {
+            id: iconItem
+            anchors.fill: parent
+            icon: "media-playback-start"
+        }
 
         onClicked: {
             if (playerBackend.state == Player.PlayingState) {
@@ -59,11 +64,11 @@ Item {
             onStateChanged: {
                 // set next possible action icon
                 if (playerBackend.state == Player.PlayingState) {
-                    playButton.iconSource = "media-playback-stop";
+                    iconItem.icon = "media-playback-stop";
                     return
                 }
                 if (playerBackend.state == Player.StoppedState) {
-                    playButton.iconSource = "amedia-playback-start";
+                    iconItem.icon = "media-playback-start";
                     return
                 }
             }

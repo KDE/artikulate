@@ -19,10 +19,15 @@
  */
 
 import QtQuick 2.1
+import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.2
+import QtQml.Models 2.2
 import artikulate 1.0
 
 Item {
     id: root
+    width: 400 //parent.width
+    height: 600 //parent.height
 
     signal downloadNewStuff();
 
@@ -35,12 +40,143 @@ Item {
         property int fontPointSize: 11
     }
 
-    anchors.fill: parent
-    property int viewMode
     property Learner learner: profileManager.activeProfile
+    property ResourceManager resourceManager: g_resourceManager
 
-    Trainer {
-        anchors.fill: parent
+    Component.onCompleted: {
+        var learner = profileManager.activeProfile;
+        if (learner == null) {
+            return;
+        }
+        g_trainingSession.language = g_resourceManager.language(learner.activeGoal(Learner.Language))
     }
+
+    CourseModel {
+        id: availableCourseModel
+        resourceManager: g_resourceManager
+    }
+
+    ColumnLayout {
+        id: main
+        anchors {
+            fill: parent
+            topMargin: 10
+            leftMargin: 10
+            rightMargin: 10
+            bottomMargin: 10 + languageSwitcher.height//FIXME workaround
+        }
+
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.preferredHeight: languageSwitcher.height
+            spacing: 6
+            LanguageSwitcher {
+                id: languageSwitcher
+                width: 400
+                anchors.verticalCenter: parent.verticalCenter
+                visible: learner != null
+                resourceManager: g_resourceManager
+                onLanguageSelected: {
+                    g_trainingSession.language = selectedLanguage
+                }
+            }
+
+            ToolButton {
+                id: knsDownloadButton
+                iconName: "get-hot-new-stuff"
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                }
+                enabled: true
+                onClicked: downloadNewStuff()
+            }
+            ComboBox {
+                id: comboCourse
+                Layout.minimumWidth: 200
+                model: CourseModel {
+                    id: courseModel
+                    resourceManager: g_resourceManager
+                    language: g_trainingSession.language
+                    onLanguageChanged: {
+                        if (courseModel.course(0)) {
+                            g_trainingSession.course = courseModel.course(0)
+                        }
+                    }
+                }
+                textRole: "title"
+                onCurrentIndexChanged: {
+                    if (courseModel.course(currentIndex)) {
+                        g_trainingSession.course = courseModel.course(currentIndex)
+                    }
+                }
+            }
+        }
+
+        RowLayout {
+            id: mainRow
+
+            TreeView {
+                id: phraseTree
+                Layout.preferredWidth: Math.floor(main.width * 0.3)
+                Layout.fillHeight: true
+                TableViewColumn {
+                    title: i18n("Units & Phrases")
+                    role: "text"
+                }
+                model: PhraseModel {
+                    id: phraseModel
+                    course: g_trainingSession.course
+                }
+                selection: ItemSelectionModel {
+                    model: phraseTree.model
+                }
+                itemDelegate: Item {
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: styleData.textColor
+                        elide: styleData.elideMode
+                        text: styleData.value
+                    }
+                }
+                onClicked: {
+                    g_trainingSession.phrase = phraseModel.phrase(index)
+                }
+                Connections {
+                    target: g_trainingSession
+                    onPhraseChanged: {
+                        phraseTree.expand(phraseModel.indexUnit(g_trainingSession.phrase.unit))
+                        phraseTree.selection.setCurrentIndex(
+                            phraseModel.indexPhrase(g_trainingSession.phrase),
+                            ItemSelectionModel.ClearAndSelect)
+                    }
+                }
+            }
+
+            TrainerSessionScreen {
+                id: trainerMain
+                Layout.preferredWidth: Math.floor(main.width * 0.7) - 10
+                Layout.fillHeight: true
+            }
+        }
+
+    }
+
+    //FIXME setup dialog deactivated for refactoring
+//     SheetDialog {
+//         id: profileSelectorSheet
+//         anchors {
+//             top: root.top
+//             topMargin: header.height
+//             left: root.left
+//             bottom: root.bottom
+//             right: root.right
+//         }
+//         content: ProfileSelector {
+//             anchors.fill: parent
+//             onProfileChosen: {
+//                 profileSelectorSheet.close()
+//             }
+//         }
+//     }
 
 }

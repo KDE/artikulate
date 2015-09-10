@@ -30,6 +30,7 @@ TrainingSession::TrainingSession(QObject *parent)
     , m_language(nullptr)
     , m_course(nullptr)
     , m_unit(nullptr)
+    , m_phrase(nullptr)
 {
 
 }
@@ -77,4 +78,19 @@ void TrainingSession::setUnit(Unit *unit)
     }
     m_unit = unit;
     return unitChanged();
+}
+
+Phrase * TrainingSession::phrase() const
+{
+    return m_phrase;
+}
+
+void TrainingSession::setPhrase(Phrase *phrase)
+{
+    if (m_phrase == phrase) {
+        return;
+    }
+    setUnit(phrase->unit());
+    m_phrase = phrase;
+    return phraseChanged();
 }

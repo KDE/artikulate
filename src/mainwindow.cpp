@@ -60,8 +60,8 @@ using namespace LearnerProfile;
 
 MainWindow::MainWindow()
     : m_resourceManager(new ResourceManager(this))
-    , m_profileManager(new LearnerProfile::ProfileManager(this))
     , m_trainingSession(new TrainingSession(this))
+    , m_profileManager(new LearnerProfile::ProfileManager(this))
     , m_widget(new QQuickWidget)
 {
     setWindowIcon(QIcon::fromTheme("artikulate"));
