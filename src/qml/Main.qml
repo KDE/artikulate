@@ -60,10 +60,10 @@ Item {
         id: main
         anchors {
             fill: parent
-            topMargin: 10
-            leftMargin: 10
-            rightMargin: 10
-            bottomMargin: 10 + languageSwitcher.height//FIXME workaround
+            topMargin: 30
+            leftMargin: 30
+            rightMargin: 30
+            bottomMargin: 30 + languageSwitcher.height//FIXME workaround
         }
 
         RowLayout {
@@ -120,7 +120,7 @@ Item {
                 Layout.preferredWidth: Math.floor(main.width * 0.3)
                 Layout.fillHeight: true
                 TableViewColumn {
-                    title: i18n("Units & Phrases")
+                    title: i18n("Categories")
                     role: "text"
                 }
                 model: PhraseModel {
@@ -131,11 +131,30 @@ Item {
                     model: phraseTree.model
                 }
                 itemDelegate: Item {
+                    property bool isUnit: phraseModel.isUnit(styleData.index)
+                    Component {
+                        id: unitRowBackground
+                        Rectangle {anchors.fill: parent; color: "steelblue"}
+                    }
+                    Loader {
+                        anchors.fill: parent
+                        sourceComponent: isUnit ? unitRowBackground : null
+                    }
                     Text {
-                        anchors.verticalCenter: parent.verticalCenter
-                        color: styleData.textColor
+                        anchors {
+                            verticalCenter: parent.verticalCenter
+                            topMargin: 5
+                            bottomMargin: 5
+                        }
+                        color: {
+                            if (isUnit) {
+                                return "white";
+                            }
+                            return styleData.textColor
+                        }
                         elide: styleData.elideMode
-                        text: styleData.value
+                        text: " " + styleData.value
+                        font.bold: isUnit
                     }
                 }
                 onClicked: {

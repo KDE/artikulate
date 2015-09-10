@@ -46,9 +46,9 @@ Item {
             font.pointSize: 24
             text: {
                 if (g_trainingSession.unit == null) {
-                    return "";
+                    return i18n("Category: no category selected");
                 }
-                return g_trainingSession.unit.title
+                return i18n("Category: ") + g_trainingSession.unit.title
             }
         }
 
@@ -83,7 +83,7 @@ Item {
                     Layout.alignment: Qt.AlignCenter
                     Text {
                         Layout.alignment: Qt.AlignVCenter
-                        text: i18n("Listen:")
+                        text: i18n("Listen")
                         font.pointSize: 24
                     }
                     SoundPlayer {
@@ -110,7 +110,7 @@ Item {
                     Layout.alignment: Qt.AlignCenter
                     Text {
                         Layout.alignment: Qt.AlignVCenter
-                        text: i18n("Record:")
+                        text: i18n("Record")
                         font.pointSize: 24
                     }
                     SoundRecorder {
@@ -121,7 +121,7 @@ Item {
                     }
                     Text {
                         Layout.alignment: Qt.AlignVCenter
-                        text: i18n("Play:")
+                        text: i18n("Play")
                         font.pointSize: 24
                     }
                     SoundPlayer {
@@ -130,6 +130,39 @@ Item {
                         height: 96
                         fileUrl: recorder.outputFileUrl
                     }
+                }
+            }
+        }
+        RowLayout {
+            Layout.alignment: Qt.AlignRight
+
+            Text {
+                Layout.alignment: Qt.AlignVCenter
+                text: i18n("Skip")
+                font.pointSize: 24
+            }
+            ToolButton {
+                height: 96
+                width: 96
+                QIconItem {
+                    anchors.fill: parent
+                    icon: "go-next"
+                }
+            }
+            Text { //dummy
+                width: 20
+            }
+            Text {
+                Layout.alignment: Qt.AlignVCenter
+                text: i18n("Next")
+                font.pointSize: 24
+            }
+            ToolButton {
+                height: 96
+                width: 96
+                QIconItem {
+                    anchors.fill: parent
+                    icon: "dialog-ok"
                 }
             }
         }

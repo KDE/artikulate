@@ -52,6 +52,7 @@ public:
     Q_INVOKABLE Phrase * phrase(const QModelIndex &index) const;
     Q_INVOKABLE QModelIndex indexPhrase(Phrase *phrase) const;
     Q_INVOKABLE QModelIndex indexUnit(Unit *unit) const;
+    Q_INVOKABLE bool isUnit(const QModelIndex& index) const;
 
 Q_SIGNALS:
     void phraseChanged(int index);

@@ -197,6 +197,11 @@ QModelIndex PhraseModel::indexUnit(Unit *unit) const
     return createIndex(m_course->unitList().indexOf(unit), 0);
 }
 
+bool PhraseModel::isUnit(const QModelIndex &index) const
+{
+    return (index.internalPointer() == nullptr);
+}
+
 void PhraseModel::onPhraseAboutToBeAdded(Phrase *phrase, int index)
 {
     int unitIndex = m_course->unitList().indexOf(phrase->unit());
