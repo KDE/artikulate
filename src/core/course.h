@@ -40,6 +40,7 @@ class ARTIKULATELIB_EXPORT Course : public QObject
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+    Q_PROPERTY(QString i18nTitle READ i18nTitle NOTIFY titleChanged)
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
     Q_PROPERTY(bool modified READ modified WRITE setModified NOTIFY modifiedChanged)
     Q_PROPERTY(Language * language READ language NOTIFY languageChanged)
@@ -52,6 +53,7 @@ public:
     QString foreignId() const;
     void setForeignId(const QString &id);
     QString title() const;
+    QString i18nTitle() const;
     void setTitle(const QString &title);
     Language * language() const;
     void setLanguage(Language *language);

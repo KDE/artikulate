@@ -32,15 +32,25 @@ Item {
         id: main
         anchors.fill: parent
 
-        Text {
+        Column {
             Layout.fillWidth: true
-            Layout.preferredHeight: 30
-            font.pointSize: 24
-            text: {
-                if (g_trainingSession.unit == null) {
-                    return i18n("Category: no category selected");
+            Layout.alignment: Qt.AlignTop
+            Text {
+                font.pointSize: 24
+                text: {
+                    if (g_trainingSession.unit == null) {
+                        return i18n("Category: no category selected");
+                    }
+                    return i18n("Category: ") + g_trainingSession.unit.title
                 }
-                return i18n("Category: ") + g_trainingSession.unit.title
+            }
+            Text {
+                text: {
+                    if (g_trainingSession.unit == null) {
+                        return "";
+                    }
+                    return g_trainingSession.course.i18nTitle
+                }
             }
         }
 

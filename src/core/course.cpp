@@ -92,6 +92,11 @@ QString Course::title() const
     return m_title;
 }
 
+QString Course::i18nTitle() const
+{
+    return m_resource->i18nTitle();
+}
+
 void Course::setTitle(const QString &title)
 {
     if (QString::compare(title, m_title) != 0) {
