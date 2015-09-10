@@ -22,6 +22,7 @@ import QtQuick 2.1
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.2
 import QtQml.Models 2.2
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 Item {
@@ -58,38 +59,43 @@ Item {
 
     ColumnLayout {
         id: main
+        spacing: 20
         anchors {
             fill: parent
             topMargin: 30
             leftMargin: 30
             rightMargin: 30
-            bottomMargin: 30 + languageSwitcher.height//FIXME workaround
+            bottomMargin: 30 + langIcon.height//FIXME workaround
         }
 
         RowLayout {
             Layout.fillWidth: true
-            Layout.preferredHeight: languageSwitcher.height
-            spacing: 6
-            LanguageSwitcher {
-                id: languageSwitcher
-                width: 400
-                anchors.verticalCenter: parent.verticalCenter
-                visible: learner != null
-                resourceManager: g_resourceManager
-                onLanguageSelected: {
-                    g_trainingSession.language = selectedLanguage
+            Layout.preferredHeight: langIcon.height
+            spacing: 20
+            QIconItem {
+                id: langIcon
+                icon: "artikulate-language"
+                width: 48
+                height: 48
+            }
+
+            ComboBox {
+                id: comboLanguage
+                Layout.minimumWidth: 200
+                model: LanguageModel {
+                    id: languageModel
+                    resourceModel: LanguageResourceModel {
+                        resourceManager: g_resourceManager
+                    }
+                }
+                textRole: "title"
+                onCurrentIndexChanged: {
+                    if (languageModel.language(currentIndex)) {
+                        g_trainingSession.language = languageModel.language(currentIndex)
+                    }
                 }
             }
 
-            ToolButton {
-                id: knsDownloadButton
-                iconName: "get-hot-new-stuff"
-                anchors {
-                    verticalCenter: parent.verticalCenter
-                }
-                enabled: true
-                onClicked: downloadNewStuff()
-            }
             ComboBox {
                 id: comboCourse
                 Layout.minimumWidth: 200
@@ -110,10 +116,21 @@ Item {
                     }
                 }
             }
+
+            ToolButton {
+                id: knsDownloadButton
+                iconName: "get-hot-new-stuff"
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                }
+                enabled: true
+                onClicked: downloadNewStuff()
+            }
         }
 
         RowLayout {
             id: mainRow
+            spacing: 20
 
             TreeView {
                 id: phraseTree
@@ -173,6 +190,7 @@ Item {
 
             TrainerSessionScreen {
                 id: trainerMain
+                Layout.alignment: Qt.AlignTop
                 Layout.preferredWidth: Math.floor(main.width * 0.7) - 10
                 Layout.fillHeight: true
             }

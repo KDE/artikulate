@@ -27,18 +27,10 @@ import artikulate 1.0
 
 Item {
     id: root
-    width: 500
-    height: 500
 
     ColumnLayout {
         id: main
-        anchors {
-            fill: parent
-            topMargin: 10
-            leftMargin: 10
-            rightMargin: 10
-            bottomMargin: 10 + languageSwitcher.height//FIXME workaround
-        }
+        anchors.fill: parent
 
         Text {
             Layout.fillWidth: true
