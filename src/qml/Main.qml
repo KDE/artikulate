@@ -160,6 +160,7 @@ Item {
                         sourceComponent: isUnit ? unitRowBackground : null
                     }
                     Text {
+                        width: phraseTree.width - 100 //TODO check if this is really a reasonable value
                         anchors {
                             verticalCenter: parent.verticalCenter
                             topMargin: 5
