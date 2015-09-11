@@ -96,7 +96,6 @@ Item {
                         fileUrl: g_trainingSession.phrase == null ? "" : g_trainingSession.phrase.soundFileUrl
                     }
                 }
-
             }
             ColumnLayout {
                 Layout.fillHeight: true
@@ -137,40 +136,24 @@ Item {
         }
         RowLayout {
             Layout.alignment: Qt.AlignRight
+            spacing: 20
 
-            Text {
-                Layout.alignment: Qt.AlignVCenter
+            FlatButton {
                 text: i18n("Skip")
-                font.pointSize: 24
-                color: g_trainingSession.hasNextPhrase ? "black" : "grey"
-            }
-            ToolButton {
-                height: 96
-                width: 96
-                QIconItem {
-                    anchors.fill: parent
-                    icon: "go-next"
-                    state: g_trainingSession.hasNextPhrase ? QIconItem.DefaultState : QIconItem.DisabledState//TODO KF5.15 change to "enabled:"
-                }
+                iconName: "go-next"
+                iconSize: 48
+                fontSize: 20
+                enabled: g_trainingSession.hasNextPhrase
                 onClicked: {
                     g_trainingSession.skipPhrase()
                 }
             }
-            Text { //dummy
-                width: 20
-            }
-            Text {
-                Layout.alignment: Qt.AlignVCenter
+
+            FlatButton {
                 text: i18n("Next")
-                font.pointSize: 24
-            }
-            ToolButton {
-                height: 96
-                width: 96
-                QIconItem {
-                    anchors.fill: parent
-                    icon: "dialog-ok"
-                }
+                iconName: "dialog-ok"
+                iconSize: 48
+                fontSize: 20
                 onClicked: {
                     g_trainingSession.showNextPhrase()
                 }

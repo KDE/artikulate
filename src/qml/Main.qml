@@ -169,7 +169,7 @@ Item {
                             }
                             return styleData.textColor
                         }
-                        elide: styleData.elideMode
+                        elide: Text.ElideRight
                         text: " " + styleData.value
                         font.bold: isUnit
                     }
