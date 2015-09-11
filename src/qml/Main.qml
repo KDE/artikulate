@@ -132,7 +132,7 @@ Item {
 
         RowLayout {
             id: mainRow
-            spacing: 20
+            spacing: 30
 
             TreeView {
                 id: phraseTree
@@ -194,7 +194,7 @@ Item {
             TrainerSessionScreen {
                 id: trainerMain
                 Layout.alignment: Qt.AlignTop
-                Layout.preferredWidth: Math.floor(main.width * 0.7) - 10
+                Layout.preferredWidth: Math.floor(main.width * 0.7) - 30
                 Layout.fillHeight: true
             }
         }

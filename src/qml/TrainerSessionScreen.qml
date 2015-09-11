@@ -57,55 +57,67 @@ Item {
         RowLayout {
             Layout.alignment: Qt.AlignCenter
             Layout.fillWidth: true
-            ColumnLayout {
+            spacing: 30
+            Rectangle {
+                id: trainingTextRect
                 Layout.alignment: Qt.AlignTop
                 Layout.fillWidth: true
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 200
-                    color: "lightsteelblue"
-                    Text {
-                        id: phraseText
-                        anchors {
-                            fill: parent
-                            leftMargin: 10
-                            rightMargin: 10
-                            topMargin: 10
-                            bottomMargin: 10
-                        }
-                        objectName: "phraseText"
-                        text: (g_trainingSession.phrase != null) ? g_trainingSession.phrase.text : ""
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
-                }
+                Layout.preferredHeight: main.height / 2
+                color: "lightsteelblue"
 
+                Text {
+                    id: phraseText
+                    anchors {
+                        fill: trainingTextRect
+                        leftMargin: 30
+                        topMargin: 30
+                        rightMargin: 30
+                        bottomMargin: 30
+                    }
+                    objectName: "phraseText"
+                    text: (g_trainingSession.phrase != null) ? g_trainingSession.phrase.text : ""
+                    wrapMode: Text.WordWrap
+                }
                 SoundPlayer {
                     id: buttonNativePlay
+                    anchors {
+                        bottom: trainingTextRect.bottom
+                        leftMargin: 30
+                        bottomMargin: 30
+                    }
                     text: i18n("Listen")
-                    Layout.alignment: Qt.AlignVCenter
+                    Layout.alignment: Qt.AlignBottom
                     fileUrl: g_trainingSession.phrase == null ? "" : g_trainingSession.phrase.soundFileUrl
                 }
             }
-            ColumnLayout {
-                Layout.fillHeight: true
-                Layout.preferredWidth: 300
-                Layout.fillWidth: true
+            Rectangle {
+                id: trainingUserRect
+                Layout.alignment: Qt.AlignTop
+                Layout.preferredWidth: recorder.width + player.width + 30
+                Layout.preferredHeight: main.height / 2
+                color: "lightsteelblue"
+
                 QIconItem {
-                    Layout.alignment: Qt.AlignCenter
+                    anchors {
+                        horizontalCenter: parent.horizontalCenter
+                        verticalCenter: parent.verticalCenter
+                    }
                     width: 200
                     height: 200
                     icon: "user-identity"
                 }
-                RowLayout {
-                    Layout.alignment: Qt.AlignCenter
+                Row {
+                    anchors {
+                        bottom: trainingUserRect.bottom
+                        horizontalCenter: trainingUserRect.horizontalCenter
+                        leftMargin: 30
+                        bottomMargin: 30
+                    }
                     SoundRecorder {
                         id: recorder
-                        Layout.alignment: Qt.AlignVCenter
                     }
                     SoundPlayer {
-                        Layout.alignment: Qt.AlignVCenter
+                        id: player
                         fileUrl: recorder.outputFileUrl
                     }
                 }
