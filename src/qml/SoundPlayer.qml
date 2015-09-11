@@ -25,29 +25,26 @@ import artikulate 1.0
 
 Item {
     id: root
+    width: button.width
+    height: button.height
 
+    property string text: i18n("Play")
     property string fileUrl
 
     signal stopped()
-
-    width: theme.mediumIconSize
-    height: theme.mediumIconSize
 
     Player {
         id: playerBackend
         soundFileUrl: root.fileUrl
     }
 
-    ToolButton {
-        id: playButton
-        height: Math.max(root.width, root.height)
-        width: Math.max(root.width, root.height)
+    FlatButton {
+        id: button
+        text: root.text
+        iconName: "media-playback-start"
         enabled: fileUrl != ""
-        QIconItem {
-            id: iconItem
-            anchors.fill: parent
-            icon: "media-playback-start"
-        }
+        iconSize: 48
+        fontSize: 20
 
         onClicked: {
             if (playerBackend.state == Player.PlayingState) {
@@ -64,11 +61,11 @@ Item {
             onStateChanged: {
                 // set next possible action icon
                 if (playerBackend.state == Player.PlayingState) {
-                    iconItem.icon = "media-playback-stop";
+                    button.iconName = "media-playback-stop";
                     return
                 }
                 if (playerBackend.state == Player.StoppedState) {
-                    iconItem.icon = "media-playback-start";
+                    button.iconName = "media-playback-start";
                     return
                 }
             }

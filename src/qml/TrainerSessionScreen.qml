@@ -81,20 +81,11 @@ Item {
                     }
                 }
 
-                RowLayout {
-                    Layout.alignment: Qt.AlignCenter
-                    Text {
-                        Layout.alignment: Qt.AlignVCenter
-                        text: i18n("Listen")
-                        font.pointSize: 24
-                    }
-                    SoundPlayer {
-                        id: buttonNativePlay
-                        Layout.alignment: Qt.AlignVCenter
-                        width: 96
-                        height: 96
-                        fileUrl: g_trainingSession.phrase == null ? "" : g_trainingSession.phrase.soundFileUrl
-                    }
+                SoundPlayer {
+                    id: buttonNativePlay
+                    text: i18n("Listen")
+                    Layout.alignment: Qt.AlignVCenter
+                    fileUrl: g_trainingSession.phrase == null ? "" : g_trainingSession.phrase.soundFileUrl
                 }
             }
             ColumnLayout {
@@ -109,26 +100,12 @@ Item {
                 }
                 RowLayout {
                     Layout.alignment: Qt.AlignCenter
-                    Text {
-                        Layout.alignment: Qt.AlignVCenter
-                        text: i18n("Record")
-                        font.pointSize: 24
-                    }
                     SoundRecorder {
                         id: recorder
                         Layout.alignment: Qt.AlignVCenter
-                        width: 96
-                        height: 96
-                    }
-                    Text {
-                        Layout.alignment: Qt.AlignVCenter
-                        text: i18n("Play")
-                        font.pointSize: 24
                     }
                     SoundPlayer {
                         Layout.alignment: Qt.AlignVCenter
-                        width: 96
-                        height: 96
                         fileUrl: recorder.outputFileUrl
                     }
                 }

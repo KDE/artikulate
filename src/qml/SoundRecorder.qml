@@ -25,13 +25,13 @@ import artikulate 1.0
 
 Item {
     id: root
+    width: button.width
+    height: button.height
 
     property string outputFileUrl : recorderBackend.recordingFile
+    property string text: i18n("Record")
 
     signal stopped()
-
-    width: theme.mediumIconSize
-    height: theme.mediumIconSize
 
     function storeToFile(filePath) {
         recorderBackend.storeToFile(filePath);
@@ -46,15 +46,12 @@ Item {
         id: recorderBackend
     }
 
-    ToolButton {
-        id: recordButton
-        height: Math.max(root.width, root.height)
-        width: Math.max(root.width, root.height)
-        QIconItem {
-            id: iconItem
-            anchors.fill: parent
-            icon: "media-record"
-        }
+    FlatButton {
+        id: button
+        text: root.text
+        iconName: "media-record"
+        iconSize: 48
+        fontSize: 20
 
         onClicked: {
             if (recorderBackend.state == Recorder.RecordingState) {
@@ -73,10 +70,10 @@ Item {
             onStateChanged: {
                 // update icon
                 if (recorderBackend.state == Recorder.RecordingState) {
-                    iconItem.icon = "media-playback-stop";
+                    button.iconName = "media-playback-stop";
                 }
                 if (recorderBackend.state == Recorder.StoppedState) {
-                    iconItem.icon = "media-record";
+                    button.iconName = "media-record";
                 }
             }
         }
