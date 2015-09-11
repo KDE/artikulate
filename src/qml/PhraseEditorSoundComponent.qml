@@ -42,7 +42,7 @@ Item {
         Row {
             anchors { left: componentTitle.left; leftMargin: 30 }
 
-            height: 30
+            height: 48
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 text: i18n("Existing Recording:")
