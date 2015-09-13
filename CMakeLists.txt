@@ -52,7 +52,6 @@ find_package(Qt5 5.5 REQUIRED COMPONENTS
 find_package(KF5 REQUIRED COMPONENTS
     Config
     ConfigWidgets
-    CoreAddons
     Declarative
     I18n
     KIO
