@@ -161,7 +161,6 @@ target_link_libraries(artikulate
         Qt5::QuickWidgets
         KF5::ConfigWidgets
         KF5::Declarative
-        KF5::KIOWidgets
         KF5::NewStuff
         KF5::XmlGui
 )
@@ -176,7 +175,6 @@ target_link_libraries(artikulate_editor
         Qt5::QuickWidgets
         KF5::ConfigWidgets
         KF5::Declarative
-        KF5::KIOWidgets
         KF5::NewStuff
         KF5::XmlGui
 )

@@ -26,6 +26,9 @@
 #include "settings.h"
 
 #include <KLocalizedString>
+#include <QLineEdit>
+#include <QFileDialog>
+#include <QToolButton>
 #include <QUuid>
 
 ResourcesDialogPage::ResourcesDialogPage(ResourceManager *m_resourceManager)
@@ -35,6 +38,14 @@ ResourcesDialogPage::ResourcesDialogPage(ResourceManager *m_resourceManager)
 {
     ui = new Ui::ResourcesDialogPage;
     ui->setupUi(this);
+
+    connect(ui->buttonSelectCourseRepository, &QToolButton::clicked, [=](){
+        const QString dir = QFileDialog::getExistingDirectory(this,
+            i18n("Open Repository Directory"),
+            QString(),
+            QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+        ui->kcfg_CourseRepositoryPath->setText(dir);
+    });
 }
 
 ResourcesDialogPage::~ResourcesDialogPage()
@@ -45,7 +56,7 @@ ResourcesDialogPage::~ResourcesDialogPage()
 void ResourcesDialogPage::loadSettings()
 {
     // setup Ui with stored settings
-    ui->kcfg_CourseRepositoryPath->setUrl(QUrl(Settings::courseRepositoryPath()));
+    ui->kcfg_CourseRepositoryPath->setText(Settings::courseRepositoryPath());
     ui->kcfg_UseCourseRepository->setChecked(Settings::useCourseRepository());
 }
 
@@ -53,7 +64,7 @@ void ResourcesDialogPage::saveSettings()
 {
     // save settings
     Settings::setUseCourseRepository(ui->kcfg_UseCourseRepository->isChecked());
-    Settings::setCourseRepositoryPath(ui->kcfg_CourseRepositoryPath->url().toLocalFile());
+    Settings::setCourseRepositoryPath(ui->kcfg_CourseRepositoryPath->text());
     Settings::self()->save();
     // reloading resources
     m_resourceManager->loadCourseResources();

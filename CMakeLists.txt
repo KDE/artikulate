@@ -54,7 +54,6 @@ find_package(KF5 REQUIRED COMPONENTS
     ConfigWidgets
     Declarative
     I18n
-    KIO
     NewStuff
     WidgetsAddons
     XmlGui

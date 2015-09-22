@@ -27,8 +27,7 @@
 class ResourceManager;
 class Course;
 
-class ResourcesDialogPage :
-    public QWidget
+class ResourcesDialogPage : public QWidget
 {
     Q_OBJECT
 
@@ -36,7 +35,7 @@ public:
     explicit ResourcesDialogPage(ResourceManager *resourceMgr);
     virtual ~ResourcesDialogPage();
 
-public slots:
+public Q_SLOTS:
     void saveSettings();
     void loadSettings();
 
