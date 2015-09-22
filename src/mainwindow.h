@@ -61,6 +61,7 @@ public Q_SLOTS:
     void updateTrainingPhraseFont();
     void updateKcfgUseContributorResources();
     void configLearnerProfile();
+    void triggerAction(const QString &);
 
 private:
     ResourceManager *m_resourceManager;

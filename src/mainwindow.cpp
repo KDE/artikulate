@@ -102,12 +102,16 @@ MainWindow::MainWindow()
 
     // create training profile if none exists:
     if (!m_profileManager->activeProfile()) {
-        m_profileManager->addProfile(i18n("Unnamed Identity")); //TODO use i18n for 4.14
+        m_profileManager->addProfile(i18n("Unnamed Identity"));
     }
 
-    // set initial view
-    connect(m_widget->rootObject(), SIGNAL(downloadNewStuff()),
+    // connect to QML signals
+    connect(m_widget->rootObject(), SIGNAL(triggerDownloadCourses()),
             this, SLOT(downloadNewStuff()));
+    connect(m_widget->rootObject(), SIGNAL(triggerSettingsDialog()),
+            this, SLOT(showSettingsDialog()));
+    connect(m_widget->rootObject(), SIGNAL(triggerAction(QString)),
+            this, SLOT(triggerAction(QString)));
 
     // set font for the phrase in trainer to default from kcfg file
     QObject *phraseText = m_widget->rootObject()->findChild<QObject*>("phraseText");
@@ -240,6 +244,16 @@ void MainWindow::downloadNewStuff()
 void MainWindow::configLearnerProfile()
 {
     qCritical() << "Not implemented"; //FIXME
+}
+
+void MainWindow::triggerAction(const QString &actionName)
+{
+    QAction * action = actionCollection()->action(actionName);
+    if (action) {
+        action->trigger();
+    } else {
+        qCritical() << "Action is not registered:" << actionName;
+    }
 }
 
 bool MainWindow::queryClose()
