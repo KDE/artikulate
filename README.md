@@ -1,5 +1,5 @@
-Packaging and Building Information
-==================================
+Artikulate
+==========
 
 Artikulate is a language learning application that helps improving pronunciation skills for
 various languages. This repository maintains the application and language specifications. All course
@@ -9,15 +9,15 @@ infrastructure.
 For a detailed explanation how to contribute new languages and/or new courses, please refer to the
 information at techbase: http://techbase.kde.org/Projects/Edu/Artikulate
 
+* contribute: please go to phabricator.kde.org
+
+Packaging and Building Information
+==================================
+
 # Build Dependencies
 
-Artikulate has the following build dependencies:
-
-* KDElibs >= 4.11.1
-* Qt >= 4.8 (but less than Qt 5.x)
-* CMake >= 2.8.9
-* QtGStreamer >= 1.1.90 (i.e., based on GStreamer-1.x)
-
+All build dependencies are defined in the CMake files. Please run CMake and and consider the
+the output.
 
 # Packaging
 
@@ -31,9 +31,7 @@ internally inside Artikulate:
 
 # Runtime Dependencies
 
-* kqtquickcharts: a KDE Edu library that provides a QtQuick plugin for plotting graphs
-* KDE-runtime >= 4.11.1
-
+* none
 
 # GStreamer-Problems
 
@@ -54,3 +52,4 @@ CMake files are BSD licensed.
 # Patches and Bug Reports
 
 Please use the bugs.kde.org or the git.reviewboard.kde.org infrastructure for this.
+
