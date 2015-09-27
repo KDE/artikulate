@@ -62,6 +62,7 @@ public Q_SLOTS:
     void updateKcfgUseContributorResources();
     void configLearnerProfile();
     void triggerAction(const QString &);
+    void switchMenuBarVisibility();
 
 private:
     ResourceManager *m_resourceManager;

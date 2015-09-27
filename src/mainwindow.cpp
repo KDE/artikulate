@@ -48,6 +48,7 @@
 #include <QDebug>
 #include <QGraphicsObject>
 #include <QIcon>
+#include <QMenuBar>
 #include <QPointer>
 #include <QQmlContext>
 #include <QQmlProperty>
@@ -93,6 +94,7 @@ MainWindow::MainWindow()
     m_widget->rootContext()->setContextProperty("profileManager", m_profileManager);
 
     m_widget->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
+    m_widget->rootContext()->setContextProperty("kcfg_ShowMenuBar", Settings::showMenuBar());
 
     // set starting screen
     m_widget->setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
@@ -112,6 +114,8 @@ MainWindow::MainWindow()
             this, SLOT(showSettingsDialog()));
     connect(m_widget->rootObject(), SIGNAL(triggerAction(QString)),
             this, SLOT(triggerAction(QString)));
+    connect(m_widget->rootObject(), SIGNAL(switchMenuBarVisibility()),
+            this, SLOT(switchMenuBarVisibility()));
 
     // set font for the phrase in trainer to default from kcfg file
     QObject *phraseText = m_widget->rootObject()->findChild<QObject*>("phraseText");
@@ -122,6 +126,8 @@ MainWindow::MainWindow()
 
     setupGUI();
     setCentralWidget(m_widget);
+
+    menuBar()->setVisible(Settings::showMenuBar());
 }
 
 MainWindow::~MainWindow()
@@ -256,8 +262,15 @@ void MainWindow::triggerAction(const QString &actionName)
     }
 }
 
+void MainWindow::switchMenuBarVisibility()
+{
+    Settings::setShowMenuBar(!Settings::showMenuBar());
+    menuBar()->setVisible(Settings::showMenuBar());
+}
+
 bool MainWindow::queryClose()
 {
+    Settings::self()->save();
     // FIXME make sure all learner data is written to database
     return true;
 }

@@ -5,6 +5,10 @@
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="artikulaterc"/>
   <group name="artikulate">
+    <entry name="ShowMenuBar" type="Bool">
+      <label>If true, the main menu bar is shown.</label>
+      <default>false</default>
+    </entry>
     <entry name="UseCourseRepository" type="Bool">
       <label>If enabled, course files are only read from the local contributor repository</label>
       <default>false</default>

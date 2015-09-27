@@ -33,6 +33,7 @@ Item {
     signal triggerDownloadCourses();
     signal triggerSettingsDialog();
     signal triggerAction(string actionName);
+    signal switchMenuBarVisibility();
 
     Item {
         id: theme
@@ -111,6 +112,16 @@ Item {
                     text: i18n("About KDE")
                     iconName: "help-about"
                     onTriggered: triggerAction("help_about_kde")
+                }
+            }
+            MenuSeparator { }
+            MenuItem {
+                text: i18n("Show Menubar")
+                iconName: "show-menu"
+                checkable: true
+                checked: kcfg_UseContributorResources
+                onTriggered: {
+                    switchMenuBarVisibility()
                 }
             }
             MenuSeparator { }
