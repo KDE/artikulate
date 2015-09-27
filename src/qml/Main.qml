@@ -42,6 +42,7 @@ Item {
         property int smallMediumIconSize: 22
         property int mediumIconSize: 32
         property int fontPointSize: 11
+        property int spacing: 15
     }
 
     property Learner learner: profileManager.activeProfile
@@ -59,96 +60,14 @@ Item {
         id: availableCourseModel
         resourceManager: g_resourceManager
     }
-
-    ToolButton {
-        anchors {
-            top: parent.top
-            right: parent.right
-            topMargin: 10
-            rightMargin: 10
-        }
-        iconName: "application-menu"
-        menu: Menu {
-            id: recentFilesMenu
-
-            MenuItem {
-                text: i18n("Download Courses")
-                iconName: "get-hot-new-stuff"
-                onTriggered: triggerDownloadCourses()
-            }
-            MenuSeparator { }
-            MenuItem {
-                text: i18n("Configure Shortcuts...")
-                iconName: "configure-shortcuts"
-                onTriggered: triggerAction("options_configure_keybinding")
-            }
-            MenuItem {
-                text: i18n("Configure Artikulate...")
-                iconName: "settings-configure"
-                onTriggered: triggerSettingsDialog()
-            }
-            MenuSeparator { }
-            Menu {
-                title: i18n("Help")
-                MenuItem {
-                    text: i18n("Artikulate Handbook")
-                    iconName: "help-contents"
-                    shortcut: StandardKey.HelpContents
-                    onTriggered: triggerAction("help_contents")
-                }
-                MenuSeparator { }
-                MenuItem {
-                    text: i18n("Report Bug")
-                    iconName: "tools-report-bug"
-                    onTriggered: triggerAction("help_report_bug")
-                }
-                MenuSeparator { }
-                MenuItem {
-                    text: i18n("About Artikulate")
-                    iconName: "artikulate"
-                    onTriggered: triggerAction("help_about_app")
-                }
-                MenuItem {
-                    text: i18n("About KDE")
-                    iconName: "help-about"
-                    onTriggered: triggerAction("help_about_kde")
-                }
-            }
-            MenuSeparator { }
-            MenuItem {
-                text: i18n("Show Menubar")
-                iconName: "show-menu"
-                checkable: true
-                checked: kcfg_ShowMenuBar
-                onTriggered: {
-                    switchMenuBarVisibility()
-                }
-            }
-            MenuSeparator { }
-            MenuItem {
-                text: i18n("Quit")
-                iconName: "application-exit"
-                shortcut: StandardKey.Quit
-                onTriggered: triggerAction("file_quit")
-            }
-        }
-    }
-
-    ColumnLayout {
-        id: main
-        spacing: 20
-        anchors {
-            fill: parent
-            topMargin: 30
-            leftMargin: 30
-            rightMargin: 30
-            bottomMargin: 30 + langIcon.height//FIXME workaround
-        }
-
+    ToolBar{
+        id: mainToolBar
         RowLayout {
+            anchors.fill: parent
             Layout.fillWidth: true
             Layout.preferredHeight: langIcon.height
             spacing: 20
+
             QIconItem {
                 id: langIcon
                 icon: "artikulate-language"
@@ -193,8 +112,91 @@ Item {
                     }
                 }
             }
-        }
 
+            // horizontal fill
+            Item { Layout.fillWidth: true }
+
+            ToolButton {
+                Layout.alignment: Qt.AlignRight
+                iconName: "application-menu"
+                menu: Menu {
+                    id: recentFilesMenu
+
+                    MenuItem {
+                        text: i18n("Download Courses")
+                        iconName: "get-hot-new-stuff"
+                        onTriggered: triggerDownloadCourses()
+                    }
+                    MenuSeparator { }
+                    MenuItem {
+                        text: i18n("Configure Shortcuts...")
+                        iconName: "configure-shortcuts"
+                        onTriggered: triggerAction("options_configure_keybinding")
+                    }
+                    MenuItem {
+                        text: i18n("Configure Artikulate...")
+                        iconName: "settings-configure"
+                        onTriggered: triggerSettingsDialog()
+                    }
+                    MenuSeparator { }
+                    Menu {
+                        title: i18n("Help")
+                        MenuItem {
+                            text: i18n("Artikulate Handbook")
+                            iconName: "help-contents"
+                            shortcut: StandardKey.HelpContents
+                            onTriggered: triggerAction("help_contents")
+                        }
+                        MenuSeparator { }
+                        MenuItem {
+                            text: i18n("Report Bug")
+                            iconName: "tools-report-bug"
+                            onTriggered: triggerAction("help_report_bug")
+                        }
+                        MenuSeparator { }
+                        MenuItem {
+                            text: i18n("About Artikulate")
+                            iconName: "artikulate"
+                            onTriggered: triggerAction("help_about_app")
+                        }
+                        MenuItem {
+                            text: i18n("About KDE")
+                            iconName: "help-about"
+                            onTriggered: triggerAction("help_about_kde")
+                        }
+                    }
+                    MenuSeparator { }
+                    MenuItem {
+                        text: i18n("Show Menubar")
+                        iconName: "show-menu"
+                        checkable: true
+                        checked: kcfg_ShowMenuBar
+                        onTriggered: {
+                            switchMenuBarVisibility()
+                        }
+                    }
+                    MenuSeparator { }
+                    MenuItem {
+                        text: i18n("Quit")
+                        iconName: "application-exit"
+                        shortcut: StandardKey.Quit
+                        onTriggered: triggerAction("file_quit")
+                    }
+                }
+            }
+        }
+    }
+
+    ColumnLayout {
+        id: main
+        spacing: theme.spacing
+        anchors {
+            fill: parent
+            topMargin: mainToolBar.height + theme.spacing
+            leftMargin: theme.spacing
+            rightMargin: theme.spacing
+            bottomMargin: theme.spacing + langIcon.height//FIXME workaround
+        }
         RowLayout {
             id: mainRow
             spacing: 30
