@@ -193,18 +193,6 @@ Item {
                     }
                 }
             }
-
-            FlatButton {
-                id: knsDownloadButton
-                text: i18n("Download")
-                iconName: "get-hot-new-stuff"
-                iconSize: 22
-                fontSize: 12
-                anchors {
-                    verticalCenter: parent.verticalCenter
-                }
-                onClicked: triggerDownloadCourses()
-            }
         }
 
         RowLayout {
