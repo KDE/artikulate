@@ -56,6 +56,7 @@
 #include <QQuickView>
 #include <QQuickWidget>
 #include <QStandardPaths>
+#include <QStatusBar>
 
 using namespace LearnerProfile;
 
@@ -128,6 +129,7 @@ MainWindow::MainWindow()
     setCentralWidget(m_widget);
 
     menuBar()->setVisible(Settings::showMenuBar());
+    statusBar()->setVisible(false);
 }
 
 MainWindow::~MainWindow()
