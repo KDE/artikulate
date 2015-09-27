@@ -44,7 +44,9 @@ target_link_libraries(
         KF5::ConfigCore
         KF5::I18n
 )
-
+# internal library without any API or ABI guarantee
+set(GENERIC_LIB_VERSION "0")
+set(GENERIC_LIB_SOVERSION "0")
 set_target_properties(
     artikulatelearnerprofile
     PROPERTIES

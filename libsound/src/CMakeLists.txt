@@ -50,12 +50,13 @@ target_link_libraries(
         ${QTGSTREAMER_LIBRARIES}
         KF5::I18n
 )
-
+# internal library without any API or ABI guarantee
+set(GENERIC_LIB_VERSION "0")
+set(GENERIC_LIB_SOVERSION "0")
 set_target_properties(
-    artikulatesound
-    PROPERTIES
-        VERSION ${GENERIC_LIB_VERSION}
-        SOVERSION ${GENERIC_LIB_SOVERSION}
+    artikulatesound PROPERTIES
+    VERSION ${GENERIC_LIB_VERSION}
+    SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 
 install(
