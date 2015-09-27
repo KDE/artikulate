@@ -195,7 +195,7 @@ Item {
             topMargin: mainToolBar.height + theme.spacing
             leftMargin: theme.spacing
             rightMargin: theme.spacing
-            bottomMargin: theme.spacing + langIcon.height//FIXME workaround
+            bottomMargin: theme.spacing
         }
         RowLayout {
             id: mainRow
