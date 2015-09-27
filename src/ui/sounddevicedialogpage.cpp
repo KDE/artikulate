@@ -143,7 +143,7 @@ void SoundDeviceDialogPage::stopRecord()
 {
     if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState) {
         CaptureDeviceController::self().stopCapture();
-        ui->buttonRecordTestSound->setIcon(KIcon("media-record"));
+        ui->buttonRecordTestSound->setIcon(QIcon::fromTheme("media-record"));
         ui->buttonPlayRecordedTestSound->setEnabled(true);
     }
 }
