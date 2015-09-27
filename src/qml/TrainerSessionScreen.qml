@@ -65,18 +65,20 @@ Item {
                 Layout.preferredHeight: main.height / 2
                 color: "lightsteelblue"
 
-                Text {
+                TextArea {
                     id: phraseText
                     anchors {
                         fill: trainingTextRect
                         leftMargin: theme.spacing
                         topMargin: theme.spacing
                         rightMargin: theme.spacing
-                        bottomMargin: theme.spacing
+                        bottomMargin: theme.spacing + buttonNativePlay.height
                     }
                     objectName: "phraseText"
                     text: (g_trainingSession.phrase != null) ? g_trainingSession.phrase.text : ""
                     wrapMode: Text.WordWrap
+                    readOnly: true
+                    backgroundVisible: false
                 }
                 SoundPlayer {
                     id: buttonNativePlay
