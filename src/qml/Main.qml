@@ -119,7 +119,7 @@ Item {
                 text: i18n("Show Menubar")
                 iconName: "show-menu"
                 checkable: true
-                checked: kcfg_UseContributorResources
+                checked: kcfg_ShowMenuBar
                 onTriggered: {
                     switchMenuBarVisibility()
                 }
