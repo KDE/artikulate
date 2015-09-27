@@ -20,8 +20,8 @@
 
 #include "outputdevicecontroller.h"
 #include "qtgstreameroutputbackend.h"
-#include <KUrl>
-#include <KDebug>
+#include <QUrl>
+#include <QDebug>
 
 /**
  * \class OutputDeviceControllerPrivate
@@ -96,7 +96,7 @@ void OutputDeviceController::play(const QString& filePath)
     emit started();
 }
 
-void OutputDeviceController::play(const KUrl &filePath)
+void OutputDeviceController::play(const QUrl &filePath)
 {
     play(filePath.toLocalFile());
 }

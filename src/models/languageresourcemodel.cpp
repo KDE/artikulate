@@ -27,15 +27,19 @@
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
-
-#include <KLocale>
-#include <KDebug>
+#include <KLocalizedString>
+#include <QDebug>
 
 LanguageResourceModel::LanguageResourceModel(QObject* parent)
     : QAbstractListModel(parent)
-    , m_resourceManager(0)
+    , m_resourceManager(nullptr)
     , m_view(LanguageModel::NonEmptyGhnsOnlyLanguages)
     , m_signalMapper(new QSignalMapper(this))
+{
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLanguageChanged(int)));
+}
+
+QHash< int, QByteArray > LanguageResourceModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
@@ -43,9 +47,8 @@ LanguageResourceModel::LanguageResourceModel(QObject* parent)
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
     roles[CourseNumberRole] = "courseNumberRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLanguageChanged(int)));
+    return roles;
 }
 
 void LanguageResourceModel::setResourceManager(ResourceManager *resourceManager)
@@ -86,7 +89,7 @@ ResourceManager * LanguageResourceModel::resourceManager() const
     return m_resourceManager;
 }
 
-QVariant LanguageResourceModel::data(const QModelIndex& index, int role) const
+QVariant LanguageResourceModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
         return QVariant();
@@ -119,12 +122,11 @@ QVariant LanguageResourceModel::data(const QModelIndex& index, int role) const
     }
 }
 
-int LanguageResourceModel::rowCount(const QModelIndex& parent) const
+int LanguageResourceModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid()) {
         return 0;
     }
-
     return m_resources.count();
 }
 
@@ -158,7 +160,7 @@ void LanguageResourceModel::onLanguageResourceAboutToBeRemoved(int index)
     int modelIndex = m_resources.indexOf(originalResource);
 
     if (modelIndex == -1) {
-        kWarning() << "Cannot remove language from model, not registered";
+        qWarning() << "Cannot remove language from model, not registered";
         return;
     }
     beginRemoveRows(QModelIndex(), modelIndex, modelIndex);

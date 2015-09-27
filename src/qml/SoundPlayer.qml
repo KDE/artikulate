@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,32 +18,33 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 Item {
     id: root
+    width: button.width
+    height: button.height
 
+    property string text: i18n("Play")
     property string fileUrl
 
     signal stopped()
-
-    width: theme.mediumIconSize
-    height: theme.mediumIconSize
 
     Player {
         id: playerBackend
         soundFileUrl: root.fileUrl
     }
 
-    PlasmaComponents.ToolButton {
-        id: playButton
-        height: Math.max(root.width, root.height)
-        width: Math.max(root.width, root.height)
+    FlatButton {
+        id: button
+        text: root.text
+        iconName: "media-playback-start"
         enabled: fileUrl != ""
-        iconSource: "artikulate-media-playback-start"
+        iconSize: 32
+        fontSize: 16
 
         onClicked: {
             if (playerBackend.state == Player.PlayingState) {
@@ -60,11 +61,11 @@ Item {
             onStateChanged: {
                 // set next possible action icon
                 if (playerBackend.state == Player.PlayingState) {
-                    playButton.iconSource = "artikulate-media-playback-stop";
+                    button.iconName = "media-playback-stop";
                     return
                 }
                 if (playerBackend.state == Player.StoppedState) {
-                    playButton.iconSource = "artikulate-media-playback-start";
+                    button.iconName = "media-playback-start";
                     return
                 }
             }

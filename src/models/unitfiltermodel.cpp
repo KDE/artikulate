@@ -23,12 +23,12 @@
 
 #include <QSortFilterProxyModel>
 
-#include <KLocale>
-#include <KDebug>
+#include <KLocalizedString>
+#include <QDebug>
 
 UnitFilterModel::UnitFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)
-    , m_unitModel(0)
+    , m_unitModel(nullptr)
 {
 
 }

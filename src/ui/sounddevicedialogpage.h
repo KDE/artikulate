@@ -22,7 +22,7 @@
 #define SOUNDDEVICEDIALOGPAGE_H
 
 #include "ui_sounddevicedialogpage.h"
-#include <KTemporaryFile>
+#include <QTemporaryFile>
 #include <QWidget>
 
 class QMediaPlayer;
@@ -51,7 +51,7 @@ private:
     Ui::SoundDeviceDialogPage *ui;
     QList<QString> m_audioInputs;
     QList<QString> m_audioOutputs;
-    KTemporaryFile m_recordTestFile;
+    QTemporaryFile m_recordTestFile;
 };
 
 #endif

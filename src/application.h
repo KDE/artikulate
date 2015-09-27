@@ -22,19 +22,17 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <KApplication>
+#include <QApplication>
 
-class QDeclarativeEngine;
-
-class Application : public KApplication
+class Application : public QApplication
 {
     Q_OBJECT
 
 public:
-    explicit Application();
+    explicit Application(int &argc, char **argv);
 
 private:
     void registerQmlTypes();
 };
 
-#endif // APPLICATION_H
+#endif

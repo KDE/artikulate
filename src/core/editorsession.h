@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,15 +18,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROFILE_H
-#define PROFILE_H
+#ifndef EDITORSESSION_H
+#define EDITORSESSION_H
 
 #include "artikulatecore_export.h"
 #include "course.h"
 #include "phrase.h"
-#include <QObject>
-#include <QList>
-#include <KUrl>
 
 class QString;
 class Language;
@@ -35,21 +32,24 @@ class Unit;
 class PhonemeGroup;
 
 /**
- * \class Profile
+ * \class EditorSession
  * Objects of this class describe the current set values for language, course, unit, etc.
  * by a user.
  */
-class ARTIKULATELIB_EXPORT Profile : public QObject
+class ARTIKULATELIB_EXPORT EditorSession : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
+    Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
     Q_PROPERTY(PhonemeGroup *phonemeGroup READ phonemeGroup WRITE setPhonemeGroup NOTIFY phonemeGroupChanged)
     Q_PROPERTY(Phrase::Type phraseType READ phraseType WRITE setPhraseType NOTIFY phraseTypeChanged)
+    Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
+    Q_PROPERTY(bool hasPreviousPhrase READ hasPreviousPhrase NOTIFY phraseChanged)
 
 public:
-    explicit Profile(QObject *parent = 0);
+    explicit EditorSession(QObject *parent = nullptr);
 
     Language * language() const;
     void setLanguage(Language *language);
@@ -57,25 +57,37 @@ public:
     void setCourse(Course *course);
     Unit * unit() const;
     void setUnit(Unit *unit);
+    Phrase * phrase() const;
+    void setPhrase(Phrase *phrase);
     PhonemeGroup * phonemeGroup() const;
     void setPhonemeGroup(PhonemeGroup *phonemeGroup);
     Phrase::Type phraseType() const;
     void setPhraseType(Phrase::Type type);
+    bool hasPreviousPhrase() const;
+    bool hasNextPhrase() const;
+    Q_INVOKABLE void switchToPreviousPhrase();
+    Q_INVOKABLE void switchToNextPhrase();
 
-signals:
+private:
+    Phrase * nextPhrase() const;
+    Phrase * previousPhrase() const;
+
+Q_SIGNALS:
     void languageChanged();
     void courseChanged();
     void unitChanged();
+    void phraseChanged();
     void phonemeGroupChanged();
     void phraseTypeChanged(Phrase::Type);
 
 private:
-    Q_DISABLE_COPY(Profile)
+    Q_DISABLE_COPY(EditorSession)
     Language *m_language;
     Course *m_course;
     Unit *m_unit;
+    Phrase *m_phrase;
     PhonemeGroup *m_phonemeGroup;
     Phrase::Type m_type;
 };
 
-#endif // PROFILE_H
+#endif

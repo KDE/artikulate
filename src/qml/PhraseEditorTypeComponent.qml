@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,16 +18,15 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.2
 import artikulate 1.0
 
 Item {
     id: root
 
     property Phrase phrase
-    property int selectedType
 
     width: typeController.width
     height: typeController.height
@@ -38,9 +37,6 @@ Item {
 
     onPhraseChanged: {
         updateCheckedStates()
-        if (phrase != null) {
-            root.selectedType = phrase.type
-        }
     }
 
     function updateCheckedStates()
@@ -64,59 +60,43 @@ Item {
         }
     }
 
-    Row {
+    GroupBox {
         id: typeController
-        spacing: 10
+        title: i18n("Difficulty:")
 
-        Text {
-            id: componentTitle
-            text: i18n("Length:")
-            font.pointSize: 14;
-        }
-
-        PlasmaComponents.ButtonRow { // controls for setting type
-            id: phraseTypeRow
-            anchors { verticalCenter: componentTitle.verticalCenter }
-
-            PlasmaComponents.Button {
+        RowLayout {
+            ExclusiveGroup { id: editTypeGroup }
+            RadioButton {
                 id: buttonWord
-                anchors.verticalCenter: phraseTypeRow.verticalCenter
-                checkable: true
                 text: i18n("Word")
-                checked: {root.selectedType == Phrase.Word}
                 onClicked: {
-                    root.selectedType = Phrase.Word
+                    root.phrase.type = Phrase.Word
                 }
+                exclusiveGroup: editTypeGroup
             }
-            PlasmaComponents.Button {
+            RadioButton {
                 id: buttonExpression
-                anchors.verticalCenter: phraseTypeRow.verticalCenter
-                checkable: true
                 text: i18n("Expression")
-                checked: {root.selectedType == Phrase.Expression}
                 onClicked: {
-                    root.selectedType = Phrase.Expression
+                    root.phrase.type = Phrase.Expression
                 }
+                exclusiveGroup: editTypeGroup
             }
-            PlasmaComponents.Button {
+            RadioButton {
                 id: buttonSentence
-                anchors.verticalCenter: phraseTypeRow.verticalCenter
-                checkable: true
                 text: i18n("Sentence")
-                checked: {root.selectedType == Phrase.Sentence}
                 onClicked: {
-                    root.selectedType = Phrase.Sentence
+                    root.phrase.type = Phrase.Sentence
                 }
+                exclusiveGroup: editTypeGroup
             }
-            PlasmaComponents.Button {
+            RadioButton {
                 id: buttonParagraph
-                anchors.verticalCenter: phraseTypeRow.verticalCenter
-                checkable: true
                 text: i18n("Paragraph")
-                checked: {root.selectedType == Phrase.Paragraph}
                 onClicked: {
-                    root.selectedType = Phrase.Paragraph
+                    root.phrase.type = Phrase.Paragraph
                 }
+                exclusiveGroup: editTypeGroup
             }
         }
     }

@@ -18,9 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 Item {
@@ -43,7 +42,7 @@ Item {
         Row {
             anchors { left: componentTitle.left; leftMargin: 30 }
 
-            height: 30
+            height: 48
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 text: i18n("Existing Recording:")
@@ -69,17 +68,17 @@ Item {
             anchors { left: componentTitle.left; leftMargin: 30 }
             visible: recorder.outputFileUrl != ""
 
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 anchors.verticalCenter: parent.verticalCenter
-                iconSource: "dialog-ok-apply"
+                iconName: "dialog-ok-apply"
                 text: i18n("Replace existing recording")
                 onClicked: {
                     recorder.storeToFile(phrase.soundFileOutputPath())
                 }
             }
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 anchors.verticalCenter: parent.verticalCenter
-                iconSource: "dialog-cancel"
+                iconName: "dialog-cancel"
                 text: i18n("Dismiss")
                 onClicked: {
                     recorder.clearBuffer()

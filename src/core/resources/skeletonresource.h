@@ -38,7 +38,7 @@ public:
     /**
      * Create course resource from file.
      */
-    explicit SkeletonResource(ResourceManager *resourceManager, const KUrl &path);
+    explicit SkeletonResource(ResourceManager *resourceManager, const QUrl &path);
 
     /**
      * Create course resource from course.
@@ -84,7 +84,7 @@ public:
     /**
      * \return path to resource file
      */
-    virtual KUrl path() const;
+    virtual QUrl path() const;
 
     /**
      * \return reference to the loaded resource

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gkde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -42,10 +42,10 @@ public:
         AllLanguages
     };
 
-    explicit LanguageModel(QObject *parent = 0);
+    explicit LanguageModel(QObject *parent = nullptr);
     LanguageResourceModel * resourceModel() const;
     void setResourceModel(LanguageResourceModel *resourceModel);
-    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
+    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const Q_DECL_OVERRIDE;
     void setView(LanguageResourceView view);
     LanguageResourceView view() const;
     Q_INVOKABLE QVariant language(int index) const;

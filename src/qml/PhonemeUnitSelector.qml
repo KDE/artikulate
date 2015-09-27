@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,9 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
 Item {
@@ -60,7 +59,7 @@ Item {
             height: groupSelectButton.height + unitList.height
             width: 200
 
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 id: groupSelectButton
                 text : model.title
 
@@ -84,8 +83,8 @@ Item {
     Component {
         id: unitDelegate
 
-        PlasmaComponents.ToolButton {
-            text : model.title
+        ToolButton {
+            text: model.title
             property Unit unit: model.dataRole
             onClicked: {
                 root.unitSelected(unit)

@@ -25,7 +25,7 @@
 
 class QXmlSchema;
 class QDomDocument;
-class KUrl;
+class QUrl;
 
 class TestLanguageFiles : public QObject
 {
@@ -72,7 +72,7 @@ private:
      * \param scheme is the XML schema describing the DOM
      * \return the loaded DOM document
      */
-    QDomDocument loadDomDocument(const KUrl &path, const QXmlSchema &schema) const;
+    QDomDocument loadDomDocument(const QUrl &path, const QXmlSchema &schema) const;
 };
 
 #endif

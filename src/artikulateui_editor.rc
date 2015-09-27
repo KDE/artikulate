@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gui name="artikulate"
+<gui name="artikulate_editor"
      version="1"
      xmlns="http://www.kde.org/standards/kxmlgui/1.0"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -7,16 +7,11 @@
                          http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd" >
 
   <MenuBar>
-
     <Menu name="file" >
-      <Action name="download_new_stuff" />
+      <Action name="save" />
     </Menu>
-
     <Menu name="settings" >
       <Action name="settings" />
-<!--       <Action name="config_learner_profile" /> -->
     </Menu>
-
   </MenuBar>
-
 </gui>

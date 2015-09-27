@@ -26,14 +26,21 @@
 #include <QAbstractListModel>
 #include <QSignalMapper>
 
-#include <KLocale>
-#include <KDebug>
+#include <KLocalizedString>
+#include <QDebug>
 
 PhonemeUnitModel::PhonemeUnitModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_course(0)
-    , m_phonemeGroup(0)
+    , m_course(nullptr)
+    , m_phonemeGroup(nullptr)
     , m_signalMapper(new QSignalMapper(this))
+{
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
+    connect(this, SIGNAL(phonemeGroupChanged()), this, SIGNAL(countChanged()));
+    connect(this, SIGNAL(courseChanged()), this, SIGNAL(countChanged()));
+}
+
+QHash< int, QByteArray > PhonemeUnitModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
@@ -41,11 +48,8 @@ PhonemeUnitModel::PhonemeUnitModel(QObject *parent)
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
     roles[PhonemeGroupRole] = "phonemeGroupRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
-    connect(this, SIGNAL(phonemeGroupChanged()), this, SIGNAL(countChanged()));
-    connect(this, SIGNAL(courseChanged()), this, SIGNAL(countChanged()));
+    return roles;
 }
 
 void PhonemeUnitModel::setCourse(Course *course)

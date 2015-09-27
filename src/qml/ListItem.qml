@@ -1,5 +1,6 @@
 /*
  *  Copyright 2012  Sebastian Gottfried <sebastiangottfried@web.de>
+ *  Copyright 2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,26 +19,33 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.qtextracomponents 0.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
+import org.kde.kquickcontrolsaddons 2.0
 
 Item {
     id: root
     property alias title: label.text
-    property string iconSource
+    property string iconName
     property alias label: label
     signal selected
-    height: padding.height + bg.margins.top + bg.margins.bottom
+    height: Math.max(label.height + 15 + 15, 15 + 15 + 30)
     state: ListView.isCurrentItem? "selected": mouseArea.containsMouse? "hover": "normal"
 
-    PlasmaCore.FrameSvgItem {
+    Rectangle {
         id: bg
-        imagePath: "widgets/viewitem"
-        prefix: "hover"
+        color: "#3daee6"
+        border.color: "#3daee6"
+        border.width: 2
         opacity: 0
-        anchors.fill: parent
+        radius: 4
+        anchors {
+            fill: parent
+            topMargin: 5
+            rightMargin: 5
+            bottomMargin: 5
+            leftMargin: 5
+        }
     }
 
     Item {
@@ -45,28 +53,25 @@ Item {
 
         anchors {
             fill: parent
-            topMargin: bg.margins.top
-            rightMargin: bg.margins.right
-            bottomMargin: bg.margins.bottom
-            leftMargin: bg.margins.left
+            topMargin: 10
+            rightMargin: 10
+            bottomMargin: 10
+            leftMargin: 10
         }
-
-        width: parent.width
-        height: Math.max(label.height, label.height)
 
         QIconItem {
             id: iconItem
-            visible: !!root.iconSource
+            visible: !!root.iconName
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
             }
-            icon: QIcon(root.iconSource)
+            icon: root.iconName
             width: theme.smallIconSize
             height: theme.smallIconSize
         }
 
-        PlasmaComponents.Label {
+        Label {
             id: label
             elide: Text.ElideRight
             anchors {
@@ -91,6 +96,7 @@ Item {
             name: "normal"
             PropertyChanges {
                 target: bg
+                color: "#3daee6"
                 opacity: 0
             }
         },
@@ -98,16 +104,16 @@ Item {
             name: "hover"
             PropertyChanges {
                 target: bg
-                opacity: 1
-                prefix: "hover"
+                opacity: 0.3
+                color: "#3daee6"
             }
         },
         State {
             name: "selected"
             PropertyChanges {
                 target: bg
-                opacity: 1
-                prefix: "selected"
+                opacity: 0.7
+                color: "#c0e7f9"
             }
         }
     ]

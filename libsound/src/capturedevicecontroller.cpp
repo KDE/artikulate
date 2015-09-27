@@ -20,10 +20,9 @@
 
 #include "capturedevicecontroller.h"
 #include "qtgstreamercapturebackend.h"
-#include <config.h>
 #include <QUrl>
 #include <QStringList>
-#include <KDebug>
+#include <QDebug>
 
 /**
  * \class CaptureDeviceControllerPrivate

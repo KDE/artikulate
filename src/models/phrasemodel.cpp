@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -19,161 +19,209 @@
  */
 
 #include "phrasemodel.h"
+#include "core/course.h"
 #include "core/unit.h"
 #include "core/phrase.h"
-
-#include <QAbstractListModel>
+#include <QAbstractItemModel>
 #include <QSignalMapper>
-
-#include <KLocale>
-#include <KDebug>
+#include <KLocalizedString>
+#include <QDebug>
 
 PhraseModel::PhraseModel(QObject *parent)
-    : QAbstractListModel(parent)
-    , m_unit(0)
-    , m_signalMapper(new QSignalMapper(this))
+    : QAbstractItemModel(parent)
+    , m_course(nullptr)
+{
+
+}
+
+QHash< int, QByteArray > PhraseModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TextRole] = "text";
-    roles[SoundFileRole] = "soundFile";
-    roles[IdRole] = "id";
-    roles[TypeRole] = "type";
-    roles[ExcludedRole] = "excludedRole";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhraseChanged(int)));
-
-    // connect all phrase number operations to single signal
-    connect(this, SIGNAL(typeChanged()), this, SIGNAL(countChanged()));
-    connect(this, SIGNAL(unitChanged()), this, SIGNAL(countChanged()));
+    return roles;
 }
 
-void PhraseModel::setUnit(Unit *unit)
+void PhraseModel::setCourse(Course *course)
 {
-    if (m_unit == unit) {
+    if (m_course == course) {
         return;
     }
 
     beginResetModel();
 
-    if (m_unit) {
-        m_unit->disconnect(this);
-        foreach (Phrase *phrase, m_unit->phraseList()) {
-            phrase->disconnect(this);
+    if (m_course) {
+        m_course->disconnect(this);
+        foreach (auto unit, m_course->unitList()) {
+            unit->disconnect(this);
+            foreach (auto phrase, unit->phraseList()) {
+                phrase->disconnect(this);
+            }
         }
     }
 
-    m_unit = unit;
-    if (m_unit) {
+    m_course = course;
+    if (m_course) {
         // initial setting of signal mappings
-        connect(m_unit, SIGNAL(phraseAboutToBeAdded(Phrase*,int)), SLOT(onPhraseAboutToBeAdded(Phrase*,int)));
-        connect(m_unit, SIGNAL(phraseAdded()), SLOT(onPhraseAdded()));
-        connect(m_unit, SIGNAL(phraseAboutToBeRemoved(int,int)), SLOT(onPhrasesAboutToBeRemoved(int,int)));
-        connect(m_unit, SIGNAL(phraseRemoved()), SLOT(onPhrasesRemoved()));
+        foreach (auto unit, m_course->unitList()) {
+            connect(unit, &Unit::phraseAboutToBeAdded, this, &PhraseModel::onPhraseAboutToBeAdded);
+            connect(unit, static_cast<void (Unit::*)()>(&Unit::phraseAdded), this, &PhraseModel::onPhraseAdded);
+            connect(unit, &Unit::phraseAboutToBeRemoved, this, &PhraseModel::onPhrasesAboutToBeRemoved);
+            connect(unit, static_cast<void (Unit::*)()>(&Unit::phraseRemoved), this, &PhraseModel::onPhrasesRemoved);
 
-        // insert and connect all already existing phrases
-        int phrases = m_unit->phraseList().count();
-        for (int i=0; i < phrases; ++i) {
-            onPhraseAboutToBeAdded(m_unit->phraseList().at(i), i);
-            endInsertRows();
-            emit countChanged();
+            //TODO connect to unit changes, not needed currently, though
+
+            // insert and connect all already existing phrases
+            int phrases = unit->phraseList().count();
+            for (int i = 0; i < phrases; ++i) {
+                onPhraseAboutToBeAdded(unit->phraseList().at(i), i);
+                endInsertRows();
+            }
         }
-        updateMappings();
     }
 
     // emit done
     endResetModel();
-    emit unitChanged();
+    emit courseChanged();
 }
 
-Unit * PhraseModel::unit() const
+Course * PhraseModel::course() const
 {
-    return m_unit;
+    return m_course;
 }
 
 QVariant PhraseModel::data(const QModelIndex &index, int role) const
 {
-    Q_ASSERT(m_unit);
+    Q_ASSERT(m_course);
 
     if (!index.isValid()) {
         return QVariant();
     }
 
-    if (index.row() >= m_unit->phraseList().count()) {
-        return QVariant();
+    if (!index.internalPointer()) {
+        Unit *unit = m_course->unitList().at(index.row());
+        switch(role)
+        {
+        case TextRole:
+            return unit->title();
+        case DataRole:
+            return QVariant::fromValue<QObject*>(unit);
+        default:
+            return QVariant();
+        }
     }
-
-    Phrase * const phrase = m_unit->phraseList().at(index.row());
-
-    switch(role)
-    {
-    case Qt::DisplayRole:
-        return !phrase->text().isEmpty()?
-                QVariant(phrase->text()): QVariant(i18nc("@item:inlistbox:", "unknown"));
-    case Qt::ToolTipRole:
-        return QVariant(phrase->text());
-    case TextRole:
-        return phrase->text();
-    case SoundFileRole:
-        return phrase->sound();
-    case IdRole:
-        return phrase->id();
-    case TypeRole:
-        return phrase->type();
-    case ExcludedRole:
-        return phrase->isExcluded();
-    case DataRole:
-        return QVariant::fromValue<QObject*>(phrase);
-    default:
-        return QVariant();
+    else {
+        Unit *unit = static_cast<Unit*>(index.internalPointer());
+        switch(role)
+        {
+        case TextRole:
+            return unit->phraseList().at(index.row())->text();
+        case DataRole:
+            return QVariant::fromValue<QObject*>(unit->phraseList().at(index.row()));
+        default:
+            return QVariant();
+        }
     }
+    return QVariant();
 }
 
 int PhraseModel::rowCount(const QModelIndex &parent) const
 {
-    if (!m_unit) {
+    if (!m_course) {
         return 0;
     }
 
-    if (parent.isValid()) {
+    // no valid index -> must be (invisible) root
+    if (!parent.isValid()) {
+        return m_course->unitList().count();
+    }
+
+    // internal pointer -> must be a phrase
+    if (parent.internalPointer()) {
         return 0;
     }
-    return m_unit->phraseList().count();
+
+    // else -> must be a unit
+    Unit *unit = m_course->unitList().at(parent.row());
+    return unit->phraseList().count();
+}
+
+int PhraseModel::columnCount(const QModelIndex &parent) const
+{
+    Q_UNUSED(parent);
+    return 1;
+}
+
+QModelIndex PhraseModel::parent(const QModelIndex &child) const
+{
+    if (!child.internalPointer()) {
+        return QModelIndex();
+    }
+    Unit *parent = static_cast<Unit*>(child.internalPointer());
+    for (int i = 0; i < m_course->unitList().count(); ++i) {
+        if (m_course->unitList().at(i) == parent) {
+            return createIndex(i, 0);
+        }
+    }
+    return QModelIndex();
+}
+
+QModelIndex PhraseModel::index(int row, int column, const QModelIndex &parent) const
+{
+    if (!parent.isValid()) { // unit elements
+        return createIndex(row, column);
+    } else { // phrase elements
+        Unit *unit = m_course->unitList().at(parent.row());
+        if (unit) {
+            return createIndex(row, column, unit);
+        }
+    }
+    return QModelIndex();
+}
+
+QModelIndex PhraseModel::indexPhrase(Phrase *phrase) const
+{
+    if (!phrase) {
+        return QModelIndex();
+    }
+    Unit *unit = phrase->unit();
+    return createIndex(unit->phraseList().indexOf(phrase), 0, unit);
+}
+
+QModelIndex PhraseModel::indexUnit(Unit *unit) const
+{
+    if (!unit) {
+        return QModelIndex();
+    }
+    return createIndex(m_course->unitList().indexOf(unit), 0);
+}
+
+bool PhraseModel::isUnit(const QModelIndex &index) const
+{
+    return (index.internalPointer() == nullptr);
 }
 
 void PhraseModel::onPhraseAboutToBeAdded(Phrase *phrase, int index)
 {
-    connect(phrase, SIGNAL(textChanged()), m_signalMapper, SLOT(map()));
-    connect(phrase, SIGNAL(typeChanged()), m_signalMapper, SLOT(map()));
-    connect(phrase, SIGNAL(excludedChanged()), m_signalMapper, SLOT(map()));
-    beginInsertRows(QModelIndex(), index, index);
+    int unitIndex = m_course->unitList().indexOf(phrase->unit());
+    beginInsertRows(createIndex(unitIndex, 0), index, index);
 }
 
 void PhraseModel::onPhraseAdded()
 {
-    updateMappings();
     endInsertRows();
-    emit countChanged();
 }
 
 void PhraseModel::onPhrasesAboutToBeRemoved(int first, int last)
 {
-    beginRemoveRows(QModelIndex(), first, last);
+    //TODO better solution requires access to unit
+    beginResetModel();
 }
 
 void PhraseModel::onPhrasesRemoved()
 {
-    endRemoveRows();
-    emit countChanged();
-}
-
-void PhraseModel::emitPhraseChanged(int row)
-{
-    reset(); //FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
-             //      to exclude possible new excluded phrases
-    emit phraseChanged(row);
-    emit dataChanged(index(row, 0), index(row, 0));
+    endResetModel();
 }
 
 QVariant PhraseModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -187,21 +235,13 @@ QVariant PhraseModel::headerData(int section, Qt::Orientation orientation, int r
     return QVariant(i18nc("@title:column", "Phrase"));
 }
 
-int PhraseModel::count() const
-{
-    if (!m_unit) {
-        return 0;
+Phrase * PhraseModel::phrase(const QModelIndex &index) const {
+    if (!index.internalPointer()) {
+        return m_course->unitList().at(index.row())->phraseList().first();
     }
-    return m_unit->phraseList().count();
-}
-
-void PhraseModel::updateMappings()
-{
-    if (!m_unit) {
-        return;
+    else {
+        Unit *unit = static_cast<Unit *>(index.internalPointer());
+        return unit->phraseList().at(index.row());
     }
-    int phrases = m_unit->phraseList().count();
-    for (int i = 0; i < phrases; ++i) {
-        m_signalMapper->setMapping(m_unit->phraseList().at(i), i);
-    }
+    return nullptr;
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014  Andreas Cord-Landwehr <cordlandwehr@gkde.org>
+ *  Copyright 2014-2015  Andreas Cord-Landwehr <cordlandwehr@gkde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -33,14 +33,14 @@ class UnitFilterModel : public QSortFilterProxyModel
     Q_PROPERTY(int filteredCount READ filteredCount NOTIFY filteredCountChanged)
 
 public:
-    explicit UnitFilterModel(QObject *parent = 0);
+    explicit UnitFilterModel(QObject *parent = nullptr);
     UnitModel * unitModel() const;
     void setUnitModel(UnitModel* unitModel);
     int filteredCount() const;
-    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
-    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const Q_DECL_OVERRIDE;
+    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const Q_DECL_OVERRIDE;
 
-signals:
+Q_SIGNALS:
     void unitModelChanged();
     void viewChanged();
     void sortOptionChanged();

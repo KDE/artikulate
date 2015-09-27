@@ -28,10 +28,9 @@
 #include "core/resources/courseresource.h"
 #include "../src/settings.h"
 
-#include <qtest_kde.h>
-#include <KDebug>
-#include <KTemporaryFile>
-#include <KStandardDirs>
+#include <QTest>
+#include <QDebug>
+#include <QTemporaryFile>
 
 #include <QIODevice>
 #include <QFile>
@@ -46,31 +45,32 @@ TestCourseFiles::TestCourseFiles()
 
 void TestCourseFiles::init()
 {
-    KGlobal::dirs()->addResourceDir("appdata" , "./testcourses/");
-    KGlobal::dirs()->addResourceDir("appdata" , "./");
-    KGlobal::dirs()->addResourceDir("appdata" , "./autotests/");
-    KGlobal::dirs()->addResourceDir("appdata" , "./autotests/testcourses/");
+    //FIXME has to be ported
+//     KGlobal::dirs()->addResourceDir("appdata" , "./testcourses/");
+//     KGlobal::dirs()->addResourceDir("appdata" , "./");
+//     KGlobal::dirs()->addResourceDir("appdata" , "./autotests/");
+//     KGlobal::dirs()->addResourceDir("appdata" , "./autotests/testcourses/");
 
     systemUseCourseRepositoryValue = Settings::useCourseRepository();
     Settings::setUseCourseRepository(false);
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 }
 
 void TestCourseFiles::cleanup()
 {
     // reset value
     Settings::setUseCourseRepository(systemUseCourseRepositoryValue);
-    Settings::self()->writeConfig();
+    Settings::self()->save();
 }
 
 void TestCourseFiles::courseSchemeValidationTest()
 {
-    KUrl schemeFile = KUrl::fromLocalFile("schemes/course.xsd");
+    QUrl schemeFile = QUrl::fromLocalFile("schemes/course.xsd");
     QXmlSchema courseSchema;
     QVERIFY(courseSchema.load(schemeFile));
     QVERIFY(courseSchema.isValid());
 
-    KUrl skeletonFile = KUrl::fromLocalFile("schemes/skeleton.xsd");
+    QUrl skeletonFile = QUrl::fromLocalFile("schemes/skeleton.xsd");
     QXmlSchema skeletonScheme;
     QVERIFY(skeletonScheme.load(skeletonFile));
     QVERIFY(skeletonScheme.isValid());
@@ -79,29 +79,28 @@ void TestCourseFiles::courseSchemeValidationTest()
 void TestCourseFiles::fileLoadSaveCompleteness()
 {
     ResourceManager manager;
-    manager.addLanguage(KUrl::fromLocalFile("data/languages/de.xml"));
-    manager.addCourse(KUrl::fromLocalFile("data/courses/de.xml"));
+    manager.addLanguage(QUrl::fromLocalFile("data/languages/de.xml"));
+    manager.addCourse(QUrl::fromLocalFile("data/courses/de.xml"));
 
     // test to encure further logic
     QVERIFY(manager.courseResources(manager.languageResources().first()->language()).count() == 1);
 
     Course *testCourse = manager.courseResources(manager.languageResources().first()->language()).first()->course();
-    KTemporaryFile outputFile;
-    outputFile.setSuffix(".xml");
+    QTemporaryFile outputFile;
     outputFile.open();
-    KUrl oldFileName = testCourse->file();
-    testCourse->setFile(KUrl::fromLocalFile(outputFile.fileName()));
+    QUrl oldFileName = testCourse->file();
+    testCourse->setFile(QUrl::fromLocalFile(outputFile.fileName()));
     testCourse->setLanguage(manager.languageResources().first()->language());
     testCourse->sync();
     testCourse->setFile(oldFileName); // restore for later tests
 
     QFile file(outputFile.fileName());
     if (!file.open(QIODevice::ReadOnly)) {
-        kFatal() << "Could not open file to read.";
+        qCritical() << "Could not open file to read.";
     }
 
     //TODO this only works, since the resource manager not checks uniqueness of course ids!
-    manager.addCourse(KUrl::fromLocalFile(outputFile.fileName()));
+    manager.addCourse(QUrl::fromLocalFile(outputFile.fileName()));
     Course *compareCourse = manager.courseResources(manager.languageResources().first()->language()).last()->course();
 
     // test that we actually call the different files
@@ -139,4 +138,4 @@ void TestCourseFiles::fileLoadSaveCompleteness()
 }
 
 
-QTEST_KDEMAIN_CORE(TestCourseFiles)
+QTEST_MAIN(TestCourseFiles)

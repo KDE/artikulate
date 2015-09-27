@@ -25,7 +25,7 @@
 #include <QObject>
 
 class OutputDeviceControllerPrivate;
-class KUrl;
+class QUrl;
 
 /**
  * \class OutputDeviceController
@@ -53,7 +53,7 @@ public:
     static OutputDeviceController & self();
 
     void play(const QString &filePath);
-    void play(const KUrl &filePath);
+    void play(const QUrl &filePath);
     OutputDeviceController::State state() const;
     void stop();
     QString currentSource() const;

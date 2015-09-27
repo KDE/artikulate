@@ -22,9 +22,8 @@
 #include "models/languagemodel.h"
 #include "phoneme.h"
 #include "phonemegroup.h"
-#include <KDebug>
-#include <KLocale>
-#include <KGlobal>
+#include <QDebug>
+#include <KLocalizedString>
 
 Language::Language(QObject *parent)
     : QObject(parent)
@@ -76,12 +75,12 @@ void Language::seti18nTitle(const QString &title)
     emit i18nTitleChanged();
 }
 
-KUrl Language::file() const
+QUrl Language::file() const
 {
     return m_file;
 }
 
-void Language::setFile(const KUrl& file)
+void Language::setFile(const QUrl &file)
 {
     m_file = file;
 }
@@ -105,7 +104,7 @@ PhonemeGroup * Language::addPhonemeGroup(const QString &identifier, const QStrin
     QList<PhonemeGroup *>::ConstIterator iter = m_phonemeGroups.constBegin();
     while (iter != m_phonemeGroups.constEnd()) {
         if (QString::compare((*iter)->id(), identifier) == 0) {
-            kWarning() << "Prononciation Group identifier already registered, aborting";
+            qWarning() << "Prononciation Group identifier already registered, aborting";
             return 0;
         }
         ++iter;

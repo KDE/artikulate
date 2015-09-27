@@ -22,8 +22,8 @@
 #include "libsound/src/outputdevicecontroller.h"
 
 #include <QList>
-#include <KDebug>
-#include <KUrl>
+#include <QDebug>
+#include <QUrl>
 #include <QString>
 
 Player::Player(QObject *parent)
@@ -39,10 +39,10 @@ Player::~Player()
     // nothing to do
 }
 
-void Player::setSoundFile(const KUrl &fileUrl)
+void Player::setSoundFile(const QUrl &fileUrl)
 {
     if (!fileUrl.isValid() || fileUrl.isEmpty()) {
-        kWarning() << "Not setting empty sound file path.";
+        qWarning() << "Not setting empty sound file path.";
         return;
     }
     m_soundFile = fileUrl;
@@ -52,7 +52,7 @@ void Player::setSoundFile(const KUrl &fileUrl)
 void Player::setSoundFile(const QString& fileUrl)
 {
     OutputDeviceController::self().stop();
-    setSoundFile(KUrl::fromLocalFile(fileUrl));
+    setSoundFile(QUrl::fromLocalFile(fileUrl));
 }
 
 QString Player::soundFile() const
@@ -69,11 +69,11 @@ void Player::playback()
 {
     OutputDeviceController::self().disconnect();
     if (m_soundFile.isEmpty()) {
-        kError() << "Abort playing sound, no file available";
+        qCritical() << "Abort playing sound, no file available";
         return;
     }
-    kDebug() << this << "Playback sound in file "<< m_soundFile.toLocalFile();
-    OutputDeviceController::self().play(KUrl::fromLocalFile(m_soundFile.toLocalFile()));
+    qDebug() << this << "Playback sound in file "<< m_soundFile.toLocalFile();
+    OutputDeviceController::self().play(QUrl::fromLocalFile(m_soundFile.toLocalFile()));
     m_playbackState = PlayingState;
     connect(&OutputDeviceController::self(), SIGNAL(started()), this, SLOT(updateState()));
     connect(&OutputDeviceController::self(), SIGNAL(stopped()), this, SLOT(updateState()));

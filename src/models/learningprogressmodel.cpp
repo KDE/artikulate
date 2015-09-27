@@ -21,17 +21,23 @@
 #include "learningprogressmodel.h"
 #include "core/trainingsession.h"
 #include <QAbstractTableModel>
-#include <KLocale>
-#include <KDebug>
+#include <KLocalizedString>
+#include <QDebug>
 
 LearningProgressModel::LearningProgressModel(QObject *parent)
     : QAbstractTableModel(parent)
-    , m_session(0)
+    , m_session(nullptr)
+{
+
+}
+
+QHash< int, QByteArray > LearningProgressModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
+
+    return roles;
 }
 
 int LearningProgressModel::rowCount(const QModelIndex& parent) const
@@ -91,7 +97,7 @@ int LearningProgressModel::maximumPhrasesPerTry() const
 QVariant LearningProgressModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        kWarning() << "Invalid index requested";
+        qWarning() << "Invalid index requested";
         return QVariant();
     }
 

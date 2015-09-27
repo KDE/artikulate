@@ -26,8 +26,8 @@
 #include "resourcemanager.h"
 #include "phonemegroup.h"
 
-#include <KDebug>
-#include <KLocale>
+#include <QDebug>
+#include <KLocalizedString>
 #include <QStringList>
 #include <QPair>
 #include <QUuid>
@@ -35,7 +35,7 @@
 Course::Course(ResourceInterface *resource)
     : QObject(resource)
     , m_resource(qobject_cast<CourseResource*>(resource))
-    , m_language(0)
+    , m_language(nullptr)
     , m_modified(false)
 {
 }
@@ -92,6 +92,11 @@ QString Course::title() const
     return m_title;
 }
 
+QString Course::i18nTitle() const
+{
+    return m_resource->i18nTitle();
+}
+
 void Course::setTitle(const QString &title)
 {
     if (QString::compare(title, m_title) != 0) {
@@ -128,12 +133,12 @@ void Course::setLanguage(Language *language)
     emit languageChanged();
 }
 
-KUrl Course::file() const
+QUrl Course::file() const
 {
     return m_file;
 }
 
-void Course::setFile(const KUrl &file)
+void Course::setFile(const QUrl &file)
 {
     m_file = file;
 }
@@ -148,7 +153,7 @@ void Course::addUnit(Unit *unit)
     QList<Unit*>::ConstIterator iter = m_unitList.constBegin();
     while (iter != m_unitList.constEnd()) {
         if (unit->id() == (*iter)->id()) {
-            kWarning() << "Unit already contained in this course, aborting";
+            qWarning() << "Unit already contained in this course, aborting";
             return;
         }
         ++iter;
@@ -156,7 +161,9 @@ void Course::addUnit(Unit *unit)
     emit unitAboutToBeAdded(unit, m_unitList.length());
     m_unitList.append(unit);
 
-    connect(unit, SIGNAL(modified()), this, SLOT(setModified()));
+    connect(unit, &Unit::modified, [=]() {
+        setModified(true);
+    });
 
     // these connections are only present for "normal units" and take care to register
     // there phrases also at phoneme units
@@ -164,7 +171,7 @@ void Course::addUnit(Unit *unit)
     connect(unit, SIGNAL(phraseRemoved(Phrase*)), this, SLOT(removePhrasePhonemes(Phrase*)));
 
     emit unitAdded();
-    setModified();
+    setModified(true);
 }
 
 Unit * Course::createUnit()
@@ -176,8 +183,8 @@ Unit * Course::createUnit()
     }
     QString id = QUuid::createUuid().toString();
     while (unitIds.contains(id)) {
-        id = QUuid::createUuid();
-        kWarning() << "Unit id generator has found a collision, recreating id.";
+        id = QUuid::createUuid().toString();
+        qWarning() << "Unit id generator has found a collision, recreating id.";
     }
 
     // create unit
@@ -201,8 +208,8 @@ Phrase * Course::createPhrase(Unit *unit)
     }
     QString id = QUuid::createUuid().toString();
     while (phraseIds.contains(id)) {
-        id = QUuid::createUuid();
-        kWarning() << "Phrase id generator has found a collision, recreating id.";
+        id = QUuid::createUuid().toString();
+        qWarning() << "Phrase id generator has found a collision, recreating id.";
     }
 
     // create unit
@@ -260,7 +267,7 @@ PhonemeGroup * Course::phonemeGroup(Unit *unit) const
 void Course::addPhonemeGroup(PhonemeGroup *phonemeGroup)
 {
     if (m_phonemeUnitList.contains(phonemeGroup)) {
-        kWarning() << "Phoneme group already contained in this course, aborting";
+        qWarning() << "Phoneme group already contained in this course, aborting";
         return;
     }
     emit phonemeGroupAboutToBeAdded(phonemeGroup, m_phonemeGroupList.count());
@@ -295,11 +302,16 @@ void Course::setModified(bool modified)
 void Course::sync()
 {
     if (!m_file.isValid() || m_file.isEmpty() || m_resource == 0) {
-        kError() << "Path" << m_file.toLocalFile() << "not valid, aborting sync operation.";
+        qCritical() << "Path" << m_file.toLocalFile() << "not valid, aborting sync operation.";
         return;
     }
     m_resource->sync();
     setModified(false);
+}
+
+bool Course::isContributorResource() const
+{
+    return m_resource->isContributorResource();
 }
 
 void Course::registerPhrasePhonemes(Phrase *phrase)
@@ -337,5 +349,5 @@ void Course::registerPhrasePhonemes(Phrase *phrase)
 
 void Course::removePhrasePhonemes(Phrase* phrase)
 {
-    kError() << "Not yet implemented!";
+    qCritical() << "Not yet implemented!";
 }

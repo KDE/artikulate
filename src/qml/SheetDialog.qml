@@ -18,8 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
+import QtQuick 2.1
 
 Item {
     id: root
@@ -66,30 +65,13 @@ Item {
     }
 
     Item {
-        id: slider
-        width: parent.width
-        height: parent.height
-
-        PlasmaCore.FrameSvgItem {
-            anchors {
-                fill: parent
-                leftMargin: 10
-                rightMargin: 10
-                bottomMargin: 10
-            }
-            imagePath: "dialogs/background"
-            enabledBorders: PlasmaCore.FrameSvg.LeftBorder + PlasmaCore.FrameSvg.RightBorder + PlasmaCore.FrameSvg.BottomBorder
-
-            Item {
-                id: contentArea
-                anchors {
-                    fill: parent
-                    leftMargin: parent.margins.left + innerMargin
-                    rightMargin: parent.margins.right + innerMargin
-                    topMargin: parent.margins.top + innerMargin
-                    bottomMargin: parent.margins.bottom + innerMargin
-                }
-            }
+        id: contentArea
+        anchors {
+            fill: parent
+            topMargin: 10
+            rightMargin: 10
+            bottomMargin: 10
+            leftMargin: 10
         }
     }
 
@@ -99,20 +81,10 @@ Item {
         State {
             name: "open"
             PropertyChanges { target: bg; opacity: 1.0 }
-            PropertyChanges { target: slider; y: 0 }
         },
         State {
             name: "closed"
             PropertyChanges { target: bg; opacity: 0 }
-            PropertyChanges { target: slider; y: -slider.parent.height }
-        }
-    ]
-
-    transitions: [
-        Transition {
-            from: "*"
-            to: "*"
-            NumberAnimation { target: slider; property: "y"; duration: 300; easing.type: Easing.InOutQuad }
         }
     ]
 }

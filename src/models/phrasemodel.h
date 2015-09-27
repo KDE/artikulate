@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -21,60 +21,52 @@
 #ifndef PHRASEMODEL_H
 #define PHRASEMODEL_H
 
-#include <QAbstractListModel>
+#include <QAbstractItemModel>
 #include "core/phrase.h"
 
-class Unit;
+class Course;
 class QSignalMapper;
 
-class PhraseModel : public QAbstractListModel
+class PhraseModel : public QAbstractItemModel
 {
     Q_OBJECT
-    Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
-    Q_PROPERTY(int count READ count NOTIFY countChanged)
+    Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
 
 public:
     enum phraseRoles {
         TextRole = Qt::UserRole + 1,
         IdRole,
-        TypeRole,
-        SoundFileRole,
-        ExcludedRole,
         DataRole
     };
 
-    explicit PhraseModel(QObject *parent = 0);
-    void setUnit(Unit *unit);
-    Unit * unit() const;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    explicit PhraseModel(QObject *parent = nullptr);
+    virtual QHash<int,QByteArray> roleNames() const Q_DECL_OVERRIDE;
+    void setCourse(Course *course);
+    Course * course() const;
+    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
+    virtual QModelIndex parent(const QModelIndex &child) const Q_DECL_OVERRIDE;
+    virtual QModelIndex index(int row, int column, const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+    Q_INVOKABLE Phrase * phrase(const QModelIndex &index) const;
+    Q_INVOKABLE QModelIndex indexPhrase(Phrase *phrase) const;
+    Q_INVOKABLE QModelIndex indexUnit(Unit *unit) const;
+    Q_INVOKABLE bool isUnit(const QModelIndex& index) const;
 
-    /**
-     * Count phrases in current model view. If this number is changed, signal
-     * countChanged() is emitted.
-     *
-     * \return number of phrases
-     */
-    int count() const;
-
-signals:
+Q_SIGNALS:
     void phraseChanged(int index);
-    void unitChanged();
+    void courseChanged();
     void typeChanged();
-    void countChanged();
 
-private slots:
-    void onPhraseAboutToBeAdded(Phrase *unit, int index);
+private Q_SLOTS:
+    void onPhraseAboutToBeAdded(Phrase *phrase, int index);
     void onPhraseAdded();
     void onPhrasesAboutToBeRemoved(int first, int last);
     void onPhrasesRemoved();
-    void emitPhraseChanged(int row);
 
 private:
-    void updateMappings();
-    Unit *m_unit;
-    QSignalMapper *m_signalMapper;
+    Course *m_course;
 };
 
-#endif // PHRASEMODEL_H
+#endif

@@ -18,7 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "trainingsession.h"
+#include "editorsession.h"
 #include "core/language.h"
 #include "core/course.h"
 #include "core/unit.h"
@@ -26,22 +26,24 @@
 #include "core/phonemegroup.h"
 #include <QDebug>
 
-TrainingSession::TrainingSession(QObject *parent)
+EditorSession::EditorSession(QObject *parent)
     : QObject(parent)
     , m_language(nullptr)
     , m_course(nullptr)
     , m_unit(nullptr)
     , m_phrase(nullptr)
+    , m_phonemeGroup(nullptr)
+    , m_type(Phrase::Word)
 {
 
 }
 
-Language * TrainingSession::language() const
+Language * EditorSession::language() const
 {
     return m_language;
 }
 
-void TrainingSession::setLanguage(Language *language)
+void EditorSession::setLanguage(Language *language)
 {
     if (m_language == language) {
         return;
@@ -52,43 +54,40 @@ void TrainingSession::setLanguage(Language *language)
     emit languageChanged();
 }
 
-Course * TrainingSession::course() const
+Course * EditorSession::course() const
 {
     return m_course;
 }
 
-void TrainingSession::setCourse(Course *course)
+void EditorSession::setCourse(Course *course)
 {
     if (m_course == course) {
         return;
     }
     setUnit(nullptr);
+    setPhrase(nullptr);
     m_course = course;
     emit courseChanged();
 }
 
-Unit * TrainingSession::unit() const
+Unit * EditorSession::unit() const
 {
     return m_unit;
 }
 
-void TrainingSession::setUnit(Unit *unit)
+void EditorSession::setUnit(Unit *unit)
 {
     if (m_unit == unit) {
         return;
     }
     m_unit = unit;
+    setPhrase(nullptr);
     return unitChanged();
 }
 
-Phrase * TrainingSession::phrase() const
+void EditorSession::setPhrase(Phrase *phrase)
 {
-    return m_phrase;
-}
-
-void TrainingSession::setPhrase(Phrase *phrase)
-{
-    if (m_phrase == phrase) {
+    if (!phrase || m_phrase == phrase) {
         return;
     }
     setUnit(phrase->unit());
@@ -96,7 +95,58 @@ void TrainingSession::setPhrase(Phrase *phrase)
     return phraseChanged();
 }
 
-Phrase * TrainingSession::nextPhrase() const
+Phrase * EditorSession::phrase() const
+{
+    return m_phrase;
+}
+
+PhonemeGroup * EditorSession::phonemeGroup() const
+{
+    return m_phonemeGroup;
+}
+
+void EditorSession::setPhonemeGroup(PhonemeGroup* phonemeGroup)
+{
+    if (m_phonemeGroup == phonemeGroup) {
+        return;
+    }
+    m_phonemeGroup = phonemeGroup;
+    emit phonemeGroupChanged();
+}
+
+Phrase::Type EditorSession::phraseType() const
+{
+    return m_type;
+}
+
+void EditorSession::setPhraseType(Phrase::Type type)
+{
+    if (m_type == type) {
+        return;
+    }
+    m_type = type;
+    emit phraseTypeChanged(type);
+}
+
+Phrase * EditorSession::previousPhrase() const
+{
+    if (!m_phrase) {
+        return nullptr;
+    }
+    const int index = m_phrase->unit()->phraseList().indexOf(m_phrase);
+    if (index > 0) {
+        return m_phrase->unit()->phraseList().at(index - 1);
+    } else {
+        Unit *unit = m_phrase->unit();
+        int uIndex = unit->course()->unitList().indexOf(unit);
+        if (uIndex > 0) {
+            return unit->course()->unitList().at(uIndex - 1)->phraseList().last();
+        }
+    }
+    return nullptr;
+}
+
+Phrase * EditorSession::nextPhrase() const
 {
     if (!m_phrase) {
         return nullptr;
@@ -114,19 +164,22 @@ Phrase * TrainingSession::nextPhrase() const
     return nullptr;
 }
 
-void TrainingSession::showNextPhrase()
+void EditorSession::switchToPreviousPhrase()
+{
+    setPhrase(previousPhrase());
+}
+
+void EditorSession::switchToNextPhrase()
 {
     setPhrase(nextPhrase());
 }
 
-void TrainingSession::skipPhrase()
+bool EditorSession::hasPreviousPhrase() const
 {
-    //FIXME
-    qWarning() << "Learning profile update not implemented";
-    showNextPhrase();
+    return previousPhrase() != nullptr;
 }
 
-bool TrainingSession::hasNextPhrase() const
+bool EditorSession::hasNextPhrase() const
 {
     return nextPhrase() != nullptr;
 }

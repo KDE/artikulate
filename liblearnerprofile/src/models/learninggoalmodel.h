@@ -21,7 +21,7 @@
 #ifndef LEARNINGGOALMODEL_H
 #define LEARNINGGOALMODEL_H
 
-#include "../liblearnerprofile_export.h"
+#include "liblearnerprofile_export.h"
 #include <QAbstractListModel>
 #include <QObject>
 
@@ -48,13 +48,17 @@ public:
 
     explicit LearningGoalModel(QObject *parent = 0);
     virtual ~LearningGoalModel();
+    /**
+     * Reimplemented from QAbstractListModel::roleNames()
+     */
+    virtual QHash<int,QByteArray> roleNames() const Q_DECL_OVERRIDE;
     void setProfileManager(ProfileManager *profileManager);
     ProfileManager * profileManager() const;
     void setLearner(Learner *learner);
     Learner * learner() const;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
     Q_INVOKABLE QVariant learningGoal(int index) const;
 
 Q_SIGNALS:

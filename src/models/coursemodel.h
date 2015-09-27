@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -45,24 +45,28 @@ public:
         DataRole
     };
 
-    explicit CourseModel(QObject *parent = 0);
-    ~CourseModel();
+    explicit CourseModel(QObject *parent = nullptr);
+    virtual ~CourseModel();
+    /**
+     * Reimplemented from QAbstractListModel::roleNames()
+     */
+    virtual QHash<int,QByteArray> roleNames() const Q_DECL_OVERRIDE;
     void setResourceManager(ResourceManager *resourceManager);
     ResourceManager * resourceManager() const;
     void setLanguage(Language *language);
     Language * language() const;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
     Q_INVOKABLE QVariant course(int index) const;
 
-signals:
+Q_SIGNALS:
     void courseChanged(int index);
     void resourceManagerChanged();
     void languageChanged();
     void viewChanged();
 
-private slots:
+private Q_SLOTS:
     void onCourseResourceAboutToBeAdded(CourseResource *resource, int index);
     void onCourseResourceAdded();
     void onCourseResourceAboutToBeRemoved(int index);

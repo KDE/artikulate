@@ -24,14 +24,14 @@
 #include "artikulatecore_export.h"
 
 #include <QObject>
-#include <KUrl>
+#include <QUrl>
 #include <QList>
-#include <KTemporaryFile>
+#include <QTemporaryFile>
 
 class QString;
 class Phoneme;
 class Unit;
-class KUrl;
+class QUrl;
 
 class ARTIKULATELIB_EXPORT Phrase : public QObject
 {
@@ -66,7 +66,7 @@ public:
         AllTypes
     };
 
-    explicit Phrase(QObject *parent = 0);
+    explicit Phrase(QObject *parent = nullptr);
     ~Phrase();
 
     QString id() const;
@@ -92,8 +92,8 @@ public:
     void setEditState(const QString &stateString);
     Phrase::TrainingState trainingState() const;
     void setTrainingState(Phrase::TrainingState state);
-    KUrl sound() const;
-    void setSound(const KUrl &soundFile);
+    QUrl sound() const;
+    void setSound(const QUrl &soundFile);
     QList<Phoneme *> phonemes() const;
     bool isExcluded() const;
     void setExcluded(bool excluded = false);
@@ -102,7 +102,7 @@ public:
     Q_INVOKABLE void addPhoneme(Phoneme *phoneme);
     Q_INVOKABLE void removePhoneme(Phoneme *phoneme);
 
-signals:
+Q_SIGNALS:
     void idChanged();
     void unitChanged();
     void textChanged();
@@ -127,7 +127,7 @@ private:
     Unit *m_unit;
     bool m_excludedFromUnit;
     QList<Phoneme *> m_phonemes;
-    KUrl m_nativeSoundFile;
+    QUrl m_nativeSoundFile;
 };
 
 #endif // PHRASE_H

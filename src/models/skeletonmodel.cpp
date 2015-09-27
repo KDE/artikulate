@@ -26,23 +26,26 @@
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
-
-#include <KLocale>
-#include <KDebug>
+#include <KLocalizedString>
+#include <QDebug>
 
 SkeletonModel::SkeletonModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_resourceManager(0)
+    , m_resourceManager(nullptr)
     , m_signalMapper(new QSignalMapper(this))
+{
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitSkeletonChanged(int)));
+}
+
+QHash< int, QByteArray > SkeletonModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[DescriptionRole] = "description";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitSkeletonChanged(int)));
+    return roles;
 }
 
 void SkeletonModel::setResourceManager(ResourceManager *resourceManager)
@@ -171,7 +174,12 @@ int SkeletonModel::count() const
 void SkeletonModel::updateMappings()
 {
     int skeletons = m_resourceManager->skeletonResources().count();
-    for (int i = 0; i < skeletons; i++) {
+    for (int i = 0; i < skeletons; ++i) {
         m_signalMapper->setMapping(m_resourceManager->skeletonResources().at(i)->skeleton(), i);
     }
+}
+
+QVariant SkeletonModel::course(int row) const
+{
+    return data(index(row, 0), SkeletonModel::DataRole);
 }

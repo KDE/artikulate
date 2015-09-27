@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -22,22 +22,17 @@
 #  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
-set(ARTIKULATE_VERSION_MAJOR 0)
-set(ARTIKULATE_VERSION_MINOR 5)
-set(ARTIKULATE_VERSION_PATCH 0)
 
-find_package(KDeclarative REQUIRED)
+ecm_setup_version(0.5.0
+    VARIABLE_PREFIX ARTIKULATE
+    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/version.h"
+    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/ArtikulateConfigVersion.cmake"
+)
 
-# set config files after packages are searched
-configure_file("${artikulate_SOURCE_DIR}/version.h.cmake" "${artikulate_BINARY_DIR}/version.h" @ONLY)
-configure_file("${artikulate_SOURCE_DIR}/config.h.cmake" "${artikulate_BINARY_DIR}/config.h" @ONLY)
-
-add_subdirectory(qml)
+ecm_optional_add_subdirectory(qml)
 
 # set include directories
 include_directories(
-    ${QT_INCLUDE}
-    ${KDE4_INCLUDES}
     ${CMAKE_CURRENT_BINARY_DIR}
     ${artikulate_SOURCE_DIR}
 )
@@ -51,8 +46,8 @@ set(artikulateCore_SRCS
     core/phoneme.cpp
     core/phonemegroup.cpp
     core/unit.cpp
-    core/profile.cpp
     core/skeleton.cpp
+    core/editorsession.cpp
     core/trainingsession.cpp
     core/resources/resourceinterface.cpp
     core/resources/languageresource.cpp
@@ -64,20 +59,18 @@ set(artikulateCore_SRCS
 )
 
 # compile UI files
-kde4_add_ui_files(artikulateCore_SRCS
+qt5_wrap_ui(artikulateCore_SRCS
     ui/newcoursedialog.ui
 )
-kde4_add_kcfg_files(artikulateCore_SRCS settings.kcfgc)
-kde4_add_library(artikulatecore SHARED ${artikulateCore_SRCS})
+kconfig_add_kcfg_files (artikulateCore_SRCS settings.kcfgc)
+add_library(artikulatecore SHARED ${artikulateCore_SRCS})
 target_link_libraries(artikulatecore
-    LINK_PRIVATE
+    LINK_PUBLIC
         artikulatelearnerprofile
         artikulatesound
-        ${KDECLARATIVE_LIBRARIES}
-        ${KDE4_KIO_LIBS}
-        ${QT_QTDECLARATIVE_LIBRARY}
-        ${QT_QTXMLPATTERNS_LIBRARY}
-        ${QT_QTSQL_LIBRARY}
+        Qt5::XmlPatterns
+        KF5::ConfigGui
+        KF5::WidgetsAddons
 )
 set_target_properties(
     artikulatecore
@@ -101,10 +94,11 @@ set(artikulate_SRCS
     models/coursefiltermodel.cpp
     models/languagemodel.cpp
     models/languageresourcemodel.cpp
-    models/learningprogressmodel.cpp
+#     models/learningprogressmodel.cpp //TODO must be adapted to new trainingsession
     models/unitmodel.cpp
     models/unitfiltermodel.cpp
     models/phrasemodel.cpp
+    models/phraselistmodel.cpp
     models/phrasefiltermodel.cpp
     models/phonememodel.cpp
     models/phonemegroupmodel.cpp
@@ -115,28 +109,78 @@ set(artikulate_SRCS
     ui/sounddevicedialogpage.cpp
     ui/appearencedialogpage.cpp
     ui/resourcesdialogpage.cpp
-
-    declarativeitems/applicationbackground.cpp
 )
-kde4_add_ui_files(artikulate_SRCS
+qt5_wrap_ui (artikulate_SRCS
     ui/resourcesdialogpage.ui
     ui/sounddevicedialogpage.ui
     ui/appearencedialogpage.ui
 )
-kde4_add_kcfg_files(artikulate_SRCS settings.kcfgc)
-kde4_add_executable(artikulate ${artikulate_SRCS})
+kconfig_add_kcfg_files (artikulate_SRCS settings.kcfgc)
+
+set(artikulate_editor_SRCS
+    main_editor.cpp
+    mainwindow_editor.cpp
+    application.cpp
+
+    models/coursemodel.cpp
+    models/coursefiltermodel.cpp
+    models/languagemodel.cpp
+    models/languageresourcemodel.cpp
+#     models/learningprogressmodel.cpp //TODO must be adapted to new trainingsession
+    models/unitmodel.cpp
+    models/unitfiltermodel.cpp
+    models/phrasemodel.cpp
+    models/phraselistmodel.cpp
+    models/phrasefiltermodel.cpp
+    models/phonememodel.cpp
+    models/phonemegroupmodel.cpp
+    models/phonemeunitmodel.cpp
+    models/profilemodel.cpp
+    models/skeletonmodel.cpp
+
+    ui/sounddevicedialogpage.cpp
+    ui/appearencedialogpage.cpp
+    ui/resourcesdialogpage.cpp
+)
+qt5_wrap_ui (artikulate_editor_SRCS
+    ui/resourcesdialogpage.ui
+    ui/sounddevicedialogpage.ui
+    ui/appearencedialogpage.ui
+)
+kconfig_add_kcfg_files (artikulate_editor_SRCS settings.kcfgc)
+
+# executables
+add_executable(artikulate ${artikulate_SRCS})
 target_link_libraries(artikulate
-    LINK_PRIVATE
+    LINK_PUBLIC
         artikulatelearnerprofile
         artikulatesound
         artikulatecore
-        ${KDECLARATIVE_LIBRARIES}
-        ${KDE4_PLASMA_LIBS}
-        ${KDE4_KIO_LIBS}
-        ${QT_QTDECLARATIVE_LIBRARY}
-        ${KDE4_KNEWSTUFF3_LIBS}
+        Qt5::Qml
+        Qt5::Quick
+        Qt5::QuickWidgets
+        KF5::ConfigWidgets
+        KF5::Declarative
+        KF5::NewStuff
+        KF5::XmlGui
+)
+
+add_executable(artikulate_editor ${artikulate_editor_SRCS})
+target_link_libraries(artikulate_editor
+    LINK_PUBLIC
+        artikulatesound
+        artikulatecore
+        Qt5::Qml
+        Qt5::Quick
+        Qt5::QuickWidgets
+        KF5::ConfigWidgets
+        KF5::Declarative
+        KF5::NewStuff
+        KF5::XmlGui
 )
 
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 install(TARGETS artikulate ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(FILES artikulateui.rc DESTINATION  ${DATA_INSTALL_DIR})
+install(TARGETS artikulate_editor ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(FILES artikulateui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/artikulate)
+install(FILES artikulateui_editor.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/artikulate_editor)

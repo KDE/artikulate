@@ -24,24 +24,27 @@
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
-
-#include <KLocale>
-#include <KDebug>
+#include <KLocalizedString>
+#include <QDebug>
 
 using namespace LearnerProfile;
 
 ProfileModel::ProfileModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_profileManager(0)
+    , m_profileManager(nullptr)
     , m_signalMapper(new QSignalMapper(this))
+{
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitProfileChanged(int)));
+}
+
+QHash< int, QByteArray > ProfileModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[IdRole] = "id";
     roles[NameRole] = "name";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitProfileChanged(int)));
+    return roles;
 }
 
 void ProfileModel::setProfileManager(ProfileManager *profileManager)
@@ -141,8 +144,10 @@ void ProfileModel::onProfileAboutToBeRemoved(int index)
 
 void ProfileModel::emitProfileChanged(int row)
 {
-    reset(); //FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
-             //      to exclude possible new excluded phrases
+    beginResetModel();
+    endResetModel();
+        //FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
+        //      to exclude possible new excluded phrases
     emit profileChanged(row);
     emit dataChanged(index(row, 0), index(row, 0));
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,9 +18,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 Item {
@@ -28,7 +28,6 @@ Item {
 
     property Language selectedLanguage
     property ResourceManager resourceManager
-    property ProfileManager manager: profileManager
 
     signal languageSelected(variant language)
 
@@ -39,40 +38,23 @@ Item {
     Connections {
         target: buttonRight
         onClicked: {
-            selectedLanguage = resourceManager.language(learningGoalModel.learningGoal(languageView.currentIndex))
+            selectedLanguage = languageModel.language(languageView.currentIndex)
             languageSelected(selectedLanguage)
         }
     }
     Connections {
         target: buttonLeft
         onClicked: {
-            selectedLanguage = resourceManager.language(learningGoalModel.learningGoal(languageView.currentIndex))
+            selectedLanguage = languageModel.language(languageView.currentIndex)
             languageSelected(selectedLanguage)
         }
     }
 
     // react on changed goals
     Component.onCompleted: {
-        var learner = profileManager.activeProfile;
-        if (!learner) {
-            return
-        }
-        var goal = learner.activeGoal(Learner.Language)
-        for (var i=0; i < languageView.count; ++i) {
-            if (goal.id == learningGoalModel.learningGoal(i).id) {
+        for (var i = 0; i < languageView.count; ++i) {
+            if (g_trainingSession.language.id == languageModel.language(i).id) {
                 languageView.currentIndex = i
-            }
-        }
-    }
-    Connections {
-        target: learningGoalModel
-        onLearnerChanged: {
-            var learner = profileManager.activeProfile;
-            var goal = learner.activeGoal(Learner.Language)
-            for (var i=0; i < languageView.count; ++i) {
-                if (goal.id == learningGoalModel.learningGoal(i).id) {
-                    languageView.currentIndex = i
-                }
             }
         }
     }
@@ -82,28 +64,24 @@ Item {
 
         Row {
             id: languageInfo
-            property LearningGoal learningGoal: model.dataRole
-            property Language language
-            onLearningGoalChanged: {
-                languageInfo.language = resourceManager.language(learningGoal)
-            }
+            property Language language: model.dataRole
 
             width: root.width - buttonLeft.width - buttonRight.width - 20
             height: theme.mediumIconSize
             spacing: 10
 
-            PlasmaCore.IconItem {
+            QIconItem {
                 id: icon
-                source: "artikulate-language"
+                icon: "artikulate-language"
                 width: theme.mediumIconSize
                 height: theme.mediumIconSize
                 anchors.verticalCenter: parent.verticalCenter
             }
-            PlasmaComponents.Label {
+            Label {
                 id: languageTitleLabel
                 anchors.verticalCenter: parent.verticalCenter
                 height: paintedHeight
-                font.pointSize: 1.5 * theme.defaultFont.pointSize
+                font.pointSize: 1.5 * theme.fontPointSize
                 text: language != null ? language.title + " / " + language.i18nTitle : ""
             }
         }
@@ -118,10 +96,10 @@ Item {
         clip: true
         snapMode: ListView.SnapToItem
         orientation: ListView.Vertical
-        model: LearningGoalModel {
-            id: learningGoalModel
-            profileManager: root.manager
-            learner: root.manager.activeProfile
+        model: LanguageModel {
+            id: languageModel
+            view:  LanguageModel.NonEmptyGhnsOnlyLanguages
+            resourceModel: LanguageResourceModel { resourceManager: root.resourceManager }
         }
         delegate: itemDelegate
     }
@@ -133,37 +111,37 @@ Item {
             left: languageView.left
             top: languageView.top
         }
-        PlasmaCore.IconItem {
+        QIconItem {
             id: icon
-            source: "dialog-information"
+            icon: "dialog-information"
             width: theme.mediumIconSize
             height: theme.mediumIconSize
             anchors.verticalCenter: parent.verticalCenter
         }
-        PlasmaComponents.Label {
+        Label {
             id: favoritesUnsetInformation
             anchors.verticalCenter: parent.verticalCenter
             height: paintedHeight
-            font.pointSize: 1.5 * theme.defaultFont.pointSize
-            text: i18n("Please select a favorite language")
+            font.pointSize: 1.5 * theme.fontPointSize
+            text: i18n("Please download a course") + languageModel.rows
         }
     }
 
-    PlasmaComponents.ToolButton {
+    ToolButton {
         id: buttonLeft
         anchors {
             left: languageView.right
             leftMargin: 10
             top: languageView.top
         }
-        iconSource: "arrow-left"
+        iconName: "arrow-left"
         enabled: languageView.currentIndex > 0 && languageView.count > 0
         onClicked: {
             languageView.decrementCurrentIndex()
         }
     }
 
-    PlasmaComponents.ToolButton {
+    ToolButton {
         id : buttonRight
         anchors {
             left: buttonLeft.right
@@ -171,7 +149,7 @@ Item {
             top: languageView.top
         }
         enabled: languageView.currentIndex <  languageView.count - 1 && languageView.count > 0
-        iconSource: "arrow-right"
+        iconName: "arrow-right"
         onClicked: {
             languageView.incrementCurrentIndex()
         }

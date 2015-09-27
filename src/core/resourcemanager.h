@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -36,10 +36,7 @@ class Skeleton;
 class Language;
 class Course;
 class ProfileManager;
-class KUrl;
-class QDomDocument;
-class QFile;
-class QXmlSchema;
+class QUrl;
 
 namespace LearnerProfile {
     class ProfileManager;
@@ -53,9 +50,10 @@ class ARTIKULATELIB_EXPORT ResourceManager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool isRepositoryManager READ isRepositoryManager NOTIFY repositoryChanged);
+    Q_PROPERTY(QString repositoryUrl READ repositoryUrl NOTIFY repositoryChanged);
 
 public:
-    explicit ResourceManager(QObject *parent = 0);
+    explicit ResourceManager(QObject *parent = nullptr);
 
     /**
      * Load all course resources.
@@ -71,6 +69,16 @@ public:
     void loadLanguageResources();
 
     /**
+     * save all changes to course resources
+     */
+    void sync();
+
+    /**
+     * \return \c true if any course or skeleton is modified, otherwise \c false
+     */
+    bool modified() const;
+
+    /**
      * Register loaded languages as learning goals in profile manager.
      *
      * TODO this should not be done by explicit call, but by putting data at shared data storage
@@ -82,6 +90,11 @@ public:
      * \return \c true if a repository is used, else \c false
      */
     Q_INVOKABLE bool isRepositoryManager() const;
+
+    /**
+     * \return path to working repository, if one is set
+     */
+    QString repositoryUrl() const;
 
     /**
      * \return list of all available language specifications
@@ -124,7 +137,7 @@ public:
      *
      * \param languageFile is the local XML file containing the language
      */
-    void addLanguage(const KUrl &languageFile);
+    void addLanguage(const QUrl &languageFile);
 
     /**
      * Adds course to resource manager by parsing the given course specification file.
@@ -132,7 +145,7 @@ public:
      * \param courseFile is the local XML file containing the course
      * \return true if loaded successfully, otherwise false
      */
-    CourseResource * addCourse(const KUrl &courseFile);
+    CourseResource * addCourse(const QUrl &courseFile);
 
     /**
      * Adds course to resource manager. If the course's language is not registered, the language
@@ -155,7 +168,7 @@ public:
      *
      * \param resource the skeleton resource to add to resource manager
      */
-    void addSkeleton(const KUrl &skeletonFile);
+    void addSkeleton(const QUrl &skeletonFile);
 
     /**
      * Adds skeleton resource to resource manager
@@ -177,9 +190,9 @@ public:
      */
     QList<SkeletonResource *> skeletonResources();
 
-    Q_INVOKABLE void newCourseDialog(Language* language = 0);
+    Q_INVOKABLE void newCourseDialog(Language* language = nullptr);
 
-signals:
+Q_SIGNALS:
     void languageResourceAdded();
     void languageResourceAboutToBeAdded(LanguageResource*,int);
     void languageResourceRemoved();

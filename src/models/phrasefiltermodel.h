@@ -1,6 +1,6 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gkde.org>
- *  Copyright 2013  Samikshan Bairagya <samikshan@gmail.com>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@gkde.org>
+ *  Copyright 2013       Samikshan Bairagya <samikshan@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -24,13 +24,13 @@
 
 #include <QSortFilterProxyModel>
 
-class PhraseModel;
+class PhraseListModel;
 class QSignalMapper;
 
 class PhraseFilterModel : public QSortFilterProxyModel
 {
     Q_OBJECT
-    Q_PROPERTY(PhraseModel *phraseModel READ phraseModel WRITE setPhraseModel NOTIFY phraseModelChanged)
+    Q_PROPERTY(PhraseListModel *phraseModel READ phraseModel WRITE setPhraseModel NOTIFY phraseModelChanged)
     Q_PROPERTY(bool hideExcluded READ isHideExcluded WRITE setHideExcluded NOTIFY hideExcludedChanged)
     Q_PROPERTY(bool hideNotRecorded READ isHideNotRecorded WRITE setHideNotRecorded NOTIFY hideNotRecordedChanged)
     Q_PROPERTY(SortOption sortOption READ sortOption WRITE setSortOption NOTIFY sortOptionChanged)
@@ -42,20 +42,20 @@ public:
         Id,
         Type
     };
-    explicit PhraseFilterModel(QObject *parent = 0);
-    PhraseModel * phraseModel() const;
-    void setPhraseModel(PhraseModel* phraseModel);
+    explicit PhraseFilterModel(QObject *parent = nullptr);
+    PhraseListModel * phraseModel() const;
+    void setPhraseModel(PhraseListModel* phraseModel);
     void setSortOption(SortOption option = Id);
     SortOption sortOption() const;
     int filteredCount() const;
-    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
-    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const Q_DECL_OVERRIDE;
+    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const Q_DECL_OVERRIDE;
     void setHideExcluded(bool hide=true);
     bool isHideExcluded() const;
     void setHideNotRecorded(bool hide=true);
     bool isHideNotRecorded() const;
 
-signals:
+Q_SIGNALS:
     void phraseModelChanged();
     void hideExcludedChanged();
     void hideNotRecordedChanged();
@@ -63,7 +63,7 @@ signals:
     void filteredCountChanged();
 
 private:
-    PhraseModel *m_phraseModel;
+    PhraseListModel *m_phraseModel;
     bool m_hideExcluded;
     bool m_hideNotRecorded;
     SortOption m_sortOption;

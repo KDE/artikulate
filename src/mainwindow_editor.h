@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,31 +18,56 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESOURCESDIALOGPAGE_H
-#define RESOURCESDIALOGPAGE_H
+#ifndef MAINWINDOW_EDITOR_H
+#define MAINWINDOW_EDITOR_H
 
-#include "ui_resourcesdialogpage.h"
-#include <QWidget>
+#include <KXmlGuiWindow>
+#include <QQuickWidget>
+#include "core/resourcemanager.h"
+#include "core/trainingsession.h"
 
-class ResourceManager;
-class Course;
+class EditorSession;
+class KActionCollection;
+class KMenu;
+class QQuickWidget;
 
-class ResourcesDialogPage : public QWidget
+class MainWindowEditor : public KXmlGuiWindow
 {
     Q_OBJECT
+    Q_PROPERTY(ResourceManager *globalResourceManager READ resourceManager CONSTANT)
 
 public:
-    explicit ResourcesDialogPage(ResourceManager *resourceMgr);
-    virtual ~ResourcesDialogPage();
+
+    /**
+     * Default Constructor
+     */
+    MainWindowEditor();
+
+    /**
+     * Default Destructor
+     */
+    virtual ~MainWindowEditor();
+
+    ResourceManager * resourceManager() const;
+
+    void setupActions();
+
+    virtual QSize sizeHint() const { return QSize(1000, 700); }
+
+    virtual bool queryClose();
 
 public Q_SLOTS:
-    void saveSettings();
-    void loadSettings();
+    void showSettingsDialog();
+    void save();
+    void quit();
+
+Q_SIGNALS:
+     void modeChanged(bool);
 
 private:
-    Ui::ResourcesDialogPage *ui;
+    EditorSession *m_editorSession;
     ResourceManager *m_resourceManager;
-    bool m_restartNeeded;
+    QQuickWidget *m_widget;
 };
 
 #endif

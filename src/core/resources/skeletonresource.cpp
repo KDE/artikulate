@@ -33,14 +33,14 @@
 #include <QIODevice>
 #include <QFile>
 
-#include <KDebug>
+#include <QDebug>
 
 class SkeletonResourcePrivate
 {
 public:
     SkeletonResourcePrivate(ResourceManager *resourceManager)
         : m_resourceManager(resourceManager)
-        , m_skeletonResource(0)
+        , m_skeletonResource(nullptr)
     {
     }
 
@@ -49,7 +49,7 @@ public:
     }
 
     ResourceManager *m_resourceManager;
-    KUrl m_path;
+    QUrl m_path;
     ResourceInterface::Type m_type;
     QString m_identifier;
     QString m_title;
@@ -57,7 +57,7 @@ public:
     Skeleton *m_skeletonResource;
 };
 
-SkeletonResource::SkeletonResource(ResourceManager *resourceManager, const KUrl &path)
+SkeletonResource::SkeletonResource(ResourceManager *resourceManager, const QUrl &path)
     : ResourceInterface(resourceManager)
     , d(new SkeletonResourcePrivate(resourceManager))
 {
@@ -92,7 +92,7 @@ SkeletonResource::SkeletonResource(ResourceManager *resourceManager, const KUrl 
             }
         }
         if (xml.hasError()) {
-            kError() << "Error occurred when reading Skeleton XML file:" << path.toLocalFile();
+            qCritical() << "Error occurred when reading Skeleton XML file:" << path.toLocalFile();
         }
     }
     xml.clear();
@@ -147,7 +147,7 @@ ResourceInterface::Type SkeletonResource::type() const
 void SkeletonResource::close()
 {
     d->m_skeletonResource->deleteLater();
-    d->m_skeletonResource = 0;
+    d->m_skeletonResource = nullptr;
 }
 
 void SkeletonResource::sync()
@@ -157,14 +157,14 @@ void SkeletonResource::sync()
     Q_ASSERT(!path().isEmpty());
 
     // if resource was never loaded, it cannot be changed
-    if (d->m_skeletonResource == 0) {
-        kDebug() << "Aborting sync, skeleton was not parsed.";
+    if (!d->m_skeletonResource) {
+        qDebug() << "Aborting sync, skeleton was not parsed.";
         return;
     }
 
 //     // not writing back if not modified
 //     if (!d->m_skeletonResource->modified()) {
-//         kDebug() << "Aborting sync, skeleton was not modified.";
+//         qDebug() << "Aborting sync, skeleton was not modified.";
 //         return;
 //     }
 
@@ -230,10 +230,9 @@ void SkeletonResource::sync()
 
     // write back to file
     //TODO port to KSaveFile
-    QFile file;
-    file.setFileName(path().toLocalFile());
+    QFile file(path().toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
-        kWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+        qWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;
     }
 
@@ -243,15 +242,15 @@ void SkeletonResource::sync()
 
 void SkeletonResource::reload()
 {
-    kError() << "NOT IMPLEMENTED";
+    qCritical() << "NOT IMPLEMENTED";
 }
 
 bool SkeletonResource::isOpen() const
 {
-    return (d->m_skeletonResource != 0);
+    return (d->m_skeletonResource != nullptr);
 }
 
-KUrl SkeletonResource::path() const
+QUrl SkeletonResource::path() const
 {
     if (d->m_skeletonResource) {
         return d->m_skeletonResource->file();
@@ -261,24 +260,24 @@ KUrl SkeletonResource::path() const
 
 QObject * SkeletonResource::resource()
 {
-    if (d->m_skeletonResource != 0) {
+    if (d->m_skeletonResource) {
         return d->m_skeletonResource;
     }
 
     if (!path().isLocalFile()) {
-        kWarning() << "Cannot open skeleton file at " << path().toLocalFile() << ", aborting.";
-        return 0;
+        qWarning() << "Cannot open skeleton file at " << path().toLocalFile() << ", aborting.";
+        return nullptr;
     }
 
     QXmlSchema schema = loadXmlSchema("skeleton");
     if (!schema.isValid()) {
-        return 0;
+        return nullptr;
     }
 
     QDomDocument document = loadDomDocument(path(), schema);
     if (document.isNull()) {
-        kWarning() << "Could not parse document " << path().toLocalFile() << ", aborting.";
-        return 0;
+        qWarning() << "Could not parse document " << path().toLocalFile() << ", aborting.";
+        return nullptr;
     }
 
     // create skeleton

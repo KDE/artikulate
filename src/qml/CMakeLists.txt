@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -25,23 +25,15 @@
 
 set(artikulate_qml_files
     Main.qml
-    Editor.qml
-    Trainer.qml
-
-    TrainerOverviewScreen.qml
-    TrainerCourse.qml
+ 
     TrainerSessionScreen.qml
     TrainerProgressBar.qml
     TrainerCourseStatistics.qml
 
-    EditorSelector.qml
-
-    CourseSelector.qml
+    Editor.qml
     CourseSwitcher.qml
-    LanguageSelector.qml
     LanguageSwitcher.qml
-    UnitSelector.qml
-    UnitEditor.qml
+    FlatButton.qml
     PhraseEditor.qml
     PhraseEditorSoundComponent.qml
     PhraseEditorTypeComponent.qml
@@ -51,7 +43,6 @@ set(artikulate_qml_files
     ProfileDetailsViewUser.qml
     ProfileDetailsViewFavorites.qml
     ProfileSelector.qml
-    SkeletonSelector.qml
     SoundPlayer.qml
     SoundRecorder.qml
 

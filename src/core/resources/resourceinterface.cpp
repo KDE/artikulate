@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -20,15 +20,14 @@
 
 #include "resourceinterface.h"
 
-#include <KDebug>
-#include <KStandardDirs>
-#include <KUrl>
-
+#include <QDebug>
+#include <QUrl>
 #include <QIODevice>
 #include <QXmlSchema>
 #include <QXmlSchemaValidator>
 #include <QDomDocument>
 #include <QFile>
+#include <QStandardPaths>
 
 ResourceInterface::ResourceInterface(ResourceManager *resourceManager)
     : QObject()
@@ -54,32 +53,32 @@ bool ResourceInterface::isContributorResource() const
 
 void ResourceInterface::sync()
 {
-    kWarning() << "Resource does not implement syncing.";
+    qWarning() << "Resource does not implement syncing.";
 }
 
 void ResourceInterface::reload()
 {
-    kWarning() << "Resource does not implement reloading.";
+    qWarning() << "Resource does not implement reloading.";
 }
 
 QXmlSchema ResourceInterface::loadXmlSchema(const QString &schemeName) const
 {
     QString relPath = QString("schemes/%1.xsd").arg(schemeName);
-    KUrl file = KUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", relPath));
+    QUrl file = QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "artikulate/" + relPath));
 
     QXmlSchema schema;
-    if (schema.load(file) == false) {
-        kWarning() << "Schema at file " << file.toLocalFile() << " is invalid.";
+    if (file.isEmpty() || schema.load(file) == false) {
+        qWarning() << "Schema at file " << file.toLocalFile() << " is invalid.";
     }
     return schema;
 }
 
-QDomDocument ResourceInterface::loadDomDocument(const KUrl &path, const QXmlSchema &schema) const
+QDomDocument ResourceInterface::loadDomDocument(const QUrl &path, const QXmlSchema &schema) const
 {
     QDomDocument document;
     QXmlSchemaValidator validator(schema);
     if (!validator.validate(path)) {
-        kWarning() << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
+        qWarning() << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
         return document;
     }
 
@@ -87,10 +86,10 @@ QDomDocument ResourceInterface::loadDomDocument(const KUrl &path, const QXmlSche
     QFile file(path.toLocalFile());
     if (file.open(QIODevice::ReadOnly)) {
         if (!document.setContent(&file, &errorMsg)) {
-            kWarning() << errorMsg;
+            qWarning() << errorMsg;
         }
     } else {
-        kWarning() << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
+        qWarning() << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
     }
     return document;
 }

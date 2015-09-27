@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -25,16 +25,27 @@
 #include "core/course.h"
 #include "settings.h"
 
-#include <KLocale>
+#include <KLocalizedString>
+#include <QLineEdit>
+#include <QFileDialog>
+#include <QToolButton>
 #include <QUuid>
 
 ResourcesDialogPage::ResourcesDialogPage(ResourceManager *m_resourceManager)
-    : QWidget(0)
+    : QWidget(nullptr)
     , m_resourceManager(m_resourceManager)
     , m_restartNeeded(false)
 {
     ui = new Ui::ResourcesDialogPage;
     ui->setupUi(this);
+
+    connect(ui->buttonSelectCourseRepository, &QToolButton::clicked, [=](){
+        const QString dir = QFileDialog::getExistingDirectory(this,
+            i18n("Open Repository Directory"),
+            QString(),
+            QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+        ui->kcfg_CourseRepositoryPath->setText(dir);
+    });
 }
 
 ResourcesDialogPage::~ResourcesDialogPage()
@@ -54,8 +65,7 @@ void ResourcesDialogPage::saveSettings()
     // save settings
     Settings::setUseCourseRepository(ui->kcfg_UseCourseRepository->isChecked());
     Settings::setCourseRepositoryPath(ui->kcfg_CourseRepositoryPath->text());
-    Settings::self()->writeConfig();
-
+    Settings::self()->save();
     // reloading resources
     m_resourceManager->loadCourseResources();
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -21,15 +21,13 @@
 #ifndef ARTIKULATECORE_EXPORT_H
 #define ARTIKULATECORE_EXPORT_H
 
-// needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#define KDE_EXPORT __attribute__ ((visibility("default")))
+#define KDE_IMPORT __attribute__ ((visibility("default")))
 
 #ifndef ARTIKULATELIB_EXPORT
 # if defined(MAKE_ARTIKULATECORE_LIB)
-// We are building this library
 #  define ARTIKULATELIB_EXPORT KDE_EXPORT
 # else
-// We are using this library
 #  define ARTIKULATELIB_EXPORT KDE_IMPORT
 # endif
 #endif

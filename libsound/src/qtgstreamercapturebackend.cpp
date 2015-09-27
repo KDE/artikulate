@@ -30,9 +30,8 @@
 #include <QGst/Event>
 #include <QGst/Message>
 #include <QGst/Bus>
-
-#include <KDebug>
-#include <KLocale>
+#include <QDebug>
+#include <KLocalizedString>
 
 QtGStreamerCaptureBackend::QtGStreamerCaptureBackend()
 {
@@ -42,7 +41,7 @@ QtGStreamerCaptureBackend::QtGStreamerCaptureBackend()
     QGst::ElementPtr src = QGst::ElementFactory::make("autoaudiosrc");
 
     if (!src) {
-        kError() << "Failed to create element \"autoaudiosrc\". Make sure you have "
+        qCritical() << "Failed to create element \"autoaudiosrc\". Make sure you have "
                  << "gstreamer-plugins-good installed";
         return;
     }
@@ -84,7 +83,7 @@ QGst::BinPtr QtGStreamerCaptureBackend::createAudioSrcBin()
         audioBin = QGst::Bin::fromDescription("autoaudiosrc name=\"audiosrc\" ! audioconvert ! "
                                               "audioresample ! audiorate ! vorbisenc name=enc quality=0.6 ! queue");
     } catch (const QGlib::Error &error) {
-        kError() << "Failed to create audio source bin:" << error;
+        qCritical() << "Failed to create audio source bin:" << error;
         return QGst::BinPtr();
     }
     QGst::ElementPtr src = audioBin->getElementByName("audiosrc");
@@ -99,7 +98,7 @@ void QtGStreamerCaptureBackend::onBusMessage(const QGst::MessagePtr & message)
     switch (message->type()) {
     case QGst::MessageEos:
         //got end-of-stream - stop the pipeline
-        kDebug() << "EOS signal received, stopping pipeline";
+        qDebug() << "EOS signal received, stopping pipeline";
         stopPipeline();
         break;
     case QGst::MessageError:
@@ -108,7 +107,7 @@ void QtGStreamerCaptureBackend::onBusMessage(const QGst::MessagePtr & message)
         if (m_pipeline) {
             stopPipeline();
         }
-        kError() << "Pipeline Error:"
+        qCritical() << "Pipeline Error:"
                  << message.staticCast<QGst::ErrorMessage>()->error().message();
         break;
     default:
@@ -120,7 +119,7 @@ void QtGStreamerCaptureBackend::startCapture(const QString &filePath)
 {
     // clear pipeline if still existing
     if (m_pipeline) {
-        kWarning() << "removing forgotten pipeline";
+        qWarning() << "removing forgotten pipeline";
         //send an end-of-stream event to flush metadata and cause an EosMessage to be delivered
         m_pipeline->sendEvent(QGst::EosEvent::create());
     }
@@ -130,7 +129,7 @@ void QtGStreamerCaptureBackend::startCapture(const QString &filePath)
     QGst::ElementPtr sink = QGst::ElementFactory::make("filesink");
 
     if (!audioSrcBin || !mux || !sink) {
-        kError() << "One or more elements could not be created. "
+        qCritical() << "One or more elements could not be created. "
                  << "Verify that you have all the necessary element plugins installed.";
         return;
     }
@@ -164,7 +163,7 @@ void QtGStreamerCaptureBackend::stopCapture()
 void QtGStreamerCaptureBackend::stopPipeline()
 {
     if (!m_pipeline) {
-        kWarning() << "Stopping non-existing pipeline, aborting";
+        qWarning() << "Stopping non-existing pipeline, aborting";
         return;
     }
     m_pipeline->setState(QGst::StateNull);

@@ -23,32 +23,34 @@
 #include "core/course.h"
 #include "core/resourcemanager.h"
 #include "core/resources/courseresource.h"
-
 #include <QAbstractListModel>
+#include <QDebug>
 #include <QSignalMapper>
-
-#include <KLocale>
-#include <KDebug>
+#include <KLocalizedString>
 
 CourseModel::CourseModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_resourceManager(0)
-    , m_language(0)
+    , m_resourceManager(nullptr)
+    , m_language(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    QHash<int, QByteArray> roles;
-    roles[TitleRole] = "title";
-    roles[DescriptionRole] = "description";
-    roles[IdRole] = "id";
-    roles[DataRole] = "dataRole";
-    setRoleNames(roles);
-
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitCourseChanged(int)));
 }
 
 CourseModel::~CourseModel()
 {
 
+}
+
+QHash< int, QByteArray > CourseModel::roleNames() const
+{
+    QHash<int, QByteArray> roles;
+    roles[TitleRole] = "title";
+    roles[DescriptionRole] = "description";
+    roles[IdRole] = "id";
+    roles[DataRole] = "dataRole";
+
+    return roles;
 }
 
 void CourseModel::setResourceManager(ResourceManager *resourceManager)
@@ -172,7 +174,7 @@ void CourseModel::onCourseResourceAboutToBeRemoved(int index)
     int modelIndex = m_resources.indexOf(originalResource);
 
     if (modelIndex == -1) {
-        kWarning() << "Cannot remove course from model, not registered";
+        qWarning() << "Cannot remove course from model, not registered";
         return;
     }
     beginRemoveRows(QModelIndex(), modelIndex, modelIndex);
@@ -200,7 +202,7 @@ QVariant CourseModel::headerData(int section, Qt::Orientation orientation, int r
 void CourseModel::updateMappings()
 {
     if (!m_language) {
-        kDebug() << "Aborting to update mappings, language not set.";
+        qDebug() << "Aborting to update mappings, language not set.";
         return;
     }
     int courses = m_resources.count();

@@ -24,8 +24,7 @@
 #include <QString>
 #include <QList>
 #include <QHash>
-#include <KGlobal>
-#include <KStandardDirs>
+#include <QStandardPaths>
 #include "learninggoal.h"
 
 namespace LearnerProfile
@@ -45,7 +44,7 @@ public:
     QString imageUrl() const
     {
         QString relPath = QString("images/learner%1.png").arg(m_identifier);
-        return KGlobal::dirs()->locateLocal("appdata", relPath);
+        return QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + relPath;
     }
 
     QString m_name;

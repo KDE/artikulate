@@ -22,11 +22,12 @@
 #include "profilemanager.h"
 #include "learner.h"
 
+#include <QAbstractItemModel>
 #include <QAbstractListModel>
 #include <QSignalMapper>
 
-#include <KLocale>
-#include <KDebug>
+#include <KLocalizedString>
+#include <QDebug>
 
 using namespace LearnerProfile;
 
@@ -88,18 +89,22 @@ LearningGoalModel::LearningGoalModel(QObject *parent)
     : QAbstractListModel(parent)
     , d(new LearningGoalModelPrivate)
 {
-    QHash<int, QByteArray> roles;
-    roles[TitleRole] = "title";
-    roles[IdRole] = "id";
-    roles[DataRole] = "dataRole";
-    setRoleNames(roles);
-
     connect(d->m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLearningGoalChanged(int)));
 }
 
 LearningGoalModel::~LearningGoalModel()
 {
 
+}
+
+QHash< int, QByteArray > LearningGoalModel::roleNames() const
+{
+    QHash<int, QByteArray> roles;
+    roles[TitleRole] = "title";
+    roles[IdRole] = "id";
+    roles[DataRole] = "dataRole";
+
+    return roles;
 }
 
 void LearningGoalModel::setProfileManager(ProfileManager *profileManager)
@@ -209,7 +214,7 @@ void LearningGoalModel::onLearningGoalAboutToBeRemoved(int index)
     }
 
     if (index < 0 || d->m_goals.count() <= index) {
-        kWarning() << "Cannot remove learning goal from model, not registered";
+        qWarning() << "Cannot remove learning goal from model, not registered";
         return;
     }
     beginRemoveRows(QModelIndex(), index, index);

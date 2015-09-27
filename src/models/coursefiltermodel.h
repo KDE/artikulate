@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014  Andreas Cord-Landwehr <cordlandwehr@gkde.org>
+ *  Copyright 2014-2015  Andreas Cord-Landwehr <cordlandwehr@gkde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -40,12 +40,12 @@ public:
         OnlyContributorResources = 2,
         AllResources = 3
     };
-    explicit CourseFilterModel(QObject *parent = 0);
+    explicit CourseFilterModel(QObject *parent = nullptr);
     CourseModel * courseModel() const;
     void setCourseModel(CourseModel* courseModel);
     int filteredCount() const;
-    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
-    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const Q_DECL_OVERRIDE;
+    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const Q_DECL_OVERRIDE;
     void setView(CourseResourceView view);
     CourseResourceView view() const;
 

@@ -22,14 +22,13 @@
 #define NEWCOURSEDIALOG_H
 
 #include "ui_newcoursedialog.h"
-#include <KDialog>
+#include <QDialog>
 
 class ResourceManager;
 class CourseResource;
 class Language;
 
-class NewCourseDialog :
-    public KDialog
+class NewCourseDialog : public QDialog
 {
     Q_OBJECT
 

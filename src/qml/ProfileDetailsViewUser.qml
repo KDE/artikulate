@@ -1,5 +1,5 @@
 /*
- *  Copyright 2012  Sebastian Gottfried <sebastiangottfried@web.de>
+ *  Copyright 2012       Sebastian Gottfried <sebastiangottfried@web.de>
  *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
@@ -19,13 +19,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.locale 0.1 as Locale
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
 import artikulate 1.0
 
-PlasmaComponents.Page {
+Item {
     id: root
     anchors.fill: parent
 
@@ -53,8 +51,9 @@ PlasmaComponents.Page {
             top: root.top
             right: root.right
             topMargin: 30
-            rightMargin: 30
+            leftMargin: 30
         }
+        fillMode: Image.Pad
         cache: false
         source: profile.imageUrl ? profile.imageUrl : "../images/user-identity.png"
 
@@ -71,17 +70,18 @@ PlasmaComponents.Page {
         }
     }
 
-    PlasmaComponents.Label {
+    Label {
         anchors {
-            right: imageLearner.left
-            rightMargin: 30
             top: imageLearner.top
-            topMargin: Math.floor(0.25*imageLearner.height)
+            topMargin: Math.floor(0.25 * imageLearner.height)
+            leftMargin: 30
+            left: parent.left
         }
         height: paintedHeight
-        font.pointSize: theme.defaultFont.pointSize * 1.2
+        font.pointSize: theme.fontPointSize * 1.2
         text: root.profile != null ? root.profile.name : ""
     }
+
 
     Row {
         id: editComponent
@@ -92,19 +92,19 @@ PlasmaComponents.Page {
             top: imageLearner.bottom
             topMargin: 30
         }
-        PlasmaComponents.ToolButton {
-            iconSource: "document-edit"
+        Button {
+            iconName: "document-edit"
             text: i18n("Edit")
             onClicked: root.state = "editor"
         }
-        PlasmaComponents.ToolButton {
-            iconSource: "edit-delete"
+        Button {
+            iconName: "edit-delete"
             text: i18n("Delete")
             enabled: profileManager.profileCount > 1
             onClicked: root.state = "deleteConfirmation"
         }
-        PlasmaComponents.ToolButton {
-            iconSource: "insert-image"
+        Button {
+            iconName: "insert-image"
             text: i18n("Change Image")
             onClicked: profileManager.openImageFileDialog()
         }
@@ -112,6 +112,7 @@ PlasmaComponents.Page {
 
     Item {
         id: editorContainer
+        visible: false
         width: parent.width - 40
         height: editorContainer.height
         anchors {
@@ -124,7 +125,7 @@ PlasmaComponents.Page {
             id: profileForm
 
             property alias name: nameTextField.text
-            property alias doneButtonIconSource: doneBtn.iconSource
+            property alias doneButtonIconSource: doneBtn.iconName
             property alias doneButtonText: doneBtn.text
 
             width: parent.width
@@ -132,18 +133,18 @@ PlasmaComponents.Page {
 
             spacing: 15
 
-            PlasmaComponents.TextField {
+            TextField {
                 id: nameTextField
                 width: parent.width
                 placeholderText: i18n("Name")
             }
 
-            PlasmaComponents.Button {
+            Button {
                 id: doneBtn
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: i18n("Done")
                 enabled: nameTextField.text !== ""
-                iconSource: "dialog-ok"
+                iconName: "dialog-ok"
                 onClicked: {
                     root.profile.name = profileForm.name
                     if (root.profile.id === -1) {
@@ -163,16 +164,19 @@ PlasmaComponents.Page {
         id: deleteConfirmationContainer
         width: parent.width - 40
         height: editorContainer.height
+        visible: false
 
         anchors {
             top: editComponent.top
+            leftMargin: 20
+            left: parent.left
         }
         Column {
             width: parent.width
             height: parent.height
             spacing: 15
 
-            PlasmaComponents.Label {
+            Label {
                 property string name
                 id: deleteConfirmationLabel
                 width: parent.width
@@ -183,20 +187,22 @@ PlasmaComponents.Page {
             Row {
                 spacing: 10
                 anchors.horizontalCenter: parent.horizontalCenter
-                PlasmaComponents.ToolButton {
-                    iconSource: "edit-delete"
+                Button {
+                    iconName: "edit-delete"
                     text: i18n("Delete")
                     onClicked: {
                         deletionRequest()
                     }
                 }
-                PlasmaComponents.ToolButton {
+                Button {
+                    iconName: "dialog-cancel"
                     text: i18n("Cancel")
                     onClicked: root.state = "info"
                 }
             }
         }
     }
+
 
     states: [
         State {

@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -25,31 +25,58 @@
 
 project(artikulate)
 
-find_package(KDE4 4.11.1 REQUIRED)
-include(KDE4Defaults)
+cmake_minimum_required(VERSION 3.0.0)
+find_package(ECM 5.13.0 REQUIRED NO_MODULE)
+find_package(KF5DocTools)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES} ${QT4_INCLUDES})
-add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS -fexceptions)
+include(KDEInstallDirs)
+include(ECMAddTests)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+include(ECMInstallIcons)
+include(ECMOptionalAddSubdirectory)
+include(ECMSetupVersion)
+include(FeatureSummary)
+include(GenerateExportHeader)
+
+find_package(Qt5 5.5 REQUIRED COMPONENTS
+    Widgets
+    Sql
+    XmlPatterns
+    Qml
+    Quick
+    QuickWidgets
+    Test
+)
+find_package(KF5 REQUIRED COMPONENTS
+    Config
+    ConfigWidgets
+    Declarative
+    I18n
+    NewStuff
+    WidgetsAddons
+    XmlGui
+)
+
+add_definitions(
+    -DQT_NO_URL_CAST_FROM_STRING
+)
 
 # subdirectories to build
-add_subdirectory(data)
-add_subdirectory(schemes)
-add_subdirectory(doc)
-add_subdirectory(src)
-add_subdirectory(sounds)
-add_subdirectory(images)
-add_subdirectory(icons)
-add_subdirectory(libsound)
-add_subdirectory(liblearnerprofile)
-
-# Build Tests if KDE_TEST is on
-if(KDE4_BUILD_TESTS)
-    enable_testing()
-    add_subdirectory(autotests)
-endif(KDE4_BUILD_TESTS)
+ecm_optional_add_subdirectory(data)
+ecm_optional_add_subdirectory(schemes)
+ecm_optional_add_subdirectory(doc)
+ecm_optional_add_subdirectory(src)
+ecm_optional_add_subdirectory(sounds)
+ecm_optional_add_subdirectory(images)
+ecm_optional_add_subdirectory(icons)
+ecm_optional_add_subdirectory(libsound)
+ecm_optional_add_subdirectory(liblearnerprofile)
+ecm_optional_add_subdirectory(autotests)
 
 # files to install in the artikulate project root directory
-install(PROGRAMS artikulate.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES artikulate.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/)
+install(PROGRAMS org.kde.artikulate.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(FILES org.kde.artikulate.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/)
 
-macro_display_feature_log()
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

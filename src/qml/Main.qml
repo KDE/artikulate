@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,30 +18,272 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-
+import QtQuick 2.5
+import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.2
+import QtQml.Models 2.2
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
 
 Item {
     id: root
+    width: 400 //parent.width
+    height: 600 //parent.height
 
-    anchors.fill: parent
-    property int viewMode
-    property Learner learner: profileManager.activeProfile
+    signal triggerDownloadCourses();
+    signal triggerSettingsDialog();
+    signal triggerAction(string actionName);
+    signal switchMenuBarVisibility();
 
-    Trainer {
-        anchors.fill: parent
-        visible: root.viewMode == MainWindow.Trainer
+    Item {
+        id: theme
+        property string backgroundColor: "#ffffff"
+        property int smallIconSize: 18
+        property int smallMediumIconSize: 22
+        property int mediumIconSize: 32
+        property int fontPointSize: 11
+        property int spacing: 15
     }
 
-    Editor {
-        anchors.fill: parent
-        visible: root.viewMode == MainWindow.Editor
+    property Learner learner: profileManager.activeProfile
+    property ResourceManager resourceManager: g_resourceManager
 
-        onCloseEditor: {
-            switchMode()
+    Component.onCompleted: {
+        var learner = profileManager.activeProfile;
+        if (learner == null) {
+            return;
+        }
+        g_trainingSession.language = g_resourceManager.language(learner.activeGoal(Learner.Language))
+    }
+
+    CourseModel {
+        id: availableCourseModel
+        resourceManager: g_resourceManager
+    }
+    ToolBar{
+        id: mainToolBar
+        RowLayout {
+            anchors.fill: parent
+            Layout.fillWidth: true
+            Layout.preferredHeight: langIcon.height
+            spacing: 20
+
+            QIconItem {
+                id: langIcon
+                icon: "artikulate-language"
+                width: 48
+                height: 48
+            }
+
+            ComboBox {
+                id: comboLanguage
+                Layout.minimumWidth: 200
+                model: LanguageModel {
+                    id: languageModel
+                    resourceModel: LanguageResourceModel {
+                        resourceManager: g_resourceManager
+                    }
+                }
+                textRole: "title"
+                onCurrentIndexChanged: {
+                    if (languageModel.language(currentIndex)) {
+                        g_trainingSession.language = languageModel.language(currentIndex)
+                    }
+                }
+            }
+
+            ComboBox {
+                id: comboCourse
+                Layout.minimumWidth: 200
+                model: CourseModel {
+                    id: courseModel
+                    resourceManager: g_resourceManager
+                    language: g_trainingSession.language
+                    onLanguageChanged: {
+                        if (courseModel.course(0)) {
+                            g_trainingSession.course = courseModel.course(0)
+                        }
+                    }
+                }
+                textRole: "title"
+                onCurrentIndexChanged: {
+                    if (courseModel.course(currentIndex)) {
+                        g_trainingSession.course = courseModel.course(currentIndex)
+                    }
+                }
+            }
+
+            // horizontal fill
+            Item { Layout.fillWidth: true }
+
+            ToolButton {
+                Layout.alignment: Qt.AlignRight
+                iconName: "application-menu"
+                menu: Menu {
+                    id: recentFilesMenu
+
+                    MenuItem {
+                        text: i18n("Download Courses")
+                        iconName: "get-hot-new-stuff"
+                        onTriggered: triggerDownloadCourses()
+                    }
+                    MenuSeparator { }
+                    MenuItem {
+                        text: i18n("Configure Shortcuts...")
+                        iconName: "configure-shortcuts"
+                        onTriggered: triggerAction("options_configure_keybinding")
+                    }
+                    MenuItem {
+                        text: i18n("Configure Artikulate...")
+                        iconName: "settings-configure"
+                        onTriggered: triggerSettingsDialog()
+                    }
+                    MenuSeparator { }
+                    Menu {
+                        title: i18n("Help")
+                        MenuItem {
+                            text: i18n("Artikulate Handbook")
+                            iconName: "help-contents"
+                            shortcut: StandardKey.HelpContents
+                            onTriggered: triggerAction("help_contents")
+                        }
+                        MenuSeparator { }
+                        MenuItem {
+                            text: i18n("Report Bug")
+                            iconName: "tools-report-bug"
+                            onTriggered: triggerAction("help_report_bug")
+                        }
+                        MenuSeparator { }
+                        MenuItem {
+                            text: i18n("About Artikulate")
+                            iconName: "artikulate"
+                            onTriggered: triggerAction("help_about_app")
+                        }
+                        MenuItem {
+                            text: i18n("About KDE")
+                            iconName: "help-about"
+                            onTriggered: triggerAction("help_about_kde")
+                        }
+                    }
+                    MenuSeparator { }
+                    MenuItem {
+                        text: i18n("Show Menubar")
+                        iconName: "show-menu"
+                        checkable: true
+                        checked: kcfg_ShowMenuBar
+                        onTriggered: {
+                            switchMenuBarVisibility()
+                        }
+                    }
+                    MenuSeparator { }
+                    MenuItem {
+                        text: i18n("Quit")
+                        iconName: "application-exit"
+                        shortcut: StandardKey.Quit
+                        onTriggered: triggerAction("file_quit")
+                    }
+                }
+            }
         }
     }
+
+    ColumnLayout {
+        id: main
+        spacing: theme.spacing
+        anchors {
+            fill: parent
+            topMargin: mainToolBar.height + theme.spacing
+            leftMargin: theme.spacing
+            rightMargin: theme.spacing
+            bottomMargin: theme.spacing
+        }
+        RowLayout {
+            id: mainRow
+            spacing: theme.spacing
+
+            TreeView {
+                id: phraseTree
+                Layout.preferredWidth: Math.floor(main.width * 0.3)
+                Layout.fillHeight: true
+                TableViewColumn {
+                    title: i18n("Categories")
+                    role: "text"
+                }
+                model: PhraseModel {
+                    id: phraseModel
+                    course: g_trainingSession.course
+                }
+                selection: ItemSelectionModel {
+                    model: phraseTree.model
+                }
+                itemDelegate: Item {
+                    property bool isUnit: phraseModel.isUnit(styleData.index)
+                    Component {
+                        id: unitRowBackground
+                        Rectangle {anchors.fill: parent; color: "steelblue"}
+                    }
+                    Loader {
+                        anchors.fill: parent
+                        sourceComponent: isUnit ? unitRowBackground : null
+                    }
+                    Text {
+                        width: phraseTree.width - 100 //TODO check if this is really a reasonable value
+                        anchors {
+                            verticalCenter: parent.verticalCenter
+                            topMargin: 5
+                            bottomMargin: 5
+                        }
+                        color: {
+                            if (isUnit) {
+                                return "white";
+                            }
+                            return styleData.textColor
+                        }
+                        elide: Text.ElideRight
+                        text: " " + styleData.value
+                        font.bold: isUnit
+                    }
+                }
+                onClicked: {
+                    g_trainingSession.phrase = phraseModel.phrase(index)
+                }
+                Connections {
+                    target: g_trainingSession
+                    onPhraseChanged: {
+                        phraseTree.expand(phraseModel.indexUnit(g_trainingSession.phrase.unit))
+                        phraseTree.selection.setCurrentIndex(
+                            phraseModel.indexPhrase(g_trainingSession.phrase),
+                            ItemSelectionModel.ClearAndSelect)
+                    }
+                }
+            }
+
+            TrainerSessionScreen {
+                id: trainerMain
+                Layout.alignment: Qt.AlignTop
+                Layout.preferredWidth: Math.floor(main.width * 0.7) - 30
+                Layout.fillHeight: true
+            }
+        }
+
+    }
+
+    //FIXME setup dialog deactivated for refactoring
+//     SheetDialog {
+//         id: profileSelectorSheet
+//         anchors {
+//             top: root.top
+//             topMargin: header.height
+//             left: root.left
+//             bottom: root.bottom
+//             right: root.right
+//         }
+//         content: ProfileSelector {
+//             anchors.fill: parent
+//             onProfileChosen: {
+//                 profileSelectorSheet.close()
+//             }
+//         }
+//     }
+
 }

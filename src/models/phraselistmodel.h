@@ -18,53 +18,67 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROFILEMODEL_H
-#define PROFILEMODEL_H
+#ifndef PHRASELISTMODEL_H
+#define PHRASELISTMODEL_H
 
 #include <QAbstractListModel>
+#include "core/phrase.h"
 
-namespace LearnerProfile {
-    class Learner;
-    class ProfileManager;
-}
-
+class Unit;
 class QSignalMapper;
 
-class ProfileModel : public QAbstractListModel
+class PhraseListModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(LearnerProfile::ProfileManager *profileManager READ profileManager WRITE setProfileManager)
+    Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
+    Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
-    enum profileRoles {
-        NameRole = Qt::UserRole + 1,
+    enum phraseRoles {
+        TextRole = Qt::UserRole + 1,
         IdRole,
+        TypeRole,
+        SoundFileRole,
+        ExcludedRole,
         DataRole
     };
 
-    explicit ProfileModel(QObject *parent = nullptr);
+    explicit PhraseListModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
     virtual QHash<int,QByteArray> roleNames() const Q_DECL_OVERRIDE;
-    void setProfileManager(LearnerProfile::ProfileManager *profileManager);
-    LearnerProfile::ProfileManager * profileManager() const;
+    void setUnit(Unit *unit);
+    Unit * unit() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 
+    /**
+     * Count phrases in current model view. If this number is changed, signal
+     * countChanged() is emitted.
+     *
+     * \return number of phrases
+     */
+    int count() const;
+
 Q_SIGNALS:
-    void profileChanged(int index);
+    void phraseChanged(int index);
+    void unitChanged();
+    void typeChanged();
+    void countChanged();
 
 private Q_SLOTS:
-    void onProfileAdded(LearnerProfile::Learner *learner, int index);
-    void onProfileAboutToBeRemoved(int index);
-    void emitProfileChanged(int row);
+    void onPhraseAboutToBeAdded(Phrase *unit, int index);
+    void onPhraseAdded();
+    void onPhrasesAboutToBeRemoved(int first, int last);
+    void onPhrasesRemoved();
+    void emitPhraseChanged(int row);
 
 private:
     void updateMappings();
-    LearnerProfile::ProfileManager *m_profileManager;
+    Unit *m_unit;
     QSignalMapper *m_signalMapper;
 };
 
-#endif // PROFILEMODEL_H
+#endif

@@ -22,26 +22,31 @@
 #include "core/course.h"
 #include "core/unit.h"
 #include "core/phrase.h"
+#include "core/language.h"
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
 
-#include <KLocale>
-#include <KDebug>
+#include <KLocalizedString>
+#include <QDebug>
 
 UnitModel::UnitModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_course(0)
+    , m_course(nullptr)
     , m_signalMapper(new QSignalMapper(this))
+{
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
+}
+
+QHash< int, QByteArray > UnitModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[ContainsTrainingData] = "containsTrainingData";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
+    return roles;
 }
 
 void UnitModel::setCourse(Course *course)

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -22,13 +22,12 @@
 #include "models/languageresourcemodel.h"
 
 #include <QSortFilterProxyModel>
-
-#include <KLocale>
-#include <KDebug>
+#include <QDebug>
+#include <KLocalizedString>
 
 LanguageModel::LanguageModel(QObject* parent)
     : QSortFilterProxyModel(parent)
-    , m_resourceModel(0)
+    , m_resourceModel(nullptr)
     , m_view(NonEmptyGhnsOnlyLanguages)
 {
     setDynamicSortFilter(true);
@@ -60,7 +59,7 @@ LanguageModel::LanguageResourceView LanguageModel::view() const
     return m_view;
 }
 
-void LanguageModel::setResourceModel(LanguageResourceModel* resourceModel)
+void LanguageModel::setResourceModel(LanguageResourceModel *resourceModel)
 {
     if (resourceModel != m_resourceModel) {
         m_resourceModel = resourceModel;
@@ -71,7 +70,7 @@ void LanguageModel::setResourceModel(LanguageResourceModel* resourceModel)
     }
 }
 
-bool LanguageModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
+bool LanguageModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
     return QSortFilterProxyModel::lessThan(left, right);
 }

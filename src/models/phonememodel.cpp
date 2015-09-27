@@ -25,21 +25,25 @@
 #include <QAbstractListModel>
 #include <QSignalMapper>
 
-#include <KLocale>
-#include <KDebug>
+#include <KLocalizedString>
+#include <QDebug>
 
 PhonemeModel::PhonemeModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_language(0)
+    , m_language(nullptr)
     , m_signalMapper(new QSignalMapper(this))
+{
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeChanged(int)));
+}
+
+QHash< int, QByteArray > PhonemeModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
-    setRoleNames(roles);
 
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeChanged(int)));
+    return roles;
 }
 
 Language * PhonemeModel::language() const
@@ -141,7 +145,7 @@ QVariant PhonemeModel::headerData(int section, Qt::Orientation orientation, int 
 void PhonemeModel::updateMappings()
 {
     if (!m_language) {
-        kDebug() << "Aborting to update mappings, language not set.";
+        qDebug() << "Aborting to update mappings, language not set.";
         return;
     }
     int phonemes = m_language->phonemes().count();

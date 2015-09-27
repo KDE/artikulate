@@ -25,9 +25,8 @@
 #include "course.h"
 #include "settings.h"
 
-#include <KDebug>
-#include <KSaveFile>
-#include <KTemporaryFile>
+#include <QDebug>
+#include <QTemporaryFile>
 #include <sys/stat.h>
 
 Phrase::Phrase(QObject *parent)
@@ -35,10 +34,17 @@ Phrase::Phrase(QObject *parent)
     , m_type(Phrase::AllTypes)
     , m_editState(Unknown)
     , m_trainingState(Untrained)
-    , m_unit(0)
+    , m_unit(nullptr)
     , m_excludedFromUnit(false)
 {
-
+    connect(this, &Phrase::idChanged, this, &Phrase::modified);
+    connect(this, &Phrase::typeChanged, this, &Phrase::modified);
+    connect(this, &Phrase::textChanged, this, &Phrase::modified);
+    connect(this, &Phrase::soundChanged, this, &Phrase::modified);
+    connect(this, &Phrase::editStateChanged, this, &Phrase::modified);
+    connect(this, &Phrase::i18nTextChanged, this, &Phrase::modified);
+    connect(this, &Phrase::phonemesChanged, this, &Phrase::modified);
+    connect(this, &Phrase::excludedChanged, this, &Phrase::modified);
 }
 
 Phrase::~Phrase()
@@ -144,7 +150,7 @@ void Phrase::setType(const QString &typeString)
         setType(Paragraph);
         return;
     }
-    kWarning() << "Cannot set type from unknown identifier, aborting";
+    qWarning() << "Cannot set type from unknown identifier, aborting";
     return;
 }
 
@@ -193,7 +199,7 @@ void Phrase::setEditState(const QString &stateString)
         setEditState(Completed);
         return;
     }
-    kWarning() << "Cannot set edit state from unknown identifier " << stateString << ", aborting";
+    qWarning() << "Cannot set edit state from unknown identifier " << stateString << ", aborting";
     return;
 }
 
@@ -222,15 +228,15 @@ void Phrase::setUnit(Unit *unit)
     emit unitChanged();
 }
 
-KUrl Phrase::sound() const
+QUrl Phrase::sound() const
 {
     return m_nativeSoundFile;
 }
 
-void Phrase::setSound(const KUrl &soundFile)
+void Phrase::setSound(const QUrl &soundFile)
 {
     if (!soundFile.isValid() || soundFile.isEmpty()) {
-        kWarning() << "Not setting empty sound file path.";
+        qWarning() << "Not setting empty sound file path.";
         return;
     }
     m_nativeSoundFile = soundFile;
@@ -245,7 +251,7 @@ QString Phrase::soundFileUrl() const
 QString Phrase::soundFileOutputPath() const
 {
     if (m_nativeSoundFile.isEmpty()) {
-        QString outputDir = m_unit->course()->file().directory(KUrl::AppendTrailingSlash);
+        QString outputDir = m_unit->course()->file().path() + '/';
         //TODO take care that this is proper ASCII
         return outputDir + id() + ".ogg";
     } else {
@@ -256,7 +262,7 @@ QString Phrase::soundFileOutputPath() const
 void Phrase::setSoundFileUrl()
 {
     if (soundFileOutputPath() != m_nativeSoundFile.toLocalFile()) {
-        m_nativeSoundFile = KUrl::fromLocalFile(soundFileOutputPath());
+        m_nativeSoundFile = QUrl::fromLocalFile(soundFileOutputPath());
         emit soundChanged();
         emit modified();
     }

@@ -23,7 +23,10 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-find_package(QtGStreamer 1.2.0 REQUIRED)
+find_package(Qt5GStreamer 1.2.0 REQUIRED)
+
+# enable exceptions for this library
+kde_enable_exceptions()
 
 include_directories(
     ${QTGSTREAMER_INCLUDE_DIR}
@@ -36,22 +39,24 @@ set(sound_LIB_SRCS
     qtgstreameroutputbackend.cpp
 )
 
-kde4_add_library(artikulatesound SHARED ${sound_LIB_SRCS})
+add_library(artikulatesound SHARED ${sound_LIB_SRCS})
+generate_export_header(artikulatesound BASE_NAME libsound)
 
 target_link_libraries(
     artikulatesound
-    LINK_PRIVATE
+    LINK_PUBLIC
         ${QTGLIB_LIBRARIES}
         ${QTGLIB_LIBRARY}
         ${QTGSTREAMER_LIBRARIES}
-        ${KDE4_KDECORE_LIBS}
+        KF5::I18n
 )
-
+# internal library without any API or ABI guarantee
+set(GENERIC_LIB_VERSION "0")
+set(GENERIC_LIB_SOVERSION "0")
 set_target_properties(
-    artikulatesound
-    PROPERTIES
-        VERSION ${GENERIC_LIB_VERSION}
-        SOVERSION ${GENERIC_LIB_SOVERSION}
+    artikulatesound PROPERTIES
+    VERSION ${GENERIC_LIB_VERSION}
+    SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 
 install(

@@ -22,13 +22,11 @@
 #define MAINWINDOW_H
 
 #include <KXmlGuiWindow>
+#include <QQuickWidget>
 #include "core/resourcemanager.h"
-#include "core/trainingsession.h"
 
-class Profile;
-class KActionCollection;
-class KMenu;
-class QDeclarativeView;
+class TrainingSession;
+class QQuickWidget;
 
 namespace LearnerProfile {
     class ProfileManager;
@@ -37,15 +35,8 @@ namespace LearnerProfile {
 class MainWindow : public KXmlGuiWindow
 {
     Q_OBJECT
-    Q_PROPERTY(ResourceManager *globalResourceManager READ resourceManager CONSTANT)
 
 public:
-    Q_ENUMS(ViewMode)
-    enum ViewMode {
-        Trainer,
-        Editor
-    };
-
     /**
      * Default Constructor
      */
@@ -64,25 +55,20 @@ public:
 
     bool queryClose();
 
-public slots:
-    void showCourseEditor();
-    void closeCourseEditor();
-    void switchMode();
+public Q_SLOTS:
     void showSettingsDialog();
     void downloadNewStuff();
     void updateTrainingPhraseFont();
     void updateKcfgUseContributorResources();
     void configLearnerProfile();
-
-signals:
-     void modeChanged(bool);
+    void triggerAction(const QString &);
+    void switchMenuBarVisibility();
 
 private:
-    QDeclarativeView *m_view;
-    Profile *m_trainingProfile, *m_editorProfile;
     ResourceManager *m_resourceManager;
     TrainingSession *m_trainingSession;
     LearnerProfile::ProfileManager *m_profileManager;
+    QQuickWidget *m_widget;
 };
 
-#endif // PAIRS_H
+#endif

@@ -25,7 +25,7 @@
 #include "course.h"
 #include <QObject>
 #include <QMap>
-#include <KUrl>
+#include <QUrl>
 
 class ResourceInterface;
 class SkeletonResource;
@@ -35,7 +35,7 @@ class ARTIKULATELIB_EXPORT Skeleton : public Course
     Q_OBJECT
 
 public:
-    explicit Skeleton(ResourceInterface *resource = 0);
+    explicit Skeleton(ResourceInterface *resource = nullptr);
     ~Skeleton();
 
     /**

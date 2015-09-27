@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,16 +18,15 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.2
 import artikulate 1.0
 
 Item {
     id: root
 
     property Phrase phrase
-    property int selectedEditState
 
     width: buttons.width
     height: buttons.height
@@ -37,10 +36,7 @@ Item {
     }
 
     onPhraseChanged: {
-        updateCheckedStates();
-        if (phrase != null) {
-            selectedState = phrase.editState
-        }
+        updateCheckedStates()
     }
 
     function updateCheckedStates()
@@ -61,43 +57,37 @@ Item {
         }
     }
 
-    Row {
+    GroupBox {
         id: buttons
-        spacing: 10
-
-        Text {
-            id: componentTitle
-            text: i18n("Edit State:")
-            font.pointSize: 14
-        }
-        PlasmaComponents.ButtonRow {
-            anchors { verticalCenter: componentTitle.verticalCenter; }
-            PlasmaComponents.Button {
+        title: i18n("Edit State:")
+        RowLayout {
+            ExclusiveGroup { id: editStateGroup }
+            RadioButton {
                 id: buttonUnknown
-                checkable: true
                 text: i18n("Unknown")
                 onCheckedChanged: {
                     if (!checked) return
-                    root.selectedEditState = Phrase.Unknown
+                    root.phrase.editState = Phrase.Unknown
                 }
+                exclusiveGroup: editStateGroup
             }
-            PlasmaComponents.Button {
+            RadioButton {
                 id: buttonTranslated
-                checkable: true
                 text: i18n("Translated")
                 onCheckedChanged: {
                     if (!checked) return
-                    root.selectedEditState = Phrase.Translated
+                    root.phrase.editState = Phrase.Translated
                 }
+                exclusiveGroup: editStateGroup
             }
-            PlasmaComponents.Button {
+            RadioButton {
                 id: buttonCompleted
-                checkable: true
                 text: i18n("Completed")
                 onCheckedChanged: {
                     if (!checked) return
-                    root.selectedEditState = Phrase.Completed
+                    root.phrase.editState = Phrase.Completed
                 }
+                exclusiveGroup: editStateGroup
             }
         }
     }

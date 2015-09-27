@@ -28,20 +28,25 @@ set(learnerprofile_LIB_SRCS
     learninggoal.cpp
     profilemanager.cpp
     storage.cpp
-
     models/learninggoalmodel.cpp
 )
 
-kde4_add_library(artikulatelearnerprofile SHARED ${learnerprofile_LIB_SRCS})
+add_library(artikulatelearnerprofile SHARED ${learnerprofile_LIB_SRCS})
+generate_export_header(artikulatelearnerprofile BASE_NAME liblearnerprofile)
 
 target_link_libraries(
     artikulatelearnerprofile
-    LINK_PRIVATE
-        ${KDE4_KDECORE_LIBS}
-        ${KDE4_KFILE_LIBS}
-        ${QT_QTSQL_LIBRARY}
+    LINK_PUBLIC
+        Qt5::Core
+        Qt5::Gui
+        Qt5::Sql
+        Qt5::Widgets
+        KF5::ConfigCore
+        KF5::I18n
 )
-
+# internal library without any API or ABI guarantee
+set(GENERIC_LIB_VERSION "0")
+set(GENERIC_LIB_SOVERSION "0")
 set_target_properties(
     artikulatelearnerprofile
     PROPERTIES

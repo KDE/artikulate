@@ -1,6 +1,6 @@
 /*
- *  Copyright 2012  Sebastian Gottfried <sebastiangottfried@web.de>
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2012       Sebastian Gottfried <sebastiangottfried@web.de>
+ *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -19,29 +19,26 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
-import org.kde.qtextracomponents 0.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.1
+import QtQuick.Controls 1.2
+import org.kde.kquickcontrolsaddons 2.0
 
 Item {
     id: root
 
     property alias title: label.text
-    property string iconSource
+    property string iconName
     property alias label: label
     property bool checked: false
 
     signal stateChanged(bool checked)
 
-    height: padding.height + bg.margins.top + bg.margins.bottom
+    height: 15 + 30 + 15
     state: mouseArea.containsMouse? "hover": "normal"
 
-    PlasmaCore.FrameSvgItem {
+    Rectangle {
         id: bg
-        imagePath: "widgets/viewitem"
-        prefix: "hover"
-        opacity: 0
+        radius: 8
         anchors.fill: parent
     }
 
@@ -51,29 +48,29 @@ Item {
 
         anchors {
             fill: parent
-            topMargin: bg.margins.top
-            rightMargin: bg.margins.right
-            bottomMargin: bg.margins.bottom
-            leftMargin: bg.margins.left
+            topMargin: 5
+            rightMargin: 5
+            bottomMargin: 5
+            leftMargin: 5
         }
 
         width: parent.width
         height: Math.max(label.height, label.height)
 
-        PlasmaCore.IconItem {
+        QIconItem {
             id: iconItem
-            visible: !!root.iconSource
+            visible: !!root.iconName
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
             }
-            source: root.iconSource
+            icon: root.iconName
             width: theme.smallIconSize
             height: theme.smallIconSize
             enabled: root.checked
         }
 
-        PlasmaComponents.Label {
+        Label {
             id: label
             elide: Text.ElideRight
             anchors {
@@ -109,31 +106,7 @@ Item {
             name: "hover"
             PropertyChanges {
                 target: bg
-                opacity: 1
-                prefix: "hover"
-            }
-        }
-    ]
-
-    transitions: [
-        Transition {
-            from: "normal"
-            to: "hover"
-            NumberAnimation {
-                target: bg
-                property: "opacity"
-                duration: 250
-                easing.type: Easing.OutCubic
-            }
-        },
-        Transition {
-            from: "hover"
-            to: "normal"
-            NumberAnimation {
-                target: bg
-                property: "opacity"
-                duration: 250
-                easing.type: Easing.OutCubic
+                opacity: 1.7
             }
         }
     ]

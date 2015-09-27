@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
 
   <!ENTITY artikulate "Artikulate">
   <!ENTITY kappname "&artikulate;">
@@ -33,8 +33,8 @@
 
 <copyright><year>2014</year><holder>The &artikulate; Developers</holder></copyright>
 
-<date>2014-03-15</date>
-<releaseinfo>0.3.0 &kde; 4.13</releaseinfo>
+<date>2015-09-27</date>
+<releaseinfo>&artikulate; 0.5.0 (Applications 15.12)</releaseinfo>
 
 <legalnotice>&FDLNotice;</legalnotice>
 

@@ -19,7 +19,7 @@
  */
 
 #include "phoneme.h"
-#include <KDebug>
+#include <QDebug>
 
 Phoneme::Phoneme(QObject *parent)
     : QObject(parent)

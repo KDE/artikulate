@@ -24,7 +24,7 @@
 #include "artikulatecore_export.h"
 #include <QObject>
 #include <QMap>
-#include <KUrl>
+#include <QUrl>
 
 class ResourceInterface;
 class CourseResource;
@@ -40,6 +40,7 @@ class ARTIKULATELIB_EXPORT Course : public QObject
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
+    Q_PROPERTY(QString i18nTitle READ i18nTitle NOTIFY titleChanged)
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
     Q_PROPERTY(bool modified READ modified WRITE setModified NOTIFY modifiedChanged)
     Q_PROPERTY(Language * language READ language NOTIFY languageChanged)
@@ -52,13 +53,14 @@ public:
     QString foreignId() const;
     void setForeignId(const QString &id);
     QString title() const;
+    QString i18nTitle() const;
     void setTitle(const QString &title);
     Language * language() const;
     void setLanguage(Language *language);
     QString description() const;
     void setDescription(const QString &description);
-    KUrl file() const;
-    void setFile(const KUrl &file);
+    QUrl file() const;
+    void setFile(const QUrl &file);
     QList<Unit *> unitList() const;
     QList<Unit *> phonemeUnitList(PhonemeGroup *phonemeGroup) const;
     /**
@@ -92,7 +94,7 @@ public:
     /**
      * \return true if the course was modified after the last sync, otherwise false
      */
-    bool modified() const;
+    virtual bool modified() const;
 
     /**
      * Writes course object back to file and set \ref modified state to false.
@@ -100,7 +102,9 @@ public:
      */
     virtual Q_INVOKABLE void sync();
 
-public slots:
+    bool isContributorResource() const;
+
+public Q_SLOTS:
     void setModified(bool modified = true);
     void registerPhrasePhonemes(Phrase *phrase);
     void removePhrasePhonemes(Phrase *phrase);
@@ -128,7 +132,7 @@ private:
     QString m_title;
     QString m_description;
     Language *m_language;
-    KUrl m_file;
+    QUrl m_file;
     bool m_modified;
     QList<Unit *> m_unitList;
     QList<PhonemeGroup *> m_phonemeGroupList;

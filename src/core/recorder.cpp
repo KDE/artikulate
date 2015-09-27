@@ -22,16 +22,17 @@
 #include "libsound/src/capturedevicecontroller.h"
 
 #include <QList>
-#include <KDebug>
-#include <KUrl>
+#include <QDebug>
+#include <QDir>
+#include <QUrl>
 #include <QString>
 
 Recorder::Recorder(QObject *parent)
     : QObject(parent)
     , m_state(StoppedState)
+    , m_recordingBufferFile(QLatin1String("XXXXXX.ogg"))
 {
-    // register recording file
-    m_recordingBufferFile.setSuffix(".ogg");
+
 }
 
 Recorder::~Recorder()
@@ -48,11 +49,11 @@ Recorder::CaptureState Recorder::state() const
 void Recorder::startCapture()
 {
     if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState) {
-        kWarning() << "Stopped capture before starting new capture, since was still active.";
+        qWarning() << "Stopped capture before starting new capture, since was still active.";
         CaptureDeviceController::self().stopCapture();
     }
     m_recordingBufferFile.open();
-    kDebug() << "Start recording to temporary file " << m_recordingBufferFile.fileName();
+    qDebug() << "Start recording to temporary file " << m_recordingBufferFile.fileName();
     CaptureDeviceController::self().startCapture(m_recordingBufferFile.fileName());
     m_state = RecordingState;
     emit stateChanged();
@@ -84,10 +85,10 @@ void Recorder::storeToFile(const QString &path)
             m_recordingBufferFile.close();
             emit recordingFileChanged();
         } else {
-            kError() << "Could not save buffered sound data to file, aborting.";
+            qCritical() << "Could not save buffered sound data to file, aborting.";
         }
     } else {
-        kError() << "No buffer present.";
+        qCritical() << "No buffer present.";
     }
 }
 

@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -25,6 +25,7 @@
 
 include_directories(
     ../src/
+    ../
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
@@ -34,47 +35,27 @@ file(COPY ../data/languages DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data) # copy
 file(COPY testcourses/de.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/courses) # copy test files
 file(COPY testcourses/fr.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/courses) # copy test files
 
-# basic tests course files (input/output)
-set (TestCourseFiles_SRCS
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
+set(TestCourseFiles_SRCS
     testcoursefiles.cpp
 )
-kde4_add_kcfg_files(TestCourseFiles_SRCS ../src/settings.kcfgc)
-kde4_add_executable(TestCourseFiles ${TestCourseFiles_SRCS} )
+kconfig_add_kcfg_files(TestCourseFiles_SRCS ../src/settings.kcfgc)
+add_executable(TestCourseFiles ${TestCourseFiles_SRCS} )
 target_link_libraries(TestCourseFiles
     artikulatecore
-    ${QT_QTTEST_LIBRARY}
-    ${KDECLARATIVE_LIBRARIES}
-    ${KDE4_KDEUI_LIBS}
-    ${KDE4_PLASMA_LIBS}
-    ${KDE4_KIO_LIBS}
-    ${KDE4_KCMUTILS_LIBS}
-    ${QT_QTCORE_LIBRARY}
-    ${QT_QTOPENGL_LIBRARY}
-    ${QT_QTSCRIPT_LIBRARY}
-    ${QT_QTDECLARATIVE_LIBRARY}
-    ${QT_QTXMLPATTERNS_LIBRARY}
-    ${QT_QTSQL_LIBRARY}
+    Qt5::Test
 )
 add_test(TestCourseFiles TestCourseFiles)
+ecm_mark_as_test(TestCourseFiles)
 
 # basic tests language files (input/output)
-set (TestLanguageFiles_SRCS
+set(TestLanguageFiles_SRCS
     testlanguagefiles.cpp
 )
-kde4_add_executable(TestLanguageFiles ${TestLanguageFiles_SRCS} )
+add_executable(TestLanguageFiles ${TestLanguageFiles_SRCS} )
 target_link_libraries(TestLanguageFiles
     artikulatecore
-    ${QT_QTTEST_LIBRARY}
-    ${KDECLARATIVE_LIBRARIES}
-    ${KDE4_KDEUI_LIBS}
-    ${KDE4_PLASMA_LIBS}
-    ${KDE4_KIO_LIBS}
-    ${KDE4_KCMUTILS_LIBS}
-    ${QT_QTCORE_LIBRARY}
-    ${QT_QTOPENGL_LIBRARY}
-    ${QT_QTSCRIPT_LIBRARY}
-    ${QT_QTDECLARATIVE_LIBRARY}
-    ${QT_QTXMLPATTERNS_LIBRARY}
-    ${QT_QTSQL_LIBRARY}
+    Qt5::Test
 )
 add_test(TestLanguageFiles TestLanguageFiles)
+ecm_mark_as_test(TestLanguageFiles)

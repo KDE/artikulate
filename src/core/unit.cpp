@@ -1,6 +1,6 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
- *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013       Oindrila Gupta <oindrila.gupta92@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -28,13 +28,13 @@
 #include <QStringList>
 #include <QUuid>
 
-#include <KDebug>
-#include <KLocale>
-#include <KUrl>
+#include <QDebug>
+#include <KLocalizedString>
+#include <QUrl>
 
 Unit::Unit(QObject *parent)
     : QObject(parent)
-    , m_course(0)
+    , m_course(nullptr)
     , m_phraseSignalMapper(new QSignalMapper(this))
 {
 }
@@ -106,7 +106,7 @@ void Unit::addPhrase(Phrase *phrase)
     QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
     while (iter != m_phraseList.constEnd()) {
         if (phrase->id() == (*iter)->id()) {
-            kWarning() << "Phrase is already contained in this unit, aborting";
+            qWarning() << "Phrase is already contained in this unit, aborting";
             return;
         }
         ++iter;
@@ -120,15 +120,9 @@ void Unit::addPhrase(Phrase *phrase)
     emit phraseAdded(phrase);
     emit phraseAdded();
 
-    connect(phrase, SIGNAL(typeChanged()), m_phraseSignalMapper, SLOT(map()));
-    connect(phrase, SIGNAL(idChanged()), this, SIGNAL(modified()));
-    connect(phrase, SIGNAL(typeChanged()), this, SIGNAL(modified()));
-    connect(phrase, SIGNAL(textChanged()), this, SIGNAL(modified()));
-    connect(phrase, SIGNAL(soundChanged()), this, SIGNAL(modified()));
-    connect(phrase, SIGNAL(editStateChanged()), this, SIGNAL(modified()));
-    connect(phrase, SIGNAL(i18nTextChanged()), this, SIGNAL(modified()));
-    connect(phrase, SIGNAL(phonemesChanged()), this, SIGNAL(modified()));
-    connect(phrase, SIGNAL(excludedChanged()), this, SIGNAL(modified()));
+    connect(phrase, &Phrase::typeChanged, m_phraseSignalMapper,
+        static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
+    connect(phrase, &Phrase::modified, this, &Unit::modified);
 
     emit modified();
 }
@@ -155,7 +149,7 @@ void Unit::excludeSkeletonPhrase(const QString &phraseId)
             return;
         }
     }
-    kWarning() << "Could not exclude phrase with ID " << phraseId << ", no phrase with this ID.";
+    qWarning() << "Could not exclude phrase with ID " << phraseId << ", no phrase with this ID.";
 }
 
 void Unit::includeSkeletonPhrase(const QString &phraseId)
@@ -167,5 +161,5 @@ void Unit::includeSkeletonPhrase(const QString &phraseId)
             return;
         }
     }
-    kWarning() << "Could not include phrase with ID " << phraseId << ", no phrase with this ID.";
+    qWarning() << "Could not include phrase with ID " << phraseId << ", no phrase with this ID.";
 }

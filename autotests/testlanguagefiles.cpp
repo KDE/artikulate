@@ -25,23 +25,24 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 
-#include <qtest_kde.h>
-#include <KDebug>
-#include <KTemporaryFile>
-#include <KStandardDirs>
-#include <KUrl>
+#include <QTest>
+#include <QDebug>
+#include <QTemporaryFile>
+#include <QUrl>
 
 #include <QIODevice>
 #include <QFile>
 #include <QXmlSchema>
 #include <QXmlSchemaValidator>
 #include <QDomDocument>
+#include <QStandardPaths>
 
 TestLanguageFiles::TestLanguageFiles()
 {
-    KGlobal::dirs()->addResourceDir("appdata" , "./autotests/data");
-    KGlobal::dirs()->addResourceDir("appdata" , "./autotests");
-    KGlobal::dirs()->addResourceDir("appdata" , "./");
+    //FIXME port this
+//     KGlobal::dirs()->addResourceDir("appdata" , "./autotests/data");
+//     KGlobal::dirs()->addResourceDir("appdata" , "./autotests");
+//     KGlobal::dirs()->addResourceDir("appdata" , "./");
 }
 
 void TestLanguageFiles::init()
@@ -57,21 +58,21 @@ void TestLanguageFiles::cleanup()
 QXmlSchema TestLanguageFiles::loadXmlSchema(const QString &schemeName) const
 {
     QString relPath = QString("schemes/%1.xsd").arg(schemeName);
-    KUrl file = KUrl::fromLocalFile(KGlobal::dirs()->findResource("appdata", relPath));
+    QUrl file = QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, relPath));
 
     QXmlSchema schema;
     if (schema.load(file) == false) {
-        kWarning() << "Schema at file " << file.toLocalFile() << " is invalid.";
+        qWarning() << "Schema at file " << file.toLocalFile() << " is invalid.";
     }
     return schema;
 }
 
-QDomDocument TestLanguageFiles::loadDomDocument(const KUrl &path, const QXmlSchema &schema) const
+QDomDocument TestLanguageFiles::loadDomDocument(const QUrl &path, const QXmlSchema &schema) const
 {
     QDomDocument document;
     QXmlSchemaValidator validator(schema);
     if (!validator.validate(path)) {
-        kWarning() << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
+        qWarning() << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
         return document;
     }
 
@@ -79,17 +80,17 @@ QDomDocument TestLanguageFiles::loadDomDocument(const KUrl &path, const QXmlSche
     QFile file(path.toLocalFile());
     if (file.open(QIODevice::ReadOnly)) {
         if (!document.setContent(&file, &errorMsg)) {
-            kWarning() << errorMsg;
+            qWarning() << errorMsg;
         }
     } else {
-        kWarning() << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
+        qWarning() << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
     }
     return document;
 }
 
 void TestLanguageFiles::languageSchemeValidationTest()
 {
-    KUrl languageFile = KUrl::fromLocalFile("schemes/language.xsd");
+    QUrl languageFile = QUrl::fromLocalFile("schemes/language.xsd");
     QXmlSchema languageSchema;
     QVERIFY(languageSchema.load(languageFile));
     QVERIFY(languageSchema.isValid());
@@ -98,11 +99,11 @@ void TestLanguageFiles::languageSchemeValidationTest()
 void TestLanguageFiles::checkIdUniqueness()
 {
     ResourceManager manager;
-    QStringList languageFiles = KGlobal::dirs()->findAllResources("appdata",QString("data/languages/*.xml"));
+    QStringList languageFiles = QStandardPaths::locateAll(QStandardPaths::DataLocation, QString("data/languages/*.xml"));
     foreach (const QString &file, languageFiles) {
-        kDebug() << "File being parsed: " << file;
+        qDebug() << "File being parsed: " << file;
         QStringList idList;
-        const KUrl &languageFile = KUrl::fromLocalFile(file);
+        const QUrl &languageFile = QUrl::fromLocalFile(file);
         QVERIFY(languageFile.isLocalFile());
 
         QXmlSchema schema = loadXmlSchema("language");
@@ -126,7 +127,7 @@ void TestLanguageFiles::checkIdUniqueness()
                  phonemeNode = phonemeNode.nextSiblingElement())
             {
                 QString id = phonemeNode.firstChildElement("id").text();
-                kDebug() << "ID: " << id;
+                qDebug() << "ID: " << id;
                 QVERIFY2(!idList.contains(id),"Phoneme ID used more than once in the tested file");
                 idList.append(id);
             }
@@ -135,4 +136,4 @@ void TestLanguageFiles::checkIdUniqueness()
 }
 
 
-QTEST_KDEMAIN_CORE(TestLanguageFiles)
+QTEST_MAIN(TestLanguageFiles)
