@@ -199,7 +199,7 @@ Item {
         }
         RowLayout {
             id: mainRow
-            spacing: 30
+            spacing: theme.spacing
 
             TreeView {
                 id: phraseTree

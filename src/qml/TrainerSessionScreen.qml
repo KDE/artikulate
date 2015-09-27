@@ -57,7 +57,7 @@ Item {
         RowLayout {
             Layout.alignment: Qt.AlignCenter
             Layout.fillWidth: true
-            spacing: 30
+            spacing: theme.spacing
             Rectangle {
                 id: trainingTextRect
                 Layout.alignment: Qt.AlignTop
@@ -69,10 +69,10 @@ Item {
                     id: phraseText
                     anchors {
                         fill: trainingTextRect
-                        leftMargin: 30
-                        topMargin: 30
-                        rightMargin: 30
-                        bottomMargin: 30
+                        leftMargin: theme.spacing
+                        topMargin: theme.spacing
+                        rightMargin: theme.spacing
+                        bottomMargin: theme.spacing
                     }
                     objectName: "phraseText"
                     text: (g_trainingSession.phrase != null) ? g_trainingSession.phrase.text : ""
@@ -82,8 +82,8 @@ Item {
                     id: buttonNativePlay
                     anchors {
                         bottom: trainingTextRect.bottom
-                        leftMargin: 30
-                        bottomMargin: 30
+                        leftMargin: theme.spacing
+                        bottomMargin: theme.spacing
                     }
                     text: i18n("Listen")
                     Layout.alignment: Qt.AlignBottom
@@ -132,8 +132,8 @@ Item {
             FlatButton {
                 text: i18n("Skip")
                 iconName: "go-next"
-                iconSize: 48
-                fontSize: 20
+                iconSize: 32
+                fontSize: 16
                 enabled: g_trainingSession.hasNextPhrase
                 onClicked: {
                     g_trainingSession.skipPhrase()
@@ -143,8 +143,8 @@ Item {
             FlatButton {
                 text: i18n("Next")
                 iconName: "dialog-ok"
-                iconSize: 48
-                fontSize: 20
+                iconSize: 32
+                fontSize: 16
                 onClicked: {
                     g_trainingSession.showNextPhrase()
                 }
