@@ -52,6 +52,7 @@ int main(int argc, char **argv)
                         ki18nc("@info:credit Role", "Developer and Course Data").toString());
 
     Application app(argc, argv);
+    KAboutData::setApplicationData(aboutData);
 
     qmlRegisterType<MainWindow>("artikulate", 1, 0, "MainWindow");
     MainWindow *mainWindow = new MainWindow();
