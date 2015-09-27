@@ -50,8 +50,8 @@ Item {
         id: button
         text: root.text
         iconName: "media-record"
-        iconSize: 48
-        fontSize: 20
+        iconSize: 32
+        fontSize: 16
 
         onClicked: {
             if (recorderBackend.state == Recorder.RecordingState) {

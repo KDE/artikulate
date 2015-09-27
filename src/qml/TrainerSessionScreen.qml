@@ -100,18 +100,20 @@ Item {
                 QIconItem {
                     anchors {
                         horizontalCenter: parent.horizontalCenter
-                        verticalCenter: parent.verticalCenter
+                        top: parent.top
+                        bottom: parent.bottom
+                        bottomMargin: rowSoundControls.height + theme.spacing
                     }
-                    width: 200
-                    height: 200
+                    width: height
                     icon: "user-identity"
                 }
                 Row {
+                    id: rowSoundControls
                     anchors {
                         bottom: trainingUserRect.bottom
                         horizontalCenter: trainingUserRect.horizontalCenter
-                        leftMargin: 30
-                        bottomMargin: 30
+                        leftMargin: theme.spacing
+                        bottomMargin: theme.spacing
                     }
                     SoundRecorder {
                         id: recorder

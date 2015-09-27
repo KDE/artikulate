@@ -43,8 +43,8 @@ Item {
         text: root.text
         iconName: "media-playback-start"
         enabled: fileUrl != ""
-        iconSize: 48
-        fontSize: 20
+        iconSize: 32
+        fontSize: 16
 
         onClicked: {
             if (playerBackend.state == Player.PlayingState) {
