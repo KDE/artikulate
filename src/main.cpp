@@ -34,7 +34,7 @@ int main(int argc, char **argv)
                          ki18nc("@title KAboutData: short program description", "Artikulate Pronunciation Trainer").toString(),
                          KAboutLicense::GPL_V2,
                          ki18nc("@info:credit", "(c) 2013-2014 The Artikulate Developers").toString(),
-                         ki18nc("@title Short program description", "Training your ponunciation in a foreign language.").toString()
+                         ki18nc("@title Short program description", "Training your pronunciation in a foreign language.").toString()
                         );
 
     aboutData.addAuthor(ki18nc("@info:credit Developer name", "Andreas Cord-Landwehr").toString(),
