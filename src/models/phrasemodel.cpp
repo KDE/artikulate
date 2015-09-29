@@ -155,7 +155,7 @@ int PhraseModel::columnCount(const QModelIndex &parent) const
 
 QModelIndex PhraseModel::parent(const QModelIndex &child) const
 {
-    if (!child.internalPointer()) {
+    if (!child.internalPointer() || !m_course) {
         return QModelIndex();
     }
     Unit *parent = static_cast<Unit*>(child.internalPointer());
@@ -191,7 +191,7 @@ QModelIndex PhraseModel::indexPhrase(Phrase *phrase) const
 
 QModelIndex PhraseModel::indexUnit(Unit *unit) const
 {
-    if (!unit) {
+    if (!unit || !m_course) {
         return QModelIndex();
     }
     return createIndex(m_course->unitList().indexOf(unit), 0);

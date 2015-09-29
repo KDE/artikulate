@@ -62,8 +62,10 @@ void TrainingSession::setCourse(Course *course)
     if (m_course == course) {
         return;
     }
-    setUnit(nullptr);
     m_course = course;
+    if (m_course && m_course->unitList().count() > 0) {
+        setUnit(m_course->unitList().first());
+    }
     emit courseChanged();
 }
 
@@ -78,6 +80,9 @@ void TrainingSession::setUnit(Unit *unit)
         return;
     }
     m_unit = unit;
+    if (m_unit && m_unit->phraseList().count() > 0) {
+        setPhrase(m_unit->phraseList().first());
+    }
     return unitChanged();
 }
 
