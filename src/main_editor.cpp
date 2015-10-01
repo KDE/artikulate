@@ -42,6 +42,7 @@ int main(int argc, char **argv)
                         "cordlandwehr@kde.org");
 
     Application app(argc, argv);
+    KAboutData::setApplicationData(aboutData);
 
     MainWindowEditor *mainWindow = new MainWindowEditor();
     QSize size(800, 600);
