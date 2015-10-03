@@ -179,7 +179,7 @@ void SkeletonModel::updateMappings()
     }
 }
 
-QVariant SkeletonModel::course(int row) const
+QVariant SkeletonModel::skeleton(int row) const
 {
     return data(index(row, 0), SkeletonModel::DataRole);
 }

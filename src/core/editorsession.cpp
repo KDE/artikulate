@@ -19,6 +19,7 @@
  */
 
 #include "editorsession.h"
+#include "skeleton.h"
 #include "core/language.h"
 #include "core/course.h"
 #include "core/unit.h"
@@ -28,6 +29,7 @@
 
 EditorSession::EditorSession(QObject *parent)
     : QObject(parent)
+    , m_skeleton(nullptr)
     , m_language(nullptr)
     , m_course(nullptr)
     , m_unit(nullptr)
@@ -36,6 +38,24 @@ EditorSession::EditorSession(QObject *parent)
     , m_type(Phrase::Word)
 {
 
+}
+
+Skeleton * EditorSession::skeleton() const
+{
+    return m_skeleton;
+}
+
+void EditorSession::setSkeleton(Skeleton *skeleton)
+{
+    if (m_skeleton == skeleton) {
+        return;
+    }
+qDebug() << "set skeleton";
+    setLanguage(nullptr);
+    setCourse(nullptr);
+    setUnit(nullptr);
+    m_skeleton = skeleton;
+    emit skeletonChanged();
 }
 
 Language * EditorSession::language() const

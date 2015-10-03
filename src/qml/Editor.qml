@@ -72,6 +72,18 @@ Item
                 text: "no repository set"
                 color: "red"
             }
+            ComboBox {
+                Layout.minimumWidth: 200
+                Layout.fillWidth: true
+                enabled: !buttonEditSkeleton.checked
+                model: SkeletonModel {
+                    resourceManager: g_resourceManager
+                }
+                textRole: "title"
+                onCurrentIndexChanged: {
+                    editorSession.skeleton = skeletonModel.skeleton(currentIndex)
+                }
+            }
         }
 
         RowLayout {
@@ -145,8 +157,8 @@ Item
                 }
                 textRole: "title"
                 onCurrentIndexChanged: {
-                    if (skeletonModel.course(currentIndex)) {
-                        editorSession.course = skeletonModel.course(currentIndex)
+                    if (skeletonModel.skeleton(currentIndex)) {
+                        editorSession.skeleton = skeletonModel.skeleton(currentIndex)
                     }
                 }
                 onVisibleChanged: {

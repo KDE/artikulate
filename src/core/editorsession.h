@@ -26,6 +26,7 @@
 #include "phrase.h"
 
 class QString;
+class Skeleton;
 class Language;
 class Course;
 class Unit;
@@ -39,6 +40,7 @@ class PhonemeGroup;
 class ARTIKULATELIB_EXPORT EditorSession : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(Skeleton *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
@@ -51,6 +53,8 @@ class ARTIKULATELIB_EXPORT EditorSession : public QObject
 public:
     explicit EditorSession(QObject *parent = nullptr);
 
+    Skeleton * skeleton() const;
+    void setSkeleton(Skeleton *skeleton);
     Language * language() const;
     void setLanguage(Language *language);
     Course * course() const;
@@ -73,6 +77,7 @@ private:
     Phrase * previousPhrase() const;
 
 Q_SIGNALS:
+    void skeletonChanged();
     void languageChanged();
     void courseChanged();
     void unitChanged();
@@ -82,6 +87,7 @@ Q_SIGNALS:
 
 private:
     Q_DISABLE_COPY(EditorSession)
+    Skeleton *m_skeleton;
     Language *m_language;
     Course *m_course;
     Unit *m_unit;

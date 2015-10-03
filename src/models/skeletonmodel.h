@@ -54,7 +54,7 @@ public:
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
     int count() const;
-    Q_INVOKABLE QVariant course(int index) const;
+    Q_INVOKABLE QVariant skeleton(int index) const;
 
 Q_SIGNALS:
     void skeletonChanged(int index);
