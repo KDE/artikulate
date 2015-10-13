@@ -31,6 +31,7 @@
   <name xml:lang="tr">Artikulate</name>
   <name xml:lang="uk">Artikulate</name>
   <name xml:lang="x-test">xxArtikulatexx</name>
+  <name xml:lang="zh-CN">Artikulate</name>
   <name xml:lang="zh-TW">Artikulate</name>
   <summary>Artikulate Pronunciation Trainer</summary>
   <summary xml:lang="bs">Artikulate vježba izgovora</summary>
@@ -59,6 +60,7 @@
   <summary xml:lang="tr">Artikulate Telaffuz Eğitici</summary>
   <summary xml:lang="uk">Програма для навчання вимові Artikulate</summary>
   <summary xml:lang="x-test">xxArtikulate Pronunciation Trainerxx</summary>
+  <summary xml:lang="zh-CN">Artikulate 读音训练器</summary>
   <summary xml:lang="zh-TW">Artikulate 發音訓練器</summary>
   <description>
     <p>Artikulate is a pronunciation trainer that helps improving and perfecting a learner's pronunciation skills for a foreign language. It provides courses with native speaker recordings for several training languages. The learner downloads those courses, selects a category of phrases to train, then starts with recording her/his own voice when speaking the phrases and comparing the results to the native speaker's recordings by listening to both. By adjusting and repeating the own pronunciation, the learner can improve his/her skill.</p>
