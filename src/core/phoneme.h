@@ -31,7 +31,7 @@ class QString;
  * \class Phoneme
  * Phonemes are properties that can be assigned to a Phrase to specify its pronunciation characteristics.
  */
-class ARTIKULATELIB_EXPORT Phoneme : public QObject
+class ARTIKULATECORE_EXPORT Phoneme : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)

@@ -34,7 +34,7 @@ class PhonemeGroup;
 /**
  * \class TrainingSession
  */
-class ARTIKULATELIB_EXPORT TrainingSession : public QObject
+class ARTIKULATECORE_EXPORT TrainingSession : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)

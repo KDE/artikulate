@@ -30,7 +30,7 @@ class QString;
 class Phoneme;
 class PhonemeGroup;
 
-class ARTIKULATELIB_EXPORT Language : public QObject
+class ARTIKULATECORE_EXPORT Language : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)

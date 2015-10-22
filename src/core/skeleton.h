@@ -30,7 +30,7 @@
 class ResourceInterface;
 class SkeletonResource;
 
-class ARTIKULATELIB_EXPORT Skeleton : public Course
+class ARTIKULATECORE_EXPORT Skeleton : public Course
 {
     Q_OBJECT
 

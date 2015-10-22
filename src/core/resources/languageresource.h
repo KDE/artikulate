@@ -29,7 +29,7 @@
 class LanguageResourcePrivate;
 class Language;
 
-class ARTIKULATELIB_EXPORT LanguageResource : public ResourceInterface
+class ARTIKULATECORE_EXPORT LanguageResource : public ResourceInterface
 {
     Q_OBJECT
 

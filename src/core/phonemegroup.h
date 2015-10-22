@@ -32,7 +32,7 @@ class Phoneme;
 /**
  * \class PhonemeGroup
  */
-class ARTIKULATELIB_EXPORT PhonemeGroup : public QObject
+class ARTIKULATECORE_EXPORT PhonemeGroup : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)

@@ -25,7 +25,7 @@
 #include <QObject>
 #include <QUrl>
 
-class ARTIKULATELIB_EXPORT Player : public QObject
+class ARTIKULATECORE_EXPORT Player : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString soundFileUrl READ soundFile WRITE setSoundFile NOTIFY soundFileChanged)

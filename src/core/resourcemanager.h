@@ -46,7 +46,7 @@ namespace LearnerProfile {
  * \class ResourceManager
  * This class loads and stores all data files of the application.
  */
-class ARTIKULATELIB_EXPORT ResourceManager : public QObject
+class ARTIKULATECORE_EXPORT ResourceManager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool isRepositoryManager READ isRepositoryManager NOTIFY repositoryChanged);

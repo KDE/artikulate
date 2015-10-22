@@ -32,7 +32,7 @@ class QString;
 class Phrase;
 class Course;
 
-class ARTIKULATELIB_EXPORT Unit : public QObject
+class ARTIKULATECORE_EXPORT Unit : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)

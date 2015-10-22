@@ -37,7 +37,7 @@ class PhonemeGroup;
  * Objects of this class describe the current set values for language, course, unit, etc.
  * by a user.
  */
-class ARTIKULATELIB_EXPORT EditorSession : public QObject
+class ARTIKULATECORE_EXPORT EditorSession : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(Skeleton *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)

@@ -33,7 +33,7 @@ class Phoneme;
 class Unit;
 class QUrl;
 
-class ARTIKULATELIB_EXPORT Phrase : public QObject
+class ARTIKULATECORE_EXPORT Phrase : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)

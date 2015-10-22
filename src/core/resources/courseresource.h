@@ -32,7 +32,7 @@ class Course;
 class Unit;
 class Phrase;
 
-class ARTIKULATELIB_EXPORT CourseResource : public ResourceInterface
+class ARTIKULATECORE_EXPORT CourseResource : public ResourceInterface
 {
     Q_OBJECT
     void course(QString text);

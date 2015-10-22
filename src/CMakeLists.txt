@@ -64,6 +64,7 @@ qt5_wrap_ui(artikulateCore_SRCS
 )
 kconfig_add_kcfg_files (artikulateCore_SRCS settings.kcfgc)
 add_library(artikulatecore SHARED ${artikulateCore_SRCS})
+generate_export_header(artikulatecore BASE_NAME artikulatecore)
 target_link_libraries(artikulatecore
     LINK_PUBLIC
         artikulatelearnerprofile

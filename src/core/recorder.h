@@ -26,7 +26,7 @@
 #include <QUrl>
 #include <QTemporaryFile>
 
-class ARTIKULATELIB_EXPORT Recorder : public QObject
+class ARTIKULATECORE_EXPORT Recorder : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString recordingFile READ recordingFile NOTIFY recordingFileChanged)

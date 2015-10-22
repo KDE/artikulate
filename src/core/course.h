@@ -35,7 +35,7 @@ class Phrase;
 class PhonemeGroup;
 class Phoneme;
 
-class ARTIKULATELIB_EXPORT Course : public QObject
+class ARTIKULATECORE_EXPORT Course : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)

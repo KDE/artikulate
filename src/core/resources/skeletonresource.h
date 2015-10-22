@@ -29,7 +29,7 @@
 class SkeletonResourcePrivate;
 class Skeleton;
 
-class ARTIKULATELIB_EXPORT SkeletonResource : public ResourceInterface
+class ARTIKULATECORE_EXPORT SkeletonResource : public ResourceInterface
 {
     Q_OBJECT
     void course(QString text);
