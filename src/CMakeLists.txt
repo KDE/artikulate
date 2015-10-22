@@ -73,11 +73,13 @@ target_link_libraries(artikulatecore
         KF5::ConfigGui
         KF5::WidgetsAddons
 )
+# internal library without any API or ABI guarantee
+set(GENERIC_LIB_VERSION "0")
+set(GENERIC_LIB_SOVERSION "0")
 set_target_properties(
-    artikulatecore
-    PROPERTIES
-        VERSION ${GENERIC_LIB_VERSION}
-        SOVERSION ${GENERIC_LIB_SOVERSION}
+    artikulatecore PROPERTIES
+    VERSION ${GENERIC_LIB_VERSION}
+    SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 install(
     TARGETS artikulatecore
