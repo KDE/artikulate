@@ -153,7 +153,6 @@ qt5_wrap_ui (artikulate_editor_SRCS
 kconfig_add_kcfg_files (artikulate_editor_SRCS settings.kcfgc)
 
 # executables
-qt5_add_resources(artikulate_SRCS artikulate.qrc)
 add_executable(artikulate ${artikulate_SRCS})
 target_link_libraries(artikulate
     LINK_PUBLIC
@@ -162,7 +161,6 @@ target_link_libraries(artikulate
         artikulatecore
         Qt5::Qml
         Qt5::Quick
-        Qt5::QuickWidgets
         KF5::ConfigWidgets
         KF5::Declarative
         KF5::NewStuff

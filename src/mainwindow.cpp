@@ -45,7 +45,6 @@
 #include <QCloseEvent>
 #include <QCoreApplication>
 #include <QDebug>
-#include <QDebug>
 #include <QGraphicsObject>
 #include <QIcon>
 #include <QMenuBar>
@@ -54,24 +53,17 @@
 #include <QQmlProperty>
 #include <QQuickItem>
 #include <QQuickView>
-#include <QQuickWidget>
 #include <QStandardPaths>
-#include <QStatusBar>
 
 using namespace LearnerProfile;
 
 MainWindow::MainWindow()
-    : m_resourceManager(new ResourceManager(this))
+    : m_actionCollection(new KActionCollection(this, "artikulate"))
+    , m_resourceManager(new ResourceManager(this))
     , m_trainingSession(new TrainingSession(this))
     , m_profileManager(new LearnerProfile::ProfileManager(this))
-    , m_widget(new QQuickWidget)
 {
-    setWindowIcon(QIcon::fromTheme("artikulate"));
-    setWindowTitle(qAppName());
-    setAutoSaveSettings();
-
-    // workaround for QTBUG-40765
-    qApp->setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
+    setResizeMode(QQuickView::SizeRootObjectToView);
 
     // load saved sound settings
     OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
@@ -85,23 +77,24 @@ MainWindow::MainWindow()
     m_resourceManager->registerLearningGoals(m_profileManager);
 
     KDeclarative::KDeclarative kdeclarative;
-    kdeclarative.setDeclarativeEngine(m_widget->engine());
+    kdeclarative.setDeclarativeEngine(engine());
     kdeclarative.setupBindings(); //TODO use result for determining touch/desktop version
 
     // create menu
     setupActions();
 
     // set view
-    m_widget->resize(QSize(800, 600));
-    m_widget->rootContext()->setContextProperty("g_resourceManager", m_resourceManager);
-    m_widget->rootContext()->setContextProperty("g_trainingSession", m_trainingSession);
-    m_widget->rootContext()->setContextProperty("profileManager", m_profileManager);
+    resize(QSize(800, 600));
+    rootContext()->setContextProperty("g_resourceManager", m_resourceManager);
+    rootContext()->setContextProperty("g_trainingSession", m_trainingSession);
+    rootContext()->setContextProperty("profileManager", m_profileManager);
 
-    m_widget->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
-    m_widget->rootContext()->setContextProperty("kcfg_ShowMenuBar", Settings::showMenuBar());
+    rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
+    rootContext()->setContextProperty("kcfg_ShowMenuBar", Settings::showMenuBar());
 
     // set starting screen
-    m_widget->setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
+    setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
+    show();
 
     // settings from kcfg values
 //     updateTrainingPhraseFont(); //FIXME deactivated while porting
@@ -112,27 +105,22 @@ MainWindow::MainWindow()
     }
 
     // connect to QML signals
-    connect(m_widget->rootObject(), SIGNAL(triggerDownloadCourses()),
+    connect(rootObject(), SIGNAL(triggerDownloadCourses()),
             this, SLOT(downloadNewStuff()));
-    connect(m_widget->rootObject(), SIGNAL(triggerSettingsDialog()),
+    connect(rootObject(), SIGNAL(triggerSettingsDialog()),
             this, SLOT(showSettingsDialog()));
-    connect(m_widget->rootObject(), SIGNAL(triggerAction(QString)),
+    connect(rootObject(), SIGNAL(triggerAction(QString)),
             this, SLOT(triggerAction(QString)));
-    connect(m_widget->rootObject(), SIGNAL(switchMenuBarVisibility()),
+    connect(rootObject(), SIGNAL(switchMenuBarVisibility()),
             this, SLOT(switchMenuBarVisibility()));
 
     // set font for the phrase in trainer to default from kcfg file
-    QObject *phraseText = m_widget->rootObject()->findChild<QObject*>("phraseText");
+    QObject *phraseText = rootObject()->findChild<QObject*>("phraseText");
     if (phraseText) {
         phraseText->setProperty("font", Settings::trainingPhraseFont());
     }
-    m_widget->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
-    setupGUI();
-    setCentralWidget(m_widget);
-
-    menuBar()->setVisible(Settings::showMenuBar());
-    statusBar()->setVisible(false);
+//     menuBar()->setVisible(Settings::showMenuBar());
 }
 
 MainWindow::~MainWindow()
@@ -145,6 +133,11 @@ MainWindow::~MainWindow()
 ResourceManager * MainWindow::resourceManager() const
 {
     return m_resourceManager;
+}
+
+KActionCollection * MainWindow::actionCollection()
+{
+    return m_actionCollection;
 }
 
 void MainWindow::setupActions()
@@ -165,8 +158,6 @@ void MainWindow::setupActions()
     configLearnerProfileAction->setIcon(QIcon::fromTheme("user-identity"));
 
     KStandardAction::quit(qApp, SLOT(quit()), actionCollection());
-
-    setupGUI(Keys | Save | Create, "artikulateui.rc");
 }
 
 void MainWindow::showSettingsDialog()
@@ -203,7 +194,7 @@ void MainWindow::showSettingsDialog()
 
 void MainWindow::updateTrainingPhraseFont()
 {
-    QObject *phraseText = m_widget->rootObject()->findChild<QObject*>("phraseText");
+    QObject *phraseText = rootObject()->findChild<QObject*>("phraseText");
     if (!phraseText) {
         qDebug() << "no phraseText context object found, aborting";
         return;
@@ -214,7 +205,7 @@ void MainWindow::updateTrainingPhraseFont()
 
 void MainWindow::updateKcfgUseContributorResources()
 {
-    m_widget->rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
+    rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
 }
 
 void MainWindow::downloadNewStuff()
@@ -272,7 +263,7 @@ void MainWindow::triggerAction(const QString &actionName)
 void MainWindow::switchMenuBarVisibility()
 {
     Settings::setShowMenuBar(!Settings::showMenuBar());
-    menuBar()->setVisible(Settings::showMenuBar());
+//     menuBar()->setVisible(Settings::showMenuBar());
 }
 
 bool MainWindow::queryClose()

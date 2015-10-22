@@ -21,18 +21,17 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <KXmlGuiWindow>
-#include <QQuickWidget>
+#include <QQuickView>
+#include <KActionCollection>
 #include "core/resourcemanager.h"
 
 class TrainingSession;
-class QQuickWidget;
 
 namespace LearnerProfile {
     class ProfileManager;
 }
 
-class MainWindow : public KXmlGuiWindow
+class MainWindow : public QQuickView
 {
     Q_OBJECT
 
@@ -49,6 +48,7 @@ public:
 
     ResourceManager * resourceManager() const;
 
+    KActionCollection * actionCollection();
     void setupActions();
 
     virtual QSize sizeHint() const { return QSize(1000, 700); }
@@ -65,10 +65,10 @@ public Q_SLOTS:
     void switchMenuBarVisibility();
 
 private:
+    KActionCollection *m_actionCollection;
     ResourceManager *m_resourceManager;
     TrainingSession *m_trainingSession;
     LearnerProfile::ProfileManager *m_profileManager;
-    QQuickWidget *m_widget;
 };
 
 #endif
