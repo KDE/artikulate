@@ -64,6 +64,9 @@ MainWindowEditor::MainWindowEditor()
     setWindowTitle(qAppName());
     setAutoSaveSettings();
 
+    // workaround for QTBUG-40765
+    qApp->setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
+
     // load saved sound settings
     OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
 
