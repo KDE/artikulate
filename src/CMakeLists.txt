@@ -151,6 +151,7 @@ qt5_wrap_ui (artikulate_editor_SRCS
 kconfig_add_kcfg_files (artikulate_editor_SRCS settings.kcfgc)
 
 # executables
+qt5_add_resources(artikulate_SRCS artikulate.qrc)
 add_executable(artikulate ${artikulate_SRCS})
 target_link_libraries(artikulate
     LINK_PUBLIC
@@ -166,6 +167,7 @@ target_link_libraries(artikulate
         KF5::XmlGui
 )
 
+qt5_add_resources(artikulate_editor_SRCS editor.qrc)
 add_executable(artikulate_editor ${artikulate_editor_SRCS})
 target_link_libraries(artikulate_editor
     LINK_PUBLIC
@@ -183,5 +185,3 @@ target_link_libraries(artikulate_editor
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 install(TARGETS artikulate ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS artikulate_editor ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(FILES artikulateui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/artikulate)
-install(FILES artikulateui_editor.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/artikulate_editor)
