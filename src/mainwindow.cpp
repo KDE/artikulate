@@ -35,6 +35,7 @@
 #include <KActionCollection>
 #include <KConfigDialog>
 #include <KDeclarative/KDeclarative>
+#include <KHelpMenu>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KNS3/DownloadDialog>
@@ -59,12 +60,11 @@ using namespace LearnerProfile;
 
 MainWindow::MainWindow()
     : m_actionCollection(new KActionCollection(this, "artikulate"))
+    , m_helpMenu(new KHelpMenu)
     , m_resourceManager(new ResourceManager(this))
     , m_trainingSession(new TrainingSession(this))
     , m_profileManager(new LearnerProfile::ProfileManager(this))
 {
-    setResizeMode(QQuickView::SizeRootObjectToView);
-
     // load saved sound settings
     OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
 
@@ -77,24 +77,21 @@ MainWindow::MainWindow()
     m_resourceManager->registerLearningGoals(m_profileManager);
 
     KDeclarative::KDeclarative kdeclarative;
-    kdeclarative.setDeclarativeEngine(engine());
+    kdeclarative.setDeclarativeEngine(this);
     kdeclarative.setupBindings(); //TODO use result for determining touch/desktop version
 
     // create menu
     setupActions();
 
     // set view
-    resize(QSize(800, 600));
     rootContext()->setContextProperty("g_resourceManager", m_resourceManager);
     rootContext()->setContextProperty("g_trainingSession", m_trainingSession);
     rootContext()->setContextProperty("profileManager", m_profileManager);
-
     rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
     rootContext()->setContextProperty("kcfg_ShowMenuBar", Settings::showMenuBar());
 
     // set starting screen
-    setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
-    show();
+    load(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
 
     // settings from kcfg values
 //     updateTrainingPhraseFont(); //FIXME deactivated while porting
@@ -105,22 +102,20 @@ MainWindow::MainWindow()
     }
 
     // connect to QML signals
-    connect(rootObject(), SIGNAL(triggerDownloadCourses()),
+    connect(rootObjects().first(), SIGNAL(triggerDownloadCourses()),
             this, SLOT(downloadNewStuff()));
-    connect(rootObject(), SIGNAL(triggerSettingsDialog()),
+    connect(rootObjects().first(), SIGNAL(triggerSettingsDialog()),
             this, SLOT(showSettingsDialog()));
-    connect(rootObject(), SIGNAL(triggerAction(QString)),
+    connect(rootObjects().first(), SIGNAL(triggerAction(QString)),
             this, SLOT(triggerAction(QString)));
-    connect(rootObject(), SIGNAL(switchMenuBarVisibility()),
+    connect(rootObjects().first(), SIGNAL(switchMenuBarVisibility()),
             this, SLOT(switchMenuBarVisibility()));
 
     // set font for the phrase in trainer to default from kcfg file
-    QObject *phraseText = rootObject()->findChild<QObject*>("phraseText");
+    QObject *phraseText = rootObjects().first()->findChild<QObject*>("phraseText");
     if (phraseText) {
         phraseText->setProperty("font", Settings::trainingPhraseFont());
     }
-
-//     menuBar()->setVisible(Settings::showMenuBar());
 }
 
 MainWindow::~MainWindow()
@@ -156,6 +151,11 @@ void MainWindow::setupActions()
     connect(configLearnerProfileAction, SIGNAL(triggered(bool)), this, SLOT(configLearnerProfile()));
     actionCollection()->addAction("config_learner_profile", configLearnerProfileAction);
     configLearnerProfileAction->setIcon(QIcon::fromTheme("user-identity"));
+
+    KStandardAction::helpContents(m_helpMenu, SLOT(appHelpActivated()), actionCollection());
+    KStandardAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());
+    KStandardAction::aboutKDE(m_helpMenu, SLOT(aboutKDE()), actionCollection());
+    KStandardAction::aboutApp(m_helpMenu, SLOT(aboutApplication()), actionCollection());
 
     KStandardAction::quit(qApp, SLOT(quit()), actionCollection());
 }
@@ -194,7 +194,7 @@ void MainWindow::showSettingsDialog()
 
 void MainWindow::updateTrainingPhraseFont()
 {
-    QObject *phraseText = rootObject()->findChild<QObject*>("phraseText");
+    QObject *phraseText = rootObjects().first()->findChild<QObject*>("phraseText");
     if (!phraseText) {
         qDebug() << "no phraseText context object found, aborting";
         return;
@@ -263,7 +263,7 @@ void MainWindow::triggerAction(const QString &actionName)
 void MainWindow::switchMenuBarVisibility()
 {
     Settings::setShowMenuBar(!Settings::showMenuBar());
-//     menuBar()->setVisible(Settings::showMenuBar());
+    rootContext()->setContextProperty("kcfg_ShowMenuBar", Settings::showMenuBar());
 }
 
 bool MainWindow::queryClose()

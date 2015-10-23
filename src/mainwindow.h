@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -21,17 +21,18 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QQuickView>
+#include <QQmlApplicationEngine>
 #include <KActionCollection>
 #include "core/resourcemanager.h"
 
 class TrainingSession;
+class KHelpMenu;
 
 namespace LearnerProfile {
     class ProfileManager;
 }
 
-class MainWindow : public QQuickView
+class MainWindow : public QQmlApplicationEngine
 {
     Q_OBJECT
 
@@ -50,9 +51,6 @@ public:
 
     KActionCollection * actionCollection();
     void setupActions();
-
-    virtual QSize sizeHint() const { return QSize(1000, 700); }
-
     bool queryClose();
 
 public Q_SLOTS:
@@ -61,11 +59,12 @@ public Q_SLOTS:
     void updateTrainingPhraseFont();
     void updateKcfgUseContributorResources();
     void configLearnerProfile();
-    void triggerAction(const QString &);
     void switchMenuBarVisibility();
+    void triggerAction(const QString &);
 
 private:
     KActionCollection *m_actionCollection;
+    KHelpMenu *m_helpMenu;
     ResourceManager *m_resourceManager;
     TrainingSession *m_trainingSession;
     LearnerProfile::ProfileManager *m_profileManager;

@@ -25,10 +25,11 @@ import QtQml.Models 2.2
 import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
-Item {
+ApplicationWindow {
     id: root
-    width: 400 //parent.width
-    height: 600 //parent.height
+    visible: true
+    minimumWidth: 600
+    minimumHeight: 400
 
     signal triggerDownloadCourses();
     signal triggerSettingsDialog();
@@ -60,6 +61,13 @@ Item {
         id: availableCourseModel
         resourceManager: g_resourceManager
     }
+
+    // main menu bar
+    MainMenuBar {
+        id: topMenu
+    }
+    menuBar: { kcfg_ShowMenuBar ? topMenu : null }
+
     ToolBar{
         id: mainToolBar
         RowLayout {
@@ -128,11 +136,12 @@ Item {
                         onTriggered: triggerDownloadCourses()
                     }
                     MenuSeparator { }
-                    MenuItem {
-                        text: i18n("Configure Shortcuts...")
-                        iconName: "configure-shortcuts"
-                        onTriggered: triggerAction("options_configure_keybinding")
-                    }
+// TODO requires proper support of KKeySequenceWidget's settings
+//                     MenuItem {
+//                         text: i18n("Configure Shortcuts...")
+//                         iconName: "configure-shortcuts"
+//                         onTriggered: triggerAction("options_configure_keybinding")
+//                     }
                     MenuItem {
                         text: i18n("Configure Artikulate...")
                         iconName: "settings-configure"
@@ -197,6 +206,7 @@ Item {
             rightMargin: theme.spacing
             bottomMargin: theme.spacing
         }
+
         RowLayout {
             id: mainRow
             spacing: theme.spacing

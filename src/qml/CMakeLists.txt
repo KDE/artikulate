@@ -34,6 +34,7 @@ set(artikulate_qml_files
     CourseSwitcher.qml
     LanguageSwitcher.qml
     FlatButton.qml
+    MainMenuBar.qml
     PhraseEditor.qml
     PhraseEditorSoundComponent.qml
     PhraseEditorTypeComponent.qml

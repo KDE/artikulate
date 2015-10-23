@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -53,12 +53,7 @@ int main(int argc, char **argv)
 
     Application app(argc, argv);
     KAboutData::setApplicationData(aboutData);
-
-//     qmlRegisterType<MainWindow>("artikulate", 1, 0, "MainWindow");
-    MainWindow *mainWindow = new MainWindow();
-    QSize size(800, 600);
-    mainWindow->setMinimumSize(size);
-    mainWindow->show();
+    new MainWindow();
 
     return app.exec();
 }
