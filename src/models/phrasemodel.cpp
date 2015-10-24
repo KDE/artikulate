@@ -261,7 +261,8 @@ QVariant PhraseModel::headerData(int section, Qt::Orientation orientation, int r
     return QVariant(i18nc("@title:column", "Phrase"));
 }
 
-Phrase * PhraseModel::phrase(const QModelIndex &index) const {
+Phrase * PhraseModel::phrase(const QModelIndex &index) const
+{
     if (index.internalPointer()) {
         Unit *unit = static_cast<Unit *>(index.internalPointer());
         return unit->phraseList().at(index.row());
