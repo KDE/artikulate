@@ -231,6 +231,7 @@ void PhraseModel::onPhrasesRemoved()
 
 void PhraseModel::onUnitAboutToBeAdded(Unit *unit, int index)
 {
+    Q_UNUSED(unit)
     beginInsertRows(QModelIndex(), index, index);
 }
 
@@ -261,12 +262,12 @@ QVariant PhraseModel::headerData(int section, Qt::Orientation orientation, int r
 }
 
 Phrase * PhraseModel::phrase(const QModelIndex &index) const {
-    if (!index.internalPointer()) {
-        return m_course->unitList().at(index.row())->phraseList().first();
-    }
-    else {
+    if (index.internalPointer()) {
         Unit *unit = static_cast<Unit *>(index.internalPointer());
         return unit->phraseList().at(index.row());
+    }
+    if (!m_course->unitList().at(index.row())->phraseList().isEmpty()) {
+        return m_course->unitList().at(index.row())->phraseList().first();
     }
     return nullptr;
 }
