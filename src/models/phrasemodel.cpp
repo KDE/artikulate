@@ -30,8 +30,10 @@
 PhraseModel::PhraseModel(QObject *parent)
     : QAbstractItemModel(parent)
     , m_course(nullptr)
+    , m_unitSignalMapper(new QSignalMapper)
 {
-
+    connect(m_unitSignalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped),
+            this, &PhraseModel::onUnitChanged);
 }
 
 QHash< int, QByteArray > PhraseModel::roleNames() const
@@ -76,6 +78,7 @@ void PhraseModel::setCourse(Course *course)
             connect(unit, static_cast<void (Unit::*)()>(&Unit::phraseAdded), this, &PhraseModel::onPhraseAdded);
             connect(unit, &Unit::phraseAboutToBeRemoved, this, &PhraseModel::onPhrasesAboutToBeRemoved);
             connect(unit, static_cast<void (Unit::*)()>(&Unit::phraseRemoved), this, &PhraseModel::onPhrasesRemoved);
+            connect(unit, &Unit::titleChanged, m_unitSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 
             // insert and connect all already existing phrases
             int phrases = unit->phraseList().count();
@@ -84,6 +87,7 @@ void PhraseModel::setCourse(Course *course)
                 endInsertRows();
             }
         }
+        updateUnitMappings();
     }
 
     // emit done
@@ -233,11 +237,13 @@ void PhraseModel::onUnitAboutToBeAdded(Unit *unit, int index)
 {
     Q_UNUSED(unit)
     beginInsertRows(QModelIndex(), index, index);
+    connect(unit, &Unit::titleChanged, m_unitSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 }
 
 void PhraseModel::onUnitAdded()
 {
     endInsertRows();
+    updateUnitMappings();
 }
 
 void PhraseModel::onUnitsAboutToBeRemoved(int first, int last)
@@ -248,6 +254,11 @@ void PhraseModel::onUnitsAboutToBeRemoved(int first, int last)
 void PhraseModel::onUnitsRemoved()
 {
     endRemoveRows();
+}
+
+void PhraseModel::onUnitChanged(int index)
+{
+    emit dataChanged(createIndex(index, 0), createIndex(index, 0));
 }
 
 QVariant PhraseModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -261,6 +272,14 @@ QVariant PhraseModel::headerData(int section, Qt::Orientation orientation, int r
     return QVariant(i18nc("@title:column", "Phrase"));
 }
 
+bool PhraseModel::isPhrase(const QModelIndex &index) const
+{
+    if (index.internalPointer()) {
+        return true;
+    }
+    return false;
+}
+
 Phrase * PhraseModel::phrase(const QModelIndex &index) const
 {
     if (index.internalPointer()) {
@@ -271,4 +290,17 @@ Phrase * PhraseModel::phrase(const QModelIndex &index) const
         return m_course->unitList().at(index.row())->phraseList().first();
     }
     return nullptr;
+}
+
+Unit * PhraseModel::unit(const QModelIndex &index) const
+{
+    return m_course->unitList().at(index.row());
+}
+
+void PhraseModel::updateUnitMappings()
+{
+    int units = m_course->unitList().count();
+    for (int i = 0; i < units; ++i) {
+        m_unitSignalMapper->setMapping(m_course->unitList().at(i), i);
+    }
 }

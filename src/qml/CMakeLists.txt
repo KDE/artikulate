@@ -46,6 +46,7 @@ set(artikulate_qml_files
     ProfileSelector.qml
     SoundPlayer.qml
     SoundRecorder.qml
+    UnitEditor.qml
 
     CheckListItem.qml
     ListItem.qml

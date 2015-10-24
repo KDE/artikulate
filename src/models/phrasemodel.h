@@ -49,7 +49,9 @@ public:
     virtual QModelIndex parent(const QModelIndex &child) const Q_DECL_OVERRIDE;
     virtual QModelIndex index(int row, int column, const QModelIndex &parent) const Q_DECL_OVERRIDE;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+    Q_INVOKABLE bool isPhrase(const QModelIndex &index) const;
     Q_INVOKABLE Phrase * phrase(const QModelIndex &index) const;
+    Q_INVOKABLE Unit * unit(const QModelIndex &index) const;
     Q_INVOKABLE QModelIndex indexPhrase(Phrase *phrase) const;
     Q_INVOKABLE QModelIndex indexUnit(Unit *unit) const;
     Q_INVOKABLE bool isUnit(const QModelIndex& index) const;
@@ -68,9 +70,13 @@ private Q_SLOTS:
     void onUnitAdded();
     void onUnitsAboutToBeRemoved(int first, int last);
     void onUnitsRemoved();
+    void onUnitChanged(int index);
 
 private:
+    void updateUnitMappings();
+
     Course *m_course;
+    QSignalMapper *m_unitSignalMapper;
 };
 
 #endif

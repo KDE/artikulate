@@ -209,7 +209,11 @@ Item
                             }
                         }
                         onClicked: {
-                            editorSession.phrase = phraseModel.phrase(index)
+                            if (phraseModel.isPhrase(index)) {
+                                editorSession.phrase = phraseModel.phrase(index)
+                            } else {
+                                editorSession.unit = phraseModel.unit(index)
+                            }
                         }
                         Connections {
                             target: editorSession
@@ -230,12 +234,18 @@ Item
                     onClicked: phraseModel.course.createUnit()
                 }
             }
-            PhraseEditor {
-                visible: editorSession.phrase != null
-                phrase: editorSession.phrase
-                isSkeletonPhrase: editorSession.editSkeleton
-                Layout.minimumWidth: Math.floor(main.width * 0.6)
-                Layout.fillHeight: true
+            ColumnLayout {
+                UnitEditor {
+                    visible: editorSession.unit != null && editorSession.phrase == null
+                    unit: editorSession.unit
+                }
+                PhraseEditor {
+                    visible: editorSession.phrase != null
+                    phrase: editorSession.phrase
+                    isSkeletonPhrase: editorSession.editSkeleton
+                    Layout.minimumWidth: Math.floor(main.width * 0.6)
+                    Layout.fillHeight: true
+                }
             }
         }
     }

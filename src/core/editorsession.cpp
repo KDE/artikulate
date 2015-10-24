@@ -185,21 +185,20 @@ void EditorSession::setUnit(Unit *unit)
         return;
     }
     m_unit = unit;
-    if (m_unit && !m_unit->phraseList().isEmpty()) {
-        setPhrase(m_unit->phraseList().first());
-    }
-    else {
-        setPhrase(nullptr);
-    }
+    // different than above, do not directly enter phrases
+    // but first show editing information for units
+    setPhrase(nullptr);
     return unitChanged();
 }
 
 void EditorSession::setPhrase(Phrase *phrase)
 {
-    if (!phrase || m_phrase == phrase) {
+    if (m_phrase == phrase) {
         return;
     }
-    setUnit(phrase->unit());
+    if (phrase) {
+        setUnit(phrase->unit());
+    }
     m_phrase = phrase;
     return phraseChanged();
 }
