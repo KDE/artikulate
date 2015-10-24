@@ -52,6 +52,7 @@
 #include <QQuickView>
 #include <QQuickWidget>
 #include <QStandardPaths>
+#include <QStatusBar>
 
 using namespace LearnerProfile;
 
@@ -93,9 +94,17 @@ MainWindowEditor::MainWindowEditor()
     m_widget->setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "artikulate/qml/Editor.qml")));
     m_widget->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
-
     QAction *newAct = KStandardAction::save(this, SLOT(save()), actionCollection());
     actionCollection()->addAction("save", newAct);
+
+    // set status bar
+    statusBar()->setEnabled(true);
+    QLabel *repositoryLabel = new QLabel;
+    repositoryLabel->setText(i18n("Course Repository: %1", m_resourceManager->repositoryUrl()));
+    connect(m_resourceManager, &ResourceManager::repositoryChanged, [=]() {
+        repositoryLabel->setText(i18n("Course Repository: %1", m_resourceManager->repositoryUrl()));
+    });
+    statusBar()->insertWidget(0, repositoryLabel);
 
     createGUI("artikulateui_editor.rc");
     setCentralWidget(m_widget);

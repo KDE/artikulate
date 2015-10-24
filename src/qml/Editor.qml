@@ -78,19 +78,15 @@ Item
 
         RowLayout {
             Label {
-                text: i18n("Course Repository:")
-            }
-            Label {
-                visible: g_resourceManager.isRepositoryManager
-                text: g_resourceManager.repositoryUrl
-            }
-            Label {
                 visible: !g_resourceManager.isRepositoryManager
                 text: "no repository set"
                 color: "red"
             }
+            Label {
+                text: i18n("Course Prototype:")
+            }
             ComboBox {
-                Layout.minimumWidth: 200
+                Layout.minimumWidth: 300
                 Layout.fillWidth: true
                 enabled: !buttonEditSkeleton.checked
                 model: SkeletonModel {
@@ -104,7 +100,7 @@ Item
             }
             Button {
                 id: buttonEditSkeleton
-                text: i18n("Edit Skeleton")
+                text: i18n("Edit Prototype")
                 iconName: "code-class"
                 checkable: true
             }
@@ -113,7 +109,7 @@ Item
         RowLayout {
             id: languageRow
             Label {
-                text: i18n("Language")
+                text: i18n("Language:")
             }
             ComboBox {
                 Layout.minimumWidth: 200
@@ -128,8 +124,10 @@ Item
         }
         RowLayout {
             id: courseRow
+            visible: courseModel.size == 0
+
             Label {
-                text: i18n("Course")
+                text: i18n("There is no course in the selected language.")
             }
             ComboBox { // course selection only necessary when we do not edit skeleton derived course
                 id: comboCourse
@@ -150,7 +148,6 @@ Item
                 }
             }
             Button {
-                visible: courseModel.size == 0
                 text: i18n("Create Course")
                 iconName: "journal-new"
                 onClicked: {
@@ -161,14 +158,14 @@ Item
         RowLayout {
             id: mainRow
             visible: courseModel.size != 0
-            height: main.height - languageRow.height - courseRow.height - 2 * 15
+            height: main.height - languageRow.height - 2 * 15
             ColumnLayout {
                 ScrollView {
                     Layout.minimumWidth: Math.floor(main.width * 0.3)
                     Layout.fillHeight: true
                     TreeView {
                         id: phraseTree
-                        height: mainRow.height - newUnitButton.height - 10
+                        height: mainRow.height - 10
                         width: Math.floor(main.width * 0.3) - 20
                         TableViewColumn {
                             title: i18n("Units & Phrases")
@@ -203,8 +200,10 @@ Item
                         }
                     }
                 }
-                Button {
+                Button { // add units only if skeleton
+                    //TODO also enable if no skeleton derived course
                     id: newUnitButton
+                    visible: buttonEditSkeleton.checked
                     iconName: "list-add"
                     text: i18n("New Unit")
                     onClicked: phraseModel.course.createUnit()
