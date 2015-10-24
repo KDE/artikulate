@@ -34,7 +34,12 @@ CourseModel::CourseModel(QObject *parent)
     , m_language(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitCourseChanged(int)));
+    connect(m_signalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped),
+            this, &CourseModel::emitCourseChanged);
+    connect(this, &CourseModel::resourceManagerChanged,
+            this, &CourseModel::rowCountChanged);
+    connect(this, &CourseModel::languageChanged,
+            this, &CourseModel::rowCountChanged);
 }
 
 CourseModel::~CourseModel()
@@ -79,7 +84,6 @@ void CourseModel::setResourceManager(ResourceManager *resourceManager)
         m_resources = m_resourceManager->courseResources(m_language);
     }
     endResetModel();
-
     emit resourceManagerChanged();
 }
 
@@ -103,6 +107,7 @@ void CourseModel::setLanguage(Language *language)
     }
     emit languageChanged();
     emit endResetModel();
+    emit rowCountChanged();
 }
 
 QVariant CourseModel::data(const QModelIndex& index, int role) const
@@ -163,6 +168,7 @@ void CourseModel::onCourseResourceAdded()
 {
     updateMappings();
     endInsertRows();
+    emit rowCountChanged();
 }
 
 void CourseModel::onCourseResourceAboutToBeRemoved(int index)
@@ -180,6 +186,7 @@ void CourseModel::onCourseResourceAboutToBeRemoved(int index)
     beginRemoveRows(QModelIndex(), modelIndex, modelIndex);
     m_resources.removeAt(modelIndex);
     endRemoveRows();
+    emit rowCountChanged();
 }
 
 void CourseModel::emitCourseChanged(int row)

@@ -164,6 +164,13 @@ public:
     void removeCourse(Course *course);
 
     /**
+     * Create new course for \p language and derived from \p skeleton.
+     *
+     * \return created course
+     */
+    Q_INVOKABLE Course * createCourse(Language *language, Skeleton *skeleton);
+
+    /**
      * Adds skeleton resource to resource manager
      *
      * \param resource the skeleton resource to add to resource manager

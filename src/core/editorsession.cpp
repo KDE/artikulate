@@ -50,8 +50,7 @@ void EditorSession::setSkeleton(Skeleton *skeleton)
     if (m_skeleton == skeleton) {
         return;
     }
-qDebug() << "set skeleton";
-    setLanguage(nullptr);
+    // do not change language
     setCourse(nullptr);
     setUnit(nullptr);
     m_skeleton = skeleton;

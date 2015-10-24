@@ -415,6 +415,34 @@ void ResourceManager::removeCourse(Course *course)
     }
 }
 
+Course * ResourceManager::createCourse(Language *language, Skeleton *skeleton)
+{
+    // set path
+    QString path = QString("%1/%2/%3/%4/%4.xml")
+        .arg(Settings::courseRepositoryPath())
+        .arg("courses")
+        .arg(skeleton->id())
+        .arg(language->id());
+
+    CourseResource * courseRes = new CourseResource(this, QUrl::fromLocalFile(path));
+    Q_ASSERT(courseRes);
+
+    Course *course = courseRes->course();
+    Q_ASSERT(course);
+    course->setId(QUuid::createUuid().toString());
+    course->setTitle(skeleton->title());
+    course->setDescription(skeleton->description());
+    course->setFile(QUrl::fromLocalFile(path));
+    course->setLanguage(language);
+
+    // set skeleton
+    course->setForeignId(skeleton->id());
+
+    addCourseResource(courseRes);
+
+    return course;
+}
+
 void ResourceManager::newCourseDialog(Language *language)
 {
     QPointer<NewCourseDialog> dialog = new NewCourseDialog(this);

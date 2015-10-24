@@ -41,6 +41,23 @@ Item
         property int fontPointSize: 11
     }
 
+    LanguageModel {
+        id: languageModel
+        view: LanguageModel.AllLanguages
+        resourceModel: LanguageResourceModel {
+            resourceManager: g_resourceManager
+        }
+    }
+    CourseModel {
+        id: courseModel
+        resourceManager: g_resourceManager
+        language: editorSession.language
+        onLanguageChanged: {
+            if (courseModel.course(0)) {
+                editorSession.course = courseModel.course(0)
+            }
+        }
+    }
     UnitModel {
         id: selectedUnitModel
         course: editorSession.course
@@ -77,12 +94,19 @@ Item
                 Layout.fillWidth: true
                 enabled: !buttonEditSkeleton.checked
                 model: SkeletonModel {
+                    id: skeletonModel
                     resourceManager: g_resourceManager
                 }
                 textRole: "title"
                 onCurrentIndexChanged: {
                     editorSession.skeleton = skeletonModel.skeleton(currentIndex)
                 }
+            }
+            Button {
+                id: buttonEditSkeleton
+                text: i18n("Edit Skeleton")
+                iconName: "code-class"
+                checkable: true
             }
         }
 
@@ -95,23 +119,11 @@ Item
                 Layout.minimumWidth: 200
                 Layout.fillWidth: true
                 enabled: !buttonEditSkeleton.checked
-                model: LanguageModel {
-                    id: languageModel
-                    view: LanguageModel.AllLanguages
-                    resourceModel: LanguageResourceModel {
-                        resourceManager: g_resourceManager
-                    }
-                }
+                model: languageModel
                 textRole: "i18nTitle"
                 onCurrentIndexChanged: {
                     editorSession.language = languageModel.language(currentIndex)
                 }
-            }
-            Button {
-                id: buttonEditSkeleton
-                text: i18n("Edit Skeleton")
-                iconName: "code-class"
-                checkable: true
             }
         }
         RowLayout {
@@ -119,21 +131,12 @@ Item
             Label {
                 text: i18n("Course")
             }
-            ComboBox {
+            ComboBox { // course selection only necessary when we do not edit skeleton derived course
                 id: comboCourse
-                visible: !buttonEditSkeleton.checked
+                visible: editorSession.skeleton == null
                 Layout.minimumWidth: 200
                 Layout.fillWidth: true
-                model: CourseModel {
-                    id: courseModel
-                    resourceManager: g_resourceManager
-                    language: editorSession.language
-                    onLanguageChanged: {
-                        if (courseModel.course(0)) {
-                            editorSession.course = courseModel.course(0)
-                        }
-                    }
-                }
+                model: courseModel
                 textRole: "title"
                 onCurrentIndexChanged: {
                     if (courseModel.course(currentIndex)) {
@@ -146,30 +149,18 @@ Item
                     }
                 }
             }
-            ComboBox {
-                id: comboSkeleton
-                visible: buttonEditSkeleton.checked
-                Layout.minimumWidth: 200
-                Layout.fillWidth: true
-                model: SkeletonModel {
-                    id: skeletonModel
-                    resourceManager: g_resourceManager
-                }
-                textRole: "title"
-                onCurrentIndexChanged: {
-                    if (skeletonModel.skeleton(currentIndex)) {
-                        editorSession.skeleton = skeletonModel.skeleton(currentIndex)
-                    }
-                }
-                onVisibleChanged: {
-                    if (visible && skeletonModel.course(currentIndex)) {
-                        editorSession.course = skeletonModel.course(currentIndex)
-                    }
+            Button {
+                visible: courseModel.size == 0
+                text: i18n("Create Course")
+                iconName: "journal-new"
+                onClicked: {
+                    editorSession.course = g_resourceManager.createCourse(editorSession.language, editorSession.skeleton)
                 }
             }
         }
         RowLayout {
             id: mainRow
+            visible: courseModel.size != 0
             height: main.height - languageRow.height - courseRow.height - 2 * 15
             ColumnLayout {
                 ScrollView {

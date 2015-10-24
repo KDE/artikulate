@@ -35,6 +35,7 @@ class CourseModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(ResourceManager *resourceManager READ resourceManager WRITE setResourceManager NOTIFY resourceManagerChanged)
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
+    Q_PROPERTY(int size READ rowCount NOTIFY rowCountChanged)
 
 public:
     enum courseRoles {
@@ -60,11 +61,13 @@ public:
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
     Q_INVOKABLE QVariant course(int index) const;
 
+
 Q_SIGNALS:
     void courseChanged(int index);
     void resourceManagerChanged();
     void languageChanged();
     void viewChanged();
+    void rowCountChanged();
 
 private Q_SLOTS:
     void onCourseResourceAboutToBeAdded(CourseResource *resource, int index);
