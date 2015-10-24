@@ -150,7 +150,6 @@ Item
             ComboBox { // course selection only necessary when we do not edit skeleton derived course
                 id: comboCourse
                 visible: !editorSession.skeletonMode
-                Layout.minimumWidth: 200
                 Layout.fillWidth: true
                 model: courseModel
                 textRole: "title"
