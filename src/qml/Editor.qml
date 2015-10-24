@@ -52,28 +52,22 @@ Item
         id: courseModel
         resourceManager: g_resourceManager
         language: editorSession.language
-        onLanguageChanged: {
-            if (courseModel.course(0)) {
-                editorSession.course = courseModel.course(0)
-            }
-        }
     }
     UnitModel {
         id: selectedUnitModel
         course: editorSession.course
     }
 
-    Column {
+    ColumnLayout {
         id: main
 
         anchors {
-            top: root.top
-            left: root.left
-            topMargin: 30
-            leftMargin: 30
+            fill: parent
+            topMargin: 20
+            rightMargin: 20
+            bottomMargin: 20
+            leftMargin: 20
         }
-        width: root.width - 60
-        height: root.height - 80
         spacing: 10
 
         RowLayout {
@@ -87,7 +81,6 @@ Item
             }
             ComboBox {
                 Layout.minimumWidth: 300
-                Layout.fillWidth: true
                 enabled: !buttonEditSkeleton.checked
                 model: SkeletonModel {
                     id: skeletonModel
@@ -100,9 +93,20 @@ Item
             }
             Button {
                 id: buttonEditSkeleton
+                Layout.minimumWidth: 200
                 text: i18n("Edit Prototype")
                 iconName: "code-class"
                 checkable: true
+            }
+            Item { Layout.fillWidth: true }
+            CheckBox {
+                Layout.alignment: Qt.AlignRight
+                enabled: false//FIXME for now deactivating non-skeleton mode
+                text: i18n("Prototype Mode")
+                checked: editorSession.skeletonMode
+                onClicked: {
+                    editorSession.skeletonMode = !editorSession.skeletonMode
+                }
             }
         }
 
@@ -124,14 +128,25 @@ Item
         }
         RowLayout {
             id: courseRow
-            visible: courseModel.size == 0
+            visible: {
+                if (editorSession.skeletonMode && editorSession.course != null) {
+                    return false
+                }
+                if (!editorSession.skeletonMode
+                    && editorSession.language != null
+                    && editorSession.course != null
+                ) {
+                    return false
+                }
+                return true
+            }
 
             Label {
                 text: i18n("There is no course in the selected language.")
             }
             ComboBox { // course selection only necessary when we do not edit skeleton derived course
                 id: comboCourse
-                visible: editorSession.skeleton == null
+                visible: !editorSession.skeletonMode
                 Layout.minimumWidth: 200
                 Layout.fillWidth: true
                 model: courseModel
@@ -154,18 +169,23 @@ Item
                     editorSession.course = g_resourceManager.createCourse(editorSession.language, editorSession.skeleton)
                 }
             }
+            Item { Layout.fillHeight: true } //dummy
         }
         RowLayout {
             id: mainRow
-            visible: courseModel.size != 0
-            height: main.height - languageRow.height - 2 * 15
+            visible: editorSession.course != null
+            Layout.fillHeight: true
             ColumnLayout {
                 ScrollView {
                     Layout.minimumWidth: Math.floor(main.width * 0.3)
                     Layout.fillHeight: true
                     TreeView {
                         id: phraseTree
-                        height: mainRow.height - 10
+                        height: {
+                            mainRow.height
+                            - (newUnitButton.visible ? newUnitButton.height : 0)
+                            - 10
+                        }
                         width: Math.floor(main.width * 0.3) - 20
                         TableViewColumn {
                             title: i18n("Units & Phrases")
@@ -201,15 +221,15 @@ Item
                     }
                 }
                 Button { // add units only if skeleton
-                    //TODO also enable if no skeleton derived course
                     id: newUnitButton
-                    visible: buttonEditSkeleton.checked
+                    visible: !editorSession.skeletonMode || buttonEditSkeleton.checked
                     iconName: "list-add"
                     text: i18n("New Unit")
                     onClicked: phraseModel.course.createUnit()
                 }
             }
             PhraseEditor {
+                visible: editorSession.phrase != null
                 phrase: editorSession.phrase
                 isSkeletonPhrase: buttonEditSkeleton.checked
                 Layout.minimumWidth: Math.floor(main.width * 0.6)

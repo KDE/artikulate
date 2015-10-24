@@ -61,6 +61,7 @@ MainWindowEditor::MainWindowEditor()
     , m_resourceManager(new ResourceManager(this))
     , m_widget(new QQuickWidget)
 {
+    m_editorSession->setResourceManager(m_resourceManager);
     setWindowIcon(QIcon::fromTheme("artikulate"));
     setWindowTitle(qAppName());
     setAutoSaveSettings();

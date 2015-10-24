@@ -30,29 +30,47 @@ class Skeleton;
 class Language;
 class Course;
 class Unit;
-class PhonemeGroup;
+class ResourceManager;
 
 /**
  * \class EditorSession
- * Objects of this class describe the current set values for language, course, unit, etc.
- * by a user.
+ *
+ * An object of this class is used to set the current state of the editor. By this, we put all logic
+ * how language, skeleton and course fit to each other into this class. The main concept is that
+ * we have to fundamentally different workflows that both are modeled in this class:
+ *
+ * 1. Skeleton based workflow
+ * - a skeleton is selected
+ * - every language is available, since eventually the course should be available in every language
+ * - for every language, there is at most one course (there is none only in case it is not created yet)
+ * - adding new units or phrases is only possible in the skeleton course
+ * - every course can update/sync with the skeleton
+ *
+ * 2. Course based workflow
+ * - there is no skeleton from which the course is derived
+ * - the base is a language that is selected first
+ * - for a language there can be none to arbitrarily many courses
+ *
+ * The main switch is \c EditorSession::setSkeletonMode(bool)
  */
 class ARTIKULATECORE_EXPORT EditorSession : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool skeletonMode READ skeletonMode WRITE setSkeletonMode NOTIFY skeletonModeChanged)
     Q_PROPERTY(Skeleton *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
-    Q_PROPERTY(PhonemeGroup *phonemeGroup READ phonemeGroup WRITE setPhonemeGroup NOTIFY phonemeGroupChanged)
-    Q_PROPERTY(Phrase::Type phraseType READ phraseType WRITE setPhraseType NOTIFY phraseTypeChanged)
     Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasPreviousPhrase READ hasPreviousPhrase NOTIFY phraseChanged)
 
 public:
     explicit EditorSession(QObject *parent = nullptr);
 
+    void setResourceManager(ResourceManager *manager);
+    void setSkeletonMode(bool enabled=true);
+    bool skeletonMode() const;
     Skeleton * skeleton() const;
     void setSkeleton(Skeleton *skeleton);
     Language * language() const;
@@ -63,8 +81,6 @@ public:
     void setUnit(Unit *unit);
     Phrase * phrase() const;
     void setPhrase(Phrase *phrase);
-    PhonemeGroup * phonemeGroup() const;
-    void setPhonemeGroup(PhonemeGroup *phonemeGroup);
     Phrase::Type phraseType() const;
     void setPhraseType(Phrase::Type type);
     bool hasPreviousPhrase() const;
@@ -77,23 +93,22 @@ private:
     Phrase * previousPhrase() const;
 
 Q_SIGNALS:
+    void skeletonModeChanged();
     void skeletonChanged();
     void languageChanged();
     void courseChanged();
     void unitChanged();
     void phraseChanged();
-    void phonemeGroupChanged();
-    void phraseTypeChanged(Phrase::Type);
 
 private:
     Q_DISABLE_COPY(EditorSession)
+    ResourceManager * m_resourceManager;
+    bool m_skeletonMode;
     Skeleton *m_skeleton;
     Language *m_language;
     Course *m_course;
     Unit *m_unit;
     Phrase *m_phrase;
-    PhonemeGroup *m_phonemeGroup;
-    Phrase::Type m_type;
 };
 
 #endif

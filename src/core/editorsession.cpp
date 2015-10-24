@@ -19,25 +19,45 @@
  */
 
 #include "editorsession.h"
-#include "skeleton.h"
+#include "core/skeleton.h"
 #include "core/language.h"
 #include "core/course.h"
+#include "core/resources/courseresource.h"
+#include "core/resources/languageresource.h"
 #include "core/unit.h"
 #include "core/phrase.h"
-#include "core/phonemegroup.h"
+#include "core/resourcemanager.h"
 #include <QDebug>
 
 EditorSession::EditorSession(QObject *parent)
     : QObject(parent)
+    , m_skeletonMode(true)
     , m_skeleton(nullptr)
     , m_language(nullptr)
     , m_course(nullptr)
     , m_unit(nullptr)
     , m_phrase(nullptr)
-    , m_phonemeGroup(nullptr)
-    , m_type(Phrase::Word)
 {
 
+}
+
+void EditorSession::setResourceManager(ResourceManager *manager)
+{
+    m_resourceManager = manager;
+}
+
+void EditorSession::setSkeletonMode(bool enabled)
+{
+    if (m_skeletonMode == enabled) {
+        return;
+    }
+    m_skeletonMode = enabled;
+    emit skeletonModeChanged();
+}
+
+bool EditorSession::skeletonMode() const
+{
+    return m_skeletonMode;
 }
 
 Skeleton * EditorSession::skeleton() const
@@ -50,10 +70,29 @@ void EditorSession::setSkeleton(Skeleton *skeleton)
     if (m_skeleton == skeleton) {
         return;
     }
-    // do not change language
-    setCourse(nullptr);
-    setUnit(nullptr);
     m_skeleton = skeleton;
+
+    Language *language = m_language;
+    if (!m_language) {
+        language = m_resourceManager->languageResources().first()->language();
+    }
+
+    if (m_skeleton) {
+        bool found = false;
+        int resources = m_resourceManager->courseResources(language).count();
+        for (int i=0; i < resources; ++i) {
+            Course * course = m_resourceManager->course(language, i);
+            if (course->foreignId() == m_skeleton->id()) {
+                setCourse(course);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            setCourse(nullptr);
+        }
+    }
+
     emit skeletonChanged();
 }
 
@@ -67,9 +106,29 @@ void EditorSession::setLanguage(Language *language)
     if (m_language == language) {
         return;
     }
-    setCourse(nullptr);
-    setUnit(nullptr);
     m_language = language;
+    if (m_skeletonMode) {
+        bool found = false;
+        if (m_skeleton) {
+            int resources = m_resourceManager->courseResources(m_language).count();
+            for (int i=0; i < resources; ++i) {
+                Course * course = m_resourceManager->course(m_language, i);
+                if (course->foreignId() == m_skeleton->id()) {
+                    setCourse(course);
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if (!found) {
+            setCourse(nullptr);
+        }
+    }
+    else { // not skeleton mode
+        if (m_resourceManager->courseResources(m_language).count() > 0) {
+            setCourse(m_resourceManager->course(m_language, 0));
+        }
+    }
     emit languageChanged();
 }
 
@@ -83,9 +142,12 @@ void EditorSession::setCourse(Course *course)
     if (m_course == course) {
         return;
     }
-    setUnit(nullptr);
-    setPhrase(nullptr);
     m_course = course;
+    if (m_course && !m_course->unitList().isEmpty()) {
+        setUnit(m_course->unitList().first());
+    } else {
+        setUnit(nullptr);
+    }
     emit courseChanged();
 }
 
@@ -100,7 +162,12 @@ void EditorSession::setUnit(Unit *unit)
         return;
     }
     m_unit = unit;
-    setPhrase(nullptr);
+    if (m_unit && !m_unit->phraseList().isEmpty()) {
+        setPhrase(m_unit->phraseList().first());
+    }
+    else {
+        setPhrase(nullptr);
+    }
     return unitChanged();
 }
 
@@ -117,34 +184,6 @@ void EditorSession::setPhrase(Phrase *phrase)
 Phrase * EditorSession::phrase() const
 {
     return m_phrase;
-}
-
-PhonemeGroup * EditorSession::phonemeGroup() const
-{
-    return m_phonemeGroup;
-}
-
-void EditorSession::setPhonemeGroup(PhonemeGroup* phonemeGroup)
-{
-    if (m_phonemeGroup == phonemeGroup) {
-        return;
-    }
-    m_phonemeGroup = phonemeGroup;
-    emit phonemeGroupChanged();
-}
-
-Phrase::Type EditorSession::phraseType() const
-{
-    return m_type;
-}
-
-void EditorSession::setPhraseType(Phrase::Type type)
-{
-    if (m_type == type) {
-        return;
-    }
-    m_type = type;
-    emit phraseTypeChanged(type);
 }
 
 Phrase * EditorSession::previousPhrase() const

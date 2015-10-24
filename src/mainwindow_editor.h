@@ -65,9 +65,9 @@ Q_SIGNALS:
      void modeChanged(bool);
 
 private:
-    EditorSession *m_editorSession;
     ResourceManager *m_resourceManager;
     QQuickWidget *m_widget;
+    EditorSession *m_editorSession;
 };
 
 #endif
