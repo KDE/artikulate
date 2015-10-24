@@ -64,6 +64,10 @@ private Q_SLOTS:
     void onPhraseAdded();
     void onPhrasesAboutToBeRemoved(int first, int last);
     void onPhrasesRemoved();
+    void onUnitAboutToBeAdded(Unit *unit, int index);
+    void onUnitAdded();
+    void onUnitsAboutToBeRemoved(int first, int last);
+    void onUnitsRemoved();
 
 private:
     Course *m_course;

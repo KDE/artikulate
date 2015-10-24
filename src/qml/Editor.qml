@@ -171,44 +171,52 @@ Item
         RowLayout {
             id: mainRow
             height: main.height - languageRow.height - courseRow.height - 2 * 15
-            ScrollView {
-                Layout.minimumWidth: Math.floor(main.width * 0.3)
-                Layout.fillHeight: true
-                TreeView {
-                    id: phraseTree
-                    height: mainRow.height
-                    width: Math.floor(main.width * 0.3) - 20
-                    TableViewColumn {
-                        title: i18n("Units & Phrases")
-                        role: "text"
-                    }
-                    model: PhraseModel {
-                        id: phraseModel
-                        course: editorSession.course
-                    }
-                    selection: ItemSelectionModel {
-                        model: phraseTree.model
-                    }
-                    itemDelegate: Item {
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            color: styleData.textColor
-                            elide: styleData.elideMode
-                            text: styleData.value
+            ColumnLayout {
+                ScrollView {
+                    Layout.minimumWidth: Math.floor(main.width * 0.3)
+                    Layout.fillHeight: true
+                    TreeView {
+                        id: phraseTree
+                        height: mainRow.height - newUnitButton.height - 10
+                        width: Math.floor(main.width * 0.3) - 20
+                        TableViewColumn {
+                            title: i18n("Units & Phrases")
+                            role: "text"
+                        }
+                        model: PhraseModel {
+                            id: phraseModel
+                            course: editorSession.course
+                        }
+                        selection: ItemSelectionModel {
+                            model: phraseTree.model
+                        }
+                        itemDelegate: Item {
+                            Text {
+                                anchors.verticalCenter: parent.verticalCenter
+                                color: styleData.textColor
+                                elide: styleData.elideMode
+                                text: styleData.value
+                            }
+                        }
+                        onClicked: {
+                            editorSession.phrase = phraseModel.phrase(index)
+                        }
+                        Connections {
+                            target: editorSession
+                            onPhraseChanged: {
+                                phraseTree.expand(phraseModel.indexUnit(editorSession.phrase.unit))
+                                phraseTree.selection.setCurrentIndex(
+                                    phraseModel.indexPhrase(editorSession.phrase),
+                                    ItemSelectionModel.ClearAndSelect)
+                            }
                         }
                     }
-                    onClicked: {
-                        editorSession.phrase = phraseModel.phrase(index)
-                    }
-                    Connections {
-                        target: editorSession
-                        onPhraseChanged: {
-                            phraseTree.expand(phraseModel.indexUnit(editorSession.phrase.unit))
-                            phraseTree.selection.setCurrentIndex(
-                                phraseModel.indexPhrase(editorSession.phrase),
-                                ItemSelectionModel.ClearAndSelect)
-                        }
-                    }
+                }
+                Button {
+                    id: newUnitButton
+                    iconName: "list-add"
+                    text: i18n("New Unit")
+                    onClicked: phraseModel.course.createUnit()
                 }
             }
             PhraseEditor {

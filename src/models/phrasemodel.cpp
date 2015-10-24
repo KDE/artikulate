@@ -63,14 +63,19 @@ void PhraseModel::setCourse(Course *course)
 
     m_course = course;
     if (m_course) {
+        // connect to unit changes
+        connect(m_course, &Course::unitAboutToBeAdded, this, &PhraseModel::onUnitAboutToBeAdded);
+        connect(m_course, &Course::unitAdded, this, &PhraseModel::onUnitAdded);
+        connect(m_course, &Course::unitsAboutToBeRemoved, this, &PhraseModel::onUnitsAboutToBeRemoved);
+        connect(m_course, &Course::unitsRemoved, this, &PhraseModel::onUnitsRemoved);
+
         // initial setting of signal mappings
         foreach (auto unit, m_course->unitList()) {
+            // connect to phrase changes
             connect(unit, &Unit::phraseAboutToBeAdded, this, &PhraseModel::onPhraseAboutToBeAdded);
             connect(unit, static_cast<void (Unit::*)()>(&Unit::phraseAdded), this, &PhraseModel::onPhraseAdded);
             connect(unit, &Unit::phraseAboutToBeRemoved, this, &PhraseModel::onPhrasesAboutToBeRemoved);
             connect(unit, static_cast<void (Unit::*)()>(&Unit::phraseRemoved), this, &PhraseModel::onPhrasesRemoved);
-
-            //TODO connect to unit changes, not needed currently, though
 
             // insert and connect all already existing phrases
             int phrases = unit->phraseList().count();
@@ -222,6 +227,26 @@ void PhraseModel::onPhrasesAboutToBeRemoved(int first, int last)
 void PhraseModel::onPhrasesRemoved()
 {
     endResetModel();
+}
+
+void PhraseModel::onUnitAboutToBeAdded(Unit *unit, int index)
+{
+    beginInsertRows(QModelIndex(), index, index);
+}
+
+void PhraseModel::onUnitAdded()
+{
+    endInsertRows();
+}
+
+void PhraseModel::onUnitsAboutToBeRemoved(int first, int last)
+{
+    beginRemoveRows(QModelIndex(), first, last);
+}
+
+void PhraseModel::onUnitsRemoved()
+{
+    endRemoveRows();
 }
 
 QVariant PhraseModel::headerData(int section, Qt::Orientation orientation, int role) const

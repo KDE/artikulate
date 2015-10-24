@@ -64,10 +64,10 @@ void UnitModel::setCourse(Course *course)
     m_course = course;
 
     if (m_course) {
-        connect(m_course, SIGNAL(unitAboutToBeAdded(Unit*,int)), SLOT(onUnitAboutToBeAdded(Unit*,int)));
-        connect(m_course, SIGNAL(unitAdded()), SLOT(onUnitAdded()));
-        connect(m_course, SIGNAL(unitAboutToBeRemoved(int,int)), SLOT(onUnitsAboutToBeRemoved(int,int)));
-        connect(m_course, SIGNAL(unitRemoved()), SLOT(onUnitsRemoved()));
+        connect(m_course, &Course::unitAboutToBeAdded, this, &UnitModel::onUnitAboutToBeAdded);
+        connect(m_course, &Course::unitAdded, this, &UnitModel::onUnitAdded);
+        connect(m_course, &Course::unitsAboutToBeRemoved, this, &UnitModel::onUnitsAboutToBeRemoved);
+        connect(m_course, &Course::unitsRemoved, this, &UnitModel::onUnitsRemoved);
     }
 
     endResetModel();

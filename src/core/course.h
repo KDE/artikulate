@@ -109,7 +109,7 @@ public Q_SLOTS:
     void registerPhrasePhonemes(Phrase *phrase);
     void removePhrasePhonemes(Phrase *phrase);
 
-signals:
+Q_SIGNALS:
     void idChanged();
     void titleChanged();
     void descriptionChanged();
@@ -117,8 +117,8 @@ signals:
     void languageChanged();
     void unitAdded();
     void unitAboutToBeAdded(Unit*,int);
-    void unitRemoved();
-    void unitAboutToBeRemoved(int,int);
+    void unitsRemoved();
+    void unitsAboutToBeRemoved(int,int);
     void phonemeGroupAdded();
     void phonemeGroupAboutToBeAdded(PhonemeGroup*,int);
     void phonemeGroupRemoved();
