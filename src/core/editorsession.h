@@ -57,6 +57,7 @@ class ARTIKULATECORE_EXPORT EditorSession : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool skeletonMode READ skeletonMode WRITE setSkeletonMode NOTIFY skeletonModeChanged)
+    Q_PROPERTY(bool editSkeleton READ isEditSkeleton WRITE setEditSkeleton NOTIFY editSkeletonChanged)
     Q_PROPERTY(Skeleton *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
@@ -71,6 +72,8 @@ public:
     void setResourceManager(ResourceManager *manager);
     void setSkeletonMode(bool enabled=true);
     bool skeletonMode() const;
+    void setEditSkeleton(bool enabled=true);
+    bool isEditSkeleton() const;
     Skeleton * skeleton() const;
     void setSkeleton(Skeleton *skeleton);
     Language * language() const;
@@ -93,6 +96,7 @@ private:
     Phrase * previousPhrase() const;
 
 Q_SIGNALS:
+    void editSkeletonChanged();
     void skeletonModeChanged();
     void skeletonChanged();
     void languageChanged();
@@ -104,9 +108,11 @@ private:
     Q_DISABLE_COPY(EditorSession)
     ResourceManager * m_resourceManager;
     bool m_skeletonMode;
+    bool m_editSkeleton;
     Skeleton *m_skeleton;
     Language *m_language;
     Course *m_course;
+    Course *m_tmpCourseWhileSkeletonEditing;
     Unit *m_unit;
     Phrase *m_phrase;
 };

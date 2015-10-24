@@ -81,7 +81,6 @@ Item
             }
             ComboBox {
                 Layout.minimumWidth: 300
-                enabled: !buttonEditSkeleton.checked
                 model: SkeletonModel {
                     id: skeletonModel
                     resourceManager: g_resourceManager
@@ -97,6 +96,7 @@ Item
                 text: i18n("Edit Prototype")
                 iconName: "code-class"
                 checkable: true
+                onClicked: editorSession.editSkeleton = checked
             }
             Item { Layout.fillWidth: true }
             CheckBox {
@@ -129,6 +129,9 @@ Item
         RowLayout {
             id: courseRow
             visible: {
+                if (buttonEditSkeleton.checked) {
+                    return false
+                }
                 if (editorSession.skeletonMode && editorSession.course != null) {
                     return false
                 }
@@ -231,7 +234,7 @@ Item
             PhraseEditor {
                 visible: editorSession.phrase != null
                 phrase: editorSession.phrase
-                isSkeletonPhrase: buttonEditSkeleton.checked
+                isSkeletonPhrase: editorSession.editSkeleton
                 Layout.minimumWidth: Math.floor(main.width * 0.6)
                 Layout.fillHeight: true
             }

@@ -32,9 +32,11 @@
 EditorSession::EditorSession(QObject *parent)
     : QObject(parent)
     , m_skeletonMode(true)
+    , m_editSkeleton(false)
     , m_skeleton(nullptr)
     , m_language(nullptr)
     , m_course(nullptr)
+    , m_tmpCourseWhileSkeletonEditing(nullptr)
     , m_unit(nullptr)
     , m_phrase(nullptr)
 {
@@ -58,6 +60,27 @@ void EditorSession::setSkeletonMode(bool enabled)
 bool EditorSession::skeletonMode() const
 {
     return m_skeletonMode;
+}
+
+void EditorSession::setEditSkeleton(bool enabled)
+{
+    if (m_editSkeleton == enabled) {
+        return;
+    }
+    m_editSkeleton = enabled;
+    if (enabled) {
+        m_tmpCourseWhileSkeletonEditing = m_course;
+        setCourse(m_skeleton);
+    } else {
+        setCourse(m_tmpCourseWhileSkeletonEditing);
+        m_tmpCourseWhileSkeletonEditing = nullptr;
+    }
+    emit editSkeletonChanged();
+}
+
+bool EditorSession::isEditSkeleton() const
+{
+    return m_editSkeleton;
 }
 
 Skeleton * EditorSession::skeleton() const
