@@ -238,7 +238,11 @@ Phrase * EditorSession::nextPhrase() const
         Unit *unit = m_phrase->unit();
         int uIndex = unit->course()->unitList().indexOf(unit);
         if (uIndex < unit->course()->unitList().length() - 1) {
-            return unit->course()->unitList().at(uIndex + 1)->phraseList().first();
+            Unit *nextUnit = unit->course()->unitList().at(uIndex + 1);
+            if (nextUnit->phraseList().isEmpty()) {
+                return nullptr;
+            }
+            return nextUnit->phraseList().first();
         }
     }
     return nullptr;
