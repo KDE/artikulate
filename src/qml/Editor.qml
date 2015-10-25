@@ -218,6 +218,9 @@ Item
                         Connections {
                             target: editorSession
                             onPhraseChanged: {
+                                if (editorSession.phrase == null) {
+                                    return
+                                }
                                 phraseTree.expand(phraseModel.indexUnit(editorSession.phrase.unit))
                                 phraseTree.selection.setCurrentIndex(
                                     phraseModel.indexPhrase(editorSession.phrase),
