@@ -23,6 +23,7 @@
 
 #include <QSortFilterProxyModel>
 
+class Course;
 class CourseModel;
 class QSignalMapper;
 
@@ -48,8 +49,9 @@ public:
     virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const Q_DECL_OVERRIDE;
     void setView(CourseResourceView view);
     CourseResourceView view() const;
+    Q_INVOKABLE QVariant course(int row) const;
 
-signals:
+Q_SIGNALS:
     void courseModelChanged();
     void viewChanged();
     void sortOptionChanged();

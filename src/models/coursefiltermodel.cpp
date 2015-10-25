@@ -20,10 +20,9 @@
 
 #include "coursefiltermodel.h"
 #include "models/coursemodel.h"
-
-#include <QSortFilterProxyModel>
-
 #include <KLocalizedString>
+#include <QSortFilterProxyModel>
+#include <QVariant>
 #include <QDebug>
 
 CourseFilterModel::CourseFilterModel(QObject* parent)
@@ -47,6 +46,7 @@ void CourseFilterModel::setView(CourseFilterModel::CourseResourceView view)
     m_view = view;
     invalidateFilter();
     emit viewChanged();
+    emit filteredCountChanged();
 }
 
 CourseFilterModel::CourseResourceView CourseFilterModel::view() const
@@ -54,16 +54,27 @@ CourseFilterModel::CourseResourceView CourseFilterModel::view() const
     return m_view;
 }
 
-void CourseFilterModel::setCourseModel(CourseModel* courseModel)
+void CourseFilterModel::setCourseModel(CourseModel *courseModel)
 {
     if (courseModel == m_courseModel) {
         return;
     }
-
+    if (m_courseModel) {
+        disconnect(m_courseModel, &CourseModel::languageChanged,
+                this, &CourseFilterModel::filteredCountChanged);
+        disconnect(m_courseModel, &CourseModel::rowCountChanged,
+                this, &CourseFilterModel::filteredCountChanged);
+    }
     m_courseModel = courseModel;
+    connect(m_courseModel, &CourseModel::languageChanged,
+            this, &CourseFilterModel::filteredCountChanged);
+    connect(m_courseModel, &CourseModel::rowCountChanged,
+            this, &CourseFilterModel::filteredCountChanged);
+
     setSourceModel(m_courseModel);
     sort(0);
     emit courseModelChanged();
+    emit filteredCountChanged();
 }
 
 int CourseFilterModel::filteredCount() const
@@ -71,7 +82,7 @@ int CourseFilterModel::filteredCount() const
     return rowCount();
 }
 
-bool CourseFilterModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
+bool CourseFilterModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
     return QSortFilterProxyModel::lessThan(left, right);
 }
@@ -90,4 +101,9 @@ bool CourseFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourc
     default:
         return true;
     }
+}
+
+QVariant CourseFilterModel::course(int row) const
+{
+    return m_courseModel->data(m_courseModel->index(row, 0), CourseModel::DataRole);
 }

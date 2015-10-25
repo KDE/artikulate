@@ -61,12 +61,10 @@ public:
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
     Q_INVOKABLE QVariant course(int index) const;
 
-
 Q_SIGNALS:
     void courseChanged(int index);
     void resourceManagerChanged();
     void languageChanged();
-    void viewChanged();
     void rowCountChanged();
 
 private Q_SLOTS:

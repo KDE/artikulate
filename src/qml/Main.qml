@@ -102,21 +102,32 @@ ApplicationWindow {
 
             ComboBox {
                 id: comboCourse
+                enabled: {
+                    courseFilterModel.filteredCount == 0 ? false : true
+                }
                 Layout.minimumWidth: 200
-                model: CourseModel {
-                    id: courseModel
-                    resourceManager: g_resourceManager
-                    language: g_trainingSession.language
-                    onLanguageChanged: {
-                        if (courseModel.course(0)) {
-                            g_trainingSession.course = courseModel.course(0)
+                model: CourseFilterModel {
+                    id: courseFilterModel
+                    view: {
+                        kcfg_UseContributorResources
+                            ? CourseFilterModel.AllResources
+                            : CourseFilterModel.OnlyGetHotNewStuffResources
+                    }
+                    courseModel: CourseModel {
+                        id: courseModel
+                        resourceManager: g_resourceManager
+                        language: g_trainingSession.language
+                        onLanguageChanged: {
+                            if (courseFilterModel.course(0)) {
+                                g_trainingSession.course = courseFilterModel.course(0)
+                            }
                         }
                     }
                 }
                 textRole: "title"
                 onCurrentIndexChanged: {
-                    if (courseModel.course(currentIndex)) {
-                        g_trainingSession.course = courseModel.course(currentIndex)
+                    if (courseFilterModel.course(currentIndex)) {
+                        g_trainingSession.course = courseFilterModel.course(currentIndex)
                     }
                 }
             }

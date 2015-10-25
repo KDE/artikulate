@@ -46,7 +46,7 @@ Item {
             }
             Text {
                 text: {
-                    if (g_trainingSession.unit == null) {
+                    if (g_trainingSession.unit == null || g_trainingSession.course == null) {
                         return "";
                     }
                     return g_trainingSession.course.i18nTitle
