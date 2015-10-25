@@ -66,6 +66,7 @@ private Q_SLOTS:
     void onPhraseAdded();
     void onPhrasesAboutToBeRemoved(int first, int last);
     void onPhrasesRemoved();
+    void onPhraseChanged(QObject *phrase);
     void onUnitAboutToBeAdded(Unit *unit, int index);
     void onUnitAdded();
     void onUnitsAboutToBeRemoved(int first, int last);
@@ -74,9 +75,11 @@ private Q_SLOTS:
 
 private:
     void updateUnitMappings();
+    void updatePhraseMappings();
 
     Course *m_course;
     QSignalMapper *m_unitSignalMapper;
+    QSignalMapper *m_phraseSignalMapper;
 };
 
 #endif
