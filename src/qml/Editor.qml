@@ -212,6 +212,7 @@ Item
                             if (phraseModel.isPhrase(index)) {
                                 editorSession.phrase = phraseModel.phrase(index)
                             } else {
+                                editorSession.phrase = null
                                 editorSession.unit = phraseModel.unit(index)
                             }
                         }
@@ -231,7 +232,7 @@ Item
                 }
                 Button { // add units only if skeleton
                     id: newUnitButton
-                    visible: !editorSession.skeletonMode || buttonEditSkeleton.checked
+                    visible: !editorSession.skeletonMode || editorSession.editSkeleton
                     iconName: "list-add"
                     text: i18n("New Unit")
                     onClicked: phraseModel.course.createUnit()
@@ -241,6 +242,7 @@ Item
                 UnitEditor {
                     visible: editorSession.unit != null && editorSession.phrase == null
                     unit: editorSession.unit
+                    editPhrases: editorSession.skeletonMode && editorSession.editSkeleton
                 }
                 PhraseEditor {
                     visible: editorSession.phrase != null

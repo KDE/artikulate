@@ -74,6 +74,9 @@ Item {
                         Layout.maximumHeight: 100
                         text: root.phrase.text
                         onTextChanged: {
+                            if (root.phrase == null) {
+                                return
+                            }
                             root.phrase.text = text
                         }
                         onPhraseChanged: {

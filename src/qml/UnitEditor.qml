@@ -30,6 +30,7 @@ Item {
     height: 50
 
     property Unit unit
+    property bool editPhrases : false
 
     ColumnLayout {
         id: row
@@ -45,6 +46,13 @@ Item {
                     unit.title = text
                 }
             }
+        }
+        Button { // add units only if skeleton
+            id: newUnitButton
+            visible: root.editPhrases
+            iconName: "list-add"
+            text: i18n("Create Phrase")
+            onClicked: phraseModel.course.createPhrase(unit)
         }
         Item { //dummy
             Layout.fillHeight: true
