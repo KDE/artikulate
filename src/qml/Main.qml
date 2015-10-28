@@ -49,14 +49,6 @@ ApplicationWindow {
     property Learner learner: profileManager.activeProfile
     property ResourceManager resourceManager: g_resourceManager
 
-    Component.onCompleted: {
-        var learner = profileManager.activeProfile;
-        if (learner == null) {
-            return;
-        }
-        g_trainingSession.language = g_resourceManager.language(learner.activeGoal(Learner.Language))
-    }
-
     CourseModel {
         id: availableCourseModel
         resourceManager: g_resourceManager
@@ -67,6 +59,84 @@ ApplicationWindow {
         id: topMenu
     }
     menuBar: { kcfg_ShowMenuBar ? topMenu : null }
+
+    Component {
+        id: welcomeScreen
+        NewUserWelcome { }
+    }
+
+    Component {
+        id: trainingScreen
+        RowLayout {
+            id: mainRow
+            Layout.fillHeight: true
+            spacing: theme.spacing
+
+            TreeView {
+                id: phraseTree
+                Layout.preferredWidth: Math.floor(main.width * 0.3)
+                Layout.fillHeight: true
+                TableViewColumn {
+                    title: i18n("Categories")
+                    role: "text"
+                }
+                model: PhraseModel {
+                    id: phraseModel
+                    course: g_trainingSession.course
+                }
+                selection: ItemSelectionModel {
+                    model: phraseTree.model
+                }
+                itemDelegate: Item {
+                    property bool isUnit: phraseModel.isUnit(styleData.index)
+                    Component {
+                        id: unitRowBackground
+                        Rectangle {anchors.fill: parent; color: "steelblue"}
+                    }
+                    Loader {
+                        anchors.fill: parent
+                        sourceComponent: isUnit ? unitRowBackground : null
+                    }
+                    Text {
+                        width: phraseTree.width - 100 //TODO check if this is really a reasonable value
+                        anchors {
+                            verticalCenter: parent.verticalCenter
+                            topMargin: 5
+                            bottomMargin: 5
+                        }
+                        color: {
+                            if (isUnit) {
+                                return "white";
+                            }
+                            return styleData.textColor
+                        }
+                        elide: Text.ElideRight
+                        text: " " + styleData.value
+                        font.bold: isUnit
+                    }
+                }
+                onClicked: {
+                    g_trainingSession.phrase = phraseModel.phrase(index)
+                }
+                Connections {
+                    target: g_trainingSession
+                    onPhraseChanged: {
+                        phraseTree.expand(phraseModel.indexUnit(g_trainingSession.phrase.unit))
+                        phraseTree.selection.setCurrentIndex(
+                            phraseModel.indexPhrase(g_trainingSession.phrase),
+                            ItemSelectionModel.ClearAndSelect)
+                    }
+                }
+            }
+
+            TrainerSessionScreen {
+                id: trainerMain
+                Layout.alignment: Qt.AlignTop
+                Layout.preferredWidth: Math.floor(main.width * 0.7) - 30
+                Layout.fillHeight: true
+            }
+        }
+    }
 
     ToolBar{
         id: mainToolBar
@@ -218,75 +288,14 @@ ApplicationWindow {
             bottomMargin: theme.spacing
         }
 
-        RowLayout {
-            id: mainRow
-            spacing: theme.spacing
-
-            TreeView {
-                id: phraseTree
-                Layout.preferredWidth: Math.floor(main.width * 0.3)
-                Layout.fillHeight: true
-                TableViewColumn {
-                    title: i18n("Categories")
-                    role: "text"
-                }
-                model: PhraseModel {
-                    id: phraseModel
-                    course: g_trainingSession.course
-                }
-                selection: ItemSelectionModel {
-                    model: phraseTree.model
-                }
-                itemDelegate: Item {
-                    property bool isUnit: phraseModel.isUnit(styleData.index)
-                    Component {
-                        id: unitRowBackground
-                        Rectangle {anchors.fill: parent; color: "steelblue"}
-                    }
-                    Loader {
-                        anchors.fill: parent
-                        sourceComponent: isUnit ? unitRowBackground : null
-                    }
-                    Text {
-                        width: phraseTree.width - 100 //TODO check if this is really a reasonable value
-                        anchors {
-                            verticalCenter: parent.verticalCenter
-                            topMargin: 5
-                            bottomMargin: 5
-                        }
-                        color: {
-                            if (isUnit) {
-                                return "white";
-                            }
-                            return styleData.textColor
-                        }
-                        elide: Text.ElideRight
-                        text: " " + styleData.value
-                        font.bold: isUnit
-                    }
-                }
-                onClicked: {
-                    g_trainingSession.phrase = phraseModel.phrase(index)
-                }
-                Connections {
-                    target: g_trainingSession
-                    onPhraseChanged: {
-                        phraseTree.expand(phraseModel.indexUnit(g_trainingSession.phrase.unit))
-                        phraseTree.selection.setCurrentIndex(
-                            phraseModel.indexPhrase(g_trainingSession.phrase),
-                            ItemSelectionModel.ClearAndSelect)
-                    }
-                }
-            }
-
-            TrainerSessionScreen {
-                id: trainerMain
-                Layout.alignment: Qt.AlignTop
-                Layout.preferredWidth: Math.floor(main.width * 0.7) - 30
-                Layout.fillHeight: true
+        Loader {
+            Layout.fillHeight: true
+            sourceComponent: {
+                g_trainingSession.language == null && courseFilterModel.filteredCount == 0
+                    ? welcomeScreen
+                    : trainingScreen
             }
         }
-
     }
 
     //FIXME setup dialog deactivated for refactoring

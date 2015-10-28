@@ -229,6 +229,13 @@ void MainWindow::downloadNewStuff()
                     continue;
                 }
                 CourseResource *resource = new CourseResource(m_resourceManager, QUrl::fromLocalFile(path));
+                // set as active course if no training course is set
+                if (!m_trainingSession->course()) {
+                    m_trainingSession->setCourse(resource->course());
+                    m_trainingSession->setLanguage(resource->course()->language());
+                }
+                // update learning goals
+                //TODO will be gone after refactoring
                 foreach (LearningGoal *goal, m_profileManager->goals()) {
                     if (goal->category() == LearningGoal::Language
                         && goal->identifier() == resource->language()

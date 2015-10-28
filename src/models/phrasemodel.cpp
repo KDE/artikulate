@@ -113,6 +113,9 @@ QVariant PhraseModel::data(const QModelIndex &index, int role) const
     }
 
     if (!index.internalPointer()) {
+        if (!m_course || m_course->unitList().size() == 0) {
+            return QVariant();
+        }
         Unit *unit = m_course->unitList().at(index.row());
         switch(role)
         {
