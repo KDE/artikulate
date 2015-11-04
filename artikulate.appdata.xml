@@ -7,6 +7,7 @@
   <name xml:lang="ast">Artikulate</name>
   <name xml:lang="bs">Artikulate</name>
   <name xml:lang="ca">Artikulate</name>
+  <name xml:lang="ca-valencia">Artikulate</name>
   <name xml:lang="cs">Artikulate</name>
   <name xml:lang="da">Artikulate</name>
   <name xml:lang="de">Artikulate</name>
@@ -35,6 +36,7 @@
   <summary>Artikulate Pronunciation Trainer</summary>
   <summary xml:lang="bs">Artikulate vježba izgovora</summary>
   <summary xml:lang="ca">Entrenador de la pronunciació Artikulate</summary>
+  <summary xml:lang="ca-valencia">Entrenador de la pronunciació Artikulate</summary>
   <summary xml:lang="cs">Artikulate - učitel výslovnosti</summary>
   <summary xml:lang="da">Artikulate udtaletræning</summary>
   <summary xml:lang="de">Artikulate-Aussprachetrainer</summary>
@@ -64,6 +66,7 @@
     <p>Artikulate is a pronunciation trainer that helps improving and perfecting a learner's pronunciation skills for a foreign language. It provides courses with native speaker recordings for several training languages. The learner downloads those courses, selects a category of phrases to train, then starts with recording her/his own voice when speaking the phrases and comparing the results to the native speaker's recordings by listening to both. By adjusting and repeating the own pronunciation, the learner can improve his/her skill.</p>
     <p xml:lang="bs">Artikulate je trener izgovora koji poboljšava i usavršava izgovorne vještine za učenike stranih jezik. Ona pruža kurseve sa  snimcima na maternjem jeziku za nekoliko jezika obuke. Učenik preuzima ove kurseve, bira kategoriju fraza za obuku, a zatim počinje sa snimanjem njegovog/njenog glasa pri izgovoru fraze.i Porede se rezultati snimaka na maternji i slušaju oba. Podešavanjem i ponavljanja sopstvenog izgovora, učenik može da poboljša njegovu / njenu vještinu.</p>
     <p xml:lang="ca">L'Artikulate és un entrenador de pronunciació que ajuda a millor i perfeccionar les habilitats de pronunciació d'un alumne d'un idioma estranger. Proporciona cursos amb enregistraments d'un parlant natiu. L'alumne baixa aquests cursos, selecciona una categoria de frases per entrenar, després comença enregistrant la seva pròpia veu en pronunciar les frases i compara els resultats amb els enregistraments del parlant natiu escoltant els dos. Ajustant i repetint la pronunciació pròpia, l'alumne pot millorar la seva habilitat.</p>
+    <p xml:lang="ca-valencia">L'Artikulate és un entrenador de pronunciació que ajuda a millor i perfeccionar les habilitats de pronunciació d'un alumne d'un idioma estranger. Proporciona cursos amb enregistraments d'un parlant natiu. L'alumne baixa estos cursos, selecciona una categoria de frases per entrenar, després comença enregistrant la seua pròpia veu en pronunciar les frases i compara els resultats amb els enregistraments del parlant natiu escoltant els dos. Ajustant i repetint la pronunciació pròpia, l'alumne pot millorar la seua habilitat.</p>
     <p xml:lang="da">Artikulate er udtaletræning som hjælper med at forbedre og perfektionere din udtale af et fremmedsprog. Det leverer kurser med modersmåloptagelser for flere øvelsessprog. Eleven downloader disse kurser, vælger en kategori af fraser der skal øves, og begynder så at optage sin egen stemme når fraserne udtales og sammenligner resultaterne med modersmåloptagelserne ved at lytte til begge. Ved at justere og gentage den egen udtale, kan eleven forbedre sine evner.</p>
     <p xml:lang="de">Artikulate ist eine Anwendung zum Üben der Aussprache und hilft beim Verbessern und Perfektionieren Ihrer Aussprachefähigkeiten für eine fremde Sprache. Dazu können Übungen mit Aufnahmen von Muttersprachlern für mehrere Zielsprachen heruntergeladen werden. Dann wird eine Gruppe von Redewendungen ausgewählt, die eigene Stimme beim Aussprechen der Redewendungen aufgenommen und mit den Aufnahmen von Muttersprachlern verglichen. Durch Anpassen und Wiederholen kann die eigene Aussprache verbessert werden.</p>
     <p xml:lang="en-GB">Artikulate is a pronunciation trainer that helps improving and perfecting a learner's pronunciation skills for a foreign language. It provides courses with native speaker recordings for several training languages. The learner downloads those courses, selects a category of phrases to train, then starts with recording her/his own voice when speaking the phrases and comparing the results to the native speaker's recordings by listening to both. By adjusting and repeating the own pronunciation, the learner can improve his/her skill.</p>
