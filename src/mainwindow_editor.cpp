@@ -153,9 +153,9 @@ void MainWindowEditor::showSettingsDialog()
     dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Fonts"), "preferences-desktop-font", i18nc("@title:tab", "Training Phrase Font"), true);
     dialog->addPage(resourceDialog, i18nc("@item:inmenu", "Course Resources"), "repository", i18nc("@title:tab", "Resource Repository Settings"), true);
 
-    connect(dialog, &QDialog::accepted, resourceDialog, &ResourcesDialogPage::saveSettings);
-    connect(dialog, &QDialog::accepted, soundDialog, &SoundDeviceDialogPage::saveSettings);
-    connect(dialog, &QDialog::accepted, appearenceDialog, &AppearenceDialogPage::saveSettings);
+    connect(dialog.data(), &QDialog::accepted, resourceDialog, &ResourcesDialogPage::saveSettings);
+    connect(dialog.data(), &QDialog::accepted, soundDialog, &SoundDeviceDialogPage::saveSettings);
+    connect(dialog.data(), &QDialog::accepted, appearenceDialog, &AppearenceDialogPage::saveSettings);
 
     dialog->exec();
 }
