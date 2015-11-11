@@ -28,8 +28,8 @@ import artikulate 1.0
 ApplicationWindow {
     id: root
     visible: true
-    minimumWidth: 600
-    minimumHeight: 400
+    minimumWidth: 800
+    minimumHeight: 600
 
     signal triggerDownloadCourses();
     signal triggerSettingsDialog();

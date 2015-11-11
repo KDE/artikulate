@@ -63,6 +63,7 @@ Item {
                 Layout.alignment: Qt.AlignTop
                 Layout.fillWidth: true
                 Layout.preferredHeight: main.height / 2
+                Layout.minimumWidth: buttonNativePlay.width + 20
                 color: "lightsteelblue"
 
                 TextArea {
