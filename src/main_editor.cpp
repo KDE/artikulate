@@ -42,9 +42,7 @@ int main(int argc, char **argv)
                         ki18nc("@info:credit Role", "Original Author").toString(),
                         "cordlandwehr@kde.org");
 
-
-    // TODO: for >=KF5.15 use KCrash::initialize();
-    KCrash::setCrashHandler(KCrash::defaultCrashHandler);
+    KCrash::initialize();
 
     Application app(argc, argv);
     KAboutData::setApplicationData(aboutData);

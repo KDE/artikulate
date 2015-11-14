@@ -52,8 +52,7 @@ int main(int argc, char **argv)
     aboutData.addAuthor(ki18nc("@info:credit Developer name", "Magdalena Konkiewicz").toString(),
                         ki18nc("@info:credit Role", "Developer and Course Data").toString());
 
-    // TODO: for >=KF5.15 use KCrash::initialize();
-    KCrash::setCrashHandler(KCrash::defaultCrashHandler);
+    KCrash::initialize();
 
     Application app(argc, argv);
     KAboutData::setApplicationData(aboutData);
