@@ -23,6 +23,7 @@
 #include "mainwindow_editor.h"
 
 #include <KAboutData>
+#include <KCrash>
 #include <KLocalizedString>
 #include <QDebug>
 
@@ -40,6 +41,10 @@ int main(int argc, char **argv)
     aboutData.addAuthor(ki18nc("@info:credit Developer name", "Andreas Cord-Landwehr").toString(),
                         ki18nc("@info:credit Role", "Original Author").toString(),
                         "cordlandwehr@kde.org");
+
+
+    // TODO: for >=KF5.15 use KCrash::initialize();
+    KCrash::setCrashHandler(KCrash::defaultCrashHandler);
 
     Application app(argc, argv);
     KAboutData::setApplicationData(aboutData);
