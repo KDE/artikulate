@@ -90,6 +90,7 @@ public:
     bool hasNextPhrase() const;
     Q_INVOKABLE void switchToPreviousPhrase();
     Q_INVOKABLE void switchToNextPhrase();
+    Q_INVOKABLE void updateCourseFromSkeleton();
 
 private:
     Phrase * nextPhrase() const;

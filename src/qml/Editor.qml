@@ -99,6 +99,15 @@ Item
                 onClicked: editorSession.editSkeleton = checked
             }
             Item { Layout.fillWidth: true }
+            Button {
+                id: buttonSyncFromSkeleton
+                enabled: !buttonEditSkeleton.checked
+                Layout.minimumWidth: 200
+                text: i18n("Sync Prototype")
+                tooltip: i18n("Update the course with elements from prototype.")
+                iconName: "view-refresh"
+                onClicked: editorSession.updateCourseFromSkeleton()
+            }
             CheckBox {
                 Layout.alignment: Qt.AlignRight
                 enabled: false//FIXME for now deactivating non-skeleton mode

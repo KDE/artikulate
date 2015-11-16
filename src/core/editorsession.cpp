@@ -267,3 +267,12 @@ bool EditorSession::hasNextPhrase() const
 {
     return nextPhrase() != nullptr;
 }
+
+void EditorSession::updateCourseFromSkeleton()
+{
+    if (!m_course) {
+        qCritical() << "Not updating course from skeleton, no one set.";
+        return;
+    }
+    m_resourceManager->updateCourseFromSkeleton(m_course);
+}
