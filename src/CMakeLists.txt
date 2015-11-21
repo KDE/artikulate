@@ -71,6 +71,7 @@ target_link_libraries(artikulatecore
         artikulatelearnerprofile
         artikulatesound
         Qt5::XmlPatterns
+        KF5::Archive
         KF5::ConfigGui
         KF5::WidgetsAddons
 )
@@ -147,11 +148,13 @@ set(artikulate_editor_SRCS
     ui/sounddevicedialogpage.cpp
     ui/appearencedialogpage.cpp
     ui/resourcesdialogpage.cpp
+    ui/exportghnsdialog.cpp
 )
 qt5_wrap_ui (artikulate_editor_SRCS
     ui/resourcesdialogpage.ui
     ui/sounddevicedialogpage.ui
     ui/appearencedialogpage.ui
+    ui/exportghnsdialog.ui
 )
 kconfig_add_kcfg_files (artikulate_editor_SRCS settings.kcfgc)
 

@@ -66,8 +66,8 @@ Q_SIGNALS:
 
 private:
     ResourceManager *m_resourceManager;
-    QQuickWidget *m_widget;
     EditorSession *m_editorSession;
+    QQuickWidget *m_widget;
 };
 
 #endif

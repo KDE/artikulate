@@ -27,6 +27,7 @@
 #include <QObject>
 
 class QDomElement;
+class QString;
 class CourseResourcePrivate;
 class Course;
 class Unit;
@@ -78,6 +79,11 @@ public:
     virtual void sync();
 
     /**
+     * export course as <course-id>.tar.bz2 file in the specified folder.
+     */
+    void exportGhns(const QString &path);
+
+    /**
      * close resource without writing changes back to file
      */
     virtual void close();
@@ -101,7 +107,12 @@ public:
 
 private:
     Phrase * parsePhrase(QDomElement phraseNode, Unit *parentUnit) const;
-    QDomElement serializePhrase(Phrase * phrase, QDomDocument &document);
+    /**
+     * \return serialized course as DOM document
+     * \param trainingExport if true phrases without recording and empty units are excluded
+     */
+    QDomDocument serializedDocument(bool trainingExport=false) const;
+    QDomElement serializedPhrase(Phrase * phrase, QDomDocument &document) const;
 
     const QScopedPointer<CourseResourcePrivate> d;
 };

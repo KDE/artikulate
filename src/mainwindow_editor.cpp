@@ -22,6 +22,7 @@
 #include "ui/resourcesdialogpage.h"
 #include "ui/sounddevicedialogpage.h"
 #include "ui/appearencedialogpage.h"
+#include "ui/exportghnsdialog.h"
 #include "core/resourcemanager.h"
 #include "core/editorsession.h"
 #include "core/resources/courseresource.h"
@@ -56,8 +57,8 @@
 using namespace LearnerProfile;
 
 MainWindowEditor::MainWindowEditor()
-    : m_editorSession(new EditorSession(this))
-    , m_resourceManager(new ResourceManager(this))
+    : m_resourceManager(new ResourceManager(this))
+    , m_editorSession(new EditorSession(this))
     , m_widget(new QQuickWidget)
 {
     m_editorSession->setResourceManager(m_resourceManager);
@@ -124,9 +125,17 @@ ResourceManager * MainWindowEditor::resourceManager() const
 void MainWindowEditor::setupActions()
 {
     QAction *settingsAction = new QAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
-    connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
+    connect(settingsAction, &QAction::triggered, this, &MainWindowEditor::showSettingsDialog);
     actionCollection()->addAction("settings", settingsAction);
     settingsAction->setIcon(QIcon::fromTheme("configure"));
+
+    QAction *exportAction = new QAction(i18nc("@item:inmenu", "Export GHNS Files"), this);
+    connect(exportAction, &QAction::triggered, [=]() {
+        QPointer<QDialog> dialog = new ExportGhnsDialog(m_resourceManager);
+        dialog->exec();
+    });
+    actionCollection()->addAction("export_ghns", exportAction);
+    exportAction->setIcon(QIcon::fromTheme("document-export"));
 
     KStandardAction::quit(this, SLOT(quit()), actionCollection());
 
