@@ -42,7 +42,6 @@
 #include <QCloseEvent>
 #include <QCoreApplication>
 #include <QDebug>
-#include <QDebug>
 #include <QGraphicsObject>
 #include <QIcon>
 #include <QPointer>
