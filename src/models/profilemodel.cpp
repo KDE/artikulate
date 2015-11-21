@@ -25,7 +25,7 @@
 #include <QAbstractListModel>
 #include <QSignalMapper>
 #include <KLocalizedString>
-#include <QDebug>
+#include "artikulate_debug.h"
 
 using namespace LearnerProfile;
 

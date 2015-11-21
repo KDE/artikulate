@@ -130,7 +130,7 @@ public:
      *
      * \param course the course to be update
      */
-    Q_INVOKABLE void updateCourseFromSkeleton(Course *course);
+    void updateCourseFromSkeleton(Course *course);
 
     /**
      * Add language to resource manager by parsing the given language specification file.

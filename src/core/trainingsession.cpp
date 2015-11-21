@@ -24,7 +24,7 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/phonemegroup.h"
-#include <QDebug>
+#include "artikulate_debug.h"
 
 TrainingSession::TrainingSession(QObject *parent)
     : QObject(parent)
@@ -127,7 +127,7 @@ void TrainingSession::showNextPhrase()
 void TrainingSession::skipPhrase()
 {
     //FIXME
-    qWarning() << "Learning profile update not implemented";
+    qCWarning(ARTIKULATE_LOG) << "Learning profile update not implemented";
     showNextPhrase();
 }
 

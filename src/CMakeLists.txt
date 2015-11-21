@@ -23,7 +23,7 @@
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-ecm_setup_version(0.5.0
+ecm_setup_version(0.6.0
     VARIABLE_PREFIX ARTIKULATE
     VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/version.h"
     PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/ArtikulateConfigVersion.cmake"
@@ -56,6 +56,7 @@ set(artikulateCore_SRCS
     core/player.cpp
     core/recorder.cpp
     ui/newcoursedialog.cpp
+    artikulate_debug.cpp
 )
 
 # compile UI files
@@ -92,6 +93,7 @@ set(artikulate_SRCS
     main.cpp
     mainwindow.cpp
     application.cpp
+    artikulate_debug.cpp
 
     models/coursemodel.cpp
     models/coursefiltermodel.cpp
@@ -124,6 +126,7 @@ set(artikulate_editor_SRCS
     main_editor.cpp
     mainwindow_editor.cpp
     application.cpp
+    artikulate_debug.cpp
 
     models/coursemodel.cpp
     models/coursefiltermodel.cpp

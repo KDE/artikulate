@@ -22,7 +22,7 @@
 #include "libsound/src/capturedevicecontroller.h"
 
 #include <QList>
-#include <QDebug>
+#include "artikulate_debug.h"
 #include <QDir>
 #include <QUrl>
 #include <QString>
@@ -49,11 +49,11 @@ Recorder::CaptureState Recorder::state() const
 void Recorder::startCapture()
 {
     if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState) {
-        qWarning() << "Stopped capture before starting new capture, since was still active.";
+        qCWarning(ARTIKULATE_LOG) << "Stopped capture before starting new capture, since was still active.";
         CaptureDeviceController::self().stopCapture();
     }
     m_recordingBufferFile.open();
-    qDebug() << "Start recording to temporary file " << m_recordingBufferFile.fileName();
+    qCDebug(ARTIKULATE_LOG) << "Start recording to temporary file " << m_recordingBufferFile.fileName();
     CaptureDeviceController::self().startCapture(m_recordingBufferFile.fileName());
     m_state = RecordingState;
     emit stateChanged();

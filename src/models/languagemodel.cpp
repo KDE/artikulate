@@ -22,7 +22,7 @@
 #include "models/languageresourcemodel.h"
 
 #include <QSortFilterProxyModel>
-#include <QDebug>
+#include "artikulate_debug.h"
 #include <KLocalizedString>
 
 LanguageModel::LanguageModel(QObject* parent)

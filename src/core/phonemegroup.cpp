@@ -21,7 +21,7 @@
 #include "phonemegroup.h"
 #include "phoneme.h"
 
-#include <QDebug>
+#include "artikulate_debug.h"
 
 PhonemeGroup::PhonemeGroup(QObject *parent)
     : QObject(parent)
@@ -87,7 +87,7 @@ void PhonemeGroup::addPhoneme(Phoneme *phoneme)
     QList<Phoneme *>::ConstIterator iter = m_phonemes.constBegin();
     while (iter != m_phonemes.constEnd()) {
         if (QString::compare((*iter)->id(), phoneme->id()) == 0) {
-            qWarning() << "Phoneme identifier already registered in group "<< m_title <<", aborting";
+            qCWarning(ARTIKULATE_LOG) << "Phoneme identifier already registered in group "<< m_title <<", aborting";
             return;
         }
         ++iter;
@@ -103,7 +103,7 @@ Phoneme * PhonemeGroup::addPhoneme(const QString &identifier, const QString &tit
     QList<Phoneme *>::ConstIterator iter = m_phonemes.constBegin();
     while (iter != m_phonemes.constEnd()) {
         if (QString::compare((*iter)->id(), identifier) == 0) {
-            qWarning() << "Phoneme identifier " << identifier <<" already registered in group "
+            qCWarning(ARTIKULATE_LOG) << "Phoneme identifier " << identifier <<" already registered in group "
                 << m_title <<", aborting";
             return 0;
         }

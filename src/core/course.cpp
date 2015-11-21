@@ -26,7 +26,7 @@
 #include "resourcemanager.h"
 #include "phonemegroup.h"
 
-#include <QDebug>
+#include "artikulate_debug.h"
 #include <KLocalizedString>
 #include <QStringList>
 #include <QPair>
@@ -153,7 +153,7 @@ void Course::addUnit(Unit *unit)
     QList<Unit*>::ConstIterator iter = m_unitList.constBegin();
     while (iter != m_unitList.constEnd()) {
         if (unit->id() == (*iter)->id()) {
-            qWarning() << "Unit already contained in this course, aborting";
+            qCWarning(ARTIKULATE_LOG) << "Unit already contained in this course, aborting";
             return;
         }
         ++iter;
@@ -184,7 +184,7 @@ Unit * Course::createUnit()
     QString id = QUuid::createUuid().toString();
     while (unitIds.contains(id)) {
         id = QUuid::createUuid().toString();
-        qWarning() << "Unit id generator has found a collision, recreating id.";
+        qCWarning(ARTIKULATE_LOG) << "Unit id generator has found a collision, recreating id.";
     }
 
     // create unit
@@ -209,7 +209,7 @@ Phrase * Course::createPhrase(Unit *unit)
     QString id = QUuid::createUuid().toString();
     while (phraseIds.contains(id)) {
         id = QUuid::createUuid().toString();
-        qWarning() << "Phrase id generator has found a collision, recreating id.";
+        qCWarning(ARTIKULATE_LOG) << "Phrase id generator has found a collision, recreating id.";
     }
 
     // create unit
@@ -267,7 +267,7 @@ PhonemeGroup * Course::phonemeGroup(Unit *unit) const
 void Course::addPhonemeGroup(PhonemeGroup *phonemeGroup)
 {
     if (m_phonemeUnitList.contains(phonemeGroup)) {
-        qWarning() << "Phoneme group already contained in this course, aborting";
+        qCWarning(ARTIKULATE_LOG) << "Phoneme group already contained in this course, aborting";
         return;
     }
     emit phonemeGroupAboutToBeAdded(phonemeGroup, m_phonemeGroupList.count());

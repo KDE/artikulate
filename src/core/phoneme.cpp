@@ -19,7 +19,7 @@
  */
 
 #include "phoneme.h"
-#include <QDebug>
+#include "artikulate_debug.h"
 
 Phoneme::Phoneme(QObject *parent)
     : QObject(parent)

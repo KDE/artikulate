@@ -36,7 +36,7 @@
 #include <QFileInfo>
 #include <QDir>
 
-#include <QDebug>
+#include "artikulate_debug.h"
 
 class CourseResourcePrivate
 {
@@ -158,14 +158,14 @@ void CourseResource::sync()
 
     // if resource was never loaded, it cannot be changed
     if (d->m_courseResource == 0) {
-        qDebug() << "Aborting sync, course was not parsed.";
+        qCDebug(ARTIKULATE_LOG) << "Aborting sync, course was not parsed.";
         return;
     }
 
 //TODO
 //     // not writing back if not modified
 //     if (!d->m_courseResource->modified()) {
-//         qDebug() << "Aborting sync, course was not modified.";
+//         qCDebug(ARTIKULATE_LOG) << "Aborting sync, course was not modified.";
 //         return;
 //     }
 
@@ -229,17 +229,17 @@ void CourseResource::sync()
     root.appendChild(unitListElement);
 
     // write back to file
-    QFileInfo info(path().path());    // create directories if necessary
+    QFileInfo info(path().adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());    // create directories if necessary
     if (!info.exists()) {
-        qDebug() << "create xml output file directory, not existing";
+        qCDebug(ARTIKULATE_LOG) << "create xml output file directory, not existing";
         QDir dir;
-        dir.mkpath(path().path());
+        dir.mkpath(path().adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
     }
 
     //TODO port to KSaveFile
     QFile file(path().toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
-        qWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+        qCWarning(ARTIKULATE_LOG) << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;
     }
 
@@ -335,7 +335,7 @@ QObject * CourseResource::resource()
     }
     QDomDocument document = loadDomDocument(path(), schema);
     if (document.isNull()) {
-        qWarning() << "Could not parse document " << path().toLocalFile() << ", aborting.";
+        qCWarning(ARTIKULATE_LOG) << "Could not parse document " << path().toLocalFile() << ", aborting.";
         return 0;
     }
 
@@ -361,7 +361,7 @@ QObject * CourseResource::resource()
         }
     }
     if (d->m_courseResource->language() == 0) {
-        qWarning() << "Language ID" << language << "unknown, could not register any language, aborting";
+        qCWarning(ARTIKULATE_LOG) << "Language ID" << language << "unknown, could not register any language, aborting";
         return 0;
     }
 
@@ -407,7 +407,8 @@ Phrase* CourseResource::parsePhrase(QDomElement phraseNode, Unit* parentUnit) co
     phrase->setUnit(parentUnit);
     if (!phraseNode.firstChildElement("soundFile").text().isEmpty()) {
         phrase->setSound(QUrl::fromLocalFile(
-                path().path() + '/' + phraseNode.firstChildElement("soundFile").text())
+                path().adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path()
+                + '/' + phraseNode.firstChildElement("soundFile").text())
             );
     }
     phrase->setType(phraseNode.firstChildElement("type").text());

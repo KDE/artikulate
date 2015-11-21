@@ -43,7 +43,7 @@
 #include <QUuid>
 #include <QDir>
 #include <QDirIterator>
-#include <QDebug>
+#include "artikulate_debug.h"
 #include <QUrl>
 #include <QStandardPaths>
 
@@ -154,11 +154,11 @@ void ResourceManager::sync()
 {
     QMap< QString, QList< CourseResource* > >::iterator iter;
     for (iter = m_courseResources.begin(); iter != m_courseResources.end(); ++iter) {
-        foreach (auto courseRes, iter.value()) {
+        foreach (auto const &courseRes, iter.value()) {
             courseRes->sync();
         }
     }
-    foreach (auto courseRes, m_skeletonResources) {
+    foreach (auto const &courseRes, m_skeletonResources) {
         courseRes->sync();
     }
 }
@@ -167,13 +167,13 @@ bool ResourceManager::modified() const
 {
     QMap< QString, QList< CourseResource* > >::const_iterator iter;
     for (iter = m_courseResources.constBegin(); iter != m_courseResources.constEnd(); ++iter) {
-        foreach (auto courseRes, iter.value()) {
+        foreach (auto const &courseRes, iter.value()) {
             if (courseRes->isOpen() && courseRes->course()->modified()) {
                 return true;
             }
         }
     }
-    foreach (auto courseRes, m_skeletonResources) {
+    foreach (auto const &courseRes, m_skeletonResources) {
         if (courseRes->isOpen() && courseRes->skeleton()->modified()) {
             return true;
         }
@@ -367,7 +367,7 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
     }
     // FIXME deassociate removed phrases
 
-    qDebug() << "Update performed!";
+    qCDebug(ARTIKULATE_LOG) << "Update performed!";
 }
 
 CourseResource * ResourceManager::addCourse(const QUrl &courseFile)

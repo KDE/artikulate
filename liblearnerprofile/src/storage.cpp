@@ -21,7 +21,7 @@
 #include "storage.h"
 #include "learner.h"
 
-#include <QDebug>
+#include "liblearner_debug.h"
 #include <QDir>
 #include <KLocalizedString>
 
@@ -165,7 +165,7 @@ bool Storage::removeProfile(Learner *learner)
 
 bool Storage::removeRelation(Learner *learner, LearningGoal *goal)
 {
-qDebug() << "remove relation";
+qCDebug(LIBLEARNER_LOG) << "remove relation";
     QSqlDatabase db = database();
     QSqlQuery removeGoalRelationQuery(db);
     removeGoalRelationQuery.prepare(
@@ -333,7 +333,7 @@ QSqlDatabase Storage::database()
     if (!dir.exists()) {
         dir.mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     }
-    qDebug() << "Database path: " << path;
+    qCDebug(LIBLEARNER_LOG) << "Database path: " << path;
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(path);
@@ -384,7 +384,7 @@ bool Storage::updateSchema()
     }
     else {
         if (!db.transaction()) {
-            qWarning() <<  db.lastError().text();
+            qCWarning(LIBLEARNER_LOG) <<  db.lastError().text();
             raiseError(db.lastError());
             return false;
         }

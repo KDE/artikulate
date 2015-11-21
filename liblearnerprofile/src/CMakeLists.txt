@@ -29,6 +29,7 @@ set(learnerprofile_LIB_SRCS
     profilemanager.cpp
     storage.cpp
     models/learninggoalmodel.cpp
+    liblearner_debug.cpp
 )
 
 add_library(artikulatelearnerprofile SHARED ${learnerprofile_LIB_SRCS})

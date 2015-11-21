@@ -24,7 +24,7 @@
 #include <QSortFilterProxyModel>
 
 #include <KLocalizedString>
-#include <QDebug>
+#include "artikulate_debug.h"
 
 UnitFilterModel::UnitFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)

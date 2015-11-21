@@ -24,7 +24,7 @@
 #include "core/resourcemanager.h"
 #include "core/resources/courseresource.h"
 #include <QAbstractListModel>
-#include <QDebug>
+#include "artikulate_debug.h"
 #include <QSignalMapper>
 #include <KLocalizedString>
 
@@ -180,7 +180,7 @@ void CourseModel::onCourseResourceAboutToBeRemoved(int index)
     int modelIndex = m_resources.indexOf(originalResource);
 
     if (modelIndex == -1) {
-        qWarning() << "Cannot remove course from model, not registered";
+        qCWarning(ARTIKULATE_LOG) << "Cannot remove course from model, not registered";
         return;
     }
     beginRemoveRows(QModelIndex(), modelIndex, modelIndex);
@@ -209,7 +209,7 @@ QVariant CourseModel::headerData(int section, Qt::Orientation orientation, int r
 void CourseModel::updateMappings()
 {
     if (!m_language) {
-        qDebug() << "Aborting to update mappings, language not set.";
+        qCDebug(ARTIKULATE_LOG) << "Aborting to update mappings, language not set.";
         return;
     }
     int courses = m_resources.count();

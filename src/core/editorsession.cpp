@@ -27,7 +27,7 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/resourcemanager.h"
-#include <QDebug>
+#include "artikulate_debug.h"
 
 EditorSession::EditorSession(QObject *parent)
     : QObject(parent)
@@ -266,4 +266,13 @@ bool EditorSession::hasPreviousPhrase() const
 bool EditorSession::hasNextPhrase() const
 {
     return nextPhrase() != nullptr;
+}
+
+void EditorSession::updateCourseFromSkeleton()
+{
+    if (!m_course) {
+        qCritical() << "Not updating course from skeleton, no one set.";
+        return;
+    }
+    m_resourceManager->updateCourseFromSkeleton(m_course);
 }

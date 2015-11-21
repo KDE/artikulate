@@ -25,7 +25,7 @@
 #include <KAboutData>
 #include <KCrash>
 #include <KLocalizedString>
-#include <QDebug>
+#include "artikulate_debug.h"
 
 int main(int argc, char **argv)
 {

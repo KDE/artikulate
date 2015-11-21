@@ -24,7 +24,7 @@
 
 #include <QObject>
 #include <QList>
-#include <QDebug>
+#include "liblearner_debug.h"
 #include <KConfigCore/KConfig>
 #include <KConfigCore/KConfigGroup>
 #include <QFileDialog>
@@ -82,7 +82,7 @@ LearnerProfile::ProfileManagerPrivate::ProfileManagerPrivate()
         }
     }
     if (m_activeProfile == 0) {
-        qDebug() << "No last active profile found, falling back to first found profile";
+        qCDebug(LIBLEARNER_LOG) << "No last active profile found, falling back to first found profile";
         if (m_profiles.size() > 0) {
             m_activeProfile = m_profiles.at(0);
         }
@@ -196,7 +196,7 @@ void ProfileManager::removeProfile(Learner *learner)
 {
     int index = d->m_profiles.indexOf(learner);
     if (index < 0) {
-        qWarning() << "Profile was not found, aborting";
+        qCWarning(LIBLEARNER_LOG) << "Profile was not found, aborting";
         return;
     }
     emit profileAboutToBeRemoved(index);

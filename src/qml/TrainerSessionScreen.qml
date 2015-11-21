@@ -133,6 +133,7 @@ Item {
             spacing: 20
 
             FlatButton {
+                visible: false//FIXME no effect at the moment as learner lib does not react to it
                 text: i18n("Skip")
                 iconName: "go-next"
                 iconSize: 32

@@ -31,15 +31,7 @@ internally inside Artikulate:
 
 # Runtime Dependencies
 
-* none
-
-# GStreamer-Problems
-
-It is important that there is /no/ explicit or implicit linking to any gstreamer-0.10 base library.
-Please ensure this, e.g., by executing "ldd artikulate" and by confirming that its output does not
-contain any reference to gstreamer-0.10. Mixing both gstreamer-0.10 and gstreamer-1.0 will lead
-to crashes and failures of all sound recording and playing functionality of the application.
-
+* Breeze icons 
 
 # Licensing
 
