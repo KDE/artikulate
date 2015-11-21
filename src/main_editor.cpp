@@ -42,10 +42,9 @@ int main(int argc, char **argv)
                         ki18nc("@info:credit Role", "Original Author").toString(),
                         "cordlandwehr@kde.org");
 
-    KCrash::initialize();
-
     Application app(argc, argv);
     KAboutData::setApplicationData(aboutData);
+    KCrash::initialize();
 
     MainWindowEditor *mainWindow = new MainWindowEditor();
     QSize size(800, 600);
