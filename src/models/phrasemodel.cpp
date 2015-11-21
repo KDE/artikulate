@@ -58,9 +58,9 @@ void PhraseModel::setCourse(Course *course)
 
     if (m_course) {
         m_course->disconnect(this);
-        foreach (auto unit, m_course->unitList()) {
+        foreach (auto const &unit, m_course->unitList()) {
             unit->disconnect(this);
-            foreach (auto phrase, unit->phraseList()) {
+            foreach (auto const &phrase, unit->phraseList()) {
                 phrase->disconnect(this);
             }
         }
@@ -75,7 +75,7 @@ void PhraseModel::setCourse(Course *course)
         connect(m_course, &Course::unitsRemoved, this, &PhraseModel::onUnitsRemoved);
 
         // initial setting of signal mappings
-        foreach (auto unit, m_course->unitList()) {
+        foreach (auto const &unit, m_course->unitList()) {
             // connect to phrase changes
             connect(unit, &Unit::phraseAboutToBeAdded, this, &PhraseModel::onPhraseAboutToBeAdded);
             connect(unit, static_cast<void (Unit::*)()>(&Unit::phraseAdded), this, &PhraseModel::onPhraseAdded);
