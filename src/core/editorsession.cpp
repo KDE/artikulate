@@ -27,7 +27,7 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/resourcemanager.h"
-#include <QDebug>
+#include "artikulate_debug.h"
 
 EditorSession::EditorSession(QObject *parent)
     : QObject(parent)

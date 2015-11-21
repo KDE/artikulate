@@ -27,7 +27,7 @@
 #include <QAbstractListModel>
 #include <QSignalMapper>
 #include <KLocalizedString>
-#include <QDebug>
+#include "artikulate_debug.h"
 
 SkeletonModel::SkeletonModel(QObject *parent)
     : QAbstractListModel(parent)

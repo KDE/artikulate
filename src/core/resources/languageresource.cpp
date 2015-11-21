@@ -30,7 +30,7 @@
 #include <QIODevice>
 #include <QFile>
 
-#include <QDebug>
+#include "artikulate_debug.h"
 
 class LanguageResourcePrivate
 {
@@ -142,7 +142,7 @@ QObject * LanguageResource::resource()
     }
 
     if (!d->m_path.isLocalFile()) {
-        qWarning() << "Cannot open language file at " << d->m_path.toLocalFile() << ", aborting.";
+        qCWarning(ARTIKULATE_LOG) << "Cannot open language file at " << d->m_path.toLocalFile() << ", aborting.";
         return 0;
     }
 
@@ -153,7 +153,7 @@ QObject * LanguageResource::resource()
 
     QDomDocument document = loadDomDocument(d->m_path, schema);
     if (document.isNull()) {
-        qWarning() << "Could not parse document " << d->m_path.toLocalFile() << ", aborting.";
+        qCWarning(ARTIKULATE_LOG) << "Could not parse document " << d->m_path.toLocalFile() << ", aborting.";
         return 0;
     }
 

@@ -25,7 +25,7 @@
 #include "course.h"
 #include "settings.h"
 
-#include <QDebug>
+#include "artikulate_debug.h"
 #include <QTemporaryFile>
 #include <sys/stat.h>
 
@@ -150,7 +150,7 @@ void Phrase::setType(const QString &typeString)
         setType(Paragraph);
         return;
     }
-    qWarning() << "Cannot set type from unknown identifier, aborting";
+    qCWarning(ARTIKULATE_LOG) << "Cannot set type from unknown identifier, aborting";
     return;
 }
 
@@ -199,7 +199,7 @@ void Phrase::setEditState(const QString &stateString)
         setEditState(Completed);
         return;
     }
-    qWarning() << "Cannot set edit state from unknown identifier " << stateString << ", aborting";
+    qCWarning(ARTIKULATE_LOG) << "Cannot set edit state from unknown identifier " << stateString << ", aborting";
     return;
 }
 
@@ -236,7 +236,7 @@ QUrl Phrase::sound() const
 void Phrase::setSound(const QUrl &soundFile)
 {
     if (!soundFile.isValid() || soundFile.isEmpty()) {
-        qWarning() << "Not setting empty sound file path.";
+        qCWarning(ARTIKULATE_LOG) << "Not setting empty sound file path.";
         return;
     }
     m_nativeSoundFile = soundFile;

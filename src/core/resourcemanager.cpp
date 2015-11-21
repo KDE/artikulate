@@ -43,7 +43,7 @@
 #include <QUuid>
 #include <QDir>
 #include <QDirIterator>
-#include <QDebug>
+#include "artikulate_debug.h"
 #include <QUrl>
 #include <QStandardPaths>
 
@@ -367,7 +367,7 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
     }
     // FIXME deassociate removed phrases
 
-    qDebug() << "Update performed!";
+    qCDebug(ARTIKULATE_LOG) << "Update performed!";
 }
 
 CourseResource * ResourceManager::addCourse(const QUrl &courseFile)

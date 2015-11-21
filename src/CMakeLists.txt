@@ -56,6 +56,7 @@ set(artikulateCore_SRCS
     core/player.cpp
     core/recorder.cpp
     ui/newcoursedialog.cpp
+    artikulate_debug.cpp
 )
 
 # compile UI files
@@ -92,6 +93,7 @@ set(artikulate_SRCS
     main.cpp
     mainwindow.cpp
     application.cpp
+    artikulate_debug.cpp
 
     models/coursemodel.cpp
     models/coursefiltermodel.cpp
@@ -124,6 +126,7 @@ set(artikulate_editor_SRCS
     main_editor.cpp
     mainwindow_editor.cpp
     application.cpp
+    artikulate_debug.cpp
 
     models/coursemodel.cpp
     models/coursefiltermodel.cpp

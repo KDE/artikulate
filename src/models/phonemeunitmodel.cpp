@@ -27,7 +27,7 @@
 #include <QSignalMapper>
 
 #include <KLocalizedString>
-#include <QDebug>
+#include "artikulate_debug.h"
 
 PhonemeUnitModel::PhonemeUnitModel(QObject *parent)
     : QAbstractListModel(parent)

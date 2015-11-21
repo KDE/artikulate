@@ -22,7 +22,7 @@
 #include "libsound/src/outputdevicecontroller.h"
 
 #include <QList>
-#include <QDebug>
+#include "artikulate_debug.h"
 #include <QUrl>
 #include <QString>
 
@@ -42,7 +42,7 @@ Player::~Player()
 void Player::setSoundFile(const QUrl &fileUrl)
 {
     if (!fileUrl.isValid() || fileUrl.isEmpty()) {
-        qWarning() << "Not setting empty sound file path.";
+        qCWarning(ARTIKULATE_LOG) << "Not setting empty sound file path.";
         return;
     }
     m_soundFile = fileUrl;
@@ -72,7 +72,7 @@ void Player::playback()
         qCritical() << "Abort playing sound, no file available";
         return;
     }
-    qDebug() << this << "Playback sound in file "<< m_soundFile.toLocalFile();
+    qCDebug(ARTIKULATE_LOG) << this << "Playback sound in file "<< m_soundFile.toLocalFile();
     OutputDeviceController::self().play(QUrl::fromLocalFile(m_soundFile.toLocalFile()));
     m_playbackState = PlayingState;
     connect(&OutputDeviceController::self(), SIGNAL(started()), this, SLOT(updateState()));

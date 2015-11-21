@@ -23,7 +23,7 @@
 #include <KLocalizedString>
 #include <QSortFilterProxyModel>
 #include <QVariant>
-#include <QDebug>
+#include "artikulate_debug.h"
 
 CourseFilterModel::CourseFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)

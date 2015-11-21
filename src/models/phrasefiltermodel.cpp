@@ -25,7 +25,7 @@
 #include <QSortFilterProxyModel>
 
 #include <KLocalizedString>
-#include <QDebug>
+#include "artikulate_debug.h"
 
 PhraseFilterModel::PhraseFilterModel(QObject *parent)
     : QSortFilterProxyModel(parent)

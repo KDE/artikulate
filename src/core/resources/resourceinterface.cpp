@@ -20,7 +20,7 @@
 
 #include "resourceinterface.h"
 
-#include <QDebug>
+#include "artikulate_debug.h"
 #include <QUrl>
 #include <QIODevice>
 #include <QXmlSchema>
@@ -53,12 +53,12 @@ bool ResourceInterface::isContributorResource() const
 
 void ResourceInterface::sync()
 {
-    qWarning() << "Resource does not implement syncing.";
+    qCWarning(ARTIKULATE_LOG) << "Resource does not implement syncing.";
 }
 
 void ResourceInterface::reload()
 {
-    qWarning() << "Resource does not implement reloading.";
+    qCWarning(ARTIKULATE_LOG) << "Resource does not implement reloading.";
 }
 
 QXmlSchema ResourceInterface::loadXmlSchema(const QString &schemeName) const
@@ -68,7 +68,7 @@ QXmlSchema ResourceInterface::loadXmlSchema(const QString &schemeName) const
 
     QXmlSchema schema;
     if (file.isEmpty() || schema.load(file) == false) {
-        qWarning() << "Schema at file " << file.toLocalFile() << " is invalid.";
+        qCWarning(ARTIKULATE_LOG) << "Schema at file " << file.toLocalFile() << " is invalid.";
     }
     return schema;
 }
@@ -78,7 +78,7 @@ QDomDocument ResourceInterface::loadDomDocument(const QUrl &path, const QXmlSche
     QDomDocument document;
     QXmlSchemaValidator validator(schema);
     if (!validator.validate(path)) {
-        qWarning() << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
+        qCWarning(ARTIKULATE_LOG) << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
         return document;
     }
 
@@ -86,10 +86,10 @@ QDomDocument ResourceInterface::loadDomDocument(const QUrl &path, const QXmlSche
     QFile file(path.toLocalFile());
     if (file.open(QIODevice::ReadOnly)) {
         if (!document.setContent(&file, &errorMsg)) {
-            qWarning() << errorMsg;
+            qCWarning(ARTIKULATE_LOG) << errorMsg;
         }
     } else {
-        qWarning() << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
+        qCWarning(ARTIKULATE_LOG) << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
     }
     return document;
 }

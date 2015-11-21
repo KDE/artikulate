@@ -41,7 +41,7 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QCoreApplication>
-#include <QDebug>
+#include "artikulate_debug.h"
 #include <QGraphicsObject>
 #include <QIcon>
 #include <QPointer>

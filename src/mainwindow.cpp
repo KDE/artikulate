@@ -45,7 +45,7 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QCoreApplication>
-#include <QDebug>
+#include "artikulate_debug.h"
 #include <QGraphicsObject>
 #include <QIcon>
 #include <QMenuBar>
@@ -196,7 +196,7 @@ void MainWindow::updateTrainingPhraseFont()
 {
     QObject *phraseText = rootObjects().first()->findChild<QObject*>("phraseText");
     if (!phraseText) {
-        qDebug() << "no phraseText context object found, aborting";
+        qCDebug(ARTIKULATE_LOG) << "no phraseText context object found, aborting";
         return;
     }
     QFont f = phraseText->property("font").value<QFont>();
@@ -216,7 +216,7 @@ void MainWindow::downloadNewStuff()
         m_resourceManager->loadCourseResources();
 
         if (!m_profileManager->activeProfile()) {
-            qWarning() << "Not registering course language for favorite languages:"
+            qCWarning(ARTIKULATE_LOG) << "Not registering course language for favorite languages:"
                 << "no active learner profile set";
             delete dialog;
             return;

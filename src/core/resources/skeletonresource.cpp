@@ -33,7 +33,7 @@
 #include <QIODevice>
 #include <QFile>
 
-#include <QDebug>
+#include "artikulate_debug.h"
 
 class SkeletonResourcePrivate
 {
@@ -158,13 +158,13 @@ void SkeletonResource::sync()
 
     // if resource was never loaded, it cannot be changed
     if (!d->m_skeletonResource) {
-        qDebug() << "Aborting sync, skeleton was not parsed.";
+        qCDebug(ARTIKULATE_LOG) << "Aborting sync, skeleton was not parsed.";
         return;
     }
 
 //     // not writing back if not modified
 //     if (!d->m_skeletonResource->modified()) {
-//         qDebug() << "Aborting sync, skeleton was not modified.";
+//         qCDebug(ARTIKULATE_LOG) << "Aborting sync, skeleton was not modified.";
 //         return;
 //     }
 
@@ -232,7 +232,7 @@ void SkeletonResource::sync()
     //TODO port to KSaveFile
     QFile file(path().toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
-        qWarning() << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+        qCWarning(ARTIKULATE_LOG) << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;
     }
 
@@ -265,7 +265,7 @@ QObject * SkeletonResource::resource()
     }
 
     if (!path().isLocalFile()) {
-        qWarning() << "Cannot open skeleton file at " << path().toLocalFile() << ", aborting.";
+        qCWarning(ARTIKULATE_LOG) << "Cannot open skeleton file at " << path().toLocalFile() << ", aborting.";
         return nullptr;
     }
 
@@ -276,7 +276,7 @@ QObject * SkeletonResource::resource()
 
     QDomDocument document = loadDomDocument(path(), schema);
     if (document.isNull()) {
-        qWarning() << "Could not parse document " << path().toLocalFile() << ", aborting.";
+        qCWarning(ARTIKULATE_LOG) << "Could not parse document " << path().toLocalFile() << ", aborting.";
         return nullptr;
     }
 
