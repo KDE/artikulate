@@ -24,7 +24,7 @@
 #include <QHash>
 #include <QFileInfo>
 #include <QPixmap>
-#include <QDebug>
+#include "liblearner_debug.h"
 
 using namespace LearnerProfile;
 
@@ -81,14 +81,14 @@ QString Learner::imageUrl() const
 void Learner::importImage(const QString &path)
 {
     if (!QFileInfo(path).exists()) {
-        qWarning() << "image path points to a non-existing file, aborting: " << path;
+        qCWarning(LIBLEARNER_LOG) << "image path points to a non-existing file, aborting: " << path;
         return;
     }
     QPixmap image = QPixmap(path);
     image = image.scaled(120, 120);
     image.save(d->imageUrl());
     emit imageUrlChanged();
-    qDebug() << "saved scaled image from " << path << " at " << d->imageUrl();
+    qCDebug(LIBLEARNER_LOG) << "saved scaled image from " << path << " at " << d->imageUrl();
 }
 
 QList< LearningGoal* > Learner::goals() const
@@ -165,7 +165,7 @@ LearningGoal * Learner::activeGoal(Learner::Category categoryLearner) const
     // workaround for Q_INVOKABLE access of enum
     LearningGoal::Category category = static_cast<LearningGoal::Category>(categoryLearner);
     if (!d->m_activeGoal.contains(category)) {
-        qWarning() << "(Learner " << identifier() << ") No current learning goal set for category "
+        qCWarning(LIBLEARNER_LOG) << "(Learner " << identifier() << ") No current learning goal set for category "
             << category
             << " : fall back to first in list";
         foreach (LearningGoal *goal, d->m_goals) {
@@ -173,7 +173,7 @@ LearningGoal * Learner::activeGoal(Learner::Category categoryLearner) const
                 return goal;
             }
         }
-        qWarning() << "No learning goals of catagory " << category << " registered";
+        qCWarning(LIBLEARNER_LOG) << "No learning goals of catagory " << category << " registered";
         return 0;
     }
     return d->m_activeGoal[category];

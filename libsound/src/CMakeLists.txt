@@ -37,6 +37,7 @@ set(sound_LIB_SRCS
     outputdevicecontroller.cpp
     qtgstreamercapturebackend.cpp
     qtgstreameroutputbackend.cpp
+    libsound_debug.cpp
 )
 
 add_library(artikulatesound SHARED ${sound_LIB_SRCS})

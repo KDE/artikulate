@@ -22,7 +22,7 @@
 #include "qtgstreamercapturebackend.h"
 #include <QUrl>
 #include <QStringList>
-#include <QDebug>
+#include "libsound_debug.h"
 
 /**
  * \class CaptureDeviceControllerPrivate

@@ -27,7 +27,7 @@
 #include <QSignalMapper>
 
 #include <KLocalizedString>
-#include <QDebug>
+#include "liblearner_debug.h"
 
 using namespace LearnerProfile;
 
@@ -214,7 +214,7 @@ void LearningGoalModel::onLearningGoalAboutToBeRemoved(int index)
     }
 
     if (index < 0 || d->m_goals.count() <= index) {
-        qWarning() << "Cannot remove learning goal from model, not registered";
+        qCWarning(LIBLEARNER_LOG) << "Cannot remove learning goal from model, not registered";
         return;
     }
     beginRemoveRows(QModelIndex(), index, index);

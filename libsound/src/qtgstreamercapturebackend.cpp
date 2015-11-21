@@ -30,7 +30,7 @@
 #include <QGst/Event>
 #include <QGst/Message>
 #include <QGst/Bus>
-#include <QDebug>
+#include "libsound_debug.h"
 #include <KLocalizedString>
 
 QtGStreamerCaptureBackend::QtGStreamerCaptureBackend()
@@ -98,7 +98,7 @@ void QtGStreamerCaptureBackend::onBusMessage(const QGst::MessagePtr & message)
     switch (message->type()) {
     case QGst::MessageEos:
         //got end-of-stream - stop the pipeline
-        qDebug() << "EOS signal received, stopping pipeline";
+        qCDebug(LIBSOUND_LOG) << "EOS signal received, stopping pipeline";
         stopPipeline();
         break;
     case QGst::MessageError:
@@ -119,7 +119,7 @@ void QtGStreamerCaptureBackend::startCapture(const QString &filePath)
 {
     // clear pipeline if still existing
     if (m_pipeline) {
-        qWarning() << "removing forgotten pipeline";
+        qCWarning(LIBSOUND_LOG) << "removing forgotten pipeline";
         //send an end-of-stream event to flush metadata and cause an EosMessage to be delivered
         m_pipeline->sendEvent(QGst::EosEvent::create());
     }
@@ -163,7 +163,7 @@ void QtGStreamerCaptureBackend::stopCapture()
 void QtGStreamerCaptureBackend::stopPipeline()
 {
     if (!m_pipeline) {
-        qWarning() << "Stopping non-existing pipeline, aborting";
+        qCWarning(LIBSOUND_LOG) << "Stopping non-existing pipeline, aborting";
         return;
     }
     m_pipeline->setState(QGst::StateNull);
