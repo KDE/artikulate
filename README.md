@@ -31,7 +31,7 @@ internally inside Artikulate:
 
 # Runtime Dependencies
 
-* none
+* Breeze icons 
 
 # GStreamer-Problems
 
