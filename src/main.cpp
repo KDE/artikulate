@@ -52,10 +52,9 @@ int main(int argc, char **argv)
     aboutData.addAuthor(ki18nc("@info:credit Developer name", "Magdalena Konkiewicz").toString(),
                         ki18nc("@info:credit Role", "Developer and Course Data").toString());
 
-    KCrash::initialize();
-
     Application app(argc, argv);
     KAboutData::setApplicationData(aboutData);
+    KCrash::initialize();
     new MainWindow();
 
     return app.exec();
