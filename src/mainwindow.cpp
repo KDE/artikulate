@@ -91,7 +91,7 @@ MainWindow::MainWindow()
     rootContext()->setContextProperty("kcfg_ShowMenuBar", Settings::showMenuBar());
 
     // set starting screen
-    load(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, "qml/Main.qml")));
+    load(QUrl("qrc:/artikulate/qml/Main.qml"));
 
     // settings from kcfg values
 //     updateTrainingPhraseFont(); //FIXME deactivated while porting

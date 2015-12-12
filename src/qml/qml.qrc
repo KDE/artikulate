@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/artikulate/qml">
+        <file>Main.qml</file>
+        <file>CheckListItem.qml</file>
+        <file>CourseSwitcher.qml</file>
+        <file>Editor.qml</file>
+        <file>FlatButton.qml</file>
+        <file>LanguageSwitcher.qml</file>
+        <file>ListItem.qml</file>
+        <file>MainMenuBar.qml</file>
+        <file>MainToolBar.qml</file>
+        <file>NewUserWelcome.qml</file>
+        <file>PhonemeUnitSelector.qml</file>
+        <file>PhraseEditor.qml</file>
+        <file>PhraseEditorEditStateComponent.qml</file>
+        <file>PhraseEditorSoundComponent.qml</file>
+        <file>PhraseEditorTypeComponent.qml</file>
+        <file>ProfileDetailsItem.qml</file>
+        <file>ProfileDetailsViewFavorites.qml</file>
+        <file>ProfileDetailsViewUser.qml</file>
+        <file>ProfileSelector.qml</file>
+        <file>SheetDialog.qml</file>
+        <file>SoundPlayer.qml</file>
+        <file>SoundRecorder.qml</file>
+        <file>TrainerCourseStatistics.qml</file>
+        <file>TrainerProgressBar.qml</file>
+        <file>TrainerSessionScreen.qml</file>
+        <file>UnitEditor.qml</file>
+    </qresource>
+</RCC>

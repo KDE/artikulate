@@ -92,7 +92,7 @@ MainWindowEditor::MainWindowEditor()
     m_widget->rootContext()->setContextProperty("editorSession", m_editorSession);
 
     // set starting screen
-    m_widget->setSource(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "artikulate/qml/Editor.qml")));
+    m_widget->setSource(QUrl("qrc:/artikulate/qml/Editor.qml"));
     m_widget->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
     QAction *newAct = KStandardAction::save(this, SLOT(save()), actionCollection());
