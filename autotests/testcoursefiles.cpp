@@ -138,4 +138,4 @@ void TestCourseFiles::fileLoadSaveCompleteness()
 }
 
 
-QTEST_MAIN(TestCourseFiles)
+QTEST_GUILESS_MAIN(TestCourseFiles)

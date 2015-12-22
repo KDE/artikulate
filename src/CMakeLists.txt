@@ -60,7 +60,7 @@ set(artikulateCore_SRCS
 )
 
 # compile UI files
-qt5_wrap_ui(artikulateCore_SRCS
+ki18n_wrap_ui(artikulateCore_SRCS
     ui/newcoursedialog.ui
 )
 kconfig_add_kcfg_files (artikulateCore_SRCS settings.kcfgc)
@@ -116,7 +116,7 @@ set(artikulate_SRCS
     ui/appearencedialogpage.cpp
     ui/resourcesdialogpage.cpp
 )
-qt5_wrap_ui (artikulate_SRCS
+ki18n_wrap_ui (artikulate_SRCS
     ui/resourcesdialogpage.ui
     ui/sounddevicedialogpage.ui
     ui/appearencedialogpage.ui
@@ -151,7 +151,7 @@ set(artikulate_editor_SRCS
     ui/resourcesdialogpage.cpp
     ui/exportghnsdialog.cpp
 )
-qt5_wrap_ui (artikulate_editor_SRCS
+ki18n_wrap_ui (artikulate_editor_SRCS
     ui/resourcesdialogpage.ui
     ui/sounddevicedialogpage.ui
     ui/appearencedialogpage.ui
