@@ -65,5 +65,9 @@ install(
     ${INSTALL_TARGETS_DEFAULT_ARGS}
 )
 
-ecm_optional_add_subdirectory(qtgstreamerbackend)
-ecm_optional_add_subdirectory(qtmultimediabackend)
+if (BUILD_GSTREAMER_PLUGIN)
+    ecm_optional_add_subdirectory(qtgstreamerbackend)
+endif()
+if (BUILD_QTMULTIMEDIA_PLUGIN)
+    ecm_optional_add_subdirectory(qtmultimediabackend)
+endif()

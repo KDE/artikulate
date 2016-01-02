@@ -65,6 +65,10 @@ find_package(KF5 REQUIRED COMPONENTS
     XmlGui
 )
 
+# options
+option(BUILD_QTMULTIMEDIA_PLUGIN "Build QtMultimedia sound backend" OFF)
+option(BUILD_GSTREAMER_PLUGIN "Build GStreamer sound backend" ON)
+
 add_definitions(
     -DQT_NO_URL_CAST_FROM_STRING
 )

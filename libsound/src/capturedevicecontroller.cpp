@@ -66,7 +66,6 @@ public:
                 KPluginFactory *factory = KPluginLoader(loader.fileName()).factory();
                 BackendInterface *plugin = factory->create<BackendInterface>(parent, QList< QVariant >());
                 if (plugin->captureBackend()) {
-                    qDebug() << "YYY";
                     m_backendList.append(plugin->captureBackend());
                 }
             }

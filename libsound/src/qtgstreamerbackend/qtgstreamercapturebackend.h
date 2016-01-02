@@ -32,8 +32,7 @@ class QtGStreamerCaptureBackend : public CaptureBackendInterface
 
 public:
     QtGStreamerCaptureBackend();
-
-    ~QtGStreamerCaptureBackend();
+    virtual ~QtGStreamerCaptureBackend();
 
     void startCapture(const QString &filePath);
     void stopCapture();
