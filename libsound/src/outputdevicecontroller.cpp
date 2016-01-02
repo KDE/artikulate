@@ -17,8 +17,16 @@
 
 #include "outputdevicecontroller.h"
 #include "outputbackendinterface.h"
-#include "qtgstreameroutputbackend.h"
+#include "backendinterface.h"
+
+#include <QCoreApplication>
+#include <QPluginLoader>
 #include <QUrl>
+
+#include <KPluginLoader>
+#include <KPluginFactory>
+#include <KPluginMetaData>
+
 #include "libsound_debug.h"
 
 /**
@@ -38,7 +46,35 @@ public:
         , m_backend(nullptr)
         , m_initialized(false)
     {
-        m_backend = new QtGStreamerOutputBackend();
+        QStringList dirsToCheck;
+        foreach (const QString &directory, QCoreApplication::libraryPaths()) {
+            dirsToCheck << directory + "/artikulate/libsound";
+        }
+        // load plugins
+        QPluginLoader loader;
+        foreach (const QString &dir, dirsToCheck) {
+            QVector<KPluginMetaData> metadataList = KPluginLoader::findPlugins(dir,
+                [=](const KPluginMetaData &data)
+            {
+                return data.serviceTypes().contains("artikulate/libsound/backend");
+            });
+
+            foreach (const auto &metadata, metadataList) {
+                loader.setFileName(metadata.fileName());
+                qCDebug(LIBSOUND_LOG) << "Load Plugin: " << metadata.name();
+                if (!loader.load()) {
+                    qCCritical(LIBSOUND_LOG) << "Error while loading plugin: " << metadata.name();
+                }
+                KPluginFactory *factory = KPluginLoader(loader.fileName()).factory();
+                BackendInterface *plugin = factory->create<BackendInterface>(parent, QList< QVariant >());
+                if (plugin->outputBackend()) {
+                    m_backendList.append(plugin->outputBackend());
+                }
+            }
+        }
+        if (!m_backend && !m_backendList.isEmpty()) {
+            m_backend = m_backendList.first();
+        }
     }
 
     ~OutputDeviceControllerPrivate()
@@ -51,7 +87,6 @@ public:
         if (m_initialized) {
             return;
         }
-        m_backend = new QtGStreamerOutputBackend();
         m_parent->connect(m_backend, &OutputBackendInterface::stateChanged,
                           m_parent, &OutputDeviceController::emitChangedState);
         m_volume = m_backend->volume();
@@ -66,6 +101,7 @@ public:
 
     OutputDeviceController *m_parent;
     OutputBackendInterface *m_backend;
+    QList<OutputBackendInterface *> m_backendList;
     int m_volume; // volume as cubic value
     bool m_initialized;
 };

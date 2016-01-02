@@ -1,5 +1,5 @@
 ###
-# Copyright 2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+# Copyright 2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -23,45 +23,23 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-find_package(Qt5GStreamer 1.2.0 REQUIRED)
-
-# enable exceptions for this library
-kde_enable_exceptions()
-
-include_directories(
-    ${QTGSTREAMER_INCLUDE_DIR}
+set(qtgstreamerbackend_SRCS
+    qtgstreamerbackend.cpp
+    qtgstreamercapturebackend.cpp
+    qtgstreameroutputbackend.cpp
+    ../libsound_debug.cpp
 )
 
-set(sound_LIB_SRCS
-    backendinterface.cpp
-    capturedevicecontroller.cpp
-    outputdevicecontroller.cpp
-    capturebackendinterface.cpp
-    outputbackendinterface.cpp
-    libsound_debug.cpp
-)
-
-add_library(artikulatesound SHARED ${sound_LIB_SRCS})
-generate_export_header(artikulatesound BASE_NAME libsound)
+add_library(qtgstreamercapturebackend MODULE ${qtgstreamerbackend_SRCS})
 
 target_link_libraries(
-    artikulatesound
+    qtgstreamercapturebackend
     LINK_PUBLIC
+        artikulatesound
         KF5::CoreAddons
-        KF5::I18n
-)
-# internal library without any API or ABI guarantee
-set(GENERIC_LIB_VERSION "0")
-set(GENERIC_LIB_SOVERSION "0")
-set_target_properties(
-    artikulatesound PROPERTIES
-    VERSION ${GENERIC_LIB_VERSION}
-    SOVERSION ${GENERIC_LIB_SOVERSION}
+        ${QTGLIB_LIBRARIES}
+        ${QTGLIB_LIBRARY}
+        ${QTGSTREAMER_LIBRARIES}
 )
 
-install(
-    TARGETS artikulatesound
-    ${INSTALL_TARGETS_DEFAULT_ARGS}
-)
-
-ecm_optional_add_subdirectory(qtgstreamerbackend)
+install(TARGETS qtgstreamercapturebackend DESTINATION ${PLUGIN_INSTALL_DIR}/artikulate/libsound)
