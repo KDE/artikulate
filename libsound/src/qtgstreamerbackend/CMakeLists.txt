@@ -23,6 +23,8 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
+find_package(Qt5GStreamer 1.2.0 REQUIRED)
+
 set(qtgstreamerbackend_SRCS
     qtgstreamerbackend.cpp
     qtgstreamercapturebackend.cpp

@@ -23,6 +23,8 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
+find_package(Qt5Multimedia REQUIRED)
+
 set(qtmultimediabackend_SRCS
     qtmultimediabackend.cpp
     qtmultimediacapturebackend.cpp
