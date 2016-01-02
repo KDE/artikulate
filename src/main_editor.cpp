@@ -34,7 +34,7 @@ int main(int argc, char **argv)
                          ARTIKULATE_VERSION_STRING,
                          ki18nc("@title KAboutData: short program description", "Artikulate Course Editor").toString(),
                          KAboutLicense::GPL_V2,
-                         ki18nc("@info:credit", "(c) 2013-2015 The Artikulate Developers").toString(),
+                         ki18nc("@info:credit", "(c) 2013-2016 The Artikulate Developers").toString(),
                          ki18nc("@title Short program description", "Edit Artikulate course files.").toString()
                         );
 
