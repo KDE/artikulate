@@ -30,10 +30,10 @@ set(qtgstreamerbackend_SRCS
     ../libsound_debug.cpp
 )
 
-add_library(qtgstreamercapturebackend MODULE ${qtgstreamerbackend_SRCS})
+add_library(qtgstreamerbackend MODULE ${qtgstreamerbackend_SRCS})
 
 target_link_libraries(
-    qtgstreamercapturebackend
+    qtgstreamerbackend
     LINK_PUBLIC
         artikulatesound
         KF5::CoreAddons
@@ -42,4 +42,4 @@ target_link_libraries(
         ${QTGSTREAMER_LIBRARIES}
 )
 
-install(TARGETS qtgstreamercapturebackend DESTINATION ${PLUGIN_INSTALL_DIR}/artikulate/libsound)
+install(TARGETS qtgstreamerbackend DESTINATION ${PLUGIN_INSTALL_DIR}/artikulate/libsound)
