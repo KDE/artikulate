@@ -36,7 +36,7 @@ QtMultimediaBackend::QtMultimediaBackend(QObject *parent, const QList< QVariant 
 QtMultimediaBackend::~QtMultimediaBackend()
 {
     if (m_captureBackend) {
-        m_captureBackend->deleteLater();//TODO
+        m_captureBackend->deleteLater();
         m_captureBackend = nullptr;
     }
     if (m_outputBackend) {
