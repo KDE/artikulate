@@ -51,7 +51,8 @@ public:
             return;
         }
         m_backend = new QtGStreamerOutputBackend();
-        m_parent->connect(m_backend, SIGNAL(stateChanged()), m_parent, SLOT(emitChangedState()));
+        m_parent->connect(m_backend, &QtGStreamerOutputBackend::stateChanged,
+                          m_parent, &OutputDeviceController::emitChangedState);
         m_volume = m_backend->volume();
         m_initialized = true;
     }
