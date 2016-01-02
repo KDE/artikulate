@@ -16,6 +16,7 @@
  */
 
 #include "outputdevicecontroller.h"
+#include "outputbackendinterface.h"
 #include "qtgstreameroutputbackend.h"
 #include <QUrl>
 #include "libsound_debug.h"
@@ -34,7 +35,7 @@ class OutputDeviceControllerPrivate
 public:
     OutputDeviceControllerPrivate(OutputDeviceController *parent)
         : m_parent(parent)
-        , m_backend(0)
+        , m_backend(nullptr)
         , m_initialized(false)
     {
         m_backend = new QtGStreamerOutputBackend();
@@ -51,20 +52,20 @@ public:
             return;
         }
         m_backend = new QtGStreamerOutputBackend();
-        m_parent->connect(m_backend, &QtGStreamerOutputBackend::stateChanged,
+        m_parent->connect(m_backend, &OutputBackendInterface::stateChanged,
                           m_parent, &OutputDeviceController::emitChangedState);
         m_volume = m_backend->volume();
         m_initialized = true;
     }
 
-    QtGStreamerOutputBackend * backend() const
+    OutputBackendInterface * backend() const
     {
         Q_ASSERT(m_backend);
         return m_backend;
     }
 
     OutputDeviceController *m_parent;
-    QtGStreamerOutputBackend *m_backend;
+    OutputBackendInterface *m_backend;
     int m_volume; // volume as cubic value
     bool m_initialized;
 };
@@ -107,19 +108,7 @@ void OutputDeviceController::stop()
 
 OutputDeviceController::State OutputDeviceController::state() const
 {
-    switch (d->backend()->state()) {
-    case QGst::StateNull:
-        return OutputDeviceController::StoppedState;
-        break;
-    case QGst::StatePaused:
-        return OutputDeviceController::PlayingState;
-        break;
-    case QGst::StatePlaying:
-        return OutputDeviceController::PlayingState;
-        break;
-    default:
-        return OutputDeviceController::StoppedState;
-    }
+    return d->backend()->state();
 }
 
 void OutputDeviceController::setVolume(int volume)

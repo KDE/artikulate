@@ -21,19 +21,19 @@
 #ifndef QTGSTREAMEROUTPUTBACKEND_H
 #define QTGSTREAMEROUTPUTBACKEND_H
 
-#include "capturedevicecontroller.h"
+#include "outputbackendinterface.h"
 #include <QString>
 #include <QTimer>
 #include <QGst/Global>
 #include <QGst/Pipeline>
 
-class QtGStreamerOutputBackend : public QObject
+class QtGStreamerOutputBackend : public OutputBackendInterface
 {
     Q_OBJECT
 
 public:
     QtGStreamerOutputBackend();
-    ~QtGStreamerOutputBackend();
+    virtual ~QtGStreamerOutputBackend();
 
     void setUri(const QString & uri);
 
@@ -45,7 +45,7 @@ public:
     int volume() const;
 
     QTime length() const;
-    QGst::State state() const;
+    OutputDeviceController::State state() const;
 
 public Q_SLOTS:
     void play();
@@ -64,6 +64,5 @@ private:
     QGst::PipelinePtr m_pipeline;
     QTimer m_positionTimer;
 };
-
 
 #endif

@@ -132,9 +132,22 @@ QTime QtGStreamerOutputBackend::length() const
     }
 }
 
-QGst::State QtGStreamerOutputBackend::state() const
+OutputDeviceController::State QtGStreamerOutputBackend::state() const
 {
-    return m_pipeline ? m_pipeline->currentState() : QGst::StateNull;
+    const QGst::State state = m_pipeline ? m_pipeline->currentState() : QGst::StateNull;
+    switch (state) {
+    case QGst::StateNull:
+        return OutputDeviceController::StoppedState;
+        break;
+    case QGst::StatePaused:
+        return OutputDeviceController::PlayingState;
+        break;
+    case QGst::StatePlaying:
+        return OutputDeviceController::PlayingState;
+        break;
+    default:
+        return OutputDeviceController::StoppedState;
+    }
 }
 
 void QtGStreamerOutputBackend::play()
