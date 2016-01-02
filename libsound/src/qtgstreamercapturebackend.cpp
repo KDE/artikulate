@@ -51,7 +51,7 @@ QtGStreamerCaptureBackend::~QtGStreamerCaptureBackend()
     m_pipeline.clear();
 }
 
-CaptureDeviceController::State QtGStreamerCaptureBackend::captureState()
+CaptureDeviceController::State QtGStreamerCaptureBackend::captureState() const
 {
     if (!m_pipeline) {
         return CaptureDeviceController::StoppedState;

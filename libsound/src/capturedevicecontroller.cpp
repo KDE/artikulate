@@ -16,6 +16,7 @@
  */
 
 #include "capturedevicecontroller.h"
+#include "capturebackendinterface.h"
 #include "qtgstreamercapturebackend.h"
 #include <QUrl>
 #include <QStringList>
@@ -42,7 +43,7 @@ public:
     ~CaptureDeviceControllerPrivate()
     {
         delete m_backend;
-        m_backend = 0;
+        m_backend = nullptr;
     }
 
     void lazyInit()
@@ -54,14 +55,14 @@ public:
         m_initialized = true;
     }
 
-    QtGStreamerCaptureBackend * backend() const
+    CaptureBackendInterface * backend() const
     {
         Q_ASSERT(m_backend);
         return m_backend;
     }
 
     QObject *m_parent;
-    QtGStreamerCaptureBackend *m_backend;
+    CaptureBackendInterface *m_backend;
     bool m_initialized;
 };
 

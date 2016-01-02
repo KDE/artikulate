@@ -19,13 +19,14 @@
 #define QTGSTREAMERCAPTUREBACKEND_H
 
 #include "capturedevicecontroller.h"
+#include "capturebackendinterface.h"
 
 #include <QString>
 
 #include <QGst/global.h>
 #include <QGst/Pipeline>
 
-class QtGStreamerCaptureBackend : public QObject
+class QtGStreamerCaptureBackend : public CaptureBackendInterface
 {
     Q_OBJECT
 
@@ -36,7 +37,7 @@ public:
 
     void startCapture(const QString &filePath);
     void stopCapture();
-    CaptureDeviceController::State captureState();
+    CaptureDeviceController::State captureState() const;
 
     QStringList devices() const;
     void setDevice(const QString &deviceIdentifier);

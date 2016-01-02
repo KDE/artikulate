@@ -35,6 +35,7 @@ include_directories(
 set(sound_LIB_SRCS
     capturedevicecontroller.cpp
     outputdevicecontroller.cpp
+    capturebackendinterface.cpp
     outputbackendinterface.cpp
     qtgstreamercapturebackend.cpp
     qtgstreameroutputbackend.cpp
