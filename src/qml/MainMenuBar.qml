@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2015-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -25,6 +25,12 @@ MenuBar {
     id: root
     Menu {
         title: i18n("File")
+        MenuItem {
+            text: i18n("Edit User")
+            iconName: "user-properties"
+            onTriggered: triggerEditProfile()
+        }
+        MenuSeparator { }
         MenuItem {
             text: i18n("Quit")
             iconName: "application-exit"

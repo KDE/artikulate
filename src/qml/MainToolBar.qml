@@ -102,6 +102,12 @@ ToolBar{
                     onTriggered: triggerDownloadCourses()
                 }
                 MenuSeparator { }
+                MenuItem {
+                    text: i18n("Edit User")
+                    iconName: "user-properties"
+                    onTriggered: triggerEditProfile()
+                }
+                MenuSeparator { }
 // TODO requires proper support of KKeySequenceWidget's settings
 //                     MenuItem {
 //                         text: i18n("Configure Shortcuts...")

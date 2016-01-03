@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -32,9 +32,14 @@ ApplicationWindow {
     minimumHeight: 600
 
     signal triggerDownloadCourses();
+    signal triggerEditProfile();
     signal triggerSettingsDialog();
     signal triggerAction(string actionName);
     signal switchMenuBarVisibility();
+
+    onTriggerEditProfile: {
+        editProfileDialog.open()
+    }
 
     Item {
         id: theme
@@ -46,7 +51,7 @@ ApplicationWindow {
         property int spacing: 15
     }
 
-    property Learner learner: profileManager.activeProfile
+    property Learner learner: g_profileManager.activeProfile
     property ResourceManager resourceManager: g_resourceManager
 
     CourseModel {
@@ -163,22 +168,20 @@ ApplicationWindow {
         }
     }
 
-    //FIXME setup dialog deactivated for refactoring
-//     SheetDialog {
-//         id: profileSelectorSheet
-//         anchors {
-//             top: root.top
-//             topMargin: header.height
-//             left: root.left
-//             bottom: root.bottom
-//             right: root.right
-//         }
+    //TODO change to loader for arbitrary dialogs
+    //TODO add margin for main menu
+    SheetDialog {
+        id: editProfileDialog
+        anchors {
+            fill: main
+        }
+        content: Item {}
 //         content: ProfileSelector {
 //             anchors.fill: parent
 //             onProfileChosen: {
 //                 profileSelectorSheet.close()
 //             }
 //         }
-//     }
+    }
 
 }

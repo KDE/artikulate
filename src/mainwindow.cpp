@@ -86,7 +86,7 @@ MainWindow::MainWindow()
     // set view
     rootContext()->setContextProperty("g_resourceManager", m_resourceManager);
     rootContext()->setContextProperty("g_trainingSession", m_trainingSession);
-    rootContext()->setContextProperty("profileManager", m_profileManager);
+    rootContext()->setContextProperty("g_profileManager", m_profileManager);
     rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
     rootContext()->setContextProperty("kcfg_ShowMenuBar", Settings::showMenuBar());
 

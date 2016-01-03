@@ -1,5 +1,6 @@
 /*
  *  Copyright 2012  Sebastian Gottfried <sebastiangottfried@web.de>
+ *  Copyright 2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -19,6 +20,7 @@
  */
 
 import QtQuick 2.1
+import QtQuick.Layouts 1.2
 
 Item {
     id: root
@@ -64,14 +66,34 @@ Item {
         }
     }
 
-    Item {
-        id: contentArea
+    ColumnLayout {
         anchors {
             fill: parent
             topMargin: 10
             rightMargin: 10
             bottomMargin: 10
             leftMargin: 10
+        }
+        Item {
+            id: contentArea
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            // the content
+        }
+        RowLayout {
+            Item {
+                Layout.fillWidth: true
+            }
+            FlatButton {
+                id: closeButton
+                text: i18n("Close")
+                iconName: "dialog-close"
+                iconSize: 22
+                fontSize: 14
+                onClicked: {
+                    close()
+                }
+            }
         }
     }
 
