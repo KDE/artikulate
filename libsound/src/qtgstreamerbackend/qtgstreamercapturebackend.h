@@ -23,7 +23,7 @@
 
 #include <QString>
 
-#include <QGst/global.h>
+#include <QGst/Global>
 #include <QGst/Pipeline>
 
 class QtGStreamerCaptureBackend : public CaptureBackendInterface

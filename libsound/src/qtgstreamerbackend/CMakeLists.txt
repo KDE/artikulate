@@ -24,6 +24,9 @@
 ###
 
 find_package(Qt5GStreamer 1.2.0 REQUIRED)
+include_directories(
+    ${QTGSTREAMER_INCLUDE_DIR}
+)
 
 set(qtgstreamerbackend_SRCS
     qtgstreamerbackend.cpp

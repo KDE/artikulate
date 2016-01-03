@@ -26,10 +26,6 @@
 # enable exceptions for this library
 kde_enable_exceptions()
 
-include_directories(
-    ${QTGSTREAMER_INCLUDE_DIR}
-)
-
 set(sound_LIB_SRCS
     backendinterface.cpp
     capturedevicecontroller.cpp
