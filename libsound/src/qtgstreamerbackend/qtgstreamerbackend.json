@@ -1,14 +1,14 @@
 {
-    "Encoding": "UTF-8",
+    "Encoding": "UTF-8", 
     "KPlugin": {
-        "Category": "Plugins",
-        "Description": "Sound backend for GStreamer.",
-        "Id": "artikulate_gstreamer_backend",
-        "License": "GPL",
-        "Name": "GStreamer Backend",
+        "Category": "Plugins", 
+        "Description": "Sound backend for GStreamer.", 
+        "Id": "artikulate_gstreamer_backend", 
+        "License": "GPL", 
+        "Name": "GStreamer Backend", 
         "ServiceTypes": [
             "artikulate/libsound/backend"
-        ],
+        ], 
         "Version": "0.1"
     }
 }

@@ -1,14 +1,14 @@
 {
-    "Encoding": "UTF-8",
+    "Encoding": "UTF-8", 
     "KPlugin": {
-        "Category": "Plugins",
-        "Description": "Sound backend for QtMultimedia.",
-        "Id": "artikulate_qtmultimedia_backend",
-        "License": "GPL",
-        "Name": "QtMultimedia Backend",
+        "Category": "Plugins", 
+        "Description": "Sound backend for QtMultimedia.", 
+        "Id": "artikulate_qtmultimedia_backend", 
+        "License": "GPL", 
+        "Name": "QtMultimedia Backend", 
         "ServiceTypes": [
             "artikulate/libsound/backend"
-        ],
+        ], 
         "Version": "0.1"
     }
 }
