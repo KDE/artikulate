@@ -3,9 +3,23 @@
     "KPlugin": {
         "Category": "Plugins", 
         "Description": "Sound backend for GStreamer.", 
+        "Description[ca]": "Dorsal de so pel GStreamer.", 
+        "Description[nl]": "Geluidsbackend voor GStreamer.", 
+        "Description[pt]": "Infra-estrutura de som para o GStreamer.", 
+        "Description[pt_BR]": "Infraestrutura de som para o GStreamer.", 
+        "Description[sv]": "Ljudgränssnitt för Gstreamer.", 
+        "Description[uk]": "Звуковий модуль для GStreamer.", 
+        "Description[x-test]": "xxSound backend for GStreamer.xx", 
         "Id": "artikulate_gstreamer_backend", 
         "License": "GPL", 
         "Name": "GStreamer Backend", 
+        "Name[ca]": "Dorsal GStreamer", 
+        "Name[nl]": "GStreamer-backend", 
+        "Name[pt]": "Infra-Estrutura para o GStreamer", 
+        "Name[pt_BR]": "Infraestrutura do GStreamer", 
+        "Name[sv]": "Gstreamer-gränssnitt", 
+        "Name[uk]": "Модуль GStreamer", 
+        "Name[x-test]": "xxGStreamer Backendxx", 
         "ServiceTypes": [
             "artikulate/libsound/backend"
         ], 
