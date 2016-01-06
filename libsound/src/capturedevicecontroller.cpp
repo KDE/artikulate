@@ -42,6 +42,7 @@ class CaptureDeviceControllerPrivate
 public:
     CaptureDeviceControllerPrivate(QObject *parent)
         : m_parent(parent)
+        , m_backend(nullptr)
         , m_initialized(false)
     {
         QStringList dirsToCheck;
