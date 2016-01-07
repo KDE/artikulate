@@ -29,6 +29,8 @@
 
 int main(int argc, char **argv)
 {
+    KLocalizedString::setApplicationDomain("artikulate");
+
     KAboutData aboutData("artikulate",
                          ki18nc("@title Displayed program name", "Artikulate").toString(),
                          ARTIKULATE_VERSION_STRING,
