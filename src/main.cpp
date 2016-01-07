@@ -29,6 +29,8 @@
 
 int main(int argc, char **argv)
 {
+    KLocalizedString::setApplicationDomain("artikulate");
+
     KAboutData aboutData("artikulate",
                          ki18nc("@title Displayed program name", "Artikulate").toString(),
                          ARTIKULATE_VERSION_STRING,
@@ -51,6 +53,8 @@ int main(int argc, char **argv)
 
     aboutData.addAuthor(ki18nc("@info:credit Developer name", "Magdalena Konkiewicz").toString(),
                         ki18nc("@info:credit Role", "Developer and Course Data").toString());
+
+    aboutData.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
 
     Application app(argc, argv);
     KAboutData::setApplicationData(aboutData);
