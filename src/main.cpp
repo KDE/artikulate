@@ -54,6 +54,8 @@ int main(int argc, char **argv)
     aboutData.addAuthor(ki18nc("@info:credit Developer name", "Magdalena Konkiewicz").toString(),
                         ki18nc("@info:credit Role", "Developer and Course Data").toString());
 
+    aboutData.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
+
     // TODO: for >=KF5.15 use KCrash::initialize();
     KCrash::setCrashHandler(KCrash::defaultCrashHandler);
 
