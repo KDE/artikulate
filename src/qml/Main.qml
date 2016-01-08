@@ -175,13 +175,9 @@ ApplicationWindow {
         anchors {
             fill: main
         }
-        content: Item {}
-//         content: ProfileSelector {
-//             anchors.fill: parent
-//             onProfileChosen: {
-//                 profileSelectorSheet.close()
-//             }
-//         }
+        content: ProfileSettingsItem {
+            anchors.fill: parent
+        }
     }
 
 }

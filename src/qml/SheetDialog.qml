@@ -58,12 +58,6 @@ Item {
         anchors.fill: parent
         color: theme.backgroundColor
         opacity: 1.0
-
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 300
-            }
-        }
     }
 
     ColumnLayout {

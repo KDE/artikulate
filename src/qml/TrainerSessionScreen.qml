@@ -100,7 +100,7 @@ Item {
                 Layout.preferredHeight: main.height / 2
                 color: "lightsteelblue"
 
-                QIconItem {
+                ProfileUserImageItem {
                     anchors {
                         horizontalCenter: parent.horizontalCenter
                         top: parent.top
@@ -108,7 +108,7 @@ Item {
                         bottomMargin: rowSoundControls.height + theme.spacing
                     }
                     width: height
-                    icon: "user-identity"
+                    profile: g_profileManager.activeProfile
                 }
                 Row {
                     id: rowSoundControls

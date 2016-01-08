@@ -26,6 +26,7 @@
 #include <QHash>
 #include <QStandardPaths>
 #include "learninggoal.h"
+#include <QDebug>
 
 namespace LearnerProfile
 {
@@ -41,10 +42,17 @@ public:
     }
     ~LearnerPrivate() {}
 
-    QString imageUrl() const
+    QString imagePath() const
     {
-        QString relPath = QString("images/learner%1.png").arg(m_identifier);
-        return QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + relPath;
+        const QString name = QString("learner%1.png").arg(m_identifier);
+        return imageDirectory() + name;
+    }
+    QString imageDirectory() const
+    {
+        return QStandardPaths::writableLocation(QStandardPaths::DataLocation)
+            + QLatin1Char('/')
+            + QString("images")
+            + QLatin1Char('/');
     }
 
     QString m_name;

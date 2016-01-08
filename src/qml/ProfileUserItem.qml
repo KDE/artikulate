@@ -1,6 +1,6 @@
 /*
  *  Copyright 2012       Sebastian Gottfried <sebastiangottfried@web.de>
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -21,6 +21,7 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 1.2
+import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 Item {
@@ -43,30 +44,16 @@ Item {
 
     onProfileChanged: update()
 
-    Image {
+    ProfileUserImageItem {
         id: imageLearner
-        width: 120
         height: 120
+        width: height
+        profile: root.profile
         anchors {
             top: root.top
             right: root.right
             topMargin: 30
             leftMargin: 30
-        }
-        fillMode: Image.Pad
-        cache: false
-        source: profile.imageUrl ? profile.imageUrl : "../images/user-identity.png"
-
-        Connections {
-            target: profile
-            onImageUrlChanged: {
-                imageLearner.source = "" // trigger reload
-                if (profile.imageUrl) {
-                    imageLearner.source = profile.imageUrl
-                } else {
-                    imageLearner.source = "../images/user-identity.png"
-                }
-            }
         }
     }
 
@@ -81,7 +68,6 @@ Item {
         font.pointSize: theme.fontPointSize * 1.2
         text: root.profile != null ? root.profile.name : ""
     }
-
 
     Row {
         id: editComponent
@@ -100,13 +86,20 @@ Item {
         Button {
             iconName: "edit-delete"
             text: i18n("Delete")
-            enabled: profileManager.profileCount > 1
+            enabled: g_profileManager.profileCount > 1
             onClicked: root.state = "deleteConfirmation"
         }
         Button {
             iconName: "insert-image"
             text: i18n("Change Image")
-            onClicked: profileManager.openImageFileDialog()
+            onClicked: g_profileManager.openImageFileDialog()
+        }
+        ToolButton {
+            iconName: "edit-clear"
+            text: i18n("Clear Image")
+            onClicked: {
+                g_profileManager.activeProfile.clearImage()
+            }
         }
     }
 
@@ -148,10 +141,10 @@ Item {
                 onClicked: {
                     root.profile.name = profileForm.name
                     if (root.profile.id === -1) {
-                        profileManager.addProfile(profile)
+                        g_profileManager.addProfile(profile)
                     }
                     else {
-                        profileManager.sync(root.profile)
+                        g_profileManager.sync(root.profile)
                     }
                     root.update()
                     root.state = "info"
@@ -202,7 +195,6 @@ Item {
             }
         }
     }
-
 
     states: [
         State {

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -21,6 +21,7 @@
 #include "learner.h"
 #include "learner_p.h"
 #include "learninggoal.h"
+#include <QDir>
 #include <QHash>
 #include <QFileInfo>
 #include <QPixmap>
@@ -71,11 +72,24 @@ void Learner::setIdentifier(int identifier)
 
 QString Learner::imageUrl() const
 {
-    QString path = d->imageUrl();
+    QString path = d->imagePath();
     if (!QFileInfo(path).exists()) {
         return QString();
     }
-    return path;
+    return "file://" + path;
+}
+
+void Learner::clearImage()
+{
+    const QString path {d->imagePath()};
+    if (!QFileInfo(path).exists()) {
+        return;
+    }
+    QFile file;
+    if (!file.remove(path)) {
+        qCCritical(LIBLEARNER_LOG) << "could not remove image:" << path;
+    }
+    emit imageChanged();
 }
 
 void Learner::importImage(const QString &path)
@@ -84,11 +98,20 @@ void Learner::importImage(const QString &path)
         qCWarning(LIBLEARNER_LOG) << "image path points to a non-existing file, aborting: " << path;
         return;
     }
+
+    // create image directory if it does not exist
+    QDir dir;
+    if (!dir.exists(d->imageDirectory())) {
+        dir.mkdir(d->imageDirectory());
+    }
+
     QPixmap image = QPixmap(path);
     image = image.scaled(120, 120);
-    image.save(d->imageUrl());
-    emit imageUrlChanged();
-    qCDebug(LIBLEARNER_LOG) << "saved scaled image from " << path << " at " << d->imageUrl();
+    if (!image.save(d->imagePath(), "PNG")) {
+        qCCritical(LIBLEARNER_LOG()) << "could not save scaled image to" << d->imagePath();
+    }
+    emit imageChanged();
+    qCDebug(LIBLEARNER_LOG) << "saved scaled image from " << path << " at " << d->imagePath();
 }
 
 QList< LearningGoal* > Learner::goals() const
