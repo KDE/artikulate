@@ -32,13 +32,25 @@ namespace LearnerProfile
 class Learner;
 class LearningGoal;
 
+/**
+ * \class Storage
+ * Database storage for learner information database.
+ */
 class Storage : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString errorMessage READ errorMessage NOTIFY errorMessageChanged)
 
 public:
+    /**
+     * Default constructor, which sets a default database path at
+     * DataLocation + learnerdata.db
+     */
     explicit Storage(QObject* parent = nullptr);
+    /**
+     * \note this constructor is tailored for unit tests
+     */
+    Storage(const QString databasePath, QObject* parent = nullptr);
     QString errorMessage() const;
 
     /**
@@ -64,6 +76,7 @@ protected:
 
 private:
     bool updateSchema();
+    const QString m_databasePath;
     QString m_errorMessage;
 };
 }

@@ -1,2 +1,3 @@
 
 ecm_optional_add_subdirectory(src)
+ecm_optional_add_subdirectory(autotests)

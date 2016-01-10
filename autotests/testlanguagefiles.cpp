@@ -135,5 +135,4 @@ void TestLanguageFiles::checkIdUniqueness()
     }
 }
 
-
 QTEST_GUILESS_MAIN(TestLanguageFiles)

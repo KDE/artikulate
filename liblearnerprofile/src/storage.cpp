@@ -35,9 +35,19 @@ using namespace LearnerProfile;
 
 Storage::Storage(QObject* parent)
     : QObject(parent)
+    , m_databasePath(QStandardPaths::writableLocation(
+        QStandardPaths::DataLocation) + QLatin1Char('/') + "learnerdata.db")
     , m_errorMessage(QString())
 {
 
+}
+
+Storage::Storage(const QString databasePath, QObject* parent)
+    : QObject(parent)
+    , m_databasePath(databasePath)
+    , m_errorMessage(QString())
+{
+    qCDebug(LIBLEARNER_LOG) << "Initialize with custom DB path:" << m_databasePath;
 }
 
 QString Storage::errorMessage() const
@@ -320,7 +330,6 @@ QList< LearningGoal* > Storage::loadGoals()
     return goals;
 }
 
-
 bool Storage::storeProgress(Learner *learner, LearningGoal *goal,
                             const QString &container, const QString &item, int payload,
                             const QString &time)
@@ -353,17 +362,15 @@ QSqlDatabase Storage::database()
         return QSqlDatabase::database(QSqlDatabase::defaultConnection);
     }
 
-    QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "learnerdata.db";
-
     // create data directory if it does not exist
     QDir dir = QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     if (!dir.exists()) {
         dir.mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     }
-    qCDebug(LIBLEARNER_LOG) << "Database path: " << path;
+    qCDebug(LIBLEARNER_LOG) << "Database path: " << m_databasePath;
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(path);
+    db.setDatabaseName(m_databasePath);
     if (!db.open()) {
         qCritical() << "Could not open database: " << db.lastError().text();
         raiseError(db.lastError());
