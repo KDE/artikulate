@@ -132,15 +132,36 @@ Phrase * TrainingSession::nextPhrase() const
 
 void TrainingSession::showNextPhrase()
 {
+    // possibly update goals of learner
     updateGoal();
-    //TODO update learning log
+
+    // store training activity
+    LearnerProfile::LearningGoal * goal = m_profileManager->goal(
+        LearnerProfile::LearningGoal::Language, m_course->id());
+    m_profileManager->recordProgress(m_profileManager->activeProfile(),
+        goal,
+        m_course->id(),
+        m_phrase->id(),
+        static_cast<int>(LearnerProfile::ProfileManager::Skip)
+    );
+
     setPhrase(nextPhrase());
 }
 
 void TrainingSession::skipPhrase()
 {
+    // possibly update goals of learner
     updateGoal();
-    //TODO update learning log
+
+    // store training activity
+    LearnerProfile::LearningGoal * goal = m_profileManager->goal(
+        LearnerProfile::LearningGoal::Language, m_course->id());
+    m_profileManager->recordProgress(m_profileManager->activeProfile(),
+        goal,
+        m_course->id(),
+        m_phrase->id(),
+        static_cast<int>(LearnerProfile::ProfileManager::Skip)
+    );
     showNextPhrase();
 }
 

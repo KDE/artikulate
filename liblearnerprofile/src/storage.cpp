@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,11 +20,12 @@
 
 #include "storage.h"
 #include "learner.h"
-
 #include "liblearner_debug.h"
-#include <QDir>
+
 #include <KLocalizedString>
 
+#include <QDateTime>
+#include <QDir>
 #include <QSqlError>
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -165,7 +166,6 @@ bool Storage::removeProfile(Learner *learner)
 
 bool Storage::removeRelation(Learner *learner, LearningGoal *goal)
 {
-qCDebug(LIBLEARNER_LOG) << "remove relation";
     QSqlDatabase db = database();
     QSqlQuery removeGoalRelationQuery(db);
     removeGoalRelationQuery.prepare(
@@ -320,6 +320,33 @@ QList< LearningGoal* > Storage::loadGoals()
     return goals;
 }
 
+
+bool Storage::storeProgress(Learner *learner, LearningGoal *goal,
+                            const QString &container, const QString &item, int payload,
+                            const QString &time)
+{
+    QSqlDatabase db = database();
+    QSqlQuery insertQuery(db);
+    insertQuery.prepare("INSERT INTO learner_progress"
+        "(goal_category, goal_identifier, profile_id, item_container, item, payload, date)"
+        "VALUES (?, ?, ?, ?, ?, ?, ?)");
+    insertQuery.bindValue(0, static_cast<int>(goal->category()));
+    insertQuery.bindValue(1, goal->identifier());
+    insertQuery.bindValue(2, learner->identifier());
+    insertQuery.bindValue(3, container);
+    insertQuery.bindValue(4, item);
+    insertQuery.bindValue(5, payload);
+    insertQuery.bindValue(6, time);
+    insertQuery.exec();
+
+    if (insertQuery.lastError().isValid()) {
+        raiseError(insertQuery.lastError());
+        db.rollback();
+        return false;
+    }
+    return true;
+}
+
 QSqlDatabase Storage::database()
 {
     if (QSqlDatabase::contains(QSqlDatabase::defaultConnection)) {
@@ -431,6 +458,23 @@ bool Storage::updateSchema()
             "goal_category INTEGER, "    // LearningGoal::Category
             "goal_identifier TEXT, "     // LearningGoal::Identifier
             "profile_id INTEGER "       // Learner::Identifier
+            ")");
+    if (db.lastError().isValid()) {
+        qCritical() << db.lastError().text();
+        raiseError(db.lastError());
+        return false;
+    }
+
+    // table for progress data
+    db.exec("CREATE TABLE IF NOT EXISTS learner_progress ("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            "goal_category INTEGER, "    // LearningGoal::Category
+            "goal_identifier TEXT, "     // LearningGoal::Identifier
+            "profile_id INTEGER, "       // Learner::Identifier
+            "item_container TEXT, "
+            "item TEXT, "
+            "payload INTEGER, "
+            "date TEXT"
             ")");
     if (db.lastError().isValid()) {
         qCritical() << db.lastError().text();

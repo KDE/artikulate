@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -51,6 +51,9 @@ public:
     QList<Learner *> loadProfiles(QList< LearnerProfile::LearningGoal* > goals);
     bool storeGoal(LearningGoal *goal);
     QList<LearningGoal *> loadGoals();
+    bool storeProgress(Learner *learner, LearningGoal *goal,
+                       const QString &container, const QString &item, int payload,
+                       const QString &time);
 
 Q_SIGNALS:
     void errorMessageChanged();

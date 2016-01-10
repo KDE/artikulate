@@ -265,6 +265,14 @@ LearnerProfile::LearningGoal * LearnerProfile::ProfileManager::goal(
     return nullptr;
 }
 
+void ProfileManager::recordProgress(Learner *learner,
+                                    LearningGoal *goal,
+                                    const QString &container, const QString &item, int payload)
+{
+    const QString time {QDateTime::currentDateTime().toString(Qt::ISODate)};
+    d->m_storage.storeProgress(learner, goal, container, item, payload, time);
+}
+
 void ProfileManager::sync()
 {
     d->sync();

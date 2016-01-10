@@ -41,8 +41,13 @@ class LIBLEARNERPROFILE_EXPORT ProfileManager : public QObject
     Q_PROPERTY (LearnerProfile::Learner * activeProfile READ activeProfile WRITE setActiveProfile NOTIFY activeProfileChanged)
 
 public:
+    enum Progress {
+        Skip = 0,
+        Next = 1
+    };
+
     explicit ProfileManager(QObject *parent = nullptr);
-    ~ProfileManager();
+    virtual ~ProfileManager();
 
     QList< Learner* > profiles() const;
     int profileCount() const;
@@ -57,6 +62,12 @@ public:
      */
     void registerGoal(LearningGoal::Category category, const QString &identifier, const QString &name);
     LearningGoal * goal(LearningGoal::Category category, const QString &identifier) const;
+    /**
+     * updates current learning goal by activity, adds new learning goal if necessary,
+     * stores log data for this activity
+     */
+    void recordProgress(Learner *learner, LearningGoal *goal,
+                       const QString &container, const QString &item, int payload);
     /**
      * write all profiles to database
      */
