@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -46,7 +46,7 @@ public:
         DataRole
     };
 
-    explicit LearningGoalModel(QObject *parent = 0);
+    explicit LearningGoalModel(QObject *parent = nullptr);
     virtual ~LearningGoalModel();
     /**
      * Reimplemented from QAbstractListModel::roleNames()

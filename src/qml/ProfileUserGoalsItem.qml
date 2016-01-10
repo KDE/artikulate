@@ -1,6 +1,6 @@
 /*
  *  Copyright 2012       Sebastian Gottfried <sebastiangottfried@web.de>
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -27,7 +27,6 @@ Item {
     id: root
     anchors.fill: parent
 
-    property Learner profile: null
     property ProfileManager profileManager: null
 
     ScrollView {
@@ -39,37 +38,20 @@ Item {
             leftMargin: 5
         }
         ListView {
-            id: languageList
+            id: goalList
             width: root.width
-            height: favoriteLanguages.height
             clip: true
             model: LearningGoalModel {
                 profileManager: root.profileManager
+                learner: profileManager.activeProfile
             }
-            delegate : CheckListItem {
+            delegate: ListItem {
                 id: goalSelector
                 property LearningGoal goal: model.dataRole
-                width: languageList.width - 10
+                width: goalList.width - 10
                 title: model.title
                 iconName: "favorites"
-                onStateChanged: {
-                    if (checked) {
-                        root.profile.addGoal(goal)
-                    } else {
-                        root.profile.removeGoal(goal)
-                    }
-                }
-                checked: { // initialization with initial profile
-                    root.profile != null ? root.profile.hasGoal(goal) : false
-                }
-                Connections { // update after profile changes
-                    target: root
-                    onProfileChanged: {
-                        if (root.profile != null) {
-                            goalSelector.checked = root.profile.hasGoal(goal)
-                        }
-                    }
-                }
+                onSelected: goalList.currentIndex = index
             }
         }
     }

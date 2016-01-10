@@ -20,23 +20,46 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 1.2
+import QtQuick.Controls.Styles 1.2
 import QtQuick.Layouts 1.2
 import artikulate 1.0
 
 Item {
     id: root
 
-    ColumnLayout {
-        id: main
-        anchors.fill: parent
-
-        Label {
-            text: i18n("User Profile Settings")
-            font.pointSize: 1.5 * theme.fontPointSize
+    TabView {
+        anchors {
+            fill: parent
         }
+        frameVisible: false
+        Tab {
+            title: i18n("Learner")
+            ColumnLayout {
+                id: main
+                anchors {
+                    fill: parent
+                    margins: 10
+                }
 
-        ProfileUserItem {
-            profile: g_profileManager.activeProfile
+                Label {
+                    text: i18n("User Profile Settings")
+                    font.pointSize: 1.5 * theme.fontPointSize
+                }
+
+                ProfileUserItem {
+                    profile: g_profileManager.activeProfile
+                }
+            }
+        }
+        Tab {
+            title: i18n("Languages")
+            ProfileUserGoalsItem {
+                anchors {
+                    fill: parent
+                    margins: 10
+                }
+                profileManager: g_profileManager
+            }
         }
     }
 }

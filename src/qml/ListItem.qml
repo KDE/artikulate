@@ -30,22 +30,17 @@ Item {
     property alias label: label
     signal selected
     height: Math.max(label.height + 15 + 15, 15 + 15 + 30)
-    state: ListView.isCurrentItem? "selected": mouseArea.containsMouse? "hover": "normal"
+    state: mouseArea.containsMouse? "hover": ListView.isCurrentItem? "selected": "normal"
+
+    SystemPalette {
+        id: palette
+        colorGroup: root.enabled ? SystemPalette.Active : SystemPalette.Disabled
+    }
 
     Rectangle {
         id: bg
-        color: "#3daee6"
-        border.color: "#3daee6"
-        border.width: 2
-        opacity: 0
-        radius: 4
-        anchors {
-            fill: parent
-            topMargin: 5
-            rightMargin: 5
-            bottomMargin: 5
-            leftMargin: 5
-        }
+        border.width: 0
+        anchors.fill: parent
     }
 
     Item {
@@ -74,6 +69,7 @@ Item {
         Label {
             id: label
             elide: Text.ElideRight
+            color: palette.buttonText
             anchors {
                 left: iconItem.visible? iconItem.right: parent.left
                 leftMargin: iconItem.visible ? Math.floor(theme.smallIconSize/2) : 0
@@ -96,47 +92,24 @@ Item {
             name: "normal"
             PropertyChanges {
                 target: bg
-                color: "#3daee6"
-                opacity: 0
+                color: palette.base
+                opacity: 1
             }
         },
         State {
             name: "hover"
             PropertyChanges {
                 target: bg
-                opacity: 0.3
-                color: "#3daee6"
+                color: palette.highlight
+                opacity: ListView.isCurrentItem? 0.8 : 0.4
             }
         },
         State {
             name: "selected"
             PropertyChanges {
                 target: bg
-                opacity: 0.7
-                color: "#c0e7f9"
-            }
-        }
-    ]
-
-    transitions: [
-        Transition {
-            from: "normal"
-            to: "hover"
-            NumberAnimation {
-                target: bg
-                property: "opacity"
-                duration: 250
-                easing.type: Easing.OutCubic
-            }
-        },
-        Transition {
-            from: "hover"
-            to: "normal"
-            NumberAnimation {
-                target: bg
-                property: "opacity"
-                duration: 250
-                easing.type: Easing.OutCubic
+                color: palette.highlight
+                opacity: 1
             }
         }
     ]

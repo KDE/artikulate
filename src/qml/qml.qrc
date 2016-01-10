@@ -17,7 +17,7 @@
         <file>PhraseEditorTypeComponent.qml</file>
         <file>ProfileSettingsItem.qml</file>
         <file>ProfileDetailsItem.qml</file>
-        <file>ProfileDetailsViewFavorites.qml</file>
+        <file>ProfileUserGoalsItem.qml</file>
         <file>ProfileUserItem.qml</file>
         <file>ProfileUserImageItem.qml</file>
         <file>ProfileSelector.qml</file>

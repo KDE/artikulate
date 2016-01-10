@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -35,8 +35,8 @@ using namespace LearnerProfile;
 class LearningGoalModelPrivate {
 public:
     LearningGoalModelPrivate()
-        : m_profileManager(0)
-        , m_learner(0)
+        : m_profileManager(nullptr)
+        , m_learner(nullptr)
         , m_signalMapper(new QSignalMapper())
     {
     }
@@ -89,7 +89,8 @@ LearningGoalModel::LearningGoalModel(QObject *parent)
     : QAbstractListModel(parent)
     , d(new LearningGoalModelPrivate)
 {
-    connect(d->m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLearningGoalChanged(int)));
+    connect(d->m_signalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped),
+            this, &LearningGoalModel::emitLearningGoalChanged);
 }
 
 LearningGoalModel::~LearningGoalModel()
@@ -143,15 +144,18 @@ void LearningGoalModel::setLearner(Learner *learner)
         return;
     }
     emit beginResetModel();
-    if (d->m_learner != 0) {
+    if (d->m_learner) {
         learner->disconnect(this);
     }
     d->m_learner = learner;
     d->updateGoals();
     d->updateMappings();
-    connect(learner, SIGNAL(goalAboutToBeAdded(LearningGoal*,int)), this, SLOT(onLearningGoalAboutToBeAdded(LearningGoal*,int)));
-    connect(learner, SIGNAL(goalAdded()), this, SLOT(onLearningGoalAdded()));
-    connect(learner, SIGNAL(goalAboutToBeRemoved(int)), this, SLOT(onLearningGoalAboutToBeRemoved(int)));
+    connect(learner, &Learner::goalAboutToBeAdded,
+            this, &LearningGoalModel::onLearningGoalAboutToBeAdded);
+    connect(learner, &Learner::goalAdded,
+            this, &LearningGoalModel::onLearningGoalAdded);
+    connect(learner, &Learner::goalAboutToBeRemoved, this,
+            &LearningGoalModel::onLearningGoalAboutToBeRemoved);
     emit learnerChanged();
     emit endResetModel();
 }

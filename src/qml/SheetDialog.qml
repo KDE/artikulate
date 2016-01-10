@@ -63,10 +63,10 @@ Item {
     ColumnLayout {
         anchors {
             fill: parent
-            topMargin: 10
-            rightMargin: 10
-            bottomMargin: 10
-            leftMargin: 10
+            topMargin: 0
+            rightMargin: 0
+            bottomMargin: 0
+            leftMargin: 0
         }
         Item {
             id: contentArea
