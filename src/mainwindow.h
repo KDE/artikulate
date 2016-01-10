@@ -66,8 +66,8 @@ private:
     KActionCollection *m_actionCollection;
     KHelpMenu *m_helpMenu;
     ResourceManager *m_resourceManager;
-    TrainingSession *m_trainingSession;
     LearnerProfile::ProfileManager *m_profileManager;
+    TrainingSession *m_trainingSession;
 };
 
 #endif

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -52,7 +52,7 @@ public:
         Language = 1
     };
 
-    explicit Learner(QObject *parent = 0);
+    explicit Learner(QObject *parent = nullptr);
     ~Learner();
 
     QString name() const;
@@ -66,11 +66,14 @@ public:
     void importImage(const QString &path);
     int identifier() const;
     void setIdentifier(int identifier);
+    /**
+     * \return list of all learning goals of learner
+     */
     QList<LearningGoal *> goals() const;
     Q_INVOKABLE void addGoal(LearnerProfile::LearningGoal *goal);
     Q_INVOKABLE void removeGoal(LearnerProfile::LearningGoal *goal);
     Q_INVOKABLE bool hasGoal(LearnerProfile::LearningGoal *goal) const;
-    void setActiveGoal(LearningGoal *goal);
+    void setActiveGoal(LearnerProfile::LearningGoal *goal);
     Q_INVOKABLE void setActiveGoal(LearnerProfile::Learner::Category category, const QString &identifier);
     Q_INVOKABLE LearnerProfile::LearningGoal * activeGoal(LearnerProfile::Learner::Category category) const;
 

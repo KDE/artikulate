@@ -72,25 +72,25 @@ Item {
                 }
             }
 
-        style: TabViewStyle {
-            frameOverlap: 1
-            tab: Rectangle {
-                id: tabRect
-                color: styleData.selected ? "#c0e7f9" : "#ffffff"
-                border.width: 0
-                implicitWidth: Math.max(text.width + 8, 80)
-                implicitHeight: 24
-                Text {
-                    id: text
-                    anchors.centerIn: parent
-                    text: styleData.title
-                    color: "black"
+            style: TabViewStyle {
+                frameOverlap: 1
+                tab: Rectangle {
+                    id: tabRect
+                    color: styleData.selected ? "#c0e7f9" : "#ffffff"
+                    border.width: 0
+                    implicitWidth: Math.max(text.width + 8, 80)
+                    implicitHeight: 24
+                    Text {
+                        id: text
+                        anchors.centerIn: parent
+                        text: styleData.title
+                        color: "black"
+                    }
+                }
+                frame: Rectangle {
+                    color: "#c0e7f9"
                 }
             }
-            frame: Rectangle {
-                color: "#c0e7f9"
-            }
-        }
         }
     }
 }

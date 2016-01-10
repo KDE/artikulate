@@ -62,8 +62,8 @@ MainWindow::MainWindow()
     : m_actionCollection(new KActionCollection(this, "artikulate"))
     , m_helpMenu(new KHelpMenu)
     , m_resourceManager(new ResourceManager(this))
-    , m_trainingSession(new TrainingSession(this))
     , m_profileManager(new LearnerProfile::ProfileManager(this))
+    , m_trainingSession(new TrainingSession(this))
 {
     // load saved sound settings
     OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
@@ -75,6 +75,7 @@ MainWindow::MainWindow()
     }
     m_resourceManager->loadCourseResources();
     m_resourceManager->registerLearningGoals(m_profileManager);
+    m_trainingSession->setProfileManager(m_profileManager);
 
     KDeclarative::KDeclarative kdeclarative;
     kdeclarative.setDeclarativeEngine(this);

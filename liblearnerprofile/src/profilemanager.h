@@ -41,7 +41,7 @@ class LIBLEARNERPROFILE_EXPORT ProfileManager : public QObject
     Q_PROPERTY (LearnerProfile::Learner * activeProfile READ activeProfile WRITE setActiveProfile NOTIFY activeProfileChanged)
 
 public:
-    explicit ProfileManager(QObject *parent = 0);
+    explicit ProfileManager(QObject *parent = nullptr);
     ~ProfileManager();
 
     QList< Learner* > profiles() const;
@@ -56,9 +56,13 @@ public:
      * internal database.
      */
     void registerGoal(LearningGoal::Category category, const QString &identifier, const QString &name);
+    LearningGoal * goal(LearningGoal::Category category, const QString &identifier) const;
+    /**
+     * write all profiles to database
+     */
     Q_INVOKABLE void sync();
     /**
-     * Writes \p profile to database.
+     * write specified \p profile to database
      */
     Q_INVOKABLE void sync(LearnerProfile::Learner *learner);
     void setActiveProfile(LearnerProfile::Learner *learner);

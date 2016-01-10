@@ -52,8 +52,8 @@ public:
 
 LearnerProfile::ProfileManagerPrivate::ProfileManagerPrivate()
     : m_profiles(QList<Learner*>())
-    , m_activeProfile(0)
-    , m_config(0)
+    , m_activeProfile(nullptr)
+    , m_config(nullptr)
 {
     // load all profiles from storage
     m_goals.append(m_storage.loadGoals());
@@ -81,7 +81,7 @@ LearnerProfile::ProfileManagerPrivate::ProfileManagerPrivate()
             break;
         }
     }
-    if (m_activeProfile == 0) {
+    if (m_activeProfile == nullptr) {
         qCDebug(LIBLEARNER_LOG) << "No last active profile found, falling back to first found profile";
         if (m_profiles.size() > 0) {
             m_activeProfile = m_profiles.at(0);
@@ -204,8 +204,8 @@ void ProfileManager::removeProfile(Learner *learner)
     d->m_storage.removeProfile(learner);
 
     if (d->m_activeProfile == learner) {
-        if (d->m_profiles.count() == 0) {
-            setActiveProfile(0);
+        if (d->m_profiles.isEmpty()) {
+            setActiveProfile(nullptr);
         }
         else {
             setActiveProfile(d->m_profiles.at(0));
@@ -222,7 +222,7 @@ void ProfileManager::removeLearningGoal(Learner* learner, LearningGoal* goal)
 Learner * ProfileManager::profile(int index)
 {
     if (index < 0 || index >= profiles().count()) {
-        return 0;
+        return nullptr;
     }
     return profiles().at(index);
 }
@@ -232,7 +232,9 @@ QList< LearningGoal* > ProfileManager::goals() const
     return d->m_goals;
 }
 
-void ProfileManager::registerGoal(LearningGoal::Category category, const QString &identifier, const QString &name)
+void ProfileManager::registerGoal(LearningGoal::Category category,
+                                  const QString &identifier,
+                                  const QString &name)
 {
     // test whether goal is already registered
     foreach (LearningGoal *cmpGoal, d->m_goals) {
@@ -244,6 +246,23 @@ void ProfileManager::registerGoal(LearningGoal::Category category, const QString
     goal->setName(name);
     d->m_goals.append(goal);
     d->m_storage.storeGoal(goal);
+}
+
+LearnerProfile::LearningGoal * LearnerProfile::ProfileManager::goal(
+    LearningGoal::Category category,
+    const QString& identifier) const
+{
+    foreach (LearningGoal *goal, d->m_goals) {
+        if (goal->category() != category) {
+            continue;
+        }
+        if (goal->identifier() != identifier) {
+            continue;
+        }
+        return goal;
+    }
+    qCWarning(LIBLEARNER_LOG) << "no goal found for:" << category << identifier;
+    return nullptr;
 }
 
 void ProfileManager::sync()

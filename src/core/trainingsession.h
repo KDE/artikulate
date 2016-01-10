@@ -31,6 +31,10 @@ class Course;
 class Unit;
 class PhonemeGroup;
 
+namespace LearnerProfile {
+    class ProfileManager;
+}
+
 /**
  * \class TrainingSession
  */
@@ -46,6 +50,7 @@ class ARTIKULATECORE_EXPORT TrainingSession : public QObject
 public:
     explicit TrainingSession(QObject *parent = nullptr);
 
+    void setProfileManager(LearnerProfile::ProfileManager *manager);
     Language * language() const;
     void setLanguage(Language *language);
     Course * course() const;
@@ -72,6 +77,8 @@ Q_SIGNALS:
 private:;
     Q_DISABLE_COPY(TrainingSession)
     Phrase * nextPhrase() const;
+    void updateGoal();
+    LearnerProfile::ProfileManager *m_profileManager;
     Language *m_language;
     Course *m_course;
     Unit *m_unit;

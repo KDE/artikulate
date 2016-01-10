@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -24,16 +24,27 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/phonemegroup.h"
+#include "profilemanager.h"
+#include "learner.h"
 #include "artikulate_debug.h"
 
 TrainingSession::TrainingSession(QObject *parent)
     : QObject(parent)
+    , m_profileManager(nullptr)
     , m_language(nullptr)
     , m_course(nullptr)
     , m_unit(nullptr)
     , m_phrase(nullptr)
 {
 
+}
+
+void TrainingSession::setProfileManager(LearnerProfile::ProfileManager *manager)
+{
+    if (m_profileManager == manager) {
+        return;
+    }
+    m_profileManager = manager;
 }
 
 Language * TrainingSession::language() const
@@ -121,17 +132,36 @@ Phrase * TrainingSession::nextPhrase() const
 
 void TrainingSession::showNextPhrase()
 {
+    updateGoal();
+    //TODO update learning log
     setPhrase(nextPhrase());
 }
 
 void TrainingSession::skipPhrase()
 {
-    //FIXME
-    qCWarning(ARTIKULATE_LOG) << "Learning profile update not implemented";
+    updateGoal();
+    //TODO update learning log
     showNextPhrase();
 }
 
 bool TrainingSession::hasNextPhrase() const
 {
     return nextPhrase() != nullptr;
+}
+
+void TrainingSession::updateGoal()
+{
+    if (!m_profileManager) {
+        qCWarning(ARTIKULATE_LOG) << "No ProfileManager registered, aborting operation";
+        return;
+    }
+    LearnerProfile::Learner *learner = m_profileManager->activeProfile();
+    if (!learner) {
+        qCWarning(ARTIKULATE_LOG) << "No active Learner registered, aborting operation";
+        return;
+    }
+    LearnerProfile::LearningGoal * goal = m_profileManager->goal(
+        LearnerProfile::LearningGoal::Language, m_course->id());
+    learner->addGoal(goal);
+    learner->setActiveGoal(goal);
 }
