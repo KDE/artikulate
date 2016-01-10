@@ -216,8 +216,8 @@ QList< Learner* > Storage::loadProfiles(QList<LearningGoal*> goals)
         return QList<Learner*>();
     }
     while (goalRelationQuery.next()) {
-        Learner *learner = 0;
-        LearningGoal *goal = 0;
+        Learner *learner = nullptr;
+        LearningGoal *goal = nullptr;
 
         foreach (Learner *cmpProfile, profiles) {
             if (cmpProfile->identifier() == goalRelationQuery.value(2).toInt()) {
@@ -238,7 +238,7 @@ QList< Learner* > Storage::loadProfiles(QList<LearningGoal*> goals)
             continue;
         }
 
-        if (goal != 0 && learner != 0) {
+        if (goal && learner) {
             learner->addGoal(goal);
         }
     }

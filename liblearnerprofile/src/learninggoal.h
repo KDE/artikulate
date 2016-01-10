@@ -46,8 +46,10 @@ public:
         Language = 1
     };
 
-    explicit LearningGoal(QObject *parent = 0);
-    explicit LearningGoal(LearningGoal::Category category, const QString &identifier, QObject *parent = 0);
+    explicit LearningGoal(QObject *parent = nullptr);
+    explicit LearningGoal(LearningGoal::Category category,
+                          const QString &identifier,
+                          QObject *parent = nullptr);
     ~LearningGoal();
 
     QString name() const;

@@ -38,7 +38,7 @@ class Storage : public QObject
     Q_PROPERTY(QString errorMessage READ errorMessage NOTIFY errorMessageChanged)
 
 public:
-    explicit Storage(QObject* parent = 0);
+    explicit Storage(QObject* parent = nullptr);
     QString errorMessage() const;
 
     /**

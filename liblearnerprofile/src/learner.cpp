@@ -33,8 +33,10 @@ Learner::Learner(QObject *parent)
     : QObject(parent)
     , d(new LearnerPrivate)
 {
-    connect(this, SIGNAL(goalAdded()), this, SIGNAL(goalCountChanged()));
-    connect(this, SIGNAL(goalRemoved()), this, SIGNAL(goalCountChanged()));
+    connect(this, &Learner::goalAdded,
+            this, &Learner::goalCountChanged);
+    connect(this, static_cast<void (Learner::*)()>(&Learner::goalRemoved),
+            this, &Learner::goalCountChanged);
 }
 
 Learner::~Learner()
@@ -197,7 +199,7 @@ LearningGoal * Learner::activeGoal(Learner::Category categoryLearner) const
             }
         }
         qCWarning(LIBLEARNER_LOG) << "No learning goals of catagory " << category << " registered";
-        return 0;
+        return nullptr;
     }
     return d->m_activeGoal[category];
 }
