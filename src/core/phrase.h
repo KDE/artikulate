@@ -42,7 +42,6 @@ class ARTIKULATECORE_EXPORT Phrase : public QObject
     Q_PROPERTY(QString soundFileUrl READ soundFileUrl NOTIFY soundChanged)
     Q_PROPERTY(Phrase::Type type READ type WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(Phrase::EditState editState READ editState WRITE setEditState NOTIFY editStateChanged)
-    Q_PROPERTY(Phrase::TrainingState trainingState READ trainingState WRITE setTrainingState NOTIFY trainingStateChanged)
     Q_PROPERTY(Unit *unit READ unit NOTIFY unitChanged)
     Q_PROPERTY(bool excluded READ isExcluded NOTIFY excludedChanged)
 public:
@@ -54,7 +53,7 @@ public:
         Translated,
         Completed
     };
-    enum TrainingState {
+    enum TrainingState { //TODO not needed anymore with statistics
         Trained,
         Untrained
     };
@@ -90,8 +89,6 @@ public:
     QString editStateString() const;
     void setEditState(Phrase::EditState state);
     void setEditState(const QString &stateString);
-    Phrase::TrainingState trainingState() const;
-    void setTrainingState(Phrase::TrainingState state);
     QUrl sound() const;
     void setSound(const QUrl &soundFile);
     QList<Phoneme *> phonemes() const;
@@ -109,7 +106,6 @@ Q_SIGNALS:
     void i18nTextChanged();
     void typeChanged();
     void editStateChanged();
-    void trainingStateChanged();
     void soundChanged();
     void excludedChanged();
     void phonemesChanged();
@@ -123,7 +119,6 @@ private:
     QString m_i18nText;
     Type m_type;
     EditState m_editState;
-    TrainingState m_trainingState;
     Unit *m_unit;
     bool m_excludedFromUnit;
     QList<Phoneme *> m_phonemes;

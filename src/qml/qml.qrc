@@ -25,7 +25,6 @@
         <file>SoundPlayer.qml</file>
         <file>SoundRecorder.qml</file>
         <file>TrainerCourseStatistics.qml</file>
-        <file>TrainerProgressBar.qml</file>
         <file>TrainerSessionScreen.qml</file>
         <file>UnitEditor.qml</file>
     </qresource>
