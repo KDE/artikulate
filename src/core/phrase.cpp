@@ -27,13 +27,14 @@
 
 #include "artikulate_debug.h"
 #include <QTemporaryFile>
-#include <sys/stat.h>
 
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
     , m_type(Phrase::AllTypes)
     , m_editState(Unknown)
     , m_unit(nullptr)
+    , m_trainingProgress(0)
+    , m_skipCounter(0)
     , m_excludedFromUnit(false)
 {
     connect(this, &Phrase::idChanged, this, &Phrase::modified);
@@ -268,6 +269,34 @@ void Phrase::setExcluded(bool excluded)
     }
     m_excludedFromUnit = excluded;
     emit excludedChanged();
+}
+
+int Phrase::progress() const
+{
+    return m_trainingProgress;
+}
+
+void Phrase::updateProgress(Phrase::Progress progress)
+{
+    // logic of progress computation:
+    // a) if skipped 3 times in a row, decrease progress
+    // b) if done and skipped less than two times in a row, increase progress
+    if (progress == Progress::Done) {
+        m_skipCounter = 0;
+        if (m_trainingProgress < 3) {
+            ++m_trainingProgress;
+            emit progressChanged();
+        }
+        return;
+    }
+    if (progress == Progress::Skip) {
+        ++m_skipCounter;
+        if (m_skipCounter > 2 && m_trainingProgress > 0) {
+            --m_trainingProgress;
+            emit progressChanged();
+        }
+        return;
+    }
 }
 
 QList<Phoneme *> Phrase::phonemes() const

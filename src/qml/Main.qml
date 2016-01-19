@@ -98,26 +98,45 @@ ApplicationWindow {
                         id: unitRowBackground
                         Rectangle {anchors.fill: parent; color: "steelblue"}
                     }
+                    Component {
+                        id: phraseProgress
+                        Row {
+                            property int progress: isUnit ? 0 : phraseModel.phrase(styleData.index).progress
+                            Repeater {
+                                model: 3
+                                QIconItem {
+                                    width: 16
+                                    height: width
+                                    icon: progress > index ? "rating" : "rating-unrated"
+                                }
+                            }
+                        }
+                    }
                     Loader {
                         anchors.fill: parent
                         sourceComponent: isUnit ? unitRowBackground : null
                     }
-                    Text {
-                        width: phraseTree.width - 100 //TODO check if this is really a reasonable value
-                        anchors {
-                            verticalCenter: parent.verticalCenter
-                            topMargin: 5
-                            bottomMargin: 5
-                        }
-                        color: {
-                            if (isUnit) {
-                                return "white";
+                    Row {
+                        Text {
+                            width: phraseTree.width - 130 //TODO check if this is really a reasonable value
+                            anchors {
+                                verticalCenter: parent.verticalCenter
+                                topMargin: 5
+                                bottomMargin: 5
                             }
-                            return styleData.textColor
+                            color: {
+                                if (isUnit) {
+                                    return "white";
+                                }
+                                return styleData.textColor
+                            }
+                            elide: Text.ElideRight
+                            text: " " + styleData.value
+                            font.bold: isUnit
                         }
-                        elide: Text.ElideRight
-                        text: " " + styleData.value
-                        font.bold: isUnit
+                        Loader {
+                            sourceComponent: isUnit ? null : phraseProgress
+                        }
                     }
                 }
                 onClicked: {

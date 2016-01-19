@@ -144,7 +144,7 @@ void TrainingSession::showNextPhrase()
         m_phrase->id(),
         static_cast<int>(LearnerProfile::ProfileManager::Skip)
     );
-
+    m_phrase->updateProgress(Phrase::Progress::Done);
     setPhrase(nextPhrase());
 }
 
@@ -162,7 +162,8 @@ void TrainingSession::skipPhrase()
         m_phrase->id(),
         static_cast<int>(LearnerProfile::ProfileManager::Skip)
     );
-    showNextPhrase();
+    m_phrase->updateProgress(Phrase::Progress::Skip);
+    setPhrase(nextPhrase());
 }
 
 bool TrainingSession::hasNextPhrase() const

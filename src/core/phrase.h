@@ -44,6 +44,7 @@ class ARTIKULATECORE_EXPORT Phrase : public QObject
     Q_PROPERTY(Phrase::EditState editState READ editState WRITE setEditState NOTIFY editStateChanged)
     Q_PROPERTY(Unit *unit READ unit NOTIFY unitChanged)
     Q_PROPERTY(bool excluded READ isExcluded NOTIFY excludedChanged)
+    Q_PROPERTY(int progress READ progress NOTIFY progressChanged)
 public:
     Q_ENUMS(EditState)
     Q_ENUMS(TrainingState)
@@ -56,6 +57,10 @@ public:
     enum TrainingState { //TODO not needed anymore with statistics
         Trained,
         Untrained
+    };
+    enum class Progress {
+        Skip,
+        Done
     };
     enum Type {
         Word,
@@ -94,6 +99,8 @@ public:
     QList<Phoneme *> phonemes() const;
     bool isExcluded() const;
     void setExcluded(bool excluded = false);
+    int progress() const;
+    void updateProgress(Phrase::Progress progress);
 
     Q_INVOKABLE bool hasPhoneme(Phoneme *phoneme);
     Q_INVOKABLE void addPhoneme(Phoneme *phoneme);
@@ -110,6 +117,7 @@ Q_SIGNALS:
     void excludedChanged();
     void phonemesChanged();
     void modified();
+    void progressChanged();
 
 private:
     Q_DISABLE_COPY(Phrase)
@@ -120,6 +128,8 @@ private:
     Type m_type;
     EditState m_editState;
     Unit *m_unit;
+    unsigned m_trainingProgress;
+    int m_skipCounter; // count how many skips occured since last progress update
     bool m_excludedFromUnit;
     QList<Phoneme *> m_phonemes;
     QUrl m_nativeSoundFile;
