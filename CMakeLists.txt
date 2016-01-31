@@ -26,9 +26,6 @@
 project(artikulate)
 
 cmake_minimum_required(VERSION 3.0.0)
-if (POLICY CMP0063)
-    cmake_policy(SET CMP0063 NEW)
-endif()
 
 find_package(ECM 5.15.0 REQUIRED NO_MODULE)
 find_package(KF5DocTools)
@@ -37,7 +34,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 include(KDEInstallDirs)
 include(ECMAddTests)
 include(KDECMakeSettings)
-include(KDECompilerSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
 include(ECMInstallIcons)
 include(ECMOptionalAddSubdirectory)
 include(ECMSetupVersion)
