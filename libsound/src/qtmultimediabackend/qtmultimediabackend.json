@@ -20,6 +20,7 @@
         "Description[sv]": "Ljudgränssnitt för QtMultimedia.", 
         "Description[uk]": "Звуковий модуль для QtMultimedia.", 
         "Description[x-test]": "xxSound backend for QtMultimedia.xx", 
+        "Description[zh_CN]": "QtMultimedia 声音后端", 
         "Id": "artikulate_qtmultimedia_backend", 
         "License": "GPL", 
         "Name": "QtMultimedia Backend", 
@@ -39,6 +40,7 @@
         "Name[sv]": "QtMultimedia-gränssnitt", 
         "Name[uk]": "Модуль QtMultimedia", 
         "Name[x-test]": "xxQtMultimedia Backendxx", 
+        "Name[zh_CN]": "QtMultimedia 后端", 
         "ServiceTypes": [
             "artikulate/libsound/backend"
         ], 

@@ -20,6 +20,7 @@
         "Description[sv]": "Ljudgränssnitt för Gstreamer.", 
         "Description[uk]": "Звуковий модуль для GStreamer.", 
         "Description[x-test]": "xxSound backend for GStreamer.xx", 
+        "Description[zh_CN]": "GStreamer 声音后端", 
         "Id": "artikulate_gstreamer_backend", 
         "License": "GPL", 
         "Name": "GStreamer Backend", 
@@ -39,6 +40,7 @@
         "Name[sv]": "Gstreamer-gränssnitt", 
         "Name[uk]": "Модуль GStreamer", 
         "Name[x-test]": "xxGStreamer Backendxx", 
+        "Name[zh_CN]": "GStreamer 后端", 
         "ServiceTypes": [
             "artikulate/libsound/backend"
         ], 
