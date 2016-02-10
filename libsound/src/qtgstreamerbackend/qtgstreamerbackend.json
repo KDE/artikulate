@@ -3,6 +3,7 @@
     "KPlugin": {
         "Category": "Plugins", 
         "Description": "Sound backend for GStreamer.", 
+        "Description[ast]": "Backend de soníu pa GStreamer.", 
         "Description[ca@valencia]": "Dorsal de so pel GStreamer.", 
         "Description[ca]": "Dorsal de so pel GStreamer.", 
         "Description[cs]": "Podpůrná vrstva zvuku pro GStreamer.", 
@@ -24,6 +25,7 @@
         "Id": "artikulate_gstreamer_backend", 
         "License": "GPL", 
         "Name": "GStreamer Backend", 
+        "Name[ast]": "Backend de GStreamer", 
         "Name[ca@valencia]": "Dorsal GStreamer", 
         "Name[ca]": "Dorsal GStreamer", 
         "Name[cs]": "Podpůrná vrstva GStreamer", 
