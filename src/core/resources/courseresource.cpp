@@ -44,6 +44,7 @@ class CourseResourcePrivate
 public:
     CourseResourcePrivate(ResourceManager *resourceManager)
         : m_resourceManager(resourceManager)
+        , m_type(ResourceInterface::CourseResourceType)
         , m_courseResource(nullptr)
     {
     }
@@ -66,7 +67,6 @@ CourseResource::CourseResource(ResourceManager *resourceManager, const QUrl &pat
     : ResourceInterface(resourceManager)
     , d(new CourseResourcePrivate(resourceManager))
 {
-    d->m_type = ResourceInterface::CourseResourceType;
     d->m_path = path;
 
     // load basic information from language file, but does not parse everything
