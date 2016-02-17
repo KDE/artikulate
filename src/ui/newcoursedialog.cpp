@@ -26,6 +26,7 @@
 #include "core/resources/languageresource.h"
 #include "core/resources/courseresource.h"
 #include "core/resources/skeletonresource.h"
+#include "artikulate_debug.h"
 #include "settings.h"
 #include <KLocalizedString>
 #include <KStandardGuiItem>
@@ -100,6 +101,10 @@ void NewCourseDialog::createCourse()
                 language = resource->language();
                 break;
             }
+        }
+        if (!language) {
+            qCCritical(ARTIKULATE_LOG) << "Could not find any language resource.";
+            return;
         }
     }
 
