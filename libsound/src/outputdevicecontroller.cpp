@@ -44,6 +44,7 @@ public:
     OutputDeviceControllerPrivate(OutputDeviceController *parent)
         : m_parent(parent)
         , m_backend(nullptr)
+        , m_volume(0)
         , m_initialized(false)
     {
         QStringList dirsToCheck;
@@ -66,6 +67,10 @@ public:
                     qCCritical(LIBSOUND_LOG) << "Error while loading plugin: " << metadata.name();
                 }
                 KPluginFactory *factory = KPluginLoader(loader.fileName()).factory();
+                if (!factory) {
+                    qCCritical(LIBSOUND_LOG) << "Could not load plugin:" << metadata.name();
+                    continue;
+                }
                 BackendInterface *plugin = factory->create<BackendInterface>(parent, QList< QVariant >());
                 if (plugin->outputBackend()) {
                     m_backendList.append(plugin->outputBackend());
