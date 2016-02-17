@@ -54,7 +54,7 @@ private slots:
     void fileLoadSaveCompleteness();
 
 private:
-    bool systemUseCourseRepositoryValue;
+    bool m_systemUseCourseRepositoryValue;
 };
 
 #endif

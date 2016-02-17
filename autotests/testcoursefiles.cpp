@@ -39,6 +39,7 @@
 #include <QDomDocument>
 
 TestCourseFiles::TestCourseFiles()
+    : m_systemUseCourseRepositoryValue(Settings::useCourseRepository())
 {
 
 }
@@ -51,7 +52,6 @@ void TestCourseFiles::init()
 //     KGlobal::dirs()->addResourceDir("appdata" , "./autotests/");
 //     KGlobal::dirs()->addResourceDir("appdata" , "./autotests/testcourses/");
 
-    systemUseCourseRepositoryValue = Settings::useCourseRepository();
     Settings::setUseCourseRepository(false);
     Settings::self()->save();
 }
@@ -59,7 +59,7 @@ void TestCourseFiles::init()
 void TestCourseFiles::cleanup()
 {
     // reset value
-    Settings::setUseCourseRepository(systemUseCourseRepositoryValue);
+    Settings::setUseCourseRepository(m_systemUseCourseRepositoryValue);
     Settings::self()->save();
 }
 
