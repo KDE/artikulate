@@ -37,7 +37,8 @@ class LanguageResourcePrivate
 public:
     LanguageResourcePrivate(ResourceManager *resourceManager)
         : m_resourceManager(resourceManager)
-        , m_languageResource(0)
+        , m_type(ResourceInterface::LanguageResourceType)
+        , m_languageResource(nullptr)
     {
     }
 
@@ -58,7 +59,6 @@ LanguageResource::LanguageResource(ResourceManager *resourceManager, const QUrl 
     : ResourceInterface(resourceManager)
     , d(new LanguageResourcePrivate(resourceManager))
 {
-    d->m_type = ResourceInterface::LanguageResourceType;
     d->m_path = path;
 
     // load basic information from language file, but does not parse everything
