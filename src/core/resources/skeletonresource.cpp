@@ -40,6 +40,7 @@ class SkeletonResourcePrivate
 public:
     SkeletonResourcePrivate(ResourceManager *resourceManager)
         : m_resourceManager(resourceManager)
+        , m_type(ResourceInterface::SkeletonResourceType)
         , m_skeletonResource(nullptr)
     {
     }
@@ -61,7 +62,6 @@ SkeletonResource::SkeletonResource(ResourceManager *resourceManager, const QUrl 
     : ResourceInterface(resourceManager)
     , d(new SkeletonResourcePrivate(resourceManager))
 {
-    d->m_type = ResourceInterface::SkeletonResourceType;
     d->m_path = path;
 
     // load basic information from language file, but does not parse everything
