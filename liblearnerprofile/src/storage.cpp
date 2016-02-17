@@ -235,6 +235,10 @@ QList< Learner* > Storage::loadProfiles(QList<LearningGoal*> goals)
                 break;
             }
         }
+        if (!learner) {
+            qCCritical(LIBLEARNER_LOG) << "Could not retrieve learner from database.";
+            return QList<Learner*>();
+        }
         foreach (LearningGoal *cmpGoal, goals) {
             if (cmpGoal->category() == goalRelationQuery.value(0).toInt()
                 && cmpGoal->identifier() == goalRelationQuery.value(1).toString())
@@ -247,8 +251,7 @@ QList< Learner* > Storage::loadProfiles(QList<LearningGoal*> goals)
         if (learner->goals().contains(goal)) {
             continue;
         }
-
-        if (goal && learner) {
+        if (goal) {
             learner->addGoal(goal);
         }
     }
