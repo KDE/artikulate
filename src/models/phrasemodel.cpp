@@ -139,7 +139,6 @@ QVariant PhraseModel::data(const QModelIndex &index, int role) const
             return QVariant();
         }
     }
-    return QVariant();
 }
 
 int PhraseModel::rowCount(const QModelIndex &parent) const
