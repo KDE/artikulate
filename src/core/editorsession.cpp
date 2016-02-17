@@ -31,6 +31,7 @@
 
 EditorSession::EditorSession(QObject *parent)
     : QObject(parent)
+    , m_resourceManager(nullptr)
     , m_skeletonMode(true)
     , m_editSkeleton(false)
     , m_skeleton(nullptr)
