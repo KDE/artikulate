@@ -169,7 +169,6 @@ target_link_libraries(artikulate
         artikulatecore
         Qt5::Qml
         Qt5::Quick
-        KF5::ConfigWidgets
         KF5::Crash
         KF5::Declarative
         KF5::NewStuff
