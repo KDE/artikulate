@@ -29,7 +29,6 @@
 #include "resources/languageresource.h"
 #include "resources/courseresource.h"
 #include "resources/skeletonresource.h"
-#include <ui/newcoursedialog.h>
 #include "settings.h"
 #include "liblearnerprofile/src/profilemanager.h"
 #include "liblearnerprofile/src/learninggoal.h"
@@ -441,20 +440,6 @@ Course * ResourceManager::createCourse(Language *language, Skeleton *skeleton)
     addCourseResource(courseRes);
 
     return course;
-}
-
-void ResourceManager::newCourseDialog(Language *language)
-{
-    QPointer<NewCourseDialog> dialog = new NewCourseDialog(this);
-    if (language != nullptr) {
-        dialog->setLanguage(language);
-    }
-    if (dialog->exec() == QDialog::Accepted) {
-        CourseResource *tempCourse = dialog->courseResource();
-        tempCourse->setContributorResource(true);
-        addCourseResource(dialog->courseResource());
-        emit languageCoursesChanged();
-    }
 }
 
 void ResourceManager::addSkeleton(const QUrl &skeletonFile)

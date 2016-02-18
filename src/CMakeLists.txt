@@ -55,14 +55,9 @@ set(artikulateCore_SRCS
     core/resources/skeletonresource.cpp
     core/player.cpp
     core/recorder.cpp
-    ui/newcoursedialog.cpp
     artikulate_debug.cpp
 )
 
-# compile UI files
-ki18n_wrap_ui(artikulateCore_SRCS
-    ui/newcoursedialog.ui
-)
 kconfig_add_kcfg_files (artikulateCore_SRCS settings.kcfgc)
 add_library(artikulatecore SHARED ${artikulateCore_SRCS})
 generate_export_header(artikulatecore BASE_NAME artikulatecore)
@@ -73,7 +68,6 @@ target_link_libraries(artikulatecore
         Qt5::XmlPatterns
         KF5::Archive
         KF5::ConfigGui
-        KF5::WidgetsAddons
 )
 # internal library without any API or ABI guarantee
 set(GENERIC_LIB_VERSION "0")
@@ -152,10 +146,10 @@ set(artikulate_editor_SRCS
     ui/exportghnsdialog.cpp
 )
 ki18n_wrap_ui (artikulate_editor_SRCS
-    ui/resourcesdialogpage.ui
-    ui/sounddevicedialogpage.ui
     ui/appearencedialogpage.ui
     ui/exportghnsdialog.ui
+    ui/resourcesdialogpage.ui
+    ui/sounddevicedialogpage.ui
 )
 qt5_add_resources(artikulate_editor_SRCS qml/qml.qrc)
 kconfig_add_kcfg_files (artikulate_editor_SRCS settings.kcfgc)
