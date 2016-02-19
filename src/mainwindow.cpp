@@ -37,7 +37,6 @@
 #include <KDeclarative/KDeclarative>
 #include <KHelpMenu>
 #include <KLocalizedString>
-#include <KMessageBox>
 #include <KNS3/DownloadDialog>
 #include <KStandardAction>
 
