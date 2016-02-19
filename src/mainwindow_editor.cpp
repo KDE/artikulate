@@ -32,8 +32,8 @@
 
 #include <KActionCollection>
 #include <KConfigDialog>
-#include <KDeclarative/KDeclarative>
 #include <KLocalizedString>
+#include <KLocalizedContext>
 #include <KMessageBox>
 #include <KNS3/DownloadDialog>
 #include <KStandardAction>
@@ -79,15 +79,12 @@ MainWindowEditor::MainWindowEditor()
     }
     m_resourceManager->loadCourseResources();
 
-    KDeclarative::KDeclarative kdeclarative;
-    kdeclarative.setDeclarativeEngine(m_widget->engine());
-    kdeclarative.setupBindings(); //TODO use result for determining touch/desktop version
-
     // create menu
     setupActions();
 
     // set view
     m_widget->resize(QSize(800, 600));
+    m_widget->rootContext()->setContextObject(new KLocalizedContext(m_widget));
     m_widget->rootContext()->setContextProperty("g_resourceManager", m_resourceManager);
     m_widget->rootContext()->setContextProperty("editorSession", m_editorSession);
 

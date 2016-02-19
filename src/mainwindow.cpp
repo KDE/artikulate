@@ -31,28 +31,20 @@
 #include "liblearnerprofile/src/profilemanager.h"
 #include "liblearnerprofile/src/learner.h"
 #include "libsound/src/outputdevicecontroller.h"
+#include "artikulate_debug.h"
 
 #include <KActionCollection>
 #include <KConfigDialog>
-#include <KDeclarative/KDeclarative>
 #include <KHelpMenu>
 #include <KLocalizedString>
+#include <KLocalizedContext>
 #include <KNS3/DownloadDialog>
 #include <KStandardAction>
 
 #include <QAction>
-#include <QApplication>
-#include <QCloseEvent>
-#include <QCoreApplication>
-#include "artikulate_debug.h"
-#include <QGraphicsObject>
 #include <QIcon>
-#include <QMenuBar>
 #include <QPointer>
 #include <QQmlContext>
-#include <QQmlProperty>
-#include <QQuickItem>
-#include <QQuickView>
 #include <QStandardPaths>
 
 using namespace LearnerProfile;
@@ -64,6 +56,8 @@ MainWindow::MainWindow()
     , m_profileManager(new LearnerProfile::ProfileManager(this))
     , m_trainingSession(new TrainingSession(this))
 {
+    rootContext()->setContextObject(new KLocalizedContext(this));
+
     // load saved sound settings
     OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
 
@@ -75,10 +69,6 @@ MainWindow::MainWindow()
     m_resourceManager->loadCourseResources();
     m_resourceManager->registerLearningGoals(m_profileManager);
     m_trainingSession->setProfileManager(m_profileManager);
-
-    KDeclarative::KDeclarative kdeclarative;
-    kdeclarative.setDeclarativeEngine(this);
-    kdeclarative.setupBindings(); //TODO use result for determining touch/desktop version
 
     // create menu
     setupActions();
