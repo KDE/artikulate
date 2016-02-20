@@ -55,7 +55,6 @@ find_package(KF5 REQUIRED COMPONENTS
     Config
     ConfigWidgets
     Crash
-    Declarative
     I18n
     NewStuff
     WidgetsAddons

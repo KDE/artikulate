@@ -55,6 +55,11 @@ set(artikulateCore_SRCS
     core/resources/skeletonresource.cpp
     core/player.cpp
     core/recorder.cpp
+
+    qmlcontrols/iconitem.cpp
+    qmlcontrols/imagetexturescache.cpp
+    qmlcontrols/managedtexturenode.cpp
+
     artikulate_debug.cpp
 )
 
@@ -66,6 +71,7 @@ target_link_libraries(artikulatecore
         artikulatelearnerprofile
         artikulatesound
         Qt5::XmlPatterns
+        Qt5::Quick
         KF5::Archive
         KF5::ConfigGui
 )
@@ -164,7 +170,6 @@ target_link_libraries(artikulate
         Qt5::Qml
         Qt5::Quick
         KF5::Crash
-        KF5::Declarative
         KF5::NewStuff
         KF5::XmlGui
 )
@@ -180,7 +185,6 @@ target_link_libraries(artikulate_editor
         Qt5::QuickWidgets
         KF5::ConfigWidgets
         KF5::Crash
-        KF5::Declarative
         KF5::NewStuff
         KF5::XmlGui
 )

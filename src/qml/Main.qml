@@ -22,7 +22,6 @@ import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.2
 import QtQml.Models 2.2
-import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 ApplicationWindow {
@@ -104,7 +103,7 @@ ApplicationWindow {
                             property int progress: isUnit ? 0 : phraseModel.phrase(styleData.index).progress
                             Repeater {
                                 model: 3
-                                QIconItem {
+                                Icon {
                                     width: 16
                                     height: width
                                     icon: progress > index ? "rating" : "rating-unrated"

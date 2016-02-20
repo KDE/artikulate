@@ -47,6 +47,7 @@
 #include "models/phonemeunitmodel.h"
 #include "models/profilemodel.h"
 #include "models/skeletonmodel.h"
+#include "qmlcontrols/iconitem.h"
 
 #include "liblearnerprofile/src/learner.h"
 #include "liblearnerprofile/src/profilemanager.h"
@@ -56,7 +57,6 @@
 #include <QQmlComponent>
 #include <QQmlContext>
 #include <QQmlEngine>
-#include <KDeclarative/KDeclarative>
 #include <QGraphicsDropShadowEffect>
 
 Application::Application(int& argc, char** argv)
@@ -83,6 +83,7 @@ void Application::registerQmlTypes()
     qmlRegisterType<TrainingSession>("artikulate", 1, 0, "TrainingSession");
     qmlRegisterType<Player>("artikulate", 1, 0, "Player");
     qmlRegisterType<Recorder>("artikulate", 1, 0, "Recorder");
+    qmlRegisterType<IconItem>("artikulate", 1, 0, "Icon");
 
     qmlRegisterType<CourseModel>("artikulate", 1, 0, "CourseModel");
     qmlRegisterType<CourseFilterModel>("artikulate", 1, 0, "CourseFilterModel");

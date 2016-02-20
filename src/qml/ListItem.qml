@@ -21,7 +21,7 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 1.2
-import org.kde.kquickcontrolsaddons 2.0
+import artikulate 1.0
 
 Item {
     id: root
@@ -54,7 +54,7 @@ Item {
             leftMargin: 10
         }
 
-        QIconItem {
+        Icon {
             id: iconItem
             visible: !!root.iconName
             anchors {

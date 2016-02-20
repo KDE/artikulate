@@ -20,7 +20,6 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 1.2
-import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 Item {
@@ -57,7 +56,7 @@ Item {
             width: root.width - buttonLeft.width - buttonRight.width
             height: theme.mediumIconSize
             spacing: 10
-            QIconItem {
+            Icon {
                 id: icon
                 icon: "artikulate-course"
                 width: theme.smallMediumIconSize

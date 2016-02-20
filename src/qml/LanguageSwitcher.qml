@@ -20,7 +20,6 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 1.2
-import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 Item {
@@ -70,7 +69,7 @@ Item {
             height: theme.mediumIconSize
             spacing: 10
 
-            QIconItem {
+            Icon {
                 id: icon
                 icon: "artikulate-language"
                 width: theme.mediumIconSize
@@ -111,7 +110,7 @@ Item {
             left: languageView.left
             top: languageView.top
         }
-        QIconItem {
+        Icon {
             id: icon
             icon: "dialog-information"
             width: theme.mediumIconSize

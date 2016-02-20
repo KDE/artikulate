@@ -20,7 +20,7 @@
 
 import QtQuick 2.5
 import QtQuick.Controls 1.2
-import org.kde.kquickcontrolsaddons 2.0
+import artikulate 1.0
 
 Item {
     id: root
@@ -71,18 +71,18 @@ Item {
             height: paintedHeight
             width: paintedWidth
         }
-        QIconItem {
+        Icon {
             id: iconItem
             visible: !!root.iconName
+            width: height
+            height: root.iconSize
             anchors {
                 left: textLabel.right
                 leftMargin: 10
                 verticalCenter: textLabel.verticalCenter
             }
-            state: root.enabled ? QIconItem.DefaultState : QIconItem.DisabledState//TODO KF5.15 change to "enabled:"
+            enabled: root.enabled
             icon: root.iconName
-            width: root.iconSize
-            height: root.iconSize
         }
 
     }

@@ -21,7 +21,6 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.2
-import org.kde.kquickcontrolsaddons 2.0
 import artikulate 1.0
 
 ToolBar{
@@ -31,7 +30,7 @@ ToolBar{
         Layout.preferredHeight: langIcon.height
         spacing: 20
 
-        QIconItem {
+        Icon {
             id: langIcon
             icon: "artikulate-language"
             width: 48
