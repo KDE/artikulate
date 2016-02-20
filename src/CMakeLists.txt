@@ -183,7 +183,6 @@ target_link_libraries(artikulate_editor
         Qt5::Qml
         Qt5::Quick
         Qt5::QuickWidgets
-        KF5::ConfigWidgets
         KF5::Crash
         KF5::NewStuff
         KF5::XmlGui
