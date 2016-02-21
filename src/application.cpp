@@ -67,9 +67,24 @@ Application::Application(int& argc, char** argv)
 
 void Application::registerQmlTypes()
 {
-    qmlRegisterType<EditorSession>("artikulate", 1, 0, "EditorSession");
+    qmlRegisterUncreatableType<TrainingSession>(
+        "artikulate", 1, 0,
+        "TrainingSession",
+        "TrainingSession is unique object provided by the backend");
+    qmlRegisterUncreatableType<EditorSession>(
+        "artikulate", 1, 0,
+        "EditorSession",
+        "EditorSession is unique object provided by the backend");
+    qmlRegisterUncreatableType<ResourceManager>(
+        "artikulate", 1, 0,
+        "ResourceManager",
+        "ResourceManager is unique object provided by the backend");
+    qmlRegisterUncreatableType<LearnerProfile::ProfileManager>(
+        "artikulate", 1, 0,
+        "ProfileManager",
+        "ProfileManager is unique object provided by the backend");
+
     qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");
-    qmlRegisterType<LearnerProfile::ProfileManager>("artikulate", 1, 0, "ProfileManager");
     qmlRegisterType<LearnerProfile::LearningGoal>("artikulate", 1, 0, "LearningGoal");
     qmlRegisterType<Unit>("artikulate", 1, 0, "Unit");
     qmlRegisterType<Skeleton>("artikulate", 1, 0, "Skeleton");
@@ -79,8 +94,6 @@ void Application::registerQmlTypes()
     qmlRegisterType<Phrase>("artikulate", 1, 0, "Phrase");
     qmlRegisterType<Phoneme>("artikulate", 1, 0, "Phoneme");
     qmlRegisterType<PhonemeGroup>("artikulate", 1, 0, "PhonemeGroup");
-    qmlRegisterType<EditorSession>("artikulate", 1, 0, "EditorSession");
-    qmlRegisterType<TrainingSession>("artikulate", 1, 0, "TrainingSession");
     qmlRegisterType<Player>("artikulate", 1, 0, "Player");
     qmlRegisterType<Recorder>("artikulate", 1, 0, "Recorder");
     qmlRegisterType<IconItem>("artikulate", 1, 0, "Icon");

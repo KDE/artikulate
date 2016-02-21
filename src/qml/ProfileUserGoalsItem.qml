@@ -27,8 +27,6 @@ Item {
     id: root
     anchors.fill: parent
 
-    property ProfileManager profileManager: null
-
     ScrollView {
         anchors {
             fill: parent
@@ -42,8 +40,8 @@ Item {
             width: root.width
             clip: true
             model: LearningGoalModel {
-                profileManager: root.profileManager
-                learner: profileManager.activeProfile
+                profileManager: g_profileManager
+                learner: g_profileManager.activeProfile
             }
             delegate: ListItem {
                 id: goalSelector

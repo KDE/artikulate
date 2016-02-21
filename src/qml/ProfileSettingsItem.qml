@@ -58,7 +58,6 @@ Item {
                     fill: parent
                     margins: 10
                 }
-                profileManager: g_profileManager
             }
         }
     }
