@@ -48,6 +48,8 @@ private Q_SLOTS:
     void cleanup();
 
     void testLearnerStorage();
+    void testProgressLogStorage();
+    void testProgressValueStorage();
 
 private:
     QScopedPointer<LearnerProfile::Storage> m_storage;

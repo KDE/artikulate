@@ -134,6 +134,7 @@ void TrainingSession::showNextPhrase()
 {
     // possibly update goals of learner
     updateGoal();
+    m_phrase->updateProgress(Phrase::Progress::Done);
 
     // store training activity
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
@@ -142,9 +143,10 @@ void TrainingSession::showNextPhrase()
         goal,
         m_course->id(),
         m_phrase->id(),
-        static_cast<int>(LearnerProfile::ProfileManager::Skip)
+        static_cast<int>(LearnerProfile::ProfileManager::Skip),
+        m_phrase->progress()
     );
-    m_phrase->updateProgress(Phrase::Progress::Done);
+
     setPhrase(nextPhrase());
 }
 
@@ -152,6 +154,7 @@ void TrainingSession::skipPhrase()
 {
     // possibly update goals of learner
     updateGoal();
+    m_phrase->updateProgress(Phrase::Progress::Skip);
 
     // store training activity
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
@@ -160,9 +163,10 @@ void TrainingSession::skipPhrase()
         goal,
         m_course->id(),
         m_phrase->id(),
-        static_cast<int>(LearnerProfile::ProfileManager::Skip)
+        static_cast<int>(LearnerProfile::ProfileManager::Skip),
+        m_phrase->progress()
     );
-    m_phrase->updateProgress(Phrase::Progress::Skip);
+
     setPhrase(nextPhrase());
 }
 

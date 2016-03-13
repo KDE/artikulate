@@ -45,6 +45,8 @@ Phrase::Phrase(QObject *parent)
     connect(this, &Phrase::i18nTextChanged, this, &Phrase::modified);
     connect(this, &Phrase::phonemesChanged, this, &Phrase::modified);
     connect(this, &Phrase::excludedChanged, this, &Phrase::modified);
+
+    //FIXME initialize training progress by db
 }
 
 Phrase::~Phrase()

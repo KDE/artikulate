@@ -72,4 +72,55 @@ void TestLearnerStorage::testLearnerStorage()
              tmpGoal.identifier());
 }
 
+void TestLearnerStorage::testProgressLogStorage()
+{
+    LearningGoal tmpGoal(LearningGoal::Language, QStringLiteral("testgoalid"), nullptr);
+    tmpGoal.setName(QStringLiteral("testgoalname"));
+
+    Learner tmpLearner;
+    tmpLearner.addGoal(&tmpGoal);
+    tmpLearner.setName("tester");
+
+    QVERIFY(m_storage->storeGoal(&tmpGoal));
+    QVERIFY(m_storage->storeProfile(&tmpLearner));
+
+    const QDateTime time{QDateTime::currentDateTime()};
+    QVERIFY(m_storage->storeProgressLog(&tmpLearner, &tmpGoal, "container", "item", 1, time));
+    auto data = m_storage->readProgressLog(&tmpLearner, &tmpGoal, "container", "item");
+    QCOMPARE(data.size(), 1);
+    QCOMPARE(data.first().first.toString(Qt::ISODate), time.toString(Qt::ISODate));
+}
+
+void TestLearnerStorage::testProgressValueStorage()
+{
+    LearningGoal tmpGoal(LearningGoal::Language, QStringLiteral("testgoalid"), nullptr);
+    tmpGoal.setName(QStringLiteral("testgoalname"));
+
+    Learner tmpLearner;
+    tmpLearner.addGoal(&tmpGoal);
+    tmpLearner.setName("tester");
+
+    QVERIFY(m_storage->storeGoal(&tmpGoal));
+    QVERIFY(m_storage->storeProfile(&tmpLearner));
+
+    // insert
+    QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, "container", "itemA", 1));
+    QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, "container", "itemB", 1));
+
+    auto data = m_storage->readProgressValues(&tmpLearner, &tmpGoal, "container");
+    QCOMPARE(data.size(), 2);
+
+    // update
+    QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, "container", "itemA", 2));
+    data = m_storage->readProgressValues(&tmpLearner, &tmpGoal, "container");
+    Q_FOREACH(const auto &pair, data) {
+        if (pair.first == "itemA") {
+            QCOMPARE(pair.second, 2);
+        }
+        if (pair.first == "itemB") {
+            QCOMPARE(pair.second, 1);
+        }
+    }
+}
+
 QTEST_GUILESS_MAIN(TestLearnerStorage)

@@ -332,30 +332,169 @@ QList< LearningGoal* > Storage::loadGoals()
     return goals;
 }
 
-bool Storage::storeProgress(Learner *learner, LearningGoal *goal,
+bool Storage::storeProgressLog(Learner *learner, LearningGoal *goal,
                             const QString &container, const QString &item, int payload,
-                            const QString &time)
+                            const QDateTime &time)
 {
     QSqlDatabase db = database();
     QSqlQuery insertQuery(db);
-    insertQuery.prepare("INSERT INTO learner_progress"
-        "(goal_category, goal_identifier, profile_id, item_container, item, payload, date)"
-        "VALUES (?, ?, ?, ?, ?, ?, ?)");
-    insertQuery.bindValue(0, static_cast<int>(goal->category()));
-    insertQuery.bindValue(1, goal->identifier());
-    insertQuery.bindValue(2, learner->identifier());
-    insertQuery.bindValue(3, container);
-    insertQuery.bindValue(4, item);
-    insertQuery.bindValue(5, payload);
-    insertQuery.bindValue(6, time);
+    insertQuery.prepare("INSERT INTO learner_progress_log "
+        "(goal_category, goal_identifier, profile_id, item_container, item, payload, date) "
+        "VALUES (:gcategory, :gidentifier, :pid, :container, :item, :payload, :date)");
+    insertQuery.bindValue(":gcategory", static_cast<int>(goal->category()));
+    insertQuery.bindValue(":gidentifier", goal->identifier());
+    insertQuery.bindValue(":pid", learner->identifier());
+    insertQuery.bindValue(":container", container);
+    insertQuery.bindValue(":item", item);
+    insertQuery.bindValue(":payload", payload);
+    insertQuery.bindValue(":date", time.toString(Qt::ISODate));
     insertQuery.exec();
 
     if (insertQuery.lastError().isValid()) {
         raiseError(insertQuery.lastError());
+        qCCritical(LIBLEARNER_LOG) << "DB Error:" << m_errorMessage;
         db.rollback();
         return false;
     }
     return true;
+}
+
+QList<QPair<QDateTime,int>> Storage::readProgressLog(Learner *learner, LearningGoal *goal,
+                            const QString &container, const QString &item)
+{
+    QSqlDatabase db = database();
+    QSqlQuery logQuery(db);
+    logQuery.prepare("SELECT date, payload FROM learner_progress_log "
+        "WHERE goal_category = :goalcategory "
+        "AND goal_identifier = :goalid "
+        "AND profile_id = :profileid "
+        "AND item_container = :container "
+        "AND item = :item");
+    logQuery.bindValue(":goalcategory", static_cast<int>(goal->category()));
+    logQuery.bindValue(":goalid", goal->identifier());
+    logQuery.bindValue(":profileid", learner->identifier());
+    logQuery.bindValue(":container", container);
+    logQuery.bindValue(":item", item);
+    logQuery.exec();
+    if (logQuery.lastError().isValid()) {
+        qCritical() << logQuery.lastError().text();
+        raiseError(logQuery.lastError());
+        return QList<QPair<QDateTime,int>>();
+    }
+
+    QList<QPair<QDateTime,int>> log;
+    while (logQuery.next()) {
+        const QDateTime date{logQuery.value(0).toDateTime()};
+        int payload{logQuery.value(1).toInt()};
+        log.append(qMakePair(date, payload));
+    }
+    return log;
+}
+
+bool Storage::storeProgressValue(Learner *learner, LearningGoal *goal,
+                            const QString &container, const QString &item, int payload)
+{
+    QSqlDatabase db = database();
+    QSqlQuery query(db);
+
+    // test if already payload stored
+    query.prepare("SELECT payload FROM learner_progress_value "
+        "WHERE goal_category = :gcategory "
+        "AND goal_identifier = :gidentifier "
+        "AND profile_id = :pid "
+        "AND item_container = :container "
+        "AND item = :item");
+    query.bindValue(":gcategory", static_cast<int>(goal->category()));
+    query.bindValue(":gidentifier", goal->identifier());
+    query.bindValue(":pid", learner->identifier());
+    query.bindValue(":container", container);
+    query.bindValue(":item", item);
+    query.exec();
+    if (query.lastError().isValid()) {
+        qCritical() << query.lastError().text();
+        raiseError(query.lastError());
+        return false;
+    }
+    // if query contains values, perform update query
+    if (query.next()) {
+        query.finish(); // release resources from previous query
+        query.prepare("UPDATE learner_progress_value "
+            "SET payload = :payload "
+            "WHERE goal_category = :gcategory "
+            "AND goal_identifier = :gidentifier "
+            "AND profile_id = :pid "
+            "AND item_container = :container "
+            "AND item = :item");
+        query.bindValue(":payload", static_cast<int>(payload));
+        query.bindValue(":gcategory", static_cast<int>(goal->category()));
+        query.bindValue(":gidentifier", goal->identifier());
+        query.bindValue(":pid", learner->identifier());
+        query.bindValue(":container", container);
+        query.bindValue(":item", item);
+        query.exec();
+
+        if (query.lastError().isValid()) {
+            qCritical() << query.lastError().text();
+            raiseError(query.lastError());
+            db.rollback();
+            return false;
+        }
+        return true;
+    }
+    // else insert new row
+    else {
+        query.finish(); // release resources from previous query
+        query.prepare("INSERT INTO learner_progress_value "
+            "(goal_category, goal_identifier, profile_id, item_container, item, payload) "
+            "VALUES (:gcategory, :gidentifier, :pid, :container, :item, :payload)");
+        query.bindValue(":gcategory", static_cast<int>(goal->category()));
+        query.bindValue(":gidentifier", goal->identifier());
+        query.bindValue(":pid", learner->identifier());
+        query.bindValue(":container", container);
+        query.bindValue(":item", item);
+        query.bindValue(":payload", static_cast<int>(payload));
+        query.exec();
+
+        if (query.lastError().isValid()) {
+            qCritical() << query.lastError().text();
+            raiseError(query.lastError());
+            db.rollback();
+            return false;
+        }
+        return true;
+    }
+    Q_UNREACHABLE();
+    return false;
+}
+
+QList<QPair<QString,int>> Storage::readProgressValues(Learner *learner, LearningGoal *goal,
+                            const QString &container)
+{
+    QSqlDatabase db = database();
+    QSqlQuery query(db);
+    query.prepare("SELECT item, payload FROM learner_progress_value "
+        "WHERE goal_category = :goalcategory "
+        "AND goal_identifier = :goalid "
+        "AND profile_id = :profileid "
+        "AND item_container = :container");
+    query.bindValue(":goalcategory", static_cast<int>(goal->category()));
+    query.bindValue(":goalid", goal->identifier());
+    query.bindValue(":profileid", learner->identifier());
+    query.bindValue(":container", container);
+    query.exec();
+    if (query.lastError().isValid()) {
+        qCritical() << query.lastError().text();
+        raiseError(query.lastError());
+        return QList<QPair<QString,int>>();
+    }
+
+    QList<QPair<QString,int>> values;
+    while (query.next()) {
+        const QString item{query.value(0).toString()};
+        const int payload{query.value(1).toInt()};
+        values.append(qMakePair(item, payload));
+    }
+    return values;
 }
 
 QSqlDatabase Storage::database()
@@ -474,8 +613,8 @@ bool Storage::updateSchema()
         return false;
     }
 
-    // table for progress data
-    db.exec("CREATE TABLE IF NOT EXISTS learner_progress ("
+    // table for full progress data log
+    db.exec("CREATE TABLE IF NOT EXISTS learner_progress_log ("
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
             "goal_category INTEGER, "    // LearningGoal::Category
             "goal_identifier TEXT, "     // LearningGoal::Identifier
@@ -484,6 +623,22 @@ bool Storage::updateSchema()
             "item TEXT, "
             "payload INTEGER, "
             "date TEXT"
+            ")");
+    if (db.lastError().isValid()) {
+        qCritical() << db.lastError().text();
+        raiseError(db.lastError());
+        return false;
+    }
+
+    // table for progress data quick access
+    db.exec("CREATE TABLE IF NOT EXISTS learner_progress_value ("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            "goal_category INTEGER, "    // LearningGoal::Category
+            "goal_identifier TEXT, "     // LearningGoal::Identifier
+            "profile_id INTEGER, "       // Learner::Identifier
+            "item_container TEXT, "
+            "item TEXT, "
+            "payload INTEGER"
             ")");
     if (db.lastError().isValid()) {
         qCritical() << db.lastError().text();

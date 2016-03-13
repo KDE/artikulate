@@ -67,7 +67,8 @@ public:
      * stores log data for this activity
      */
     void recordProgress(Learner *learner, LearningGoal *goal,
-                       const QString &container, const QString &item, int payload);
+                       const QString &container, const QString &item,
+                       int logPayload, int valuePayload);
     /**
      * write all profiles to database
      */

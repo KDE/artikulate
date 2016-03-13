@@ -63,9 +63,23 @@ public:
     QList<Learner *> loadProfiles(QList< LearnerProfile::LearningGoal* > goals);
     bool storeGoal(LearningGoal *goal);
     QList<LearningGoal *> loadGoals();
-    bool storeProgress(Learner *learner, LearningGoal *goal,
+    bool storeProgressLog(Learner *learner, LearningGoal *goal,
                        const QString &container, const QString &item, int payload,
-                       const QString &time);
+                       const QDateTime &time);
+    /**
+     * Load list of progress values for specified item
+     * \return list of date/payload values for this item
+     */
+    QList<QPair<QDateTime,int>> readProgressLog(Learner *learner, LearningGoal *goal,
+                       const QString &container, const QString &item);
+    bool storeProgressValue(Learner *learner, LearningGoal *goal,
+                       const QString &container, const QString &item, int payload);
+    /**
+     * Load list of progress values for specified container
+     * \return list of item/payload values for all items in container
+     */
+    QList<QPair<QString, int>> readProgressValues(Learner *learner, LearningGoal *goal,
+                       const QString &container);
 
 Q_SIGNALS:
     void errorMessageChanged();
