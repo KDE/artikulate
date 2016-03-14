@@ -19,9 +19,12 @@
  */
 
 #include "testlearnerstorage.h"
+#include "learner.h"
+#include "learninggoal.h"
+#include "storage.h"
+
 #include <QTest>
 #include <QTemporaryFile>
-#include "storage.h"
 
 using namespace LearnerProfile;
 
@@ -40,6 +43,33 @@ void TestLearnerStorage::init()
 void TestLearnerStorage::cleanup()
 {
     m_db.close();
+}
+
+void TestLearnerStorage::testLearnerStorage()
+{
+    LearningGoal tmpGoal(LearningGoal::Language, QStringLiteral("testgoalid"), nullptr);
+    tmpGoal.setName(QStringLiteral("testgoalname"));
+
+    Learner tmpLearner;
+    tmpLearner.addGoal(&tmpGoal);
+    tmpLearner.setName("tester");
+
+    QVERIFY(m_storage->storeGoal(&tmpGoal));
+    QVERIFY(m_storage->storeProfile(&tmpLearner));
+
+    QList< LearnerProfile::LearningGoal* > loadedGoals = m_storage->loadGoals();
+    QCOMPARE(loadedGoals.size(), 1);
+    QCOMPARE(loadedGoals.first()->category(), tmpGoal.category());
+    QCOMPARE(loadedGoals.first()->identifier(), tmpGoal.identifier());
+    QCOMPARE(loadedGoals.first()->name(), tmpGoal.name());
+
+    QList<LearnerProfile::Learner*> loadedLearner = m_storage->loadProfiles(loadedGoals);
+    QCOMPARE(loadedLearner.size(), 1);
+    QCOMPARE(loadedLearner.first()->identifier(), tmpLearner.identifier());
+    QCOMPARE(loadedLearner.first()->name(), tmpLearner.name());
+    QCOMPARE(loadedLearner.first()->goals().size(), 1);
+    QCOMPARE(loadedLearner.first()->goals().first()->identifier(),
+             tmpGoal.identifier());
 }
 
 QTEST_GUILESS_MAIN(TestLearnerStorage)

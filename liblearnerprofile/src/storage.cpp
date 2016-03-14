@@ -138,7 +138,7 @@ bool Storage::storeProfile(Learner *learner)
     cleanupRelations.prepare("DELETE FROM learner_goals WHERE ");
     //TODO change creation of relations to same way as remove-relations: explicit connections
 
-    return false;
+    return true;
 }
 
 bool Storage::removeProfile(Learner *learner)
@@ -284,7 +284,6 @@ bool Storage::storeGoal(LearningGoal *goal)
         insertGoalQuery.bindValue(1, goal->identifier());
         insertGoalQuery.bindValue(2, goal->name());
         insertGoalQuery.exec();
-
         if (insertGoalQuery.lastError().isValid()) {
             raiseError(insertGoalQuery.lastError());
             db.rollback();

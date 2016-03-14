@@ -47,10 +47,11 @@ private Q_SLOTS:
      */
     void cleanup();
 
+    void testLearnerStorage();
+
 private:
     QScopedPointer<LearnerProfile::Storage> m_storage;
     QTemporaryFile m_db;
 };
 
 #endif
-
