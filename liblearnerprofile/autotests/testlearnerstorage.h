@@ -22,6 +22,7 @@
 #define TESTLEARNERSTORAGE_H
 
 #include <QObject>
+#include <QScopedPointer>
 #include <QTemporaryFile>
 
 namespace LearnerProfile {
@@ -47,7 +48,7 @@ private Q_SLOTS:
     void cleanup();
 
 private:
-    LearnerProfile::Storage *m_storage;
+    QScopedPointer<LearnerProfile::Storage> m_storage;
     QTemporaryFile m_db;
 };
 

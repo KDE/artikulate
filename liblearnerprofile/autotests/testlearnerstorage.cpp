@@ -34,7 +34,7 @@ TestLearnerStorage::TestLearnerStorage()
 void TestLearnerStorage::init()
 {
     QVERIFY(m_db.open());
-    m_storage = new Storage(m_db.fileName(), nullptr);
+    m_storage.reset(new Storage(m_db.fileName(), nullptr));
 }
 
 void TestLearnerStorage::cleanup()
