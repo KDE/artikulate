@@ -113,14 +113,8 @@ void TestLearnerStorage::testProgressValueStorage()
     // update
     QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, "container", "itemA", 2));
     data = m_storage->readProgressValues(&tmpLearner, &tmpGoal, "container");
-    Q_FOREACH(const auto &pair, data) {
-        if (pair.first == "itemA") {
-            QCOMPARE(pair.second, 2);
-        }
-        if (pair.first == "itemB") {
-            QCOMPARE(pair.second, 1);
-        }
-    }
+    QCOMPARE(data.find("itemA").value(), 2);
+    QCOMPARE(data.find("itemB").value(), 1);
 }
 
 QTEST_GUILESS_MAIN(TestLearnerStorage)

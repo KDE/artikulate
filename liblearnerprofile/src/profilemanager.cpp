@@ -274,6 +274,12 @@ void ProfileManager::recordProgress(Learner *learner,
     d->m_storage.storeProgressValue(learner, goal, container, item, valuePayload);
 }
 
+QHash<QString, int> ProfileManager::progressValues(Learner *learner, LearningGoal *goal,
+                       const QString &container) const
+{
+    return d->m_storage.readProgressValues(learner, goal, container);
+}
+
 void ProfileManager::sync()
 {
     d->sync();

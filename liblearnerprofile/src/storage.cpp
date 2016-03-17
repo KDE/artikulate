@@ -467,7 +467,7 @@ bool Storage::storeProgressValue(Learner *learner, LearningGoal *goal,
     return false;
 }
 
-QList<QPair<QString,int>> Storage::readProgressValues(Learner *learner, LearningGoal *goal,
+QHash<QString,int> Storage::readProgressValues(Learner *learner, LearningGoal *goal,
                             const QString &container)
 {
     QSqlDatabase db = database();
@@ -485,16 +485,45 @@ QList<QPair<QString,int>> Storage::readProgressValues(Learner *learner, Learning
     if (query.lastError().isValid()) {
         qCritical() << query.lastError().text();
         raiseError(query.lastError());
-        return QList<QPair<QString,int>>();
+        return QHash<QString,int>();
     }
 
-    QList<QPair<QString,int>> values;
+    QHash<QString,int> values;
     while (query.next()) {
         const QString item{query.value(0).toString()};
         const int payload{query.value(1).toInt()};
-        values.append(qMakePair(item, payload));
+        values.insert(item, payload);
     }
     return values;
+}
+
+int Storage::readProgressValue(Learner *learner, LearningGoal *goal,
+                            const QString &container, const QString &item)
+{
+    QSqlDatabase db = database();
+    QSqlQuery query(db);
+    query.prepare("SELECT payload FROM learner_progress_value "
+        "WHERE goal_category = :goalcategory "
+        "AND goal_identifier = :goalid "
+        "AND profile_id = :profileid "
+        "AND item_container = :container "
+        "AND item = :item");
+    query.bindValue(":goalcategory", static_cast<int>(goal->category()));
+    query.bindValue(":goalid", goal->identifier());
+    query.bindValue(":profileid", learner->identifier());
+    query.bindValue(":container", container);
+    query.bindValue(":item", item);
+    query.exec();
+    if (query.lastError().isValid()) {
+        qCritical() << query.lastError().text();
+        raiseError(query.lastError());
+        return -1;
+    }
+
+    if (query.next()) {
+        return query.value(0).toInt();
+    }
+    return -1;
 }
 
 QSqlDatabase Storage::database()

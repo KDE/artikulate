@@ -100,6 +100,7 @@ public:
     bool isExcluded() const;
     void setExcluded(bool excluded = false);
     int progress() const;
+    void setProgress(int value);
     void updateProgress(Phrase::Progress progress);
 
     Q_INVOKABLE bool hasPhoneme(Phoneme *phoneme);

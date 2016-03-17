@@ -77,6 +77,23 @@ void TrainingSession::setCourse(Course *course)
     if (m_course && m_course->unitList().count() > 0) {
         setUnit(m_course->unitList().first());
     }
+
+    // lazy loading of training data
+    LearnerProfile::LearningGoal * goal = m_profileManager->goal(
+        LearnerProfile::LearningGoal::Language, m_course->id());
+    auto data = m_profileManager->progressValues(m_profileManager->activeProfile(),
+        goal,
+        m_course->id()
+    );
+    Q_FOREACH(Unit *unit, m_course->unitList()) {
+        Q_FOREACH(Phrase *phrase, unit->phraseList()) {
+            auto iter = data.find(phrase->id());
+            if (iter != data.end()) {
+                phrase->setProgress(iter.value());
+            }
+        }
+    }
+
     emit courseChanged();
 }
 

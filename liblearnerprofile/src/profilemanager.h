@@ -70,6 +70,11 @@ public:
                        const QString &container, const QString &item,
                        int logPayload, int valuePayload);
     /**
+     * \return progress value, or -1 if value is not available yet
+     */
+    QHash<QString, int> progressValues(Learner *learner, LearningGoal *goal,
+                       const QString &container) const;
+    /**
      * write all profiles to database
      */
     Q_INVOKABLE void sync();

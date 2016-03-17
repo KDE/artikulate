@@ -78,8 +78,13 @@ public:
      * Load list of progress values for specified container
      * \return list of item/payload values for all items in container
      */
-    QList<QPair<QString, int>> readProgressValues(Learner *learner, LearningGoal *goal,
+    QHash<QString, int> readProgressValues(Learner *learner, LearningGoal *goal,
                        const QString &container);
+    /**
+     * Load payload value of specified item. If no value is found, \return -1
+     */
+    int readProgressValue(Learner *learner, LearningGoal *goal,
+                       const QString &container, const QString &item);
 
 Q_SIGNALS:
     void errorMessageChanged();

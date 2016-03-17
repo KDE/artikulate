@@ -45,8 +45,6 @@ Phrase::Phrase(QObject *parent)
     connect(this, &Phrase::i18nTextChanged, this, &Phrase::modified);
     connect(this, &Phrase::phonemesChanged, this, &Phrase::modified);
     connect(this, &Phrase::excludedChanged, this, &Phrase::modified);
-
-    //FIXME initialize training progress by db
 }
 
 Phrase::~Phrase()
@@ -278,6 +276,14 @@ int Phrase::progress() const
     return m_trainingProgress;
 }
 
+void Phrase::setProgress(int value)
+{
+    if (m_trainingProgress == value) {
+        return;
+    }
+    m_trainingProgress = value;
+    emit progressChanged();
+}
 void Phrase::updateProgress(Phrase::Progress progress)
 {
     // logic of progress computation:
