@@ -30,6 +30,7 @@
 int main(int argc, char **argv)
 {
     KLocalizedString::setApplicationDomain("artikulate");
+    Application app(argc, argv);
 
     KAboutData aboutData("artikulate",
                          ki18nc("@title Displayed program name", "Artikulate").toString(),
@@ -56,9 +57,7 @@ int main(int argc, char **argv)
 
     aboutData.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
 
-    Application app(argc, argv);
     KAboutData::setApplicationData(aboutData);
-    KLocalizedString::setApplicationDomain("artikulate");
     KCrash::initialize();
     new MainWindow();
 
