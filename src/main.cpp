@@ -33,27 +33,27 @@ int main(int argc, char **argv)
     Application app(argc, argv);
 
     KAboutData aboutData("artikulate",
-                         ki18nc("@title Displayed program name", "Artikulate").toString(),
+                         i18nc("@title Displayed program name", "Artikulate"),
                          ARTIKULATE_VERSION_STRING,
-                         ki18nc("@title KAboutData: short program description", "Artikulate Pronunciation Trainer").toString(),
+                         i18nc("@title KAboutData: short program description", "Artikulate Pronunciation Trainer"),
                          KAboutLicense::GPL_V2,
-                         ki18nc("@info:credit", "(c) 2013-2016 The Artikulate Developers").toString(),
-                         ki18nc("@title Short program description", "Training your pronunciation in a foreign language.").toString()
+                         i18nc("@info:credit", "(c) 2013-2016 The Artikulate Developers"),
+                         i18nc("@title Short program description", "Training your pronunciation in a foreign language.")
                         );
 
-    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Andreas Cord-Landwehr").toString(),
-                        ki18nc("@info:credit Role", "Original Author").toString(),
+    aboutData.addAuthor(i18nc("@info:credit Developer name", "Andreas Cord-Landwehr"),
+                        i18nc("@info:credit Role", "Original Author"),
                         "cordlandwehr@kde.org");
 
-    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Samikshan Bairagya").toString(),
-                        ki18nc("@info:credit Role", "Developer").toString(),
+    aboutData.addAuthor(i18nc("@info:credit Developer name", "Samikshan Bairagya"),
+                        i18nc("@info:credit Role", "Developer"),
                         "samikshan@gmail.com");
 
-    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Oindrila Gupta").toString(),
-                        ki18nc("@info:credit Role", "Developer and Course Data").toString());
+    aboutData.addAuthor(i18nc("@info:credit Developer name", "Oindrila Gupta"),
+                        i18nc("@info:credit Role", "Developer and Course Data"));
 
-    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Magdalena Konkiewicz").toString(),
-                        ki18nc("@info:credit Role", "Developer and Course Data").toString());
+    aboutData.addAuthor(i18nc("@info:credit Developer name", "Magdalena Konkiewicz"),
+                        i18nc("@info:credit Role", "Developer and Course Data"));
 
     aboutData.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
 
