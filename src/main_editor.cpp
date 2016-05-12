@@ -29,6 +29,8 @@
 
 int main(int argc, char **argv)
 {
+    KLocalizedString::setApplicationDomain("artikulate");
+
     KAboutData aboutData("artikulate_editor",
                          ki18nc("@title Displayed program name", "Artikulate Editor").toString(),
                          ARTIKULATE_VERSION_STRING,
@@ -44,7 +46,6 @@ int main(int argc, char **argv)
 
     Application app(argc, argv);
     KAboutData::setApplicationData(aboutData);
-    KLocalizedString::setApplicationDomain("artikulate");
     KCrash::initialize();
 
     MainWindowEditor *mainWindow = new MainWindowEditor();
