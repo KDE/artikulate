@@ -78,7 +78,7 @@ ApplicationWindow {
 
             TreeView {
                 id: phraseTree
-                Layout.preferredWidth: Math.floor(main.width * 0.3)
+                implicitWidth: Math.floor(root.width * 0.3)
                 Layout.fillHeight: true
                 TableViewColumn {
                     title: i18n("Categories")
