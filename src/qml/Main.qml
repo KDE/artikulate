@@ -179,7 +179,7 @@ ApplicationWindow {
         Loader {
             Layout.fillHeight: true
             sourceComponent: {
-                g_trainingSession.language == null && courseFilterModel.filteredCount == 0
+                g_trainingSession.language == null
                     ? welcomeScreen
                     : trainingScreen
             }
