@@ -83,7 +83,7 @@ void TrainingSession::setCourse(Course *course)
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
         LearnerProfile::LearningGoal::Language, m_course->id());
     if (!goal) {
-        m_profileManager->registerGoal(
+        goal = m_profileManager->registerGoal(
             LearnerProfile::LearningGoal::Language,
             course->language()->id(),
             course->language()->i18nTitle()
@@ -163,7 +163,7 @@ void TrainingSession::showNextPhrase()
 
     // store training activity
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
-        LearnerProfile::LearningGoal::Language, m_course->id());
+        LearnerProfile::LearningGoal::Language, m_course->language()->id());
     m_profileManager->recordProgress(m_profileManager->activeProfile(),
         goal,
         m_course->id(),
@@ -183,7 +183,7 @@ void TrainingSession::skipPhrase()
 
     // store training activity
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
-        LearnerProfile::LearningGoal::Language, m_course->id());
+        LearnerProfile::LearningGoal::Language, m_course->language()->id());
     m_profileManager->recordProgress(m_profileManager->activeProfile(),
         goal,
         m_course->id(),
@@ -212,7 +212,7 @@ void TrainingSession::updateGoal()
         return;
     }
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
-        LearnerProfile::LearningGoal::Language, m_course->id());
+        LearnerProfile::LearningGoal::Language, m_course->language()->id());
     learner->addGoal(goal);
     learner->setActiveGoal(goal);
 }

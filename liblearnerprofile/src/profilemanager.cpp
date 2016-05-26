@@ -232,20 +232,21 @@ QList< LearningGoal* > ProfileManager::goals() const
     return d->m_goals;
 }
 
-void ProfileManager::registerGoal(LearningGoal::Category category,
+LearningGoal * ProfileManager::registerGoal(LearningGoal::Category category,
                                   const QString &identifier,
                                   const QString &name)
 {
     // test whether goal is already registered
     foreach (LearningGoal *cmpGoal, d->m_goals) {
         if (cmpGoal->category() == category && cmpGoal->identifier() == identifier) {
-            return;
+            return cmpGoal;
         }
     }
     LearningGoal *goal = new LearningGoal(category, identifier, this);
     goal->setName(name);
     d->m_goals.append(goal);
     d->m_storage.storeGoal(goal);
+    return goal;
 }
 
 LearnerProfile::LearningGoal * LearnerProfile::ProfileManager::goal(
@@ -253,15 +254,10 @@ LearnerProfile::LearningGoal * LearnerProfile::ProfileManager::goal(
     const QString& identifier) const
 {
     foreach (LearningGoal *goal, d->m_goals) {
-        if (goal->category() != category) {
-            continue;
+        if (goal->category() == category && goal->identifier() == identifier) {
+            return goal;
         }
-        if (goal->identifier() != identifier) {
-            continue;
-        }
-        return goal;
     }
-    qCWarning(LIBLEARNER_LOG) << "no goal found for:" << category << identifier;
     return nullptr;
 }
 
