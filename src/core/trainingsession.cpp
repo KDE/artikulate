@@ -57,8 +57,6 @@ void TrainingSession::setLanguage(Language *language)
     if (m_language == language) {
         return;
     }
-    setCourse(nullptr);
-    setUnit(nullptr);
     m_language = language;
     emit languageChanged();
 }
@@ -70,6 +68,9 @@ Course * TrainingSession::course() const
 
 void TrainingSession::setCourse(Course *course)
 {
+    if (!course) {
+        return;
+    }
     if (m_course == course) {
         return;
     }
