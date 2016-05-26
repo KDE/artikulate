@@ -28,7 +28,7 @@ class QtMultimediaOutputBackend : public OutputBackendInterface
     Q_OBJECT
 
 public:
-    QtMultimediaOutputBackend();
+    explicit QtMultimediaOutputBackend(QObject *parent = nullptr);
     virtual ~QtMultimediaOutputBackend();
 
     void setUri(const QString & uri);

@@ -38,8 +38,8 @@ public:
     OutputBackendInterface * outputBackend() const;
 
 private:
-    mutable QtMultimediaCaptureBackend *m_captureBackend;
-    mutable QtMultimediaOutputBackend *m_outputBackend;
+    QtMultimediaCaptureBackend *m_captureBackend;
+    QtMultimediaOutputBackend *m_outputBackend;
 };
 
 #endif

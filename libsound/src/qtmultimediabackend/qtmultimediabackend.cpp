@@ -27,37 +27,23 @@ K_PLUGIN_FACTORY_WITH_JSON( BackendFactory,
 
 QtMultimediaBackend::QtMultimediaBackend(QObject *parent, const QList< QVariant >&)
     : BackendInterface("qtmultimedia", parent)
-    , m_captureBackend(nullptr)
-    , m_outputBackend(nullptr)
+    , m_captureBackend(new QtMultimediaCaptureBackend(this))
+    , m_outputBackend(new QtMultimediaOutputBackend(this))
 {
 
 }
 
 QtMultimediaBackend::~QtMultimediaBackend()
 {
-    if (m_captureBackend) {
-        m_captureBackend->deleteLater();
-        m_captureBackend = nullptr;
-    }
-    if (m_outputBackend) {
-        m_outputBackend->deleteLater();
-        m_outputBackend = nullptr;
-    }
 }
 
 CaptureBackendInterface * QtMultimediaBackend::captureBackend() const
 {
-    if (!m_captureBackend) {
-        m_captureBackend = new QtMultimediaCaptureBackend();
-    }
     return m_captureBackend;
 }
 
 OutputBackendInterface * QtMultimediaBackend::outputBackend() const
 {
-    if (!m_outputBackend) {
-        m_outputBackend = new QtMultimediaOutputBackend();
-    }
     return m_outputBackend;
 }
 
