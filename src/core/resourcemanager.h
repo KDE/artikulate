@@ -79,14 +79,6 @@ public:
     bool modified() const;
 
     /**
-     * Register loaded languages as learning goals in profile manager.
-     *
-     * TODO this should not be done by explicit call, but by putting data at shared data storage
-     *      for profile manager
-     */
-    void registerLearningGoals(LearnerProfile::ProfileManager *profileManger);
-
-    /**
      * \return \c true if a repository is used, else \c false
      */
     Q_INVOKABLE bool isRepositoryManager() const;

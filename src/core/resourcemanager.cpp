@@ -180,17 +180,6 @@ bool ResourceManager::modified() const
     return false;
 }
 
-void ResourceManager::registerLearningGoals(LearnerProfile::ProfileManager *profileManger)
-{
-    foreach (LanguageResource *languageResource, languageResources()) {
-        profileManger->registerGoal(
-            LearnerProfile::LearningGoal::Language,
-            languageResource->language()->id(),
-            languageResource->language()->i18nTitle()
-            );
-    }
-}
-
 void ResourceManager::addLanguage(const QUrl &languageFile)
 {
     if (m_loadedResources.contains(languageFile.toLocalFile())) {

@@ -277,6 +277,9 @@ void ProfileManager::recordProgress(Learner *learner,
 QHash<QString, int> ProfileManager::progressValues(Learner *learner, LearningGoal *goal,
                        const QString &container) const
 {
+    if (!learner || !goal) {
+        return QHash<QString, int>();
+    }
     return d->m_storage.readProgressValues(learner, goal, container);
 }
 

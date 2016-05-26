@@ -82,6 +82,13 @@ void TrainingSession::setCourse(Course *course)
     // lazy loading of training data
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
         LearnerProfile::LearningGoal::Language, m_course->id());
+    if (!goal) {
+        m_profileManager->registerGoal(
+            LearnerProfile::LearningGoal::Language,
+            course->language()->id(),
+            course->language()->i18nTitle()
+        );
+    }
     auto data = m_profileManager->progressValues(m_profileManager->activeProfile(),
         goal,
         m_course->id()
