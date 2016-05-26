@@ -32,7 +32,7 @@ ToolBar{
 
         Icon {
             id: langIcon
-            icon: "artikulate-language"
+            icon: "language-artikulate"
             width: 48
             height: 48
         }

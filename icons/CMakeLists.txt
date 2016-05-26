@@ -31,7 +31,7 @@ ecm_install_icons(
     32-apps-artikulate.png
     48-apps-artikulate.png
     64-apps-artikulate.png
-    sc-apps-artikulate.svgz
+    sc-apps-artikulate.svg
 
   DESTINATION ${ICON_INSTALL_DIR}
   THEME hicolor
