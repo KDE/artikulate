@@ -33,7 +33,7 @@ class QtMultimediaCaptureBackend : public CaptureBackendInterface
     Q_OBJECT
 
 public:
-    QtMultimediaCaptureBackend();
+    explicit QtMultimediaCaptureBackend(QObject *parent);
     virtual ~QtMultimediaCaptureBackend();
 
     void startCapture(const QString &filePath);

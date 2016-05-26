@@ -20,8 +20,9 @@
 #include <QUrl>
 #include <QMediaPlayer>
 
-QtMultimediaOutputBackend::QtMultimediaOutputBackend()
-    : m_player(new QMediaPlayer)
+QtMultimediaOutputBackend::QtMultimediaOutputBackend(QObject *parent)
+    : OutputBackendInterface(parent)
+    , m_player(new QMediaPlayer)
 {
     connect(m_player, &QMediaPlayer::stateChanged,
             this, &QtMultimediaOutputBackend::stateChanged);

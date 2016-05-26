@@ -24,8 +24,9 @@
 
 #include <KLocalizedString>
 
-QtMultimediaCaptureBackend::QtMultimediaCaptureBackend()
-    : m_recorder(new QAudioRecorder)
+QtMultimediaCaptureBackend::QtMultimediaCaptureBackend(QObject *parent)
+    : CaptureBackendInterface(parent)
+    , m_recorder(new QAudioRecorder)
 {
     QString selectedInput = m_recorder->defaultAudioInput();
     QAudioEncoderSettings audioSettings;
