@@ -57,8 +57,6 @@ void TrainingSession::setLanguage(Language *language)
     if (m_language == language) {
         return;
     }
-    setCourse(nullptr);
-    setUnit(nullptr);
     m_language = language;
     emit languageChanged();
 }
@@ -70,6 +68,9 @@ Course * TrainingSession::course() const
 
 void TrainingSession::setCourse(Course *course)
 {
+    if (!course) {
+        return;
+    }
     if (m_course == course) {
         return;
     }
@@ -81,6 +82,13 @@ void TrainingSession::setCourse(Course *course)
     // lazy loading of training data
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
         LearnerProfile::LearningGoal::Language, m_course->id());
+    if (!goal) {
+        goal = m_profileManager->registerGoal(
+            LearnerProfile::LearningGoal::Language,
+            course->language()->id(),
+            course->language()->i18nTitle()
+        );
+    }
     auto data = m_profileManager->progressValues(m_profileManager->activeProfile(),
         goal,
         m_course->id()
@@ -155,7 +163,7 @@ void TrainingSession::showNextPhrase()
 
     // store training activity
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
-        LearnerProfile::LearningGoal::Language, m_course->id());
+        LearnerProfile::LearningGoal::Language, m_course->language()->id());
     m_profileManager->recordProgress(m_profileManager->activeProfile(),
         goal,
         m_course->id(),
@@ -175,7 +183,7 @@ void TrainingSession::skipPhrase()
 
     // store training activity
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
-        LearnerProfile::LearningGoal::Language, m_course->id());
+        LearnerProfile::LearningGoal::Language, m_course->language()->id());
     m_profileManager->recordProgress(m_profileManager->activeProfile(),
         goal,
         m_course->id(),
@@ -204,7 +212,7 @@ void TrainingSession::updateGoal()
         return;
     }
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
-        LearnerProfile::LearningGoal::Language, m_course->id());
+        LearnerProfile::LearningGoal::Language, m_course->language()->id());
     learner->addGoal(goal);
     learner->setActiveGoal(goal);
 }

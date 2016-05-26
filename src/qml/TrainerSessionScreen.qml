@@ -22,6 +22,7 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.2
+import QtQuick.Controls.Styles 1.4
 import artikulate 1.0
 
 Item {
@@ -78,13 +79,16 @@ Item {
                     text: (g_trainingSession.phrase != null) ? g_trainingSession.phrase.text : ""
                     wrapMode: Text.WordWrap
                     readOnly: true
-                    backgroundVisible: false
+                    horizontalAlignment: Text.AlignHCenter
+                    style: TextAreaStyle {
+                        backgroundColor: trainingTextRect.color
+                    }
                 }
                 SoundPlayer {
                     id: buttonNativePlay
                     anchors {
                         bottom: trainingTextRect.bottom
-                        leftMargin: theme.spacing
+                        horizontalCenter: parent.horizontalCenter
                         bottomMargin: theme.spacing
                     }
                     text: i18n("Listen")

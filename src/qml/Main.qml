@@ -78,7 +78,7 @@ ApplicationWindow {
 
             TreeView {
                 id: phraseTree
-                Layout.preferredWidth: Math.floor(main.width * 0.3)
+                implicitWidth: Math.floor(root.width * 0.3)
                 Layout.fillHeight: true
                 TableViewColumn {
                     title: i18n("Categories")
@@ -179,7 +179,7 @@ ApplicationWindow {
         Loader {
             Layout.fillHeight: true
             sourceComponent: {
-                g_trainingSession.language == null && courseFilterModel.filteredCount == 0
+                g_trainingSession.language == null
                     ? welcomeScreen
                     : trainingScreen
             }

@@ -60,7 +60,7 @@ public:
      * Register learning goal if not registered yet. The registered goals will be stored at the
      * internal database.
      */
-    void registerGoal(LearningGoal::Category category, const QString &identifier, const QString &name);
+    LearningGoal * registerGoal(LearningGoal::Category category, const QString &identifier, const QString &name);
     LearningGoal * goal(LearningGoal::Category category, const QString &identifier) const;
     /**
      * updates current learning goal by activity, adds new learning goal if necessary,

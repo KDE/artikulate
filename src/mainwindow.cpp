@@ -67,7 +67,6 @@ MainWindow::MainWindow()
         qFatal("No language resources found, cannot start application.");
     }
     m_resourceManager->loadCourseResources();
-    m_resourceManager->registerLearningGoals(m_profileManager);
     m_trainingSession->setProfileManager(m_profileManager);
 
     // create menu
