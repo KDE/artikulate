@@ -81,6 +81,6 @@ ecm_optional_add_subdirectory(autotests)
 
 # files to install in the artikulate project root directory
 install(PROGRAMS org.kde.artikulate.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES org.kde.artikulate.appdata.xml DESTINATION ${KDE_INSTALL_METAINFO})
+install(FILES org.kde.artikulate.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
