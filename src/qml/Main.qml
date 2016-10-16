@@ -59,10 +59,11 @@ ApplicationWindow {
     }
 
     // main menu bar
-    MainMenuBar {
+    menuBar: MainMenuBar {
         id: topMenu
+        // note: this is access to internal API, but the only way to unset/hide the menu bar
+        __contentItem.visible: kcfg_ShowMenuBar
     }
-    menuBar: { kcfg_ShowMenuBar ? topMenu : null }
 
     Component {
         id: welcomeScreen
