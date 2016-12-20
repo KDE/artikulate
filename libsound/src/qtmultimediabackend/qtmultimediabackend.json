@@ -3,7 +3,6 @@
     "KPlugin": {
         "Category": "Plugins", 
         "Description": "Sound backend for QtMultimedia.", 
-        "Description[ast]": "Backend de soníu pa QtMultimedia.", 
         "Description[ca@valencia]": "Dorsal de so pel QtMultimedia.", 
         "Description[ca]": "Dorsal de so pel QtMultimedia.", 
         "Description[cs]": "Podpůrná vrstva zvuku pro QtMultimedia.", 
@@ -28,7 +27,6 @@
         "Id": "artikulate_qtmultimedia_backend", 
         "License": "GPL", 
         "Name": "QtMultimedia Backend", 
-        "Name[ast]": "Backend de QtMultimedia", 
         "Name[ca@valencia]": "Dorsal QtMultimedia", 
         "Name[ca]": "Dorsal QtMultimedia", 
         "Name[cs]": "Podpůrná vrstva QtMultimedia", 

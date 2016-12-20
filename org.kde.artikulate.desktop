@@ -5,7 +5,6 @@ Exec=artikulate -caption %c %i
 Icon=artikulate
 X-DocPath=artikulate/index.html
 GenericName=Artikulate Pronunciation Trainer
-GenericName[ast]=Entrenador de pronunciación d'Artikulate
 GenericName[bs]=Artikulate vježba izgovora
 GenericName[ca]=Entrenador de la pronunciació Artikulate
 GenericName[ca@valencia]=Entrenador de la pronunciació Artikulate
