@@ -34,8 +34,8 @@ public:
     explicit QtMultimediaBackend(QObject *parent, const QList< QVariant >&);
     virtual ~QtMultimediaBackend();
 
-    CaptureBackendInterface * captureBackend() const;
-    OutputBackendInterface * outputBackend() const;
+    CaptureBackendInterface * captureBackend() const Q_DECL_OVERRIDE;
+    OutputBackendInterface * outputBackend() const Q_DECL_OVERRIDE;
 
 private:
     QtMultimediaCaptureBackend *m_captureBackend;

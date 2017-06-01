@@ -42,7 +42,7 @@ public:
      * Writes course object back to file and set \ref modified state to false.
      * If no file is set, no operation is performed.
      */
-    Q_INVOKABLE void sync();
+    Q_INVOKABLE void sync() Q_DECL_OVERRIDE;
 
 private:
     Q_DISABLE_COPY(Skeleton)

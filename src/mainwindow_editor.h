@@ -52,9 +52,9 @@ public:
 
     void setupActions();
 
-    virtual QSize sizeHint() const { return QSize(1000, 700); }
+    QSize sizeHint() const Q_DECL_OVERRIDE { return QSize(1000, 700); }
 
-    virtual bool queryClose();
+    bool queryClose() Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
     void showSettingsDialog();

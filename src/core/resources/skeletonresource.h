@@ -50,47 +50,47 @@ public:
     /**
      * \return unique identifier
      */
-    virtual QString identifier();
+    QString identifier() Q_DECL_OVERRIDE;
 
     /**
      * \return human readable localized title
      */
-    virtual QString title();
+    QString title() Q_DECL_OVERRIDE;
 
     /**
      * \return human readable title in English
      */
-    virtual QString i18nTitle();
+    QString i18nTitle() Q_DECL_OVERRIDE;
 
     /**
      * \return type of resource
      */
-    virtual Type type() const;
+    Type type() const Q_DECL_OVERRIDE;
 
     /**
      * \return true if resource is loaded, otherwise false
      */
-    virtual bool isOpen() const;
+    bool isOpen() const Q_DECL_OVERRIDE;
 
     /**
      * close resource without writing changes back to file
      */
-    virtual void close();
+    void close() Q_DECL_OVERRIDE;
 
-    virtual void sync();
+    void sync() Q_DECL_OVERRIDE;
 
-    virtual void reload();
+    void reload() Q_DECL_OVERRIDE;
 
     /**
      * \return path to resource file
      */
-    virtual QUrl path() const;
+    QUrl path() const Q_DECL_OVERRIDE;
 
     /**
      * \return reference to the loaded resource
      * if resource is not open yet, it will be loaded
      */
-    virtual QObject * resource();
+    QObject * resource() Q_DECL_OVERRIDE;
 
     /**
      * \return reference to the loaded skeleton resource
