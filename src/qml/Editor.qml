@@ -72,7 +72,7 @@ Item
         RowLayout {
             Label {
                 visible: !g_resourceManager.isRepositoryManager
-                text: "no repository set"
+                text: i18n("no repository set")
                 color: "red"
             }
             Label {
