@@ -29,6 +29,7 @@
 
 int main(int argc, char **argv)
 {
+    Application app(argc, argv);
     KLocalizedString::setApplicationDomain("artikulate");
 
     KAboutData aboutData("artikulate_editor",
@@ -44,7 +45,6 @@ int main(int argc, char **argv)
                         ki18nc("@info:credit Role", "Original Author").toString(),
                         "cordlandwehr@kde.org");
 
-    Application app(argc, argv);
     KAboutData::setApplicationData(aboutData);
     KCrash::initialize();
 
