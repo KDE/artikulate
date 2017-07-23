@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2017  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -19,36 +19,93 @@
  */
 
 import QtQuick 2.5
-import QtQuick.Controls 1.4
-import QtQuick.Layouts 1.2
-import QtQml.Models 2.2
+import QtQuick.Controls 2.0 as QQC2
+import org.kde.kirigami 2.0 as Kirigami2
 import artikulate 1.0
 
-ApplicationWindow {
+Kirigami2.ApplicationWindow {
     id: root
-    visible: true
-    minimumWidth: 800
-    minimumHeight: 600
+
+    function changePage(pageItem) {
+        root.pageStack.clear();
+        root.pageStack.push(pageItem);
+        root.pageStack.push(pageItem);
+    }
+
+    header: Kirigami2.ApplicationHeader {
+    }
+
+    globalDrawer: Kirigami2.GlobalDrawer {
+        title: "Artikulate"
+        titleIcon: "artikulate"
+        actions: [
+            Kirigami2.Action {
+                text: i18n("Welcome")
+                iconName: "artikulate"
+                onTriggered: {
+                    root.pageStack.clear();
+                    root.pageStack.push(welcomePageComponent);
+                }
+            },
+            Kirigami2.Action {
+                text: i18n("Training")
+                iconName: "document-open"
+                onTriggered: {
+                    root.pageStack.clear();
+                    root.pageStack.push(trainingItemsPageComponent);
+                    root.pageStack.push(trainingPageComponent);
+                }
+            },
+            Kirigami2.Action {
+                text: i18n("Download Training")
+                iconName: "get-hot-new-stuff"
+                onTriggered: triggerDownloadCourses()
+            },
+            Kirigami2.Action {
+                text: i18n("User Profile")
+                iconName: "user-properties"
+                onTriggered: {
+                    root.pageStack.clear();
+                    root.pageStack.push(profileSettingsPageComponent);
+                }
+            },
+            Kirigami2.Action {
+                text: i18n("Configure Artikulate...")
+                iconName: "settings-configure"
+                onTriggered: triggerSettingsDialog()
+            },
+            Kirigami2.Action {
+                text: i18n("Help")
+                iconName: "help-about"
+                Kirigami2.Action {
+                    text: i18n("Artikulate Handbook")
+                    iconName: "help-contents"
+                    onTriggered: triggerAction("help_contents")
+                }
+                Kirigami2.Action {
+                    text: i18n("Report Bug")
+                    iconName: "tools-report-bug"
+                    onTriggered: triggerAction("help_report_bug")
+                }
+                Kirigami2.Action {
+                    text: i18n("About Artikulate")
+                    iconName: "artikulate"
+                    onTriggered: triggerAction("help_about_app")
+                }
+                Kirigami2.Action {
+                    text: i18n("About KDE")
+                    iconName: "help-about"
+                    onTriggered: triggerAction("help_about_kde")
+                }
+            }
+            ]
+    }
+
 
     signal triggerDownloadCourses();
-    signal triggerEditProfile();
     signal triggerSettingsDialog();
     signal triggerAction(string actionName);
     signal switchMenuBarVisibility();
-
-    onTriggerEditProfile: {
-        editProfileDialog.open()
-    }
-
-    Item {
-        id: theme
-        property string backgroundColor: "#ffffff"
-        property int smallIconSize: 18
-        property int smallMediumIconSize: 22
-        property int mediumIconSize: 32
-        property int fontPointSize: 11
-        property int spacing: 15
-    }
 
     property Learner learner: g_profileManager.activeProfile
     property ResourceManager resourceManager: g_resourceManager
@@ -58,145 +115,23 @@ ApplicationWindow {
         resourceManager: g_resourceManager
     }
 
-    // main menu bar
-    menuBar: MainMenuBar {
-        id: topMenu
-        // note: this is access to internal API, but the only way to unset/hide the menu bar
-        __contentItem.visible: kcfg_ShowMenuBar
-    }
+    pageStack.initialPage: welcomePageComponent
 
+    // pages
     Component {
-        id: welcomeScreen
-        NewUserWelcome { }
+        id: welcomePageComponent
+        WelcomePage { }
     }
-
     Component {
-        id: trainingScreen
-        RowLayout {
-            id: mainRow
-            Layout.fillHeight: true
-            spacing: theme.spacing
-
-            TreeView {
-                id: phraseTree
-                implicitWidth: Math.floor(root.width * 0.3)
-                Layout.fillHeight: true
-                TableViewColumn {
-                    title: i18n("Categories")
-                    role: "text"
-                }
-                model: PhraseModel {
-                    id: phraseModel
-                    course: g_trainingSession.course
-                }
-                selection: ItemSelectionModel {
-                    model: phraseTree.model
-                }
-                itemDelegate: Item {
-                    property bool isUnit: phraseModel.isUnit(styleData.index)
-                    Component {
-                        id: unitRowBackground
-                        Rectangle {anchors.fill: parent; color: "steelblue"}
-                    }
-                    Component {
-                        id: phraseProgress
-                        Row {
-                            property int progress: isUnit ? 0 : phraseModel.phrase(styleData.index).progress
-                            Repeater {
-                                model: 3
-                                Icon {
-                                    width: 16
-                                    height: width
-                                    icon: progress > index ? "rating" : "rating-unrated"
-                                }
-                            }
-                        }
-                    }
-                    Loader {
-                        anchors.fill: parent
-                        sourceComponent: isUnit ? unitRowBackground : null
-                    }
-                    Row {
-                        Text {
-                            width: phraseTree.width - 130 //TODO check if this is really a reasonable value
-                            anchors {
-                                verticalCenter: parent.verticalCenter
-                                topMargin: 5
-                                bottomMargin: 5
-                            }
-                            color: {
-                                if (isUnit) {
-                                    return "white";
-                                }
-                                return styleData.textColor
-                            }
-                            elide: Text.ElideRight
-                            text: " " + styleData.value
-                            font.bold: isUnit
-                        }
-                        Loader {
-                            sourceComponent: isUnit ? null : phraseProgress
-                        }
-                    }
-                }
-                onClicked: {
-                    g_trainingSession.phrase = phraseModel.phrase(index)
-                }
-                Connections {
-                    target: g_trainingSession
-                    onPhraseChanged: {
-                        phraseTree.expand(phraseModel.indexUnit(g_trainingSession.phrase.unit))
-                        phraseTree.selection.setCurrentIndex(
-                            phraseModel.indexPhrase(g_trainingSession.phrase),
-                            ItemSelectionModel.ClearAndSelect)
-                    }
-                }
-            }
-
-            TrainerSessionScreen {
-                id: trainerMain
-                Layout.alignment: Qt.AlignTop
-                Layout.preferredWidth: Math.floor(main.width * 0.7) - 30
-                Layout.fillHeight: true
-            }
-        }
+        id: trainingPageComponent
+        TrainingPage { }
     }
-
-    MainToolBar {
-        id: mainToolBar
+    Component {
+        id: trainingItemsPageComponent
+        TrainingItemsPage { }
     }
-
-    ColumnLayout {
-        id: main
-        spacing: theme.spacing
-        anchors {
-            fill: parent
-            topMargin: mainToolBar.height + theme.spacing
-            leftMargin: theme.spacing
-            rightMargin: theme.spacing
-            bottomMargin: theme.spacing
-        }
-
-        Loader {
-            Layout.fillHeight: true
-            sourceComponent: {
-                g_trainingSession.language == null
-                    ? welcomeScreen
-                    : trainingScreen
-            }
-        }
+    Component {
+        id: profileSettingsPageComponent
+        ProfileSettingsPage { }
     }
-
-    //TODO change to loader for arbitrary dialogs
-    //TODO add margin for main menu
-    SheetDialog {
-        id: editProfileDialog
-        anchors {
-            fill: main
-        }
-        content: ProfileSettingsItem {
-            anchors.fill: parent
-        }
-    }
-
 }

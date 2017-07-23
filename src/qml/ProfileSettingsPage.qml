@@ -19,13 +19,17 @@
  */
 
 import QtQuick 2.1
+import QtQuick.Controls 2.0 as QQC2
+import org.kde.kirigami 2.0 as Kirigami2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtQuick.Layouts 1.2
 import artikulate 1.0
 
-Item {
+Kirigami2.Page {
     id: root
+
+    title: i18n("Profile Settings")
 
     TabView {
         anchors {
@@ -39,11 +43,6 @@ Item {
                 anchors {
                     fill: parent
                     margins: 10
-                }
-
-                Label {
-                    text: i18n("User Profile Settings")
-                    font.pointSize: 1.5 * theme.fontPointSize
                 }
 
                 ProfileUserItem {

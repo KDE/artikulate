@@ -7,25 +7,23 @@
         <file>FlatButton.qml</file>
         <file>LanguageSwitcher.qml</file>
         <file>ListItem.qml</file>
-        <file>MainMenuBar.qml</file>
-        <file>MainToolBar.qml</file>
-        <file>NewUserWelcome.qml</file>
+        <file>WelcomePage.qml</file>
         <file>PhonemeUnitSelector.qml</file>
         <file>PhraseEditor.qml</file>
         <file>PhraseEditorEditStateComponent.qml</file>
         <file>PhraseEditorSoundComponent.qml</file>
         <file>PhraseEditorTypeComponent.qml</file>
-        <file>ProfileSettingsItem.qml</file>
+        <file>ProfileSettingsPage.qml</file>
         <file>ProfileDetailsItem.qml</file>
         <file>ProfileUserGoalsItem.qml</file>
         <file>ProfileUserItem.qml</file>
         <file>ProfileUserImageItem.qml</file>
         <file>ProfileSelector.qml</file>
-        <file>SheetDialog.qml</file>
         <file>SoundPlayer.qml</file>
         <file>SoundRecorder.qml</file>
         <file>TrainerCourseStatistics.qml</file>
-        <file>TrainerSessionScreen.qml</file>
+        <file>TrainingPage.qml</file>
+        <file>TrainingItemsPage.qml</file>
         <file>UnitEditor.qml</file>
     </qresource>
 </RCC>

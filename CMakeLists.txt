@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -50,13 +50,14 @@ find_package(Qt5 5.5 REQUIRED COMPONENTS
     QuickWidgets
     Test
 )
-find_package(KF5 REQUIRED COMPONENTS
+find_package(KF5 5.36 REQUIRED COMPONENTS
     Archive
     Config
     Crash
     I18n
     NewStuff
     XmlGui
+    Kirigami2
 )
 
 # options
