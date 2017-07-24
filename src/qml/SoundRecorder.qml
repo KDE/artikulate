@@ -19,7 +19,8 @@
  */
 
 import QtQuick 2.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1 as QQC2
+import org.kde.kirigami 2.0 as Kirigami2
 import artikulate 1.0
 
 Item {
@@ -27,8 +28,7 @@ Item {
     width: button.width
     height: button.height
 
-    property string outputFileUrl : recorderBackend.recordingFile
-    property string text: i18n("Record")
+    property string outputFileUrl: recorderBackend.recordingFile
 
     signal stopped()
 
@@ -45,12 +45,16 @@ Item {
         id: recorderBackend
     }
 
-    FlatButton {
+    QQC2.RoundButton {
         id: button
-        text: root.text
-        iconName: "media-record"
-        iconSize: 32
-        fontSize: 16
+
+        Kirigami2.Icon {
+            id: icon
+            source: "media-record"
+            width: 32
+            height: width
+            anchors.centerIn: parent
+        }
 
         onClicked: {
             if (recorderBackend.state == Recorder.RecordingState) {
@@ -69,10 +73,10 @@ Item {
             onStateChanged: {
                 // update icon
                 if (recorderBackend.state == Recorder.RecordingState) {
-                    button.iconName = "media-playback-stop";
+                    icon.source = "media-playback-stop";
                 }
                 if (recorderBackend.state == Recorder.StoppedState) {
-                    button.iconName = "media-record";
+                    icon.source = "media-record";
                 }
             }
         }

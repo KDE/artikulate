@@ -88,7 +88,6 @@ Kirigami2.Page {
                     bottom: trainingTextRect.bottom
                     horizontalCenter: parent.horizontalCenter
                 }
-                text: i18n("Listen")
                 fileUrl: g_trainingSession.phrase == null ? "" : g_trainingSession.phrase.soundFileUrl
             }
         }

@@ -4,7 +4,6 @@
         <file>CheckListItem.qml</file>
         <file>CourseSwitcher.qml</file>
         <file>Editor.qml</file>
-        <file>FlatButton.qml</file>
         <file>LanguageSwitcher.qml</file>
         <file>ListItem.qml</file>
         <file>WelcomePage.qml</file>
