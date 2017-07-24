@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2017  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
                          ARTIKULATE_VERSION_STRING,
                          i18nc("@title KAboutData: short program description", "Artikulate Pronunciation Trainer"),
                          KAboutLicense::GPL_V2,
-                         i18nc("@info:credit", "(c) 2013-2016 The Artikulate Developers"),
+                         i18nc("@info:credit", "(c) 2013-2017 The Artikulate Developers"),
                          i18nc("@title Short program description", "Training your pronunciation in a foreign language.")
                         );
 
