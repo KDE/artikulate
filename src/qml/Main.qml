@@ -38,6 +38,7 @@ Kirigami2.ApplicationWindow {
     globalDrawer: Kirigami2.GlobalDrawer {
         title: "Artikulate"
         titleIcon: "artikulate"
+        resetMenuOnTriggered: false
         actions: [
             Kirigami2.Action {
                 text: i18n("Welcome")
@@ -68,6 +69,22 @@ Kirigami2.ApplicationWindow {
                     root.pageStack.clear();
                     root.pageStack.push(profileSettingsPageComponent);
                 }
+                Kirigami2.Action {
+                    text: i18n("Configure Profile")
+                    iconName: "user-properties"
+                    checkable: true
+                    onTriggered: {
+                        root.pageStack.pop();
+                        root.pageStack.push(profileSettingsPageComponent);
+                    }
+                }
+                Kirigami2.Action {
+                    text: i18n("Training Languages");
+                    onTriggered: {
+                        root.pageStack.pop();
+                        root.pageStack.push(languageSettingsPageComponent);
+                    }
+                }
             },
             Kirigami2.Action {
                 text: i18n("Configure Artikulate...")
@@ -80,27 +97,42 @@ Kirigami2.ApplicationWindow {
                 Kirigami2.Action {
                     text: i18n("Artikulate Handbook")
                     iconName: "help-contents"
-                    onTriggered: triggerAction("help_contents")
+                    onTriggered: {
+                        triggerAction("help_contents");
+                        globalDrawer.resetMenu();
+                    }
                 }
                 Kirigami2.Action {
                     text: i18n("Report Bug")
                     iconName: "tools-report-bug"
-                    onTriggered: triggerAction("help_report_bug")
+                    onTriggered: {
+                        triggerAction("help_report_bug");
+                        globalDrawer.resetMenu();
+                    }
                 }
                 Kirigami2.Action {
                     text: i18n("About Artikulate")
                     iconName: "artikulate"
-                    onTriggered: triggerAction("help_about_app")
+                    onTriggered: {
+                        triggerAction("help_about_app")
+                        globalDrawer.resetMenu();
+                    }
                 }
                 Kirigami2.Action {
                     text: i18n("About KDE")
                     iconName: "help-about"
-                    onTriggered: triggerAction("help_about_kde")
+                    onTriggered: {
+                        triggerAction("help_about_kde")
+                        globalDrawer.resetMenu();
+                    }
                 }
             }
             ]
     }
 
+    contextDrawer: Kirigami2.ContextDrawer {
+        id: contextDrawer
+    }
 
     signal triggerDownloadCourses();
     signal triggerSettingsDialog();
@@ -133,5 +165,9 @@ Kirigami2.ApplicationWindow {
     Component {
         id: profileSettingsPageComponent
         ProfileSettingsPage { }
+    }
+    Component {
+        id: languageSettingsPageComponent
+        LanguageSettingsPage { }
     }
 }

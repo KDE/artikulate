@@ -13,9 +13,7 @@
         <file>PhraseEditorSoundComponent.qml</file>
         <file>PhraseEditorTypeComponent.qml</file>
         <file>ProfileSettingsPage.qml</file>
-        <file>ProfileDetailsItem.qml</file>
-        <file>ProfileUserGoalsItem.qml</file>
-        <file>ProfileUserItem.qml</file>
+        <file>LanguageSettingsPage.qml</file>
         <file>ProfileUserImageItem.qml</file>
         <file>ProfileSelector.qml</file>
         <file>SoundPlayer.qml</file>

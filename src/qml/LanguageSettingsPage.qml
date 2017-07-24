@@ -1,6 +1,6 @@
 /*
  *  Copyright 2012       Sebastian Gottfried <sebastiangottfried@web.de>
- *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2017  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -20,37 +20,33 @@
  */
 
 import QtQuick 2.1
-import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.2
+import QtQuick.Controls 2.0 as QQC2
+import org.kde.kirigami 2.0 as Kirigami2
 import artikulate 1.0
 
-Item {
+Kirigami2.ScrollablePage {
     id: root
-    anchors.fill: parent
 
-    ScrollView {
-        anchors {
-            fill: parent
-            topMargin: 5
-            rightMargin: 5
-            bottomMargin: 5
-            leftMargin: 5
+    title: i18n("Language Settings")
+
+    Layout.fillWidth: true
+
+    ListView {
+        id: goalList
+        width: root.width
+        clip: true
+        model: LearningGoalModel {
+            profileManager: g_profileManager
+            learner: g_profileManager.activeProfile
         }
-        ListView {
-            id: goalList
-            width: root.width
-            clip: true
-            model: LearningGoalModel {
-                profileManager: g_profileManager
-                learner: g_profileManager.activeProfile
-            }
-            delegate: ListItem {
-                id: goalSelector
-                property LearningGoal goal: model.dataRole
-                width: goalList.width - 10
-                title: model.title
-                iconName: "favorites"
-                onSelected: goalList.currentIndex = index
-            }
+        delegate: ListItem {
+            id: goalSelector
+            property LearningGoal goal: model.dataRole
+            width: goalList.width - 10
+            title: model.title
+            iconName: "favorites"
+            onSelected: goalList.currentIndex = index
         }
     }
 }
