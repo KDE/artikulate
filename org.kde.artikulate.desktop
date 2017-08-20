@@ -1,7 +1,7 @@
 # KDE Config File
 [Desktop Entry]
 Type=Application
-Exec=artikulate -caption %c -qwindowicon artikulate
+Exec=artikulate -qwindowtitle "%c" %i
 Icon=artikulate
 X-DocPath=artikulate/index.html
 GenericName=Artikulate Pronunciation Trainer
