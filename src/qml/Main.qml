@@ -32,9 +32,6 @@ Kirigami2.ApplicationWindow {
         root.pageStack.push(pageItem);
     }
 
-    header: Kirigami2.ApplicationHeader {
-    }
-
     globalDrawer: Kirigami2.GlobalDrawer {
         title: "Artikulate"
         titleIcon: "artikulate"
