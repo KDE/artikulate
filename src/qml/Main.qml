@@ -32,6 +32,14 @@ Kirigami2.ApplicationWindow {
         root.pageStack.push(pageItem);
     }
 
+//     header: Text {
+//         font.pointSize: Kirigami2.Units.gridUnit * 1
+//         text: pageStack.currentItem.title
+//     }
+
+    header: Kirigami2.ApplicationHeader {
+    }
+
     globalDrawer: Kirigami2.GlobalDrawer {
         title: "Artikulate"
         titleIcon: "artikulate"
@@ -69,7 +77,6 @@ Kirigami2.ApplicationWindow {
                 Kirigami2.Action {
                     text: i18n("Configure Profile")
                     iconName: "user-properties"
-                    checkable: true
                     onTriggered: {
                         root.pageStack.pop();
                         root.pageStack.push(profileSettingsPageComponent);

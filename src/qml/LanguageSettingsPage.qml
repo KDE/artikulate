@@ -28,14 +28,15 @@ import artikulate 1.0
 Kirigami2.ScrollablePage {
     id: root
 
-    title: i18n("Language Settings")
+    title: i18n("Training Languages")
 
     Layout.fillWidth: true
 
     ListView {
         id: goalList
         width: root.width
-        clip: true
+        Layout.fillHeight: true
+
         model: LearningGoalModel {
             profileManager: g_profileManager
             learner: g_profileManager.activeProfile

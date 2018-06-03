@@ -58,19 +58,13 @@ public:
 void LearningGoalModelPrivate::updateGoals()
 {
     m_goals.clear();
-    // if learner is set, only set its goals
-    if (m_learner) {
-        foreach (LearningGoal *goal, m_learner->goals()) {
-            m_goals.append(goal);
-        }
-        return;
-    }
-    // else set all registered goals from profile manager
+    // set all registered goals from profile manager
     if (m_profileManager) {
         foreach (LearningGoal *goal, m_profileManager->goals()) {
             m_goals.append(goal);
         }
     }
+    // TODO add learner status information
 }
 
 void LearningGoalModelPrivate::updateMappings()
@@ -115,7 +109,6 @@ void LearningGoalModel::setProfileManager(ProfileManager *profileManager)
     }
 
     beginResetModel();
-
     if (d->m_profileManager) {
         d->m_profileManager->disconnect(this);
     }
