@@ -44,6 +44,11 @@ Kirigami2.ApplicationWindow {
         title: "Artikulate"
         titleIcon: "artikulate"
         resetMenuOnTriggered: false
+
+        // enforce drawer always to be open
+        modal: false
+        handleVisible: false
+
         actions: [
             Kirigami2.Action {
                 text: i18n("Welcome")
