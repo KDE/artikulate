@@ -5,7 +5,6 @@
         <file>CheckListItem.qml</file>
         <file>CourseSwitcher.qml</file>
         <file>Editor.qml</file>
-        <file>LanguageSettingsPage.qml</file>
         <file>LanguageSwitcher.qml</file>
         <file>ListItem.qml</file>
         <file>Main.qml</file>

@@ -55,29 +55,6 @@ Kirigami.GlobalDrawer {
             }
         },
         Kirigami.Action {
-            text: i18n("User Profile")
-            iconName: "user-properties"
-            onTriggered: {
-                root.pageStack.clear();
-                root.pageStack.push(profileSettingsPageComponent);
-            }
-            Kirigami.Action {
-                text: i18n("Configure Profile")
-                iconName: "user-properties"
-                onTriggered: {
-                    root.pageStack.pop();
-                    root.pageStack.push(profileSettingsPageComponent);
-                }
-            }
-            Kirigami.Action {
-                text: i18n("Training Languages");
-                onTriggered: {
-                    root.pageStack.pop();
-                    root.pageStack.push(languageSettingsPageComponent);
-                }
-            }
-        },
-        Kirigami.Action {
             text: i18n("Help")
             iconName: "help-about"
             Kirigami.Action {
@@ -125,6 +102,16 @@ Kirigami.GlobalDrawer {
             Layout.fillWidth: true
         }
 
+        ActionListItem {
+            action: Kirigami.Action {
+                text: i18n("Statistics")
+                iconName: "user-properties"
+                onTriggered: {
+                    root.pageStack.pop();
+                    root.pageStack.push(profileSettingsPageComponent);
+                }
+            }
+        }
         ActionListItem {
             action: Kirigami.Action {
                 text: i18n("Settings")

@@ -80,8 +80,4 @@ Kirigami2.ApplicationWindow {
         id: profileSettingsPageComponent
         ProfileSettingsPage { }
     }
-    Component {
-        id: languageSettingsPageComponent
-        LanguageSettingsPage { }
-    }
 }
