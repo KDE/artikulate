@@ -19,7 +19,6 @@
         <file>SoundPlayer.qml</file>
         <file>SoundRecorder.qml</file>
         <file>TrainerCourseStatistics.qml</file>
-        <file>TrainingItemsPage.qml</file>
         <file>TrainingPage.qml</file>
         <file>UnitEditor.qml</file>
         <file>WelcomePage.qml</file>

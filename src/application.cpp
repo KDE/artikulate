@@ -20,33 +20,34 @@
 
 #include "application.h"
 
-#include "core/skeleton.h"
 #include "core/course.h"
+#include "core/drawertrainingactions.h"
+#include "core/editorsession.h"
 #include "core/language.h"
-#include "core/resourcemanager.h"
-#include "core/unit.h"
-#include "core/phrase.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
-#include "core/trainingsession.h"
-#include "core/editorsession.h"
+#include "core/phrase.h"
 #include "core/player.h"
 #include "core/recorder.h"
-#include "models/coursemodel.h"
+#include "core/resourcemanager.h"
+#include "core/skeleton.h"
+#include "core/trainingsession.h"
+#include "core/unit.h"
 #include "models/coursefiltermodel.h"
+#include "models/coursemodel.h"
 #include "models/languagemodel.h"
 #include "models/languageresourcemodel.h"
 #include "models/learningprogressmodel.h"
-#include "models/unitmodel.h"
-#include "models/unitfiltermodel.h"
-#include "models/phrasemodel.h"
-#include "models/phraselistmodel.h"
-#include "models/phrasefiltermodel.h"
-#include "models/phonememodel.h"
 #include "models/phonemegroupmodel.h"
+#include "models/phonememodel.h"
 #include "models/phonemeunitmodel.h"
+#include "models/phrasefiltermodel.h"
+#include "models/phraselistmodel.h"
+#include "models/phrasemodel.h"
 #include "models/profilemodel.h"
 #include "models/skeletonmodel.h"
+#include "models/unitfiltermodel.h"
+#include "models/unitmodel.h"
 #include "qmlcontrols/iconitem.h"
 
 #include "liblearnerprofile/src/learner.h"
@@ -97,6 +98,7 @@ void Application::registerQmlTypes()
     qmlRegisterType<Player>("artikulate", 1, 0, "Player");
     qmlRegisterType<Recorder>("artikulate", 1, 0, "Recorder");
     qmlRegisterType<IconItem>("artikulate", 1, 0, "Icon");
+    qmlRegisterType<DrawerTrainingActions>("artikulate", 1, 0, "DrawerTrainingActions");
 
     qmlRegisterType<CourseModel>("artikulate", 1, 0, "CourseModel");
     qmlRegisterType<CourseFilterModel>("artikulate", 1, 0, "CourseFilterModel");

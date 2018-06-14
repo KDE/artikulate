@@ -73,10 +73,6 @@ Kirigami2.ApplicationWindow {
         TrainingPage { }
     }
     Component {
-        id: trainingItemsPageComponent
-        TrainingItemsPage { }
-    }
-    Component {
         id: profileSettingsPageComponent
         ProfileSettingsPage { }
     }

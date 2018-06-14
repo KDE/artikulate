@@ -39,6 +39,7 @@ include_directories(
 
 # set the source code files from which Artikulate is compiled
 set(artikulateCore_SRCS
+    core/drawertrainingactions.cpp
     core/course.cpp
     core/resourcemanager.cpp
     core/language.cpp
@@ -48,6 +49,7 @@ set(artikulateCore_SRCS
     core/unit.cpp
     core/skeleton.cpp
     core/editorsession.cpp
+    core/trainingaction.cpp
     core/trainingsession.cpp
     core/resources/resourceinterface.cpp
     core/resources/languageresource.cpp
