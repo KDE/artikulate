@@ -107,7 +107,7 @@ QVariant LearningProgressModel::data(const QModelIndex &index, int role) const
         return QVariant(index.row());
     }
 
-    // otherwise we only suppert displayrole
+    // otherwise we only support displayrole
     if (role != Qt::DisplayRole) {
         return QVariant();
     }

@@ -198,7 +198,7 @@ LearningGoal * Learner::activeGoal(Learner::Category categoryLearner) const
                 return goal;
             }
         }
-        qCWarning(LIBLEARNER_LOG) << "No learning goals of catagory " << category << " registered";
+        qCWarning(LIBLEARNER_LOG) << "No learning goals of category " << category << " registered";
         return nullptr;
     }
     return d->m_activeGoal[category];

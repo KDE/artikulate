@@ -34,7 +34,7 @@
  * \internal
  *
  * This is the private data class for \see OutputDeviceController.
- * Note that -- even if the OutputDeviceController is contructed before its first call -- all
+ * Note that -- even if the OutputDeviceController is constructed before its first call -- all
  * devices get only configured by first instantiation of OutputDeviceController with a call
  * to OutputDeviceControllerPrivate::lazyInit(), called in OutputDeviceController::self().
  */

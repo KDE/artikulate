@@ -130,7 +130,7 @@ private:
     EditState m_editState;
     Unit *m_unit;
     unsigned m_trainingProgress;
-    int m_skipCounter; // count how many skips occured since last progress update
+    int m_skipCounter; // count how many skips occurred since last progress update
     bool m_excludedFromUnit;
     QList<Phoneme *> m_phonemes;
     QUrl m_nativeSoundFile;

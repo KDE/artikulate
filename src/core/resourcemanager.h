@@ -58,7 +58,7 @@ public:
     /**
      * Load all course resources.
      * This loading is very fast, since course files are only partly (~20 top lines) parsed and
-     * the complete parsing is postproned until first access.
+     * the complete parsing is postponed until first access.
      */
     void loadCourseResources();
 

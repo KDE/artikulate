@@ -33,7 +33,7 @@
  * \internal
  *
  * This is the private data class for \see CaptureDeviceController.
- * Note that -- even if the CaptureDeviceController is contructed before its first call -- all
+ * Note that -- even if the CaptureDeviceController is constructed before its first call -- all
  * devices get only configured by first instantiation of CaptureDeviceController with a call
  * to CaptureDeviceControllerPrivate::lazyInit(), called in CaptureDeviceController::self().
  */
