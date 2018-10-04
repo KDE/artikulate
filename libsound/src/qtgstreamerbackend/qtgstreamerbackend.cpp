@@ -18,7 +18,6 @@
 #include "qtgstreamerbackend.h"
 #include "qtgstreamercapturebackend.h"
 #include "qtgstreameroutputbackend.h"
-#include "libsound_export.h"
 #include <KPluginFactory>
 
 K_PLUGIN_FACTORY_WITH_JSON( BackendFactory,
