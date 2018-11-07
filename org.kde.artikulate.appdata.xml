@@ -96,6 +96,7 @@
   <url type="homepage">http://edu.kde.org/artikulate/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=artikulate</url>
   <url type="help">http://docs.kde.org/stable/en/kdeedu/artikulate/index.html</url>
+  <url type="donation">https://www.kde.org/community/donations/?app=artikulate&amp;source=appdata</url>
   <screenshots>
     <screenshot type="default">
       <caption>Training in Artikulate</caption>
