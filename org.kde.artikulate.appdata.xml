@@ -103,6 +103,7 @@
       <caption xml:lang="ca">Entrenament a l'Artikulate</caption>
       <caption xml:lang="ca-valencia">Entrenament a l'Artikulate</caption>
       <caption xml:lang="de">Übung in Artikulate</caption>
+      <caption xml:lang="en-GB">Training in Artikulate</caption>
       <caption xml:lang="es">Entrenando en Artikulate</caption>
       <caption xml:lang="gl">Adestrando en Artikulate</caption>
       <caption xml:lang="nl">Oefening in Artikulate</caption>
@@ -111,6 +112,7 @@
       <caption xml:lang="sv">Övning i Artikulate</caption>
       <caption xml:lang="uk">Вправляння в Artikulate</caption>
       <caption xml:lang="x-test">xxTraining in Artikulatexx</caption>
+      <caption xml:lang="zh-TW">在 Artikulate 中訓練</caption>
       <image>http://edu.kde.org/images/screenshots/resized/artikulate.png</image>
     </screenshot>
   </screenshots>
