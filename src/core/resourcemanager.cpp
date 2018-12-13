@@ -362,12 +362,14 @@ CourseResource * ResourceManager::addCourse(const QUrl &courseFile)
 {
     CourseResource *resource = new CourseResource(this, courseFile);
     if (resource->language().isEmpty()) {
+        delete resource;
         qCritical() << "Could not load course, language unknown:" << courseFile.toLocalFile();
         return nullptr;
     }
 
     // skip already loaded resources
     if (m_loadedResources.contains(courseFile.toLocalFile())) {
+        delete resource;
         return nullptr;
     }
     m_loadedResources.append(courseFile.toLocalFile());
