@@ -52,7 +52,7 @@ void TestLearnerStorage::testLearnerStorage()
 
     Learner tmpLearner;
     tmpLearner.addGoal(&tmpGoal);
-    tmpLearner.setName("tester");
+    tmpLearner.setName(QStringLiteral("tester"));
 
     QVERIFY(m_storage->storeGoal(&tmpGoal));
     QVERIFY(m_storage->storeProfile(&tmpLearner));
@@ -79,14 +79,14 @@ void TestLearnerStorage::testProgressLogStorage()
 
     Learner tmpLearner;
     tmpLearner.addGoal(&tmpGoal);
-    tmpLearner.setName("tester");
+    tmpLearner.setName(QStringLiteral("tester"));
 
     QVERIFY(m_storage->storeGoal(&tmpGoal));
     QVERIFY(m_storage->storeProfile(&tmpLearner));
 
     const QDateTime time{QDateTime::currentDateTime()};
     QVERIFY(m_storage->storeProgressLog(&tmpLearner, &tmpGoal, "container", "item", 1, time));
-    auto data = m_storage->readProgressLog(&tmpLearner, &tmpGoal, "container", "item");
+    auto data = m_storage->readProgressLog(&tmpLearner, &tmpGoal, QStringLiteral("container"), QStringLiteral("item"));
     QCOMPARE(data.size(), 1);
     QCOMPARE(data.first().first.toString(Qt::ISODate), time.toString(Qt::ISODate));
 }
@@ -98,7 +98,7 @@ void TestLearnerStorage::testProgressValueStorage()
 
     Learner tmpLearner;
     tmpLearner.addGoal(&tmpGoal);
-    tmpLearner.setName("tester");
+    tmpLearner.setName(QStringLiteral("tester"));
 
     QVERIFY(m_storage->storeGoal(&tmpGoal));
     QVERIFY(m_storage->storeProfile(&tmpLearner));
@@ -107,12 +107,12 @@ void TestLearnerStorage::testProgressValueStorage()
     QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, "container", "itemA", 1));
     QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, "container", "itemB", 1));
 
-    auto data = m_storage->readProgressValues(&tmpLearner, &tmpGoal, "container");
+    auto data = m_storage->readProgressValues(&tmpLearner, &tmpGoal, QStringLiteral("container"));
     QCOMPARE(data.size(), 2);
 
     // update
     QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, "container", "itemA", 2));
-    data = m_storage->readProgressValues(&tmpLearner, &tmpGoal, "container");
+    data = m_storage->readProgressValues(&tmpLearner, &tmpGoal, QStringLiteral("container"));
     QCOMPARE(data.find("itemA").value(), 2);
     QCOMPARE(data.find("itemB").value(), 1);
 }

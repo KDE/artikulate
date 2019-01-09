@@ -197,7 +197,7 @@ void CourseResource::exportGhns(const QString &path)
 
     // filename
     const QString fileName = identifier() + ".tar.bz2";
-    KTar tar = KTar(path + '/' + fileName, QString("application/x-bzip"));
+    KTar tar = KTar(path + '/' + fileName, QStringLiteral("application/x-bzip"));
     if (!tar.open(QIODevice::WriteOnly)) {
         qCWarning(ARTIKULATE_LOG) << "Unable to open tar file"
             << path + '/' + fileName
@@ -253,7 +253,7 @@ QObject * CourseResource::resource()
     }
 
     // load existing file
-    QXmlSchema schema = loadXmlSchema("course");
+    QXmlSchema schema = loadXmlSchema(QStringLiteral("course"));
     if (!schema.isValid()) {
         return nullptr;
     }
@@ -268,16 +268,16 @@ QObject * CourseResource::resource()
     d->m_courseResource = new Course(this);
 
     d->m_courseResource->setFile(d->m_path);
-    d->m_courseResource->setId(root.firstChildElement("id").text());
-    d->m_courseResource->setTitle(root.firstChildElement("title").text());
-    d->m_courseResource->setDescription(root.firstChildElement("description").text());
-    if (!root.firstChildElement("foreignId").isNull()) {
-        d->m_courseResource->setForeignId(root.firstChildElement("foreignId").text());
+    d->m_courseResource->setId(root.firstChildElement(QStringLiteral("id")).text());
+    d->m_courseResource->setTitle(root.firstChildElement(QStringLiteral("title")).text());
+    d->m_courseResource->setDescription(root.firstChildElement(QStringLiteral("description")).text());
+    if (!root.firstChildElement(QStringLiteral("foreignId")).isNull()) {
+        d->m_courseResource->setForeignId(root.firstChildElement(QStringLiteral("foreignId")).text());
     }
 
     // set language
     //TODO not efficient to load completely every language for this comparison
-    QString language = root.firstChildElement("language").text();
+    QString language = root.firstChildElement(QStringLiteral("language")).text();
     foreach(LanguageResource * resource, d->m_resourceManager->languageResources()) {
         if (resource->language()->id() == language) {
             d->m_courseResource->setLanguage(resource->language());
@@ -290,21 +290,21 @@ QObject * CourseResource::resource()
     }
 
     // create units
-    for (QDomElement unitNode = root.firstChildElement("units").firstChildElement();
+    for (QDomElement unitNode = root.firstChildElement(QStringLiteral("units")).firstChildElement();
          !unitNode.isNull();
          unitNode = unitNode.nextSiblingElement())
     {
         Unit *unit = new Unit(d->m_courseResource);
-        unit->setId(unitNode.firstChildElement("id").text());
+        unit->setId(unitNode.firstChildElement(QStringLiteral("id")).text());
         unit->setCourse(d->m_courseResource);
-        unit->setTitle(unitNode.firstChildElement("title").text());
-        if (!unitNode.firstChildElement("foreignId").isNull()) {
-            unit->setForeignId(unitNode.firstChildElement("foreignId").text());
+        unit->setTitle(unitNode.firstChildElement(QStringLiteral("title")).text());
+        if (!unitNode.firstChildElement(QStringLiteral("foreignId")).isNull()) {
+            unit->setForeignId(unitNode.firstChildElement(QStringLiteral("foreignId")).text());
         }
         d->m_courseResource->addUnit(unit);
 
         // create phrases
-        for (QDomElement phraseNode = unitNode.firstChildElement("phrases").firstChildElement();
+        for (QDomElement phraseNode = unitNode.firstChildElement(QStringLiteral("phrases")).firstChildElement();
             !phraseNode.isNull();
             phraseNode = phraseNode.nextSiblingElement())
         {
@@ -325,25 +325,25 @@ Course * CourseResource::course()
 Phrase* CourseResource::parsePhrase(QDomElement phraseNode, Unit* parentUnit) const
 {
     Phrase *phrase = new Phrase(parentUnit);
-    phrase->setId(phraseNode.firstChildElement("id").text());
-    phrase->setText(phraseNode.firstChildElement("text").text());
-    phrase->seti18nText(phraseNode.firstChildElement("i18nText").text());
+    phrase->setId(phraseNode.firstChildElement(QStringLiteral("id")).text());
+    phrase->setText(phraseNode.firstChildElement(QStringLiteral("text")).text());
+    phrase->seti18nText(phraseNode.firstChildElement(QStringLiteral("i18nText")).text());
     phrase->setUnit(parentUnit);
-    if (!phraseNode.firstChildElement("soundFile").text().isEmpty()) {
+    if (!phraseNode.firstChildElement(QStringLiteral("soundFile")).text().isEmpty()) {
         phrase->setSound(QUrl::fromLocalFile(
                 path().adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path()
-                + '/' + phraseNode.firstChildElement("soundFile").text())
+                + '/' + phraseNode.firstChildElement(QStringLiteral("soundFile")).text())
             );
     }
-    phrase->setType(phraseNode.firstChildElement("type").text());
-    phrase->setEditState(phraseNode.firstChildElement("editState").text());
-    if (!phraseNode.firstChildElement("foreignId").isNull()) {
-        phrase->setForeignId(phraseNode.firstChildElement("foreignId").text());
+    phrase->setType(phraseNode.firstChildElement(QStringLiteral("type")).text());
+    phrase->setEditState(phraseNode.firstChildElement(QStringLiteral("editState")).text());
+    if (!phraseNode.firstChildElement(QStringLiteral("foreignId")).isNull()) {
+        phrase->setForeignId(phraseNode.firstChildElement(QStringLiteral("foreignId")).text());
     }
 
     // add phonemes
     QList<Phoneme *> phonemes = d->m_courseResource->language()->phonemes();
-    for (QDomElement phonemeID = phraseNode.firstChildElement("phonemes").firstChildElement();
+    for (QDomElement phonemeID = phraseNode.firstChildElement(QStringLiteral("phonemes")).firstChildElement();
         !phonemeID.isNull();
             phonemeID = phonemeID.nextSiblingElement())
     {
@@ -360,8 +360,8 @@ Phrase* CourseResource::parsePhrase(QDomElement phraseNode, Unit* parentUnit) co
         }
     }
 
-    if (!phraseNode.firstChildElement("excluded").isNull() &&
-        phraseNode.firstChildElement("excluded").text() == "true")
+    if (!phraseNode.firstChildElement(QStringLiteral("excluded")).isNull() &&
+        phraseNode.firstChildElement(QStringLiteral("excluded")).text() == QLatin1String("true"))
     {
         phrase->setExcluded(true);
     }
@@ -373,31 +373,31 @@ QDomDocument CourseResource::serializedDocument(bool trainingExport) const
 {
     QDomDocument document;
     // prepare xml header
-    QDomProcessingInstruction header = document.createProcessingInstruction("xml", "version=\"1.0\"");
+    QDomProcessingInstruction header = document.createProcessingInstruction(QStringLiteral("xml"), QStringLiteral("version=\"1.0\""));
     document.appendChild(header);
 
     // create main element
-    QDomElement root = document.createElement("course");
+    QDomElement root = document.createElement(QStringLiteral("course"));
     document.appendChild(root);
 
-    QDomElement idElement = document.createElement("id");
-    QDomElement titleElement = document.createElement("title");
-    QDomElement descriptionElement = document.createElement("description");
-    QDomElement languageElement = document.createElement("language");
+    QDomElement idElement = document.createElement(QStringLiteral("id"));
+    QDomElement titleElement = document.createElement(QStringLiteral("title"));
+    QDomElement descriptionElement = document.createElement(QStringLiteral("description"));
+    QDomElement languageElement = document.createElement(QStringLiteral("language"));
 
     idElement.appendChild(document.createTextNode(d->m_courseResource->id()));
     titleElement.appendChild(document.createTextNode(d->m_courseResource->title()));
     descriptionElement.appendChild(document.createTextNode(d->m_courseResource->description()));
     languageElement.appendChild(document.createTextNode(d->m_courseResource->language()->id()));
 
-    QDomElement unitListElement = document.createElement("units");
+    QDomElement unitListElement = document.createElement(QStringLiteral("units"));
     // create units
     foreach (Unit *unit, d->m_courseResource->unitList()) {
-        QDomElement unitElement = document.createElement("unit");
+        QDomElement unitElement = document.createElement(QStringLiteral("unit"));
 
-        QDomElement unitIdElement = document.createElement("id");
-        QDomElement unitTitleElement = document.createElement("title");
-        QDomElement unitPhraseListElement = document.createElement("phrases");
+        QDomElement unitIdElement = document.createElement(QStringLiteral("id"));
+        QDomElement unitTitleElement = document.createElement(QStringLiteral("title"));
+        QDomElement unitPhraseListElement = document.createElement(QStringLiteral("phrases"));
         unitIdElement.appendChild(document.createTextNode(unit->id()));
         unitTitleElement.appendChild(document.createTextNode(unit->title()));
 
@@ -416,7 +416,7 @@ QDomDocument CourseResource::serializedDocument(bool trainingExport) const
         // construct the unit element
         unitElement.appendChild(unitIdElement);
         if (!unit->foreignId().isEmpty()) {
-            QDomElement unitForeignIdElement = document.createElement("foreignId");
+            QDomElement unitForeignIdElement = document.createElement(QStringLiteral("foreignId"));
             unitForeignIdElement.appendChild(document.createTextNode(unit->foreignId()));
             unitElement.appendChild(unitForeignIdElement);
         }
@@ -428,7 +428,7 @@ QDomDocument CourseResource::serializedDocument(bool trainingExport) const
 
     root.appendChild(idElement);
     if (!d->m_courseResource->foreignId().isEmpty()) {
-        QDomElement courseForeignIdElement = document.createElement("foreignId");
+        QDomElement courseForeignIdElement = document.createElement(QStringLiteral("foreignId"));
         courseForeignIdElement.appendChild(document.createTextNode(d->m_courseResource->foreignId()));
         root.appendChild(courseForeignIdElement);
     }
@@ -442,14 +442,14 @@ QDomDocument CourseResource::serializedDocument(bool trainingExport) const
 
 QDomElement CourseResource::serializedPhrase(Phrase *phrase, QDomDocument &document) const
 {
-    QDomElement phraseElement = document.createElement("phrase");
-    QDomElement phraseIdElement = document.createElement("id");
-    QDomElement phraseTextElement = document.createElement("text");
-    QDomElement phrasei18nTextElement = document.createElement("i18nText");
-    QDomElement phraseSoundFileElement = document.createElement("soundFile");
-    QDomElement phraseTypeElement = document.createElement("type");
-    QDomElement phraseEditStateElement = document.createElement("editState");
-    QDomElement phrasePhonemeListElement = document.createElement("phonemes");
+    QDomElement phraseElement = document.createElement(QStringLiteral("phrase"));
+    QDomElement phraseIdElement = document.createElement(QStringLiteral("id"));
+    QDomElement phraseTextElement = document.createElement(QStringLiteral("text"));
+    QDomElement phrasei18nTextElement = document.createElement(QStringLiteral("i18nText"));
+    QDomElement phraseSoundFileElement = document.createElement(QStringLiteral("soundFile"));
+    QDomElement phraseTypeElement = document.createElement(QStringLiteral("type"));
+    QDomElement phraseEditStateElement = document.createElement(QStringLiteral("editState"));
+    QDomElement phrasePhonemeListElement = document.createElement(QStringLiteral("phonemes"));
 
     phraseIdElement.appendChild(document.createTextNode(phrase->id()));
     phraseTextElement.appendChild(document.createTextNode(phrase->text()));
@@ -460,14 +460,14 @@ QDomElement CourseResource::serializedPhrase(Phrase *phrase, QDomDocument &docum
 
     // add phonemes
     foreach (Phoneme *phoneme, phrase->phonemes()) {
-        QDomElement phonemeElement = document.createElement("phonemeID");
+        QDomElement phonemeElement = document.createElement(QStringLiteral("phonemeID"));
         phonemeElement.appendChild(document.createTextNode(phoneme->id()));
         phrasePhonemeListElement.appendChild(phonemeElement);
     }
 
     phraseElement.appendChild(phraseIdElement);
     if (!phrase->foreignId().isEmpty()) {
-        QDomElement phraseForeignIdElement = document.createElement("foreignId");
+        QDomElement phraseForeignIdElement = document.createElement(QStringLiteral("foreignId"));
         phraseForeignIdElement.appendChild(document.createTextNode(phrase->foreignId()));
         phraseElement.appendChild(phraseForeignIdElement);
     }
@@ -479,8 +479,8 @@ QDomElement CourseResource::serializedPhrase(Phrase *phrase, QDomDocument &docum
     phraseElement.appendChild(phrasePhonemeListElement);
 
     if (phrase->isExcluded()) {
-        QDomElement phraseIsExcludedElement = document.createElement("excluded");
-        phraseIsExcludedElement.appendChild(document.createTextNode("true"));
+        QDomElement phraseIsExcludedElement = document.createElement(QStringLiteral("excluded"));
+        phraseIsExcludedElement.appendChild(document.createTextNode(QStringLiteral("true")));
         phraseElement.appendChild(phraseIsExcludedElement);
     }
 

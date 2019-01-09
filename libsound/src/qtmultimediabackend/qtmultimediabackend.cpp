@@ -25,7 +25,7 @@ K_PLUGIN_FACTORY_WITH_JSON( BackendFactory,
                             registerPlugin<QtMultimediaBackend>();)
 
 QtMultimediaBackend::QtMultimediaBackend(QObject *parent, const QList< QVariant >&)
-    : BackendInterface("qtmultimedia", parent)
+    : BackendInterface(QStringLiteral("qtmultimedia"), parent)
     , m_captureBackend(new QtMultimediaCaptureBackend(this))
     , m_outputBackend(new QtMultimediaOutputBackend(this))
 {

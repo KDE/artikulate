@@ -75,8 +75,8 @@ void Player::playback()
     qCDebug(ARTIKULATE_LOG) << this << "Playback sound in file "<< m_soundFile.toLocalFile();
     OutputDeviceController::self().play(QUrl::fromLocalFile(m_soundFile.toLocalFile()));
     m_playbackState = PlayingState;
-    connect(&OutputDeviceController::self(), SIGNAL(started()), this, SLOT(updateState()));
-    connect(&OutputDeviceController::self(), SIGNAL(stopped()), this, SLOT(updateState()));
+    connect(&OutputDeviceController::self(), &OutputDeviceController::started, this, &Player::updateState);
+    connect(&OutputDeviceController::self(), &OutputDeviceController::stopped, this, &Player::updateState);
     emit stateChanged();
 }
 

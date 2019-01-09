@@ -30,7 +30,7 @@
 Recorder::Recorder(QObject *parent)
     : QObject(parent)
     , m_state(StoppedState)
-    , m_recordingBufferFile(QDir::tempPath() + QLatin1String("/XXXXXX.ogg"))
+    , m_recordingBufferFile(QDir::tempPath() + QStringLiteral("/XXXXXX.ogg"))
 {
 
 }

@@ -62,10 +62,10 @@ void PhonemeGroupModel::setCourse(Course *course)
     m_course = course;
 
     if (m_course) {
-        connect(m_course, SIGNAL(phonemeGroupAboutToBeAdded(PhonemeGroup*,int)), SLOT(onPhonemeGroupAboutToBeAdded(PhonemeGroup*,int)));
-        connect(m_course, SIGNAL(phonemeGroupAdded()), SLOT(onPhonemeGroupAdded()));
-        connect(m_course, SIGNAL(phonemeGroupAboutToBeRemoved(int,int)), SLOT(onPhonemeGroupsAboutToBeRemoved(int,int)));
-        connect(m_course, SIGNAL(phonemeGroupRemoved()), SLOT(onPhonemeGroupsRemoved()));
+        connect(m_course, &Course::phonemeGroupAboutToBeAdded, this, &PhonemeGroupModel::onPhonemeGroupAboutToBeAdded);
+        connect(m_course, &Course::phonemeGroupAdded, this, &PhonemeGroupModel::onPhonemeGroupAdded);
+        connect(m_course, &Course::phonemeGroupAboutToBeRemoved, this, &PhonemeGroupModel::onPhonemeGroupsAboutToBeRemoved);
+        connect(m_course, &Course::phonemeGroupRemoved, this, &PhonemeGroupModel::onPhonemeGroupsRemoved);
     }
 
     endResetModel();

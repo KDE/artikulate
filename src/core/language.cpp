@@ -115,8 +115,8 @@ PhonemeGroup * Language::addPhonemeGroup(const QString &identifier, const QStrin
     newGroup->setTitle(title);
     m_phonemeGroups.append(newGroup);
 
-    connect(newGroup, SIGNAL(phonemeAdded(Phoneme)), this, SIGNAL(phonemesChanged()));
-    connect(newGroup, SIGNAL(phonemeRemoved(Phoneme)), this, SIGNAL(phonemesChanged()));
+    connect(newGroup, &PhonemeGroup::phonemeAdded, this, &Language::phonemesChanged);
+    connect(newGroup, &PhonemeGroup::phonemeRemoved, this, &Language::phonemesChanged);
 
     emit phonemeGroupsChanged();
 

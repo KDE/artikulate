@@ -73,12 +73,12 @@ void CourseModel::setResourceManager(ResourceManager *resourceManager)
     m_resourceManager = resourceManager;
     m_resources.clear();
     if (m_resourceManager) {
-        connect(m_resourceManager, SIGNAL(courseResourceAboutToBeAdded(CourseResource*,int)),
-                SLOT(onCourseResourceAboutToBeAdded(CourseResource*,int)));
-        connect(m_resourceManager, SIGNAL(courseResourceAdded()),
-                SLOT(onCourseResourceAdded()));
-        connect(m_resourceManager, SIGNAL(courseResourceAboutToBeRemoved(int)),
-                SLOT(onCourseResourceAboutToBeRemoved(int)));
+        connect(m_resourceManager, &ResourceManager::courseResourceAboutToBeAdded,
+                this, &CourseModel::onCourseResourceAboutToBeAdded);
+        connect(m_resourceManager, &ResourceManager::courseResourceAdded,
+                this, &CourseModel::onCourseResourceAdded);
+        connect(m_resourceManager, &ResourceManager::courseResourceAboutToBeRemoved,
+                this, &CourseModel::onCourseResourceAboutToBeRemoved);
     }
     if (m_language && m_resourceManager) {
         m_resources = m_resourceManager->courseResources(m_language);

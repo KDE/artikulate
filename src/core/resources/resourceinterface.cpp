@@ -63,7 +63,7 @@ void ResourceInterface::reload()
 
 QXmlSchema ResourceInterface::loadXmlSchema(const QString &schemeName) const
 {
-    QString relPath = QString("schemes/%1.xsd").arg(schemeName);
+    QString relPath = QStringLiteral("schemes/%1.xsd").arg(schemeName);
     QUrl file = QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "artikulate/" + relPath));
 
     QXmlSchema schema;

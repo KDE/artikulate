@@ -30,7 +30,7 @@ QtMultimediaCaptureBackend::QtMultimediaCaptureBackend(QObject *parent)
 {
     QString selectedInput = m_recorder->defaultAudioInput();
     QAudioEncoderSettings audioSettings;
-    audioSettings.setCodec("audio/vorbis");
+    audioSettings.setCodec(QStringLiteral("audio/vorbis"));
     audioSettings.setQuality(QMultimedia::HighQuality);
     m_recorder->setAudioSettings(audioSettings);
 }

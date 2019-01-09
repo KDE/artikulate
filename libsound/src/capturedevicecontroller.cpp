@@ -55,7 +55,7 @@ public:
             QVector<KPluginMetaData> metadataList = KPluginLoader::findPlugins(dir,
                 [=](const KPluginMetaData &data)
             {
-                return data.serviceTypes().contains("artikulate/libsound/backend");
+                return data.serviceTypes().contains(QStringLiteral("artikulate/libsound/backend"));
             });
 
             foreach (const auto &metadata, metadataList) {

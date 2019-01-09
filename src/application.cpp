@@ -70,19 +70,19 @@ void Application::registerQmlTypes()
     qmlRegisterUncreatableType<TrainingSession>(
         "artikulate", 1, 0,
         "TrainingSession",
-        "TrainingSession is unique object provided by the backend");
+        QStringLiteral("TrainingSession is unique object provided by the backend"));
     qmlRegisterUncreatableType<EditorSession>(
         "artikulate", 1, 0,
         "EditorSession",
-        "EditorSession is unique object provided by the backend");
+        QStringLiteral("EditorSession is unique object provided by the backend"));
     qmlRegisterUncreatableType<ResourceManager>(
         "artikulate", 1, 0,
         "ResourceManager",
-        "ResourceManager is unique object provided by the backend");
+        QStringLiteral("ResourceManager is unique object provided by the backend"));
     qmlRegisterUncreatableType<LearnerProfile::ProfileManager>(
         "artikulate", 1, 0,
         "ProfileManager",
-        "ProfileManager is unique object provided by the backend");
+        QStringLiteral("ProfileManager is unique object provided by the backend"));
 
     qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");
     qmlRegisterType<LearnerProfile::LearningGoal>("artikulate", 1, 0, "LearningGoal");

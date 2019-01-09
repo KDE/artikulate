@@ -111,15 +111,15 @@ QString Phrase::typeString() const
 {
     switch(m_type) {
     case Word:
-        return "word";
+        return QStringLiteral("word");
     case Expression:
-        return "expression";
+        return QStringLiteral("expression");
     case Sentence:
-        return "sentence";
+        return QStringLiteral("sentence");
     case Paragraph:
-        return "paragraph";
+        return QStringLiteral("paragraph");
     default:
-        return "ERROR_UNKNOWN_TYPE";
+        return QStringLiteral("ERROR_UNKNOWN_TYPE");
     }
 }
 
@@ -134,19 +134,19 @@ void Phrase::setType(Phrase::Type type)
 
 void Phrase::setType(const QString &typeString)
 {
-    if (typeString == "word") {
+    if (typeString == QLatin1String("word")) {
         setType(Word);
         return;
     }
-    if (typeString == "expression") {
+    if (typeString == QLatin1String("expression")) {
         setType(Expression);
         return;
     }
-    if (typeString == "sentence") {
+    if (typeString == QLatin1String("sentence")) {
         setType(Sentence);
         return;
     }
-    if (typeString == "paragraph") {
+    if (typeString == QLatin1String("paragraph")) {
         setType(Paragraph);
         return;
     }
@@ -163,13 +163,13 @@ QString Phrase::editStateString() const
 {
     switch(m_editState) {
     case Unknown:
-        return "unknown";
+        return QStringLiteral("unknown");
     case Translated:
-        return "translated";
+        return QStringLiteral("translated");
     case Completed:
-        return "completed";
+        return QStringLiteral("completed");
     default:
-        return "ERROR_UNKNOWN_EDIT_STATE";
+        return QStringLiteral("ERROR_UNKNOWN_EDIT_STATE");
     }
 }
 
@@ -187,15 +187,15 @@ void Phrase::setEditState(const QString &stateString)
     if (stateString.isEmpty()) {
         return;
     }
-    if (stateString == "unknown") {
+    if (stateString == QLatin1String("unknown")) {
         setEditState(Unknown);
         return;
     }
-    if (stateString == "translated") {
+    if (stateString == QLatin1String("translated")) {
         setEditState(Translated);
         return;
     }
-    if (stateString == "completed") {
+    if (stateString == QLatin1String("completed")) {
         setEditState(Completed);
         return;
     }

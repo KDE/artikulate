@@ -50,7 +50,7 @@
 using namespace LearnerProfile;
 
 MainWindow::MainWindow()
-    : m_actionCollection(new KActionCollection(this, "artikulate"))
+    : m_actionCollection(new KActionCollection(this, QStringLiteral("artikulate")))
     , m_helpMenu(new KHelpMenu)
     , m_resourceManager(new ResourceManager(this))
     , m_profileManager(new LearnerProfile::ProfileManager(this))
@@ -73,14 +73,14 @@ MainWindow::MainWindow()
     setupActions();
 
     // set view
-    rootContext()->setContextProperty("g_resourceManager", m_resourceManager);
-    rootContext()->setContextProperty("g_trainingSession", m_trainingSession);
-    rootContext()->setContextProperty("g_profileManager", m_profileManager);
-    rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
-    rootContext()->setContextProperty("kcfg_ShowMenuBar", Settings::showMenuBar());
+    rootContext()->setContextProperty(QStringLiteral("g_resourceManager"), m_resourceManager);
+    rootContext()->setContextProperty(QStringLiteral("g_trainingSession"), m_trainingSession);
+    rootContext()->setContextProperty(QStringLiteral("g_profileManager"), m_profileManager);
+    rootContext()->setContextProperty(QStringLiteral("kcfg_UseContributorResources"), Settings::useCourseRepository());
+    rootContext()->setContextProperty(QStringLiteral("kcfg_ShowMenuBar"), Settings::showMenuBar());
 
     // set starting screen
-    load(QUrl("qrc:/artikulate/qml/Main.qml"));
+    load(QUrl(QStringLiteral("qrc:/artikulate/qml/Main.qml")));
 
     // settings from kcfg values
 //     updateTrainingPhraseFont(); //FIXME deactivated while porting
@@ -101,7 +101,7 @@ MainWindow::MainWindow()
             this, SLOT(switchMenuBarVisibility()));
 
     // set font for the phrase in trainer to default from kcfg file
-    QObject *phraseText = rootObjects().first()->findChild<QObject*>("phraseText");
+    QObject *phraseText = rootObjects().first()->findChild<QObject*>(QStringLiteral("phraseText"));
     if (phraseText) {
         phraseText->setProperty("font", Settings::trainingPhraseFont());
     }
@@ -127,19 +127,19 @@ KActionCollection * MainWindow::actionCollection()
 void MainWindow::setupActions()
 {
     QAction *settingsAction = new QAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
-    connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
-    actionCollection()->addAction("settings", settingsAction);
-    settingsAction->setIcon(QIcon::fromTheme("configure"));
+    connect(settingsAction, &QAction::triggered, this, &MainWindow::showSettingsDialog);
+    actionCollection()->addAction(QStringLiteral("settings"), settingsAction);
+    settingsAction->setIcon(QIcon::fromTheme(QStringLiteral("configure")));
 
     QAction *downloadsAction = new QAction(i18nc("@item:inmenu", "Download New Language Course"), this);
-    connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(downloadNewStuff()));
-    actionCollection()->addAction("download_new_stuff", downloadsAction);
-    downloadsAction->setIcon(QIcon::fromTheme("get-hot-new-stuff"));
+    connect(downloadsAction, &QAction::triggered, this, &MainWindow::downloadNewStuff);
+    actionCollection()->addAction(QStringLiteral("download_new_stuff"), downloadsAction);
+    downloadsAction->setIcon(QIcon::fromTheme(QStringLiteral("get-hot-new-stuff")));
 
     QAction *configLearnerProfileAction = new QAction(i18nc("@item:inmenu", "Learner Profile"), this);
-    connect(configLearnerProfileAction, SIGNAL(triggered(bool)), this, SLOT(configLearnerProfile()));
-    actionCollection()->addAction("config_learner_profile", configLearnerProfileAction);
-    configLearnerProfileAction->setIcon(QIcon::fromTheme("user-identity"));
+    connect(configLearnerProfileAction, &QAction::triggered, this, &MainWindow::configLearnerProfile);
+    actionCollection()->addAction(QStringLiteral("config_learner_profile"), configLearnerProfileAction);
+    configLearnerProfileAction->setIcon(QIcon::fromTheme(QStringLiteral("user-identity")));
 
     KStandardAction::helpContents(m_helpMenu, SLOT(appHelpActivated()), actionCollection());
     KStandardAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());
@@ -151,10 +151,10 @@ void MainWindow::setupActions()
 
 void MainWindow::showSettingsDialog()
 {
-    if (KConfigDialog::showDialog("settings")) {
+    if (KConfigDialog::showDialog(QStringLiteral("settings"))) {
         return;
     }
-    QPointer<KConfigDialog> dialog = new KConfigDialog(0, "settings", Settings::self());
+    QPointer<KConfigDialog> dialog = new KConfigDialog(0, QStringLiteral("settings"), Settings::self());
 
     ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_resourceManager);
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
@@ -164,26 +164,26 @@ void MainWindow::showSettingsDialog()
     soundDialog->loadSettings();
     appearenceDialog->loadSettings();
 
-    dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), "audio-headset", i18nc("@title:tab", "Sound Device Settings"), true);
-    dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Fonts"), "preferences-desktop-font", i18nc("@title:tab", "Training Phrase Font"), true);
-    dialog->addPage(resourceDialog, i18nc("@item:inmenu", "Course Resources"), "repository", i18nc("@title:tab", "Resource Repository Settings"), true);
+    dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), QStringLiteral("audio-headset"), i18nc("@title:tab", "Sound Device Settings"), true);
+    dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Fonts"), QStringLiteral("preferences-desktop-font"), i18nc("@title:tab", "Training Phrase Font"), true);
+    dialog->addPage(resourceDialog, i18nc("@item:inmenu", "Course Resources"), QStringLiteral("repository"), i18nc("@title:tab", "Resource Repository Settings"), true);
 
 //     connect(dialog, SIGNAL(settingsChanged(const QString&)), resourceDialog, SLOT(loadSettings()));
 //     connect(dialog, SIGNAL(settingsChanged(const QString&)), soundDialog, SLOT(loadSettings()));
-    connect(dialog, SIGNAL(accepted()), resourceDialog, SLOT(saveSettings()));
-    connect(dialog, SIGNAL(accepted()), soundDialog, SLOT(saveSettings()));
-    connect(dialog, SIGNAL(accepted()), appearenceDialog, SLOT(saveSettings()));
-    connect(dialog, SIGNAL(accepted()), SLOT(updateTrainingPhraseFont()));
-    connect(dialog, SIGNAL(accepted()), SLOT(updateKcfgUseContributorResources()));
-    connect(dialog, SIGNAL(finished()), soundDialog, SLOT(stopPlaying()));
-    connect(dialog, SIGNAL(finished()), soundDialog, SLOT(stopRecord()));
+    connect(dialog.data(), &QDialog::accepted, resourceDialog, &ResourcesDialogPage::saveSettings);
+    connect(dialog.data(), &QDialog::accepted, soundDialog, &SoundDeviceDialogPage::saveSettings);
+    connect(dialog.data(), &QDialog::accepted, appearenceDialog, &AppearenceDialogPage::saveSettings);
+    connect(dialog.data(), &QDialog::accepted, this, &MainWindow::updateTrainingPhraseFont);
+    connect(dialog.data(), &QDialog::accepted, this, &MainWindow::updateKcfgUseContributorResources);
+    connect(dialog.data(), &QDialog::finished, soundDialog, &SoundDeviceDialogPage::stopPlaying);
+    connect(dialog.data(), &QDialog::finished, soundDialog, &SoundDeviceDialogPage::stopRecord);
 
     dialog->exec();
 }
 
 void MainWindow::updateTrainingPhraseFont()
 {
-    QObject *phraseText = rootObjects().first()->findChild<QObject*>("phraseText");
+    QObject *phraseText = rootObjects().first()->findChild<QObject*>(QStringLiteral("phraseText"));
     if (!phraseText) {
         qCDebug(ARTIKULATE_LOG) << "no phraseText context object found, aborting";
         return;
@@ -194,12 +194,12 @@ void MainWindow::updateTrainingPhraseFont()
 
 void MainWindow::updateKcfgUseContributorResources()
 {
-    rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
+    rootContext()->setContextProperty(QStringLiteral("kcfg_UseContributorResources"), Settings::useCourseRepository());
 }
 
 void MainWindow::downloadNewStuff()
 {
-    QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog("artikulate.knsrc");
+    QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog(QStringLiteral("artikulate.knsrc"));
     if (dialog->exec() == QDialog::Accepted) {
         //update available courses
         m_resourceManager->loadCourseResources();
@@ -259,7 +259,7 @@ void MainWindow::triggerAction(const QString &actionName)
 void MainWindow::switchMenuBarVisibility()
 {
     Settings::setShowMenuBar(!Settings::showMenuBar());
-    rootContext()->setContextProperty("kcfg_ShowMenuBar", Settings::showMenuBar());
+    rootContext()->setContextProperty(QStringLiteral("kcfg_ShowMenuBar"), Settings::showMenuBar());
 }
 
 bool MainWindow::queryClose()

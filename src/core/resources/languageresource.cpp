@@ -146,7 +146,7 @@ QObject * LanguageResource::resource()
         return 0;
     }
 
-    QXmlSchema schema = loadXmlSchema("language");
+    QXmlSchema schema = loadXmlSchema(QStringLiteral("language"));
     if (!schema.isValid()) {
         return 0;
     }
@@ -160,24 +160,24 @@ QObject * LanguageResource::resource()
     QDomElement root(document.documentElement());
     d->m_languageResource = new Language(this);
     d->m_languageResource->setFile(d->m_path);
-    d->m_languageResource->setId(root.firstChildElement("id").text());
-    d->m_languageResource->setTitle(root.firstChildElement("title").text());
-    d->m_languageResource->seti18nTitle(root.firstChildElement("i18nTitle").text());
+    d->m_languageResource->setId(root.firstChildElement(QStringLiteral("id")).text());
+    d->m_languageResource->setTitle(root.firstChildElement(QStringLiteral("title")).text());
+    d->m_languageResource->seti18nTitle(root.firstChildElement(QStringLiteral("i18nTitle")).text());
     // create phoneme groups
-    for (QDomElement groupNode = root.firstChildElement("phonemeGroups").firstChildElement();
+    for (QDomElement groupNode = root.firstChildElement(QStringLiteral("phonemeGroups")).firstChildElement();
          !groupNode.isNull();
          groupNode = groupNode.nextSiblingElement())
     {
         PhonemeGroup *group = d->m_languageResource->addPhonemeGroup(
-            groupNode.firstChildElement("id").text(),
-            groupNode.firstChildElement("title").text());
-        group->setDescription(groupNode.attribute("description"));
+            groupNode.firstChildElement(QStringLiteral("id")).text(),
+            groupNode.firstChildElement(QStringLiteral("title")).text());
+        group->setDescription(groupNode.attribute(QStringLiteral("description")));
         // register phonemes
-        for (QDomElement phonemeNode = groupNode.firstChildElement("phonemes").firstChildElement();
+        for (QDomElement phonemeNode = groupNode.firstChildElement(QStringLiteral("phonemes")).firstChildElement();
             !phonemeNode.isNull();
             phonemeNode = phonemeNode.nextSiblingElement())
         {
-            group->addPhoneme(phonemeNode.firstChildElement("id").text(), phonemeNode.firstChildElement("title").text());
+            group->addPhoneme(phonemeNode.firstChildElement(QStringLiteral("id")).text(), phonemeNode.firstChildElement(QStringLiteral("title")).text());
         }
     }
 

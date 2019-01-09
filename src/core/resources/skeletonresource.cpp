@@ -170,38 +170,38 @@ void SkeletonResource::sync()
 
     QDomDocument document;
     // prepare xml header
-    QDomProcessingInstruction header = document.createProcessingInstruction("xml", "version=\"1.0\"");
+    QDomProcessingInstruction header = document.createProcessingInstruction(QStringLiteral("xml"), QStringLiteral("version=\"1.0\""));
     document.appendChild(header);
 
     // create main element
-    QDomElement root = document.createElement("skeleton");
+    QDomElement root = document.createElement(QStringLiteral("skeleton"));
     document.appendChild(root);
 
-    QDomElement idElement = document.createElement("id");
-    QDomElement titleElement = document.createElement("title");
-    QDomElement descriptionElement = document.createElement("description");
+    QDomElement idElement = document.createElement(QStringLiteral("id"));
+    QDomElement titleElement = document.createElement(QStringLiteral("title"));
+    QDomElement descriptionElement = document.createElement(QStringLiteral("description"));
 
     idElement.appendChild(document.createTextNode(d->m_skeletonResource->id()));
     titleElement.appendChild(document.createTextNode(d->m_skeletonResource->title()));
     descriptionElement.appendChild(document.createTextNode(d->m_skeletonResource->description()));
 
-    QDomElement unitListElement = document.createElement("units");
+    QDomElement unitListElement = document.createElement(QStringLiteral("units"));
     // create units
     foreach (Unit *unit, d->m_skeletonResource->unitList()) {
-        QDomElement unitElement = document.createElement("unit");
+        QDomElement unitElement = document.createElement(QStringLiteral("unit"));
 
-        QDomElement unitIdElement = document.createElement("id");
-        QDomElement unitTitleElement = document.createElement("title");
-        QDomElement unitPhraseListElement = document.createElement("phrases");
+        QDomElement unitIdElement = document.createElement(QStringLiteral("id"));
+        QDomElement unitTitleElement = document.createElement(QStringLiteral("title"));
+        QDomElement unitPhraseListElement = document.createElement(QStringLiteral("phrases"));
         unitIdElement.appendChild(document.createTextNode(unit->id()));
         unitTitleElement.appendChild(document.createTextNode(unit->title()));
 
         // construct phrases
         foreach (Phrase *phrase, unit->phraseList()) {
-            QDomElement phraseElement = document.createElement("phrase");
-            QDomElement phraseIdElement = document.createElement("id");
-            QDomElement phraseTextElement = document.createElement("text");
-            QDomElement phraseTypeElement = document.createElement("type");
+            QDomElement phraseElement = document.createElement(QStringLiteral("phrase"));
+            QDomElement phraseIdElement = document.createElement(QStringLiteral("id"));
+            QDomElement phraseTextElement = document.createElement(QStringLiteral("text"));
+            QDomElement phraseTypeElement = document.createElement(QStringLiteral("type"));
 
             phraseIdElement.appendChild(document.createTextNode(phrase->id()));
             phraseTextElement.appendChild(document.createTextNode(phrase->text()));
@@ -269,7 +269,7 @@ QObject * SkeletonResource::resource()
         return nullptr;
     }
 
-    QXmlSchema schema = loadXmlSchema("skeleton");
+    QXmlSchema schema = loadXmlSchema(QStringLiteral("skeleton"));
     if (!schema.isValid()) {
         return nullptr;
     }
@@ -285,30 +285,30 @@ QObject * SkeletonResource::resource()
     d->m_skeletonResource = new Skeleton(this);
 
     d->m_skeletonResource->setFile(d->m_path);
-    d->m_skeletonResource->setId(root.firstChildElement("id").text());
-    d->m_skeletonResource->setTitle(root.firstChildElement("title").text());
-    d->m_skeletonResource->setDescription(root.firstChildElement("title").text());
+    d->m_skeletonResource->setId(root.firstChildElement(QStringLiteral("id")).text());
+    d->m_skeletonResource->setTitle(root.firstChildElement(QStringLiteral("title")).text());
+    d->m_skeletonResource->setDescription(root.firstChildElement(QStringLiteral("title")).text());
 
     // create units
-    for (QDomElement unitNode = root.firstChildElement("units").firstChildElement();
+    for (QDomElement unitNode = root.firstChildElement(QStringLiteral("units")).firstChildElement();
          !unitNode.isNull();
          unitNode = unitNode.nextSiblingElement())
     {
         Unit *unit = new Unit(d->m_skeletonResource);
-        unit->setId(unitNode.firstChildElement("id").text());
+        unit->setId(unitNode.firstChildElement(QStringLiteral("id")).text());
         unit->setCourse(d->m_skeletonResource);
-        unit->setTitle(unitNode.firstChildElement("title").text());
+        unit->setTitle(unitNode.firstChildElement(QStringLiteral("title")).text());
         d->m_skeletonResource->addUnit(unit);
 
         // create phrases
-        for (QDomElement phraseNode = unitNode.firstChildElement("phrases").firstChildElement();
+        for (QDomElement phraseNode = unitNode.firstChildElement(QStringLiteral("phrases")).firstChildElement();
             !phraseNode.isNull();
             phraseNode = phraseNode.nextSiblingElement())
         {
             Phrase *phrase = new Phrase(unit);
-            phrase->setId(phraseNode.firstChildElement("id").text());
-            phrase->setText(phraseNode.firstChildElement("text").text());
-            phrase->setType(phraseNode.firstChildElement("type").text());
+            phrase->setId(phraseNode.firstChildElement(QStringLiteral("id")).text());
+            phrase->setText(phraseNode.firstChildElement(QStringLiteral("text")).text());
+            phrase->setType(phraseNode.firstChildElement(QStringLiteral("type")).text());
             phrase->setUnit(unit);
 
             unit->addPhrase(phrase);
