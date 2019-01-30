@@ -22,6 +22,7 @@
 #define TRAININGACTION_H
 
 #include "artikulatecore_export.h"
+#include "trainingactionicon.h"
 #include "phrase.h"
 #include "trainingsession.h"
 #include <QObject>
@@ -33,11 +34,12 @@ class ARTIKULATECORE_EXPORT TrainingAction : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString text MEMBER m_text CONSTANT)
-    Q_PROPERTY(QString iconName MEMBER m_iconName CONSTANT)
+    Q_PROPERTY(QObject* icon READ icon CONSTANT)
     Q_PROPERTY(bool visible MEMBER m_visible CONSTANT)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(bool checked MEMBER m_checked CONSTANT)
     Q_PROPERTY(QList<QObject*> children MEMBER m_children NOTIFY childrenChanged)
+    Q_PROPERTY(bool checkable MEMBER m_checkable CONSTANT)
 
 Q_SIGNALS:
     void changed();
@@ -52,13 +54,15 @@ public:
     Q_INVOKABLE void trigger();
     bool enabled() const;
     void setEnabled(bool enabled);
+    QObject * icon() const;
 
 private:
     QString m_text;
-    QString m_iconName;
+    TrainingActionIcon *m_icon{nullptr};
     bool m_visible{true};
     bool m_enabled{true};
     bool m_checked{false};
+    bool m_checkable{false};
     QList<QObject*> m_children;
     Phrase *m_phrase{nullptr};
     DrawerTrainingActions * m_drawerTrainingActions{nullptr};

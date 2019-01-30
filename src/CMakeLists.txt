@@ -50,6 +50,7 @@ set(artikulateCore_SRCS
     core/skeleton.cpp
     core/editorsession.cpp
     core/trainingaction.cpp
+    core/trainingactionicon.cpp
     core/trainingsession.cpp
     core/resources/resourceinterface.cpp
     core/resources/languageresource.cpp

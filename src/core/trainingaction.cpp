@@ -19,25 +19,27 @@
  */
 
 #include "trainingaction.h"
+#include "trainingactionicon.h"
 #include "drawertrainingactions.h"
 #include "trainingsession.h"
 
 TrainingAction::TrainingAction(QObject *parent)
     : QObject(parent)
     , m_text(QString())
-    , m_iconName(QString()) //TODO "rating-unrated" vs. "rating"
+    , m_icon(new TrainingActionIcon(this, QString())) //TODO "rating-unrated" vs. "rating"
 {
 }
 
 TrainingAction::TrainingAction(const QString &text, QObject *parent)
     : QObject(parent)
     , m_text(text)
-    , m_iconName(QString()) //TODO "rating-unrated" vs. "rating"
+    , m_icon(new TrainingActionIcon(this, QString())) //TODO "rating-unrated" vs. "rating"
 {
 }
 
 TrainingAction::TrainingAction(Phrase *phrase, DrawerTrainingActions *drawerTrainingActions, QObject* parent)
     : QObject(parent)
+    , m_icon(new TrainingActionIcon(this, QString()))
     , m_phrase(phrase)
     , m_drawerTrainingActions(drawerTrainingActions)
 {
@@ -74,4 +76,7 @@ void TrainingAction::setEnabled(bool enabled)
     emit enabledChanged(m_enabled);
 }
 
-
+QObject * TrainingAction::icon() const
+{
+    return m_icon;
+}
