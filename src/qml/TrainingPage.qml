@@ -77,7 +77,7 @@ Kirigami2.Page {
                     bottomMargin: buttonNativePlay.height + 20
                 }
                 objectName: "phraseText"
-                text: (g_trainingSession.phrase != null) ? g_trainingSession.phrase.text : ""
+                text: (g_trainingSession.phrase !== null) ? g_trainingSession.phrase.text : ""
                 wrapMode: Text.WordWrap
                 readOnly: true
                 horizontalAlignment: Text.AlignHCenter
@@ -88,7 +88,7 @@ Kirigami2.Page {
                     bottom: trainingTextRect.bottom
                     horizontalCenter: parent.horizontalCenter
                 }
-                fileUrl: g_trainingSession.phrase == null ? "" : g_trainingSession.phrase.soundFileUrl
+                fileUrl: g_trainingSession.phrase === null ? "" : g_trainingSession.phrase.soundFileUrl
             }
         }
 

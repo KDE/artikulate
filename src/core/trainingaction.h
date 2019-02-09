@@ -38,6 +38,7 @@ class ARTIKULATECORE_EXPORT TrainingAction : public QObject
     Q_PROPERTY(bool visible MEMBER m_visible CONSTANT)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(bool checked MEMBER m_checked CONSTANT)
+    Q_PROPERTY(QString tooltip MEMBER m_tooltip CONSTANT)
     Q_PROPERTY(QList<QObject*> children MEMBER m_children NOTIFY childrenChanged)
     Q_PROPERTY(bool checkable MEMBER m_checkable CONSTANT)
 
@@ -63,6 +64,7 @@ private:
     bool m_enabled{true};
     bool m_checked{false};
     bool m_checkable{false};
+    QString m_tooltip{QString()};
     QList<QObject*> m_children;
     Phrase *m_phrase{nullptr};
     DrawerTrainingActions * m_drawerTrainingActions{nullptr};

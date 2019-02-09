@@ -32,19 +32,11 @@ Kirigami2.ApplicationWindow {
         root.pageStack.push(pageItem);
     }
 
-//     header: Text {
-//         font.pointSize: Kirigami2.Units.gridUnit * 1
-//         text: pageStack.currentItem.title
-//     }
-
-    header: Kirigami2.ApplicationHeader {
-    }
-
     globalDrawer: ArtikulateDrawer {
         pageStack: root.pageStack
     }
 
-    contextDrawer: Kirigami2.ContextDrawer {
+    contextDrawer: Kirigami2.OverlayDrawer {
         id: contextDrawer
     }
 
@@ -62,6 +54,7 @@ Kirigami2.ApplicationWindow {
     }
 
     pageStack.initialPage: welcomePageComponent
+    pageStack.globalToolBar.style: Kirigami2.ApplicationHeaderStyle.Titles
 
     // pages
     Component {
@@ -75,5 +68,9 @@ Kirigami2.ApplicationWindow {
     Component {
         id: profileSettingsPageComponent
         ProfileSettingsPage { }
+    }
+    Component {
+        id: downloadPageComponent
+        DownloadPage { }
     }
 }

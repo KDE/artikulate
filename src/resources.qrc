@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/artikulate/">
+        <file>qml/ActionListItem.qml</file>
+        <file>qml/ArtikulateDrawer.qml</file>
+        <file>qml/CheckListItem.qml</file>
+        <file>qml/CourseSwitcher.qml</file>
+        <file>qml/DownloadPage.qml</file>
+        <file>qml/Editor.qml</file>
+        <file>qml/LanguageSwitcher.qml</file>
+        <file>qml/ListItem.qml</file>
+        <file>qml/Main.qml</file>
+        <file>qml/PhonemeUnitSelector.qml</file>
+        <file>qml/PhraseEditor.qml</file>
+        <file>qml/PhraseEditorEditStateComponent.qml</file>
+        <file>qml/PhraseEditorSoundComponent.qml</file>
+        <file>qml/PhraseEditorTypeComponent.qml</file>
+        <file>qml/ProfileSelector.qml</file>
+        <file>qml/ProfileSettingsPage.qml</file>
+        <file>qml/ProfileUserImageItem.qml</file>
+        <file>qml/SoundPlayer.qml</file>
+        <file>qml/SoundRecorder.qml</file>
+        <file>qml/TrainerCourseStatistics.qml</file>
+        <file>qml/TrainingPage.qml</file>
+        <file>qml/UnitEditor.qml</file>
+        <file>qml/WelcomePage.qml</file>
+    </qresource>
+    <qresource prefix="/artikulate/config">
+        <file>artikulate.knsrc</file>
+    </qresource>
+</RCC>

@@ -124,7 +124,7 @@ ki18n_wrap_ui (artikulate_SRCS
     ui/sounddevicedialogpage.ui
     ui/appearencedialogpage.ui
 )
-qt5_add_resources(artikulate_SRCS qml/qml.qrc)
+qt5_add_resources(artikulate_SRCS resources.qrc)
 kconfig_add_kcfg_files (artikulate_SRCS settings.kcfgc)
 
 set(artikulate_editor_SRCS

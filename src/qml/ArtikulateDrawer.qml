@@ -142,7 +142,10 @@ Kirigami.GlobalDrawer {
             action: Kirigami.Action {
                 text: i18n("Download Training")
                 iconName: "get-hot-new-stuff"
-                onTriggered: triggerDownloadCourses()
+                onTriggered: {
+                    root.pageStack.pop();
+                    root.pageStack.push(downloadPageComponent);
+                }
             }
         }
     }
