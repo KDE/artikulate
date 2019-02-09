@@ -75,17 +75,17 @@ Kirigami.Page {
 
                 QQC2.Button {
                     visible: (model.status == KNS.ItemsModel.UpdateableStatus) ? true : false;
-                    text: "update"
+                    text: i18n("update")
                     onClicked: newStuffModel.installItem(model.index)
                 }
                 QQC2.Button {
                     visible: (model.status == KNS.ItemsModel.DownloadableStatus || model.status == KNS.ItemsModel.DeletedStatus) ? true : false;
-                    text: "install"
+                    text: i18n("install")
                     onClicked: newStuffModel.installItem(model.index)
                 }
                 QQC2.Button {
                     visible: (model.status == KNS.ItemsModel.InstalledStatus || model.status == KNS.ItemsModel.UpdateableStatus) ? true : false;
-                    text: "remove"
+                    text: i18n("remove")
                     onClicked: newStuffModel.uninstallItem(model.index)
                 }
             }
