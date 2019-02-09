@@ -90,9 +90,7 @@ MainWindow::MainWindow()
         m_profileManager->addProfile(i18n("Unnamed Identity"));
     }
 
-    // connect to QML signals
-    connect(rootObjects().first(), SIGNAL(triggerDownloadCourses()),
-            this, SLOT(downloadNewStuff()));
+    // connect to QML signals;
     connect(rootObjects().first(), SIGNAL(triggerSettingsDialog()),
             this, SLOT(showSettingsDialog()));
     connect(rootObjects().first(), SIGNAL(triggerAction(QString)),
@@ -130,11 +128,6 @@ void MainWindow::setupActions()
     connect(settingsAction, SIGNAL(triggered()), SLOT(showSettingsDialog()));
     actionCollection()->addAction("settings", settingsAction);
     settingsAction->setIcon(QIcon::fromTheme("configure"));
-
-    QAction *downloadsAction = new QAction(i18nc("@item:inmenu", "Download New Language Course"), this);
-    connect(downloadsAction, SIGNAL(triggered(bool)), this, SLOT(downloadNewStuff()));
-    actionCollection()->addAction("download_new_stuff", downloadsAction);
-    downloadsAction->setIcon(QIcon::fromTheme("get-hot-new-stuff"));
 
     QAction *configLearnerProfileAction = new QAction(i18nc("@item:inmenu", "Learner Profile"), this);
     connect(configLearnerProfileAction, SIGNAL(triggered(bool)), this, SLOT(configLearnerProfile()));
@@ -195,50 +188,6 @@ void MainWindow::updateTrainingPhraseFont()
 void MainWindow::updateKcfgUseContributorResources()
 {
     rootContext()->setContextProperty("kcfg_UseContributorResources", Settings::useCourseRepository());
-}
-
-void MainWindow::downloadNewStuff()
-{
-    QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog("artikulate.knsrc");
-    if (dialog->exec() == QDialog::Accepted) {
-        //update available courses
-        m_resourceManager->loadCourseResources();
-
-        if (!m_profileManager->activeProfile()) {
-            qCWarning(ARTIKULATE_LOG) << "Not registering course language for favorite languages:"
-                << "no active learner profile set";
-            delete dialog;
-            return;
-        }
-
-        // add languages of new courses to favorite languages
-        foreach (const KNS3::Entry &entry, dialog->changedEntries()) {
-            foreach (const QString &path, entry.installedFiles()) {
-                if (!path.endsWith(QLatin1String(".xml"))) {
-                    continue;
-                }
-                CourseResource *resource = new CourseResource(m_resourceManager, QUrl::fromLocalFile(path));
-                // set as active course if no training course is set
-                if (!m_trainingSession->course()) {
-                    m_trainingSession->setCourse(resource->course());
-                    m_trainingSession->setLanguage(resource->course()->language());
-                }
-                // update learning goals
-                //TODO will be gone after refactoring
-                foreach (LearningGoal *goal, m_profileManager->goals()) {
-                    if (goal->category() == LearningGoal::Language
-                        && goal->identifier() == resource->language()
-                    ) {
-                        // Learner::addGoal() checks for uniqueness of added goals
-                        m_profileManager->activeProfile()->addGoal(goal);
-                        break;
-                    }
-                }
-                resource->deleteLater();
-            }
-        }
-    }
-    delete dialog;
 }
 
 void MainWindow::configLearnerProfile()

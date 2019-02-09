@@ -55,7 +55,6 @@ public:
 
 public Q_SLOTS:
     void showSettingsDialog();
-    void downloadNewStuff();
     void updateTrainingPhraseFont();
     void updateKcfgUseContributorResources();
     void configLearnerProfile();

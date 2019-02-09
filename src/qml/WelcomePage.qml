@@ -89,10 +89,5 @@ Kirigami2.Page {
                 }
             }
         }
-
-        QQC2.Button {
-            text: i18n("Get More Training Material")
-            onClicked: triggerDownloadCourses()
-        }
     }
 }

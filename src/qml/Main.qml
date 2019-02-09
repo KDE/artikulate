@@ -40,7 +40,6 @@ Kirigami2.ApplicationWindow {
         id: contextDrawer
     }
 
-    signal triggerDownloadCourses();
     signal triggerSettingsDialog();
     signal triggerAction(string actionName);
     signal switchMenuBarVisibility();
