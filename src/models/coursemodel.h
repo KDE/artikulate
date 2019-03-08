@@ -43,22 +43,23 @@ public:
         DescriptionRole,
         IdRole,
         ContributerResourceRole,
+        LanguageRole,
         DataRole
     };
 
     explicit CourseModel(QObject *parent = nullptr);
-    virtual ~CourseModel();
+    ~CourseModel() override = default;
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
-    virtual QHash<int,QByteArray> roleNames() const Q_DECL_OVERRIDE;
+    QHash<int,QByteArray> roleNames() const override;
     void setResourceManager(ResourceManager *resourceManager);
     ResourceManager * resourceManager() const;
     void setLanguage(Language *language);
     Language * language() const;
-    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
-    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
-    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     Q_INVOKABLE QVariant course(int index) const;
 
 Q_SIGNALS:

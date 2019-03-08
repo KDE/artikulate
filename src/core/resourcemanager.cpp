@@ -53,6 +53,8 @@ ResourceManager::ResourceManager(QObject *parent)
 
 void ResourceManager::loadCourseResources()
 {
+    //TODO fix this method such that it may be called many times of e.g. updating
+
     // reload config, could be changed in dialogs
     Settings::self()->load();
 
@@ -236,11 +238,14 @@ Language * ResourceManager::language(LearnerProfile::LearningGoal *learningGoal)
 
 QList< CourseResource* > ResourceManager::courseResources(Language *language)
 {
-    Q_ASSERT(language);
     if (!language) {
-        return QList< CourseResource* >();
+        QList<CourseResource *> courses;
+        for (auto iter = m_courseResources.constBegin(); iter != m_courseResources.constEnd(); ++iter) {
+            courses.append(iter.value());
+        }
+        return courses;
     }
-    // return empty list if no course available
+    // return empty list if no course available for language
     if (!m_courseResources.contains(language->id())) {
         return QList< CourseResource* >();
     }

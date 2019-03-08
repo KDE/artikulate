@@ -41,7 +41,6 @@ namespace LearnerProfile {
 class ARTIKULATECORE_EXPORT TrainingSession : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
@@ -51,8 +50,6 @@ public:
     explicit TrainingSession(QObject *parent = nullptr);
 
     void setProfileManager(LearnerProfile::ProfileManager *manager);
-    Language * language() const;
-    void setLanguage(Language *language);
     Course * course() const;
     void setCourse(Course *course);
     Unit * unit() const;
@@ -69,17 +66,15 @@ public:
     Q_INVOKABLE void skipPhrase();
 
 Q_SIGNALS:
-    void languageChanged();
     void courseChanged();
     void unitChanged();
     void phraseChanged();
 
-private:;
+private:
     Q_DISABLE_COPY(TrainingSession)
     Phrase * nextPhrase() const;
     void updateGoal();
     LearnerProfile::ProfileManager *m_profileManager;
-    Language *m_language;
     Course *m_course;
     Unit *m_unit;
     Phrase *m_phrase;

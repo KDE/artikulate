@@ -54,6 +54,11 @@ void TrainingAction::appendChild(QObject* child)
     emit childrenChanged();
 }
 
+bool TrainingAction::hasChildren() const
+{
+    return m_children.count() > 0;
+}
+
 void TrainingAction::trigger()
 {
     if (m_phrase && m_drawerTrainingActions && m_drawerTrainingActions->session()) {

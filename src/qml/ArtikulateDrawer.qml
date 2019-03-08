@@ -63,7 +63,6 @@ Kirigami.GlobalDrawer {
     actions: trainingActions.actions
     DrawerTrainingActions {
         id: trainingActions
-        course: g_trainingSession.course
         session: g_trainingSession
         onTriggerTrainingView: {
             root.pageStack.clear();

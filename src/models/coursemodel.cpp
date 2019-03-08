@@ -42,17 +42,13 @@ CourseModel::CourseModel(QObject *parent)
             this, &CourseModel::rowCountChanged);
 }
 
-CourseModel::~CourseModel()
-{
-
-}
-
 QHash< int, QByteArray > CourseModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[DescriptionRole] = "description";
     roles[IdRole] = "id";
+    roles[LanguageRole] = "language";
     roles[DataRole] = "dataRole";
 
     return roles;
@@ -73,14 +69,14 @@ void CourseModel::setResourceManager(ResourceManager *resourceManager)
     m_resourceManager = resourceManager;
     m_resources.clear();
     if (m_resourceManager) {
-        connect(m_resourceManager, SIGNAL(courseResourceAboutToBeAdded(CourseResource*,int)),
-                SLOT(onCourseResourceAboutToBeAdded(CourseResource*,int)));
-        connect(m_resourceManager, SIGNAL(courseResourceAdded()),
-                SLOT(onCourseResourceAdded()));
-        connect(m_resourceManager, SIGNAL(courseResourceAboutToBeRemoved(int)),
-                SLOT(onCourseResourceAboutToBeRemoved(int)));
+        connect(m_resourceManager, &ResourceManager::courseResourceAboutToBeAdded,
+                this, &CourseModel::onCourseResourceAboutToBeAdded);
+        connect(m_resourceManager, &ResourceManager::courseResourceAdded,
+                this, &CourseModel::onCourseResourceAdded);
+        connect(m_resourceManager, &ResourceManager::courseResourceAboutToBeRemoved,
+                this, &CourseModel::onCourseResourceAboutToBeRemoved);
     }
-    if (m_language && m_resourceManager) {
+    if (m_resourceManager) {
         m_resources = m_resourceManager->courseResources(m_language);
     }
     endResetModel();
@@ -101,10 +97,7 @@ void CourseModel::setLanguage(Language *language)
 {
     emit beginResetModel();
     m_language = language;
-    m_resources.clear();
-    if (m_language) {
-        m_resources = m_resourceManager->courseResources(m_language);
-    }
+    m_resources = m_resourceManager->courseResources(m_language);
     emit languageChanged();
     emit endResetModel();
     emit rowCountChanged();
@@ -137,6 +130,8 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
         return course->id();
     case ContributerResourceRole:
         return m_resources.at(index.row())->isContributorResource();
+    case LanguageRole:
+        return QVariant::fromValue<QObject*>(course->language());
     case DataRole:
         return QVariant::fromValue<QObject*>(course);
     default:
@@ -146,9 +141,6 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
 
 int CourseModel::rowCount(const QModelIndex& parent) const
 {
-    if (!m_language) {
-        return 0;
-    }
     if (parent.isValid()) {
         return 0;
     }
@@ -157,6 +149,7 @@ int CourseModel::rowCount(const QModelIndex& parent) const
 
 void CourseModel::onCourseResourceAboutToBeAdded(CourseResource *resource, int index)
 {
+    Q_UNUSED(index);
     beginInsertRows(QModelIndex(), m_resources.count(), m_resources.count());
     m_resources.append(resource);
 
@@ -173,7 +166,7 @@ void CourseModel::onCourseResourceAdded()
 
 void CourseModel::onCourseResourceAboutToBeRemoved(int index)
 {
-    if (!m_language) {
+    if (index >= m_resourceManager->courseResources(m_language).count()) {
         return;
     }
     CourseResource *originalResource = m_resourceManager->courseResources(m_language).at(index);
@@ -208,10 +201,6 @@ QVariant CourseModel::headerData(int section, Qt::Orientation orientation, int r
 
 void CourseModel::updateMappings()
 {
-    if (!m_language) {
-        qCDebug(ARTIKULATE_LOG) << "Aborting to update mappings, language not set.";
-        return;
-    }
     int courses = m_resources.count();
     for (int i = 0; i < courses; i++) {
         m_signalMapper->setMapping(m_resources.at(i)->course(), i);

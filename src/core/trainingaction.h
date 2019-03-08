@@ -52,6 +52,7 @@ public:
     TrainingAction(const QString &text, QObject *parent = nullptr);
     TrainingAction(Phrase *phrase, DrawerTrainingActions *drawerActions, QObject *parent = nullptr);
     void appendChild(QObject *child);
+    bool hasChildren() const;
     Q_INVOKABLE void trigger();
     bool enabled() const;
     void setEnabled(bool enabled);

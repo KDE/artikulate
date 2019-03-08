@@ -49,8 +49,8 @@ namespace LearnerProfile {
 class ARTIKULATECORE_EXPORT ResourceManager : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool isRepositoryManager READ isRepositoryManager NOTIFY repositoryChanged);
-    Q_PROPERTY(QString repositoryUrl READ repositoryUrl NOTIFY repositoryChanged);
+    Q_PROPERTY(bool isRepositoryManager READ isRepositoryManager NOTIFY repositoryChanged)
+    Q_PROPERTY(QString repositoryUrl READ repositoryUrl NOTIFY repositoryChanged)
 
 public:
     explicit ResourceManager(QObject *parent = nullptr);
@@ -59,8 +59,10 @@ public:
      * Load all course resources.
      * This loading is very fast, since course files are only partly (~20 top lines) parsed and
      * the complete parsing is postproned until first access.
+     *
+     * This method is safe to be called several times for incremental updates.
      */
-    void loadCourseResources();
+    Q_INVOKABLE void loadCourseResources();
 
     /**
      * This method loads all language files that are provided in the standard directories

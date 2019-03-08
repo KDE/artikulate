@@ -36,6 +36,10 @@ Kirigami.Page {
             height: 50
             width: parent.width
             text: model.name
+            readonly property var status: model.status
+            onStatusChanged: {
+                g_resourceManager.loadCourseResources();
+            }
             checkable: false
             RowLayout {
                 id: layout

@@ -30,23 +30,19 @@ class Course;
 class ARTIKULATECORE_EXPORT DrawerTrainingActions : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(TrainingSession *session READ session WRITE setSession NOTIFY sessionChanged)
     Q_PROPERTY(QList<QObject*> actions READ actions NOTIFY actionsChanged)
 
 public:
     DrawerTrainingActions(QObject *parent = nullptr);
-    void setCourse(Course *course);
-    Course * course() const;
     void setSession(TrainingSession *session);
     TrainingSession * session() const;
     QList<QObject*> actions() const;
 
-private:
+private Q_SLOTS:
     void updateActions();
 
 Q_SIGNALS:
-    void courseChanged(Course *course);
     void actionsChanged();
     void sessionChanged();
     /**
@@ -55,7 +51,6 @@ Q_SIGNALS:
     void triggerTrainingView();
 
 private:
-    Course *m_course{nullptr};
     TrainingSession *m_session{nullptr};
     QList<QObject *> m_actions;
 };

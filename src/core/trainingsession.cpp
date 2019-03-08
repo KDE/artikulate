@@ -31,7 +31,6 @@
 TrainingSession::TrainingSession(QObject *parent)
     : QObject(parent)
     , m_profileManager(nullptr)
-    , m_language(nullptr)
     , m_course(nullptr)
     , m_unit(nullptr)
     , m_phrase(nullptr)
@@ -45,20 +44,6 @@ void TrainingSession::setProfileManager(LearnerProfile::ProfileManager *manager)
         return;
     }
     m_profileManager = manager;
-}
-
-Language * TrainingSession::language() const
-{
-    return m_language;
-}
-
-void TrainingSession::setLanguage(Language *language)
-{
-    if (m_language == language) {
-        return;
-    }
-    m_language = language;
-    emit languageChanged();
 }
 
 Course * TrainingSession::course() const
@@ -75,32 +60,32 @@ void TrainingSession::setCourse(Course *course)
         return;
     }
     m_course = course;
-    if (m_course && m_course->unitList().count() > 0) {
-        setUnit(m_course->unitList().first());
-    }
+//    if (m_course && m_course->unitList().count() > 0) {
+//        setUnit(m_course->unitList().first());
+//    }
 
-    // lazy loading of training data
-    LearnerProfile::LearningGoal * goal = m_profileManager->goal(
-        LearnerProfile::LearningGoal::Language, m_course->id());
-    if (!goal) {
-        goal = m_profileManager->registerGoal(
-            LearnerProfile::LearningGoal::Language,
-            course->language()->id(),
-            course->language()->i18nTitle()
-        );
-    }
-    auto data = m_profileManager->progressValues(m_profileManager->activeProfile(),
-        goal,
-        m_course->id()
-    );
-    Q_FOREACH(Unit *unit, m_course->unitList()) {
-        Q_FOREACH(Phrase *phrase, unit->phraseList()) {
-            auto iter = data.find(phrase->id());
-            if (iter != data.end()) {
-                phrase->setProgress(iter.value());
-            }
-        }
-    }
+//    // lazy loading of training data
+//    LearnerProfile::LearningGoal * goal = m_profileManager->goal(
+//        LearnerProfile::LearningGoal::Language, m_course->id());
+//    if (!goal) {
+//        goal = m_profileManager->registerGoal(
+//            LearnerProfile::LearningGoal::Language,
+//            course->language()->id(),
+//            course->language()->i18nTitle()
+//        );
+//    }
+//    auto data = m_profileManager->progressValues(m_profileManager->activeProfile(),
+//        goal,
+//        m_course->id()
+//    );
+//    Q_FOREACH(Unit *unit, m_course->unitList()) {
+//        Q_FOREACH(Phrase *phrase, unit->phraseList()) {
+//            auto iter = data.find(phrase->id());
+//            if (iter != data.end()) {
+//                phrase->setProgress(iter.value());
+//            }
+//        }
+//    }
 
     emit courseChanged();
 }

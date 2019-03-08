@@ -28,24 +28,7 @@
 
 DrawerTrainingActions::DrawerTrainingActions(QObject* parent)
     : QObject(parent)
-    , m_course(nullptr)
 {
-}
-
-void DrawerTrainingActions::setCourse(Course *course)
-{
-    if (course == m_course) {
-        return;
-    }
-    m_course = course;
-    emit courseChanged(course);
-
-    updateActions();
-}
-
-Course * DrawerTrainingActions::course() const
-{
-    return m_course;
 }
 
 void DrawerTrainingActions::setSession(TrainingSession *session)
@@ -53,8 +36,15 @@ void DrawerTrainingActions::setSession(TrainingSession *session)
     if (session == m_session) {
         return;
     }
+    if (m_session) {
+        disconnect(m_session, &TrainingSession::courseChanged, this, &DrawerTrainingActions::updateActions);
+    }
+
     m_session = session;
+    connect(m_session, &TrainingSession::courseChanged, this, &DrawerTrainingActions::updateActions);
+
     emit sessionChanged();
+    updateActions();
 }
 
 TrainingSession * DrawerTrainingActions::session() const
@@ -69,22 +59,34 @@ QList<QObject*> DrawerTrainingActions::actions() const
 
 void DrawerTrainingActions::updateActions()
 {
+    if (!m_session) {
+        return;
+    }
+
     // cleanup
     for (const auto &action : m_actions) {
         action->deleteLater();
     }
     m_actions.clear();
 
-    if (!m_course) {
+    if (!m_session->course()) {
         return;
     }
 
-    for (const auto &unit : m_course->unitList()) {
+    for (const auto &unit : m_session->course()->unitList()) {
         auto action = new TrainingAction(unit->title());
-        m_actions.append(action);
         for (const auto &phrase : unit->phraseList()) {
+            if (phrase->sound().isEmpty()) {
+                continue;
+            }
             action->appendChild(new TrainingAction(phrase, this, unit));
         }
+        if (action->hasChildren()) {
+            m_actions.append(action);
+        } else {
+            action->deleteLater();
+        }
     }
+
     emit actionsChanged();
 }

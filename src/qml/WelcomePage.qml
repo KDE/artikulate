@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2017  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2015-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -20,71 +20,64 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 2.1 as QQC2
-import org.kde.kirigami 2.0 as Kirigami2
+import QtQuick.Layouts 1.3
+import org.kde.kirigami 2.4 as Kirigami
 import artikulate 1.0
 
-Kirigami2.Page {
+Kirigami.ScrollablePage {
     id: root
     title: i18n("Welcome to Artikulate")
 
-    Column {
-        spacing: 20
+    Kirigami.CardsListView {
+        id: listView
+        width: root.width - 40
+        model: CourseModel {
+            id: courseModel
+            resourceManager: g_resourceManager
+        }
 
-        Row {
-            spacing: 20
-
-            Icon {
-                id: langIcon
-                icon: "language-artikulate"
-                width: 48
-                height: 48
-            }
-
-            QQC2.ComboBox {
-                id: comboLanguage
-                width: 200
-                model: LanguageModel {
-                    id: languageModel
-                    resourceModel: LanguageResourceModel {
-                        resourceManager: g_resourceManager
+        delegate: Kirigami.AbstractCard {
+            contentItem: Item {
+                implicitWidth: delegateLayout.implicitWidth
+                implicitHeight: delegateLayout.implicitHeight
+                GridLayout {
+                    id: delegateLayout
+                    anchors {
+                        left: parent.left
+                        top: parent.top
+                        right: parent.right
                     }
-                }
-                textRole: "title"
-                onCurrentIndexChanged: {
-                    if (languageModel.language(currentIndex)) {
-                        g_trainingSession.language = languageModel.language(currentIndex)
+                    rowSpacing: Kirigami.Units.largeSpacing
+                    columnSpacing: Kirigami.Units.largeSpacing
+                    columns: width > Kirigami.Units.gridUnit * 20 ? 4 : 2
+                    Kirigami.Icon {
+                        source: "language-artikulate"
+                        Layout.fillHeight: true
+                        Layout.maximumHeight: Kirigami.Units.iconSizes.huge
+                        Layout.preferredWidth: height
                     }
-                }
-            }
-
-            QQC2.ComboBox {
-                id: comboCourse
-                enabled: {
-                    courseFilterModel.filteredCount == 0 ? false : true
-                }
-                width: 200
-                model: CourseFilterModel {
-                    id: courseFilterModel
-                    view: {
-                        kcfg_UseContributorResources
-                            ? CourseFilterModel.AllResources
-                            : CourseFilterModel.OnlyGetHotNewStuffResources
-                    }
-                    courseModel: CourseModel {
-                        id: courseModel
-                        resourceManager: g_resourceManager
-                        language: g_trainingSession.language
-                        onLanguageChanged: {
-                            if (courseFilterModel.course(0)) {
-                                g_trainingSession.course = courseFilterModel.course(0)
-                            }
+                    ColumnLayout {
+                        Kirigami.Heading {
+                            level: 2
+                            text: model.language.title  + " / " + model.title
+                        }
+                        Kirigami.Separator {
+                            Layout.fillWidth: true
+                        }
+                        QQC2.Label {
+                            Layout.fillWidth: true
+                            wrapMode: Text.WordWrap
+                            text: model.description
                         }
                     }
-                }
-                textRole: "title"
-                onCurrentIndexChanged: {
-                    if (courseFilterModel.course(currentIndex)) {
-                        g_trainingSession.course = courseFilterModel.course(currentIndex)
+                    QQC2.Button {
+                        Layout.alignment: Qt.AlignRight|Qt.AlignVCenter
+                        Layout.columnSpan: 2
+                        text: qsTr("Start Training")
+                        onClicked: {
+                            showPassiveNotification("Starting training session for course " + model.title + ".");
+                            g_trainingSession.course = model.dataRole
+                        }
                     }
                 }
             }
