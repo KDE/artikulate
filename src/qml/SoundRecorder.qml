@@ -53,12 +53,12 @@ Item {
         fontSize: 16
 
         onClicked: {
-            if (recorderBackend.state == Recorder.RecordingState) {
+            if (recorderBackend.state === Recorder.RecordingState) {
                 console.log("try to stop recording");
                 recorderBackend.stop();
                 return;
             }
-            if (recorderBackend.state == Recorder.StoppedState) {
+            if (recorderBackend.state === Recorder.StoppedState) {
                 console.log("SoundRecorder: start capture");
                 recorderBackend.startCapture();
                 return;
@@ -68,10 +68,10 @@ Item {
             target: recorderBackend
             onStateChanged: {
                 // update icon
-                if (recorderBackend.state == Recorder.RecordingState) {
+                if (recorderBackend.state === Recorder.RecordingState) {
                     button.iconName = "media-playback-stop";
                 }
-                if (recorderBackend.state == Recorder.StoppedState) {
+                if (recorderBackend.state === Recorder.StoppedState) {
                     button.iconName = "media-record";
                 }
             }

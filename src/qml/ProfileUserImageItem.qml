@@ -57,6 +57,6 @@ Item {
 
     Loader {
         anchors.fill: parent
-        sourceComponent: profile.imageUrl == "" ? dummyImage : profileImage
+        sourceComponent: profile.imageUrl === "" ? dummyImage : profileImage
     }
 }

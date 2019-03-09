@@ -38,7 +38,7 @@ Item {
             Text {
                 font.pointSize: 24
                 text: {
-                    if (g_trainingSession.unit == null) {
+                    if (g_trainingSession.unit === null) {
                         return i18n("Category: no category selected");
                     }
                     return i18n("Category: ") + g_trainingSession.unit.title
@@ -46,7 +46,7 @@ Item {
             }
             Text {
                 text: {
-                    if (g_trainingSession.unit == null || g_trainingSession.course == null) {
+                    if (g_trainingSession.unit === null || g_trainingSession.course === null) {
                         return "";
                     }
                     return g_trainingSession.course.i18nTitle
@@ -76,7 +76,7 @@ Item {
                         bottomMargin: theme.spacing + buttonNativePlay.height
                     }
                     objectName: "phraseText"
-                    text: (g_trainingSession.phrase != null) ? g_trainingSession.phrase.text : ""
+                    text: (g_trainingSession.phrase !== null) ? g_trainingSession.phrase.text : ""
                     wrapMode: Text.WordWrap
                     readOnly: true
                     horizontalAlignment: Text.AlignHCenter
@@ -93,7 +93,7 @@ Item {
                     }
                     text: i18n("Listen")
                     Layout.alignment: Qt.AlignBottom
-                    fileUrl: g_trainingSession.phrase == null ? "" : g_trainingSession.phrase.soundFileUrl
+                    fileUrl: g_trainingSession.phrase === null ? "" : g_trainingSession.phrase.soundFileUrl
                 }
             }
             Rectangle {

@@ -180,7 +180,7 @@ ApplicationWindow {
         Loader {
             Layout.fillHeight: true
             sourceComponent: {
-                g_trainingSession.language == null
+                g_trainingSession.language === null
                     ? welcomeScreen
                     : trainingScreen
             }

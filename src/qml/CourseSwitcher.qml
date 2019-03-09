@@ -38,7 +38,7 @@ Item {
     Connections {
         target: courseModel
         onLanguageChanged: {
-            if (courseModel.course(courseView.currentIndex) != null) {
+            if (courseModel.course(courseView.currentIndex) !== null) {
                 selectedCourse = courseModel.course(courseView.currentIndex)
                 courseSelected(selectedCourse)
             }
@@ -102,10 +102,10 @@ Item {
                 }
             }
             onCurrentIndexChanged: {
-                if (courseModel.language == null) {
+                if (courseModel.language === null) {
                     return;
                 }
-                if (courseModel.course(currentIndex) != null) {
+                if (courseModel.course(currentIndex) !== null) {
                     selectedCourse = courseModel.course(currentIndex)
                     courseSelected(selectedCourse)
                 }

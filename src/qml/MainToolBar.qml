@@ -57,7 +57,7 @@ ToolBar{
         ComboBox {
             id: comboCourse
             enabled: {
-                courseFilterModel.filteredCount == 0 ? false : true
+                courseFilterModel.filteredCount === 0 ? false : true
             }
             Layout.minimumWidth: 200
             model: CourseFilterModel {

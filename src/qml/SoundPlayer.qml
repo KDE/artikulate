@@ -46,11 +46,11 @@ Item {
         fontSize: 16
 
         onClicked: {
-            if (playerBackend.state == Player.PlayingState) {
+            if (playerBackend.state === Player.PlayingState) {
                 playerBackend.stop();
                 return;
             }
-            if (playerBackend.state == Player.StoppedState) {
+            if (playerBackend.state === Player.StoppedState) {
                 playerBackend.playback();
                 return;
             }
@@ -59,11 +59,11 @@ Item {
             target: playerBackend
             onStateChanged: {
                 // set next possible action icon
-                if (playerBackend.state == Player.PlayingState) {
+                if (playerBackend.state === Player.PlayingState) {
                     button.iconName = "media-playback-stop";
                     return
                 }
-                if (playerBackend.state == Player.StoppedState) {
+                if (playerBackend.state === Player.StoppedState) {
                     button.iconName = "media-playback-start";
                     return
                 }
