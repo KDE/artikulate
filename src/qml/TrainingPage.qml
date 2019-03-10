@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2017  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *  Copyright 2013       Magdalena Konkiewicz <konkiewicz.m@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
@@ -20,12 +20,16 @@
  */
 
 import QtQuick 2.5
-import QtQuick.Controls 2.0 as QQC2
+import QtQuick.Shapes 1.10
+import QtQuick.Controls 2.3 as QQC2
 import org.kde.kirigami 2.0 as Kirigami2
 import artikulate 1.0
 
 Kirigami2.Page {
     id: root
+
+    readonly property color colorTask: "#1dbf4e"
+    readonly property color colorAnswer: "#7e48a5"
 
     title: {
         var titleString = "";
@@ -53,84 +57,103 @@ Kirigami2.Page {
             onTriggered: g_trainingSession.skipPhrase()
         }
     }
+    Rectangle {
+        id: trainingTextRect
+        width: Math.min(0.7 * parent.width, parent.width - 80)
+        height: Math.max(200, phraseText.implicitHeight)
+        anchors {
+            left: parent.left
+            top: parent.top
+            leftMargin: 20
+            topMargin: 20
+        }
+        color: root.colorTask
 
-    Item {
-        width: root.width - (root.leftPadding + root.rightPadding);
-        height: root.height - root.topPadding;
-
-        Rectangle {
-            id: trainingTextRect
-            width: parent.width/2 - 20 - 20
-            height: phraseText.height + buttonNativePlay.height + 20
+        Shape {
+            id: taskTriangle
+            width: 50
+            height: 40
             anchors {
-                left: parent.left
-                top: parent.top
-                leftMargin: 20
-                topMargin: 20
+                top: parent.bottom
+                horizontalCenter: parent.horizontalCenter
+                horizontalCenterOffset: parent.width / 10
             }
-            color: "lightsteelblue"
-
-            QQC2.TextArea {
-                id: phraseText
-                anchors {
-                    fill: trainingTextRect
-                    bottomMargin: buttonNativePlay.height + 20
-                }
-                objectName: "phraseText"
-                text: (g_trainingSession.phrase !== null) ? g_trainingSession.phrase.text : ""
-                wrapMode: Text.WordWrap
-                readOnly: true
-                horizontalAlignment: Text.AlignHCenter
-            }
-            SoundPlayer {
-                id: buttonNativePlay
-                anchors {
-                    bottom: trainingTextRect.bottom
-                    horizontalCenter: parent.horizontalCenter
-                }
-                fileUrl: g_trainingSession.phrase === null ? "" : g_trainingSession.phrase.soundFileUrl
+            ShapePath {
+                fillColor: colorTask
+                strokeColor: colorTask
+                PathLine { x: 0; y: 0 }
+                PathLine { x: taskTriangle.width; y: taskTriangle.height }
+                PathLine { x: taskTriangle.width; y: 0 }
             }
         }
 
-        Rectangle {
-            id: trainingUserRect
-            width: parent.width/2 - 20 - 20
-            height: profilePicture.height + rowSoundControls.height + 20
+        QQC2.TextArea {
+            id: phraseText
+            anchors.fill: parent
+            objectName: "phraseText"
+            text: (g_trainingSession.phrase !== null) ? g_trainingSession.phrase.text : ""
+            font.pointSize: 24
+            wrapMode: Text.WordWrap
+            readOnly: true
+            background: Item {}
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: TextEdit.AlignVCenter
+        }
+        SoundPlayer {
+            id: buttonNativePlay
             anchors {
-                right: parent.right
-                top: parent.top
-                rightMargin: 20
-                topMargin: 20
+                top: taskTriangle.bottom
+                topMargin: 10
+                horizontalCenter: taskTriangle.right
             }
-            color: "lightsteelblue"
+            fileUrl: g_trainingSession.phrase === null ? "" : g_trainingSession.phrase.soundFileUrl
+        }
+    }
 
-            ProfileUserImageItem {
-                id: profilePicture
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
-                    top: parent.top
-                    bottom: parent.bottom
-                    bottomMargin: rowSoundControls.height + 20
-                }
-                width: height
-                profile: g_profileManager.activeProfile
+    Rectangle {
+        id: trainingUserRect
+        width: 200
+        height: 0.65 * width
+        anchors {
+            right: parent.right
+            top: trainingTextRect.bottom
+            rightMargin: 20
+            topMargin: 150
+        }
+        color: root.colorAnswer
+
+        Shape {
+            id: answerTriangle
+            width: 50
+            height: 40
+            anchors {
+                bottom: parent.top
+                horizontalCenter: parent.horizontalCenter
+                horizontalCenterOffset: -parent.width / 10
             }
-            Row {
-                id: rowSoundControls
-                anchors {
-                    bottom: trainingUserRect.bottom
-                    horizontalCenter: trainingUserRect.horizontalCenter
-                    leftMargin: 20
-                    bottomMargin: 20
-                }
-                SoundRecorder {
-                    id: recorder
-                }
-                SoundPlayer {
-                    id: player
-                    fileUrl: recorder.outputFileUrl
-                }
+            ShapePath {
+                fillColor: root.colorAnswer
+                strokeColor: root.colorAnswer
+                PathLine { x: 0; y: 0 }
+                PathLine { x: 0; y: taskTriangle.height }
+                PathLine { x: taskTriangle.width; y: taskTriangle.height }
             }
+        }
+        SoundRecorder {
+            id: recorder
+            anchors {
+                bottom: answerTriangle.top
+                bottomMargin: 10
+                horizontalCenter: answerTriangle.left
+            }
+        }
+
+        SoundPlayer {
+            id: player
+            anchors {
+                centerIn: parent
+            }
+            fileUrl: recorder.outputFileUrl
         }
     }
 }
