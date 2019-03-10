@@ -54,8 +54,6 @@ public:
     void setCourse(Course *course);
     Unit * unit() const;
     void setUnit(Unit *unit);
-    PhonemeGroup * phonemeGroup() const;
-    void setPhonemeGroup(PhonemeGroup *phonemeGroup);
     Phrase::Type phraseType() const;
     void setPhraseType(Phrase::Type type);
     Phrase * phrase() const;
