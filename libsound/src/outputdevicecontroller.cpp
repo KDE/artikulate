@@ -34,7 +34,7 @@
  * \internal
  *
  * This is the private data class for \see OutputDeviceController.
- * Note that -- even if the OutputDeviceController is contructed before its first call -- all
+ * Note that -- even if the OutputDeviceController is constructed before its first call -- all
  * devices get only configured by first instantiation of OutputDeviceController with a call
  * to OutputDeviceControllerPrivate::lazyInit(), called in OutputDeviceController::self().
  */
@@ -57,7 +57,7 @@ public:
             QVector<KPluginMetaData> metadataList = KPluginLoader::findPlugins(dir,
                 [=](const KPluginMetaData &data)
             {
-                return data.serviceTypes().contains("artikulate/libsound/backend");
+                return data.serviceTypes().contains(QStringLiteral("artikulate/libsound/backend"));
             });
 
             foreach (const auto &metadata, metadataList) {

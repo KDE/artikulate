@@ -65,12 +65,12 @@ void TestCourseFiles::cleanup()
 
 void TestCourseFiles::courseSchemeValidationTest()
 {
-    QUrl schemeFile = QUrl::fromLocalFile("schemes/course.xsd");
+    QUrl schemeFile = QUrl::fromLocalFile(QStringLiteral("schemes/course.xsd"));
     QXmlSchema courseSchema;
     QVERIFY(courseSchema.load(schemeFile));
     QVERIFY(courseSchema.isValid());
 
-    QUrl skeletonFile = QUrl::fromLocalFile("schemes/skeleton.xsd");
+    QUrl skeletonFile = QUrl::fromLocalFile(QStringLiteral("schemes/skeleton.xsd"));
     QXmlSchema skeletonScheme;
     QVERIFY(skeletonScheme.load(skeletonFile));
     QVERIFY(skeletonScheme.isValid());
@@ -79,8 +79,8 @@ void TestCourseFiles::courseSchemeValidationTest()
 void TestCourseFiles::fileLoadSaveCompleteness()
 {
     ResourceManager manager;
-    manager.addLanguage(QUrl::fromLocalFile("data/languages/de.xml"));
-    manager.addCourse(QUrl::fromLocalFile("data/courses/de.xml"));
+    manager.addLanguage(QUrl::fromLocalFile(QStringLiteral("data/languages/de.xml")));
+    manager.addCourse(QUrl::fromLocalFile(QStringLiteral("data/courses/de.xml")));
 
     // test to encure further logic
     QVERIFY(manager.courseResources(manager.languageResources().first()->language()).count() == 1);

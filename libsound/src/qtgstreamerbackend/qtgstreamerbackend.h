@@ -19,14 +19,13 @@
 #define GSTREAMERBACKEND_H
 
 #include "../backendinterface.h"
-#include "libsound_export.h"
 
 class CaptureBackendInterface;
 class OutputBackendInterface;
 class QtGStreamerCaptureBackend;
 class QtGStreamerOutputBackend;
 
-class LIBSOUND_EXPORT QtGStreamerBackend : public BackendInterface
+class QtGStreamerBackend : public BackendInterface
 {
     Q_OBJECT
 

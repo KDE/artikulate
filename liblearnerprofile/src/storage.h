@@ -50,7 +50,7 @@ public:
     /**
      * \note this constructor is tailored for unit tests
      */
-    Storage(const QString databasePath, QObject* parent = nullptr);
+    explicit Storage(const QString databasePath, QObject* parent = nullptr);
     QString errorMessage() const;
 
     /**

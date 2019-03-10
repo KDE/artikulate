@@ -33,9 +33,9 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
     ui->setupUi(this);
 
     // set buttons
-    ui->buttonPlayTestSound->setIcon(QIcon::fromTheme("media-playback-start"));
-    ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme("media-playback-start"));
-    ui->buttonRecordTestSound->setIcon(QIcon::fromTheme("media-record"));
+    ui->buttonPlayTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
+    ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
+    ui->buttonRecordTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-record")));
     ui->buttonPlayRecordedTestSound->setEnabled(false);
 
     // set input volume slider
@@ -60,12 +60,12 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
     m_recordTestFile.open();
 
     // connections
-    connect(ui->kcfg_AudioOutputVolume, SIGNAL(valueChanged(int)), this, SLOT(setVolume(int)));
-    connect(ui->buttonPlayTestSound, SIGNAL(clicked(bool)), this, SLOT(playTestSound()));
-    connect(ui->buttonPlayRecordedTestSound, SIGNAL(clicked(bool)), this, SLOT(playRecordedSound()));
-    connect(ui->buttonRecordTestSound, SIGNAL(clicked(bool)), this, SLOT(recordSound()));
-    connect(&OutputDeviceController::self(), SIGNAL(started()), this, SLOT(updatePlayButtonIcons()));
-    connect(&OutputDeviceController::self(), SIGNAL(stopped()), this, SLOT(updatePlayButtonIcons()));
+    connect(ui->kcfg_AudioOutputVolume, &QAbstractSlider::valueChanged, this, &SoundDeviceDialogPage::setVolume);
+    connect(ui->buttonPlayTestSound, &QAbstractButton::clicked, this, &SoundDeviceDialogPage::playTestSound);
+    connect(ui->buttonPlayRecordedTestSound, &QAbstractButton::clicked, this, &SoundDeviceDialogPage::playRecordedSound);
+    connect(ui->buttonRecordTestSound, &QAbstractButton::clicked, this, &SoundDeviceDialogPage::recordSound);
+    connect(&OutputDeviceController::self(), &OutputDeviceController::started, this, &SoundDeviceDialogPage::updatePlayButtonIcons);
+    connect(&OutputDeviceController::self(), &OutputDeviceController::stopped, this, &SoundDeviceDialogPage::updatePlayButtonIcons);
 }
 
 SoundDeviceDialogPage::~SoundDeviceDialogPage()
@@ -104,7 +104,7 @@ void SoundDeviceDialogPage::playTestSound()
         OutputDeviceController::self().stop();
         return;
     }
-    QString testsoundFile = QStandardPaths::locate(QStandardPaths::DataLocation, QString("sounds/testsound.ogg"));
+    QString testsoundFile = QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("sounds/testsound.ogg"));
     OutputDeviceController::self().setVolume(ui->kcfg_AudioOutputVolume->value());
     OutputDeviceController::self().play(QUrl::fromLocalFile(testsoundFile));
 }
@@ -129,12 +129,12 @@ void SoundDeviceDialogPage::recordSound()
     if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState)
     {
         CaptureDeviceController::self().stopCapture();
-        ui->buttonRecordTestSound->setIcon(QIcon::fromTheme("media-record"));
+        ui->buttonRecordTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-record")));
         ui->buttonPlayRecordedTestSound->setEnabled(true);
         return;
     }
 
-    ui->buttonRecordTestSound->setIcon(QIcon::fromTheme("artikulate-media-record-active"));
+    ui->buttonRecordTestSound->setIcon(QIcon::fromTheme(QStringLiteral("artikulate-media-record-active")));
     CaptureDeviceController::self().setDevice(ui->kcfg_AudioInputDevice->currentText());
     CaptureDeviceController::self().startCapture(m_recordTestFile.fileName());
 }
@@ -143,7 +143,7 @@ void SoundDeviceDialogPage::stopRecord()
 {
     if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState) {
         CaptureDeviceController::self().stopCapture();
-        ui->buttonRecordTestSound->setIcon(QIcon::fromTheme("media-record"));
+        ui->buttonRecordTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-record")));
         ui->buttonPlayRecordedTestSound->setEnabled(true);
     }
 }
@@ -153,24 +153,24 @@ void SoundDeviceDialogPage::updatePlayButtonIcons()
     // default sound output test
     switch (OutputDeviceController::self().state()) {
     case OutputDeviceController::PlayingState:
-        ui->buttonPlayTestSound->setIcon(QIcon::fromTheme("media-playback-stop"));
+        ui->buttonPlayTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-stop")));
         break;
     case OutputDeviceController::StoppedState:
-        ui->buttonPlayTestSound->setIcon(QIcon::fromTheme("media-playback-start"));
+        ui->buttonPlayTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
         break;
     default:
-        ui->buttonPlayTestSound->setIcon(QIcon::fromTheme("media-playback-start"));
+        ui->buttonPlayTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
     }
 
     // recorded sound output test
     switch (OutputDeviceController::self().state()) {
     case OutputDeviceController::PlayingState:
-        ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme("media-playback-stop"));
+        ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-stop")));
         break;
     case OutputDeviceController::StoppedState:
-        ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme("media-playback-start"));
+        ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
         break;
     default:
-        ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme("media-playback-start"));
+        ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
     }
 }

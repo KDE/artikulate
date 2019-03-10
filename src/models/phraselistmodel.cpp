@@ -33,8 +33,8 @@ PhraseListModel::PhraseListModel(QObject *parent)
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhraseChanged(int)));
 
     // connect all phrase number operations to single signal
-    connect(this, SIGNAL(typeChanged()), this, SIGNAL(countChanged()));
-    connect(this, SIGNAL(unitChanged()), this, SIGNAL(countChanged()));
+    connect(this, &PhraseListModel::typeChanged, this, &PhraseListModel::countChanged);
+    connect(this, &PhraseListModel::unitChanged, this, &PhraseListModel::countChanged);
 }
 
 QHash< int, QByteArray > PhraseListModel::roleNames() const
@@ -68,9 +68,9 @@ void PhraseListModel::setUnit(Unit *unit)
     m_unit = unit;
     if (m_unit) {
         // initial setting of signal mappings
-        connect(m_unit, SIGNAL(phraseAboutToBeAdded(Phrase*,int)), SLOT(onPhraseAboutToBeAdded(Phrase*,int)));
+        connect(m_unit, &Unit::phraseAboutToBeAdded, this, &PhraseListModel::onPhraseAboutToBeAdded);
         connect(m_unit, SIGNAL(phraseAdded()), SLOT(onPhraseAdded()));
-        connect(m_unit, SIGNAL(phraseAboutToBeRemoved(int,int)), SLOT(onPhrasesAboutToBeRemoved(int,int)));
+        connect(m_unit, &Unit::phraseAboutToBeRemoved, this, &PhraseListModel::onPhrasesAboutToBeRemoved);
         connect(m_unit, SIGNAL(phraseRemoved()), SLOT(onPhrasesRemoved()));
 
         // insert and connect all already existing phrases

@@ -104,7 +104,7 @@ PhonemeGroup * Language::addPhonemeGroup(const QString &identifier, const QStrin
     QList<PhonemeGroup *>::ConstIterator iter = m_phonemeGroups.constBegin();
     while (iter != m_phonemeGroups.constEnd()) {
         if (QString::compare((*iter)->id(), identifier) == 0) {
-            qCWarning(ARTIKULATE_LOG) << "Prononciation Group identifier already registered, aborting";
+            qCWarning(ARTIKULATE_LOG) << "Pronunciation Group identifier already registered, aborting";
             return 0;
         }
         ++iter;
@@ -115,8 +115,8 @@ PhonemeGroup * Language::addPhonemeGroup(const QString &identifier, const QStrin
     newGroup->setTitle(title);
     m_phonemeGroups.append(newGroup);
 
-    connect(newGroup, SIGNAL(phonemeAdded(Phoneme)), this, SIGNAL(phonemesChanged()));
-    connect(newGroup, SIGNAL(phonemeRemoved(Phoneme)), this, SIGNAL(phonemesChanged()));
+    connect(newGroup, &PhonemeGroup::phonemeAdded, this, &Language::phonemesChanged);
+    connect(newGroup, &PhonemeGroup::phonemeRemoved, this, &Language::phonemesChanged);
 
     emit phonemeGroupsChanged();
 

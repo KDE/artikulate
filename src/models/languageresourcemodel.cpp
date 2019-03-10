@@ -66,16 +66,16 @@ void LanguageResourceModel::setResourceManager(ResourceManager *resourceManager)
     m_resourceManager = resourceManager;
 
     if (m_resourceManager) {
-        connect(m_resourceManager, SIGNAL(languageResourceAboutToBeAdded(LanguageResource*,int)),
-                SLOT(onLanguageResourceAboutToBeAdded(LanguageResource*,int)));
-        connect(m_resourceManager, SIGNAL(languageResourceAdded()),
-                SLOT(onLanguageResourceAdded()));
-        connect(m_resourceManager, SIGNAL(languageResourceAboutToBeRemoved(int)),
-                SLOT(onLanguageResourceAboutToBeRemoved(int)));
-        connect(m_resourceManager, SIGNAL(languageResourceRemoved()),
-                SLOT(onLanguageResourceRemoved()));
-        connect(m_resourceManager, SIGNAL(languageCoursesChanged()),
-                SLOT(updateDisplayedLanguages()));
+        connect(m_resourceManager, &ResourceManager::languageResourceAboutToBeAdded,
+                this, &LanguageResourceModel::onLanguageResourceAboutToBeAdded);
+        connect(m_resourceManager, &ResourceManager::languageResourceAdded,
+                this, &LanguageResourceModel::onLanguageResourceAdded);
+        connect(m_resourceManager, &ResourceManager::languageResourceAboutToBeRemoved,
+                this, &LanguageResourceModel::onLanguageResourceAboutToBeRemoved);
+        connect(m_resourceManager, &ResourceManager::languageResourceRemoved,
+                this, &LanguageResourceModel::onLanguageResourceRemoved);
+        connect(m_resourceManager, &ResourceManager::languageCoursesChanged,
+                this, &LanguageResourceModel::updateDisplayedLanguages);
     }
     updateResources();
 

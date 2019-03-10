@@ -33,7 +33,7 @@ class ExportGhnsDialog :
     Q_OBJECT
 
 public:
-    ExportGhnsDialog(ResourceManager *manager);
+    explicit ExportGhnsDialog(ResourceManager *manager);
     ~ExportGhnsDialog();
 
 public Q_SLOTS:

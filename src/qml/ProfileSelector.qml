@@ -42,7 +42,7 @@ FocusScope {
         profileForm.profile = profileManager.activeProfile
         list.currentIndex = -1 // clear highlighting as fallback
         for (var i=0; i < profileManager.profileCount; ++i) {
-            if (profileManager.activeProfile == profileManager.profile(i)) {
+            if (profileManager.activeProfile === profileManager.profile(i)) {
                 list.currentIndex = i
                 return;
             }
@@ -74,7 +74,7 @@ FocusScope {
                         Connections {
                             target: profileManager
                             onActiveProfileChanged: {
-                                if (profileManager.activeProfile == profileManager.profile(index)) {
+                                if (profileManager.activeProfile === profileManager.profile(index)) {
                                     list.currentIndex = index
                                 }
                             }

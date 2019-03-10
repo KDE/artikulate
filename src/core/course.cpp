@@ -215,7 +215,7 @@ Phrase * Course::createPhrase(Unit *unit)
     // create unit
     Phrase *phrase = new Phrase(this);
     phrase->setId(id);
-    phrase->setText("");
+    phrase->setText(QLatin1String(""));
     phrase->setType(Phrase::Word);
 
     unit->addPhrase(phrase);

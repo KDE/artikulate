@@ -140,12 +140,12 @@ Item
                 if (buttonEditSkeleton.checked) {
                     return false
                 }
-                if (editorSession.skeletonMode && editorSession.course != null) {
+                if (editorSession.skeletonMode && editorSession.course !== null) {
                     return false
                 }
                 if (!editorSession.skeletonMode
-                    && editorSession.language != null
-                    && editorSession.course != null
+                    && editorSession.language !== null
+                    && editorSession.course !== null
                 ) {
                     return false
                 }
@@ -183,7 +183,7 @@ Item
         }
         RowLayout {
             id: mainRow
-            visible: editorSession.course != null
+            visible: editorSession.course !== null
             Layout.fillHeight: true
             ColumnLayout {
                 ScrollView {
@@ -227,7 +227,7 @@ Item
                         Connections {
                             target: editorSession
                             onPhraseChanged: {
-                                if (editorSession.phrase == null) {
+                                if (editorSession.phrase === null) {
                                     return
                                 }
                                 phraseTree.expand(phraseModel.indexUnit(editorSession.phrase.unit))
@@ -248,12 +248,12 @@ Item
             }
             ColumnLayout {
                 UnitEditor {
-                    visible: editorSession.unit != null && editorSession.phrase == null
+                    visible: editorSession.unit !== null && editorSession.phrase === null
                     unit: editorSession.unit
                     editPhrases: editorSession.skeletonMode && editorSession.editSkeleton
                 }
                 PhraseEditor {
-                    visible: editorSession.phrase != null
+                    visible: editorSession.phrase !== null
                     phrase: editorSession.phrase
                     isSkeletonPhrase: editorSession.editSkeleton
                     Layout.minimumWidth: Math.floor(main.width * 0.6)

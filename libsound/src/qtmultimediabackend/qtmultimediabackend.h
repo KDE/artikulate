@@ -19,14 +19,13 @@
 #define QTMULTIMEDIABACKEND_H
 
 #include "../backendinterface.h"
-#include "libsound_export.h"
 
 class CaptureBackendInterface;
 class OutputBackendInterface;
 class QtMultimediaCaptureBackend;
 class QtMultimediaOutputBackend;
 
-class LIBSOUND_EXPORT QtMultimediaBackend : public BackendInterface
+class QtMultimediaBackend : public BackendInterface
 {
     Q_OBJECT
 

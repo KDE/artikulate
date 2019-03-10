@@ -62,7 +62,7 @@ MainWindowEditor::MainWindowEditor()
     , m_widget(new QQuickWidget)
 {
     m_editorSession->setResourceManager(m_resourceManager);
-    setWindowIcon(QIcon::fromTheme("artikulate"));
+    setWindowIcon(QIcon::fromTheme(QStringLiteral("artikulate")));
     setWindowTitle(qAppName());
     setAutoSaveSettings();
 
@@ -85,15 +85,15 @@ MainWindowEditor::MainWindowEditor()
     // set view
     m_widget->resize(QSize(800, 600));
     m_widget->rootContext()->setContextObject(new KLocalizedContext(m_widget));
-    m_widget->rootContext()->setContextProperty("g_resourceManager", m_resourceManager);
-    m_widget->rootContext()->setContextProperty("editorSession", m_editorSession);
+    m_widget->rootContext()->setContextProperty(QStringLiteral("g_resourceManager"), m_resourceManager);
+    m_widget->rootContext()->setContextProperty(QStringLiteral("editorSession"), m_editorSession);
 
     // set starting screen
-    m_widget->setSource(QUrl("qrc:/artikulate/qml/Editor.qml"));
+    m_widget->setSource(QUrl(QStringLiteral("qrc:/artikulate/qml/Editor.qml")));
     m_widget->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
     QAction *newAct = KStandardAction::save(this, SLOT(save()), actionCollection());
-    actionCollection()->addAction("save", newAct);
+    actionCollection()->addAction(QStringLiteral("save"), newAct);
 
     // set status bar
     statusBar()->setEnabled(true);
@@ -104,7 +104,7 @@ MainWindowEditor::MainWindowEditor()
     });
     statusBar()->insertWidget(0, repositoryLabel);
 
-    createGUI("artikulateui_editor.rc");
+    createGUI(QStringLiteral("artikulateui_editor.rc"));
     setCentralWidget(m_widget);
 }
 
@@ -123,28 +123,28 @@ void MainWindowEditor::setupActions()
 {
     QAction *settingsAction = new QAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
     connect(settingsAction, &QAction::triggered, this, &MainWindowEditor::showSettingsDialog);
-    actionCollection()->addAction("settings", settingsAction);
-    settingsAction->setIcon(QIcon::fromTheme("configure"));
+    actionCollection()->addAction(QStringLiteral("settings"), settingsAction);
+    settingsAction->setIcon(QIcon::fromTheme(QStringLiteral("configure")));
 
     QAction *exportAction = new QAction(i18nc("@item:inmenu", "Export GHNS Files"), this);
     connect(exportAction, &QAction::triggered, [=]() {
         QPointer<QDialog> dialog = new ExportGhnsDialog(m_resourceManager);
         dialog->exec();
     });
-    actionCollection()->addAction("export_ghns", exportAction);
-    exportAction->setIcon(QIcon::fromTheme("document-export"));
+    actionCollection()->addAction(QStringLiteral("export_ghns"), exportAction);
+    exportAction->setIcon(QIcon::fromTheme(QStringLiteral("document-export")));
 
     KStandardAction::quit(this, SLOT(quit()), actionCollection());
 
-    setupGUI(Keys | Save | Create, "artikulateui_editor.rc");
+    setupGUI(Keys | Save | Create, QStringLiteral("artikulateui_editor.rc"));
 }
 
 void MainWindowEditor::showSettingsDialog()
 {
-    if (KConfigDialog::showDialog("settings")) {
+    if (KConfigDialog::showDialog(QStringLiteral("settings"))) {
         return;
     }
-    QPointer<KConfigDialog> dialog = new KConfigDialog(0, "settings", Settings::self());
+    QPointer<KConfigDialog> dialog = new KConfigDialog(0, QStringLiteral("settings"), Settings::self());
 
     ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_resourceManager);
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
@@ -154,9 +154,9 @@ void MainWindowEditor::showSettingsDialog()
     soundDialog->loadSettings();
     appearenceDialog->loadSettings();
 
-    dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), "audio-headset", i18nc("@title:tab", "Sound Device Settings"), true);
-    dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Fonts"), "preferences-desktop-font", i18nc("@title:tab", "Training Phrase Font"), true);
-    dialog->addPage(resourceDialog, i18nc("@item:inmenu", "Course Resources"), "repository", i18nc("@title:tab", "Resource Repository Settings"), true);
+    dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), QStringLiteral("audio-headset"), i18nc("@title:tab", "Sound Device Settings"), true);
+    dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Fonts"), QStringLiteral("preferences-desktop-font"), i18nc("@title:tab", "Training Phrase Font"), true);
+    dialog->addPage(resourceDialog, i18nc("@item:inmenu", "Course Resources"), QStringLiteral("repository"), i18nc("@title:tab", "Resource Repository Settings"), true);
 
     connect(dialog.data(), &QDialog::accepted, resourceDialog, &ResourcesDialogPage::saveSettings);
     connect(dialog.data(), &QDialog::accepted, soundDialog, &SoundDeviceDialogPage::saveSettings);

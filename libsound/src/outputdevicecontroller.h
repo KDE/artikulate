@@ -27,7 +27,7 @@ class QUrl;
 /**
  * \class OutputDeviceController
  *
- * This singelton class provides a controller for the sound output device.
+ * This singleton class provides a controller for the sound output device.
  */
 class LIBSOUND_EXPORT OutputDeviceController : public QObject
 {

@@ -57,7 +57,7 @@ void TestLanguageFiles::cleanup()
 
 QXmlSchema TestLanguageFiles::loadXmlSchema(const QString &schemeName) const
 {
-    QString relPath = QString("schemes/%1.xsd").arg(schemeName);
+    QString relPath = QStringLiteral("schemes/%1.xsd").arg(schemeName);
     QUrl file = QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, relPath));
 
     QXmlSchema schema;
@@ -90,7 +90,7 @@ QDomDocument TestLanguageFiles::loadDomDocument(const QUrl &path, const QXmlSche
 
 void TestLanguageFiles::languageSchemeValidationTest()
 {
-    QUrl languageFile = QUrl::fromLocalFile("schemes/language.xsd");
+    QUrl languageFile = QUrl::fromLocalFile(QStringLiteral("schemes/language.xsd"));
     QXmlSchema languageSchema;
     QVERIFY(languageSchema.load(languageFile));
     QVERIFY(languageSchema.isValid());
@@ -99,14 +99,14 @@ void TestLanguageFiles::languageSchemeValidationTest()
 void TestLanguageFiles::checkIdUniqueness()
 {
     ResourceManager manager;
-    QStringList languageFiles = QStandardPaths::locateAll(QStandardPaths::DataLocation, QString("data/languages/*.xml"));
+    QStringList languageFiles = QStandardPaths::locateAll(QStandardPaths::DataLocation, QStringLiteral("data/languages/*.xml"));
     foreach (const QString &file, languageFiles) {
         qDebug() << "File being parsed: " << file;
         QStringList idList;
         const QUrl &languageFile = QUrl::fromLocalFile(file);
         QVERIFY(languageFile.isLocalFile());
 
-        QXmlSchema schema = loadXmlSchema("language");
+        QXmlSchema schema = loadXmlSchema(QStringLiteral("language"));
         QVERIFY(schema.isValid());
 
         QDomDocument document = loadDomDocument(languageFile, schema);
@@ -115,18 +115,18 @@ void TestLanguageFiles::checkIdUniqueness()
         QDomElement root(document.documentElement());
         Language *language = new Language(this);
         language->setFile(languageFile);
-        language->setId(root.firstChildElement("id").text());
-        language->setTitle(root.firstChildElement("title").text());
+        language->setId(root.firstChildElement(QStringLiteral("id")).text());
+        language->setTitle(root.firstChildElement(QStringLiteral("title")).text());
         // create phoneme groups
-        for (QDomElement groupNode = root.firstChildElement("phonemeGroups").firstChildElement();
+        for (QDomElement groupNode = root.firstChildElement(QStringLiteral("phonemeGroups")).firstChildElement();
              !groupNode.isNull();
              groupNode = groupNode.nextSiblingElement())
         {
-            for (QDomElement phonemeNode = groupNode.firstChildElement("phonemes").firstChildElement();
+            for (QDomElement phonemeNode = groupNode.firstChildElement(QStringLiteral("phonemes")).firstChildElement();
                  !phonemeNode.isNull();
                  phonemeNode = phonemeNode.nextSiblingElement())
             {
-                QString id = phonemeNode.firstChildElement("id").text();
+                QString id = phonemeNode.firstChildElement(QStringLiteral("id")).text();
                 qDebug() << "ID: " << id;
                 QVERIFY2(!idList.contains(id),"Phoneme ID used more than once in the tested file");
                 idList.append(id);

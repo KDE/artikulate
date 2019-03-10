@@ -21,6 +21,7 @@
 #ifndef RESOURCEINTERFACE_H
 #define RESOURCEINTERFACE_H
 
+#include "artikulatecore_export.h"
 #include <QObject>
 
 class ResourceManager;
@@ -28,7 +29,7 @@ class QUrl;
 class QXmlSchema;
 class QDomDocument;
 
-class ResourceInterface : public QObject
+class ARTIKULATECORE_EXPORT ResourceInterface : public QObject
 {
     Q_OBJECT
 

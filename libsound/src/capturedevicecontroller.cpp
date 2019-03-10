@@ -33,7 +33,7 @@
  * \internal
  *
  * This is the private data class for \see CaptureDeviceController.
- * Note that -- even if the CaptureDeviceController is contructed before its first call -- all
+ * Note that -- even if the CaptureDeviceController is constructed before its first call -- all
  * devices get only configured by first instantiation of CaptureDeviceController with a call
  * to CaptureDeviceControllerPrivate::lazyInit(), called in CaptureDeviceController::self().
  */
@@ -55,7 +55,7 @@ public:
             QVector<KPluginMetaData> metadataList = KPluginLoader::findPlugins(dir,
                 [=](const KPluginMetaData &data)
             {
-                return data.serviceTypes().contains("artikulate/libsound/backend");
+                return data.serviceTypes().contains(QStringLiteral("artikulate/libsound/backend"));
             });
 
             foreach (const auto &metadata, metadataList) {

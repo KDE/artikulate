@@ -61,7 +61,7 @@ void ResourceManager::loadCourseResources()
     // register skeleton resources
     QDir skeletonRepository = QDir(Settings::courseRepositoryPath());
     skeletonRepository.setFilter(QDir::Files | QDir::Hidden);
-    if (!skeletonRepository.cd("skeletons")) {
+    if (!skeletonRepository.cd(QStringLiteral("skeletons"))) {
         qCritical() << "There is no subdirectory \"skeletons\" in directory " << skeletonRepository.path()
             << " cannot load skeletons.";
     } else {
@@ -75,7 +75,7 @@ void ResourceManager::loadCourseResources()
 
     // register contributor course files
     QDir courseRepository = QDir(Settings::courseRepositoryPath());
-    if (!courseRepository.cd("courses")) {
+    if (!courseRepository.cd(QStringLiteral("courses"))) {
         qCritical() << "There is no subdirectory \"courses\" in directory " << courseRepository.path()
             << " cannot load courses.";
     } else {
@@ -95,7 +95,7 @@ void ResourceManager::loadCourseResources()
                 QDir courseLangDir = QDir(langInfo.absoluteFilePath());
                 courseLangDir.setFilter(QDir::Files);
                 QStringList nameFilters;
-                nameFilters.append("*.xml");
+                nameFilters.append(QStringLiteral("*.xml"));
                 QFileInfoList courses = courseLangDir.entryInfoList(nameFilters);
 
                 // find and add course files
@@ -119,7 +119,7 @@ void ResourceManager::loadCourseResources()
             QFileInfoList list = dir.entryInfoList();
             for (int i = 0; i < list.size(); ++i) {
                 QFileInfo fileInfo = list.at(i);
-                if (fileInfo.completeSuffix() != "xml") {
+                if (fileInfo.completeSuffix() != QLatin1String("xml")) {
                     continue;
                 }
                 addCourse(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
@@ -143,7 +143,7 @@ void ResourceManager::loadLanguageResources()
         QFileInfoList list = dir.entryInfoList();
         for (int i = 0; i < list.size(); ++i) {
             QFileInfo fileInfo = list.at(i);
-            if (fileInfo.completeSuffix() != "xml") {
+            if (fileInfo.completeSuffix() != QLatin1String("xml")) {
                 continue;
             }
             addLanguage(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
@@ -367,12 +367,14 @@ CourseResource * ResourceManager::addCourse(const QUrl &courseFile)
 {
     CourseResource *resource = new CourseResource(this, courseFile);
     if (resource->language().isEmpty()) {
+        delete resource;
         qCritical() << "Could not load course, language unknown:" << courseFile.toLocalFile();
         return nullptr;
     }
 
     // skip already loaded resources
     if (m_loadedResources.contains(courseFile.toLocalFile())) {
+        delete resource;
         return nullptr;
     }
     m_loadedResources.append(courseFile.toLocalFile());
@@ -411,9 +413,9 @@ void ResourceManager::removeCourse(Course *course)
 Course * ResourceManager::createCourse(Language *language, Skeleton *skeleton)
 {
     // set path
-    QString path = QString("%1/%2/%3/%4/%4.xml")
+    QString path = QStringLiteral("%1/%2/%3/%4/%4.xml")
         .arg(Settings::courseRepositoryPath())
-        .arg("courses")
+        .arg(QStringLiteral("courses"))
         .arg(skeleton->id())
         .arg(language->id());
 

@@ -28,7 +28,7 @@ class QUrl;
 /**
  * \class CaptureDeviceController
  *
- * This singelton class provides a controller for the sound capture device.
+ * This singleton class provides a controller for the sound capture device.
  */
 class LIBSOUND_EXPORT CaptureDeviceController : public QObject
 {

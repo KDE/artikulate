@@ -63,10 +63,10 @@ void SkeletonModel::setResourceManager(ResourceManager *resourceManager)
     m_resourceManager = resourceManager;
 
     if (m_resourceManager) {
-        connect(m_resourceManager, SIGNAL(skeletonAboutToBeAdded(Course*,int)), SLOT(onSkeletonAboutToBeAdded(Course*,int)));
-        connect(m_resourceManager, SIGNAL(skeletonAdded()), SLOT(onSkeletonAdded()));
-        connect(m_resourceManager, SIGNAL(skeletonAboutToBeRemoved(int,int)), SLOT(onSkeletonsAboutToBeRemoved(int,int)));
-        connect(m_resourceManager, SIGNAL(skeletonRemoved()), SLOT(onSkeletonsRemoved()));
+        connect(m_resourceManager, &ResourceManager::skeletonAboutToBeAdded, this, &SkeletonModel::onSkeletonAboutToBeAdded);
+        connect(m_resourceManager, &ResourceManager::skeletonAdded, this, &SkeletonModel::onSkeletonAdded);
+        connect(m_resourceManager, &ResourceManager::skeletonAboutToBeRemoved, this, &SkeletonModel::onSkeletonsAboutToBeRemoved);
+        connect(m_resourceManager, &ResourceManager::skeletonRemoved, this, &SkeletonModel::onSkeletonsRemoved);
     }
 
     endResetModel();

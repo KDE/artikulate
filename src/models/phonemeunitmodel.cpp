@@ -36,8 +36,8 @@ PhonemeUnitModel::PhonemeUnitModel(QObject *parent)
     , m_signalMapper(new QSignalMapper(this))
 {
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
-    connect(this, SIGNAL(phonemeGroupChanged()), this, SIGNAL(countChanged()));
-    connect(this, SIGNAL(courseChanged()), this, SIGNAL(countChanged()));
+    connect(this, &PhonemeUnitModel::phonemeGroupChanged, this, &PhonemeUnitModel::countChanged);
+    connect(this, &PhonemeUnitModel::courseChanged, this, &PhonemeUnitModel::countChanged);
 }
 
 QHash< int, QByteArray > PhonemeUnitModel::roleNames() const
@@ -67,10 +67,10 @@ void PhonemeUnitModel::setCourse(Course *course)
     m_course = course;
 
     if (m_course) {
-        connect(m_course, SIGNAL(phonemeGroupAboutToBeAdded(PhonemeGroup*,int)), SLOT(onUnitAboutToBeAdded(PhonemeGroup*,int)));
-        connect(m_course, SIGNAL(phonemeGroupAdded()), SLOT(onUnitAdded()));
-        connect(m_course, SIGNAL(phonemeGroupAboutToBeRemoved(int,int)), SLOT(onUnitsAboutToBeRemoved(int,int)));
-        connect(m_course, SIGNAL(phonemeGroupRemoved()), SLOT(onUnitsRemoved()));
+        connect(m_course, &Course::phonemeGroupAboutToBeAdded, this, &PhonemeUnitModel::onUnitAboutToBeAdded);
+        connect(m_course, &Course::phonemeGroupAdded, this, &PhonemeUnitModel::onUnitAdded);
+        connect(m_course, &Course::phonemeGroupAboutToBeRemoved, this, &PhonemeUnitModel::onUnitsAboutToBeRemoved);
+        connect(m_course, &Course::phonemeGroupRemoved, this, &PhonemeUnitModel::onUnitsRemoved);
     }
 
     endResetModel();

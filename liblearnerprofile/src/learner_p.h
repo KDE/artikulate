@@ -44,14 +44,14 @@ public:
 
     QString imagePath() const
     {
-        const QString name = QString("learner%1.png").arg(m_identifier);
+        const QString name = QStringLiteral("learner%1.png").arg(m_identifier);
         return imageDirectory() + name;
     }
     QString imageDirectory() const
     {
         return QStandardPaths::writableLocation(QStandardPaths::DataLocation)
             + QLatin1Char('/')
-            + QString("images")
+            + QStringLiteral("images")
             + QLatin1Char('/');
     }
 

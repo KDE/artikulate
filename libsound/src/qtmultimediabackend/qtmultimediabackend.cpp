@@ -18,7 +18,6 @@
 #include "qtmultimediabackend.h"
 #include "qtmultimediacapturebackend.h"
 #include "qtmultimediaoutputbackend.h"
-#include "libsound_export.h"
 #include <KPluginFactory>
 
 K_PLUGIN_FACTORY_WITH_JSON( BackendFactory,
@@ -26,7 +25,7 @@ K_PLUGIN_FACTORY_WITH_JSON( BackendFactory,
                             registerPlugin<QtMultimediaBackend>();)
 
 QtMultimediaBackend::QtMultimediaBackend(QObject *parent, const QList< QVariant >&)
-    : BackendInterface("qtmultimedia", parent)
+    : BackendInterface(QStringLiteral("qtmultimedia"), parent)
     , m_captureBackend(new QtMultimediaCaptureBackend(this))
     , m_outputBackend(new QtMultimediaOutputBackend(this))
 {

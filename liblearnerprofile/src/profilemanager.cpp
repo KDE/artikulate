@@ -60,7 +60,7 @@ LearnerProfile::ProfileManagerPrivate::ProfileManagerPrivate()
     m_profiles.append(m_storage.loadProfiles(m_goals));
 
     // set last used profile
-    m_config = new KConfig("learnerprofilerc");
+    m_config = new KConfig(QStringLiteral("learnerprofilerc"));
     KConfigGroup activeProfileGroup(m_config, "ActiveProfile");
     int lastProfileId = activeProfileGroup.readEntry("profileId", "0").toInt();
     QList<int> activeGoalsCategories = activeProfileGroup.readEntry("activeGoalsCategories", QList<int>());
@@ -129,8 +129,8 @@ ProfileManager::ProfileManager(QObject *parent)
     : QObject(parent)
     , d(new ProfileManagerPrivate)
 {
-    connect (this, SIGNAL(profileAdded(Learner*,int)), this, SIGNAL(profileCountChanged()));
-    connect (this, SIGNAL(profileRemoved()), this, SIGNAL(profileCountChanged()));
+    connect (this, &ProfileManager::profileAdded, this, &ProfileManager::profileCountChanged);
+    connect (this, &ProfileManager::profileRemoved, this, &ProfileManager::profileCountChanged);
 
     foreach (Learner *learner, d->m_profiles) {
         connect (learner, SIGNAL(goalRemoved(Learner*,LearningGoal*)),
@@ -159,7 +159,7 @@ void ProfileManager::openImageFileDialog()
 {
     const QString imagePath = QFileDialog::getOpenFileName(0,
         i18n("Open Image"),
-        "",
+        QLatin1String(""),
         i18n("Image Files (*.png *.jpg *.bmp)"));
     d->m_activeProfile->importImage(imagePath);
 }

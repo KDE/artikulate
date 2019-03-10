@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     KLocalizedString::setApplicationDomain("artikulate");
     Application app(argc, argv);
 
-    KAboutData aboutData("artikulate",
+    KAboutData aboutData(QStringLiteral("artikulate"),
                          i18nc("@title Displayed program name", "Artikulate"),
                          ARTIKULATE_VERSION_STRING,
                          i18nc("@title KAboutData: short program description", "Artikulate Pronunciation Trainer"),
@@ -43,11 +43,11 @@ int main(int argc, char **argv)
 
     aboutData.addAuthor(i18nc("@info:credit Developer name", "Andreas Cord-Landwehr"),
                         i18nc("@info:credit Role", "Original Author"),
-                        "cordlandwehr@kde.org");
+                        QStringLiteral("cordlandwehr@kde.org"));
 
     aboutData.addAuthor(i18nc("@info:credit Developer name", "Samikshan Bairagya"),
                         i18nc("@info:credit Role", "Developer"),
-                        "samikshan@gmail.com");
+                        QStringLiteral("samikshan@gmail.com"));
 
     aboutData.addAuthor(i18nc("@info:credit Developer name", "Oindrila Gupta"),
                         i18nc("@info:credit Role", "Developer and Course Data"));

@@ -176,7 +176,7 @@ void QtGStreamerOutputBackend::stop()
     }
     //TODO this is a temporary fix:
     // the pipeline should not be cleared after every stop, but only when the backend is destructed
-    // or specifically resetted. Cause of the problem, both QtGStreamerOutputBackend is globally static
+    // or specifically reset. Cause of the problem, both QtGStreamerOutputBackend is globally static
     // object and can be destructed _after_ the also globally static object QGlib::Private::ConnectionsStore
     // is destroyed. With calling QGst::Pipeline destructor by destructing QtGStreamerOutputBackend,
     // we get a crash.
