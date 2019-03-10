@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -20,17 +20,32 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 2.1 as QQC2
-import org.kde.kirigami 2.0 as Kirigami2
+import org.kde.kirigami 2.0 as Kirigami
 import artikulate 1.0
 
 Item {
     id: root
-    width: button.width
-    height: button.height
+    width: 32
+    height: width
 
     property string fileUrl
 
     signal stopped()
+
+    Connections {
+        target: playerBackend
+        onStateChanged: {
+            // set next possible action icon
+            if (playerBackend.state === Player.PlayingState) {
+                statusIcon.source = "media-playback-stop";
+                return
+            }
+            if (playerBackend.state === Player.StoppedState) {
+                statusIcon.source = "media-playback-start";
+                return
+            }
+        }
+    }
 
     Player {
         id: playerBackend
@@ -38,11 +53,11 @@ Item {
     }
 
     QQC2.RoundButton {
-        id: button
-        enabled: fileUrl != ""
-        Kirigami2.Icon {
+        enabled: fileUrl !== ""
+        Kirigami.Icon {
+            id: statusIcon
             source: "media-playback-start"
-            width: 32
+            width: root.width
             height: width
             anchors.centerIn: parent
         }
@@ -55,20 +70,6 @@ Item {
             if (playerBackend.state === Player.StoppedState) {
                 playerBackend.playback();
                 return;
-            }
-        }
-        Connections {
-            target: playerBackend
-            onStateChanged: {
-                // set next possible action icon
-                if (playerBackend.state === Player.PlayingState) {
-                    button.iconName = "media-playback-stop";
-                    return
-                }
-                if (playerBackend.state === Player.StoppedState) {
-                    button.iconName = "media-playback-start";
-                    return
-                }
             }
         }
     }
