@@ -24,12 +24,13 @@
 #include "artikulatecore_export.h"
 #include "course.h"
 #include "phrase.h"
+#include <QVector>
 
 class QString;
 class Language;
 class Course;
 class Unit;
-class PhonemeGroup;
+class TrainingAction;
 
 namespace LearnerProfile {
     class ProfileManager;
@@ -62,6 +63,7 @@ public:
     bool hasNextPhrase() const;
     Q_INVOKABLE void showNextPhrase();
     Q_INVOKABLE void skipPhrase();
+    QVector<TrainingAction *> trainingActions();
 
 Q_SIGNALS:
     void courseChanged();
@@ -76,6 +78,7 @@ private:
     Course *m_course;
     Unit *m_unit;
     Phrase *m_phrase;
+    QVector<TrainingAction*> m_actions;
 };
 
 #endif

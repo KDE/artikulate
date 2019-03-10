@@ -1,5 +1,5 @@
 /*
- *  Copyright 2018  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2018-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -50,7 +50,7 @@ Q_SIGNALS:
 public:
     TrainingAction(QObject *parent = nullptr);
     TrainingAction(const QString &text, QObject *parent = nullptr);
-    TrainingAction(Phrase *phrase, DrawerTrainingActions *drawerActions, QObject *parent = nullptr);
+    TrainingAction(Phrase *phrase, TrainingSession *session, QObject *parent = nullptr);
     void appendChild(QObject *child);
     bool hasChildren() const;
     Q_INVOKABLE void trigger();
@@ -68,7 +68,7 @@ private:
     QString m_tooltip{QString()};
     QList<QObject*> m_children;
     Phrase *m_phrase{nullptr};
-    DrawerTrainingActions * m_drawerTrainingActions{nullptr};
+    TrainingSession * m_trainingSession{nullptr};
 };
 
 #endif

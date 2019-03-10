@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -23,9 +23,9 @@
 #include "core/course.h"
 #include "core/unit.h"
 #include "core/phrase.h"
-#include "core/phonemegroup.h"
 #include "profilemanager.h"
 #include "learner.h"
+#include "trainingaction.h"
 #include "artikulate_debug.h"
 
 TrainingSession::TrainingSession(QObject *parent)
@@ -200,4 +200,33 @@ void TrainingSession::updateGoal()
         LearnerProfile::LearningGoal::Language, m_course->language()->id());
     learner->addGoal(goal);
     learner->setActiveGoal(goal);
+}
+
+QVector<TrainingAction *> TrainingSession::trainingActions()
+{
+    // cleanup
+    for (const auto &action : m_actions) {
+        action->deleteLater();
+    }
+    m_actions.clear();
+
+    if (!m_course) {
+        return QVector<TrainingAction *>();
+    }
+
+    for (const auto &unit : m_course->unitList()) {
+        auto action = new TrainingAction(unit->title());
+        for (const auto &phrase : unit->phraseList()) {
+            if (phrase->sound().isEmpty()) {
+                continue;
+            }
+            action->appendChild(new TrainingAction(phrase, this, unit));
+        }
+        if (action->hasChildren()) {
+            m_actions.append(action);
+        } else {
+            action->deleteLater();
+        }
+    }
+    return m_actions;
 }

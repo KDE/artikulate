@@ -1,5 +1,5 @@
 /*
- *  Copyright 2018  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2018-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -37,11 +37,11 @@ TrainingAction::TrainingAction(const QString &text, QObject *parent)
 {
 }
 
-TrainingAction::TrainingAction(Phrase *phrase, DrawerTrainingActions *drawerTrainingActions, QObject* parent)
+TrainingAction::TrainingAction(Phrase *phrase, TrainingSession *session, QObject* parent)
     : QObject(parent)
     , m_icon(new TrainingActionIcon(this, QString()))
     , m_phrase(phrase)
-    , m_drawerTrainingActions(drawerTrainingActions)
+    , m_trainingSession(session)
 {
     if (m_phrase) {
         m_text = phrase->text();
@@ -61,9 +61,8 @@ bool TrainingAction::hasChildren() const
 
 void TrainingAction::trigger()
 {
-    if (m_phrase && m_drawerTrainingActions && m_drawerTrainingActions->session()) {
-        m_drawerTrainingActions->session()->setPhrase(m_phrase);
-        emit m_drawerTrainingActions->triggerTrainingView();
+    if (m_phrase && m_trainingSession) {
+        m_trainingSession->setPhrase(m_phrase);
     }
 }
 

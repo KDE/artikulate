@@ -22,6 +22,7 @@
 
 #include "core/course.h"
 #include "core/drawertrainingactions.h"
+#include "core/trainingaction.h"
 #include "core/editorsession.h"
 #include "core/language.h"
 #include "core/phoneme.h"
@@ -99,6 +100,7 @@ void Application::registerQmlTypes()
     qmlRegisterType<Recorder>("artikulate", 1, 0, "Recorder");
     qmlRegisterType<IconItem>("artikulate", 1, 0, "Icon");
     qmlRegisterType<DrawerTrainingActions>("artikulate", 1, 0, "DrawerTrainingActions");
+    qmlRegisterType<TrainingAction>("artikulate", 1, 0, "TrainingAction");
 
     qmlRegisterType<CourseModel>("artikulate", 1, 0, "CourseModel");
     qmlRegisterType<CourseFilterModel>("artikulate", 1, 0, "CourseFilterModel");

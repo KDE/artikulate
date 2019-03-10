@@ -1,5 +1,5 @@
 /*
- *  Copyright 2018  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2018-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -21,7 +21,6 @@
 #include "drawertrainingactions.h"
 #include "trainingaction.h"
 #include "course.h"
-#include "unit.h"
 
 #include <QList>
 #include <QDebug>
@@ -37,14 +36,16 @@ void DrawerTrainingActions::setSession(TrainingSession *session)
         return;
     }
     if (m_session) {
-        disconnect(m_session, &TrainingSession::courseChanged, this, &DrawerTrainingActions::updateActions);
+        disconnect(m_session, &TrainingSession::courseChanged, this, &DrawerTrainingActions::actionsChanged);
+        disconnect(m_session, &TrainingSession::phraseChanged, this, &DrawerTrainingActions::triggerTrainingView);
     }
 
     m_session = session;
-    connect(m_session, &TrainingSession::courseChanged, this, &DrawerTrainingActions::updateActions);
+    connect(m_session, &TrainingSession::courseChanged, this, &DrawerTrainingActions::actionsChanged);
+    connect(m_session, &TrainingSession::phraseChanged, this, &DrawerTrainingActions::triggerTrainingView);
 
     emit sessionChanged();
-    updateActions();
+    emit actionsChanged();
 }
 
 TrainingSession * DrawerTrainingActions::session() const
@@ -52,41 +53,14 @@ TrainingSession * DrawerTrainingActions::session() const
     return m_session;
 }
 
-QList<QObject*> DrawerTrainingActions::actions() const
-{
-    return m_actions;
-}
-
-void DrawerTrainingActions::updateActions()
+QList<QObject *> DrawerTrainingActions::actions() const
 {
     if (!m_session) {
-        return;
+        return QList<QObject *>();
     }
-
-    // cleanup
-    for (const auto &action : m_actions) {
-        action->deleteLater();
+    QList<QObject *> actions;
+    for (const auto &action : m_session->trainingActions()) {
+        actions.append(qobject_cast<QObject*>(action));
     }
-    m_actions.clear();
-
-    if (!m_session->course()) {
-        return;
-    }
-
-    for (const auto &unit : m_session->course()->unitList()) {
-        auto action = new TrainingAction(unit->title());
-        for (const auto &phrase : unit->phraseList()) {
-            if (phrase->sound().isEmpty()) {
-                continue;
-            }
-            action->appendChild(new TrainingAction(phrase, this, unit));
-        }
-        if (action->hasChildren()) {
-            m_actions.append(action);
-        } else {
-            action->deleteLater();
-        }
-    }
-
-    emit actionsChanged();
+    return actions;
 }

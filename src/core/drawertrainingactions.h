@@ -1,5 +1,5 @@
 /*
- *  Copyright 2018  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2018-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -31,16 +31,13 @@ class ARTIKULATECORE_EXPORT DrawerTrainingActions : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(TrainingSession *session READ session WRITE setSession NOTIFY sessionChanged)
-    Q_PROPERTY(QList<QObject*> actions READ actions NOTIFY actionsChanged)
+    Q_PROPERTY(QList<QObject *> actions READ actions NOTIFY actionsChanged)
 
 public:
     DrawerTrainingActions(QObject *parent = nullptr);
     void setSession(TrainingSession *session);
     TrainingSession * session() const;
-    QList<QObject*> actions() const;
-
-private Q_SLOTS:
-    void updateActions();
+    QList<QObject *> actions() const;
 
 Q_SIGNALS:
     void actionsChanged();
@@ -52,7 +49,6 @@ Q_SIGNALS:
 
 private:
     TrainingSession *m_session{nullptr};
-    QList<QObject *> m_actions;
 };
 
 #endif
