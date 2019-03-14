@@ -57,7 +57,7 @@ QString Storage::errorMessage() const
 
 void Storage::raiseError(const QSqlError &error)
 {
-    m_errorMessage = QStringLiteral("%1 : %2").arg(error.driverText()).arg(error.databaseText());
+    m_errorMessage = QStringLiteral("%1 : %2").arg(error.driverText(), error.databaseText());
     emit errorMessageChanged();
 }
 

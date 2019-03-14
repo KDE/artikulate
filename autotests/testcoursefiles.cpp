@@ -83,14 +83,14 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     manager.addCourse(QUrl::fromLocalFile(QStringLiteral("data/courses/de.xml")));
 
     // test to encure further logic
-    QVERIFY(manager.courseResources(manager.languageResources().first()->language()).count() == 1);
+    QVERIFY(manager.courseResources(manager.languageResources().constFirst()->language()).count() == 1);
 
-    Course *testCourse = manager.courseResources(manager.languageResources().first()->language()).first()->course();
+    Course *testCourse = manager.courseResources(manager.languageResources().constFirst()->language()).constFirst()->course();
     QTemporaryFile outputFile;
     outputFile.open();
     QUrl oldFileName = testCourse->file();
     testCourse->setFile(QUrl::fromLocalFile(outputFile.fileName()));
-    testCourse->setLanguage(manager.languageResources().first()->language());
+    testCourse->setLanguage(manager.languageResources().constFirst()->language());
     testCourse->sync();
     testCourse->setFile(oldFileName); // restore for later tests
 
@@ -101,7 +101,7 @@ void TestCourseFiles::fileLoadSaveCompleteness()
 
     //TODO this only works, since the resource manager not checks uniqueness of course ids!
     manager.addCourse(QUrl::fromLocalFile(outputFile.fileName()));
-    Course *compareCourse = manager.courseResources(manager.languageResources().first()->language()).last()->course();
+    Course *compareCourse = manager.courseResources(manager.languageResources().constFirst()->language()).constLast()->course();
 
     // test that we actually call the different files
     QVERIFY(testCourse->file().toLocalFile() != compareCourse->file().toLocalFile());
@@ -112,14 +112,14 @@ void TestCourseFiles::fileLoadSaveCompleteness()
     QVERIFY(testCourse->language()->id() == compareCourse->language()->id());
     QVERIFY(testCourse->unitList().count() == compareCourse->unitList().count());
 
-    Unit *testUnit = testCourse->unitList().first();
-    Unit *compareUnit = compareCourse->unitList().first();
+    Unit *testUnit = testCourse->unitList().constFirst();
+    Unit *compareUnit = compareCourse->unitList().constFirst();
     QVERIFY(testUnit->id() == compareUnit->id());
     QVERIFY(testUnit->foreignId() == compareUnit->foreignId());
     QVERIFY(testUnit->title() == compareUnit->title());
     QVERIFY(testUnit->phraseList().count() == compareUnit->phraseList().count());
 
-    Phrase *testPhrase = testUnit->phraseList().first();
+    Phrase *testPhrase = testUnit->phraseList().constFirst();
     Phrase *comparePhrase = new Phrase(this);
     // Note that this actually means that we DO NOT respect phrase orders by list order!
     foreach (Phrase *phrase, compareUnit->phraseList()) {

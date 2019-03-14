@@ -136,7 +136,7 @@ void LearningGoalModel::setLearner(Learner *learner)
     if (!learner) {
         return;
     }
-    emit beginResetModel();
+    beginResetModel();
     if (d->m_learner) {
         learner->disconnect(this);
     }
@@ -150,7 +150,7 @@ void LearningGoalModel::setLearner(Learner *learner)
     connect(learner, &Learner::goalAboutToBeRemoved, this,
             &LearningGoalModel::onLearningGoalAboutToBeRemoved);
     emit learnerChanged();
-    emit endResetModel();
+    endResetModel();
 }
 
 QVariant LearningGoalModel::data(const QModelIndex &index, int role) const

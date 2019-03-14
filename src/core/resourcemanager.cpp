@@ -91,7 +91,6 @@ void ResourceManager::loadCourseResources()
 
             // traverse all language directories for each course
             foreach (const QFileInfo &langInfo, courseLangDirList) {
-                QString languageId = langInfo.fileName();
                 QDir courseLangDir = QDir(langInfo.absoluteFilePath());
                 courseLangDir.setFilter(QDir::Files);
                 QStringList nameFilters;
@@ -414,10 +413,10 @@ Course * ResourceManager::createCourse(Language *language, Skeleton *skeleton)
 {
     // set path
     QString path = QStringLiteral("%1/%2/%3/%4/%4.xml")
-        .arg(Settings::courseRepositoryPath())
-        .arg(QStringLiteral("courses"))
-        .arg(skeleton->id())
-        .arg(language->id());
+        .arg(Settings::courseRepositoryPath(),
+             QStringLiteral("courses"),
+             skeleton->id(),
+             language->id());
 
     CourseResource * courseRes = new CourseResource(this, QUrl::fromLocalFile(path));
     Q_ASSERT(courseRes);

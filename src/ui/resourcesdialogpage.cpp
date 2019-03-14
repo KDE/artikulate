@@ -39,7 +39,7 @@ ResourcesDialogPage::ResourcesDialogPage(ResourceManager *m_resourceManager)
     ui = new Ui::ResourcesDialogPage;
     ui->setupUi(this);
 
-    connect(ui->buttonSelectCourseRepository, &QToolButton::clicked, [=](){
+    connect(ui->buttonSelectCourseRepository, &QToolButton::clicked, this, [=](){
         const QString dir = QFileDialog::getExistingDirectory(this,
             i18n("Open Repository Directory"),
             QString(),

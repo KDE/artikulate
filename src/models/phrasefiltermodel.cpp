@@ -108,7 +108,7 @@ bool PhraseFilterModel::filterAcceptsRow(int source_row, const QModelIndex &sour
     int result = true;
     if (m_hideNotRecorded || m_hideExcluded) {
         QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
-        bool notRecorded = sourceModel()->data(index, PhraseListModel::SoundFileRole).value<QUrl>().isEmpty();
+        bool notRecorded = sourceModel()->data(index, PhraseListModel::SoundFileRole).toUrl().isEmpty();
         bool excluded = sourceModel()->data(index, PhraseListModel::ExcludedRole).toBool();
         result = !(notRecorded || excluded);
     }

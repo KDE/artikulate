@@ -71,7 +71,7 @@ void LearningGoal::setName(const QString &name)
         return;
     }
     d->m_name = name;
-    nameChanged();
+    emit nameChanged();
 }
 
 QString LearningGoal::identifier() const

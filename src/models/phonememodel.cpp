@@ -53,12 +53,10 @@ Language * PhonemeModel::language() const
 
 void PhonemeModel::setLanguage(Language *language)
 {
-    emit beginResetModel();
-
+    beginResetModel();
     m_language = language;
     emit languageChanged();
-
-    emit endResetModel();
+    endResetModel();
 }
 
 QVariant PhonemeModel::data(const QModelIndex& index, int role) const

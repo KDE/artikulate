@@ -59,7 +59,8 @@ QList<QObject *> DrawerTrainingActions::actions() const
         return QList<QObject *>();
     }
     QList<QObject *> actions;
-    for (const auto &action : m_session->trainingActions()) {
+    const auto trainingActions = m_session->trainingActions();
+    for (const auto &action : qAsConst(trainingActions)) {
         actions.append(qobject_cast<QObject*>(action));
     }
     return actions;

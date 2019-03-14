@@ -99,7 +99,7 @@ MainWindowEditor::MainWindowEditor()
     statusBar()->setEnabled(true);
     QLabel *repositoryLabel = new QLabel;
     repositoryLabel->setText(i18n("Course Repository: %1", m_resourceManager->repositoryUrl()));
-    connect(m_resourceManager, &ResourceManager::repositoryChanged, [=]() {
+    connect(m_resourceManager, &ResourceManager::repositoryChanged, this, [=]() {
         repositoryLabel->setText(i18n("Course Repository: %1", m_resourceManager->repositoryUrl()));
     });
     statusBar()->insertWidget(0, repositoryLabel);
@@ -127,7 +127,7 @@ void MainWindowEditor::setupActions()
     settingsAction->setIcon(QIcon::fromTheme(QStringLiteral("configure")));
 
     QAction *exportAction = new QAction(i18nc("@item:inmenu", "Export GHNS Files"), this);
-    connect(exportAction, &QAction::triggered, [=]() {
+    connect(exportAction, &QAction::triggered, this, [=]() {
         QPointer<QDialog> dialog = new ExportGhnsDialog(m_resourceManager);
         dialog->exec();
     });
@@ -144,7 +144,7 @@ void MainWindowEditor::showSettingsDialog()
     if (KConfigDialog::showDialog(QStringLiteral("settings"))) {
         return;
     }
-    QPointer<KConfigDialog> dialog = new KConfigDialog(0, QStringLiteral("settings"), Settings::self());
+    QPointer<KConfigDialog> dialog = new KConfigDialog(nullptr, QStringLiteral("settings"), Settings::self());
 
     ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_resourceManager);
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();

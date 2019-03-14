@@ -75,7 +75,7 @@ void Learner::setIdentifier(int identifier)
 QString Learner::imageUrl() const
 {
     QString path = d->imagePath();
-    if (!QFileInfo(path).exists()) {
+    if (!QFileInfo::exists(path)) {
         return QString();
     }
     return "file://" + path;
@@ -84,7 +84,7 @@ QString Learner::imageUrl() const
 void Learner::clearImage()
 {
     const QString path {d->imagePath()};
-    if (!QFileInfo(path).exists()) {
+    if (!QFileInfo::exists(path)) {
         return;
     }
     QFile file;
@@ -96,7 +96,7 @@ void Learner::clearImage()
 
 void Learner::importImage(const QString &path)
 {
-    if (!QFileInfo(path).exists()) {
+    if (!QFileInfo::exists(path)) {
         qCWarning(LIBLEARNER_LOG) << "image path points to a non-existing file, aborting: " << path;
         return;
     }

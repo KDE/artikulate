@@ -91,15 +91,15 @@ MainWindow::MainWindow()
     }
 
     // connect to QML signals;
-    connect(rootObjects().first(), SIGNAL(triggerSettingsDialog()),
+    connect(rootObjects().constFirst(), SIGNAL(triggerSettingsDialog()),
             this, SLOT(showSettingsDialog()));
-    connect(rootObjects().first(), SIGNAL(triggerAction(QString)),
+    connect(rootObjects().constFirst(), SIGNAL(triggerAction(QString)),
             this, SLOT(triggerAction(QString)));
-    connect(rootObjects().first(), SIGNAL(switchMenuBarVisibility()),
+    connect(rootObjects().constFirst(), SIGNAL(switchMenuBarVisibility()),
             this, SLOT(switchMenuBarVisibility()));
 
     // set font for the phrase in trainer to default from kcfg file
-    QObject *phraseText = rootObjects().first()->findChild<QObject*>(QStringLiteral("phraseText"));
+    QObject *phraseText = rootObjects().constFirst()->findChild<QObject*>(QStringLiteral("phraseText"));
     if (phraseText) {
         phraseText->setProperty("font", Settings::trainingPhraseFont());
     }
@@ -176,12 +176,11 @@ void MainWindow::showSettingsDialog()
 
 void MainWindow::updateTrainingPhraseFont()
 {
-    QObject *phraseText = rootObjects().first()->findChild<QObject*>(QStringLiteral("phraseText"));
+    QObject *phraseText = rootObjects().constFirst()->findChild<QObject*>(QStringLiteral("phraseText"));
     if (!phraseText) {
         qCDebug(ARTIKULATE_LOG) << "no phraseText context object found, aborting";
         return;
     }
-    QFont f = phraseText->property("font").value<QFont>();
     phraseText->setProperty("font", Settings::trainingPhraseFont());
 }
 

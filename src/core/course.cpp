@@ -161,7 +161,7 @@ void Course::addUnit(Unit *unit)
     emit unitAboutToBeAdded(unit, m_unitList.length());
     m_unitList.append(unit);
 
-    connect(unit, &Unit::modified, [=]() {
+    connect(unit, &Unit::modified, this, [=]() {
         setModified(true);
     });
 
@@ -226,42 +226,36 @@ Phrase * Course::createPhrase(Unit *unit)
 QList< Unit* > Course::phonemeUnitList(PhonemeGroup *phonemeGroup) const
 {
     QList<Unit*> list;
-    QList< QPair<Phoneme*,Unit*> >::ConstIterator iter = m_phonemeUnitList.value(phonemeGroup).constBegin();
-    while (iter != m_phonemeUnitList.value(phonemeGroup).constEnd()) {
-        list.append(iter->second);
-        ++iter;
+    for (const auto &group : m_phonemeUnitList.value(phonemeGroup)) {
+        list.append(group.second);
     }
     return list;
 }
 
 Unit * Course::phonemeUnit(Phoneme *phoneme) const
 {
-    foreach (PhonemeGroup *group, m_phonemeUnitList.keys()) {
-        m_phonemeUnitList.value(group);
-        QList< QPair<Phoneme*,Unit*> >::ConstIterator iter = m_phonemeUnitList.value(group).constBegin();
-        while (iter != m_phonemeUnitList.value(group).constEnd()) {
-            if (iter->first == phoneme) {
-                return iter->second;
+    for (auto group = m_phonemeUnitList.keyBegin(); group != m_phonemeUnitList.keyEnd(); ++group) {
+        m_phonemeUnitList.value(*group);
+        for (const auto &phonemeUnit : m_phonemeUnitList.value(*group)) {
+            if (phonemeUnit.first == phoneme) {
+                return phonemeUnit.second;
             }
-            ++iter;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 PhonemeGroup * Course::phonemeGroup(Unit *unit) const
 {
-    foreach (PhonemeGroup *group, m_phonemeUnitList.keys()) {
-        m_phonemeUnitList.value(group);
-        QList< QPair<Phoneme*,Unit*> >::ConstIterator iter = m_phonemeUnitList.value(group).constBegin();
-        while (iter != m_phonemeUnitList.value(group).constEnd()) {
-            if (iter->second == unit) {
-                return group;
+    for (auto group = m_phonemeUnitList.keyBegin(); group != m_phonemeUnitList.keyEnd(); ++group) {
+        m_phonemeUnitList.value(*group);
+        for (const auto &phonemeUnit : m_phonemeUnitList.value(*group)) {
+            if (phonemeUnit.second == unit) {
+                return *group;
             }
-            ++iter;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 void Course::addPhonemeGroup(PhonemeGroup *phonemeGroup)
@@ -301,7 +295,7 @@ void Course::setModified(bool modified)
 
 void Course::sync()
 {
-    if (!m_file.isValid() || m_file.isEmpty() || m_resource == 0) {
+    if (!m_file.isValid() || m_file.isEmpty() || m_resource == nullptr) {
         qCritical() << "Path" << m_file.toLocalFile() << "not valid, aborting sync operation.";
         return;
     }
@@ -325,13 +319,11 @@ void Course::registerPhrasePhonemes(Phrase *phrase)
             }
             // either add phrase to existing unit or register a new one
             bool phraseRegistered = false;
-            QList< QPair<Phoneme*,Unit*> >::ConstIterator iter = m_phonemeUnitList.value(group).constBegin();
-            while (iter != m_phonemeUnitList.value(group).constEnd()) {
-                if (iter->first->id() == phoneme->id()) {
-                    iter->second->addPhrase(phrase);
+            for (const auto &phonemeUnit : m_phonemeUnitList.value(group)) {
+                if (phonemeUnit.first->id() == phoneme->id()) {
+                    phonemeUnit.second->addPhrase(phrase);
                     phraseRegistered = true;
                 }
-                ++iter;
             }
             // otherwise, need to create a new unit
             if (phraseRegistered == false) {

@@ -195,17 +195,17 @@ void LanguageResourceModel::setView(LanguageModel::LanguageResourceView view)
     if (m_view == view) {
         return;
     }
-    emit beginResetModel();
+    beginResetModel();
     m_view = view;
     updateResources();
-    emit endResetModel();
+    endResetModel();
 }
 
 void LanguageResourceModel::updateDisplayedLanguages()
 {
-    emit beginResetModel();
+    beginResetModel();
     updateResources();
-    emit endResetModel();
+    endResetModel();
 }
 
 LanguageModel::LanguageResourceView LanguageResourceModel::view() const

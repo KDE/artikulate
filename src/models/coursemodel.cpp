@@ -95,11 +95,11 @@ Language * CourseModel::language() const
 
 void CourseModel::setLanguage(Language *language)
 {
-    emit beginResetModel();
+    beginResetModel();
     m_language = language;
     m_resources = m_resourceManager->courseResources(m_language);
     emit languageChanged();
-    emit endResetModel();
+    endResetModel();
     emit rowCountChanged();
 }
 

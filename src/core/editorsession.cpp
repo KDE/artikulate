@@ -98,7 +98,7 @@ void EditorSession::setSkeleton(Skeleton *skeleton)
 
     Language *language = m_language;
     if (!m_language) {
-        language = m_resourceManager->languageResources().first()->language();
+        language = m_resourceManager->languageResources().constFirst()->language();
     }
 
     if (m_skeleton) {
@@ -168,7 +168,7 @@ void EditorSession::setCourse(Course *course)
     }
     m_course = course;
     if (m_course && !m_course->unitList().isEmpty()) {
-        setUnit(m_course->unitList().first());
+        setUnit(m_course->unitList().constFirst());
     } else {
         setUnit(nullptr);
     }
@@ -189,7 +189,7 @@ void EditorSession::setUnit(Unit *unit)
     // different than above, do not directly enter phrases
     // but first show editing information for units
     setPhrase(nullptr);
-    return unitChanged();
+    emit unitChanged();
 }
 
 void EditorSession::setPhrase(Phrase *phrase)
@@ -201,7 +201,7 @@ void EditorSession::setPhrase(Phrase *phrase)
         setUnit(phrase->unit());
     }
     m_phrase = phrase;
-    return phraseChanged();
+    emit phraseChanged();
 }
 
 Phrase * EditorSession::phrase() const
@@ -243,7 +243,7 @@ Phrase * EditorSession::nextPhrase() const
             if (nextUnit->phraseList().isEmpty()) {
                 return nullptr;
             }
-            return nextUnit->phraseList().first();
+            return nextUnit->phraseList().constFirst();
         }
     }
     return nullptr;

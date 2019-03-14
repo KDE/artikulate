@@ -60,7 +60,7 @@ void TrainingSession::setCourse(Course *course)
     }
     m_course = course;
     if (m_course && m_course->unitList().count() > 0) {
-        setUnit(m_course->unitList().first());
+        setUnit(m_course->unitList().constFirst());
     }
 
     // lazy loading of training data
@@ -101,9 +101,9 @@ void TrainingSession::setUnit(Unit *unit)
     }
     m_unit = unit;
     if (m_unit && m_unit->phraseList().count() > 0) {
-        setPhrase(m_unit->phraseList().first());
+        setPhrase(m_unit->phraseList().constFirst());
     }
-    return unitChanged();
+    emit unitChanged();
 }
 
 TrainingAction * TrainingSession::activeAction() const
@@ -244,7 +244,7 @@ void TrainingSession::updateGoal()
 QVector<TrainingAction *> TrainingSession::trainingActions()
 {
     // cleanup
-    for (const auto &action : m_actions) {
+    for (const auto &action : qAsConst(m_actions)) {
         action->deleteLater();
     }
     m_actions.clear();
@@ -253,9 +253,11 @@ QVector<TrainingAction *> TrainingSession::trainingActions()
         return QVector<TrainingAction *>();
     }
 
-    for (const auto &unit : m_course->unitList()) {
+    const auto unitList = m_course->unitList();
+    for (const auto &unit : qAsConst(unitList)) {
         auto action = new TrainingAction(unit->title());
-        for (const auto &phrase : unit->phraseList()) {
+        const auto phraseList = unit->phraseList();
+        for (const auto &phrase : qAsConst(phraseList)) {
             if (phrase->sound().isEmpty()) {
                 continue;
             }
