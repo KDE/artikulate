@@ -44,8 +44,8 @@ class ARTIKULATECORE_EXPORT TrainingSession : public QObject
     Q_OBJECT
     Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
-    Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
-    Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
+    Q_PROPERTY(Phrase *phrase READ activePhrase WRITE setPhrase NOTIFY phraseChanged)
+    Q_PROPERTY(bool hasNext READ hasNext NOTIFY phraseChanged)
 
 public:
     explicit TrainingSession(QObject *parent = nullptr);
@@ -55,30 +55,36 @@ public:
     void setCourse(Course *course);
     Unit * unit() const;
     void setUnit(Unit *unit);
-    Phrase::Type phraseType() const;
-    void setPhraseType(Phrase::Type type);
-    Phrase * phrase() const;
+    TrainingAction * activeAction() const;
+    Phrase * activePhrase() const;
     void setPhrase(Phrase *phrase);
     bool hasPreviousPhrase() const;
-    bool hasNextPhrase() const;
-    Q_INVOKABLE void showNextPhrase();
-    Q_INVOKABLE void skipPhrase();
+    bool hasNext() const;
+    Q_INVOKABLE void accept();
+    Q_INVOKABLE void skip();
     QVector<TrainingAction *> trainingActions();
 
 Q_SIGNALS:
     void courseChanged();
     void unitChanged();
     void phraseChanged();
+    /**
+     * @brief Emitted when last phrase of session is skipped or marked as completed.
+     */
+    void completed();
 
 private:
     Q_DISABLE_COPY(TrainingSession)
+    void selectNextPhrase();
     Phrase * nextPhrase() const;
     void updateGoal();
     LearnerProfile::ProfileManager *m_profileManager;
     Course *m_course;
     Unit *m_unit;
-    Phrase *m_phrase;
     QVector<TrainingAction*> m_actions;
+
+    int m_indexUnit{-1};
+    int m_indexPhrase{-1};
 };
 
 #endif

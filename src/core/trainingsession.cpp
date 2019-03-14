@@ -33,7 +33,6 @@ TrainingSession::TrainingSession(QObject *parent)
     , m_profileManager(nullptr)
     , m_course(nullptr)
     , m_unit(nullptr)
-    , m_phrase(nullptr)
 {
 
 }
@@ -107,44 +106,55 @@ void TrainingSession::setUnit(Unit *unit)
     return unitChanged();
 }
 
-Phrase * TrainingSession::phrase() const
+TrainingAction * TrainingSession::activeAction() const
 {
-    return m_phrase;
-}
-
-void TrainingSession::setPhrase(Phrase *phrase)
-{
-    if (m_phrase == phrase) {
-        return;
-    }
-    setUnit(phrase->unit());
-    m_phrase = phrase;
-    return phraseChanged();
-}
-
-Phrase * TrainingSession::nextPhrase() const
-{
-    if (!m_phrase) {
+    if (m_indexUnit < 0 || m_indexPhrase < 0) {
         return nullptr;
     }
-    const int index = m_phrase->unit()->phraseList().indexOf(m_phrase);
-    if (index < m_phrase->unit()->phraseList().length() - 1) {
-        return m_phrase->unit()->phraseList().at(index + 1);
-    } else {
-        Unit *unit = m_phrase->unit();
-        int uIndex = unit->course()->unitList().indexOf(unit);
-        if (uIndex < unit->course()->unitList().length() - 1) {
-            return unit->course()->unitList().at(uIndex + 1)->phraseList().first();
-        }
+    return qobject_cast<TrainingAction*>(m_actions.at(m_indexUnit)->actions().at(m_indexPhrase));
+}
+
+Phrase * TrainingSession::activePhrase() const
+{
+    if (const auto action = activeAction()) {
+        return action->phrase();
     }
     return nullptr;
 }
 
-void TrainingSession::showNextPhrase()
+void TrainingSession::setPhrase(Phrase *phrase)
 {
+    for (int i = 0; i < m_actions.count(); ++i) {
+        for (int j = 0; j < m_actions.at(i)->actions().count(); ++j) {
+            const auto testPhrase = qobject_cast<TrainingAction*>(m_actions.at(i)->actions().at(j))->phrase();
+            if (phrase == testPhrase) {
+                if (auto action = activeAction()) {
+                    action->setChecked(false);
+                }
+                m_indexUnit = i;
+                m_indexPhrase = j;
+                if (auto action = activeAction()) {
+                    action->setChecked(true);
+                }
+                emit phraseChanged();
+                return;
+            }
+        }
+    }
+}
+
+void TrainingSession::accept()
+{
+    Q_ASSERT(m_indexUnit >= 0);
+    Q_ASSERT(m_indexPhrase >= 0);
+    if (m_indexUnit < 0 || m_indexPhrase < 0) {
+        return;
+    }
+    auto phrase = activePhrase();
+
     // possibly update goals of learner
     updateGoal();
-    m_phrase->updateProgress(Phrase::Progress::Done);
+    phrase->updateProgress(Phrase::Progress::Done);
 
     // store training activity
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
@@ -152,19 +162,26 @@ void TrainingSession::showNextPhrase()
     m_profileManager->recordProgress(m_profileManager->activeProfile(),
         goal,
         m_course->id(),
-        m_phrase->id(),
+        phrase->id(),
         static_cast<int>(LearnerProfile::ProfileManager::Skip),
-        m_phrase->progress()
+        phrase->progress()
     );
 
-    setPhrase(nextPhrase());
+    selectNextPhrase();
 }
 
-void TrainingSession::skipPhrase()
+void TrainingSession::skip()
 {
+    Q_ASSERT(m_indexUnit >= 0);
+    Q_ASSERT(m_indexPhrase >= 0);
+    if (m_indexUnit < 0 || m_indexPhrase < 0) {
+        return;
+    }
+
     // possibly update goals of learner
     updateGoal();
-    m_phrase->updateProgress(Phrase::Progress::Skip);
+    auto phrase = activePhrase();
+    phrase->updateProgress(Phrase::Progress::Skip);
 
     // store training activity
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
@@ -172,17 +189,39 @@ void TrainingSession::skipPhrase()
     m_profileManager->recordProgress(m_profileManager->activeProfile(),
         goal,
         m_course->id(),
-        m_phrase->id(),
+        phrase->id(),
         static_cast<int>(LearnerProfile::ProfileManager::Skip),
-        m_phrase->progress()
+        phrase->progress()
     );
 
-    setPhrase(nextPhrase());
+    selectNextPhrase();
 }
 
-bool TrainingSession::hasNextPhrase() const
+void TrainingSession::selectNextPhrase()
 {
-    return nextPhrase() != nullptr;
+    if (auto action = activeAction()) {
+        action->setChecked(false);
+    }
+    // try to find next phrase, otherwise return completed
+    if (m_indexPhrase >= m_actions.at(m_indexUnit)->actions().count() - 1) {
+        if (m_indexUnit >= m_actions.count() - 1) {
+            emit completed();
+        } else {
+            ++m_indexUnit;
+            m_indexPhrase = 0;
+        }
+    } else {
+        ++m_indexPhrase;
+    }
+    if (auto action = activeAction()) {
+        action->setChecked(true);
+    }
+    emit phraseChanged();
+}
+
+bool TrainingSession::hasNext() const
+{
+    return m_indexUnit < m_actions.count() - 1 || m_indexPhrase < m_actions.last()->actions().count() - 1;
 }
 
 void TrainingSession::updateGoal()

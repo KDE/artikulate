@@ -47,14 +47,16 @@ Kirigami2.Page {
     actions {
         main: Kirigami2.Action {
             text: i18n("Next")
+            tooltip: i18n("Mark current phrase as completed and proceed with next one.")
             iconName: "dialog-ok"
-            onTriggered: g_trainingSession.showNextPhrase()
+            onTriggered: g_trainingSession.accept()
         }
         right: Kirigami2.Action {
             text: i18n("Skip")
+            tooltip: i18n("Skip current phrase and proceed with next one.")
             iconName: "go-next"
-            enabled: g_trainingSession.hasNextPhrase
-            onTriggered: g_trainingSession.skipPhrase()
+            enabled: g_trainingSession.hasNext
+            onTriggered: g_trainingSession.skip()
         }
     }
     Rectangle {

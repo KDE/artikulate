@@ -50,13 +50,13 @@ TrainingAction::TrainingAction(Phrase *phrase, TrainingSession *session, QObject
 
 void TrainingAction::appendChild(QObject* child)
 {
-    m_children.append(child);
-    emit childrenChanged();
+    m_actions.append(child);
+    emit actionsChanged();
 }
 
 bool TrainingAction::hasChildren() const
 {
-    return m_children.count() > 0;
+    return m_actions.count() > 0;
 }
 
 void TrainingAction::trigger()
@@ -80,7 +80,31 @@ void TrainingAction::setEnabled(bool enabled)
     emit enabledChanged(m_enabled);
 }
 
+bool TrainingAction::checked() const
+{
+    return m_checked;
+}
+
+void TrainingAction::setChecked(bool checked)
+{
+    if (checked == m_checked) {
+        return;
+    }
+    m_checked = checked;
+    emit checkedChanged(m_checked);
+}
+
 QObject * TrainingAction::icon() const
 {
     return m_icon;
+}
+
+Phrase * TrainingAction::phrase() const
+{
+    return m_phrase;
+}
+
+QList<QObject *> TrainingAction::actions() const
+{
+    return m_actions;
 }

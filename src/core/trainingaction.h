@@ -37,15 +37,10 @@ class ARTIKULATECORE_EXPORT TrainingAction : public QObject
     Q_PROPERTY(QObject* icon READ icon CONSTANT)
     Q_PROPERTY(bool visible MEMBER m_visible CONSTANT)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
-    Q_PROPERTY(bool checked MEMBER m_checked CONSTANT)
+    Q_PROPERTY(bool checked READ checked NOTIFY checkedChanged)
     Q_PROPERTY(QString tooltip MEMBER m_tooltip CONSTANT)
-    Q_PROPERTY(QList<QObject*> children MEMBER m_children NOTIFY childrenChanged)
+    Q_PROPERTY(QList<QObject*> children READ actions NOTIFY actionsChanged)
     Q_PROPERTY(bool checkable MEMBER m_checkable CONSTANT)
-
-Q_SIGNALS:
-    void changed();
-    void childrenChanged();
-    void enabledChanged(bool enabled);
 
 public:
     TrainingAction(QObject *parent = nullptr);
@@ -56,7 +51,17 @@ public:
     Q_INVOKABLE void trigger();
     bool enabled() const;
     void setEnabled(bool enabled);
+    void setChecked(bool checked);
+    bool checked() const;
     QObject * icon() const;
+    Phrase * phrase() const;
+    QList<QObject*> actions() const;
+
+Q_SIGNALS:
+    void changed();
+    void actionsChanged();
+    void enabledChanged(bool enabled);
+    void checkedChanged(bool checked);
 
 private:
     QString m_text;
@@ -66,7 +71,7 @@ private:
     bool m_checked{false};
     bool m_checkable{false};
     QString m_tooltip{QString()};
-    QList<QObject*> m_children;
+    QList<QObject*> m_actions;
     Phrase *m_phrase{nullptr};
     TrainingSession * m_trainingSession{nullptr};
 };
