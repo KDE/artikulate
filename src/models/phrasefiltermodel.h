@@ -48,8 +48,8 @@ public:
     void setSortOption(SortOption option = Id);
     SortOption sortOption() const;
     int filteredCount() const;
-    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const Q_DECL_OVERRIDE;
-    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const Q_DECL_OVERRIDE;
+    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
+    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
     void setHideExcluded(bool hide=true);
     bool isHideExcluded() const;
     void setHideNotRecorded(bool hide=true);

@@ -31,19 +31,19 @@ public:
     explicit QtMultimediaOutputBackend(QObject *parent = nullptr);
     virtual ~QtMultimediaOutputBackend();
 
-    void setUri(const QString & uri) Q_DECL_OVERRIDE;
+    void setUri(const QString & uri) override;
     /**
      * volume as cubic value
      */
-    int volume() const Q_DECL_OVERRIDE;
+    int volume() const override;
 
-    OutputDeviceController::State state() const Q_DECL_OVERRIDE;
+    OutputDeviceController::State state() const override;
 
 public Q_SLOTS:
-    void play() Q_DECL_OVERRIDE;
-    void pause() Q_DECL_OVERRIDE;
-    void stop() Q_DECL_OVERRIDE;
-    void setVolume(int volume) Q_DECL_OVERRIDE;
+    void play() override;
+    void pause() override;
+    void stop() override;
+    void setVolume(int volume) override;
 
 private:
     QMediaPlayer *m_player;

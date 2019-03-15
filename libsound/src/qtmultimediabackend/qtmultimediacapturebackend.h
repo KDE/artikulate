@@ -36,12 +36,12 @@ public:
     explicit QtMultimediaCaptureBackend(QObject *parent);
     virtual ~QtMultimediaCaptureBackend();
 
-    void startCapture(const QString &filePath) Q_DECL_OVERRIDE;
-    void stopCapture() Q_DECL_OVERRIDE;
-    CaptureDeviceController::State captureState() const Q_DECL_OVERRIDE;
+    void startCapture(const QString &filePath) override;
+    void stopCapture() override;
+    CaptureDeviceController::State captureState() const override;
 
-    QStringList devices() const Q_DECL_OVERRIDE;
-    void setDevice(const QString &deviceIdentifier) Q_DECL_OVERRIDE;
+    QStringList devices() const override;
+    void setDevice(const QString &deviceIdentifier) override;
 
 private:
     QAudioRecorder *m_recorder;

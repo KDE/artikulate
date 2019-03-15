@@ -37,8 +37,8 @@ public:
     UnitModel * unitModel() const;
     void setUnitModel(UnitModel* unitModel);
     int filteredCount() const;
-    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const Q_DECL_OVERRIDE;
-    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const Q_DECL_OVERRIDE;
+    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
+    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
 Q_SIGNALS:
     void unitModelChanged();

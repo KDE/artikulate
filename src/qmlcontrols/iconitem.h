@@ -64,13 +64,13 @@ public:
     void setEnabled(bool enabled = true);
     bool enabled() const;
 
-    QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData* data) Q_DECL_OVERRIDE;
+    QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData* data) override;
 
 Q_SIGNALS:
     void stateChanged(State state);
 
 protected:
-    void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry) Q_DECL_OVERRIDE;
+    void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry) override;
 
 private:
     QIcon m_icon;

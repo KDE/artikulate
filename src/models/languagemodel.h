@@ -45,7 +45,7 @@ public:
     explicit LanguageModel(QObject *parent = nullptr);
     LanguageResourceModel * resourceModel() const;
     void setResourceModel(LanguageResourceModel *resourceModel);
-    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const Q_DECL_OVERRIDE;
+    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
     void setView(LanguageResourceView view);
     LanguageResourceView view() const;
     Q_INVOKABLE QVariant language(int index) const;

@@ -40,15 +40,15 @@ public:
     };
 
     explicit PhraseModel(QObject *parent = nullptr);
-    virtual QHash<int,QByteArray> roleNames() const Q_DECL_OVERRIDE;
+    virtual QHash<int,QByteArray> roleNames() const override;
     void setCourse(Course *course);
     Course * course() const;
-    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
-    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
-    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
-    virtual QModelIndex parent(const QModelIndex &child) const Q_DECL_OVERRIDE;
-    virtual QModelIndex index(int row, int column, const QModelIndex &parent) const Q_DECL_OVERRIDE;
-    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+    virtual QModelIndex parent(const QModelIndex &child) const override;
+    virtual QModelIndex index(int row, int column, const QModelIndex &parent) const override;
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     Q_INVOKABLE bool isPhrase(const QModelIndex &index) const;
     Q_INVOKABLE Phrase * phrase(const QModelIndex &index) const;
     Q_INVOKABLE Unit * unit(const QModelIndex &index) const;

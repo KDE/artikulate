@@ -49,14 +49,14 @@ public:
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
-    virtual QHash<int,QByteArray> roleNames() const Q_DECL_OVERRIDE;
+    virtual QHash<int,QByteArray> roleNames() const override;
     void setCourse(Course *course);
     Course * course() const;
     void setPhonemeGroup(PhonemeGroup *phonemeGroup);
     PhonemeGroup * phonemeGroup() const;
-    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
-    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
-    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     int count() const;
 
 Q_SIGNALS:

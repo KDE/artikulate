@@ -41,43 +41,43 @@ public:
     /**
      * \return unique identifier
      */
-    QString identifier() Q_DECL_OVERRIDE;
+    QString identifier() override;
 
     /**
      * \return human readable localized title
      */
-    QString title() Q_DECL_OVERRIDE;
+    QString title() override;
 
     /**
      * \return human readable title in English
      */
-    QString i18nTitle() Q_DECL_OVERRIDE;
+    QString i18nTitle() override;
 
     /**
      * \return type of resource
      */
-    Type type() const Q_DECL_OVERRIDE;
+    Type type() const override;
 
     /**
      * \return true if resource is loaded, otherwise false
      */
-    bool isOpen() const Q_DECL_OVERRIDE;
+    bool isOpen() const override;
 
     /**
      * close resource without writing changes back to file
      */
-    void close() Q_DECL_OVERRIDE;
+    void close() override;
 
     /**
      * \return path to resource file
      */
-    QUrl path() const Q_DECL_OVERRIDE;
+    QUrl path() const override;
 
     /**
      * \return reference to the loaded resource
      * if resource is not open yet, it will be loaded
      */
-    QObject * resource() Q_DECL_OVERRIDE;
+    QObject * resource() override;
 
     /**
      * \return reference to the loaded language resource
