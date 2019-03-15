@@ -135,7 +135,7 @@ private:
     bool m_modified;
     QList<Unit *> m_unitList;
     QList<PhonemeGroup *> m_phonemeGroupList;
-    QMap< PhonemeGroup *, QList< QPair<Phoneme *, Unit *> > >m_phonemeUnitList;
+    QMap<PhonemeGroup *, QList<QPair<Phoneme *, Unit *>>> m_phonemeUnitList;
 };
 
 #endif // COURSE_H

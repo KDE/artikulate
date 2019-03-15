@@ -35,7 +35,7 @@ Learner::Learner(QObject *parent)
 {
     connect(this, &Learner::goalAdded,
             this, &Learner::goalCountChanged);
-    connect(this, static_cast<void (Learner::*)()>(&Learner::goalRemoved),
+    connect(this, &Learner::goalRemoved,
             this, &Learner::goalCountChanged);
 }
 
@@ -140,7 +140,6 @@ void Learner::removeGoal(LearnerProfile::LearningGoal *goal)
     }
     emit goalAboutToBeRemoved(index);
     d->m_goals.removeAt(index);
-    emit goalRemoved();
     emit goalRemoved(this, goal);
 }
 

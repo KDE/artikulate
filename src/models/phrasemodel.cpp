@@ -78,9 +78,9 @@ void PhraseModel::setCourse(Course *course)
         foreach (auto const &unit, m_course->unitList()) {
             // connect to phrase changes
             connect(unit, &Unit::phraseAboutToBeAdded, this, &PhraseModel::onPhraseAboutToBeAdded);
-            connect(unit, static_cast<void (Unit::*)()>(&Unit::phraseAdded), this, &PhraseModel::onPhraseAdded);
+            connect(unit, &Unit::phraseAdded, this, &PhraseModel::onPhraseAdded);
             connect(unit, &Unit::phraseAboutToBeRemoved, this, &PhraseModel::onPhrasesAboutToBeRemoved);
-            connect(unit, static_cast<void (Unit::*)()>(&Unit::phraseRemoved), this, &PhraseModel::onPhrasesRemoved);
+            connect(unit, &Unit::phraseRemoved, this, &PhraseModel::onPhrasesRemoved);
             connect(unit, &Unit::titleChanged, m_unitSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 
             // insert and connect all already existing phrases

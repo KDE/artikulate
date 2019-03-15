@@ -133,8 +133,7 @@ ProfileManager::ProfileManager(QObject *parent)
     connect (this, &ProfileManager::profileRemoved, this, &ProfileManager::profileCountChanged);
 
     foreach (Learner *learner, d->m_profiles) {
-        connect (learner, SIGNAL(goalRemoved(Learner*,LearningGoal*)),
-                this, SLOT(removeLearningGoal(Learner*,LearningGoal*)));
+        connect(learner, &Learner::goalRemoved, this, &ProfileManager::removeLearningGoal);
     }
 }
 

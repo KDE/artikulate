@@ -118,7 +118,6 @@ void Unit::addPhrase(Phrase *phrase)
     m_phraseSignalMapper->setMapping(phrase, phrase->id());
 
     emit phraseAdded(phrase);
-    emit phraseAdded();
 
     connect(phrase, &Phrase::typeChanged, m_phraseSignalMapper,
         static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));

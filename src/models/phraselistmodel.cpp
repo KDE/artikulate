@@ -69,9 +69,9 @@ void PhraseListModel::setUnit(Unit *unit)
     if (m_unit) {
         // initial setting of signal mappings
         connect(m_unit, &Unit::phraseAboutToBeAdded, this, &PhraseListModel::onPhraseAboutToBeAdded);
-        connect(m_unit, SIGNAL(phraseAdded()), SLOT(onPhraseAdded()));
+        connect(m_unit, &Unit::phraseAdded, this, &PhraseListModel::onPhraseAdded);
         connect(m_unit, &Unit::phraseAboutToBeRemoved, this, &PhraseListModel::onPhrasesAboutToBeRemoved);
-        connect(m_unit, SIGNAL(phraseRemoved()), SLOT(onPhrasesRemoved()));
+        connect(m_unit, &Unit::phraseRemoved, this, &PhraseListModel::onPhrasesRemoved);
 
         // insert and connect all already existing phrases
         int phrases = m_unit->phraseList().count();

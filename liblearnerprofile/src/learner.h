@@ -84,7 +84,6 @@ Q_SIGNALS:
     void goalAboutToBeAdded(LearningGoal*,int);
     void goalAdded();
     void goalAboutToBeRemoved(int);
-    void goalRemoved();
     void goalRemoved(Learner*, LearningGoal*);
     void goalCountChanged();
     void activeGoalChanged();

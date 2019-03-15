@@ -66,7 +66,7 @@ void ProfileModel::setProfileManager(ProfileManager *profileManager)
     if (m_profileManager) {
         // initial setting of signal mappings
         connect(m_profileManager, &ProfileManager::profileAdded, this, &ProfileModel::onProfileAdded);
-        connect(m_profileManager, SIGNAL(profileAboutToBeRemoved(int)), SLOT(onProfilesAboutToBeRemoved(int)));
+        connect(m_profileManager, &ProfileManager::profileAboutToBeRemoved, this, &ProfileModel::onProfileAboutToBeRemoved);
 
         // insert and connect all already existing profiles
         int profiles = m_profileManager->profiles().count();

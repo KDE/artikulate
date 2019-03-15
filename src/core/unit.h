@@ -70,10 +70,8 @@ Q_SIGNALS:
     void courseChanged();
     void displayPhraseTypeChanged();
     void modified();
-    void phraseAdded();
     void phraseAdded(Phrase*);
     void phraseAboutToBeAdded(Phrase*,int);
-    void phraseRemoved();
     void phraseRemoved(Phrase*);
     void phraseAboutToBeRemoved(int,int);
 
