@@ -338,8 +338,3 @@ void Course::registerPhrasePhonemes(Phrase *phrase)
         }
     }
 }
-
-void Course::removePhrasePhonemes(Phrase* phrase)
-{
-    qCritical() << "Not yet implemented!";
-}

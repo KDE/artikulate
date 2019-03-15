@@ -27,7 +27,7 @@
 #include <QStandardPaths>
 
 SoundDeviceDialogPage::SoundDeviceDialogPage()
-    : QWidget(0)
+    : QWidget(nullptr)
 {
     ui = new Ui::SoundDeviceDialogPage;
     ui->setupUi(this);
@@ -93,7 +93,7 @@ void SoundDeviceDialogPage::saveSettings()
 {
     Settings::setAudioInputDevice(ui->kcfg_AudioInputDevice->itemText(ui->kcfg_AudioInputDevice->currentIndex()));
 //     Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
-    Settings::setAudioOutputVolume((int) ui->kcfg_AudioOutputVolume->value());
+    Settings::setAudioOutputVolume(static_cast<int>(ui->kcfg_AudioOutputVolume->value()));
     OutputDeviceController::self().setVolume(ui->kcfg_AudioOutputVolume->value());
     Settings::self()->save();
 }

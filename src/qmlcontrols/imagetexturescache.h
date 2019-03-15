@@ -25,7 +25,7 @@
 
 class QImage;
 class QSGTexture;
-class ImageTexturesCachePrivate;
+struct ImageTexturesCachePrivate;
 
 /**
  * @short Helps to manage textures by creating images and reference counts them.

@@ -105,7 +105,7 @@ PhonemeGroup * Language::addPhonemeGroup(const QString &identifier, const QStrin
     while (iter != m_phonemeGroups.constEnd()) {
         if (QString::compare((*iter)->id(), identifier) == 0) {
             qCWarning(ARTIKULATE_LOG) << "Pronunciation Group identifier already registered, aborting";
-            return 0;
+            return nullptr;
         }
         ++iter;
     }

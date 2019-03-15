@@ -53,16 +53,13 @@ OutputDeviceController::State QtMultimediaOutputBackend::state() const
     switch (m_player->state()) {
     case QMediaPlayer::StoppedState:
         return OutputDeviceController::StoppedState;
-        break;
     case QMediaPlayer::PlayingState:
         return OutputDeviceController::PlayingState;
-        break;
     case QMediaPlayer::PausedState:
         return OutputDeviceController::PausedState;
-        break;
-    default:
-        return OutputDeviceController::StoppedState;
     }
+    Q_UNREACHABLE();
+    return OutputDeviceController::StoppedState;
 }
 
 void QtMultimediaOutputBackend::play()

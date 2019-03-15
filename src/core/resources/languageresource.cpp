@@ -37,8 +37,8 @@ class LanguageResourcePrivate
 public:
     LanguageResourcePrivate(ResourceManager *resourceManager)
         : m_resourceManager(resourceManager)
-        , m_type(ResourceInterface::LanguageResourceType)
         , m_languageResource(nullptr)
+        , m_type(ResourceInterface::LanguageResourceType)
     {
     }
 
@@ -47,12 +47,12 @@ public:
     }
 
     ResourceManager *m_resourceManager;
-    QUrl m_path;
-    ResourceInterface::Type m_type;
+    Language *m_languageResource;
     QString m_identifier;
+    QUrl m_path;
     QString m_title;
     QString m_i18nTitle;
-    Language *m_languageResource;
+    ResourceInterface::Type m_type;
 };
 
 LanguageResource::LanguageResource(ResourceManager *resourceManager, const QUrl &path)
@@ -127,7 +127,7 @@ void LanguageResource::close()
 
 bool LanguageResource::isOpen() const
 {
-    return (d->m_languageResource != 0);
+    return (d->m_languageResource != nullptr);
 }
 
 QUrl LanguageResource::path() const
@@ -137,24 +137,24 @@ QUrl LanguageResource::path() const
 
 QObject * LanguageResource::resource()
 {
-    if (d->m_languageResource != 0) {
+    if (d->m_languageResource != nullptr) {
         return d->m_languageResource;
     }
 
     if (!d->m_path.isLocalFile()) {
         qCWarning(ARTIKULATE_LOG) << "Cannot open language file at " << d->m_path.toLocalFile() << ", aborting.";
-        return 0;
+        return nullptr;
     }
 
     QXmlSchema schema = loadXmlSchema(QStringLiteral("language"));
     if (!schema.isValid()) {
-        return 0;
+        return nullptr;
     }
 
     QDomDocument document = loadDomDocument(d->m_path, schema);
     if (document.isNull()) {
         qCWarning(ARTIKULATE_LOG) << "Could not parse document " << d->m_path.toLocalFile() << ", aborting.";
-        return 0;
+        return nullptr;
     }
 
     QDomElement root(document.documentElement());

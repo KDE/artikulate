@@ -147,7 +147,7 @@ void MainWindow::showSettingsDialog()
     if (KConfigDialog::showDialog(QStringLiteral("settings"))) {
         return;
     }
-    QPointer<KConfigDialog> dialog = new KConfigDialog(0, QStringLiteral("settings"), Settings::self());
+    QPointer<KConfigDialog> dialog = new KConfigDialog(nullptr, QStringLiteral("settings"), Settings::self());
 
     ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_resourceManager);
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();

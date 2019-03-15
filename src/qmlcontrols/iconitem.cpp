@@ -120,10 +120,10 @@ QSGNode* IconItem::updatePaintNode(QSGNode* node, QQuickItem::UpdatePaintNodeDat
 {
     if (m_icon.isNull()) {
         delete node;
-        return Q_NULLPTR;
+        return nullptr;
     }
 
-    if (m_changed || node == 0) {
+    if (m_changed || node == nullptr) {
         m_changed = false;
 
         ManagedTextureNode* mNode = dynamic_cast<ManagedTextureNode*>(node);
@@ -146,7 +146,7 @@ QSGNode* IconItem::updatePaintNode(QSGNode* node, QQuickItem::UpdatePaintNodeDat
         }
 
         QImage img;
-        const QSize size(width(), height());
+        const QSize size(static_cast<int>(width()), static_cast<int>(height()));
         if (!size.isEmpty()) {
             img = m_icon.pixmap(size, mode, QIcon::On).toImage();
         }

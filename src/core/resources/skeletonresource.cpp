@@ -40,22 +40,20 @@ class SkeletonResourcePrivate
 public:
     SkeletonResourcePrivate(ResourceManager *resourceManager)
         : m_resourceManager(resourceManager)
-        , m_type(ResourceInterface::SkeletonResourceType)
         , m_skeletonResource(nullptr)
+        , m_type(ResourceInterface::SkeletonResourceType)
     {
     }
 
-    ~SkeletonResourcePrivate()
-    {
-    }
+    ~SkeletonResourcePrivate() = default;
 
     ResourceManager *m_resourceManager;
     QUrl m_path;
-    ResourceInterface::Type m_type;
     QString m_identifier;
     QString m_title;
     QString m_i18nTitle;
     Skeleton *m_skeletonResource;
+    ResourceInterface::Type m_type;
 };
 
 SkeletonResource::SkeletonResource(ResourceManager *resourceManager, const QUrl &path)

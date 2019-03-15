@@ -23,7 +23,7 @@
 
 
 AppearenceDialogPage::AppearenceDialogPage()
-    : QWidget(0)
+    : QWidget(nullptr)
 {
     ui = new Ui::AppearenceDialogPage;
     ui->setupUi(this);

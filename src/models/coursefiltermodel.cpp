@@ -98,9 +98,9 @@ bool CourseFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourc
         return sourceModel()->data(index, CourseModel::ContributerResourceRole).toBool();
     case CourseFilterModel::OnlyGetHotNewStuffResources:
         return !sourceModel()->data(index, CourseModel::ContributerResourceRole).toBool();
-    default:
-        return true;
     }
+    Q_UNREACHABLE();
+    return false;
 }
 
 QVariant CourseFilterModel::course(int row) const

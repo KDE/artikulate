@@ -72,7 +72,7 @@ LearnerProfile::ProfileManagerPrivate::ProfileManagerPrivate()
             if (activeGoalsCategories.count() == activeGoalsIdentifiers.count()) {
                 for (int i = 0; i < activeGoalsCategories.count(); ++i) {
                     m_activeProfile->setActiveGoal(
-                        (Learner::Category) activeGoalsCategories.at(i),
+                        static_cast<Learner::Category>(activeGoalsCategories.at(i)),
                         activeGoalsIdentifiers.at(i));
                 }
             } else {
@@ -101,13 +101,13 @@ void ProfileManagerPrivate::sync()
         QList<QString> goalIdentifiers;
         // compute used goals
         foreach (LearningGoal *goal, m_activeProfile->goals()) {
-            if (!goalCatogries.contains((int) goal->category())) {
-                goalCatogries.append((int) goal->category());
+            if (!goalCatogries.contains(static_cast<int>(goal->category()))) {
+                goalCatogries.append(static_cast<int>(goal->category()));
             }
         }
         // compute active goals
         foreach (int category, goalCatogries) {
-            goalIdentifiers.append(m_activeProfile->activeGoal((Learner::Category) category)->identifier());
+            goalIdentifiers.append(m_activeProfile->activeGoal(static_cast<Learner::Category>(category))->identifier());
         }
         activeProfileGroup.writeEntry("activeGoalsCategories", goalCatogries);
         activeProfileGroup.writeEntry("activeGoalsIdentifiers", goalIdentifiers);
@@ -157,7 +157,8 @@ int ProfileManager::profileCount() const
 
 void ProfileManager::openImageFileDialog()
 {
-    const QString imagePath = QFileDialog::getOpenFileName(0,
+    const QString imagePath = QFileDialog::getOpenFileName(
+        nullptr,
         i18n("Open Image"),
         QLatin1String(""),
         i18n("Image Files (*.png *.jpg *.bmp)"));
@@ -182,7 +183,7 @@ Learner * ProfileManager::addProfile(const QString &name)
     d->m_storage.storeProfile(learner);
     emit profileAdded(learner, d->m_profiles.count() - 1);
 
-    if (activeProfile() == 0) {
+    if (activeProfile() == nullptr) {
         setActiveProfile(learner);
     }
 

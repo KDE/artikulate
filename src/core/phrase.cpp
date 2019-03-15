@@ -168,9 +168,8 @@ QString Phrase::editStateString() const
         return QStringLiteral("translated");
     case Completed:
         return QStringLiteral("completed");
-    default:
-        return QStringLiteral("ERROR_UNKNOWN_EDIT_STATE");
     }
+    Q_UNREACHABLE();
 }
 
 void Phrase::setEditState(Phrase::EditState state)
@@ -273,15 +272,19 @@ void Phrase::setExcluded(bool excluded)
 
 int Phrase::progress() const
 {
-    return m_trainingProgress;
+    return static_cast<int>(m_trainingProgress);
 }
 
 void Phrase::setProgress(int value)
 {
-    if (m_trainingProgress == value) {
+    Q_ASSERT(value >= 0);
+    if (value < 0) {
+        value = 0;
+    }
+    if (m_trainingProgress == static_cast<uint>(value)) {
         return;
     }
-    m_trainingProgress = value;
+    m_trainingProgress = static_cast<uint>(value);
     emit progressChanged();
 }
 void Phrase::updateProgress(Phrase::Progress progress)

@@ -107,7 +107,6 @@ public:
 public Q_SLOTS:
     void setModified(bool modified = true);
     void registerPhrasePhonemes(Phrase *phrase);
-    void removePhrasePhonemes(Phrase *phrase);
 
 Q_SIGNALS:
     void idChanged();

@@ -44,8 +44,8 @@ class CourseResourcePrivate
 public:
     CourseResourcePrivate(ResourceManager *resourceManager)
         : m_resourceManager(resourceManager)
-        , m_type(ResourceInterface::CourseResourceType)
         , m_courseResource(nullptr)
+        , m_type(ResourceInterface::CourseResourceType)
     {
     }
 
@@ -55,12 +55,12 @@ public:
 
     ResourceManager *m_resourceManager;
     QUrl m_path;
-    ResourceInterface::Type m_type;
     QString m_identifier;
     QString m_title;
     QString m_language;
     QString m_i18nTitle;
     Course *m_courseResource;
+    ResourceInterface::Type m_type;
 };
 
 CourseResource::CourseResource(ResourceManager *resourceManager, const QUrl &path)

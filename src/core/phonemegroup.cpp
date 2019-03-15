@@ -105,7 +105,7 @@ Phoneme * PhonemeGroup::addPhoneme(const QString &identifier, const QString &tit
         if (QString::compare((*iter)->id(), identifier) == 0) {
             qCWarning(ARTIKULATE_LOG) << "Phoneme identifier " << identifier <<" already registered in group "
                 << m_title <<", aborting";
-            return 0;
+            return nullptr;
         }
         ++iter;
     }
