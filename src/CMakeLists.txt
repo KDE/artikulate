@@ -154,13 +154,13 @@ set(artikulate_editor_SRCS
     ui/resourcesdialogpage.cpp
     ui/exportghnsdialog.cpp
 )
-ki18n_wrap_ui (artikulate_editor_SRCS
+ki18n_wrap_ui(artikulate_editor_SRCS
     ui/appearencedialogpage.ui
     ui/exportghnsdialog.ui
     ui/resourcesdialogpage.ui
     ui/sounddevicedialogpage.ui
 )
-qt5_add_resources(artikulate_editor_SRCS qml/qml.qrc)
+qt5_add_resources(artikulate_editor_SRCS resources.qrc)
 kconfig_add_kcfg_files (artikulate_editor_SRCS settings.kcfgc)
 
 # executables

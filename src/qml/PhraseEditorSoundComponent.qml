@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,8 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.1
-import QtQuick.Controls 1.2
+import QtQuick 2.5
+import QtQuick.Controls 2.3
 import artikulate 1.0
 
 Item {
@@ -70,7 +70,7 @@ Item {
 
             ToolButton {
                 anchors.verticalCenter: parent.verticalCenter
-                iconName: "dialog-ok-apply"
+                icon.name: "dialog-ok-apply"
                 text: i18n("Replace existing recording")
                 onClicked: {
                     recorder.storeToFile(phrase.soundFileOutputPath())
@@ -78,7 +78,7 @@ Item {
             }
             ToolButton {
                 anchors.verticalCenter: parent.verticalCenter
-                iconName: "dialog-cancel"
+                icon.name: "dialog-cancel"
                 text: i18n("Dismiss")
                 onClicked: {
                     recorder.clearBuffer()

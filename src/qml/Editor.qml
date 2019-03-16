@@ -18,8 +18,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.1
-import QtQuick.Controls 1.4
+import QtQuick 2.5
+import QtQuick.Controls 2.3
+import QtQuick.Controls 1.4 as QQC1
 import QtQuick.Layouts 1.2
 import QtQml.Models 2.2
 import artikulate 1.0
@@ -93,7 +94,7 @@ Item
                 id: buttonEditSkeleton
                 Layout.minimumWidth: 200
                 text: i18n("Edit Prototype")
-                iconName: "code-class"
+                icon.name: "code-class"
                 checkable: true
                 onClicked: editorSession.editSkeleton = checked
             }
@@ -103,8 +104,11 @@ Item
                 enabled: !buttonEditSkeleton.checked
                 Layout.minimumWidth: 200
                 text: i18n("Sync Prototype")
-                tooltip: i18n("Update the course with elements from prototype.")
-                iconName: "view-refresh"
+                icon.name: "view-refresh"
+                ToolTip.visible: hovered
+                ToolTip.delay: 1000
+                ToolTip.timeout: 5000
+                ToolTip.text: i18n("Update the course with elements from prototype.")
                 onClicked: editorSession.updateCourseFromSkeleton()
             }
             CheckBox {
@@ -174,7 +178,7 @@ Item
             }
             Button {
                 text: i18n("Create Course")
-                iconName: "journal-new"
+                icon.name: "journal-new"
                 onClicked: {
                     editorSession.course = g_resourceManager.createCourse(editorSession.language, editorSession.skeleton)
                 }
@@ -189,7 +193,7 @@ Item
                 ScrollView {
                     Layout.minimumWidth: Math.floor(main.width * 0.3)
                     Layout.fillHeight: true
-                    TreeView {
+                    QQC1.TreeView {
                         id: phraseTree
                         height: {
                             mainRow.height
@@ -197,7 +201,7 @@ Item
                             - 10
                         }
                         width: Math.floor(main.width * 0.3) - 20
-                        TableViewColumn {
+                        QQC1.TableViewColumn {
                             title: i18n("Units & Phrases")
                             role: "text"
                         }
@@ -241,7 +245,7 @@ Item
                 Button { // add units only if skeleton
                     id: newUnitButton
                     visible: !editorSession.skeletonMode || editorSession.editSkeleton
-                    iconName: "list-add"
+                    icon.name: "list-add"
                     text: i18n("New Unit")
                     onClicked: phraseModel.course.createUnit()
                 }
