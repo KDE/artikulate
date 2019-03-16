@@ -41,7 +41,7 @@ include(ECMSetupVersion)
 include(FeatureSummary)
 include(GenerateExportHeader)
 
-find_package(Qt5 5.5 REQUIRED COMPONENTS
+find_package(Qt5 5.10 REQUIRED COMPONENTS
     Widgets
     Sql
     XmlPatterns
@@ -50,7 +50,7 @@ find_package(Qt5 5.5 REQUIRED COMPONENTS
     QuickWidgets
     Test
 )
-find_package(KF5 5.36 REQUIRED COMPONENTS
+find_package(KF5 5.57 REQUIRED COMPONENTS
     Archive
     Config
     Crash
