@@ -23,9 +23,8 @@
 
 #include <QMap>
 #include <QString>
+#include <QAudioRecorder>
 
-class QAudioRecorder;
-class QMediaRecorder;
 class QMediaObject;
 
 class QtMultimediaCaptureBackend : public CaptureBackendInterface
@@ -34,7 +33,7 @@ class QtMultimediaCaptureBackend : public CaptureBackendInterface
 
 public:
     explicit QtMultimediaCaptureBackend(QObject *parent);
-    virtual ~QtMultimediaCaptureBackend();
+    ~QtMultimediaCaptureBackend() override = default;
 
     void startCapture(const QString &filePath) override;
     void stopCapture() override;
@@ -44,8 +43,7 @@ public:
     void setDevice(const QString &deviceIdentifier) override;
 
 private:
-    QAudioRecorder *m_recorder;
-
+    QAudioRecorder m_recorder;
     QString m_device;
 };
 

@@ -26,23 +26,27 @@
 
 QtMultimediaCaptureBackend::QtMultimediaCaptureBackend(QObject *parent)
     : CaptureBackendInterface(parent)
-    , m_recorder(new QAudioRecorder)
 {
     QAudioEncoderSettings audioSettings;
-    audioSettings.setCodec(QStringLiteral("audio/vorbis"));
-    audioSettings.setQuality(QMultimedia::HighQuality);
-    m_recorder->setAudioSettings(audioSettings);
-}
 
-QtMultimediaCaptureBackend::~QtMultimediaCaptureBackend()
-{
-    m_recorder->deleteLater();
-    m_recorder = nullptr;
+    QStringList availableCodecs = m_recorder.supportedAudioCodecs();
+    if (availableCodecs.contains(QStringLiteral("audio/x-vorbis"))) {
+        audioSettings.setCodec(QStringLiteral("audio/x-vorbis"));
+    } else if (availableCodecs.contains(QStringLiteral("audio/vorbis"))) {
+        audioSettings.setCodec(QStringLiteral("audio/vorbis"));
+    } else {
+        qCWarning(LIBSOUND_LOG()) << "No vorbis codec was found for recordings";
+        audioSettings.setCodec(availableCodecs.first());
+    }
+    qCDebug(LIBSOUND_LOG()) << "recording codec set to" << audioSettings.codec();
+
+    audioSettings.setQuality(QMultimedia::HighQuality);
+    m_recorder.setAudioSettings(audioSettings);
 }
 
 CaptureDeviceController::State QtMultimediaCaptureBackend::captureState() const
 {
-    switch (m_recorder->state()) {
+    switch (m_recorder.state()) {
     case QMediaRecorder::StoppedState:
         return CaptureDeviceController::StoppedState;
     case QMediaRecorder::RecordingState:
@@ -56,24 +60,24 @@ CaptureDeviceController::State QtMultimediaCaptureBackend::captureState() const
 
 void QtMultimediaCaptureBackend::startCapture(const QString &filePath)
 {
-    m_recorder->setOutputLocation(QUrl::fromLocalFile(filePath));
-    m_recorder->record();
+    m_recorder.setOutputLocation(QUrl::fromLocalFile(filePath));
+    m_recorder.record();
 }
 
 void QtMultimediaCaptureBackend::stopCapture()
 {
-    m_recorder->stop();
+    m_recorder.stop();
 }
 
 QStringList QtMultimediaCaptureBackend::devices() const
 {
-    return m_recorder->audioInputs();
+    return m_recorder.audioInputs();
 }
 
 void QtMultimediaCaptureBackend::setDevice(const QString &deviceIdentifier)
 {
     if (devices().contains(deviceIdentifier)) {
-        m_recorder->setAudioInput(deviceIdentifier);
+        m_recorder.setAudioInput(deviceIdentifier);
     } else {
         qCDebug(LIBSOUND_LOG) << "Could not set unknown capture device:" << deviceIdentifier;
     }

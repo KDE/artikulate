@@ -20,9 +20,9 @@
 
 #include "recorder.h"
 #include "libsound/src/capturedevicecontroller.h"
+#include "artikulate_debug.h"
 
 #include <QList>
-#include "artikulate_debug.h"
 #include <QDir>
 #include <QUrl>
 #include <QString>
