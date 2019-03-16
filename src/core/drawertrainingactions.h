@@ -49,6 +49,7 @@ Q_SIGNALS:
 
 private:
     TrainingSession *m_session{nullptr};
+    TrainingAction *m_defaultAction{nullptr};
 };
 
 #endif
