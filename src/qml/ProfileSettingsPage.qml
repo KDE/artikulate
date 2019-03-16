@@ -29,6 +29,9 @@ Kirigami.Page {
     Layout.fillWidth: true
 
     title: i18n("Configure Profile")
+    background: Rectangle {
+        color: "#ffffff"
+    }
 
     readonly property Learner profile: g_profileManager.activeProfile
 

@@ -22,14 +22,18 @@
 import QtQuick 2.5
 import QtQuick.Shapes 1.10
 import QtQuick.Controls 2.3 as QQC2
-import org.kde.kirigami 2.0 as Kirigami2
+import org.kde.kirigami 2.7 as Kirigami
 import artikulate 1.0
 
-Kirigami2.Page {
+Kirigami.Page {
     id: root
 
     readonly property color colorTask: "#1dbf4e"
     readonly property color colorAnswer: "#7e48a5"
+
+    background: Rectangle {
+        color: "#ffffff"
+    }
 
     title: {
         var titleString = "";
@@ -45,13 +49,13 @@ Kirigami2.Page {
         return titleString
     }
     actions {
-        main: Kirigami2.Action {
+        main: Kirigami.Action {
             text: i18n("Next")
             tooltip: i18n("Mark current phrase as completed and proceed with next one.")
             iconName: "dialog-ok"
             onTriggered: g_trainingSession.accept()
         }
-        right: Kirigami2.Action {
+        right: Kirigami.Action {
             text: i18n("Skip")
             tooltip: i18n("Skip current phrase and proceed with next one.")
             iconName: "go-next"

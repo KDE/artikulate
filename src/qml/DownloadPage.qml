@@ -27,6 +27,9 @@ import org.kde.newstuff 1.0 as KNS
 Kirigami.Page {
     id: root
     title: i18n("Download Training Material")
+    background: Rectangle {
+        color: "#ffffff"
+    }
 
     Component {
         id: courseDownloadItem
