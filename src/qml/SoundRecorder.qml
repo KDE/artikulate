@@ -18,9 +18,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.1
-import QtQuick.Controls 2.1 as QQC2
-import org.kde.kirigami 2.0 as Kirigami2
+import QtQuick 2.10
+import QtQuick.Controls 2.3
 import artikulate 1.0
 
 Item {
@@ -28,9 +27,15 @@ Item {
     width: button.width
     height: button.height
 
-    property string outputFileUrl: recorderBackend.recordingFile
+    /**
+     * the display text on the button
+     */
+    property string text: i18n("Record")
 
-    signal stopped()
+    /**
+     * the path to the sound file
+     */
+    readonly property string outputFileUrl: recorderBackend.recordingFile
 
     function storeToFile(filePath) {
         recorderBackend.storeToFile(filePath);
@@ -45,16 +50,11 @@ Item {
         id: recorderBackend
     }
 
-    QQC2.RoundButton {
+    Button {
         id: button
-
-        Kirigami2.Icon {
-            id: icon
-            source: "media-record"
-            width: 32
-            height: width
-            anchors.centerIn: parent
-        }
+        checkable: false
+        icon.name: "media-record"
+        text: root.text
 
         onClicked: {
             if (recorderBackend.state === Recorder.RecordingState) {
@@ -68,17 +68,15 @@ Item {
                 return;
             }
         }
-        Connections {
-            target: recorderBackend
-            onStateChanged: {
-                // update icon
-                if (recorderBackend.state === Recorder.RecordingState) {
-                    icon.source = "media-playback-stop";
-                }
-                if (recorderBackend.state === Recorder.StoppedState) {
-                    icon.source = "media-record";
-                }
+    }
+    states: [
+        State {
+            name: "recording"
+            when: recorderBackend.state === Recorder.RecordingState
+            PropertyChanges {
+                target: button
+                icon.name: "media-playback-stop"
             }
         }
-    }
+    ]
 }

@@ -105,9 +105,10 @@ Kirigami2.Page {
             id: buttonNativePlay
             anchors {
                 top: taskTriangle.bottom
-                topMargin: 10
+                topMargin: 20
                 horizontalCenter: taskTriangle.right
             }
+            text: i18n("Play original")
             fileUrl: g_trainingSession.phrase === null ? "" : g_trainingSession.phrase.soundFileUrl
         }
     }
@@ -120,7 +121,7 @@ Kirigami2.Page {
             right: parent.right
             top: trainingTextRect.bottom
             rightMargin: 20
-            topMargin: 150
+            topMargin: 154
         }
         color: root.colorAnswer
 
@@ -145,9 +146,10 @@ Kirigami2.Page {
             id: recorder
             anchors {
                 bottom: answerTriangle.top
-                bottomMargin: 10
+                bottomMargin: 20
                 horizontalCenter: answerTriangle.left
             }
+            text: i18n("Record yourself")
         }
 
         SoundPlayer {
@@ -155,6 +157,7 @@ Kirigami2.Page {
             anchors {
                 centerIn: parent
             }
+            text: i18n("Play yourself")
             fileUrl: recorder.outputFileUrl
         }
     }
