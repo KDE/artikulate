@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -34,17 +34,8 @@ Player::Player(QObject *parent)
 
 }
 
-Player::~Player()
-{
-    // nothing to do
-}
-
 void Player::setSoundFile(const QUrl &fileUrl)
 {
-    if (!fileUrl.isValid() || fileUrl.isEmpty()) {
-        qCWarning(ARTIKULATE_LOG) << "Not setting empty sound file path.";
-        return;
-    }
     m_soundFile = fileUrl;
     emit soundFileChanged();
 }
@@ -68,7 +59,7 @@ Player::PlaybackState Player::state() const
 void Player::playback()
 {
     OutputDeviceController::self().disconnect();
-    if (m_soundFile.isEmpty()) {
+    if (!m_soundFile.isValid()) {
         qCritical() << "Abort playing sound, no file available";
         return;
     }

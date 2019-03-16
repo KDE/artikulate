@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -39,8 +39,8 @@ public:
         PausedState
     };
 
-    explicit Player(QObject *parent = 0);
-    ~Player();
+    explicit Player(QObject *parent = nullptr);
+    ~Player() = default;
 
     Q_INVOKABLE void playback();
     Q_INVOKABLE void stop();
