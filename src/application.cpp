@@ -85,6 +85,7 @@ void Application::registerQmlTypes()
         "artikulate", 1, 0,
         "ProfileManager",
         QStringLiteral("ProfileManager is unique object provided by the backend"));
+    qmlRegisterUncreatableType<ICourse>("artikulate", 1, 0, "ICourse", "Courses are managed by repository");
 
     qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");
     qmlRegisterType<LearnerProfile::LearningGoal>("artikulate", 1, 0, "LearningGoal");

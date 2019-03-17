@@ -22,13 +22,12 @@
 #define TRAININGSESSION_H
 
 #include "artikulatecore_export.h"
-#include "course.h"
 #include "phrase.h"
 #include <QVector>
 
 class QString;
 class Language;
-class Course;
+class ICourse;
 class Unit;
 class TrainingAction;
 
@@ -42,7 +41,7 @@ namespace LearnerProfile {
 class ARTIKULATECORE_EXPORT TrainingSession : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
+    Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(Phrase *phrase READ activePhrase WRITE setPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNext READ hasNext NOTIFY phraseChanged)
@@ -51,8 +50,8 @@ public:
     explicit TrainingSession(QObject *parent = nullptr);
 
     void setProfileManager(LearnerProfile::ProfileManager *manager);
-    Course * course() const;
-    void setCourse(Course *course);
+    ICourse * course() const;
+    void setCourse(ICourse *course);
     Unit * unit() const;
     void setUnit(Unit *unit);
     TrainingAction * activeAction() const;
@@ -79,7 +78,7 @@ private:
     Phrase * nextPhrase() const;
     void updateGoal();
     LearnerProfile::ProfileManager *m_profileManager;
-    Course *m_course;
+    ICourse *m_course;
     Unit *m_unit;
     QVector<TrainingAction*> m_actions;
 

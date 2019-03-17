@@ -33,7 +33,7 @@
 #include <QUuid>
 
 Course::Course(ResourceInterface *resource)
-    : QObject(resource)
+    : ICourse(resource)
     , m_resource(qobject_cast<CourseResource*>(resource))
     , m_language(nullptr)
     , m_modified(false)

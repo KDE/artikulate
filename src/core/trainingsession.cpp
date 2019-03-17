@@ -20,7 +20,7 @@
 
 #include "trainingsession.h"
 #include "core/language.h"
-#include "core/course.h"
+#include "core/icourse.h"
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "profilemanager.h"
@@ -45,12 +45,12 @@ void TrainingSession::setProfileManager(LearnerProfile::ProfileManager *manager)
     m_profileManager = manager;
 }
 
-Course * TrainingSession::course() const
+ICourse * TrainingSession::course() const
 {
     return m_course;
 }
 
-void TrainingSession::setCourse(Course *course)
+void TrainingSession::setCourse(ICourse *course)
 {
     if (!course) {
         return;

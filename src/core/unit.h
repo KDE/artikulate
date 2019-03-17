@@ -30,14 +30,14 @@
 class QSignalMapper;
 class QString;
 class Phrase;
-class Course;
+class ICourse;
 
 class ARTIKULATECORE_EXPORT Unit : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
-    Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
+    Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
 
 public:
     explicit Unit(QObject *parent = nullptr);
@@ -47,8 +47,8 @@ public:
     void setId(const QString &id);
     QString foreignId() const;
     void setForeignId(const QString &id);
-    Course * course() const;
-    void setCourse(Course* course);
+    ICourse * course() const;
+    void setCourse(ICourse* course);
     QString title() const;
     void setTitle(const QString &title);
     QList<Phrase *> phraseList() const;
@@ -79,7 +79,7 @@ private:
     Q_DISABLE_COPY(Unit)
     QString m_id;
     QString m_foreignId;
-    Course *m_course;
+    ICourse *m_course;
     QString m_title;
     QList<Phrase *> m_phraseList;
     QSignalMapper *m_phraseSignalMapper;

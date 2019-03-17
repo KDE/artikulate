@@ -22,6 +22,7 @@
 #define COURSE_H
 
 #include "artikulatecore_export.h"
+#include "icourse.h"
 #include <QObject>
 #include <QMap>
 #include <QUrl>
@@ -35,9 +36,11 @@ class Phrase;
 class PhonemeGroup;
 class Phoneme;
 
-class ARTIKULATECORE_EXPORT Course : public QObject
+class ARTIKULATECORE_EXPORT Course : public ICourse
 {
     Q_OBJECT
+    Q_INTERFACES(ICourse)
+
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QString i18nTitle READ i18nTitle NOTIFY titleChanged)
@@ -46,22 +49,22 @@ class ARTIKULATECORE_EXPORT Course : public QObject
     Q_PROPERTY(Language * language READ language NOTIFY languageChanged)
 
 public:
-    explicit Course(ResourceInterface *resource=0);
-    ~Course();
-    QString id() const;
+    explicit Course(ResourceInterface *resource = nullptr);
+    ~Course() override;
+    QString id() const override;
     void setId(const QString &id);
     QString foreignId() const;
     void setForeignId(const QString &id);
-    QString title() const;
-    QString i18nTitle() const;
+    QString title() const override;
+    QString i18nTitle() const override;
     void setTitle(const QString &title);
-    Language * language() const;
+    Language * language() const override;
     void setLanguage(Language *language);
-    QString description() const;
+    QString description() const override;
     void setDescription(const QString &description);
     QUrl file() const;
     void setFile(const QUrl &file);
-    QList<Unit *> unitList() const;
+    QList<Unit *> unitList() const override;
     QList<Unit *> phonemeUnitList(PhonemeGroup *phonemeGroup) const;
     /**
      * \return the corresponding unit for phoneme \p phoneme
@@ -109,11 +112,7 @@ public Q_SLOTS:
     void registerPhrasePhonemes(Phrase *phrase);
 
 Q_SIGNALS:
-    void idChanged();
-    void titleChanged();
-    void descriptionChanged();
     void modifiedChanged();
-    void languageChanged();
     void unitAdded();
     void unitAboutToBeAdded(Unit*,int);
     void unitsRemoved();

@@ -68,12 +68,12 @@ void Unit::setForeignId(const QString &id)
     m_foreignId = id;
 }
 
-Course * Unit::course() const
+ICourse *Unit::course() const
 {
     return m_course;
 }
 
-void Unit::setCourse(Course *course)
+void Unit::setCourse(ICourse *course)
 {
     if (course == m_course) {
         return;

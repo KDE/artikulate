@@ -38,7 +38,7 @@ class ARTIKULATECORE_EXPORT Language : public QObject
     Q_PROPERTY(QString i18nTitle READ i18nTitle WRITE seti18nTitle NOTIFY i18nTitleChanged)
 
 public:
-    explicit Language(QObject *parent = 0);
+    explicit Language(QObject *parent = nullptr);
     ~Language();
 
     QString id() const;
@@ -54,7 +54,7 @@ public:
     QList<PhonemeGroup *> phonemeGroups() const;
     PhonemeGroup * addPhonemeGroup(const QString &identifier, const QString &title);
 
-signals:
+Q_SIGNALS:
     void idChanged();
     void associatedLanguageItemChanged();
     void titleChanged();
