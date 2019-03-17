@@ -62,7 +62,7 @@ public:
     void setLanguage(Language *language);
     QString description() const override;
     void setDescription(const QString &description);
-    QUrl file() const;
+    QUrl file() const override;
     void setFile(const QUrl &file);
     QList<Unit *> unitList() const override;
     QList<Unit *> phonemeUnitList(PhonemeGroup *phonemeGroup) const;

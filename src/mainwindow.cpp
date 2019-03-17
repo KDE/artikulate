@@ -54,7 +54,7 @@ MainWindow::MainWindow()
     , m_helpMenu(new KHelpMenu)
     , m_resourceManager(new ResourceManager(this))
     , m_profileManager(new LearnerProfile::ProfileManager(this))
-    , m_trainingSession(new TrainingSession(this))
+    , m_trainingSession(new TrainingSession(m_profileManager, this))
 {
     rootContext()->setContextObject(new KLocalizedContext(this));
 
@@ -67,7 +67,6 @@ MainWindow::MainWindow()
         qFatal("No language resources found, cannot start application.");
     }
     m_resourceManager->loadCourseResources();
-    m_trainingSession->setProfileManager(m_profileManager);
 
     // create menu
     setupActions();

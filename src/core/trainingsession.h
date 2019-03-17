@@ -42,30 +42,37 @@ class ARTIKULATECORE_EXPORT TrainingSession : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
-    Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
+    Q_PROPERTY(Unit *unit READ activeUnit WRITE setUnit NOTIFY phraseChanged)
     Q_PROPERTY(Phrase *phrase READ activePhrase WRITE setPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNext READ hasNext NOTIFY phraseChanged)
 
 public:
-    explicit TrainingSession(QObject *parent = nullptr);
+    explicit TrainingSession(LearnerProfile::ProfileManager *manager, QObject *parent = nullptr);
 
-    void setProfileManager(LearnerProfile::ProfileManager *manager);
     ICourse * course() const;
     void setCourse(ICourse *course);
-    Unit * unit() const;
+    Unit * activeUnit() const;
     void setUnit(Unit *unit);
     TrainingAction * activeAction() const;
     Phrase * activePhrase() const;
     void setPhrase(Phrase *phrase);
-    bool hasPreviousPhrase() const;
+    bool hasPrevious() const;
     bool hasNext() const;
     Q_INVOKABLE void accept();
     Q_INVOKABLE void skip();
-    QVector<TrainingAction *> trainingActions();
+    /**
+     * @brief Return tree of training actions
+     *
+     * The return actions form a 2-level hierarchy:
+     * - the first level are all units
+     * - the unit actions may contain sub-actions, which are the phrases
+     *
+     * @note phrases without sound file paths are skipped when generating actions
+     */
+    QVector<TrainingAction *> trainingActions() const;
 
 Q_SIGNALS:
     void courseChanged();
-    void unitChanged();
     void phraseChanged();
     /**
      * @brief Emitted when last phrase of session is skipped or marked as completed.
@@ -74,12 +81,12 @@ Q_SIGNALS:
 
 private:
     Q_DISABLE_COPY(TrainingSession)
+    void updateTrainingActions();
     void selectNextPhrase();
     Phrase * nextPhrase() const;
     void updateGoal();
     LearnerProfile::ProfileManager *m_profileManager;
     ICourse *m_course;
-    Unit *m_unit;
     QVector<TrainingAction*> m_actions;
 
     int m_indexUnit{-1};

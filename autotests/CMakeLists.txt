@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013-2014  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -37,9 +37,20 @@ file(COPY testcourses/fr.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/course
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
+# repository tests
 set(TestRepository_SRCS repository/test_repository.cpp)
 add_executable(test_repository ${TestRepository_SRCS} )
 target_link_libraries(test_repository
+    artikulatecore
+    Qt5::Test
+)
+add_test(test_repository test_repository)
+ecm_mark_as_test(test_repository)
+
+# training session tests
+set(TestTrainingSession_SRCS trainingsession/test_trainingsession.cpp)
+add_executable(test_trainingsession ${TestTrainingSession_SRCS} )
+target_link_libraries(test_trainingsession
     artikulatecore
     Qt5::Test
 )

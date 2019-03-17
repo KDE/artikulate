@@ -51,6 +51,7 @@ public:
     virtual QString description() const = 0;
     virtual Language * language() const = 0;
     virtual QList<Unit *> unitList() const = 0;
+    virtual QUrl file() const = 0;
 
 Q_SIGNALS:
     void idChanged();

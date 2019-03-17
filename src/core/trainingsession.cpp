@@ -28,21 +28,12 @@
 #include "trainingaction.h"
 #include "artikulate_debug.h"
 
-TrainingSession::TrainingSession(QObject *parent)
+TrainingSession::TrainingSession(LearnerProfile::ProfileManager *manager, QObject *parent)
     : QObject(parent)
-    , m_profileManager(nullptr)
+    , m_profileManager(manager)
     , m_course(nullptr)
-    , m_unit(nullptr)
 {
-
-}
-
-void TrainingSession::setProfileManager(LearnerProfile::ProfileManager *manager)
-{
-    if (m_profileManager == manager) {
-        return;
-    }
-    m_profileManager = manager;
+    Q_ASSERT(m_profileManager != nullptr);
 }
 
 ICourse * TrainingSession::course() const
@@ -53,6 +44,7 @@ ICourse * TrainingSession::course() const
 void TrainingSession::setCourse(ICourse *course)
 {
     if (!course) {
+        updateTrainingActions();
         return;
     }
     if (m_course == course) {
@@ -77,33 +69,48 @@ void TrainingSession::setCourse(ICourse *course)
         goal,
         m_course->id()
     );
-    Q_FOREACH(Unit *unit, m_course->unitList()) {
-        Q_FOREACH(Phrase *phrase, unit->phraseList()) {
+    const auto unitList = m_course->unitList();
+    for (Unit *unit : qAsConst(unitList)) {
+        const auto phraseList = unit->phraseList();
+        for (Phrase *phrase : qAsConst(phraseList)) {
             auto iter = data.find(phrase->id());
             if (iter != data.end()) {
                 phrase->setProgress(iter.value());
             }
         }
     }
-
+    updateTrainingActions();
     emit courseChanged();
 }
 
-Unit * TrainingSession::unit() const
+Unit * TrainingSession::activeUnit() const
 {
-    return m_unit;
+    if (auto phrase = activePhrase()) {
+        return phrase->unit();
+    }
+    return nullptr;
 }
 
 void TrainingSession::setUnit(Unit *unit)
 {
-    if (m_unit == unit) {
-        return;
+    // checking phrases in increasing order ensures that always the first phrase is selected
+    for (int i = 0; i < m_actions.count(); ++i) {
+        for (int j = 0; j < m_actions.at(i)->actions().count(); ++j) {
+            const auto testPhrase = qobject_cast<TrainingAction*>(m_actions.at(i)->actions().at(j))->phrase();
+            if (unit == testPhrase->unit()) {
+                if (auto action = activeAction()) {
+                    action->setChecked(false);
+                }
+                m_indexUnit = i;
+                m_indexPhrase = j;
+                if (auto action = activeAction()) {
+                    action->setChecked(true);
+                }
+                emit phraseChanged();
+                return;
+            }
+        }
     }
-    m_unit = unit;
-    if (m_unit && m_unit->phraseList().count() > 0) {
-        setPhrase(m_unit->phraseList().constFirst());
-    }
-    emit unitChanged();
 }
 
 TrainingAction * TrainingSession::activeAction() const
@@ -204,6 +211,7 @@ void TrainingSession::selectNextPhrase()
     }
     // try to find next phrase, otherwise return completed
     if (m_indexPhrase >= m_actions.at(m_indexUnit)->actions().count() - 1) {
+        qDebug() << "switching to next unit";
         if (m_indexUnit >= m_actions.count() - 1) {
             emit completed();
         } else {
@@ -219,6 +227,11 @@ void TrainingSession::selectNextPhrase()
     emit phraseChanged();
 }
 
+bool TrainingSession::hasPrevious() const
+{
+    return m_indexUnit > 0 || m_indexPhrase > 0;
+}
+
 bool TrainingSession::hasNext() const
 {
     return m_indexUnit < m_actions.count() - 1 || m_indexPhrase < m_actions.last()->actions().count() - 1;
@@ -227,12 +240,12 @@ bool TrainingSession::hasNext() const
 void TrainingSession::updateGoal()
 {
     if (!m_profileManager) {
-        qCWarning(ARTIKULATE_LOG) << "No ProfileManager registered, aborting operation";
+        qCWarning(ARTIKULATE_LOG()) << "No ProfileManager registered, aborting operation";
         return;
     }
     LearnerProfile::Learner *learner = m_profileManager->activeProfile();
     if (!learner) {
-        qCWarning(ARTIKULATE_LOG) << "No active Learner registered, aborting operation";
+        qCWarning(ARTIKULATE_LOG()) << "No active Learner registered, aborting operation";
         return;
     }
     LearnerProfile::LearningGoal * goal = m_profileManager->goal(
@@ -241,16 +254,22 @@ void TrainingSession::updateGoal()
     learner->setActiveGoal(goal);
 }
 
-QVector<TrainingAction *> TrainingSession::trainingActions()
+QVector<TrainingAction *> TrainingSession::trainingActions() const
 {
-    // cleanup
+    return m_actions;
+}
+
+void TrainingSession::updateTrainingActions()
+{
     for (const auto &action : qAsConst(m_actions)) {
         action->deleteLater();
     }
     m_actions.clear();
 
     if (!m_course) {
-        return QVector<TrainingAction *>();
+        m_indexUnit = -1;
+        m_indexPhrase = -1;
+        return;
     }
 
     const auto unitList = m_course->unitList();
@@ -269,5 +288,15 @@ QVector<TrainingAction *> TrainingSession::trainingActions()
             action->deleteLater();
         }
     }
-    return m_actions;
+
+    // update indices
+    m_indexUnit = -1;
+    m_indexPhrase = -1;
+    if (m_course->unitList().count() > 0) {
+        m_indexUnit = 0;
+        if (m_course->unitList().constFirst()->phraseList().count() > 0) {
+            m_indexPhrase = 0;
+        }
+    }
 }
+

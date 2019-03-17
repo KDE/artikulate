@@ -106,13 +106,12 @@ void Unit::addPhrase(Phrase *phrase)
     QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
     while (iter != m_phraseList.constEnd()) {
         if (phrase->id() == (*iter)->id()) {
-            qCWarning(ARTIKULATE_LOG) << "Phrase is already contained in this unit, aborting";
+            qCWarning(ARTIKULATE_LOG()) << "Phrase is already contained in this unit, aborting";
             return;
         }
         ++iter;
     }
     phrase->setUnit(this);
-
     emit phraseAboutToBeAdded(phrase, m_phraseList.length());
     m_phraseList.append(phrase);
     m_phraseSignalMapper->setMapping(phrase, phrase->id());

@@ -76,13 +76,13 @@ LearnerProfile::ProfileManagerPrivate::ProfileManagerPrivate()
                         activeGoalsIdentifiers.at(i));
                 }
             } else {
-                qCritical() << "Inconsistent goal category / identifier pairs found: aborting.";
+                qCCritical(LIBLEARNER_LOG()) << "Inconsistent goal category / identifier pairs found: aborting.";
             }
             break;
         }
     }
     if (m_activeProfile == nullptr) {
-        qCDebug(LIBLEARNER_LOG) << "No last active profile found, falling back to first found profile";
+        qCDebug(LIBLEARNER_LOG()) << "No last active profile found, falling back to first found profile";
         if (m_profiles.size() > 0) {
             m_activeProfile = m_profiles.at(0);
         }
@@ -113,7 +113,7 @@ void ProfileManagerPrivate::sync()
         activeProfileGroup.writeEntry("activeGoalsIdentifiers", goalIdentifiers);
     }
     else {
-        qCritical() << "No active profile selected, aborting sync.";
+        qCCritical(LIBLEARNER_LOG()) << "No active profile selected, aborting sync.";
     }
     m_config->sync();
 
@@ -196,7 +196,7 @@ void ProfileManager::removeProfile(Learner *learner)
 {
     int index = d->m_profiles.indexOf(learner);
     if (index < 0) {
-        qCWarning(LIBLEARNER_LOG) << "Profile was not found, aborting";
+        qCWarning(LIBLEARNER_LOG()) << "Profile was not found, aborting";
         return;
     }
     emit profileAboutToBeRemoved(index);
@@ -266,6 +266,10 @@ void ProfileManager::recordProgress(Learner *learner,
                                     const QString &container, const QString &item,
                                     int logPayload, int valuePayload)
 {
+    if (!learner) {
+        qCDebug(LIBLEARNER_LOG()) << "No learner set, no data stored";
+        return;
+    }
     d->m_storage.storeProgressLog(learner, goal, container, item, logPayload, QDateTime::currentDateTime());
     d->m_storage.storeProgressValue(learner, goal, container, item, valuePayload);
 }
