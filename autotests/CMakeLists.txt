@@ -36,9 +36,17 @@ file(COPY testcourses/de.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/course
 file(COPY testcourses/fr.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/courses) # copy test files
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
-set(TestCourseFiles_SRCS
-    testcoursefiles.cpp
+
+set(TestRepository_SRCS repository/test_repository.cpp)
+add_executable(test_repository ${TestRepository_SRCS} )
+target_link_libraries(test_repository
+    artikulatecore
+    Qt5::Test
 )
+add_test(test_repository test_repository)
+ecm_mark_as_test(test_repository)
+
+set(TestCourseFiles_SRCS testcoursefiles.cpp)
 kconfig_add_kcfg_files(TestCourseFiles_SRCS ../src/settings.kcfgc)
 add_executable(TestCourseFiles ${TestCourseFiles_SRCS} )
 target_link_libraries(TestCourseFiles
@@ -49,9 +57,7 @@ add_test(TestCourseFiles TestCourseFiles)
 ecm_mark_as_test(TestCourseFiles)
 
 # basic tests language files (input/output)
-set(TestLanguageFiles_SRCS
-    testlanguagefiles.cpp
-)
+set(TestLanguageFiles_SRCS testlanguagefiles.cpp)
 add_executable(TestLanguageFiles ${TestLanguageFiles_SRCS} )
 target_link_libraries(TestLanguageFiles
     artikulatecore
