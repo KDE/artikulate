@@ -83,7 +83,6 @@ private:
     Q_DISABLE_COPY(TrainingSession)
     void updateTrainingActions();
     void selectNextPhrase();
-    Phrase * nextPhrase() const;
     void updateGoal();
     LearnerProfile::ProfileManager *m_profileManager;
     ICourse *m_course;

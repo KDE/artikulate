@@ -38,15 +38,10 @@ Skeleton::Skeleton(ResourceInterface *resource)
 {
 }
 
-Skeleton::~Skeleton()
-{
-
-}
-
 void Skeleton::sync()
 {
     if (!file().isValid() || file().isEmpty() || m_resource == nullptr) {
-        qCWarning(ARTIKULATE_LOG) << "No file path set, aborting sync operation.";
+        qCWarning(ARTIKULATE_LOG()) << "No file path set, aborting sync operation.";
         return;
     }
     m_resource->sync();

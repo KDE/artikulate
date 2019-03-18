@@ -36,7 +36,6 @@ class ARTIKULATECORE_EXPORT Skeleton : public Course
 
 public:
     explicit Skeleton(ResourceInterface *resource = nullptr);
-    ~Skeleton();
 
     /**
      * Writes course object back to file and set \ref modified state to false.
