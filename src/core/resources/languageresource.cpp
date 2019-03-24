@@ -114,11 +114,6 @@ QString LanguageResource::i18nTitle()
     return d->m_i18nTitle;
 }
 
-ResourceInterface::Type LanguageResource::type() const
-{
-    return d->m_type;
-}
-
 void LanguageResource::close()
 {
     // do nothing

@@ -23,9 +23,8 @@
 
 #include <QAbstractListModel>
 
-class ResourceManager;
-class Course;
-class CourseResource;
+class IResourceRepository;
+class ICourse;
 class Language;
 class QSignalMapper;
 
@@ -33,7 +32,6 @@ class QSignalMapper;
 class CourseModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(ResourceManager *resourceManager READ resourceManager WRITE setResourceManager NOTIFY resourceManagerChanged)
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
     Q_PROPERTY(int size READ rowCount NOTIFY rowCountChanged)
 
@@ -53,14 +51,16 @@ public:
      * Reimplemented from QAbstractListModel::roleNames()
      */
     QHash<int,QByteArray> roleNames() const override;
-    void setResourceManager(ResourceManager *resourceManager);
-    ResourceManager * resourceManager() const;
+    IResourceRepository * resourceRepository() const;
     void setLanguage(Language *language);
     Language * language() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     Q_INVOKABLE QVariant course(int index) const;
+
+protected:
+    void setResourceRepository(IResourceRepository *resourceRepository);
 
 Q_SIGNALS:
     void courseChanged(int index);
@@ -69,9 +69,9 @@ Q_SIGNALS:
     void rowCountChanged();
 
 private Q_SLOTS:
-    void onCourseResourceAboutToBeAdded(CourseResource *resource, int index);
-    void onCourseResourceAdded();
-    void onCourseResourceAboutToBeRemoved(int index);
+    void onCourseAboutToBeAdded(ICourse *resource, int index);
+    void onCourseAdded();
+    void onCourseAboutToBeRemoved(int index);
     void emitCourseChanged(int row);
 
 private:
@@ -79,9 +79,9 @@ private:
      * Updates internal mappings of course signals.
      */
     void updateMappings();
-    ResourceManager *m_resourceManager;
+    IResourceRepository *m_resourceRepository;
     Language *m_language;
-    QList<CourseResource*> m_resources;
+    QVector<ICourse*> m_courses;
     QSignalMapper *m_signalMapper;
 };
 

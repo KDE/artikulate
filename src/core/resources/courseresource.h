@@ -22,9 +22,10 @@
 #define COURSERESOURCE_H
 
 #include "artikulatecore_export.h"
-#include "resourceinterface.h"
+#include "core/icourse.h"
 
 #include <QObject>
+#include <QVector>
 
 class QDomElement;
 class QString;
@@ -32,51 +33,63 @@ class CourseResourcePrivate;
 class Course;
 class Unit;
 class Phrase;
+class IResourceRepository;
 
-class ARTIKULATECORE_EXPORT CourseResource : public ResourceInterface
+//TODO move to private
+class QXmlSchema;
+class QJSonDocument;
+class QDomDocument;
+
+class ARTIKULATECORE_EXPORT CourseResource : public ICourse
 {
     Q_OBJECT
+    Q_INTERFACES(ICourse)
     void course(QString text);
 
 public:
     /**
      * Create course resource from file.
      */
-    explicit CourseResource(ResourceManager *resourceManager, const QUrl &path);
+    explicit CourseResource(const QUrl &path, IResourceRepository *repository);
 
-    virtual ~CourseResource();
+    /**
+     * @brief convenience constructor for porting to language access by dedicated model
+     */
+    explicit Q_DECL_DEPRECATED CourseResource(const QUrl &path, const QVector<Language *> &languages, IResourceRepository *repository);
+
+    ~CourseResource() override;
 
     /**
      * \return unique identifier
      */
-    QString identifier() override;
+    QString id() const override;
 
     /**
      * \return human readable localized title
      */
-    QString title() override;
+    QString title() const override;
 
     /**
      * \return human readable title in English
      */
-    QString i18nTitle() override;
+    QString i18nTitle() const override;
+
+    /**
+     * \return description text for course
+     */
+    QString description() const override;
 
     /**
      * \return language identifier of this course
      */
-    QString language() const;
-
-    /**
-     * \return type of resource
-     */
-    Type type() const override;
+    Language * language() const override;
 
     /**
      * \return true if resource is loaded, otherwise false
      */
-    bool isOpen() const override;
+    bool isOpen() const;
 
-    void sync() override;
+    void sync();
 
     /**
      * export course as <course-id>.tar.bz2 file in the specified folder.
@@ -86,24 +99,16 @@ public:
     /**
      * close resource without writing changes back to file
      */
-    void close() override;
+    void close();
 
-    /**
-     * \return path to resource file
-     */
-    QUrl path() const override;
+    QUrl file() const override;
 
-    /**
-     * \return reference to the loaded resource
-     * if resource is not open yet, it will be loaded
-     */
-    QObject * resource() override;
+    QList<Unit *> unitList() override;
 
     /**
      * \return reference to the loaded course resource
-     * Same behavior as \see resource() but casted to Course
      */
-    Course * course();
+    Q_DECL_DEPRECATED Course * course();
 
 private:
     Phrase * parsePhrase(QDomElement phraseNode, Unit *parentUnit) const;

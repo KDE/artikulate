@@ -70,7 +70,6 @@ add_definitions(
 
 # subdirectories to build
 ecm_optional_add_subdirectory(data)
-ecm_optional_add_subdirectory(schemes)
 ecm_optional_add_subdirectory(doc)
 ecm_optional_add_subdirectory(src)
 ecm_optional_add_subdirectory(sounds)

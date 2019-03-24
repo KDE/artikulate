@@ -54,11 +54,6 @@ public:
     QString i18nTitle() override;
 
     /**
-     * \return type of resource
-     */
-    Type type() const override;
-
-    /**
      * \return true if resource is loaded, otherwise false
      */
     bool isOpen() const override;

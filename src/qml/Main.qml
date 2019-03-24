@@ -40,16 +40,15 @@ Kirigami2.ApplicationWindow {
         id: contextDrawer
     }
 
+    signal ghnsCourseDataStatusChanged();
     signal triggerSettingsDialog();
     signal triggerAction(string actionName);
     signal switchMenuBarVisibility();
 
     property Learner learner: g_profileManager.activeProfile
-    property ResourceManager resourceManager: g_resourceManager
 
     CourseModel {
         id: availableCourseModel
-        resourceManager: g_resourceManager
     }
 
     pageStack.initialPage: welcomePageComponent
@@ -70,6 +69,8 @@ Kirigami2.ApplicationWindow {
     }
     Component {
         id: downloadPageComponent
-        DownloadPage { }
+        DownloadPage {
+            onStatusChanged: root.ghnsCourseDataStatusChanged()
+        }
     }
 }

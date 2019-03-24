@@ -30,32 +30,31 @@ include_directories(
 )
 
 # copy test data
-file(COPY ../schemes/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/schemes) # copy test files
-file(COPY ../data/languages DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data) # copy test files
-file(COPY testcourses/de.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/courses) # copy test files
-file(COPY testcourses/fr.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/courses) # copy test files
+file(COPY testdata/courses/de.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/courses/de/) # copy test files
+file(COPY testdata/courses/fr.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data/courses/fr/) # copy test files
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
 # repository tests
-set(TestRepository_SRCS repository/test_repository.cpp)
-add_executable(test_repository ${TestRepository_SRCS} )
-target_link_libraries(test_repository
+set(TestResourceRepository_SRCS resourcerepository/test_resourcerepository.cpp)
+qt5_add_resources(TestResourceRepository_SRCS ../data/languages.qrc)
+add_executable(test_resourcerepository ${TestResourceRepository_SRCS})
+target_link_libraries(test_resourcerepository
     artikulatecore
     Qt5::Test
 )
-add_test(test_repository test_repository)
-ecm_mark_as_test(test_repository)
+add_test(test_resourcerepository test_resourcerepository)
+ecm_mark_as_test(test_resourcerepository)
 
 # training session tests
 set(TestTrainingSession_SRCS trainingsession/test_trainingsession.cpp)
-add_executable(test_trainingsession ${TestTrainingSession_SRCS} )
+add_executable(test_trainingsession ${TestTrainingSession_SRCS})
 target_link_libraries(test_trainingsession
     artikulatecore
     Qt5::Test
 )
-add_test(test_repository test_repository)
-ecm_mark_as_test(test_repository)
+add_test(test_trainingsession test_trainingsession)
+ecm_mark_as_test(test_trainingsession)
 
 set(TestCourseFiles_SRCS testcoursefiles.cpp)
 kconfig_add_kcfg_files(TestCourseFiles_SRCS ../src/settings.kcfgc)

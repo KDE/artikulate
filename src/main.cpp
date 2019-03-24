@@ -31,6 +31,9 @@ int main(int argc, char **argv)
 {
     KLocalizedString::setApplicationDomain("artikulate");
     Application app(argc, argv);
+    ResourceRepository repository;
+    repository.reloadCourses();
+    app.installResourceRepository(&repository);
 
     KAboutData aboutData(QStringLiteral("artikulate"),
                          i18nc("@title Displayed program name", "Artikulate"),

@@ -24,6 +24,14 @@
 
 #include <QApplication>
 
+class IResourceRepository;
+class Application;
+
+#if defined(artikulateApp)
+#undef artikulateApp
+#endif
+#define artikulateApp (static_cast<Application *>(QCoreApplication::instance()))
+
 class Application : public QApplication
 {
     Q_OBJECT
@@ -31,8 +39,21 @@ class Application : public QApplication
 public:
     explicit Application(int &argc, char **argv);
 
+    /**
+     * @brief install global course data repository to application
+     * @param repository the concrete resource repository to install
+     */
+    void installResourceRepository(IResourceRepository *repository);
+
+    /**
+     * @brief getter for global resource repository
+     * @return the repository
+     */
+    IResourceRepository * resourceRepository() const;
+
 private:
     void registerQmlTypes();
+    IResourceRepository *m_resourceRepository{ nullptr };
 };
 
 #endif

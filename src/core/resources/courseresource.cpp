@@ -26,10 +26,14 @@
 #include "core/unit.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
-#include "core/resources/languageresource.h"
+#include "core/language.h"
+#include "core/iresourcerepository.h"
+#include "application.h"
 
 #include <QXmlSchema>
 #include <QXmlStreamReader>
+#include <QXmlSchemaValidator>
+#include <QStandardPaths>
 #include <QDomDocument>
 #include <QIODevice>
 #include <QFile>
@@ -42,32 +46,79 @@
 class CourseResourcePrivate
 {
 public:
-    CourseResourcePrivate(ResourceManager *resourceManager)
-        : m_resourceManager(resourceManager)
-        , m_courseResource(nullptr)
-        , m_type(ResourceInterface::CourseResourceType)
-    {
-    }
+    CourseResourcePrivate() = default;
 
-    ~CourseResourcePrivate()
-    {
-    }
+    void loadCourse();
+    Phrase * parsePhrase(QDomElement phraseNode, Unit* parentUnit) const;
 
-    ResourceManager *m_resourceManager;
+    /**
+     * Load XSD file given by its file name (without ".xsd" suffix). The method searches exclusively
+     * the standard install dir for XSD files in subdirectory "schemes/".
+     *
+     * \param schemeName name of the Xml schema without suffix
+     * \return loaded XML Schema
+     */
+    QXmlSchema loadXmlSchema(const QString &schemeName) const;
+
+    /**
+     * Load XML file given by \p file that confirms with XML schema \p scheme.
+     *
+     * \param path is the path to the XML file to be loaded
+     * \param scheme is the XML schema describing the DOM
+     * \return the loaded DOM document
+     */
+    QDomDocument loadDomDocument(const QUrl &path, const QXmlSchema &schema) const;
+
+    IResourceRepository *m_repository{ nullptr };
     QUrl m_path;
     QString m_identifier;
     QString m_title;
-    QString m_language;
+    QString m_languageId;
+    Language *m_language{ nullptr };
     QString m_i18nTitle;
-    Course *m_courseResource;
-    ResourceInterface::Type m_type;
+    Course *m_loadedCourse{ nullptr };
 };
 
-CourseResource::CourseResource(ResourceManager *resourceManager, const QUrl &path)
-    : ResourceInterface(resourceManager)
-    , d(new CourseResourcePrivate(resourceManager))
+QXmlSchema CourseResourcePrivate::loadXmlSchema(const QString &schemeName) const
+{
+    QString relPath = QStringLiteral(":/artikulate/schemes/%1.xsd").arg(schemeName);
+    QUrl file = QUrl::fromLocalFile(relPath);
+
+    QXmlSchema schema;
+    if (file.isEmpty() || schema.load(file) == false) {
+        qCWarning(ARTIKULATE_LOG) << "Schema at file " << file.toLocalFile() << " is invalid.";
+    }
+    return schema;
+}
+
+QDomDocument CourseResourcePrivate::loadDomDocument(const QUrl &path, const QXmlSchema &schema) const
+{
+    QDomDocument document;
+    QXmlSchemaValidator validator(schema);
+    if (!validator.validate(path)) {
+        qCWarning(ARTIKULATE_LOG) << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
+        return document;
+    }
+
+    QString errorMsg;
+    QFile file(path.toLocalFile());
+    if (file.open(QIODevice::ReadOnly)) {
+        if (!document.setContent(&file, &errorMsg)) {
+            qCWarning(ARTIKULATE_LOG) << errorMsg;
+        }
+    } else {
+        qCWarning(ARTIKULATE_LOG) << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
+    }
+    return document;
+}
+
+
+CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository)
+    : ICourse(repository)
+    , d(new CourseResourcePrivate())
 {
     d->m_path = path;
+    d->m_repository = repository;
 
     // load basic information from language file, but does not parse everything
     QXmlStreamReader xml;
@@ -87,7 +138,7 @@ CourseResource::CourseResource(ResourceManager *resourceManager, const QUrl &pat
             }
             //TODO i18nTitle must be implemented, currently missing and hence not parsed
             if (xml.name() == "language") {
-                d->m_language = xml.readElementText();
+                d->m_languageId = xml.readElementText();
                 continue;
             }
 
@@ -95,7 +146,7 @@ CourseResource::CourseResource(ResourceManager *resourceManager, const QUrl &pat
             if (!d->m_identifier.isEmpty()
                 && !d->m_title.isEmpty()
                 && !d->m_i18nTitle.isEmpty()
-                && !d->m_language.isEmpty()
+                && !d->m_languageId.isEmpty()
             )
             {
                 break;
@@ -109,78 +160,92 @@ CourseResource::CourseResource(ResourceManager *resourceManager, const QUrl &pat
     file.close();
 }
 
+CourseResource::CourseResource(const QUrl &path, const QVector<Language *> &languages, IResourceRepository *repository)
+    : CourseResource(path, repository)
+{
+    for (const auto &language : languages) {
+        if (language == nullptr) {
+            continue;
+        }
+        if (language->id() == d->m_languageId) {
+            d->m_language = language;
+        }
+    }
+}
+
 CourseResource::~CourseResource()
 {
 
 }
 
-QString CourseResource::identifier()
+QString CourseResource::id() const
 {
-    if (d->m_courseResource) {
-        return d->m_courseResource->id();
-    }
     return d->m_identifier;
 }
 
-QString CourseResource::title()
+QString CourseResource::title() const
 {
-    if (d->m_courseResource) {
-        return d->m_courseResource->title();
-    }
     return d->m_title;
 }
 
-QString CourseResource::i18nTitle()
+QString CourseResource::i18nTitle() const
 {
-    if (d->m_courseResource) {
-        return d->m_courseResource->title(); //TODO
-    }
     return d->m_i18nTitle;
 }
 
-QString CourseResource::language() const
+QString CourseResource::description() const
 {
-    if (d->m_courseResource) {
-        return d->m_courseResource->language()->id();
+    if (d->m_loadedCourse != nullptr) {
+        return d->m_loadedCourse->description();
     }
+    return QString();
+}
+
+Language * CourseResource::language() const
+{
     return d->m_language;
 }
 
-ResourceInterface::Type CourseResource::type() const
+QList<Unit *> CourseResource::unitList()
 {
-    return d->m_type;
+    if (d->m_loadedCourse == nullptr) {
+        d->loadCourse();
+    }
+    if (d->m_loadedCourse != nullptr) {
+        return d->m_loadedCourse->unitList();
+    }
+    return QList<Unit *>();
 }
 
 void CourseResource::sync()
 {
-    Q_ASSERT(path().isValid());
-    Q_ASSERT(path().isLocalFile());
-    Q_ASSERT(!path().isEmpty());
+    Q_ASSERT(d->m_path.isValid());
+    Q_ASSERT(d->m_path.isLocalFile());
+    Q_ASSERT(!d->m_path.isEmpty());
 
     // if resource was never loaded, it cannot be changed
-    if (d->m_courseResource == nullptr) {
-        qCDebug(ARTIKULATE_LOG) << "Aborting sync, course was not parsed.";
+    if (d->m_loadedCourse == nullptr) {
+        qCDebug(ARTIKULATE_LOG()) << "Aborting sync, course was not parsed.";
         return;
     }
 
-//TODO
-//     // not writing back if not modified
-//     if (!d->m_courseResource->modified()) {
-//         qCDebug(ARTIKULATE_LOG) << "Aborting sync, course was not modified.";
-//         return;
-//     }
+     // not writing back if not modified
+     if (!d->m_loadedCourse->modified()) {
+         qCDebug(ARTIKULATE_LOG()) << "Aborting sync, course was not modified.";
+         return;
+     }
 
     // write back to file
     // create directories if necessary
-    QFileInfo info(path().adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
+    QFileInfo info(d->m_path.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
     if (!info.exists()) {
         qCDebug(ARTIKULATE_LOG) << "create xml output file directory, not existing";
         QDir dir;
-        dir.mkpath(path().adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
+        dir.mkpath(d->m_path.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
     }
 
     //TODO port to KSaveFile
-    QFile file(path().toLocalFile());
+    QFile file(d->m_path.toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         qCWarning(ARTIKULATE_LOG) << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return;
@@ -192,11 +257,12 @@ void CourseResource::sync()
 
 void CourseResource::exportGhns(const QString &path)
 {
-    // ensure that course is loaded before exporting it
-    Course *course = CourseResource::course();
+    if (d->m_loadedCourse == nullptr) {
+        d->loadCourse();
+    }
 
     // filename
-    const QString fileName = identifier() + ".tar.bz2";
+    const QString fileName = id() + ".tar.bz2";
     KTar tar = KTar(path + '/' + fileName, QStringLiteral("application/x-bzip"));
     if (!tar.open(QIODevice::WriteOnly)) {
         qCWarning(ARTIKULATE_LOG) << "Unable to open tar file"
@@ -205,88 +271,87 @@ void CourseResource::exportGhns(const QString &path)
         return;
     }
 
-    foreach (auto *unit, course->unitList()) {
-        foreach (auto *phrase, unit->phraseList()) {
+    for (auto *unit : unitList()) {
+        for (auto *phrase : unit->phraseList()) {
             if (QFile::exists(phrase->soundFileUrl())) {
                 tar.addLocalFile(phrase->soundFileUrl(), phrase->id() + ".ogg");
             }
         }
     }
 
-    tar.writeFile(identifier() + ".xml", serializedDocument(true).toByteArray());
+    tar.writeFile(id() + ".xml", serializedDocument(true).toByteArray());
 
     tar.close();
 }
 
 void CourseResource::close()
 {
-    d->m_courseResource->deleteLater();
-    d->m_courseResource = nullptr;
+    d->m_loadedCourse->deleteLater();
+    d->m_loadedCourse = nullptr;
 }
 
 bool CourseResource::isOpen() const
 {
-    return (d->m_courseResource != nullptr);
+    return (d->m_loadedCourse != nullptr);
 }
 
-QUrl CourseResource::path() const
+QUrl CourseResource::file() const
 {
-    if (d->m_courseResource) {
-        return d->m_courseResource->file();
+    if (d->m_loadedCourse) {
+        return d->m_loadedCourse->file();
     }
     return d->m_path;
 }
 
-QObject * CourseResource::resource()
+void CourseResourcePrivate::loadCourse()
 {
-    if (d->m_courseResource != nullptr) {
-        return d->m_courseResource;
+    if (m_loadedCourse != nullptr) {
+        qCWarning(ARTIKULATE_CORE()) << "Skipping loading of course, no reloading implemented yet";
+        return;
     }
 
-    // if file does not exist, create new course
-    QFileInfo info(d->m_path.toLocalFile());
+    QFileInfo info(m_path.toLocalFile());
     if (!info.exists()) {
-        d->m_courseResource = new Course(this);
-        d->m_courseResource->setId(d->m_identifier);
-        d->m_courseResource->setTitle(d->m_title);
-        return d->m_courseResource;
+        qCCritical(ARTIKULATE_LOG()) << "No course file available at location" << m_path.toLocalFile();
+        return;
     }
 
     // load existing file
     QXmlSchema schema = loadXmlSchema(QStringLiteral("course"));
     if (!schema.isValid()) {
-        return nullptr;
+        qCWarning(ARTIKULATE_CORE()) << "Scheme not valid, aborting";
+        return;
     }
-    QDomDocument document = loadDomDocument(path(), schema);
+    QDomDocument document = loadDomDocument(m_path, schema);
     if (document.isNull()) {
-        qCWarning(ARTIKULATE_LOG) << "Could not parse document " << path().toLocalFile() << ", aborting.";
-        return nullptr;
+        qCWarning(ARTIKULATE_CORE()) << "Could not parse document " << m_path.toLocalFile() << ", aborting.";
+        return;
     }
 
     // create course
     QDomElement root(document.documentElement());
-    d->m_courseResource = new Course(this);
+    m_loadedCourse = new Course(nullptr);
 
-    d->m_courseResource->setFile(d->m_path);
-    d->m_courseResource->setId(root.firstChildElement(QStringLiteral("id")).text());
-    d->m_courseResource->setTitle(root.firstChildElement(QStringLiteral("title")).text());
-    d->m_courseResource->setDescription(root.firstChildElement(QStringLiteral("description")).text());
+    m_loadedCourse->setFile(m_path);
+    m_loadedCourse->setId(root.firstChildElement(QStringLiteral("id")).text());
+    m_loadedCourse->setTitle(root.firstChildElement(QStringLiteral("title")).text());
+    m_loadedCourse->setDescription(root.firstChildElement(QStringLiteral("description")).text());
     if (!root.firstChildElement(QStringLiteral("foreignId")).isNull()) {
-        d->m_courseResource->setForeignId(root.firstChildElement(QStringLiteral("foreignId")).text());
+        m_loadedCourse->setForeignId(root.firstChildElement(QStringLiteral("foreignId")).text());
     }
 
     // set language
     //TODO not efficient to load completely every language for this comparison
-    QString language = root.firstChildElement(QStringLiteral("language")).text();
-    foreach(LanguageResource * resource, d->m_resourceManager->languageResources()) {
-        if (resource->language()->id() == language) {
-            d->m_courseResource->setLanguage(resource->language());
+    QString languageId = root.firstChildElement(QStringLiteral("language")).text();
+    for(const auto &language : m_repository->languages()) {
+        if (language->id() == languageId) {
+            m_loadedCourse->setLanguage(language);
             break;
         }
     }
-    if (d->m_courseResource->language() == nullptr) {
-        qCWarning(ARTIKULATE_LOG) << "Language ID" << language << "unknown, could not register any language, aborting";
-        return nullptr;
+    if (m_loadedCourse->language() == nullptr) {
+        qCWarning(ARTIKULATE_LOG) << "Language ID" << languageId << "unknown, could not register any language, aborting";
+        return;
     }
 
     // create units
@@ -294,14 +359,14 @@ QObject * CourseResource::resource()
          !unitNode.isNull();
          unitNode = unitNode.nextSiblingElement())
     {
-        Unit *unit = new Unit(d->m_courseResource);
+        Unit *unit = new Unit(nullptr);
         unit->setId(unitNode.firstChildElement(QStringLiteral("id")).text());
-        unit->setCourse(d->m_courseResource);
+        unit->setCourse(m_loadedCourse);
         unit->setTitle(unitNode.firstChildElement(QStringLiteral("title")).text());
         if (!unitNode.firstChildElement(QStringLiteral("foreignId")).isNull()) {
             unit->setForeignId(unitNode.firstChildElement(QStringLiteral("foreignId")).text());
         }
-        d->m_courseResource->addUnit(unit);
+        m_loadedCourse->addUnit(unit);
 
         // create phrases
         for (QDomElement phraseNode = unitNode.firstChildElement(QStringLiteral("phrases")).firstChildElement();
@@ -312,17 +377,15 @@ QObject * CourseResource::resource()
             //FIXME phrase does not cause unit signals that phonemes list is changed
         }
     }
-    d->m_courseResource->setModified(false);
-
-    return d->m_courseResource;
+    m_loadedCourse->setModified(false);
 }
 
 Course * CourseResource::course()
 {
-    return qobject_cast<Course*>(resource());
+    return nullptr;
 }
 
-Phrase* CourseResource::parsePhrase(QDomElement phraseNode, Unit* parentUnit) const
+Phrase* CourseResourcePrivate::parsePhrase(QDomElement phraseNode, Unit* parentUnit) const
 {
     Phrase *phrase = new Phrase(parentUnit);
     phrase->setId(phraseNode.firstChildElement(QStringLiteral("id")).text());
@@ -331,7 +394,7 @@ Phrase* CourseResource::parsePhrase(QDomElement phraseNode, Unit* parentUnit) co
     phrase->setUnit(parentUnit);
     if (!phraseNode.firstChildElement(QStringLiteral("soundFile")).text().isEmpty()) {
         phrase->setSound(QUrl::fromLocalFile(
-                path().adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path()
+                m_path.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path()
                 + '/' + phraseNode.firstChildElement(QStringLiteral("soundFile")).text())
             );
     }
@@ -342,7 +405,7 @@ Phrase* CourseResource::parsePhrase(QDomElement phraseNode, Unit* parentUnit) co
     }
 
     // add phonemes
-    QList<Phoneme *> phonemes = d->m_courseResource->language()->phonemes();
+    QList<Phoneme *> phonemes = m_loadedCourse->language()->phonemes();
     for (QDomElement phonemeID = phraseNode.firstChildElement(QStringLiteral("phonemes")).firstChildElement();
         !phonemeID.isNull();
             phonemeID = phonemeID.nextSiblingElement())
@@ -385,14 +448,14 @@ QDomDocument CourseResource::serializedDocument(bool trainingExport) const
     QDomElement descriptionElement = document.createElement(QStringLiteral("description"));
     QDomElement languageElement = document.createElement(QStringLiteral("language"));
 
-    idElement.appendChild(document.createTextNode(d->m_courseResource->id()));
-    titleElement.appendChild(document.createTextNode(d->m_courseResource->title()));
-    descriptionElement.appendChild(document.createTextNode(d->m_courseResource->description()));
-    languageElement.appendChild(document.createTextNode(d->m_courseResource->language()->id()));
+    idElement.appendChild(document.createTextNode(d->m_loadedCourse->id()));
+    titleElement.appendChild(document.createTextNode(d->m_loadedCourse->title()));
+    descriptionElement.appendChild(document.createTextNode(d->m_loadedCourse->description()));
+    languageElement.appendChild(document.createTextNode(d->m_loadedCourse->language()->id()));
 
     QDomElement unitListElement = document.createElement(QStringLiteral("units"));
     // create units
-    foreach (Unit *unit, d->m_courseResource->unitList()) {
+    foreach (Unit *unit, d->m_loadedCourse->unitList()) {
         QDomElement unitElement = document.createElement(QStringLiteral("unit"));
 
         QDomElement unitIdElement = document.createElement(QStringLiteral("id"));
@@ -427,9 +490,9 @@ QDomDocument CourseResource::serializedDocument(bool trainingExport) const
     }
 
     root.appendChild(idElement);
-    if (!d->m_courseResource->foreignId().isEmpty()) {
+    if (!d->m_loadedCourse->foreignId().isEmpty()) {
         QDomElement courseForeignIdElement = document.createElement(QStringLiteral("foreignId"));
-        courseForeignIdElement.appendChild(document.createTextNode(d->m_courseResource->foreignId()));
+        courseForeignIdElement.appendChild(document.createTextNode(d->m_loadedCourse->foreignId()));
         root.appendChild(courseForeignIdElement);
     }
     root.appendChild(titleElement);

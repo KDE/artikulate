@@ -31,7 +31,6 @@ class QDomDocument;
 
 class ARTIKULATECORE_EXPORT ResourceInterface : public QObject
 {
-    Q_OBJECT
 
 public:
     enum Type
@@ -69,11 +68,6 @@ public:
      * \returns true if resource is readonly, otherwise false
      */
     virtual bool isContributorResource() const;
-
-    /**
-     * \return type of resource
-     */
-    virtual Type type() const = 0;
 
     /**
      * \return true if resource is loaded, otherwise false

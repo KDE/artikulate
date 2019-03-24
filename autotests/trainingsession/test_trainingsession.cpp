@@ -59,7 +59,7 @@ public:
     {
         return m_language;
     }
-    QList<Unit *> unitList() const override
+    QList<Unit *> unitList() override
     {
         return m_units.toList();
     }

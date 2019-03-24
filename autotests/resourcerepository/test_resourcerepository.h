@@ -18,17 +18,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TEST_REPOSITORY_H
-#define TEST_REPOSITORY_H
+#ifndef TEST_RESOURCEREPOSITORY_H
+#define TEST_RESOURCEREPOSITORY_H
 
 #include <QObject>
 
-class TestRepository : public QObject
+class TestResourceRepository : public QObject
 {
     Q_OBJECT
 
 public:
-    TestRepository() = default;
+    TestResourceRepository() = default;
 
 private Q_SLOTS:
     /**
@@ -41,7 +41,16 @@ private Q_SLOTS:
      */
     void cleanup();
 
+    /**
+     * Create and load repository with simple testdata
+     */
     void createRepository();
+
+    /**
+     * @brief integration test for IResourceRepository interface
+     * Test expectations of the IResourceRepository interface.
+     */
+    void iResourceRepositoryCompatability();
 };
 
 #endif

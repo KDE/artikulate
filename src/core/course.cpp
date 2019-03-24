@@ -143,7 +143,7 @@ void Course::setFile(const QUrl &file)
     m_file = file;
 }
 
-QList< Unit* > Course::unitList() const
+QList< Unit* > Course::unitList()
 {
     return m_unitList;
 }
@@ -303,10 +303,10 @@ void Course::sync()
     setModified(false);
 }
 
-bool Course::isContributorResource() const
-{
-    return m_resource->isContributorResource();
-}
+//bool Course::isContributorResource() const
+//{
+//    return m_resource->isContributorResource();
+//}
 
 void Course::registerPhrasePhonemes(Phrase *phrase)
 {

@@ -230,11 +230,11 @@ bool LanguageResourceModel::displayResource(LanguageResource* resource) const
     }
 
     // compute data for determining whether language shall be shown or not
-    foreach (CourseResource *course, courses) {
-        if (course->isContributorResource()) {
-            ++contribCount;
-        }
-    }
+//    foreach (CourseResource *course, courses) { //FIXME
+//        if (course->isContributorResource()) {
+//            ++contribCount;
+//        }
+//    }
 
     if (m_view == LanguageModel::NonEmptyContributorOnlyResources
         && contribCount > 0)

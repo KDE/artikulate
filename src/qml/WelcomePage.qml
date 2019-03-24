@@ -33,7 +33,6 @@ Kirigami.ScrollablePage {
         width: root.width - 40
         model: CourseModel {
             id: courseModel
-            resourceManager: g_resourceManager
         }
 
         delegate: Kirigami.AbstractCard {

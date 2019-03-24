@@ -22,10 +22,11 @@
 #include "ui/resourcesdialogpage.h"
 #include "ui/sounddevicedialogpage.h"
 #include "ui/appearencedialogpage.h"
-#include "core/resourcemanager.h"
+#include "core/resourcerepository.h"
 #include "core/trainingsession.h"
 #include "core/editorsession.h"
 #include "core/resources/courseresource.h"
+#include "application.h"
 #include "models/languagemodel.h"
 #include "settings.h"
 #include "liblearnerprofile/src/profilemanager.h"
@@ -52,7 +53,6 @@ using namespace LearnerProfile;
 MainWindow::MainWindow()
     : m_actionCollection(new KActionCollection(this, QStringLiteral("artikulate")))
     , m_helpMenu(new KHelpMenu)
-    , m_resourceManager(new ResourceManager(this))
     , m_profileManager(new LearnerProfile::ProfileManager(this))
     , m_trainingSession(new TrainingSession(m_profileManager, this))
 {
@@ -61,18 +61,10 @@ MainWindow::MainWindow()
     // load saved sound settings
     OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
 
-    // load resources
-    m_resourceManager->loadLanguageResources();
-    if (m_resourceManager->languageResources().count() == 0) {
-        qFatal("No language resources found, cannot start application.");
-    }
-    m_resourceManager->loadCourseResources();
-
     // create menu
     setupActions();
 
     // set view
-    rootContext()->setContextProperty(QStringLiteral("g_resourceManager"), m_resourceManager);
     rootContext()->setContextProperty(QStringLiteral("g_trainingSession"), m_trainingSession);
     rootContext()->setContextProperty(QStringLiteral("g_profileManager"), m_profileManager);
     rootContext()->setContextProperty(QStringLiteral("kcfg_UseContributorResources"), Settings::useCourseRepository());
@@ -90,8 +82,8 @@ MainWindow::MainWindow()
     }
 
     // connect to QML signals;
-    connect(rootObjects().constFirst(), SIGNAL(triggerSettingsDialog()),
-            this, SLOT(showSettingsDialog()));
+    connect(rootObjects().constFirst(), SIGNAL(ghnsCourseDataStatusChanged()),
+            this, SLOT(updateCourseResources()));
     connect(rootObjects().constFirst(), SIGNAL(triggerAction(QString)),
             this, SLOT(triggerAction(QString)));
     connect(rootObjects().constFirst(), SIGNAL(switchMenuBarVisibility()),
@@ -109,11 +101,6 @@ MainWindow::~MainWindow()
     // save current settings for case of closing
     Settings::self()->save();
     m_profileManager->sync();
-}
-
-ResourceManager * MainWindow::resourceManager() const
-{
-    return m_resourceManager;
 }
 
 KActionCollection * MainWindow::actionCollection()
@@ -148,21 +135,18 @@ void MainWindow::showSettingsDialog()
     }
     QPointer<KConfigDialog> dialog = new KConfigDialog(nullptr, QStringLiteral("settings"), Settings::self());
 
-    ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_resourceManager);
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
     AppearenceDialogPage *appearenceDialog = new AppearenceDialogPage();
 
-    resourceDialog->loadSettings();
+//    resourceDialog->loadSettings();
     soundDialog->loadSettings();
     appearenceDialog->loadSettings();
 
     dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), QStringLiteral("audio-headset"), i18nc("@title:tab", "Sound Device Settings"), true);
     dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Fonts"), QStringLiteral("preferences-desktop-font"), i18nc("@title:tab", "Training Phrase Font"), true);
-    dialog->addPage(resourceDialog, i18nc("@item:inmenu", "Course Resources"), QStringLiteral("repository"), i18nc("@title:tab", "Resource Repository Settings"), true);
 
 //     connect(dialog, SIGNAL(settingsChanged(const QString&)), resourceDialog, SLOT(loadSettings()));
 //     connect(dialog, SIGNAL(settingsChanged(const QString&)), soundDialog, SLOT(loadSettings()));
-    connect(dialog.data(), &QDialog::accepted, resourceDialog, &ResourcesDialogPage::saveSettings);
     connect(dialog.data(), &QDialog::accepted, soundDialog, &SoundDeviceDialogPage::saveSettings);
     connect(dialog.data(), &QDialog::accepted, appearenceDialog, &AppearenceDialogPage::saveSettings);
     connect(dialog.data(), &QDialog::accepted, this, &MainWindow::updateTrainingPhraseFont);
@@ -171,6 +155,11 @@ void MainWindow::showSettingsDialog()
     connect(dialog.data(), &QDialog::finished, soundDialog, &SoundDeviceDialogPage::stopRecord);
 
     dialog->exec();
+}
+
+void MainWindow::updateCourseResources()
+{
+    artikulateApp->resourceRepository()->reloadCourses();
 }
 
 void MainWindow::updateTrainingPhraseFont()

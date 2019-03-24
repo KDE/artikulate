@@ -18,24 +18,38 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "test_repository.h"
-#include <QTest>
+#ifndef TEST_COURSE_H
+#define TEST_COURSE_H
 
-#include "src/core/resourcemanager.h"
+#include <QObject>
 
-void TestRepository::init()
+class TestCourse : public QObject
 {
-    // TODO initialization of test case
-}
+    Q_OBJECT
 
-void TestRepository::cleanup()
-{
-    // TODO cleanup after test run
-}
+public:
+    TestCourse() = default;
 
-void TestRepository::createRepository()
-{
+private Q_SLOTS:
+    /**
+     * Called before every test case.
+     */
+    void init();
 
-}
+    /**
+     * Called after every test case.
+     */
+    void cleanup();
 
-QTEST_GUILESS_MAIN(TestRepository)
+    /**
+     * @brief Construct and destruct course without units
+     */
+    void createCourseWithoutUnits();
+
+    /**
+     * @brief Construct training session and check that phrases without sound file paths are skipped
+     */
+    void createCourseWithoutPhrases();
+};
+
+#endif

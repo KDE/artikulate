@@ -21,6 +21,7 @@
 #include "application.h"
 
 #include "core/course.h"
+#include "core/iresourcerepository.h"
 #include "core/drawertrainingactions.h"
 #include "core/trainingaction.h"
 #include "core/editorsession.h"
@@ -67,6 +68,16 @@ Application::Application(int& argc, char** argv)
     registerQmlTypes();
 }
 
+IResourceRepository * Application::resourceRepository() const
+{
+    return m_resourceRepository;
+}
+
+void Application::installResourceRepository(IResourceRepository *resourceRepository)
+{
+    m_resourceRepository = resourceRepository;
+}
+
 void Application::registerQmlTypes()
 {
     qmlRegisterUncreatableType<TrainingSession>(
@@ -85,8 +96,12 @@ void Application::registerQmlTypes()
         "artikulate", 1, 0,
         "ProfileManager",
         QStringLiteral("ProfileManager is unique object provided by the backend"));
-    qmlRegisterUncreatableType<ICourse>("artikulate", 1, 0, "ICourse", "Courses are managed by repository");
 
+    // interfaces
+    qmlRegisterInterface<IResourceRepository>("IResourceRepository");
+    qmlRegisterInterface<ICourse>("ICourse");
+
+    // concrete instantiable types
     qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");
     qmlRegisterType<LearnerProfile::LearningGoal>("artikulate", 1, 0, "LearningGoal");
     qmlRegisterType<Unit>("artikulate", 1, 0, "Unit");
@@ -103,6 +118,7 @@ void Application::registerQmlTypes()
     qmlRegisterType<DrawerTrainingActions>("artikulate", 1, 0, "DrawerTrainingActions");
     qmlRegisterType<TrainingAction>("artikulate", 1, 0, "TrainingAction");
 
+    // models
     qmlRegisterType<CourseModel>("artikulate", 1, 0, "CourseModel");
     qmlRegisterType<CourseFilterModel>("artikulate", 1, 0, "CourseFilterModel");
     qmlRegisterType<LanguageModel>("artikulate", 1, 0, "LanguageModel");

@@ -44,6 +44,8 @@ set(artikulateCore_SRCS
     core/drawertrainingactions.cpp
     core/course.cpp
     core/resourcemanager.cpp
+    core/iresourcerepository.h
+    core/resourcerepository.cpp
     core/language.cpp
     core/phrase.cpp
     core/phoneme.cpp
@@ -127,6 +129,7 @@ ki18n_wrap_ui (artikulate_SRCS
     ui/appearencedialogpage.ui
 )
 qt5_add_resources(artikulate_SRCS resources.qrc)
+qt5_add_resources(artikulate_SRCS ../data/languages.qrc)
 kconfig_add_kcfg_files (artikulate_SRCS settings.kcfgc)
 
 set(artikulate_editor_SRCS

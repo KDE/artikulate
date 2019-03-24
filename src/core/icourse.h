@@ -50,7 +50,11 @@ public:
     virtual QString i18nTitle() const = 0;
     virtual QString description() const = 0;
     virtual Language * language() const = 0;
-    virtual QList<Unit *> unitList() const = 0;
+    /**
+     * @brief Lazy loading unit list
+     * @return list of units in course
+     */
+    virtual QList<Unit *> unitList() = 0;
     virtual QUrl file() const = 0;
 
 Q_SIGNALS:
@@ -63,6 +67,7 @@ Q_SIGNALS:
     void unitsRemoved();
     void unitsAboutToBeRemoved(int,int);
 };
+
 Q_DECLARE_INTERFACE(ICourse, "com.kde.artikulate.ICourse/1.0")
 
 #endif // COURSE_H

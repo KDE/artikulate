@@ -137,10 +137,10 @@ QString SkeletonResource::i18nTitle()
     return d->m_i18nTitle;
 }
 
-ResourceInterface::Type SkeletonResource::type() const
-{
-    return d->m_type;
-}
+//ResourceInterface::Type SkeletonResource::type() const
+//{
+//    return d->m_type;
+//}
 
 void SkeletonResource::close()
 {

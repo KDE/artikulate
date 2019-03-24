@@ -101,7 +101,7 @@ void ResourceManager::loadCourseResources()
                 foreach (const QFileInfo &courseInfo, courses) {
                     CourseResource * course = addCourse(QUrl::fromLocalFile(courseInfo.filePath()));
                     if (course != nullptr) {
-                        course->setContributorResource(true);
+//                        course->setContributorResource(true);
                     }
                 }
             }
@@ -363,9 +363,9 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
 }
 
 CourseResource * ResourceManager::addCourse(const QUrl &courseFile)
-{
-    CourseResource *resource = new CourseResource(this, courseFile);
-    if (resource->language().isEmpty()) {
+{  
+    CourseResource *resource = new CourseResource(courseFile, nullptr); //TODO
+    if (resource->language() == nullptr) {
         delete resource;
         qCritical() << "Could not load course, language unknown:" << courseFile.toLocalFile();
         return nullptr;
@@ -384,17 +384,17 @@ CourseResource * ResourceManager::addCourse(const QUrl &courseFile)
 
 void ResourceManager::addCourseResource(CourseResource *resource)
 {
-    Q_ASSERT(m_courseResources.contains(resource->language()));
+//    Q_ASSERT(m_courseResources.contains(resource->language()));
 
-    if (m_courseResources.contains(resource->language())) {
-        emit courseResourceAboutToBeAdded(resource, m_courseResources[resource->language()].count());
-    }
-    else {
-        emit courseResourceAboutToBeAdded(resource, 0);
-        m_courseResources.insert(resource->language(), QList<CourseResource*>());
-    }
-    m_courseResources[resource->language()].append(resource);
-    emit courseResourceAdded();
+//    if (m_courseResources.contains(resource->language())) {
+//        emit courseResourceAboutToBeAdded(resource, m_courseResources[resource->language()].count());
+//    }
+//    else {
+//        emit courseResourceAboutToBeAdded(resource, 0);
+//        m_courseResources.insert(resource->language(), QList<CourseResource*>());
+//    }
+//    m_courseResources[resource->language()].append(resource);
+//    emit courseResourceAdded();
 }
 
 void ResourceManager::removeCourse(Course *course)
@@ -418,7 +418,7 @@ Course * ResourceManager::createCourse(Language *language, Skeleton *skeleton)
              skeleton->id(),
              language->id());
 
-    CourseResource * courseRes = new CourseResource(this, QUrl::fromLocalFile(path));
+    CourseResource * courseRes = new CourseResource(QUrl::fromLocalFile(path), nullptr); //TODO
     Q_ASSERT(courseRes);
 
     Course *course = courseRes->course();

@@ -21,16 +21,17 @@
 #include "coursemodel.h"
 #include "core/language.h"
 #include "core/course.h"
-#include "core/resourcemanager.h"
+#include "core/iresourcerepository.h"
 #include "core/resources/courseresource.h"
 #include <QAbstractListModel>
 #include "artikulate_debug.h"
 #include <QSignalMapper>
 #include <KLocalizedString>
+#include "application.h"
 
 CourseModel::CourseModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_resourceManager(nullptr)
+    , m_resourceRepository(nullptr)
     , m_language(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
@@ -40,6 +41,8 @@ CourseModel::CourseModel(QObject *parent)
             this, &CourseModel::rowCountChanged);
     connect(this, &CourseModel::languageChanged,
             this, &CourseModel::rowCountChanged);
+
+    setResourceRepository(artikulateApp->resourceRepository());
 }
 
 QHash< int, QByteArray > CourseModel::roleNames() const
@@ -54,38 +57,42 @@ QHash< int, QByteArray > CourseModel::roleNames() const
     return roles;
 }
 
-void CourseModel::setResourceManager(ResourceManager *resourceManager)
+void CourseModel::setResourceRepository(IResourceRepository *resourceRepository)
 {
-    if (m_resourceManager == resourceManager) {
+    if (resourceRepository == nullptr) {
+        qCWarning(ARTIKULATE_CORE()) << "setting resource repository to nullptr, this shall never happen";
+    }
+    Q_ASSERT(resourceRepository != nullptr);
+
+    if (m_resourceRepository == resourceRepository) {
         return;
     }
 
     beginResetModel();
 
-    if (m_resourceManager) {
-        m_resourceManager->disconnect(this);
+    if (m_resourceRepository) {
+        disconnect(m_resourceRepository, &IResourceRepository::courseAboutToBeAdded, this, &CourseModel::onCourseAboutToBeAdded);
+        disconnect(m_resourceRepository, &IResourceRepository::courseAdded, this, &CourseModel::onCourseAdded);
+        disconnect(m_resourceRepository, &IResourceRepository::courseAboutToBeRemoved, this, &CourseModel::onCourseAboutToBeRemoved);
     }
 
-    m_resourceManager = resourceManager;
-    m_resources.clear();
-    if (m_resourceManager) {
-        connect(m_resourceManager, &ResourceManager::courseResourceAboutToBeAdded,
-                this, &CourseModel::onCourseResourceAboutToBeAdded);
-        connect(m_resourceManager, &ResourceManager::courseResourceAdded,
-                this, &CourseModel::onCourseResourceAdded);
-        connect(m_resourceManager, &ResourceManager::courseResourceAboutToBeRemoved,
-                this, &CourseModel::onCourseResourceAboutToBeRemoved);
+    m_resourceRepository = resourceRepository;
+    m_courses.clear();
+    if (m_resourceRepository) {
+        connect(m_resourceRepository, &IResourceRepository::courseAboutToBeAdded, this, &CourseModel::onCourseAboutToBeAdded);
+        connect(m_resourceRepository, &IResourceRepository::courseAdded, this, &CourseModel::onCourseAdded);
+        connect(m_resourceRepository, &IResourceRepository::courseAboutToBeRemoved, this, &CourseModel::onCourseAboutToBeRemoved);
     }
-    if (m_resourceManager) {
-        m_resources = m_resourceManager->courseResources(m_language);
+    if (m_resourceRepository) {
+        m_courses = m_resourceRepository->courses(m_language);
     }
     endResetModel();
     emit resourceManagerChanged();
 }
 
-ResourceManager * CourseModel::resourceManager() const
+IResourceRepository * CourseModel::resourceRepository() const
 {
-    return m_resourceManager;
+    return m_resourceRepository;
 }
 
 Language * CourseModel::language() const
@@ -97,7 +104,7 @@ void CourseModel::setLanguage(Language *language)
 {
     beginResetModel();
     m_language = language;
-    m_resources = m_resourceManager->courseResources(m_language);
+    m_courses = m_resourceRepository->courses(m_language);
     emit languageChanged();
     endResetModel();
     emit rowCountChanged();
@@ -109,11 +116,11 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_resources.count()) {
+    if (index.row() >= m_courses.count()) {
         return QVariant();
     }
 
-    Course * const course = m_resources.at(index.row())->course();
+    ICourse * const course = m_courses.at(index.row());
 
     switch(role)
     {
@@ -129,7 +136,7 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
     case IdRole:
         return course->id();
     case ContributerResourceRole:
-        return m_resources.at(index.row())->isContributorResource();
+        return false;// m_resources.at(index.row())->isContributorResource();//FIXME
     case LanguageRole:
         return QVariant::fromValue<QObject*>(course->language());
     case DataRole:
@@ -144,40 +151,40 @@ int CourseModel::rowCount(const QModelIndex& parent) const
     if (parent.isValid()) {
         return 0;
     }
-    return m_resources.count();
+    return m_courses.count();
 }
 
-void CourseModel::onCourseResourceAboutToBeAdded(CourseResource *resource, int index)
+void CourseModel::onCourseAboutToBeAdded(ICourse *course, int index)
 {
     Q_UNUSED(index);
-    beginInsertRows(QModelIndex(), m_resources.count(), m_resources.count());
-    m_resources.append(resource);
+    beginInsertRows(QModelIndex(), m_courses.count(), m_courses.count());
+    m_courses.append(course);
 
-    connect(resource->course(), SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
+    connect(course, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
     //TODO add missing signals
 }
 
-void CourseModel::onCourseResourceAdded()
+void CourseModel::onCourseAdded()
 {
     updateMappings();
     endInsertRows();
     emit rowCountChanged();
 }
 
-void CourseModel::onCourseResourceAboutToBeRemoved(int index)
+void CourseModel::onCourseAboutToBeRemoved(int index)
 {
-    if (index >= m_resourceManager->courseResources(m_language).count()) {
+    if (index >= m_resourceRepository->courses(m_language).count()) {
         return;
     }
-    CourseResource *originalResource = m_resourceManager->courseResources(m_language).at(index);
-    int modelIndex = m_resources.indexOf(originalResource);
+    ICourse *originalCourse = m_resourceRepository->courses(m_language).at(index);
+    int modelIndex = m_courses.indexOf(originalCourse);
 
     if (modelIndex == -1) {
         qCWarning(ARTIKULATE_LOG) << "Cannot remove course from model, not registered";
         return;
     }
     beginRemoveRows(QModelIndex(), modelIndex, modelIndex);
-    m_resources.removeAt(modelIndex);
+    m_courses.removeAt(modelIndex);
     endRemoveRows();
     emit rowCountChanged();
 }
@@ -201,9 +208,9 @@ QVariant CourseModel::headerData(int section, Qt::Orientation orientation, int r
 
 void CourseModel::updateMappings()
 {
-    int courses = m_resources.count();
+    int courses = m_courses.count();
     for (int i = 0; i < courses; i++) {
-        m_signalMapper->setMapping(m_resources.at(i)->course(), i);
+        m_signalMapper->setMapping(m_courses.at(i), i);
     }
 }
 

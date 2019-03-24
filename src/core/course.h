@@ -64,7 +64,7 @@ public:
     void setDescription(const QString &description);
     QUrl file() const override;
     void setFile(const QUrl &file);
-    QList<Unit *> unitList() const override;
+    QList<Unit *> unitList() override;
     QList<Unit *> phonemeUnitList(PhonemeGroup *phonemeGroup) const;
     /**
      * \return the corresponding unit for phoneme \p phoneme

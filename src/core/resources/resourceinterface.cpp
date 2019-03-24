@@ -30,8 +30,7 @@
 #include <QStandardPaths>
 
 ResourceInterface::ResourceInterface(ResourceManager *resourceManager)
-    : QObject()
-    , m_contributorResource(false)
+    : m_contributorResource(false)
 {
     Q_UNUSED(resourceManager)
 }
@@ -63,8 +62,8 @@ void ResourceInterface::reload()
 
 QXmlSchema ResourceInterface::loadXmlSchema(const QString &schemeName) const
 {
-    QString relPath = QStringLiteral("schemes/%1.xsd").arg(schemeName);
-    QUrl file = QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "artikulate/" + relPath));
+    QString relPath = QStringLiteral(":/artikulate/schemes/%1.xsd").arg(schemeName);
+    QUrl file = QUrl::fromLocalFile(relPath);
 
     QXmlSchema schema;
     if (file.isEmpty() || schema.load(file) == false) {

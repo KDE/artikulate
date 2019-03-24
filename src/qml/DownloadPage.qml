@@ -26,6 +26,12 @@ import org.kde.newstuff 1.0 as KNS
 
 Kirigami.Page {
     id: root
+
+    /**
+     * emitted whenever GHNS resources changed
+     */
+    signal statusChanged();
+
     title: i18n("Download Training Material")
     background: Rectangle {
         color: "#ffffff"
@@ -41,7 +47,7 @@ Kirigami.Page {
             text: model.name
             readonly property var status: model.status
             onStatusChanged: {
-                g_resourceManager.loadCourseResources();
+                root.statusChanged();
             }
             checkable: false
             RowLayout {

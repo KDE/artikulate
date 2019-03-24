@@ -23,7 +23,7 @@
 
 #include <QQmlApplicationEngine>
 #include <KActionCollection>
-#include "core/resourcemanager.h"
+#include "core/resourcerepository.h"
 
 class TrainingSession;
 class KHelpMenu;
@@ -45,9 +45,9 @@ public:
     /**
      * Default Destructor
      */
-    virtual ~MainWindow();
+    ~MainWindow() override;
 
-    ResourceManager * resourceManager() const;
+    const IResourceRepository * resourceRepository() const;
 
     KActionCollection * actionCollection();
     void setupActions();
@@ -55,6 +55,7 @@ public:
 
 public Q_SLOTS:
     void showSettingsDialog();
+    void updateCourseResources();
     void updateTrainingPhraseFont();
     void updateKcfgUseContributorResources();
     void configLearnerProfile();
@@ -64,7 +65,6 @@ public Q_SLOTS:
 private:
     KActionCollection *m_actionCollection;
     KHelpMenu *m_helpMenu;
-    ResourceManager *m_resourceManager;
     LearnerProfile::ProfileManager *m_profileManager;
     TrainingSession *m_trainingSession;
 };
