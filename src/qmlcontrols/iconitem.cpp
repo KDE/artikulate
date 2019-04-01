@@ -21,7 +21,7 @@
 #include "iconitem.h"
 
 #include <QSGSimpleTextureNode>
-#include <qquickwindow.h>
+#include <QQuickWindow>
 #include <QIcon>
 #include "imagetexturescache.h"
 #include "managedtexturenode.h"
