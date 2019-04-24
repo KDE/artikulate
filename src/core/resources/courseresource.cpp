@@ -322,7 +322,7 @@ Course * CourseResource::course()
     return qobject_cast<Course*>(resource());
 }
 
-Phrase* CourseResource::parsePhrase(QDomElement phraseNode, Unit* parentUnit) const
+Phrase* CourseResource::parsePhrase(const QDomElement &phraseNode, Unit* parentUnit) const
 {
     Phrase *phrase = new Phrase(parentUnit);
     phrase->setId(phraseNode.firstChildElement(QStringLiteral("id")).text());

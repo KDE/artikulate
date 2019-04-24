@@ -106,7 +106,7 @@ public:
     Course * course();
 
 private:
-    Phrase * parsePhrase(QDomElement phraseNode, Unit *parentUnit) const;
+    Phrase * parsePhrase(const QDomElement &phraseNode, Unit *parentUnit) const;
     /**
      * \return serialized course as DOM document
      * \param trainingExport if true phrases without recording and empty units are excluded
