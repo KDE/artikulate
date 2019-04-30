@@ -40,5 +40,5 @@ target_link_libraries(TestLearnerStorage
     artikulatelearnerprofile
     Qt5::Test
 )
-add_test(TestLearnerStorage TestLearnerStorage)
+add_test(NAME TestLearnerStorage COMMAND TestLearnerStorage)
 ecm_mark_as_test(TestLearnerStorage)

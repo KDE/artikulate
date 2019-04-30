@@ -45,7 +45,7 @@ target_link_libraries(TestCourseFiles
     artikulatecore
     Qt5::Test
 )
-add_test(TestCourseFiles TestCourseFiles)
+add_test(NAME TestCourseFiles COMMAND TestCourseFiles)
 ecm_mark_as_test(TestCourseFiles)
 
 # basic tests language files (input/output)
@@ -57,5 +57,5 @@ target_link_libraries(TestLanguageFiles
     artikulatecore
     Qt5::Test
 )
-add_test(TestLanguageFiles TestLanguageFiles)
+add_test(NAME TestLanguageFiles COMMAND TestLanguageFiles)
 ecm_mark_as_test(TestLanguageFiles)
