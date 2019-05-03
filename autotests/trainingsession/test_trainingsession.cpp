@@ -39,6 +39,8 @@ public:
         , m_units(units)
     {
     }
+    ~CourseStub() override;
+
     QString id() const override
     {
         return "courseid";
@@ -72,6 +74,9 @@ private:
     Language *m_language{nullptr};
     QVector<Unit *> m_units;
 };
+
+// define one virtual method out of line to pin CourseStub to this translation unit
+CourseStub::~CourseStub() = default;
 
 void TestTrainingSession::init()
 {

@@ -56,15 +56,19 @@ target_link_libraries(test_trainingsession
 add_test(test_trainingsession test_trainingsession)
 ecm_mark_as_test(test_trainingsession)
 
-set(TestCourseFiles_SRCS testcoursefiles.cpp)
-kconfig_add_kcfg_files(TestCourseFiles_SRCS ../src/settings.kcfgc)
-add_executable(TestCourseFiles ${TestCourseFiles_SRCS} )
-target_link_libraries(TestCourseFiles
+# test course resource class
+set(TestCourseResource_SRCS
+    courseresource/test_courseresource.cpp
+    courseresource/resourcerepositorystub.cpp
+)
+qt5_add_resources(TestCourseResource_SRCS ../data/languages.qrc)
+add_executable(test_courseresource ${TestCourseResource_SRCS} )
+target_link_libraries(test_courseresource
     artikulatecore
     Qt5::Test
 )
-add_test(TestCourseFiles TestCourseFiles)
-ecm_mark_as_test(TestCourseFiles)
+add_test(test_courseresource test_courseresource)
+ecm_mark_as_test(test_courseresource)
 
 # basic tests language files (input/output)
 set(TestLanguageFiles_SRCS testlanguagefiles.cpp)

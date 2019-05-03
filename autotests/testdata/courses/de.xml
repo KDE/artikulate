@@ -2,7 +2,7 @@
 <course>
     <id>de</id>
     <foreignId>artikulate-basic</foreignId>
-    <title>ArtiKulate Deutsch</title>
+    <title>Artikulate Deutsch</title>
     <description>Ein Kurs in (hoch-)deutscher Aussprache.</description>
     <language>de</language>
     <units>

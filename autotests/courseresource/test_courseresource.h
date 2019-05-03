@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,18 +18,18 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTCOURSEFILES_H
-#define TESTCOURSEFILES_H
+#ifndef TESTCOURSERESOURCE_H
+#define TESTCOURSERESOURCE_H
 
 #include <QObject>
 #include <QVariant>
 
-class TestCourseFiles : public QObject
+class TestCourseResource : public QObject
 {
     Q_OBJECT
 
 public:
-    TestCourseFiles();
+    TestCourseResource();
 
 private slots:
     /**
@@ -46,6 +46,8 @@ private slots:
      * Test if course XSD specification is valid.
      */
     void courseSchemeValidationTest();
+
+    void loadCourseResource();
 
     /**
      * Test if serialization of unserialized file gives original file.

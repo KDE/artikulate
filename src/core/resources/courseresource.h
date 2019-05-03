@@ -44,7 +44,6 @@ class ARTIKULATECORE_EXPORT CourseResource : public ICourse
 {
     Q_OBJECT
     Q_INTERFACES(ICourse)
-    void course(QString text);
 
 public:
     /**

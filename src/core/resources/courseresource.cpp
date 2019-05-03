@@ -76,6 +76,7 @@ public:
     QString m_languageId;
     Language *m_language{ nullptr };
     QString m_i18nTitle;
+    QString m_description;
     Course *m_loadedCourse{ nullptr };
 };
 
@@ -131,12 +132,16 @@ CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository
                 d->m_identifier = xml.readElementText();
                 continue;
             }
+            //TODO i18nTitle must be implemented, currently missing and hence not parsed
             if (xml.name() == "title") {
                 d->m_title = xml.readElementText();
                 d->m_i18nTitle = d->m_title;
                 continue;
             }
-            //TODO i18nTitle must be implemented, currently missing and hence not parsed
+            if (xml.name() == "description") {
+                d->m_description = xml.readElementText();
+                continue;
+            }
             if (xml.name() == "language") {
                 d->m_languageId = xml.readElementText();
                 continue;
@@ -146,6 +151,7 @@ CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository
             if (!d->m_identifier.isEmpty()
                 && !d->m_title.isEmpty()
                 && !d->m_i18nTitle.isEmpty()
+                && !d->m_description.isEmpty()
                 && !d->m_languageId.isEmpty()
             )
             {
@@ -155,9 +161,26 @@ CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository
         if (xml.hasError()) {
             qCritical() << "Error occurred when reading Course XML file:" << path.toLocalFile();
         }
+    } else {
+        qCCritical(ARTIKULATE_CORE()) << "Could not open course file" << path.toLocalFile();
     }
     xml.clear();
     file.close();
+
+    // find correct language
+    if (repository != nullptr) {
+        for (const auto &language : repository->languages()) {
+            if (language == nullptr) {
+                continue;
+            }
+            if (language->id() == d->m_languageId) {
+                d->m_language = language;
+            }
+        }
+    }
+    if (d->m_language == nullptr) {
+        qCCritical(ARTIKULATE_CORE()) << "A course with an unknown language was loaded";
+    }
 }
 
 CourseResource::CourseResource(const QUrl &path, const QVector<Language *> &languages, IResourceRepository *repository)
@@ -195,10 +218,7 @@ QString CourseResource::i18nTitle() const
 
 QString CourseResource::description() const
 {
-    if (d->m_loadedCourse != nullptr) {
-        return d->m_loadedCourse->description();
-    }
-    return QString();
+    return d->m_description;
 }
 
 Language * CourseResource::language() const

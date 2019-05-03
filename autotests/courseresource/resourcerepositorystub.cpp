@@ -1,5 +1,5 @@
 /*
- *  Copyright 2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2019  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,38 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TEST_COURSE_H
-#define TEST_COURSE_H
+#include "resourcerepositorystub.h"
 
-#include <QObject>
-
-class TestCourse : public QObject
-{
-    Q_OBJECT
-
-public:
-    TestCourse() = default;
-
-private Q_SLOTS:
-    /**
-     * Called before every test case.
-     */
-    void init();
-
-    /**
-     * Called after every test case.
-     */
-    void cleanup();
-
-    /**
-     * @brief Construct and destruct course without units
-     */
-    void createCourseWithoutUnits();
-
-    /**
-     * @brief Construct training session and check that phrases without sound file paths are skipped
-     */
-    void createCourseWithoutPhrases();
-};
-
-#endif
+// define one virtual method out of line to pin CourseStub to this translation unit
+ResourceRepositoryStub::~ResourceRepositoryStub() = default;
