@@ -152,15 +152,15 @@ void ResourceManager::loadLanguageResources()
 
 void ResourceManager::sync()
 {
-    QMap< QString, QList< CourseResource* > >::iterator iter;
-    for (iter = m_courseResources.begin(); iter != m_courseResources.end(); ++iter) {
-        foreach (auto const &courseRes, iter.value()) {
-            courseRes->sync();
-        }
-    }
-    foreach (auto const &courseRes, m_skeletonResources) {
-        courseRes->sync();
-    }
+//    QMap< QString, QList< CourseResource* > >::iterator iter;
+//    for (iter = m_courseResources.begin(); iter != m_courseResources.end(); ++iter) {
+//        foreach (auto const &courseRes, iter.value()) {
+//            courseRes->sync();
+//        }
+//    }
+//    foreach (auto const &courseRes, m_skeletonResources) {
+//        courseRes->sync();
+//    }
 }
 
 bool ResourceManager::modified() const
@@ -363,7 +363,7 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
 }
 
 CourseResource * ResourceManager::addCourse(const QUrl &courseFile)
-{  
+{
     CourseResource *resource = new CourseResource(courseFile, nullptr); //TODO
     if (resource->language() == nullptr) {
         delete resource;

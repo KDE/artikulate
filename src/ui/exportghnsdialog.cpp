@@ -21,7 +21,9 @@
 #include "exportghnsdialog.h"
 #include "core/resourcemanager.h"
 #include "core/resources/languageresource.h"
-#include "core/resources/courseresource.h"
+#include "core/resources/editablecourseresource.h"
+#include "core/resources/courseparser.h"
+#include "core/icourse.h"
 #include "artikulate_debug.h"
 #include <KLocalizedString>
 #include <QFileDialog>
@@ -77,8 +79,8 @@ ExportGhnsDialog::~ExportGhnsDialog()
 
 void ExportGhnsDialog::onExportCourse()
 {
-    CourseResource *res = qobject_cast<CourseResource *>(
+    ICourse *res = qobject_cast<ICourse *>(
         ui->courseListCombo->currentData().value<QObject*>());
     qCDebug(ARTIKULATE_LOG) << res << "export GHNS file for" << res->i18nTitle();
-    res->exportGhns(ui->exportDirectory->text());
+    CourseParser::exportCourseToGhnsPackage(res, ui->exportDirectory->text());
 }

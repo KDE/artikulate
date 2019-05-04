@@ -45,6 +45,10 @@ public:
     {
         return "courseid";
     }
+    QString foreignId() const override
+    {
+        return "foreigncourseid";
+    }
     QString title() const override
     {
         return "title";

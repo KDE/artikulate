@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,29 +18,30 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COURSERESOURCE_H
-#define COURSERESOURCE_H
+#ifndef EDITABLECOURSERESOURCE_H
+#define EDITABLECOURSERESOURCE_H
 
 #include "artikulatecore_export.h"
+#include "courseresource.h"
 #include "core/icourse.h"
 
+#include <memory>
 #include <QObject>
 #include <QVector>
 
-class QDomElement;
-class QString;
-class CourseResourcePrivate;
+class IResourceRepository;
 class Course;
 class Unit;
 class Phrase;
-class IResourceRepository;
-
-//TODO move to private
-class QXmlSchema;
-class QJSonDocument;
+class QString;
 class QDomDocument;
 
-class ARTIKULATECORE_EXPORT CourseResource : public ICourse
+/**
+ * @brief Decorator for CourseResource
+ *
+ * This decorator adds functionality to modify and write back changes of a course.
+ */
+class ARTIKULATECORE_EXPORT EditableCourseResource : public ICourse
 {
     Q_OBJECT
     Q_INTERFACES(ICourse)
@@ -49,14 +50,9 @@ public:
     /**
      * Create course resource from file.
      */
-    explicit CourseResource(const QUrl &path, IResourceRepository *repository);
+    explicit EditableCourseResource(const QUrl &path, IResourceRepository *repository);
 
-    /**
-     * @brief convenience constructor for porting to language access by dedicated model
-     */
-    explicit Q_DECL_DEPRECATED CourseResource(const QUrl &path, const QVector<Language *> &languages, IResourceRepository *repository);
-
-    ~CourseResource() override;
+    ~EditableCourseResource() override = default;
 
     /**
      * \return unique identifier
@@ -64,7 +60,7 @@ public:
     QString id() const override;
 
     /**
-     * \return global ID for this course
+     * \return unique identifier
      */
     QString foreignId() const override;
 
@@ -88,19 +84,12 @@ public:
      */
     Language * language() const override;
 
-    void addUnit(Unit *unit);
-
     /**
      * \return true if resource is loaded, otherwise false
      */
     bool isOpen() const;
 
     void sync();
-
-    /**
-     * export course as <course-id>.tar.bz2 file in the specified folder.
-     */
-    void exportGhns(const QString &path);
 
     /**
      * close resource without writing changes back to file
@@ -111,21 +100,9 @@ public:
 
     QList<Unit *> unitList() override;
 
-    /**
-     * \return reference to the loaded course resource
-     */
-    Q_DECL_DEPRECATED Course * course();
-
 private:
-    Phrase * parsePhrase(QDomElement phraseNode, Unit *parentUnit) const;
-    /**
-     * \return serialized course as DOM document
-     * \param trainingExport if true phrases without recording and empty units are excluded
-     */
-    QDomDocument serializedDocument(bool trainingExport=false) const;
-    QDomElement serializedPhrase(Phrase * phrase, QDomDocument &document) const;
-
-    const QScopedPointer<CourseResourcePrivate> d;
+    bool m_modified{ false }; //FIXME modify this state
+    const std::unique_ptr<CourseResource> m_course;
 };
 
 #endif

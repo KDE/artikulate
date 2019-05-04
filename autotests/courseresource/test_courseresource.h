@@ -47,7 +47,15 @@ private slots:
      */
     void courseSchemeValidationTest();
 
+    /**
+     * Test simple loading of course resource XML file
+     */
     void loadCourseResource();
+
+    /**
+     * Test handling of unit insertions (specifically, the signals)
+     */
+    void addUnitHandling();
 
     /**
      * Test if serialization of unserialized file gives original file.

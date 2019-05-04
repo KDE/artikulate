@@ -46,6 +46,7 @@ public:
     }
     virtual ~ICourse() = default;
     virtual QString id() const = 0;
+    virtual QString foreignId() const = 0;
     virtual QString title() const = 0;
     virtual QString i18nTitle() const = 0;
     virtual QString description() const = 0;

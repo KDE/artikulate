@@ -293,21 +293,6 @@ void Course::setModified(bool modified)
     emit modifiedChanged();
 }
 
-void Course::sync()
-{
-    if (!m_file.isValid() || m_file.isEmpty() || m_resource == nullptr) {
-        qCritical() << "Path" << m_file.toLocalFile() << "not valid, aborting sync operation.";
-        return;
-    }
-    m_resource->sync();
-    setModified(false);
-}
-
-//bool Course::isContributorResource() const
-//{
-//    return m_resource->isContributorResource();
-//}
-
 void Course::registerPhrasePhonemes(Phrase *phrase)
 {
     // iterate over all phonemes of this phrase

@@ -30,7 +30,7 @@
 #include <QTest>
 #include <QDebug>
 #include <QTemporaryFile>
-
+#include <QSignalSpy>
 #include <QIODevice>
 #include <QFile>
 #include <QXmlSchema>
@@ -74,6 +74,7 @@ void TestCourseResource::loadCourseResource()
     CourseResource course(QUrl::fromLocalFile(courseFile), &repository);
     QCOMPARE(course.file().toLocalFile(), courseFile);
     QCOMPARE(course.id(), "de");
+    QCOMPARE(course.foreignId(), "artikulate-basic");
     QCOMPARE(course.title(), "Artikulate Deutsch");
     QCOMPARE(course.description(), "Ein Kurs in (hoch-)deutscher Aussprache.");
     QVERIFY(course.language() != nullptr);
@@ -97,6 +98,31 @@ void TestCourseResource::loadCourseResource()
     QCOMPARE(firstPhrase->soundFileUrl(), courseDirectory + "de_01.ogg");
     QCOMPARE(firstPhrase->type(), Phrase::Type::Sentence);
     QVERIFY(firstPhrase->phonemes().isEmpty());
+}
+
+void TestCourseResource::addUnitHandling()
+{
+    // boilerplate
+    Language language;
+    language.setId("de");
+    ResourceRepositoryStub repository({&language});
+    const QString courseDirectory = "data/courses/de/";
+    const QString courseFile = courseDirectory + "de.xml";
+    CourseResource course(QUrl::fromLocalFile(courseFile), &repository);
+
+    // begin of test
+    Unit unit;
+    unit.setId("testunit");
+    const int initialUnitNumber = course.unitList().count();
+    QCOMPARE(initialUnitNumber, 1);
+    QSignalSpy spyAboutToBeAdded(&course, SIGNAL(unitAboutToBeAdded(Unit*, int)));
+    QSignalSpy spyAdded(&course, SIGNAL(unitAdded()));
+    QCOMPARE(spyAboutToBeAdded.count(), 0);
+    QCOMPARE(spyAdded.count(), 0);
+    course.addUnit(&unit);
+    QCOMPARE(course.unitList().count(), initialUnitNumber + 1);
+    QCOMPARE(spyAboutToBeAdded.count(), 1);
+    QCOMPARE(spyAdded.count(), 1);
 }
 
 //TODO test signals
