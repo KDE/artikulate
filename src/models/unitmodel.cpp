@@ -19,7 +19,7 @@
  */
 
 #include "unitmodel.h"
-#include "core/course.h"
+#include "core/icourse.h"
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/language.h"
@@ -49,7 +49,7 @@ QHash< int, QByteArray > UnitModel::roleNames() const
     return roles;
 }
 
-void UnitModel::setCourse(Course *course)
+void UnitModel::setCourse(ICourse *course)
 {
     if (m_course == course) {
         return;
@@ -64,10 +64,10 @@ void UnitModel::setCourse(Course *course)
     m_course = course;
 
     if (m_course) {
-        connect(m_course, &Course::unitAboutToBeAdded, this, &UnitModel::onUnitAboutToBeAdded);
-        connect(m_course, &Course::unitAdded, this, &UnitModel::onUnitAdded);
-        connect(m_course, &Course::unitsAboutToBeRemoved, this, &UnitModel::onUnitsAboutToBeRemoved);
-        connect(m_course, &Course::unitsRemoved, this, &UnitModel::onUnitsRemoved);
+        connect(m_course, &ICourse::unitAboutToBeAdded, this, &UnitModel::onUnitAboutToBeAdded);
+        connect(m_course, &ICourse::unitAdded, this, &UnitModel::onUnitAdded);
+        connect(m_course, &ICourse::unitsAboutToBeRemoved, this, &UnitModel::onUnitsAboutToBeRemoved);
+        connect(m_course, &ICourse::unitsRemoved, this, &UnitModel::onUnitsRemoved);
     }
 
     endResetModel();
@@ -75,7 +75,7 @@ void UnitModel::setCourse(Course *course)
     emit courseChanged();
 }
 
-Course * UnitModel::course() const
+ICourse * UnitModel::course() const
 {
     return m_course;
 }

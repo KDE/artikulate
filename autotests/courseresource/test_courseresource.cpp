@@ -20,7 +20,6 @@
 
 #include "test_courseresource.h"
 #include "resourcerepositorystub.h"
-#include "core/course.h"
 #include "core/language.h"
 #include "core/unit.h"
 #include "core/phrase.h"

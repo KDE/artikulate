@@ -69,7 +69,6 @@ private Q_SLOTS:
     void updateDisplayedLanguages();
 
 private:
-    bool displayResource(LanguageResource *resource) const;
     void updateResources();
     void updateMappings();
     ResourceManager *m_resourceManager;

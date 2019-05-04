@@ -24,13 +24,13 @@
 #include <QAbstractItemModel>
 #include "core/phrase.h"
 
-class Course;
+class ICourse;
 class QSignalMapper;
 
 class PhraseModel : public QAbstractItemModel
 {
     Q_OBJECT
-    Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
+    Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
 
 public:
     enum phraseRoles {
@@ -41,8 +41,8 @@ public:
 
     explicit PhraseModel(QObject *parent = nullptr);
     virtual QHash<int,QByteArray> roleNames() const override;
-    void setCourse(Course *course);
-    Course * course() const;
+    void setCourse(ICourse *course);
+    ICourse * course() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -77,7 +77,7 @@ private:
     void updateUnitMappings();
     void updatePhraseMappings();
 
-    Course *m_course;
+    ICourse *m_course;
     QSignalMapper *m_unitSignalMapper;
     QSignalMapper *m_phraseSignalMapper;
 };

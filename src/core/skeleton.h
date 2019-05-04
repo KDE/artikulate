@@ -22,7 +22,7 @@
 #define SKELETON_H
 
 #include "artikulatecore_export.h"
-#include "course.h"
+#include "resources/editablecourseresource.h"
 #include <QObject>
 #include <QMap>
 #include <QUrl>
@@ -30,7 +30,7 @@
 class ResourceInterface;
 class SkeletonResource;
 
-class ARTIKULATECORE_EXPORT Skeleton : public Course
+class ARTIKULATECORE_EXPORT Skeleton : public EditableCourseResource
 {
     Q_OBJECT
 
@@ -41,7 +41,7 @@ public:
      * Writes course object back to file and set \ref modified state to false.
      * If no file is set, no operation is performed.
      */
-    Q_INVOKABLE void sync() override;
+    Q_INVOKABLE void sync();
 
 private:
     Q_DISABLE_COPY(Skeleton)

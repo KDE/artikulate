@@ -20,7 +20,6 @@
 
 #include "languageresourcemodel.h"
 #include "core/language.h"
-#include "core/course.h"
 #include "core/resourcemanager.h"
 #include "core/resources/languageresource.h"
 #include "core/resources/courseresource.h"
@@ -132,10 +131,6 @@ int LanguageResourceModel::rowCount(const QModelIndex &parent) const
 
 void LanguageResourceModel::onLanguageResourceAboutToBeAdded(LanguageResource *resource, int index)
 {
-    if (!displayResource(resource)) {
-        return;
-    }
-
     beginInsertRows(QModelIndex(), index, index);
     m_resources.append(resource);
 
@@ -213,44 +208,6 @@ LanguageModel::LanguageResourceView LanguageResourceModel::view() const
     return m_view;
 }
 
-bool LanguageResourceModel::displayResource(LanguageResource* resource) const
-{
-    if (m_view == LanguageModel::AllLanguages) {
-        return true;
-    }
-
-    // otherwise compute data needed for decision
-    QList<CourseResource*> courses = m_resourceManager->courseResources(resource->language());
-    int contribCount = 0;
-
-    if (m_view == LanguageModel::NonEmptyLanguages
-        && courses.count() > 0)
-    {
-        return true;
-    }
-
-    // compute data for determining whether language shall be shown or not
-//    foreach (CourseResource *course, courses) { //FIXME
-//        if (course->isContributorResource()) {
-//            ++contribCount;
-//        }
-//    }
-
-    if (m_view == LanguageModel::NonEmptyContributorOnlyResources
-        && contribCount > 0)
-    {
-        return true;
-    }
-
-    if (m_view == LanguageModel::NonEmptyGhnsOnlyLanguages
-        && courses.count() - contribCount > 0)
-    {
-        return true;
-    }
-
-    return false;
-}
-
 void LanguageResourceModel::updateResources()
 {
     if (!m_resourceManager) {
@@ -260,10 +217,8 @@ void LanguageResourceModel::updateResources()
     m_resources.clear();
     QList<LanguageResource*> resources = m_resourceManager->languageResources();
 
-    foreach (LanguageResource *language, resources) {
-        if (displayResource(language)) {
-            m_resources.append(language);
-        }
+    for (LanguageResource *language : resources) {
+        m_resources.append(language);
     }
     updateMappings();
 }

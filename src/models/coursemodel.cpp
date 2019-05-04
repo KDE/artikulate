@@ -20,7 +20,6 @@
 
 #include "coursemodel.h"
 #include "core/language.h"
-#include "core/course.h"
 #include "core/iresourcerepository.h"
 #include "core/resources/courseresource.h"
 #include <QAbstractListModel>

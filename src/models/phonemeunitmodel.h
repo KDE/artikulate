@@ -24,7 +24,7 @@
 #include <QAbstractListModel>
 
 class PhonemeGroup;
-class Course;
+class ICourse;
 class Unit;
 class PhonemeGroup;
 class QSignalMapper;
@@ -32,7 +32,7 @@ class QSignalMapper;
 class PhonemeUnitModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
+    Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(PhonemeGroup *phonemeGroup READ phonemeGroup WRITE setPhonemeGroup NOTIFY phonemeGroupChanged)
     Q_PROPERTY(int count READ count NOTIFY countChanged);
 
@@ -50,8 +50,8 @@ public:
      * Reimplemented from QAbstractListModel::roleNames()
      */
     virtual QHash<int,QByteArray> roleNames() const override;
-    void setCourse(Course *course);
-    Course * course() const;
+    void setCourse(ICourse *course);
+    ICourse * course() const;
     void setPhonemeGroup(PhonemeGroup *phonemeGroup);
     PhonemeGroup * phonemeGroup() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -74,7 +74,7 @@ private Q_SLOTS:
 
 private:
     void updateMappings();
-    Course *m_course;
+    ICourse *m_course;
     PhonemeGroup *m_phonemeGroup;
     QSignalMapper *m_signalMapper;
 };

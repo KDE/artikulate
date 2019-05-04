@@ -24,7 +24,7 @@
 #include <QAbstractListModel>
 
 class ResourceManager;
-class Course;
+class ICourse;
 class Skeleton;
 class Language;
 class QSignalMapper;
@@ -62,7 +62,7 @@ Q_SIGNALS:
     void countChanged();
 
 private Q_SLOTS:
-    void onSkeletonAboutToBeAdded(Course *skeleton, int index);
+    void onSkeletonAboutToBeAdded(ICourse *skeleton, int index);
     void onSkeletonAdded();
     void onSkeletonsAboutToBeRemoved(int first, int last);
     void onSkeletonsRemoved();

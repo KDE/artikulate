@@ -20,7 +20,6 @@
 
 #include "application.h"
 
-#include "core/course.h"
 #include "core/iresourcerepository.h"
 #include "core/drawertrainingactions.h"
 #include "core/trainingaction.h"
@@ -57,6 +56,7 @@
 #include "liblearnerprofile/src/learninggoal.h"
 #include "liblearnerprofile/src/models/learninggoalmodel.h"
 
+#include <QObject>
 #include <QQmlComponent>
 #include <QQmlContext>
 #include <QQmlEngine>
@@ -106,7 +106,6 @@ void Application::registerQmlTypes()
     qmlRegisterType<LearnerProfile::LearningGoal>("artikulate", 1, 0, "LearningGoal");
     qmlRegisterType<Unit>("artikulate", 1, 0, "Unit");
     qmlRegisterType<Skeleton>("artikulate", 1, 0, "Skeleton");
-    qmlRegisterType<Course>("artikulate", 1, 0, "Course");
     qmlRegisterType<Language>("artikulate", 1, 0, "Language");
     qmlRegisterType<ResourceManager>("artikulate", 1, 0, "ResourceManager");
     qmlRegisterType<Phrase>("artikulate", 1, 0, "Phrase");

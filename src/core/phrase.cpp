@@ -22,7 +22,7 @@
 #include "libsound/src/capturedevicecontroller.h"
 #include "libsound/src/outputdevicecontroller.h"
 #include "unit.h"
-#include "course.h"
+#include "icourse.h"
 #include "settings.h"
 
 #include "artikulate_debug.h"

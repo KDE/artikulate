@@ -22,13 +22,12 @@
 #define EDITORSESSION_H
 
 #include "artikulatecore_export.h"
-#include "course.h"
 #include "phrase.h"
 
 class QString;
 class Skeleton;
 class Language;
-class Course;
+class EditableCourseResource;
 class Unit;
 class ResourceManager;
 
@@ -60,7 +59,7 @@ class ARTIKULATECORE_EXPORT EditorSession : public QObject
     Q_PROPERTY(bool editSkeleton READ isEditSkeleton WRITE setEditSkeleton NOTIFY editSkeletonChanged)
     Q_PROPERTY(Skeleton *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
-    Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
+    Q_PROPERTY(EditableCourseResource *course READ course WRITE setCourse NOTIFY courseChanged) //TODO interface should provde ICourse
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
@@ -78,8 +77,8 @@ public:
     void setSkeleton(Skeleton *skeleton);
     Language * language() const;
     void setLanguage(Language *language);
-    Course * course() const;
-    void setCourse(Course *course);
+    EditableCourseResource * course() const;
+    void setCourse(EditableCourseResource *course);
     Unit * unit() const;
     void setUnit(Unit *unit);
     Phrase * phrase() const;
@@ -112,8 +111,8 @@ private:
     bool m_editSkeleton;
     Skeleton *m_skeleton;
     Language *m_language;
-    Course *m_course;
-    Course *m_tmpCourseWhileSkeletonEditing;
+    EditableCourseResource *m_course;
+    EditableCourseResource *m_tmpCourseWhileSkeletonEditing;
     Unit *m_unit;
     Phrase *m_phrase;
 };

@@ -19,7 +19,7 @@
  */
 
 #include "skeletonmodel.h"
-#include "core/course.h"
+#include "core/icourse.h"
 #include "core/resourcemanager.h"
 #include "core/skeleton.h"
 #include "core/resources/skeletonresource.h"
@@ -63,10 +63,11 @@ void SkeletonModel::setResourceManager(ResourceManager *resourceManager)
     m_resourceManager = resourceManager;
 
     if (m_resourceManager) {
-        connect(m_resourceManager, &ResourceManager::skeletonAboutToBeAdded, this, &SkeletonModel::onSkeletonAboutToBeAdded);
-        connect(m_resourceManager, &ResourceManager::skeletonAdded, this, &SkeletonModel::onSkeletonAdded);
-        connect(m_resourceManager, &ResourceManager::skeletonAboutToBeRemoved, this, &SkeletonModel::onSkeletonsAboutToBeRemoved);
-        connect(m_resourceManager, &ResourceManager::skeletonRemoved, this, &SkeletonModel::onSkeletonsRemoved);
+        //FIXME
+//        connect(m_resourceManager, &ResourceManager::skeletonAboutToBeAdded, this, &SkeletonModel::onSkeletonAboutToBeAdded);
+//        connect(m_resourceManager, &ResourceManager::skeletonAdded, this, &SkeletonModel::onSkeletonAdded);
+//        connect(m_resourceManager, &ResourceManager::skeletonAboutToBeRemoved, this, &SkeletonModel::onSkeletonsAboutToBeRemoved);
+//        connect(m_resourceManager, &ResourceManager::skeletonRemoved, this, &SkeletonModel::onSkeletonsRemoved);
     }
 
     endResetModel();
@@ -124,7 +125,7 @@ int SkeletonModel::rowCount(const QModelIndex &parent) const
     return m_resourceManager->skeletonResources().count();
 }
 
-void SkeletonModel::onSkeletonAboutToBeAdded(Course *skeleton, int index)
+void SkeletonModel::onSkeletonAboutToBeAdded(ICourse *skeleton, int index)
 {
     connect(skeleton, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
     //TODO add missing signals

@@ -21,8 +21,7 @@
 #include "editorsession.h"
 #include "core/skeleton.h"
 #include "core/language.h"
-#include "core/course.h"
-#include "core/resources/courseresource.h"
+#include "core/resources/editablecourseresource.h"
 #include "core/resources/languageresource.h"
 #include "core/unit.h"
 #include "core/phrase.h"
@@ -71,7 +70,7 @@ void EditorSession::setEditSkeleton(bool enabled)
     m_editSkeleton = enabled;
     if (enabled) {
         m_tmpCourseWhileSkeletonEditing = m_course;
-        setCourse(m_skeleton);
+//        setCourse(m_skeleton); //FIXME port skeleton for this
     } else {
         setCourse(m_tmpCourseWhileSkeletonEditing);
         m_tmpCourseWhileSkeletonEditing = nullptr;
@@ -105,7 +104,7 @@ void EditorSession::setSkeleton(Skeleton *skeleton)
         bool found = false;
         int resources = m_resourceManager->courseResources(language).count();
         for (int i=0; i < resources; ++i) {
-            Course * course = m_resourceManager->course(language, i);
+            EditableCourseResource * course = m_resourceManager->course(language, i);
             if (course->foreignId() == m_skeleton->id()) {
                 setCourse(course);
                 found = true;
@@ -136,7 +135,7 @@ void EditorSession::setLanguage(Language *language)
         if (m_skeleton) {
             int resources = m_resourceManager->courseResources(m_language).count();
             for (int i=0; i < resources; ++i) {
-                Course * course = m_resourceManager->course(m_language, i);
+                EditableCourseResource * course = m_resourceManager->course(m_language, i);
                 if (course->foreignId() == m_skeleton->id()) {
                     setCourse(course);
                     found = true;
@@ -156,12 +155,12 @@ void EditorSession::setLanguage(Language *language)
     emit languageChanged();
 }
 
-Course * EditorSession::course() const
+EditableCourseResource * EditorSession::course() const
 {
     return m_course;
 }
 
-void EditorSession::setCourse(Course *course)
+void EditorSession::setCourse(EditableCourseResource *course)
 {
     if (m_course == course) {
         return;
@@ -275,5 +274,5 @@ void EditorSession::updateCourseFromSkeleton()
         qCritical() << "Not updating course from skeleton, no one set.";
         return;
     }
-    m_resourceManager->updateCourseFromSkeleton(m_course);
+//    m_resourceManager->updateCourseFromSkeleton(m_course); //FIXME
 }

@@ -21,25 +21,19 @@
 
 #include "courseresource.h"
 #include "courseparser.h"
-#include "core/resourcemanager.h"
 #include "core/language.h"
-#include "core/course.h"
 #include "core/unit.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
 #include "core/language.h"
 #include "core/iresourcerepository.h"
-#include "application.h"
 
 #include <QXmlSchema>
 #include <QXmlStreamReader>
-#include <QStandardPaths>
 #include <QDomDocument>
-#include <QIODevice>
 #include <QFile>
 #include <QFileInfo>
 #include <QDir>
-#include <KTar>
 
 #include "artikulate_debug.h"
 
@@ -196,27 +190,20 @@ CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository
     }
 }
 
-CourseResource::CourseResource(const QUrl &path, const QVector<Language *> &languages, IResourceRepository *repository)
-    : CourseResource(path, repository)
-{
-    for (const auto &language : languages) {
-        if (language == nullptr) {
-            continue;
-        }
-        if (language->id() == d->m_languageId) {
-            d->m_language = language;
-        }
-    }
-}
-
-CourseResource::~CourseResource()
-{
-
-}
+CourseResource::~CourseResource() = default;
 
 QString CourseResource::id() const
 {
     return d->m_identifier;
+}
+
+void CourseResource::setId(const QString &id)
+{
+    if (d->m_identifier == id) {
+        return;
+    }
+    d->m_identifier = id;
+    emit idChanged();
 }
 
 QString CourseResource::foreignId() const
@@ -224,9 +211,27 @@ QString CourseResource::foreignId() const
     return d->m_foreignId;
 }
 
+void CourseResource::setForeignId(const QString &foreignId)
+{
+    if (d->m_foreignId == foreignId) {
+        return;
+    }
+    d->m_foreignId = foreignId;
+    emit foreignIdChanged();
+}
+
 QString CourseResource::title() const
 {
     return d->m_title;
+}
+
+void CourseResource::setTitle(const QString &title)
+{
+    if (d->m_title == title) {
+        return;
+    }
+    d->m_title = title;
+    emit titleChanged();
 }
 
 QString CourseResource::i18nTitle() const
@@ -234,14 +239,41 @@ QString CourseResource::i18nTitle() const
     return d->m_i18nTitle;
 }
 
+void CourseResource::setI18nTitle(const QString &i18nTitle)
+{
+    if (d->m_i18nTitle == i18nTitle) {
+        return;
+    }
+    d->m_i18nTitle = i18nTitle;
+    emit i18nTitleChanged();
+}
+
 QString CourseResource::description() const
 {
     return d->m_description;
 }
 
+void CourseResource::setDescription(const QString &description)
+{
+    if (d->m_description == description) {
+        return;
+    }
+    d->m_description = description;
+    emit descriptionChanged();
+}
+
 Language * CourseResource::language() const
 {
     return d->m_language;
+}
+
+void CourseResource::setLanguage(Language *language)
+{
+    if (d->m_language == language) {
+        return;
+    }
+    d->m_language = language;
+    emit languageChanged();
 }
 
 void CourseResource::addUnit(Unit *unit)
@@ -259,23 +291,15 @@ QList<Unit *> CourseResource::unitList()
     return d->m_units.toList();
 }
 
-void CourseResource::close()
+QVector<Unit *> CourseResource::units()
 {
-    //TODO cleanup
-}
-
-bool CourseResource::isOpen() const
-{
-    return true;
-    //TODO cleanaup
+    if (d->m_courseLoaded == false) {
+        d->loadCourse(this);
+    }
+    return d->m_units;
 }
 
 QUrl CourseResource::file() const
 {
     return d->m_file;
-}
-
-Course * CourseResource::course()
-{
-    return nullptr;
 }

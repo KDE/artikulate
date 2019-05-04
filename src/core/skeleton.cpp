@@ -20,7 +20,7 @@
 
 #include "skeleton.h"
 #include "resources/skeletonresource.h"
-#include "course.h"
+#include "resources/editablecourseresource.h"
 #include "unit.h"
 #include "language.h"
 #include "resourcemanager.h"
@@ -33,7 +33,7 @@
 #include <QUuid>
 
 Skeleton::Skeleton(ResourceInterface *resource)
-    : Course(resource)
+    : EditableCourseResource(QUrl(), nullptr) //FIXME thus just compiles but not more
     , m_resource(qobject_cast<SkeletonResource*>(resource))
 {
 }

@@ -59,49 +59,70 @@ public:
      */
     QString id() const override;
 
+    void setId(const QString &id);
+
     /**
      * \return unique identifier
      */
     QString foreignId() const override;
+
+    void setForeignId(const QString &foreignId);
 
     /**
      * \return human readable localized title
      */
     QString title() const override;
 
+    void setTitle(const QString &title);
+
     /**
      * \return human readable title in English
      */
     QString i18nTitle() const override;
+
+    void seti18nTitle(const QString &i18nTitle);
 
     /**
      * \return description text for course
      */
     QString description() const override;
 
+    void setDescription(const QString &description);
+
     /**
      * \return language identifier of this course
      */
     Language * language() const override;
 
-    /**
-     * \return true if resource is loaded, otherwise false
-     */
-    bool isOpen() const;
+    void setLanguage(Language *language);
 
     void sync();
 
-    /**
-     * close resource without writing changes back to file
-     */
-    void close();
+    void addUnit(Unit *);
+
+    bool isModified() const;
+
+    void setModified(bool modified); //TODO this method should not be public API but only used internally
 
     QUrl file() const override;
 
+    void setFile(const QUrl &) {}
+
     QList<Unit *> unitList() override;
 
+    Q_INVOKABLE Unit * createUnit();
+    Q_INVOKABLE Phrase * createPhrase(Unit *unit);
+
+Q_SIGNALS:
+    void idChanged();
+    void foreignIdChanged();
+    void titleChanged();
+    void i18nTitleChanged();
+    void descriptionChanged();
+    void languageChanged();
+
 private:
-    bool m_modified{ false }; //FIXME modify this state
+    bool m_modified{ false };
     const std::unique_ptr<CourseResource> m_course;
 };
 

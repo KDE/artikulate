@@ -19,7 +19,7 @@
  */
 
 #include "phrasemodel.h"
-#include "core/course.h"
+#include "core/icourse.h"
 #include "core/unit.h"
 #include "core/phrase.h"
 #include <QAbstractItemModel>
@@ -48,7 +48,7 @@ QHash< int, QByteArray > PhraseModel::roleNames() const
     return roles;
 }
 
-void PhraseModel::setCourse(Course *course)
+void PhraseModel::setCourse(ICourse *course)
 {
     if (m_course == course) {
         return;
@@ -69,10 +69,10 @@ void PhraseModel::setCourse(Course *course)
     m_course = course;
     if (m_course) {
         // connect to unit changes
-        connect(m_course, &Course::unitAboutToBeAdded, this, &PhraseModel::onUnitAboutToBeAdded);
-        connect(m_course, &Course::unitAdded, this, &PhraseModel::onUnitAdded);
-        connect(m_course, &Course::unitsAboutToBeRemoved, this, &PhraseModel::onUnitsAboutToBeRemoved);
-        connect(m_course, &Course::unitsRemoved, this, &PhraseModel::onUnitsRemoved);
+        connect(m_course, &ICourse::unitAboutToBeAdded, this, &PhraseModel::onUnitAboutToBeAdded);
+        connect(m_course, &ICourse::unitAdded, this, &PhraseModel::onUnitAdded);
+        connect(m_course, &ICourse::unitsAboutToBeRemoved, this, &PhraseModel::onUnitsAboutToBeRemoved);
+        connect(m_course, &ICourse::unitsRemoved, this, &PhraseModel::onUnitsRemoved);
 
         // initial setting of signal mappings
         foreach (auto const &unit, m_course->unitList()) {
@@ -99,7 +99,7 @@ void PhraseModel::setCourse(Course *course)
     emit courseChanged();
 }
 
-Course * PhraseModel::course() const
+ICourse * PhraseModel::course() const
 {
     return m_course;
 }

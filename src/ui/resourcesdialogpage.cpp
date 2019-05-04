@@ -21,8 +21,6 @@
 #include "resourcesdialogpage.h"
 #include "core/resourcemanager.h"
 #include "core/language.h"
-#include "core/skeleton.h"
-#include "core/course.h"
 #include "settings.h"
 
 #include <KLocalizedString>

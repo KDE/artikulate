@@ -23,14 +23,14 @@
 
 #include <QAbstractListModel>
 
-class Course;
+class ICourse;
 class PhonemeGroup;
 class QSignalMapper;
 
 class PhonemeGroupModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(Course *course READ course WRITE setCourse NOTIFY courseChanged)
+    Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
 
 public:
     enum unitRoles {
@@ -44,8 +44,8 @@ public:
      * Reimplemented from QAbstractListModel::roleNames()
      */
     virtual QHash<int,QByteArray> roleNames() const override;
-    void setCourse(Course *course);
-    Course * course() const;
+    void setCourse(ICourse *course);
+    ICourse * course() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
@@ -63,7 +63,7 @@ private slots:
 
 private:
     void updateMappings();
-    Course *m_course;
+    ICourse *m_course;
     QSignalMapper *m_signalMapper;
 };
 

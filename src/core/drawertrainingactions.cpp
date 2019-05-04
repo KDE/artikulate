@@ -20,7 +20,6 @@
 
 #include "drawertrainingactions.h"
 #include "trainingaction.h"
-#include "course.h"
 
 #include <KLocalizedString>
 #include <QList>

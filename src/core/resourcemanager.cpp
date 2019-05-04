@@ -20,14 +20,13 @@
 
 #include "resourcemanager.h"
 #include "language.h"
-#include "course.h"
 #include "skeleton.h"
 #include "unit.h"
 #include "phrase.h"
 #include "phoneme.h"
 #include "phonemegroup.h"
 #include "resources/languageresource.h"
-#include "resources/courseresource.h"
+#include "resources/editablecourseresource.h"
 #include "resources/skeletonresource.h"
 #include "settings.h"
 #include "liblearnerprofile/src/profilemanager.h"
@@ -99,10 +98,7 @@ void ResourceManager::loadCourseResources()
 
                 // find and add course files
                 foreach (const QFileInfo &courseInfo, courses) {
-                    CourseResource * course = addCourse(QUrl::fromLocalFile(courseInfo.filePath()));
-                    if (course != nullptr) {
-//                        course->setContributorResource(true);
-                    }
+                    addCourse(QUrl::fromLocalFile(courseInfo.filePath()));
                 }
             }
         }
@@ -165,16 +161,15 @@ void ResourceManager::sync()
 
 bool ResourceManager::modified() const
 {
-    QMap< QString, QList< CourseResource* > >::const_iterator iter;
-    for (iter = m_courseResources.constBegin(); iter != m_courseResources.constEnd(); ++iter) {
-        foreach (auto const &courseRes, iter.value()) {
-            if (courseRes->isOpen() && courseRes->course()->modified()) {
+    for (auto iter = m_courses.constBegin(); iter != m_courses.constEnd(); ++iter) {
+        for (auto *course : iter.value()) {
+            if (course->isModified()) {
                 return true;
             }
         }
     }
     foreach (auto const &courseRes, m_skeletonResources) {
-        if (courseRes->isOpen() && courseRes->skeleton()->modified()) {
+        if (courseRes->isOpen() && courseRes->skeleton()->isModified()) {
             return true;
         }
     }
@@ -192,7 +187,7 @@ void ResourceManager::addLanguage(const QUrl &languageFile)
     emit languageResourceAboutToBeAdded(resource, m_languageResources.count());
     m_languageResources.append(resource);
     m_loadedResources.append(languageFile.toLocalFile());
-    m_courseResources.insert(resource->identifier(), QList<CourseResource*>());
+    m_courses.insert(resource->identifier(), QList<EditableCourseResource*>());
     emit languageResourceAdded();
 }
 
@@ -235,31 +230,31 @@ Language * ResourceManager::language(LearnerProfile::LearningGoal *learningGoal)
     return nullptr;
 }
 
-QList< CourseResource* > ResourceManager::courseResources(Language *language)
+QList<EditableCourseResource *> ResourceManager::courseResources(Language *language)
 {
     if (!language) {
-        QList<CourseResource *> courses;
-        for (auto iter = m_courseResources.constBegin(); iter != m_courseResources.constEnd(); ++iter) {
+        QList<EditableCourseResource *> courses;
+        for (auto iter = m_courses.constBegin(); iter != m_courses.constEnd(); ++iter) {
             courses.append(iter.value());
         }
         return courses;
     }
     // return empty list if no course available for language
-    if (!m_courseResources.contains(language->id())) {
-        return QList< CourseResource* >();
+    if (!m_courses.contains(language->id())) {
+        return QList< EditableCourseResource* >();
     }
-    return m_courseResources[language->id()];
+    return m_courses[language->id()];
 }
 
-Course * ResourceManager::course(Language *language, int index) const
+EditableCourseResource * ResourceManager::course(Language *language, int index) const
 {
-    Q_ASSERT(m_courseResources.contains(language->id()));
-    Q_ASSERT(index >= 0 && index < m_courseResources[language->id()].count());
+    Q_ASSERT(m_courses.contains(language->id()));
+    Q_ASSERT(index >= 0 && index < m_courses[language->id()].count());
 
-    return m_courseResources[language->id()].at(index)->course();
+    return m_courses[language->id()].at(index);
 }
 
-void ResourceManager::reloadCourseOrSkeleton(Course *courseOrSkeleton)
+void ResourceManager::reloadCourseOrSkeleton(ICourse *courseOrSkeleton)
 {
     if (!courseOrSkeleton) {
         qCritical() << "Cannot reload non-existing course";
@@ -288,14 +283,14 @@ void ResourceManager::reloadCourseOrSkeleton(Course *courseOrSkeleton)
     }
 }
 
-void ResourceManager::updateCourseFromSkeleton(Course *course)
+void ResourceManager::updateCourseFromSkeleton(EditableCourseResource *course)
 {
     //TODO implement status information that are shown at mainwindow
     if (course->foreignId().isEmpty())  {
         qCritical() << "No skeleton ID specified, aborting update.";
         return;
     }
-    Course *skeleton = nullptr;
+    ICourse *skeleton = nullptr;
     QList<SkeletonResource *>::ConstIterator iter = m_skeletonResources.constBegin();
     while (iter != m_skeletonResources.constEnd()) {
         if ((*iter)->identifier() == course->foreignId()) {
@@ -362,9 +357,9 @@ void ResourceManager::updateCourseFromSkeleton(Course *course)
     qCDebug(ARTIKULATE_LOG) << "Update performed!";
 }
 
-CourseResource * ResourceManager::addCourse(const QUrl &courseFile)
+EditableCourseResource * ResourceManager::addCourse(const QUrl &courseFile)
 {
-    CourseResource *resource = new CourseResource(courseFile, nullptr); //TODO
+    EditableCourseResource *resource = new EditableCourseResource(courseFile, nullptr); //FIXME second parameter must be interface!
     if (resource->language() == nullptr) {
         delete resource;
         qCritical() << "Could not load course, language unknown:" << courseFile.toLocalFile();
@@ -382,34 +377,34 @@ CourseResource * ResourceManager::addCourse(const QUrl &courseFile)
     return resource;
 }
 
-void ResourceManager::addCourseResource(CourseResource *resource)
+void ResourceManager::addCourseResource(EditableCourseResource *resource)
 {
-//    Q_ASSERT(m_courseResources.contains(resource->language()));
+    Q_ASSERT(m_courses.contains(resource->language()->id()));
 
-//    if (m_courseResources.contains(resource->language())) {
-//        emit courseResourceAboutToBeAdded(resource, m_courseResources[resource->language()].count());
-//    }
-//    else {
-//        emit courseResourceAboutToBeAdded(resource, 0);
-//        m_courseResources.insert(resource->language(), QList<CourseResource*>());
-//    }
-//    m_courseResources[resource->language()].append(resource);
-//    emit courseResourceAdded();
+    if (m_courses.contains(resource->language()->id())) {
+//        emit courseResourceAboutToBeAdded(resource, m_courses[resource->language()].count()); //FIXME
+    }
+    else {
+        emit courseResourceAboutToBeAdded(resource, 0);
+        m_courses.insert(resource->language()->id(), QList<EditableCourseResource*>());
+    }
+    m_courses[resource->language()->id()].append(resource);
+    emit courseResourceAdded();
 }
 
-void ResourceManager::removeCourse(Course *course)
+void ResourceManager::removeCourse(ICourse *course)
 {
-    for (int index = 0; index < m_courseResources[course->language()->id()].length(); ++index) {
-        if (m_courseResources[course->language()->id()].at(index)->course() == course) {
+    for (int index = 0; index < m_courses[course->language()->id()].length(); ++index) {
+        if (m_courses[course->language()->id()].at(index) == course) {
             emit courseResourceAboutToBeRemoved(index);
-            m_courseResources[course->language()->id()].removeAt(index);
+            m_courses[course->language()->id()].removeAt(index);
             course->deleteLater();
             return;
         }
     }
 }
 
-Course * ResourceManager::createCourse(Language *language, Skeleton *skeleton)
+EditableCourseResource * ResourceManager::createCourse(Language *language, Skeleton *skeleton)
 {
     // set path
     QString path = QStringLiteral("%1/%2/%3/%4/%4.xml")
@@ -418,10 +413,8 @@ Course * ResourceManager::createCourse(Language *language, Skeleton *skeleton)
              skeleton->id(),
              language->id());
 
-    CourseResource * courseRes = new CourseResource(QUrl::fromLocalFile(path), nullptr); //TODO
-    Q_ASSERT(courseRes);
+    EditableCourseResource * course = new EditableCourseResource(QUrl::fromLocalFile(path), nullptr); //FIXME
 
-    Course *course = courseRes->course();
     Q_ASSERT(course);
     course->setId(QUuid::createUuid().toString());
     course->setTitle(skeleton->title());
@@ -432,7 +425,7 @@ Course * ResourceManager::createCourse(Language *language, Skeleton *skeleton)
     // set skeleton
     course->setForeignId(skeleton->id());
 
-    addCourseResource(courseRes);
+    addCourseResource(course);
 
     return course;
 }

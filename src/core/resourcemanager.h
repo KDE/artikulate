@@ -30,11 +30,11 @@
 #include "liblearnerprofile/src/learninggoal.h"
 
 class SkeletonResource;
-class CourseResource;
+class EditableCourseResource;
 class LanguageResource;
 class Skeleton;
 class Language;
-class Course;
+class ICourse;
 class ProfileManager;
 class QUrl;
 
@@ -108,23 +108,23 @@ public:
     /**
      * \return list of all loaded courses for language \p language
      */
-    QList<CourseResource *> courseResources(Language *language);
+    QList<EditableCourseResource *> courseResources(Language *language);
 
-    Q_INVOKABLE Course * course(Language *language, int index) const;
+    Q_INVOKABLE EditableCourseResource * course(Language *language, int index) const;
 
     /**
      * Reset the file for this course or skeleton.
      *
      * \param course the course to be reloaded
      */
-    Q_INVOKABLE void reloadCourseOrSkeleton(Course *course);
+    Q_INVOKABLE void reloadCourseOrSkeleton(ICourse *course);
 
     /**
      * Imports units and phrases from skeleton, deassociates removed ones.
      *
      * \param course the course to be update
      */
-    void updateCourseFromSkeleton(Course *course);
+    void updateCourseFromSkeleton(EditableCourseResource *course);
 
     /**
      * Add language to resource manager by parsing the given language specification file.
@@ -139,7 +139,7 @@ public:
      * \param courseFile is the local XML file containing the course
      * \return true if loaded successfully, otherwise false
      */
-    CourseResource * addCourse(const QUrl &courseFile);
+    EditableCourseResource * addCourse(const QUrl &courseFile);
 
     /**
      * Adds course to resource manager. If the course's language is not registered, the language
@@ -147,7 +147,7 @@ public:
      *
      * \param resource the course resource to add to resource manager
      */
-    void addCourseResource(CourseResource *resource);
+    void addCourseResource(EditableCourseResource *resource);
 
     /**
      * Remove course from resource manager. If the course is modified its changes are NOT
@@ -155,14 +155,14 @@ public:
      *
      * \param course is the course to be removed
      */
-    void removeCourse(Course *course);
+    void removeCourse(ICourse *course);
 
     /**
      * Create new course for \p language and derived from \p skeleton.
      *
      * \return created course
      */
-    Q_INVOKABLE Course * createCourse(Language *language, Skeleton *skeleton);
+    Q_INVOKABLE EditableCourseResource * createCourse(Language *language, Skeleton *skeleton);
 
     /**
      * Adds skeleton resource to resource manager
@@ -198,17 +198,17 @@ Q_SIGNALS:
     void languageResourceAboutToBeRemoved(int);
     void repositoryChanged();
     void courseResourceAdded();
-    void courseResourceAboutToBeAdded(CourseResource*,int);
+    void courseResourceAboutToBeAdded(ICourse*,int);
     void courseResourceAboutToBeRemoved(int);
     void skeletonAdded();
-    void skeletonAboutToBeAdded(Course*,int);
+    void skeletonAboutToBeAdded(ICourse*,int);
     void skeletonRemoved();
     void skeletonAboutToBeRemoved(int,int);
     void languageCoursesChanged();
 
 private:
     QList<LanguageResource *> m_languageResources;
-    QMap<QString, QList<CourseResource *> > m_courseResources; //!> (language-id, course-resource)
+    QMap<QString, QList<EditableCourseResource *> > m_courses; //!> (language-id, course-resource)
     QList<SkeletonResource *> m_skeletonResources;
     QStringList m_loadedResources;
 };
