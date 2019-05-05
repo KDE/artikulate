@@ -70,6 +70,21 @@ target_link_libraries(test_courseresource
 add_test(test_courseresource test_courseresource)
 ecm_mark_as_test(test_courseresource)
 
+# test editable course resource class
+set(TestEditableCourseResource_SRCS
+    editablecourseresource/test_editablecourseresource.cpp
+    editablecourseresource/resourcerepositorystub.cpp
+)
+qt5_add_resources(TestEditableCourseResource_SRCS ../data/languages.qrc)
+qt5_add_resources(TestEditableCourseResource_SRCS testdata/testdata.qrc)
+add_executable(test_editablecourseresource ${TestEditableCourseResource_SRCS} )
+target_link_libraries(test_editablecourseresource
+    artikulatecore
+    Qt5::Test
+)
+add_test(test_editablecourseresource test_editablecourseresource)
+ecm_mark_as_test(test_editablecourseresource)
+
 # basic tests language files (input/output)
 set(TestLanguageFiles_SRCS testlanguagefiles.cpp)
 add_executable(TestLanguageFiles ${TestLanguageFiles_SRCS} )

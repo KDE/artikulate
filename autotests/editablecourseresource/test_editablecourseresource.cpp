@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,13 +18,14 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "test_courseresource.h"
+#include "test_editablecourseresource.h"
 #include "resourcerepositorystub.h"
 #include "core/language.h"
 #include "core/unit.h"
 #include "core/phrase.h"
+#include "core/resources/courseparser.h"
 #include "core/resources/languageresource.h"
-#include "core/resources/courseresource.h"
+#include "core/resources/editablecourseresource.h"
 
 #include <QTest>
 #include <QDebug>
@@ -36,19 +37,19 @@
 #include <QXmlSchemaValidator>
 #include <QDomDocument>
 
-TestCourseResource::TestCourseResource()
+TestEditableCourseResource::TestEditableCourseResource()
 {
 }
 
-void TestCourseResource::init()
+void TestEditableCourseResource::init()
 {
 }
 
-void TestCourseResource::cleanup()
+void TestEditableCourseResource::cleanup()
 {
 }
 
-void TestCourseResource::courseSchemeValidationTest()
+void TestEditableCourseResource::courseSchemeValidationTest()
 {
     QUrl schemeFile = QUrl::fromLocalFile(QStringLiteral("schemes/course.xsd"));
     QXmlSchema courseSchema;
@@ -62,16 +63,14 @@ void TestCourseResource::courseSchemeValidationTest()
     QVERIFY(skeletonScheme.isValid());
 }
 
-void TestCourseResource::loadCourseResource()
+void TestEditableCourseResource::loadCourseResource()
 {
     Language language;
     language.setId("de");
     ResourceRepositoryStub repository({&language});
-    const QString courseDirectory = "data/courses/de/";
-    const QString courseFile = courseDirectory + "de.xml";
 
-    CourseResource course(QUrl::fromLocalFile(courseFile), &repository);
-    QCOMPARE(course.file().toLocalFile(), courseFile);
+    EditableCourseResource course(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
+    QCOMPARE(course.file().toLocalFile(), ":/courses/de.xml");
     QCOMPARE(course.id(), "de");
     QCOMPARE(course.foreignId(), "artikulate-basic");
     QCOMPARE(course.title(), "Artikulate Deutsch");
@@ -94,20 +93,18 @@ void TestCourseResource::loadCourseResource()
     QCOMPARE(firstPhrase->id(), "1");
     QCOMPARE(firstPhrase->foreignId(), "{3a4c1926-60d7-44c6-80d1-03165a641c75}");
     QCOMPARE(firstPhrase->text(), "Guten Tag.");
-    QCOMPARE(firstPhrase->soundFileUrl(), courseDirectory + "de_01.ogg");
+    QCOMPARE(firstPhrase->soundFileUrl(), ":/courses/de_01.ogg");
     QCOMPARE(firstPhrase->type(), Phrase::Type::Sentence);
     QVERIFY(firstPhrase->phonemes().isEmpty());
 }
 
-void TestCourseResource::unitAddAndRemoveHandling()
+void TestEditableCourseResource::unitAddAndRemoveHandling()
 {
     // boilerplate
     Language language;
     language.setId("de");
     ResourceRepositoryStub repository({&language});
-    const QString courseDirectory = "data/courses/de/";
-    const QString courseFile = courseDirectory + "de.xml";
-    CourseResource course(QUrl::fromLocalFile(courseFile), &repository);
+    EditableCourseResource course(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
     // begin of test
     Unit unit;
@@ -124,15 +121,13 @@ void TestCourseResource::unitAddAndRemoveHandling()
     QCOMPARE(spyAdded.count(), 1);
 }
 
-void TestCourseResource::coursePropertyChanges()
+void TestEditableCourseResource::coursePropertyChanges()
 {
     // boilerplate
     Language language;
     language.setId("de");
     ResourceRepositoryStub repository({&language});
-    const QString courseDirectory = "data/courses/de/";
-    const QString courseFile = courseDirectory + "de.xml";
-    CourseResource course(QUrl::fromLocalFile(courseFile), &repository);
+    CourseResource course(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
     // id
     {
@@ -195,67 +190,52 @@ void TestCourseResource::coursePropertyChanges()
     }
 }
 
-// FIXME porting break
-void TestCourseResource::fileLoadSaveCompleteness()
+void TestEditableCourseResource::fileLoadSaveCompleteness()
 {
-//    ResourceManager manager;
-//    manager.addLanguage(QUrl::fromLocalFile(QStringLiteral("data/languages/de.xml")));
-//    manager.addCourse(QUrl::fromLocalFile(QStringLiteral("data/courses/de.xml")));
+    // boilerplate
+    Language language;
+    language.setId("de");
+    ResourceRepositoryStub repository({&language});
+    EditableCourseResource course(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
-//    // test to encure further logic
-//    QVERIFY(manager.courseResources(manager.languageResources().constFirst()->language()).count() == 1);
+    QTemporaryFile outputFile;
+    outputFile.open();
+    course.exportCourse(QUrl::fromLocalFile(outputFile.fileName()));
 
-//    Course *testCourse = manager.courseResources(manager.languageResources().constFirst()->language()).constFirst()->course();
-//    QTemporaryFile outputFile;
-//    outputFile.open();
-//    QUrl oldFileName = testCourse->file();
-//    testCourse->setFile(QUrl::fromLocalFile(outputFile.fileName()));
-//    testCourse->setLanguage(manager.languageResources().constFirst()->language());
-//    testCourse->sync();
-//    testCourse->setFile(oldFileName); // restore for later tests
+    // note: this only works, since the resource manager not checks uniqueness of course ids!
+    EditableCourseResource loadedCourse(QUrl::fromLocalFile(outputFile.fileName()), &repository);
 
-//    QFile file(outputFile.fileName());
-//    if (!file.open(QIODevice::ReadOnly)) {
-//        qCritical() << "Could not open file to read.";
-//    }
+    // test that we actually call the different files
+    QVERIFY(course.file().toLocalFile() != loadedCourse.file().toLocalFile());
+    QVERIFY(course.id() == loadedCourse.id());
+    QVERIFY(course.foreignId() == loadedCourse.foreignId());
+    QVERIFY(course.title() == loadedCourse.title());
+    QVERIFY(course.description() == loadedCourse.description());
+    QVERIFY(course.language()->id() == loadedCourse.language()->id());
+    QVERIFY(course.unitList().count() == loadedCourse.unitList().count());
 
-//    //TODO this only works, since the resource manager not checks uniqueness of course ids!
-//    manager.addCourse(QUrl::fromLocalFile(outputFile.fileName()));
-//    Course *compareCourse = manager.courseResources(manager.languageResources().constFirst()->language()).constLast()->course();
+    Unit *testUnit = course.unitList().constFirst();
+    Unit *compareUnit = loadedCourse.unitList().constFirst();
+    QVERIFY(testUnit->id() == compareUnit->id());
+    QVERIFY(testUnit->foreignId() == compareUnit->foreignId());
+    QVERIFY(testUnit->title() == compareUnit->title());
+    QVERIFY(testUnit->phraseList().count() == compareUnit->phraseList().count());
 
-//    // test that we actually call the different files
-//    QVERIFY(testCourse->file().toLocalFile() != compareCourse->file().toLocalFile());
-//    QVERIFY(testCourse->id() == compareCourse->id());
-//    QVERIFY(testCourse->foreignId() == compareCourse->foreignId());
-//    QVERIFY(testCourse->title() == compareCourse->title());
-//    QVERIFY(testCourse->description() == compareCourse->description());
-//    QVERIFY(testCourse->language()->id() == compareCourse->language()->id());
-//    QVERIFY(testCourse->unitList().count() == compareCourse->unitList().count());
-
-//    Unit *testUnit = testCourse->unitList().constFirst();
-//    Unit *compareUnit = compareCourse->unitList().constFirst();
-//    QVERIFY(testUnit->id() == compareUnit->id());
-//    QVERIFY(testUnit->foreignId() == compareUnit->foreignId());
-//    QVERIFY(testUnit->title() == compareUnit->title());
-//    QVERIFY(testUnit->phraseList().count() == compareUnit->phraseList().count());
-
-//    Phrase *testPhrase = testUnit->phraseList().constFirst();
-//    Phrase *comparePhrase = new Phrase(this);
-//    // Note that this actually means that we DO NOT respect phrase orders by list order!
-//    foreach (Phrase *phrase, compareUnit->phraseList()) {
-//        if (testPhrase->id() == phrase->id()) {
-//            comparePhrase = phrase;
-//            break;
-//        }
-//    }
-//    QVERIFY(testPhrase->id() == comparePhrase->id());
-//    QVERIFY(testPhrase->foreignId() == comparePhrase->foreignId());
-//    QVERIFY(testPhrase->text() == comparePhrase->text());
-//    QVERIFY(testPhrase->type() == comparePhrase->type());
-//    QVERIFY(testPhrase->sound().fileName() == comparePhrase->sound().fileName());
-//    QVERIFY(testPhrase->phonemes().count() == comparePhrase->phonemes().count());
-//    //FIXME implement phoneme checks after phonemes are fully implemented
+    Phrase *testPhrase = testUnit->phraseList().constFirst();
+    Phrase *comparePhrase = new Phrase(this);
+    // note that this actually means that we DO NOT respect phrase orders by list order
+    for (Phrase *phrase : compareUnit->phraseList()) {
+        if (testPhrase->id() == phrase->id()) {
+            comparePhrase = phrase;
+            break;
+        }
+    }
+    QVERIFY(testPhrase->id() == comparePhrase->id());
+    QVERIFY(testPhrase->foreignId() == comparePhrase->foreignId());
+    QVERIFY(testPhrase->text() == comparePhrase->text());
+    QVERIFY(testPhrase->type() == comparePhrase->type());
+    QVERIFY(testPhrase->sound().fileName() == comparePhrase->sound().fileName());
+    QVERIFY(testPhrase->phonemes().count() == comparePhrase->phonemes().count());
 }
 
-
-QTEST_GUILESS_MAIN(TestCourseResource)
+QTEST_GUILESS_MAIN(TestEditableCourseResource)

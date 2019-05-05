@@ -18,20 +18,20 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTCOURSERESOURCE_H
-#define TESTCOURSERESOURCE_H
+#ifndef TESTEDITABLECOURSERESOURCE_H
+#define TESTEDITABLECOURSERESOURCE_H
 
 #include <QObject>
 #include <QVariant>
 
-class TestCourseResource : public QObject
+class TestEditableCourseResource : public QObject
 {
     Q_OBJECT
 
 public:
-    TestCourseResource();
+    TestEditableCourseResource();
 
-private slots:
+private Q_SLOTS:
     /**
      * @brief Called before every test case.
      */
@@ -64,12 +64,8 @@ private slots:
 
     /**
      * Test if serialization of unserialized file gives original file.
-     * TODO this is a test by only string equality and should improved to test on a data level
      */
     void fileLoadSaveCompleteness();
-
-private:
-    bool m_systemUseCourseRepositoryValue;
 };
 
 #endif

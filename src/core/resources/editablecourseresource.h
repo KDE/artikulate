@@ -98,6 +98,13 @@ public:
 
     void sync();
 
+    /**
+     * @brief Export course to specified file.
+     * @param filePath the absolute path to the export file
+     * @return true of export finished without errors
+     */
+    bool exportCourse(const QUrl &filePath);
+
     void addUnit(Unit *);
 
     bool isModified() const;

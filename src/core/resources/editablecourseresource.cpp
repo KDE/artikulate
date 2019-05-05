@@ -122,30 +122,34 @@ void EditableCourseResource::sync()
     Q_ASSERT(file().isLocalFile());
     Q_ASSERT(!file().isEmpty());
 
-     // not writing back if not modified
-     if (!m_modified) {
-         qCDebug(ARTIKULATE_LOG()) << "Aborting sync, course was not modified.";
-         return;
-     }
+    // not writing back if not modified
+    if (!m_modified) {
+        qCDebug(ARTIKULATE_LOG()) << "Aborting sync, course was not modified.";
+        return;
+    }
+    exportCourse(file());
+}
 
+bool EditableCourseResource::exportCourse(const QUrl &filePath)
+{
     // write back to file
     // create directories if necessary
-    QFileInfo info(file().adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
+    QFileInfo info(filePath.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
     if (!info.exists()) {
-        qCDebug(ARTIKULATE_LOG) << "create xml output file directory, not existing";
+        qCDebug(ARTIKULATE_LOG()) << "create xml output file directory, not existing";
         QDir dir;
-        dir.mkpath(file().adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
+        dir.mkpath(filePath.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
     }
 
     //TODO port to KSaveFile
-    QFile file(EditableCourseResource::file().toLocalFile());
+    QFile file(filePath.toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
-        qCWarning(ARTIKULATE_LOG) << "Unable to open file " << file.fileName() << " in write mode, aborting.";
-        return;
+        qCWarning(ARTIKULATE_LOG()) << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+        return false;
     }
 
     file.write(CourseParser::serializedDocument(m_course.get(), false).toByteArray());
-    return;
+    return true;
 }
 
 void EditableCourseResource::addUnit(Unit *unit)
