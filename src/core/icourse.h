@@ -35,9 +35,9 @@ class ARTIKULATECORE_EXPORT ICourse : public QObject
     Q_OBJECT
     Q_PROPERTY(QString id READ id NOTIFY idChanged)
     Q_PROPERTY(QString title READ title NOTIFY titleChanged)
-    Q_PROPERTY(QString i18nTitle NOTIFY titleChanged)
+    Q_PROPERTY(QString i18nTitle READ i18nTitle NOTIFY titleChanged)
     Q_PROPERTY(QString description READ description NOTIFY descriptionChanged)
-    Q_PROPERTY(Language * language NOTIFY languageChanged)
+    Q_PROPERTY(Language * language READ language NOTIFY languageChanged)
 
 public:
     ICourse(QObject *parent = nullptr)
