@@ -19,7 +19,7 @@
  */
 
 #include "skeletonresource.h"
-#include "core/resourcemanager.h"
+#include "courseparser.h"
 #include "core/language.h"
 #include "core/skeleton.h"
 #include "core/unit.h"
@@ -38,27 +38,23 @@
 class SkeletonResourcePrivate
 {
 public:
-    SkeletonResourcePrivate(ResourceManager *resourceManager)
-        : m_resourceManager(resourceManager)
-        , m_skeletonResource(nullptr)
-        , m_type(ResourceInterface::SkeletonResourceType)
+    SkeletonResourcePrivate()
+        : m_skeletonResource(nullptr)
     {
     }
 
     ~SkeletonResourcePrivate() = default;
 
-    ResourceManager *m_resourceManager;
     QUrl m_path;
     QString m_identifier;
     QString m_title;
     QString m_i18nTitle;
     Skeleton *m_skeletonResource;
-    ResourceInterface::Type m_type;
 };
 
-SkeletonResource::SkeletonResource(ResourceManager *resourceManager, const QUrl &path)
-    : ResourceInterface(resourceManager)
-    , d(new SkeletonResourcePrivate(resourceManager))
+SkeletonResource::SkeletonResource(const QUrl &path)
+    : QObject()
+    , d(new SkeletonResourcePrivate)
 {
     d->m_path = path;
 
@@ -97,11 +93,10 @@ SkeletonResource::SkeletonResource(ResourceManager *resourceManager, const QUrl 
     file.close();
 }
 
-SkeletonResource::SkeletonResource(ResourceManager* resourceManager, Skeleton *skeleton)
-    : ResourceInterface(resourceManager)
-    , d(new SkeletonResourcePrivate(resourceManager))
+SkeletonResource::SkeletonResource(Skeleton *skeleton)
+    : QObject()
+    , d(new SkeletonResourcePrivate)
 {
-    d->m_type = ResourceInterface::SkeletonResourceType;
     d->m_path = skeleton->file();
     d->m_identifier = skeleton->id();
     d->m_title = skeleton->title();
@@ -262,12 +257,12 @@ QObject * SkeletonResource::resource()
         return nullptr;
     }
 
-    QXmlSchema schema = loadXmlSchema(QStringLiteral("skeleton"));
+    QXmlSchema schema = CourseParser::loadXmlSchema(QStringLiteral("skeleton"));
     if (!schema.isValid()) {
         return nullptr;
     }
 
-    QDomDocument document = loadDomDocument(path(), schema);
+    QDomDocument document = CourseParser::loadDomDocument(path(), schema);
     if (document.isNull()) {
         qCWarning(ARTIKULATE_LOG) << "Could not parse document " << path().toLocalFile() << ", aborting.";
         return nullptr;
@@ -275,7 +270,7 @@ QObject * SkeletonResource::resource()
 
     // create skeleton
     QDomElement root(document.documentElement());
-    d->m_skeletonResource = new Skeleton(this);
+    d->m_skeletonResource = new Skeleton();
 
     d->m_skeletonResource->setFile(d->m_path);
     d->m_skeletonResource->setId(root.firstChildElement(QStringLiteral("id")).text());

@@ -25,12 +25,12 @@
 #include "core/resources/languageresource.h"
 #include "core/unit.h"
 #include "core/phrase.h"
-#include "core/resourcemanager.h"
+#include "core/contributorrepository.h"
 #include "artikulate_debug.h"
 
 EditorSession::EditorSession(QObject *parent)
     : QObject(parent)
-    , m_resourceManager(nullptr)
+    , m_repository(nullptr)
     , m_skeletonMode(true)
     , m_editSkeleton(false)
     , m_skeleton(nullptr)
@@ -43,9 +43,9 @@ EditorSession::EditorSession(QObject *parent)
 
 }
 
-void EditorSession::setResourceManager(ResourceManager *manager)
+void EditorSession::setContributorRepository(ContributorRepository *repository)
 {
-    m_resourceManager = manager;
+    m_repository = repository;
 }
 
 void EditorSession::setSkeletonMode(bool enabled)
@@ -97,14 +97,14 @@ void EditorSession::setSkeleton(Skeleton *skeleton)
 
     Language *language = m_language;
     if (!m_language) {
-        language = m_resourceManager->languageResources().constFirst()->language();
+        language = m_repository->languages().constFirst();
     }
 
     if (m_skeleton) {
         bool found = false;
-        int resources = m_resourceManager->courseResources(language).count();
+        int resources = m_repository->courseResources(language).count();
         for (int i=0; i < resources; ++i) {
-            EditableCourseResource * course = m_resourceManager->course(language, i);
+            EditableCourseResource * course = m_repository->course(language, i);
             if (course->foreignId() == m_skeleton->id()) {
                 setCourse(course);
                 found = true;
@@ -133,9 +133,9 @@ void EditorSession::setLanguage(Language *language)
     if (m_skeletonMode) {
         bool found = false;
         if (m_skeleton) {
-            int resources = m_resourceManager->courseResources(m_language).count();
+            int resources = m_repository->courseResources(m_language).count();
             for (int i=0; i < resources; ++i) {
-                EditableCourseResource * course = m_resourceManager->course(m_language, i);
+                EditableCourseResource * course = m_repository->course(m_language, i);
                 if (course->foreignId() == m_skeleton->id()) {
                     setCourse(course);
                     found = true;
@@ -148,8 +148,8 @@ void EditorSession::setLanguage(Language *language)
         }
     }
     else { // not skeleton mode
-        if (m_resourceManager->courseResources(m_language).count() > 0) {
-            setCourse(m_resourceManager->course(m_language, 0));
+        if (m_repository->courseResources(m_language).count() > 0) {
+            setCourse(m_repository->course(m_language, 0));
         }
     }
     emit languageChanged();

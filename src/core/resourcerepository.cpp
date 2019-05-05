@@ -144,7 +144,7 @@ bool ResourceRepository::loadCourse(const QString &resourceFile)
 
 bool ResourceRepository::loadLanguage(const QString &resourceFile)
 {
-    LanguageResource *resource = new LanguageResource(nullptr, QUrl::fromLocalFile(resourceFile)); //TODO hacky adapter code
+    LanguageResource *resource = new LanguageResource(QUrl::fromLocalFile(resourceFile));
     if (!resource) {
         qCWarning(ARTIKULATE_CORE()) << "Could not load language" << resourceFile;
         resource->deleteLater();

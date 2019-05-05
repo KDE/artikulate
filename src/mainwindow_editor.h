@@ -23,7 +23,7 @@
 
 #include <KXmlGuiWindow>
 #include <QQuickWidget>
-#include "core/resourcemanager.h"
+#include "core/contributorrepository.h"
 #include "core/trainingsession.h"
 
 class EditorSession;
@@ -34,21 +34,20 @@ class QQuickWidget;
 class MainWindowEditor : public KXmlGuiWindow
 {
     Q_OBJECT
-    Q_PROPERTY(ResourceManager *globalResourceManager READ resourceManager CONSTANT)
 
 public:
 
     /**
      * Default Constructor
      */
-    MainWindowEditor();
+    MainWindowEditor(ContributorRepository *repository);
 
     /**
      * Default Destructor
      */
     virtual ~MainWindowEditor();
 
-    ResourceManager * resourceManager() const;
+    ContributorRepository * resourceRepository() const;
 
     void setupActions();
 
@@ -65,7 +64,7 @@ Q_SIGNALS:
      void modeChanged(bool);
 
 private:
-    ResourceManager *m_resourceManager;
+    ContributorRepository *m_repository;
     EditorSession *m_editorSession;
     QQuickWidget *m_widget;
 };

@@ -19,7 +19,6 @@
  */
 
 #include "testlanguagefiles.h"
-#include "core/resourcemanager.h"
 #include "core/language.h"
 #include "core/unit.h"
 #include "core/phrase.h"
@@ -38,10 +37,6 @@
 
 TestLanguageFiles::TestLanguageFiles()
 {
-    //FIXME port this
-//     KGlobal::dirs()->addResourceDir("appdata" , "./autotests/data");
-//     KGlobal::dirs()->addResourceDir("appdata" , "./autotests");
-//     KGlobal::dirs()->addResourceDir("appdata" , "./");
 }
 
 void TestLanguageFiles::init()
@@ -97,7 +92,6 @@ void TestLanguageFiles::languageSchemeValidationTest()
 
 void TestLanguageFiles::checkIdUniqueness()
 {
-    ResourceManager manager;
     QStringList languageFiles = QStandardPaths::locateAll(QStandardPaths::DataLocation, QStringLiteral("data/languages/*.xml"));
     foreach (const QString &file, languageFiles) {
         qDebug() << "File being parsed: " << file;

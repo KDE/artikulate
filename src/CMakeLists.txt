@@ -41,9 +41,9 @@ include_directories(
 set(artikulateCore_SRCS
     core/icourse.h
     core/drawertrainingactions.cpp
-    core/resourcemanager.cpp
     core/iresourcerepository.h
     core/resourcerepository.cpp
+    core/contributorrepository.cpp
     core/language.cpp
     core/phrase.cpp
     core/phoneme.cpp
@@ -166,6 +166,7 @@ ki18n_wrap_ui(artikulate_editor_SRCS
     ui/sounddevicedialogpage.ui
 )
 qt5_add_resources(artikulate_editor_SRCS resources.qrc)
+qt5_add_resources(artikulate_editor_SRCS ../data/languages.qrc)
 kconfig_add_kcfg_files (artikulate_editor_SRCS settings.kcfgc)
 
 # executables

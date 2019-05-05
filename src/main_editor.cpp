@@ -20,6 +20,7 @@
 
 #include "version.h"
 #include "application.h"
+#include "core/contributorrepository.h"
 #include "mainwindow_editor.h"
 
 #include <KAboutData>
@@ -31,13 +32,16 @@ int main(int argc, char **argv)
 {
     Application app(argc, argv);
     KLocalizedString::setApplicationDomain("artikulate");
+    ContributorRepository repository;
+    repository.reloadCourses();
+    app.installResourceRepository(&repository);
 
     KAboutData aboutData(QStringLiteral("artikulate_editor"),
                          ki18nc("@title Displayed program name", "Artikulate Editor").toString(),
                          ARTIKULATE_VERSION_STRING,
                          ki18nc("@title KAboutData: short program description", "Artikulate Course Editor").toString(),
                          KAboutLicense::GPL_V2,
-                         ki18nc("@info:credit", "(c) 2013-2016 The Artikulate Developers").toString(),
+                         ki18nc("@info:credit", "(c) 2013-2019 The Artikulate Developers").toString(),
                          ki18nc("@title Short program description", "Edit Artikulate course files.").toString()
                         );
 
@@ -48,7 +52,7 @@ int main(int argc, char **argv)
     KAboutData::setApplicationData(aboutData);
     KCrash::initialize();
 
-    MainWindowEditor *mainWindow = new MainWindowEditor();
+    MainWindowEditor *mainWindow = new MainWindowEditor(&repository);
     QSize size(800, 600);
     mainWindow->setMinimumSize(size);
     mainWindow->show();

@@ -20,7 +20,7 @@
 
 #include "skeletonmodel.h"
 #include "core/icourse.h"
-#include "core/resourcemanager.h"
+#include "core/contributorrepository.h"
 #include "core/skeleton.h"
 #include "core/resources/skeletonresource.h"
 
@@ -31,7 +31,7 @@
 
 SkeletonModel::SkeletonModel(QObject *parent)
     : QAbstractListModel(parent)
-    , m_resourceManager(nullptr)
+    , m_repository(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitSkeletonChanged(int)));
@@ -48,21 +48,21 @@ QHash< int, QByteArray > SkeletonModel::roleNames() const
     return roles;
 }
 
-void SkeletonModel::setResourceManager(ResourceManager *resourceManager)
+void SkeletonModel::setResourceRepository(ContributorRepository *repository)
 {
-    if (m_resourceManager == resourceManager) {
+    if (m_repository == repository) {
         return;
     }
 
     beginResetModel();
 
-    if (m_resourceManager) {
-        m_resourceManager->disconnect(this);
+    if (m_repository) {
+        m_repository->disconnect(this);
     }
 
-    m_resourceManager = resourceManager;
+    m_repository = repository;
 
-    if (m_resourceManager) {
+    if (m_repository) {
         //FIXME
 //        connect(m_resourceManager, &ResourceManager::skeletonAboutToBeAdded, this, &SkeletonModel::onSkeletonAboutToBeAdded);
 //        connect(m_resourceManager, &ResourceManager::skeletonAdded, this, &SkeletonModel::onSkeletonAdded);
@@ -72,12 +72,12 @@ void SkeletonModel::setResourceManager(ResourceManager *resourceManager)
 
     endResetModel();
 
-    emit resourceManagerChanged();
+    emit resourceRepositoryChanged();
 }
 
-ResourceManager * SkeletonModel::resourceManager() const
+ContributorRepository * SkeletonModel::resourceRepository() const
 {
-    return m_resourceManager;
+    return m_repository;
 }
 
 QVariant SkeletonModel::data(const QModelIndex& index, int role) const
@@ -86,11 +86,11 @@ QVariant SkeletonModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_resourceManager->skeletonResources().count()) {
+    if (index.row() >= m_repository->skeletonResources().count()) {
         return QVariant();
     }
 
-    Skeleton * const skeleton = m_resourceManager->skeletonResources().at(index.row())->skeleton();
+    Skeleton * const skeleton = m_repository->skeletonResources().at(index.row())->skeleton();
 
     switch(role)
     {
@@ -114,7 +114,7 @@ QVariant SkeletonModel::data(const QModelIndex& index, int role) const
 
 int SkeletonModel::rowCount(const QModelIndex &parent) const
 {
-    if (!m_resourceManager) {
+    if (!m_repository) {
         return 0;
     }
 
@@ -122,7 +122,7 @@ int SkeletonModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    return m_resourceManager->skeletonResources().count();
+    return m_repository->skeletonResources().count();
 }
 
 void SkeletonModel::onSkeletonAboutToBeAdded(ICourse *skeleton, int index)
@@ -169,14 +169,14 @@ QVariant SkeletonModel::headerData(int section, Qt::Orientation orientation, int
 
 int SkeletonModel::count() const
 {
-    return m_resourceManager->skeletonResources().count();
+    return m_repository->skeletonResources().count();
 }
 
 void SkeletonModel::updateMappings()
 {
-    int skeletons = m_resourceManager->skeletonResources().count();
+    int skeletons = m_repository->skeletonResources().count();
     for (int i = 0; i < skeletons; ++i) {
-        m_signalMapper->setMapping(m_resourceManager->skeletonResources().at(i)->skeleton(), i);
+        m_signalMapper->setMapping(m_repository->skeletonResources().at(i)->skeleton(), i);
     }
 }
 

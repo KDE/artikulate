@@ -21,6 +21,7 @@
 #include "application.h"
 
 #include "core/iresourcerepository.h"
+#include "core/contributorrepository.h"
 #include "core/drawertrainingactions.h"
 #include "core/trainingaction.h"
 #include "core/editorsession.h"
@@ -30,10 +31,10 @@
 #include "core/phrase.h"
 #include "core/player.h"
 #include "core/recorder.h"
-#include "core/resourcemanager.h"
 #include "core/skeleton.h"
 #include "core/trainingsession.h"
 #include "core/unit.h"
+#include "core/resources/editablecourseresource.h"
 #include "models/coursefiltermodel.h"
 #include "models/coursemodel.h"
 #include "models/languagemodel.h"
@@ -88,14 +89,18 @@ void Application::registerQmlTypes()
         "artikulate", 1, 0,
         "EditorSession",
         QStringLiteral("EditorSession is unique object provided by the backend"));
-    qmlRegisterUncreatableType<ResourceManager>(
+    qmlRegisterUncreatableType<ContributorRepository>(
         "artikulate", 1, 0,
-        "ResourceManager",
-        QStringLiteral("ResourceManager is unique object provided by the backend"));
+        "ContributorRepository",
+        QStringLiteral("ContributorRepository is unique object provided by the backend"));
     qmlRegisterUncreatableType<LearnerProfile::ProfileManager>(
         "artikulate", 1, 0,
         "ProfileManager",
         QStringLiteral("ProfileManager is unique object provided by the backend"));
+    qmlRegisterUncreatableType<EditableCourseResource>(
+        "artikulate", 1, 0,
+        "EditableCourseResource",
+        QStringLiteral("EditableCourseResource objects are backend objects"));
 
     // interfaces
     qmlRegisterInterface<IResourceRepository>("IResourceRepository");
@@ -107,7 +112,6 @@ void Application::registerQmlTypes()
     qmlRegisterType<Unit>("artikulate", 1, 0, "Unit");
     qmlRegisterType<Skeleton>("artikulate", 1, 0, "Skeleton");
     qmlRegisterType<Language>("artikulate", 1, 0, "Language");
-    qmlRegisterType<ResourceManager>("artikulate", 1, 0, "ResourceManager");
     qmlRegisterType<Phrase>("artikulate", 1, 0, "Phrase");
     qmlRegisterType<Phoneme>("artikulate", 1, 0, "Phoneme");
     qmlRegisterType<PhonemeGroup>("artikulate", 1, 0, "PhonemeGroup");

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,10 +18,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESOURCEMANAGER_H
-#define RESOURCEMANAGER_H
+#ifndef CONTRIBUTORREPOSITORY_H
+#define CONTRIBUTORREPOSITORY_H
 
 #include "artikulatecore_export.h"
+#include "iresourcerepository.h"
 #include <QObject>
 #include <QMap>
 #include <QHash>
@@ -43,17 +44,18 @@ namespace LearnerProfile {
 }
 
 /**
- * \class ResourceManager
- * This class loads and stores all data files of the application.
+ * @class ContributorRepository
+ * This class handles the resources of a contributor.
  */
-class ARTIKULATECORE_EXPORT ResourceManager : public QObject
+class ARTIKULATECORE_EXPORT ContributorRepository : public IResourceRepository
 {
     Q_OBJECT
-    Q_PROPERTY(bool isRepositoryManager READ isRepositoryManager NOTIFY repositoryChanged)
-    Q_PROPERTY(QString repositoryUrl READ repositoryUrl NOTIFY repositoryChanged)
+    Q_INTERFACES(IResourceRepository)
+
+    Q_PROPERTY(QString repositoryUrl READ storageLocation NOTIFY repositoryChanged)
 
 public:
-    explicit ResourceManager(QObject *parent = nullptr);
+    explicit ContributorRepository(QObject *parent = nullptr);
 
     /**
      * Load all course resources.
@@ -88,12 +90,17 @@ public:
     /**
      * \return path to working repository, if one is set
      */
-    QString repositoryUrl() const;
+    QString storageLocation() const override;
 
     /**
      * \return list of all available language specifications
      */
-    QList<LanguageResource *> languageResources() const;
+    Q_DECL_DEPRECATED QList<LanguageResource *> languageResources() const;
+
+    /**
+     * \return list of all available language specifications
+     */
+    QVector<Language *> languages() const;
 
     /**
      * \return language by \p index
@@ -104,6 +111,9 @@ public:
      * \return language by \p learningGoal
      */
     Q_INVOKABLE Language * language(LearnerProfile::LearningGoal* learningGoal) const;
+
+    QVector<ICourse *> courses() const override;
+    QVector<ICourse *> courses(Language *language) const override;
 
     /**
      * \return list of all loaded courses for language \p language
@@ -118,6 +128,9 @@ public:
      * \param course the course to be reloaded
      */
     Q_INVOKABLE void reloadCourseOrSkeleton(ICourse *course);
+
+    //TODO implement some logic
+    void reloadCourses() override {}
 
     /**
      * Imports units and phrases from skeleton, deassociates removed ones.
@@ -197,9 +210,10 @@ Q_SIGNALS:
     void languageResourceRemoved();
     void languageResourceAboutToBeRemoved(int);
     void repositoryChanged();
-    void courseResourceAdded();
-    void courseResourceAboutToBeAdded(ICourse*,int);
-    void courseResourceAboutToBeRemoved(int);
+    void courseAdded() override;
+    void courseAboutToBeAdded(ICourse*,int) override;
+    void courseAboutToBeRemoved(int) override;
+    void courseRemoved() override;
     void skeletonAdded();
     void skeletonAboutToBeAdded(ICourse*,int);
     void skeletonRemoved();
@@ -213,4 +227,4 @@ private:
     QStringList m_loadedResources;
 };
 
-#endif // RESOURCEMANAGER_H
+#endif

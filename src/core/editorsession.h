@@ -29,7 +29,7 @@ class Skeleton;
 class Language;
 class EditableCourseResource;
 class Unit;
-class ResourceManager;
+class ContributorRepository;
 
 /**
  * \class EditorSession
@@ -68,7 +68,7 @@ class ARTIKULATECORE_EXPORT EditorSession : public QObject
 public:
     explicit EditorSession(QObject *parent = nullptr);
 
-    void setResourceManager(ResourceManager *manager);
+    void setContributorRepository(ContributorRepository *manager);
     void setSkeletonMode(bool enabled=true);
     bool skeletonMode() const;
     void setEditSkeleton(bool enabled=true);
@@ -106,7 +106,7 @@ Q_SIGNALS:
 
 private:
     Q_DISABLE_COPY(EditorSession)
-    ResourceManager * m_resourceManager;
+    ContributorRepository * m_repository;
     bool m_skeletonMode;
     bool m_editSkeleton;
     Skeleton *m_skeleton;

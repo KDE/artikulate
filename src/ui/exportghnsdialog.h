@@ -25,7 +25,7 @@
 #include <QTemporaryFile>
 #include <QDialog>
 
-class ResourceManager;
+class IResourceRepository;
 
 class ExportGhnsDialog :
     public QDialog
@@ -33,7 +33,7 @@ class ExportGhnsDialog :
     Q_OBJECT
 
 public:
-    explicit ExportGhnsDialog(ResourceManager *manager);
+    explicit ExportGhnsDialog(IResourceRepository *repository);
     ~ExportGhnsDialog();
 
 public Q_SLOTS:
@@ -41,7 +41,6 @@ public Q_SLOTS:
 
 private:
     Ui::ExportGhnsDialog *ui;
-    const ResourceManager *m_manager;
 };
 
 #endif

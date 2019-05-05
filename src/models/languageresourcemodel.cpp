@@ -20,7 +20,7 @@
 
 #include "languageresourcemodel.h"
 #include "core/language.h"
-#include "core/resourcemanager.h"
+#include "core/iresourcerepository.h"
 #include "core/resources/languageresource.h"
 #include "core/resources/courseresource.h"
 
@@ -31,7 +31,7 @@
 
 LanguageResourceModel::LanguageResourceModel(QObject* parent)
     : QAbstractListModel(parent)
-    , m_resourceManager(nullptr)
+    , m_repository(nullptr)
     , m_view(LanguageModel::NonEmptyGhnsOnlyLanguages)
     , m_signalMapper(new QSignalMapper(this))
 {
@@ -50,42 +50,26 @@ QHash< int, QByteArray > LanguageResourceModel::roleNames() const
     return roles;
 }
 
-void LanguageResourceModel::setResourceManager(ResourceManager *resourceManager)
+void LanguageResourceModel::setResourceRepository(IResourceRepository *repository)
 {
-    if (m_resourceManager == resourceManager) {
+    if (m_repository == repository) {
         return;
     }
 
     beginResetModel();
-
-    if (m_resourceManager) {
-        m_resourceManager->disconnect(this);
+    if (m_repository) {
+        m_repository->disconnect(this);
     }
-
-    m_resourceManager = resourceManager;
-
-    if (m_resourceManager) {
-        connect(m_resourceManager, &ResourceManager::languageResourceAboutToBeAdded,
-                this, &LanguageResourceModel::onLanguageResourceAboutToBeAdded);
-        connect(m_resourceManager, &ResourceManager::languageResourceAdded,
-                this, &LanguageResourceModel::onLanguageResourceAdded);
-        connect(m_resourceManager, &ResourceManager::languageResourceAboutToBeRemoved,
-                this, &LanguageResourceModel::onLanguageResourceAboutToBeRemoved);
-        connect(m_resourceManager, &ResourceManager::languageResourceRemoved,
-                this, &LanguageResourceModel::onLanguageResourceRemoved);
-        connect(m_resourceManager, &ResourceManager::languageCoursesChanged,
-                this, &LanguageResourceModel::updateDisplayedLanguages);
-    }
+    m_repository = repository;
     updateResources();
-
     endResetModel();
 
-    emit resourceManagerChanged();
+    emit resourceRepositoryChanged();
 }
 
-ResourceManager * LanguageResourceModel::resourceManager() const
+IResourceRepository * LanguageResourceModel::resourceRepository() const
 {
-    return m_resourceManager;
+    return m_repository;
 }
 
 QVariant LanguageResourceModel::data(const QModelIndex &index, int role) const
@@ -147,20 +131,21 @@ void LanguageResourceModel::onLanguageResourceAdded()
 
 void LanguageResourceModel::onLanguageResourceAboutToBeRemoved(int index)
 {
-    if (!m_resourceManager) {
-        return;
-    }
+    //FIXME adapt to repository
+//    if (!m_repository) {
+//        return;
+//    }
 
-    LanguageResource *originalResource = m_resourceManager->languageResources().at(index);
-    int modelIndex = m_resources.indexOf(originalResource);
+//    LanguageResource *originalResource = m_repository->languages().at(index);
+//    int modelIndex = m_resources.indexOf(originalResource);
 
-    if (modelIndex == -1) {
-        qCWarning(ARTIKULATE_LOG) << "Cannot remove language from model, not registered";
-        return;
-    }
-    beginRemoveRows(QModelIndex(), modelIndex, modelIndex);
-    originalResource->disconnect(m_signalMapper);
-    m_resources.removeAt(modelIndex);
+//    if (modelIndex == -1) {
+//        qCWarning(ARTIKULATE_LOG) << "Cannot remove language from model, not registered";
+//        return;
+//    }
+//    beginRemoveRows(QModelIndex(), modelIndex, modelIndex);
+//    originalResource->disconnect(m_signalMapper);
+//    m_resources.removeAt(modelIndex);
 }
 
 void LanguageResourceModel::onLanguageResourceRemoved()
@@ -210,16 +195,16 @@ LanguageModel::LanguageResourceView LanguageResourceModel::view() const
 
 void LanguageResourceModel::updateResources()
 {
-    if (!m_resourceManager) {
+    if (!m_repository) {
         return;
     }
 
     m_resources.clear();
-    QList<LanguageResource*> resources = m_resourceManager->languageResources();
-
-    for (LanguageResource *language : resources) {
-        m_resources.append(language);
-    }
+    QVector<Language*> resources = m_repository->languages();
+//FIXME complete switch to language resources
+//    for (LanguageResource *language : resources) {
+//        m_resources.append(language);
+//    }
     updateMappings();
 }
 

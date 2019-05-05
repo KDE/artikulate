@@ -22,14 +22,13 @@
 #define SKELETONRESOURCE_H
 
 #include "artikulatecore_export.h"
-#include "resourceinterface.h"
 
 #include <QObject>
 
 class SkeletonResourcePrivate;
 class Skeleton;
 
-class ARTIKULATECORE_EXPORT SkeletonResource : public ResourceInterface
+class ARTIKULATECORE_EXPORT SkeletonResource : public QObject
 {
     Q_OBJECT
     void course(QString text);
@@ -38,54 +37,54 @@ public:
     /**
      * Create course resource from file.
      */
-    explicit SkeletonResource(ResourceManager *resourceManager, const QUrl &path);
+    explicit SkeletonResource(const QUrl &path);
 
     /**
      * Create course resource from course.
      */
-    explicit SkeletonResource(ResourceManager *resourceManager, Skeleton *skeleton);
+    explicit SkeletonResource(Skeleton *skeleton);
 
     virtual ~SkeletonResource();
 
     /**
      * \return unique identifier
      */
-    QString identifier() override;
+    QString identifier();
 
     /**
      * \return human readable localized title
      */
-    QString title() override;
+    QString title();
 
     /**
      * \return human readable title in English
      */
-    QString i18nTitle() override;
+    QString i18nTitle();
 
     /**
      * \return true if resource is loaded, otherwise false
      */
-    bool isOpen() const override;
+    bool isOpen() const;
 
     /**
      * close resource without writing changes back to file
      */
-    void close() override;
+    void close();
 
-    void sync() override;
+    void sync();
 
-    void reload() override;
+    void reload();
 
     /**
      * \return path to resource file
      */
-    QUrl path() const override;
+    QUrl path() const;
 
     /**
      * \return reference to the loaded resource
      * if resource is not open yet, it will be loaded
      */
-    QObject * resource() override;
+    QObject * resource();
 
     /**
      * \return reference to the loaded skeleton resource

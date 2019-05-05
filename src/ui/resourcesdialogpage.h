@@ -24,7 +24,7 @@
 #include "ui_resourcesdialogpage.h"
 #include <QWidget>
 
-class ResourceManager;
+class ContributorRepository;
 class Course;
 
 class ResourcesDialogPage : public QWidget
@@ -32,7 +32,7 @@ class ResourcesDialogPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit ResourcesDialogPage(ResourceManager *resourceMgr);
+    explicit ResourcesDialogPage(ContributorRepository *repository);
     virtual ~ResourcesDialogPage();
 
 public Q_SLOTS:
@@ -41,7 +41,7 @@ public Q_SLOTS:
 
 private:
     Ui::ResourcesDialogPage *ui;
-    ResourceManager *m_resourceManager;
+    ContributorRepository *m_repository{nullptr};
     bool m_restartNeeded;
 };
 

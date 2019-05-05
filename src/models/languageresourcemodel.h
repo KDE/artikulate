@@ -24,7 +24,7 @@
 #include <QAbstractListModel>
 #include "languagemodel.h"
 
-class ResourceManager;
+class IResourceRepository;
 class LanguageResource;
 class Language;
 class QSignalMapper;
@@ -32,7 +32,7 @@ class QSignalMapper;
 class LanguageResourceModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(ResourceManager *resourceManager READ resourceManager WRITE setResourceManager NOTIFY resourceManagerChanged)
+    Q_PROPERTY(IResourceRepository *resourceRepository READ resourceRepository WRITE setResourceRepository NOTIFY resourceRepositoryChanged)
 
 public:
     enum LanguageRoles {
@@ -48,8 +48,8 @@ public:
      * Reimplemented from QAbstractListModel::roleNames()
      */
     virtual QHash<int,QByteArray> roleNames() const override;
-    void setResourceManager(ResourceManager *resourceManager);
-    ResourceManager * resourceManager() const;
+    void setResourceRepository(IResourceRepository *repository);
+    IResourceRepository * resourceRepository() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
@@ -58,7 +58,7 @@ public:
 
 Q_SIGNALS:
     void languageChanged(int index);
-    void resourceManagerChanged();
+    void resourceRepositoryChanged();
 
 private Q_SLOTS:
     void onLanguageResourceAboutToBeAdded(LanguageResource *resource, int index);
@@ -71,7 +71,7 @@ private Q_SLOTS:
 private:
     void updateResources();
     void updateMappings();
-    ResourceManager *m_resourceManager;
+    IResourceRepository *m_repository;
     QList<LanguageResource *> m_resources;
     LanguageModel::LanguageResourceView m_view;
     QSignalMapper *m_signalMapper;

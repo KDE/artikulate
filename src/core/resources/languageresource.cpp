@@ -19,7 +19,7 @@
  */
 
 #include "languageresource.h"
-#include "core/resourcemanager.h"
+#include "courseparser.h"
 #include "core/language.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
@@ -35,10 +35,8 @@
 class LanguageResourcePrivate
 {
 public:
-    LanguageResourcePrivate(ResourceManager *resourceManager)
-        : m_resourceManager(resourceManager)
-        , m_languageResource(nullptr)
-        , m_type(ResourceInterface::LanguageResourceType)
+    LanguageResourcePrivate()
+        : m_languageResource(nullptr)
     {
     }
 
@@ -46,18 +44,15 @@ public:
     {
     }
 
-    ResourceManager *m_resourceManager;
     Language *m_languageResource;
     QString m_identifier;
     QUrl m_path;
     QString m_title;
     QString m_i18nTitle;
-    ResourceInterface::Type m_type;
 };
 
-LanguageResource::LanguageResource(ResourceManager *resourceManager, const QUrl &path)
-    : ResourceInterface(resourceManager)
-    , d(new LanguageResourcePrivate(resourceManager))
+LanguageResource::LanguageResource(const QUrl &path)
+    : d(new LanguageResourcePrivate)
 {
     d->m_path = path;
 
@@ -141,12 +136,12 @@ QObject * LanguageResource::resource()
         return nullptr;
     }
 
-    QXmlSchema schema = loadXmlSchema(QStringLiteral("language"));
+    QXmlSchema schema = CourseParser::loadXmlSchema(QStringLiteral("language"));
     if (!schema.isValid()) {
         return nullptr;
     }
 
-    QDomDocument document = loadDomDocument(d->m_path, schema);
+    QDomDocument document = CourseParser::loadDomDocument(d->m_path, schema);
     if (document.isNull()) {
         qCWarning(ARTIKULATE_LOG) << "Could not parse document " << d->m_path.toLocalFile() << ", aborting.";
         return nullptr;

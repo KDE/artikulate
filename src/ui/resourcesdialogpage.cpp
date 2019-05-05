@@ -19,7 +19,7 @@
  */
 
 #include "resourcesdialogpage.h"
-#include "core/resourcemanager.h"
+#include "core/contributorrepository.h"
 #include "core/language.h"
 #include "settings.h"
 
@@ -29,9 +29,9 @@
 #include <QToolButton>
 #include <QUuid>
 
-ResourcesDialogPage::ResourcesDialogPage(ResourceManager *m_resourceManager)
+ResourcesDialogPage::ResourcesDialogPage(ContributorRepository *repository)
     : QWidget(nullptr)
-    , m_resourceManager(m_resourceManager)
+    , m_repository(repository)
     , m_restartNeeded(false)
 {
     ui = new Ui::ResourcesDialogPage;
@@ -65,5 +65,5 @@ void ResourcesDialogPage::saveSettings()
     Settings::setCourseRepositoryPath(ui->kcfg_CourseRepositoryPath->text());
     Settings::self()->save();
     // reloading resources
-    m_resourceManager->loadCourseResources();
+    m_repository->loadCourseResources();
 }

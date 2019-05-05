@@ -22,57 +22,55 @@
 #define LANGUAGERESOURCE_H
 
 #include "artikulatecore_export.h"
-#include "resourceinterface.h"
-
 #include <QObject>
 
 class LanguageResourcePrivate;
 class Language;
 
-class ARTIKULATECORE_EXPORT LanguageResource : public ResourceInterface
+class ARTIKULATECORE_EXPORT LanguageResource : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit LanguageResource(ResourceManager *resourceManager, const QUrl &path);
+    explicit LanguageResource(const QUrl &path);
 
     virtual ~LanguageResource();
 
     /**
      * \return unique identifier
      */
-    QString identifier() override;
+    QString identifier();
 
     /**
      * \return human readable localized title
      */
-    QString title() override;
+    QString title();
 
     /**
      * \return human readable title in English
      */
-    QString i18nTitle() override;
+    QString i18nTitle();
 
     /**
      * \return true if resource is loaded, otherwise false
      */
-    bool isOpen() const override;
+    bool isOpen() const;
 
     /**
      * close resource without writing changes back to file
      */
-    void close() override;
+    void close();
 
     /**
      * \return path to resource file
      */
-    QUrl path() const override;
+    QUrl path() const;
 
     /**
      * \return reference to the loaded resource
      * if resource is not open yet, it will be loaded
      */
-    QObject * resource() override;
+    QObject * resource();
 
     /**
      * \return reference to the loaded language resource

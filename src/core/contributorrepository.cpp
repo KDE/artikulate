@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,7 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "resourcemanager.h"
+#include "contributorrepository.h"
 #include "language.h"
 #include "skeleton.h"
 #include "unit.h"
@@ -45,12 +45,12 @@
 #include <QUrl>
 #include <QStandardPaths>
 
-ResourceManager::ResourceManager(QObject *parent)
-    : QObject(parent)
+ContributorRepository::ContributorRepository(QObject *parent)
+    : IResourceRepository()
 {
 }
 
-void ResourceManager::loadCourseResources()
+void ContributorRepository::loadCourseResources()
 {
     //TODO fix this method such that it may be called many times of e.g. updating
 
@@ -127,26 +127,23 @@ void ResourceManager::loadCourseResources()
     emit repositoryChanged();
 }
 
-void ResourceManager::loadLanguageResources()
+void ContributorRepository::loadLanguageResources()
 {
     // load language resources
     // all other resources are only loaded on demand
-    QStringList dirs = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
-    foreach (const QString &testdir, dirs) {
-        QDir dir(testdir + "/artikulate/languages/");
-        dir.setFilter(QDir::Files | QDir::NoSymLinks);
-        QFileInfoList list = dir.entryInfoList();
-        for (int i = 0; i < list.size(); ++i) {
-            QFileInfo fileInfo = list.at(i);
-            if (fileInfo.completeSuffix() != QLatin1String("xml")) {
-                continue;
-            }
-            addLanguage(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+    QDir dir(":/artikulate/languages/");
+    dir.setFilter(QDir::Files | QDir::NoSymLinks);
+    QFileInfoList list = dir.entryInfoList();
+    for (int i = 0; i < list.size(); ++i) {
+        QFileInfo fileInfo = list.at(i);
+        if (fileInfo.completeSuffix() != QLatin1String("xml")) {
+            continue;
         }
+        addLanguage(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
     }
 }
 
-void ResourceManager::sync()
+void ContributorRepository::sync()
 {
 //    QMap< QString, QList< CourseResource* > >::iterator iter;
 //    for (iter = m_courseResources.begin(); iter != m_courseResources.end(); ++iter) {
@@ -159,7 +156,7 @@ void ResourceManager::sync()
 //    }
 }
 
-bool ResourceManager::modified() const
+bool ContributorRepository::modified() const
 {
     for (auto iter = m_courses.constBegin(); iter != m_courses.constEnd(); ++iter) {
         for (auto *course : iter.value()) {
@@ -176,13 +173,13 @@ bool ResourceManager::modified() const
     return false;
 }
 
-void ResourceManager::addLanguage(const QUrl &languageFile)
+void ContributorRepository::addLanguage(const QUrl &languageFile)
 {
     if (m_loadedResources.contains(languageFile.toLocalFile())) {
         return;
     }
 
-    LanguageResource *resource = new LanguageResource(this, languageFile);
+    LanguageResource *resource = new LanguageResource(languageFile);
 
     emit languageResourceAboutToBeAdded(resource, m_languageResources.count());
     m_languageResources.append(resource);
@@ -191,28 +188,37 @@ void ResourceManager::addLanguage(const QUrl &languageFile)
     emit languageResourceAdded();
 }
 
-bool ResourceManager::isRepositoryManager() const
+bool ContributorRepository::isRepositoryManager() const
 {
     return !Settings::courseRepositoryPath().isEmpty();
 }
 
-QString ResourceManager::repositoryUrl() const
+QString ContributorRepository::storageLocation() const
 {
     return Settings::courseRepositoryPath();
 }
 
-QList< LanguageResource* > ResourceManager::languageResources() const
+QList< LanguageResource* > ContributorRepository::languageResources() const
 {
     return m_languageResources;
 }
 
-Language * ResourceManager::language(int index) const
+QVector<Language *> ContributorRepository::languages() const
+{
+    QVector<Language *> languages;
+    for (auto resourse : m_languageResources) {
+        languages.append(resourse->language());
+    }
+    return languages;
+}
+
+Language * ContributorRepository::language(int index) const
 {
     Q_ASSERT(index >= 0 && index < m_languageResources.count());
     return m_languageResources.at(index)->language();
 }
 
-Language * ResourceManager::language(LearnerProfile::LearningGoal *learningGoal) const
+Language * ContributorRepository::language(LearnerProfile::LearningGoal *learningGoal) const
 {
     if (!learningGoal) {
         return nullptr;
@@ -230,7 +236,7 @@ Language * ResourceManager::language(LearnerProfile::LearningGoal *learningGoal)
     return nullptr;
 }
 
-QList<EditableCourseResource *> ResourceManager::courseResources(Language *language)
+QList<EditableCourseResource *> ContributorRepository::courseResources(Language *language)
 {
     if (!language) {
         QList<EditableCourseResource *> courses;
@@ -246,7 +252,17 @@ QList<EditableCourseResource *> ResourceManager::courseResources(Language *langu
     return m_courses[language->id()];
 }
 
-EditableCourseResource * ResourceManager::course(Language *language, int index) const
+QVector<ICourse *> ContributorRepository::courses() const
+{
+    return QVector<ICourse *>(); //TODO and check if overload for editable is needed
+}
+
+QVector<ICourse *> ContributorRepository::courses(Language *language) const
+{
+    return QVector<ICourse *>(); //TODO and check if overload for editable is needed
+}
+
+EditableCourseResource * ContributorRepository::course(Language *language, int index) const
 {
     Q_ASSERT(m_courses.contains(language->id()));
     Q_ASSERT(index >= 0 && index < m_courses[language->id()].count());
@@ -254,7 +270,7 @@ EditableCourseResource * ResourceManager::course(Language *language, int index) 
     return m_courses[language->id()].at(index);
 }
 
-void ResourceManager::reloadCourseOrSkeleton(ICourse *courseOrSkeleton)
+void ContributorRepository::reloadCourseOrSkeleton(ICourse *courseOrSkeleton)
 {
     if (!courseOrSkeleton) {
         qCritical() << "Cannot reload non-existing course";
@@ -283,7 +299,7 @@ void ResourceManager::reloadCourseOrSkeleton(ICourse *courseOrSkeleton)
     }
 }
 
-void ResourceManager::updateCourseFromSkeleton(EditableCourseResource *course)
+void ContributorRepository::updateCourseFromSkeleton(EditableCourseResource *course)
 {
     //TODO implement status information that are shown at mainwindow
     if (course->foreignId().isEmpty())  {
@@ -357,9 +373,9 @@ void ResourceManager::updateCourseFromSkeleton(EditableCourseResource *course)
     qCDebug(ARTIKULATE_LOG) << "Update performed!";
 }
 
-EditableCourseResource * ResourceManager::addCourse(const QUrl &courseFile)
+EditableCourseResource * ContributorRepository::addCourse(const QUrl &courseFile)
 {
-    EditableCourseResource *resource = new EditableCourseResource(courseFile, nullptr); //FIXME second parameter must be interface!
+    EditableCourseResource *resource = new EditableCourseResource(courseFile, this);
     if (resource->language() == nullptr) {
         delete resource;
         qCritical() << "Could not load course, language unknown:" << courseFile.toLocalFile();
@@ -377,7 +393,7 @@ EditableCourseResource * ResourceManager::addCourse(const QUrl &courseFile)
     return resource;
 }
 
-void ResourceManager::addCourseResource(EditableCourseResource *resource)
+void ContributorRepository::addCourseResource(EditableCourseResource *resource)
 {
     Q_ASSERT(m_courses.contains(resource->language()->id()));
 
@@ -385,26 +401,27 @@ void ResourceManager::addCourseResource(EditableCourseResource *resource)
 //        emit courseResourceAboutToBeAdded(resource, m_courses[resource->language()].count()); //FIXME
     }
     else {
-        emit courseResourceAboutToBeAdded(resource, 0);
+        emit courseAboutToBeAdded(resource, 0);
         m_courses.insert(resource->language()->id(), QList<EditableCourseResource*>());
     }
     m_courses[resource->language()->id()].append(resource);
-    emit courseResourceAdded();
+    emit courseAdded();
 }
 
-void ResourceManager::removeCourse(ICourse *course)
+void ContributorRepository::removeCourse(ICourse *course)
 {
     for (int index = 0; index < m_courses[course->language()->id()].length(); ++index) {
         if (m_courses[course->language()->id()].at(index) == course) {
-            emit courseResourceAboutToBeRemoved(index);
+            emit courseAboutToBeRemoved(index);
             m_courses[course->language()->id()].removeAt(index);
+            emit courseRemoved();
             course->deleteLater();
             return;
         }
     }
 }
 
-EditableCourseResource * ResourceManager::createCourse(Language *language, Skeleton *skeleton)
+EditableCourseResource * ContributorRepository::createCourse(Language *language, Skeleton *skeleton)
 {
     // set path
     QString path = QStringLiteral("%1/%2/%3/%4/%4.xml")
@@ -413,7 +430,7 @@ EditableCourseResource * ResourceManager::createCourse(Language *language, Skele
              skeleton->id(),
              language->id());
 
-    EditableCourseResource * course = new EditableCourseResource(QUrl::fromLocalFile(path), nullptr); //FIXME
+    EditableCourseResource * course = new EditableCourseResource(QUrl::fromLocalFile(path), this);
 
     Q_ASSERT(course);
     course->setId(QUuid::createUuid().toString());
@@ -430,13 +447,13 @@ EditableCourseResource * ResourceManager::createCourse(Language *language, Skele
     return course;
 }
 
-void ResourceManager::addSkeleton(const QUrl &skeletonFile)
+void ContributorRepository::addSkeleton(const QUrl &skeletonFile)
 {
-    SkeletonResource *resource = new SkeletonResource(this, skeletonFile);
+    SkeletonResource *resource = new SkeletonResource(skeletonFile);
     addSkeletonResource(resource);
 }
 
-void ResourceManager::addSkeletonResource(SkeletonResource *resource)
+void ContributorRepository::addSkeletonResource(SkeletonResource *resource)
 {
     // skip already loaded resources
     if (m_loadedResources.contains(resource->path().toLocalFile())) {
@@ -448,7 +465,7 @@ void ResourceManager::addSkeletonResource(SkeletonResource *resource)
     emit skeletonAdded();
 }
 
-void ResourceManager::removeSkeleton(Skeleton *skeleton)
+void ContributorRepository::removeSkeleton(Skeleton *skeleton)
 {
     for (int index = 0; index < m_skeletonResources.length(); ++index) {
         if (m_skeletonResources.at(index)->identifier() == skeleton->id()) {
@@ -461,7 +478,7 @@ void ResourceManager::removeSkeleton(Skeleton *skeleton)
     }
 }
 
-QList< SkeletonResource* > ResourceManager::skeletonResources()
+QList< SkeletonResource* > ContributorRepository::skeletonResources()
 {
     return m_skeletonResources;
 }

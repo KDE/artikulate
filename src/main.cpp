@@ -29,8 +29,8 @@
 
 int main(int argc, char **argv)
 {
-    KLocalizedString::setApplicationDomain("artikulate");
     Application app(argc, argv);
+    KLocalizedString::setApplicationDomain("artikulate");
     ResourceRepository repository;
     repository.reloadCourses();
     app.installResourceRepository(&repository);

@@ -35,7 +35,7 @@ class ARTIKULATECORE_EXPORT Skeleton : public EditableCourseResource
     Q_OBJECT
 
 public:
-    explicit Skeleton(ResourceInterface *resource = nullptr);
+    explicit Skeleton(SkeletonResource *resource = nullptr);
 
     /**
      * Writes course object back to file and set \ref modified state to false.

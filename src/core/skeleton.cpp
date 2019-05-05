@@ -23,7 +23,6 @@
 #include "resources/editablecourseresource.h"
 #include "unit.h"
 #include "language.h"
-#include "resourcemanager.h"
 #include "phonemegroup.h"
 
 #include "artikulate_debug.h"
@@ -32,9 +31,9 @@
 #include <QPair>
 #include <QUuid>
 
-Skeleton::Skeleton(ResourceInterface *resource)
+Skeleton::Skeleton(SkeletonResource *resource)
     : EditableCourseResource(QUrl(), nullptr) //FIXME thus just compiles but not more
-    , m_resource(qobject_cast<SkeletonResource*>(resource))
+    , m_resource(resource)
 {
 }
 

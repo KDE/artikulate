@@ -19,7 +19,7 @@
  */
 
 #include "exportghnsdialog.h"
-#include "core/resourcemanager.h"
+#include "core/iresourcerepository.h"
 #include "core/resources/languageresource.h"
 #include "core/resources/editablecourseresource.h"
 #include "core/resources/courseparser.h"
@@ -31,8 +31,7 @@
 #include <QStandardPaths>
 #include <QWidget>
 
-ExportGhnsDialog::ExportGhnsDialog(ResourceManager *manager)
-    : m_manager(manager)
+ExportGhnsDialog::ExportGhnsDialog(IResourceRepository *repository)
 {
     ui = new Ui::ExportGhnsDialog;
     ui->setupUi(this);
@@ -60,10 +59,10 @@ ExportGhnsDialog::ExportGhnsDialog(ResourceManager *manager)
 
     // add courses to combo box
     int counter = 0;
-    foreach (auto *languageRes, manager->languageResources()) {
-        foreach (auto *courseRes, manager->courseResources(languageRes->language())) {
-            ui->courseListCombo->insertItem(counter, courseRes->i18nTitle(),
-                                            QVariant::fromValue<QObject*>(courseRes));
+    for (auto *language : repository->languages()) {
+        for (auto *course : repository->courses(language)) {
+            ui->courseListCombo->insertItem(counter, course->i18nTitle(),
+                                            QVariant::fromValue<QObject*>(course));
             ++counter;
         }
     }

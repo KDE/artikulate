@@ -19,11 +19,11 @@
  */
 
 #include "mainwindow_editor.h"
+#include "application.h"
 #include "ui/resourcesdialogpage.h"
 #include "ui/sounddevicedialogpage.h"
 #include "ui/appearencedialogpage.h"
 #include "ui/exportghnsdialog.h"
-#include "core/resourcemanager.h"
 #include "core/editorsession.h"
 #include "core/resources/courseresource.h"
 #include "models/languagemodel.h"
@@ -56,12 +56,12 @@
 
 using namespace LearnerProfile;
 
-MainWindowEditor::MainWindowEditor()
-    : m_resourceManager(new ResourceManager(this))
-    , m_editorSession(new EditorSession(this))
+MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
+    : m_repository(repository)
+    , m_editorSession(new EditorSession())
     , m_widget(new QQuickWidget)
 {
-    m_editorSession->setResourceManager(m_resourceManager);
+    m_editorSession->setContributorRepository(m_repository);
     setWindowIcon(QIcon::fromTheme(QStringLiteral("artikulate")));
     setWindowTitle(qAppName());
     setAutoSaveSettings();
@@ -73,11 +73,11 @@ MainWindowEditor::MainWindowEditor()
     OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
 
     // load resources
-    m_resourceManager->loadLanguageResources();
-    if (m_resourceManager->languageResources().count() == 0) {
+    m_repository->loadLanguageResources();
+    if (m_repository->languageResources().count() == 0) {
         qFatal("No language resources found, cannot start application.");
     }
-    m_resourceManager->loadCourseResources();
+    m_repository->loadCourseResources();
 
     // create menu
     setupActions();
@@ -85,8 +85,8 @@ MainWindowEditor::MainWindowEditor()
     // set view
     m_widget->resize(QSize(800, 600));
     m_widget->rootContext()->setContextObject(new KLocalizedContext(m_widget));
-    m_widget->rootContext()->setContextProperty(QStringLiteral("g_resourceManager"), m_resourceManager);
-    m_widget->rootContext()->setContextProperty(QStringLiteral("editorSession"), m_editorSession);
+    m_widget->rootContext()->setContextProperty(QStringLiteral("g_resourceManager"), m_repository);
+    m_widget->rootContext()->setContextProperty(QStringLiteral("editorSession"), m_repository);
 
     // set starting screen
     m_widget->setSource(QUrl(QStringLiteral("qrc:/artikulate/qml/Editor.qml")));
@@ -98,9 +98,9 @@ MainWindowEditor::MainWindowEditor()
     // set status bar
     statusBar()->setEnabled(true);
     QLabel *repositoryLabel = new QLabel;
-    repositoryLabel->setText(i18n("Course Repository: %1", m_resourceManager->repositoryUrl()));
-    connect(m_resourceManager, &ResourceManager::repositoryChanged, this, [=]() {
-        repositoryLabel->setText(i18n("Course Repository: %1", m_resourceManager->repositoryUrl()));
+    repositoryLabel->setText(i18n("Course Repository: %1", m_repository->storageLocation()));
+    connect(m_repository, &ContributorRepository::repositoryChanged, this, [=]() {
+        repositoryLabel->setText(i18n("Course Repository: %1", m_repository->storageLocation()));
     });
     statusBar()->insertWidget(0, repositoryLabel);
 
@@ -114,9 +114,9 @@ MainWindowEditor::~MainWindowEditor()
     Settings::self()->save();
 }
 
-ResourceManager * MainWindowEditor::resourceManager() const
+ContributorRepository * MainWindowEditor::resourceRepository() const
 {
-    return m_resourceManager;
+    return m_repository;
 }
 
 void MainWindowEditor::setupActions()
@@ -128,7 +128,7 @@ void MainWindowEditor::setupActions()
 
     QAction *exportAction = new QAction(i18nc("@item:inmenu", "Export GHNS Files"), this);
     connect(exportAction, &QAction::triggered, this, [=]() {
-        QPointer<QDialog> dialog = new ExportGhnsDialog(m_resourceManager);
+        QPointer<QDialog> dialog = new ExportGhnsDialog(m_repository);
         dialog->exec();
     });
     actionCollection()->addAction(QStringLiteral("export_ghns"), exportAction);
@@ -146,7 +146,7 @@ void MainWindowEditor::showSettingsDialog()
     }
     QPointer<KConfigDialog> dialog = new KConfigDialog(nullptr, QStringLiteral("settings"), Settings::self());
 
-    ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_resourceManager);
+    ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_repository);
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
     AppearenceDialogPage *appearenceDialog = new AppearenceDialogPage();
 
@@ -167,7 +167,7 @@ void MainWindowEditor::showSettingsDialog()
 
 void MainWindowEditor::save()
 {
-    m_resourceManager->sync();
+    m_repository->sync();
 }
 
 void MainWindowEditor::quit()
@@ -179,7 +179,7 @@ void MainWindowEditor::quit()
 
 bool MainWindowEditor::queryClose()
 {
-    if (!m_resourceManager->modified()) {
+    if (!m_repository->modified()) {
         return true;
     }
 
@@ -188,7 +188,7 @@ bool MainWindowEditor::queryClose()
 
     switch(result) {
     case KMessageBox::Yes:
-        m_resourceManager->sync();
+        m_repository->sync();
         return true;
     case KMessageBox::No:
         return true;

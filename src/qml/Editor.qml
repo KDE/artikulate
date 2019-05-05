@@ -50,7 +50,6 @@ Item
     }
     CourseModel {
         id: courseModel
-        resourceManager: g_resourceManager
         language: editorSession.language
     }
     UnitModel {
