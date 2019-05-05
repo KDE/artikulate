@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>courses/de_01.ogg</file>
+        <file>courses/de_02.ogg</file>
+        <file>courses/de.xml</file>
+        <file>courses/fr.xml</file>
+    </qresource>
+</RCC>
