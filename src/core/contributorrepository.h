@@ -36,12 +36,7 @@ class LanguageResource;
 class Skeleton;
 class Language;
 class ICourse;
-class ProfileManager;
 class QUrl;
-
-namespace LearnerProfile {
-    class ProfileManager;
-}
 
 /**
  * @class ContributorRepository
@@ -58,21 +53,6 @@ public:
     explicit ContributorRepository(QObject *parent = nullptr);
 
     /**
-     * Load all course resources.
-     * This loading is very fast, since course files are only partly (~20 top lines) parsed and
-     * the complete parsing is postponed until first access.
-     *
-     * This method is safe to be called several times for incremental updates.
-     */
-    Q_INVOKABLE void loadCourseResources();
-
-    /**
-     * This method loads all language files that are provided in the standard directories
-     * for this application.
-     */
-    void loadLanguageResources();
-
-    /**
      * save all changes to course resources
      */
     void sync();
@@ -83,14 +63,15 @@ public:
     bool modified() const;
 
     /**
-     * \return \c true if a repository is used, else \c false
-     */
-    Q_INVOKABLE bool isRepositoryManager() const;
-
-    /**
      * \return path to working repository, if one is set
      */
     QString storageLocation() const override;
+
+    /**
+     * Set path to central storage location
+     * \param path the path to the storage location directory
+     */
+    void setStorageLocation(const QString &path);
 
     /**
      * \return list of all available language specifications
@@ -129,8 +110,10 @@ public:
      */
     Q_INVOKABLE void reloadCourseOrSkeleton(ICourse *course);
 
-    //TODO implement some logic
-    void reloadCourses() override {}
+    /**
+     * @brief Implementation of course resource reloading
+     */
+    void reloadCourses() override;
 
     /**
      * Imports units and phrases from skeleton, deassociates removed ones.
@@ -221,6 +204,12 @@ Q_SIGNALS:
     void languageCoursesChanged();
 
 private:
+    /**
+     * This method loads all language files that are provided in the standard directories
+     * for this application.
+     */
+    void loadLanguageResources();
+    QString m_storageLocation;
     QList<LanguageResource *> m_languageResources;
     QMap<QString, QList<EditableCourseResource *> > m_courses; //!> (language-id, course-resource)
     QList<SkeletonResource *> m_skeletonResources;

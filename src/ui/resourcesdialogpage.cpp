@@ -65,5 +65,5 @@ void ResourcesDialogPage::saveSettings()
     Settings::setCourseRepositoryPath(ui->kcfg_CourseRepositoryPath->text());
     Settings::self()->save();
     // reloading resources
-    m_repository->loadCourseResources();
+    m_repository->reloadCourses();
 }

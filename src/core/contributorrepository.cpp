@@ -28,7 +28,6 @@
 #include "resources/languageresource.h"
 #include "resources/editablecourseresource.h"
 #include "resources/skeletonresource.h"
-#include "settings.h"
 #include "liblearnerprofile/src/profilemanager.h"
 #include "liblearnerprofile/src/learninggoal.h"
 
@@ -48,83 +47,7 @@
 ContributorRepository::ContributorRepository(QObject *parent)
     : IResourceRepository()
 {
-}
-
-void ContributorRepository::loadCourseResources()
-{
-    //TODO fix this method such that it may be called many times of e.g. updating
-
-    // reload config, could be changed in dialogs
-    Settings::self()->load();
-
-    // register skeleton resources
-    QDir skeletonRepository = QDir(Settings::courseRepositoryPath());
-    skeletonRepository.setFilter(QDir::Files | QDir::Hidden);
-    if (!skeletonRepository.cd(QStringLiteral("skeletons"))) {
-        qCritical() << "There is no subdirectory \"skeletons\" in directory " << skeletonRepository.path()
-            << " cannot load skeletons.";
-    } else {
-        // read skeletons
-        QFileInfoList list = skeletonRepository.entryInfoList();
-        for (int i = 0; i < list.size(); ++i) {
-            QFileInfo fileInfo = list.at(i);
-            addSkeleton(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
-        }
-    }
-
-    // register contributor course files
-    QDir courseRepository = QDir(Settings::courseRepositoryPath());
-    if (!courseRepository.cd(QStringLiteral("courses"))) {
-        qCritical() << "There is no subdirectory \"courses\" in directory " << courseRepository.path()
-            << " cannot load courses.";
-    } else {
-        // find courses
-        courseRepository.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
-        QFileInfoList courseDirList = courseRepository.entryInfoList();
-
-        // traverse all course directories
-        foreach (const QFileInfo &info, courseDirList) {
-            QDir courseDir = QDir(info.absoluteFilePath());
-            courseDir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
-            QFileInfoList courseLangDirList = courseDir.entryInfoList();
-
-            // traverse all language directories for each course
-            foreach (const QFileInfo &langInfo, courseLangDirList) {
-                QDir courseLangDir = QDir(langInfo.absoluteFilePath());
-                courseLangDir.setFilter(QDir::Files);
-                QStringList nameFilters;
-                nameFilters.append(QStringLiteral("*.xml"));
-                QFileInfoList courses = courseLangDir.entryInfoList(nameFilters);
-
-                // find and add course files
-                foreach (const QFileInfo &courseInfo, courses) {
-                    addCourse(QUrl::fromLocalFile(courseInfo.filePath()));
-                }
-            }
-        }
-    }
-
-    // register GHNS course resources
-    QStringList dirs = QStandardPaths::standardLocations(QStandardPaths::DataLocation);
-    foreach (const QString &testdir, dirs) {
-        QDirIterator it(testdir + "/courses/", QDirIterator::Subdirectories);
-        while (it.hasNext()) {
-            QDir dir(it.next());
-            dir.setFilter(QDir::Files | QDir::NoSymLinks);
-            QFileInfoList list = dir.entryInfoList();
-            for (int i = 0; i < list.size(); ++i) {
-                QFileInfo fileInfo = list.at(i);
-                if (fileInfo.completeSuffix() != QLatin1String("xml")) {
-                    continue;
-                }
-                addCourse(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
-            }
-        }
-    }
-
-    //TODO this signal should only be emitted when repository was added/removed
-    // yet the call to this method is very seldom and emitting it too often is not that harmful
-    emit repositoryChanged();
+    loadLanguageResources();
 }
 
 void ContributorRepository::loadLanguageResources()
@@ -188,14 +111,14 @@ void ContributorRepository::addLanguage(const QUrl &languageFile)
     emit languageResourceAdded();
 }
 
-bool ContributorRepository::isRepositoryManager() const
-{
-    return !Settings::courseRepositoryPath().isEmpty();
-}
-
 QString ContributorRepository::storageLocation() const
 {
-    return Settings::courseRepositoryPath();
+    return m_storageLocation;
+}
+
+void ContributorRepository::setStorageLocation(const QString &path)
+{
+    m_storageLocation = path;
 }
 
 QList< LanguageResource* > ContributorRepository::languageResources() const
@@ -254,12 +177,28 @@ QList<EditableCourseResource *> ContributorRepository::courseResources(Language 
 
 QVector<ICourse *> ContributorRepository::courses() const
 {
-    return QVector<ICourse *>(); //TODO and check if overload for editable is needed
+    QVector<ICourse *> courses;
+    for (const auto &courseList : m_courses) {
+        for (const auto &course : courseList) {
+            courses.append(course);
+        }
+    }
+    return courses;
 }
 
 QVector<ICourse *> ContributorRepository::courses(Language *language) const
 {
-    return QVector<ICourse *>(); //TODO and check if overload for editable is needed
+    if (language == nullptr) {
+        return courses();
+    }
+
+    QVector<ICourse *> courses;
+    if (m_courses.contains(language->id())) {
+        for (const auto &course : m_courses[language->id()]) {
+            courses.append(course);
+        }
+    }
+    return courses;
 }
 
 EditableCourseResource * ContributorRepository::course(Language *language, int index) const
@@ -297,6 +236,60 @@ void ContributorRepository::reloadCourseOrSkeleton(ICourse *courseOrSkeleton)
             }
         }
     }
+}
+
+void ContributorRepository::reloadCourses()
+{
+    // register skeleton resources
+    QDir skeletonDirectory = QDir(storageLocation());
+
+    skeletonDirectory.setFilter(QDir::Files | QDir::Hidden);
+    if (!skeletonDirectory.cd(QStringLiteral("skeletons"))) {
+        qCritical() << "There is no subdirectory \"skeletons\" in directory " << skeletonDirectory.path()
+            << " cannot load skeletons.";
+    } else {
+        // read skeletons
+        QFileInfoList list = skeletonDirectory.entryInfoList();
+        for (int i = 0; i < list.size(); ++i) {
+            QFileInfo fileInfo = list.at(i);
+            addSkeleton(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+        }
+    }
+
+    // register contributor course files
+    QDir courseDirectory(storageLocation());
+    if (!courseDirectory.cd(QStringLiteral("courses"))) {
+        qCritical() << "There is no subdirectory \"courses\" in directory " << courseDirectory.path()
+            << " cannot load courses.";
+    } else {
+        // find courses
+        courseDirectory.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+        QFileInfoList courseDirList = courseDirectory.entryInfoList();
+
+        // traverse all course directories
+        for (const QFileInfo &info : courseDirList) {
+            QDir courseDir = QDir(info.absoluteFilePath());
+            courseDir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+            QFileInfoList courseLangDirList = courseDir.entryInfoList();
+
+            // traverse all language directories for each course
+            for (const QFileInfo &langInfo : courseLangDirList) {
+                QDir courseLangDir = QDir(langInfo.absoluteFilePath());
+                courseLangDir.setFilter(QDir::Files);
+                QStringList nameFilters;
+                nameFilters.append(QStringLiteral("*.xml"));
+                QFileInfoList courses = courseLangDir.entryInfoList(nameFilters);
+
+                // find and add course files
+                for (const QFileInfo &courseInfo : courses) {
+                    addCourse(QUrl::fromLocalFile(courseInfo.filePath()));
+                }
+            }
+        }
+    }
+    //TODO this signal should only be emitted when repository was added/removed
+    // yet the call to this method is very seldom and emitting it too often is not that harmful
+    emit repositoryChanged();
 }
 
 void ContributorRepository::updateCourseFromSkeleton(EditableCourseResource *course)
@@ -397,13 +390,10 @@ void ContributorRepository::addCourseResource(EditableCourseResource *resource)
 {
     Q_ASSERT(m_courses.contains(resource->language()->id()));
 
-    if (m_courses.contains(resource->language()->id())) {
-//        emit courseResourceAboutToBeAdded(resource, m_courses[resource->language()].count()); //FIXME
-    }
-    else {
-        emit courseAboutToBeAdded(resource, 0);
+    if (!m_courses.contains(resource->language()->id())) {
         m_courses.insert(resource->language()->id(), QList<EditableCourseResource*>());
     }
+    emit courseAboutToBeAdded(resource, m_courses[resource->language()->id()].count());
     m_courses[resource->language()->id()].append(resource);
     emit courseAdded();
 }
@@ -425,7 +415,7 @@ EditableCourseResource * ContributorRepository::createCourse(Language *language,
 {
     // set path
     QString path = QStringLiteral("%1/%2/%3/%4/%4.xml")
-        .arg(Settings::courseRepositoryPath(),
+        .arg(storageLocation(),
              QStringLiteral("courses"),
              skeleton->id(),
              language->id());
