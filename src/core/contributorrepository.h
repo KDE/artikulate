@@ -81,7 +81,7 @@ public:
     /**
      * \return list of all available language specifications
      */
-    QVector<Language *> languages() const;
+    QVector<Language *> languages() const override;
 
     /**
      * \return language by \p index

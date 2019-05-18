@@ -19,6 +19,7 @@
  */
 
 #include "contributorrepository.h"
+#include "artikulate_debug.h"
 #include "language.h"
 #include "skeleton.h"
 #include "unit.h"
@@ -31,16 +32,10 @@
 #include "liblearnerprofile/src/profilemanager.h"
 #include "liblearnerprofile/src/learninggoal.h"
 
-#include <QIODevice>
 #include <QFile>
-#include <QPointer>
-#include <QXmlSchema>
-#include <QXmlSchemaValidator>
-#include <QDomDocument>
 #include <QUuid>
 #include <QDir>
 #include <QDirIterator>
-#include "artikulate_debug.h"
 #include <QUrl>
 #include <QStandardPaths>
 
