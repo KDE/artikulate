@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2019  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,35 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SKELETON_H
-#define SKELETON_H
+#include "resourcerepositorystub.h"
 
-#include "artikulatecore_export.h"
-#include "resources/editablecourseresource.h"
-#include <QObject>
-#include <QMap>
-#include <QUrl>
-
-class ResourceInterface;
-class SkeletonResource;
-
-class ARTIKULATECORE_EXPORT Skeleton : public EditableCourseResource
-{
-    Q_OBJECT
-
-public:
-    explicit Skeleton(SkeletonResource *resource = nullptr);
-
-    /**
-     * Writes course object back to file and set \ref modified state to false.
-     * If no file is set, no operation is performed.
-     */
-    Q_INVOKABLE void sync();
-
-private:
-    Q_DISABLE_COPY(Skeleton)
-
-    SkeletonResource * const m_resource;
-};
-
-#endif // SKELETON_H
+// define one virtual method out of line to pin CourseStub to this translation unit
+ResourceRepositoryStub::~ResourceRepositoryStub() = default;

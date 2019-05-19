@@ -82,6 +82,20 @@ target_link_libraries(test_courseresource
 add_test(test_courseresource test_courseresource)
 ecm_mark_as_test(test_courseresource)
 
+# test skeleton resource class
+set(TestSkeletonResource_SRCS
+    skeletonresource/test_skeletonresource.cpp
+    skeletonresource/resourcerepositorystub.cpp
+)
+qt5_add_resources(TestSkeletonResource_SRCS ../data/languages.qrc)
+add_executable(test_skeletonresource ${TestSkeletonResource_SRCS} )
+target_link_libraries(test_skeletonresource
+    artikulatecore
+    Qt5::Test
+)
+add_test(test_skeletonresource test_skeletonresource)
+ecm_mark_as_test(test_skeletonresource)
+
 # test editable course resource class
 set(TestEditableCourseResource_SRCS
     editablecourseresource/test_editablecourseresource.cpp

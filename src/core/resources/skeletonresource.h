@@ -22,75 +22,51 @@
 #define SKELETONRESOURCE_H
 
 #include "artikulatecore_export.h"
+#include "core/icourse.h"
 
 #include <QObject>
 
 class SkeletonResourcePrivate;
-class Skeleton;
+class IResourceRepository;
 
-class ARTIKULATECORE_EXPORT SkeletonResource : public QObject
+/**
+ * @brief The SkeletonResource class is a decorator for EditableCourseResource
+ */
+class ARTIKULATECORE_EXPORT SkeletonResource : public ICourse
 {
     Q_OBJECT
-    void course(QString text);
+    Q_INTERFACES(ICourse)
 
 public:
     /**
      * Create course resource from file.
      */
-    explicit SkeletonResource(const QUrl &path);
+    explicit SkeletonResource(const QUrl &path, IResourceRepository *repository);
 
-    /**
-     * Create course resource from course.
-     */
-    explicit SkeletonResource(Skeleton *skeleton);
+    ~SkeletonResource() override;
 
-    virtual ~SkeletonResource();
+    QString id() const override;
 
-    /**
-     * \return unique identifier
-     */
-    QString identifier();
+    void setId(const QString &id);
 
-    /**
-     * \return human readable localized title
-     */
-    QString title();
+    QString foreignId() const override;
+    QString title() const override;
 
-    /**
-     * \return human readable title in English
-     */
-    QString i18nTitle();
+    void setTitle(const QString &title);
 
-    /**
-     * \return true if resource is loaded, otherwise false
-     */
-    bool isOpen() const;
+    QString i18nTitle() const override;
+    QString description() const override;
 
-    /**
-     * close resource without writing changes back to file
-     */
-    void close();
+    void setDescription(const QString &description);
 
+    Language * language() const override;
+    QList<Unit *> unitList() override;
+    QUrl file() const override;
+
+    void addUnit(Unit *unit);
     void sync();
 
-    void reload();
-
-    /**
-     * \return path to resource file
-     */
-    QUrl path() const;
-
-    /**
-     * \return reference to the loaded resource
-     * if resource is not open yet, it will be loaded
-     */
-    QObject * resource();
-
-    /**
-     * \return reference to the loaded skeleton resource
-     * Same behavior as \see resource() but casted to Skeleton
-     */
-    Skeleton * skeleton();
+    bool isModified() const { return true;} //FIXME
 
 private:
     const QScopedPointer<SkeletonResourcePrivate> d;

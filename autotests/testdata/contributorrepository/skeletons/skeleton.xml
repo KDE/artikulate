@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<skeleton>
+ <id>skeleton-testdata</id>
+ <title>Artikulate Test Course Title</title>
+ <description>Artikulate Test Course Description</description>
+ <units>
+  <unit>
+   <id>{11111111-b885-4833-97ff-27cb1ca2f543}</id>
+   <title>Numbers</title>
+   <phrases>
+    <phrase>
+     <id>{22222222-9234-4da5-a6fe-dbd5104f57d5}</id>
+     <text>0</text>
+     <type>word</type>
+    </phrase>
+    <phrase>
+     <id>{333333333-b4a9-4264-9a26-75a55aa5d302}</id>
+     <text>1</text>
+     <type>word</type>
+    </phrase>
+   </phrases>
+  </unit>
+  <unit>
+   <id>{44444444-f531-4ffc-a73d-7677dcf6693a}</id>
+   <title>At a Party</title>
+   <phrases>
+    <phrase>
+     <id>{55555555-95ee-4b9d-813d-204b6f60b61a}</id>
+     <text>talk</text>
+     <type>word</type>
+    </phrase>
+  </phrases>
+  </unit>
+ </units>
+</skeleton>

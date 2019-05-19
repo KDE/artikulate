@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2019  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,13 +18,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "test_courseresource.h"
+#include "test_skeletonresource.h"
 #include "resourcerepositorystub.h"
 #include "core/language.h"
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/resources/languageresource.h"
-#include "core/resources/courseresource.h"
+#include "core/resources/skeletonresource.h"
 
 #include <QTest>
 #include <QDebug>
@@ -36,64 +36,64 @@
 #include <QXmlSchemaValidator>
 #include <QDomDocument>
 
-TestCourseResource::TestCourseResource()
+TestSkeletonResource::TestSkeletonResource()
 {
 }
 
-void TestCourseResource::init()
+void TestSkeletonResource::init()
 {
 }
 
-void TestCourseResource::cleanup()
+void TestSkeletonResource::cleanup()
 {
 }
 
-void TestCourseResource::courseSchemeValidationTest()
+void TestSkeletonResource::schemeValidationTest()
 {
-    QUrl schemeFile = QUrl::fromLocalFile(QStringLiteral("schemes/course.xsd"));
-    QXmlSchema courseSchema;
-    QVERIFY(courseSchema.load(schemeFile));
-    QVERIFY(courseSchema.isValid());
+    QUrl skeletonFile = QUrl::fromLocalFile(QStringLiteral("schemes/skeleton.xsd"));
+    QXmlSchema skeletonScheme;
+    QVERIFY(skeletonScheme.load(skeletonFile));
+    QVERIFY(skeletonScheme.isValid());
 }
 
-void TestCourseResource::loadCourseResource()
+void TestSkeletonResource::loadSkeletonResource()
 {
     Language language;
     language.setId("de");
     ResourceRepositoryStub repository({&language});
-    const QString courseDirectory = "data/courses/de/";
-    const QString courseFile = courseDirectory + "de.xml";
+    const QString courseDirectory = "data/contributorrepository/skeletons/";
+    const QString courseFile = courseDirectory + "skeleton.xml";
 
-    CourseResource course(QUrl::fromLocalFile(courseFile), &repository);
+    SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);
     QCOMPARE(course.file().toLocalFile(), courseFile);
-    QCOMPARE(course.id(), "de");
-    QCOMPARE(course.foreignId(), "artikulate-basic");
-    QCOMPARE(course.title(), "Artikulate Deutsch");
-    QCOMPARE(course.description(), "Ein Kurs in (hoch-)deutscher Aussprache.");
-    QVERIFY(course.language() != nullptr);
-    QCOMPARE(course.language()->id(), "de");
-    QCOMPARE(course.unitList().count(), 1);
+    QCOMPARE(course.id(), "skeleton-testdata");
+    QCOMPARE(course.foreignId(), "skeleton-testdata"); // always same as ID
+    QCOMPARE(course.title(), "Artikulate Test Course Title");
+    QCOMPARE(course.description(), "Artikulate Test Course Description");
+    QVERIFY(course.language() == nullptr); // a skeleton must not have a language
+
+    QCOMPARE(course.unitList().count(), 2);
 
     const auto unit = course.unitList().first();
     QVERIFY(unit != nullptr);
-    QCOMPARE(unit->id(), "1");
-    QCOMPARE(unit->title(), QStringLiteral("Auf der Straße"));
-    QCOMPARE(unit->foreignId(), "{dd60f04a-eb37-44b7-9787-67aaf7d3578d}");
-
-    QCOMPARE(unit->phraseList().count(), 3);
+    QCOMPARE(unit->id(), "{11111111-b885-4833-97ff-27cb1ca2f543}");
+    QCOMPARE(unit->title(), QStringLiteral("Numbers"));
+    QCOMPARE(unit->phraseList().count(), 2);
     // note: this test takes the silent assumption that phrases are added to the list in same
     //   order as they are defined in the file. This assumption should be made explicit or dropped
     const auto firstPhrase = unit->phraseList().first();
     QVERIFY(firstPhrase != nullptr);
-    QCOMPARE(firstPhrase->id(), "1");
-    QCOMPARE(firstPhrase->foreignId(), "{3a4c1926-60d7-44c6-80d1-03165a641c75}");
-    QCOMPARE(firstPhrase->text(), "Guten Tag.");
-    QCOMPARE(firstPhrase->soundFileUrl(), courseDirectory + "de_01.ogg");
-    QCOMPARE(firstPhrase->type(), Phrase::Type::Sentence);
-    QVERIFY(firstPhrase->phonemes().isEmpty());
+    QCOMPARE(firstPhrase->id(), "{22222222-9234-4da5-a6fe-dbd5104f57d5}");
+    QCOMPARE(firstPhrase->text(), "0");
+    QCOMPARE(firstPhrase->type(), Phrase::Type::Word);
+    const auto secondPhrase = unit->phraseList().at(1);
+    QVERIFY(secondPhrase != nullptr);
+    QCOMPARE(secondPhrase->id(), "{333333333-b4a9-4264-9a26-75a55aa5d302}");
+    QCOMPARE(secondPhrase->text(), "1");
+    QCOMPARE(secondPhrase->type(), Phrase::Type::Word);
 }
 
-void TestCourseResource::unitAddAndRemoveHandling()
+void TestSkeletonResource::unitAddAndRemoveHandling()
 {
     // boilerplate
     Language language;
@@ -101,7 +101,7 @@ void TestCourseResource::unitAddAndRemoveHandling()
     ResourceRepositoryStub repository({&language});
     const QString courseDirectory = "data/courses/de/";
     const QString courseFile = courseDirectory + "de.xml";
-    CourseResource course(QUrl::fromLocalFile(courseFile), &repository);
+    SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);
 
     // begin of test
     Unit unit;
@@ -118,7 +118,7 @@ void TestCourseResource::unitAddAndRemoveHandling()
     QCOMPARE(spyAdded.count(), 1);
 }
 
-void TestCourseResource::coursePropertyChanges()
+void TestSkeletonResource::coursePropertyChanges()
 {
     // boilerplate
     Language language;
@@ -126,7 +126,7 @@ void TestCourseResource::coursePropertyChanges()
     ResourceRepositoryStub repository({&language});
     const QString courseDirectory = "data/courses/de/";
     const QString courseFile = courseDirectory + "de.xml";
-    CourseResource course(QUrl::fromLocalFile(courseFile), &repository);
+    SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);
 
     // id
     {
@@ -135,16 +135,6 @@ void TestCourseResource::coursePropertyChanges()
         QCOMPARE(spy.count(), 0);
         course.setId(value);
         QCOMPARE(course.id(), value);
-        QCOMPARE(spy.count(), 1);
-    }
-
-    // foreign id
-    {
-        const QString value = "newForeignId";
-        QSignalSpy spy(&course, SIGNAL(foreignIdChanged()));
-        QCOMPARE(spy.count(), 0);
-        course.setForeignId(value);
-        QCOMPARE(course.foreignId(), value);
         QCOMPARE(spy.count(), 1);
     }
 
@@ -158,16 +148,6 @@ void TestCourseResource::coursePropertyChanges()
         QCOMPARE(spy.count(), 1);
     }
 
-    // title
-    {
-        const QString value = "newI18nTitle";
-        QSignalSpy spy(&course, SIGNAL(i18nTitleChanged()));
-        QCOMPARE(spy.count(), 0);
-        course.setI18nTitle(value);
-        QCOMPARE(course.i18nTitle(), value);
-        QCOMPARE(spy.count(), 1);
-    }
-
     // description
     {
         const QString value = "newDescription";
@@ -177,21 +157,11 @@ void TestCourseResource::coursePropertyChanges()
         QCOMPARE(course.description(), value);
         QCOMPARE(spy.count(), 1);
     }
-
-    // language
-    {
-        Language testLanguage;
-        QSignalSpy spy(&course, SIGNAL(languageChanged()));
-        QCOMPARE(spy.count(), 0);
-        course.setLanguage(&testLanguage);
-        QCOMPARE(course.language(), &testLanguage);
-        QCOMPARE(spy.count(), 1);
-    }
 }
 
 // FIXME porting break
-void TestCourseResource::fileLoadSaveCompleteness()
-{
+//void TestCourseResource::fileLoadSaveCompleteness()
+//{
 //    ResourceManager manager;
 //    manager.addLanguage(QUrl::fromLocalFile(QStringLiteral("data/languages/de.xml")));
 //    manager.addCourse(QUrl::fromLocalFile(QStringLiteral("data/courses/de.xml")));
@@ -249,7 +219,7 @@ void TestCourseResource::fileLoadSaveCompleteness()
 //    QVERIFY(testPhrase->sound().fileName() == comparePhrase->sound().fileName());
 //    QVERIFY(testPhrase->phonemes().count() == comparePhrase->phonemes().count());
 //    //FIXME implement phoneme checks after phonemes are fully implemented
-}
+//}
 
 
-QTEST_GUILESS_MAIN(TestCourseResource)
+QTEST_GUILESS_MAIN(TestSkeletonResource)

@@ -21,7 +21,6 @@
 #include "skeletonmodel.h"
 #include "core/icourse.h"
 #include "core/contributorrepository.h"
-#include "core/skeleton.h"
 #include "core/resources/skeletonresource.h"
 
 #include <QAbstractListModel>
@@ -90,7 +89,7 @@ QVariant SkeletonModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    Skeleton * const skeleton = m_repository->skeletonResources().at(index.row())->skeleton();
+    ICourse * const skeleton = m_repository->skeletonResources().at(index.row());
 
     switch(role)
     {
@@ -176,7 +175,7 @@ void SkeletonModel::updateMappings()
 {
     int skeletons = m_repository->skeletonResources().count();
     for (int i = 0; i < skeletons; ++i) {
-        m_signalMapper->setMapping(m_repository->skeletonResources().at(i)->skeleton(), i);
+        m_signalMapper->setMapping(m_repository->skeletonResources().at(i), i);
     }
 }
 

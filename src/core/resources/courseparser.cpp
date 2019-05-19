@@ -31,6 +31,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QXmlSchema>
+#include <QXmlStreamReader>
 #include <QXmlSchemaValidator>
 #include <KTar>
 
@@ -42,7 +43,7 @@ QXmlSchema CourseParser::loadXmlSchema(const QString &schemeName)
 
     QXmlSchema schema;
     if (file.isEmpty() || schema.load(file) == false) {
-        qCWarning(ARTIKULATE_LOG) << "Schema at file " << file.toLocalFile() << " is invalid.";
+        qCWarning(ARTIKULATE_PARSER()) << "Schema at file " << file.toLocalFile() << " is invalid.";
     }
     return schema;
 }
@@ -52,7 +53,7 @@ QDomDocument CourseParser::loadDomDocument(const QUrl &path, const QXmlSchema &s
     QDomDocument document;
     QXmlSchemaValidator validator(schema);
     if (!validator.validate(path)) {
-        qCWarning(ARTIKULATE_LOG) << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
+        qCWarning(ARTIKULATE_PARSER()) << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
         return document;
     }
 
@@ -60,12 +61,166 @@ QDomDocument CourseParser::loadDomDocument(const QUrl &path, const QXmlSchema &s
     QFile file(path.toLocalFile());
     if (file.open(QIODevice::ReadOnly)) {
         if (!document.setContent(&file, &errorMsg)) {
-            qCWarning(ARTIKULATE_LOG) << errorMsg;
+            qCWarning(ARTIKULATE_PARSER()) << errorMsg;
         }
     } else {
-        qCWarning(ARTIKULATE_LOG) << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
+        qCWarning(ARTIKULATE_PARSER()) << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
     }
     return document;
+}
+
+QVector<Unit *> CourseParser::parseUnits(const QUrl &path)
+{
+    QVector<Unit *> units;
+
+    QFileInfo info(path.toLocalFile());
+    if (!info.exists()) {
+        qCCritical(ARTIKULATE_PARSER()()) << "No course file available at location" << path.toLocalFile();
+        return units;
+    }
+
+    QXmlStreamReader xml;
+    QFile file(path.toLocalFile());
+    if (file.open(QIODevice::ReadOnly)) {
+        xml.setDevice(&file);
+        xml.readNextStartElement();
+
+        while (!xml.atEnd() && !xml.hasError()) {
+            bool elementOk{ false };
+            QXmlStreamReader::TokenType token = xml.readNext();
+
+            if (token == QXmlStreamReader::StartDocument) {
+                continue;
+            }
+            if (token == QXmlStreamReader::StartElement) {
+                if (xml.name() == "units") {
+                    continue;
+                } else if (xml.name() == "unit") {
+                    auto unit = parseUnit(xml, elementOk);
+                    if (elementOk) {
+                        units.append(unit);
+                    }
+                }
+            }
+        }
+        if (xml.hasError()) {
+            qCCritical(ARTIKULATE_PARSER()) << "Error occurred when reading Course XML file:" << path.toLocalFile();
+        }
+    } else {
+        qCCritical(ARTIKULATE_PARSER()) << "Could not open course file" << path.toLocalFile();
+    }
+    xml.clear();
+    file.close();
+
+    return units;
+}
+
+Unit * CourseParser::parseUnit(QXmlStreamReader &xml, bool &ok)
+{
+    Unit * unit = new Unit(nullptr);
+    ok = true;
+
+    if (xml.tokenType() != QXmlStreamReader::StartElement
+        && xml.name() == "unit") {
+        qCWarning(ARTIKULATE_PARSER()) << "Expected to parse 'unit' element, aborting here";
+        return unit;
+    }
+
+    xml.readNext();
+    while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "unit")) {
+        if (xml.tokenType() == QXmlStreamReader::StartElement) {
+            bool elementOk{ false };
+            if (xml.name() == "id") {
+                unit->setId(parseElement(xml, elementOk));
+                ok &= elementOk;
+            } else if (xml.name() == "title") {
+                unit->setTitle(parseElement(xml, elementOk));
+                ok &= elementOk;
+            } else if (xml.name() == "phrases") {
+                // nothing to do
+            }
+            else if (xml.name() == "phrase") {
+                auto phrase = parsePhrase(xml, elementOk);
+                if (elementOk) {
+                    unit->addPhrase(phrase);
+                }
+                ok &= elementOk;
+            } else {
+                qCWarning(ARTIKULATE_PARSER()) << "Skipping unknown token" << xml.name();
+            }
+        }
+        xml.readNext();
+    }
+    if (!ok) {
+        qCWarning(ARTIKULATE_PARSER()) << "Errors occured while parsing unit" << unit->title() << unit->id();
+    }
+    return unit;
+}
+
+Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, bool &ok)
+{
+    Phrase * phrase = new Phrase(nullptr);
+    ok = true;
+
+    if (xml.tokenType() != QXmlStreamReader::StartElement
+        && xml.name() == "phrase") {
+        qCWarning(ARTIKULATE_PARSER()) << "Expected to parse 'phrase' element, aborting here";
+        ok = false;
+        return phrase;
+    }
+
+    xml.readNext();
+    while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "phrase")) {
+        if (xml.tokenType() == QXmlStreamReader::StartElement) {
+            bool elementOk{ false };
+            if (xml.name() == "id") {
+                phrase->setId(parseElement(xml, elementOk));
+                ok &= elementOk;
+            } else if (xml.name() == "text") {
+                phrase->setText(parseElement(xml, elementOk));
+                ok &= elementOk;
+            } else if (xml.name() == "type") {
+                const QString type = parseElement(xml, elementOk);
+                if (type == "word") {
+                    phrase->setType(Phrase::Word);
+                } else if (type == "expression") {
+                    phrase->setType(Phrase::Expression);
+                } else if (type == "sentence") {
+                    phrase->setType(Phrase::Sentence);
+                } else if (type == "paragraph") {
+                    phrase->setType(Phrase::Paragraph);
+                }
+                ok &= elementOk;
+            } else {
+                qCWarning(ARTIKULATE_PARSER()) << "Skipping unknown token" << xml.name();
+            }
+        }
+        xml.readNext();
+    }
+    if (!ok) {
+        qCWarning(ARTIKULATE_PARSER()) << "Errors occured while parsing phrase" << phrase->text() << phrase->id();
+    }
+    return phrase;
+}
+
+QString CourseParser::parseElement(QXmlStreamReader& xml, bool &ok)
+{
+    ok = true;
+    if (xml.tokenType() != QXmlStreamReader::StartElement) {
+        qCCritical(ARTIKULATE_PARSER()) << "Parsing element that does not start with a start element";
+        ok = false;
+        return QString();
+    }
+//    if(xml.tokenType() != QXmlStreamReader::Characters) {
+//        qCCritical(ARTIKULATE_PARSER()) << "Parsing non-character token";
+//        return QString();
+//    }
+
+    QString elementName = xml.name().toString();
+    xml.readNext();
+
+    qCDebug(ARTIKULATE_PARSER()) << "parsed: " << elementName << " / " << xml.text().toString();
+    return xml.text().toString();
 }
 
 Phrase * CourseParser::parsePhrase(QDomElement phraseNode, Unit* parentUnit)

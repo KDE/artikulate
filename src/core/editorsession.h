@@ -25,10 +25,10 @@
 #include "phrase.h"
 
 class QString;
-class Skeleton;
 class Language;
 class EditableCourseResource;
 class Unit;
+class SkeletonResource;
 class ContributorRepository;
 
 /**
@@ -57,7 +57,7 @@ class ARTIKULATECORE_EXPORT EditorSession : public QObject
     Q_OBJECT
     Q_PROPERTY(bool skeletonMode READ skeletonMode WRITE setSkeletonMode NOTIFY skeletonModeChanged)
     Q_PROPERTY(bool editSkeleton READ isEditSkeleton WRITE setEditSkeleton NOTIFY editSkeletonChanged)
-    Q_PROPERTY(Skeleton *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
+    Q_PROPERTY(SkeletonResource *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
     Q_PROPERTY(EditableCourseResource *course READ course WRITE setCourse NOTIFY courseChanged) //TODO interface should provde ICourse
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
@@ -73,8 +73,8 @@ public:
     bool skeletonMode() const;
     void setEditSkeleton(bool enabled=true);
     bool isEditSkeleton() const;
-    Skeleton * skeleton() const;
-    void setSkeleton(Skeleton *skeleton);
+    SkeletonResource * skeleton() const;
+    void setSkeleton(SkeletonResource *skeleton);
     Language * language() const;
     void setLanguage(Language *language);
     EditableCourseResource * course() const;
@@ -109,7 +109,7 @@ private:
     ContributorRepository * m_repository;
     bool m_skeletonMode;
     bool m_editSkeleton;
-    Skeleton *m_skeleton;
+    SkeletonResource *m_skeleton;
     Language *m_language;
     EditableCourseResource *m_course;
     EditableCourseResource *m_tmpCourseWhileSkeletonEditing;

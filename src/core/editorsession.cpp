@@ -19,9 +19,9 @@
  */
 
 #include "editorsession.h"
-#include "core/skeleton.h"
 #include "core/language.h"
 #include "core/resources/editablecourseresource.h"
+#include "core/resources/skeletonresource.h"
 #include "core/resources/languageresource.h"
 #include "core/unit.h"
 #include "core/phrase.h"
@@ -83,12 +83,12 @@ bool EditorSession::isEditSkeleton() const
     return m_editSkeleton;
 }
 
-Skeleton * EditorSession::skeleton() const
+SkeletonResource * EditorSession::skeleton() const
 {
     return m_skeleton;
 }
 
-void EditorSession::setSkeleton(Skeleton *skeleton)
+void EditorSession::setSkeleton(SkeletonResource *skeleton)
 {
     if (m_skeleton == skeleton) {
         return;

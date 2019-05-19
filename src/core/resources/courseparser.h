@@ -22,6 +22,7 @@
 #define COURSEPARSER_H
 
 #include "artikulatecore_export.h"
+#include <QVector>
 
 class ICourse;
 class Unit;
@@ -30,6 +31,7 @@ class QXmlSchema;
 class QJSonDocument;
 class QDomDocument;
 class QDomElement;
+class QXmlStreamReader;
 class QString;
 class QUrl;
 
@@ -55,11 +57,18 @@ public:
      */
     static QDomDocument loadDomDocument(const QUrl &path, const QXmlSchema &schema);
 
+    static QVector<Unit *> parseUnits(const QUrl &path);
 
     static Phrase * parsePhrase(QDomElement phraseNode, Unit* parentUnit);
     static QDomDocument serializedDocument(ICourse *course, bool trainingExport);
     static QDomElement serializedPhrase(Phrase *phrase, QDomDocument &document);
     static bool exportCourseToGhnsPackage(ICourse *course, const QString &exportPath);
+
+private:
+    static Unit * parseUnit(QXmlStreamReader &xml, bool &ok);
+    static Phrase * parsePhrase(QXmlStreamReader &xml, bool &ok);
+    static QString parseElement(QXmlStreamReader &xml, bool &ok);
+
 };
 
 #endif

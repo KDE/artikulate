@@ -18,3 +18,4 @@
 #include "artikulate_debug.h"
 Q_LOGGING_CATEGORY(ARTIKULATE_LOG, "log_artikulate")
 Q_LOGGING_CATEGORY(ARTIKULATE_CORE, "articulate.core")
+Q_LOGGING_CATEGORY(ARTIKULATE_PARSER, "articulate.parser")

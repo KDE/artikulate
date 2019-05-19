@@ -21,7 +21,6 @@
 #include "contributorrepository.h"
 #include "artikulate_debug.h"
 #include "language.h"
-#include "skeleton.h"
 #include "unit.h"
 #include "phrase.h"
 #include "phoneme.h"
@@ -84,7 +83,7 @@ bool ContributorRepository::modified() const
         }
     }
     foreach (auto const &courseRes, m_skeletonResources) {
-        if (courseRes->isOpen() && courseRes->skeleton()->isModified()) {
+        if (courseRes->isModified()) {
             return true;
         }
     }
@@ -224,9 +223,9 @@ void ContributorRepository::reloadCourseOrSkeleton(ICourse *courseOrSkeleton)
         removeCourse(courseOrSkeleton);
         addCourse(file);
     } else {
-        foreach (SkeletonResource *resource, m_skeletonResources) {
-            if (resource->identifier() == courseOrSkeleton->id()) {
-                resource->reload();
+        for (SkeletonResource *resource : m_skeletonResources) {
+            if (resource->id() == courseOrSkeleton->id()) {
+                // TODO no reload available
                 return;
             }
         }
@@ -295,13 +294,11 @@ void ContributorRepository::updateCourseFromSkeleton(EditableCourseResource *cou
         return;
     }
     ICourse *skeleton = nullptr;
-    QList<SkeletonResource *>::ConstIterator iter = m_skeletonResources.constBegin();
-    while (iter != m_skeletonResources.constEnd()) {
-        if ((*iter)->identifier() == course->foreignId()) {
-            skeleton = (*iter)->skeleton();
+    for (const auto &iter : m_skeletonResources) {
+        if (iter->id() == course->foreignId()) {
+            skeleton = iter;
             break;
         }
-        ++iter;
     }
     if (!skeleton)  {
         qCritical() << "Could not find skeleton with id " << course->foreignId() << ", aborting update.";
@@ -406,7 +403,7 @@ void ContributorRepository::removeCourse(ICourse *course)
     }
 }
 
-EditableCourseResource * ContributorRepository::createCourse(Language *language, Skeleton *skeleton)
+EditableCourseResource * ContributorRepository::createCourse(Language *language, SkeletonResource *skeleton)
 {
     // set path
     QString path = QStringLiteral("%1/%2/%3/%4/%4.xml")
@@ -432,28 +429,28 @@ EditableCourseResource * ContributorRepository::createCourse(Language *language,
     return course;
 }
 
-void ContributorRepository::addSkeleton(const QUrl &skeletonFile)
+void ContributorRepository::addSkeleton(const QUrl &file)
 {
-    SkeletonResource *resource = new SkeletonResource(skeletonFile);
+    SkeletonResource *resource = new SkeletonResource(file, this);
     addSkeletonResource(resource);
 }
 
 void ContributorRepository::addSkeletonResource(SkeletonResource *resource)
 {
     // skip already loaded resources
-    if (m_loadedResources.contains(resource->path().toLocalFile())) {
+    if (m_loadedResources.contains(resource->file().toLocalFile())) {
         return;
     }
-    m_loadedResources.append(resource->path().toLocalFile());
-    emit skeletonAboutToBeAdded(resource->skeleton(), m_skeletonResources.count());
+    m_loadedResources.append(resource->file().toLocalFile());
+    emit skeletonAboutToBeAdded(resource, m_skeletonResources.count());
     m_skeletonResources.append(resource);
     emit skeletonAdded();
 }
 
-void ContributorRepository::removeSkeleton(Skeleton *skeleton)
+void ContributorRepository::removeSkeleton(SkeletonResource *skeleton)
 {
     for (int index = 0; index < m_skeletonResources.length(); ++index) {
-        if (m_skeletonResources.at(index)->identifier() == skeleton->id()) {
+        if (m_skeletonResources.at(index)->id() == skeleton->id()) {
             emit skeletonAboutToBeRemoved(index, index);
             m_skeletonResources.removeAt(index);
             emit skeletonRemoved();

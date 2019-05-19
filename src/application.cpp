@@ -31,7 +31,6 @@
 #include "core/phrase.h"
 #include "core/player.h"
 #include "core/recorder.h"
-#include "core/skeleton.h"
 #include "core/trainingsession.h"
 #include "core/unit.h"
 #include "core/resources/editablecourseresource.h"
@@ -110,7 +109,6 @@ void Application::registerQmlTypes()
     qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");
     qmlRegisterType<LearnerProfile::LearningGoal>("artikulate", 1, 0, "LearningGoal");
     qmlRegisterType<Unit>("artikulate", 1, 0, "Unit");
-    qmlRegisterType<Skeleton>("artikulate", 1, 0, "Skeleton");
     qmlRegisterType<Language>("artikulate", 1, 0, "Language");
     qmlRegisterType<Phrase>("artikulate", 1, 0, "Phrase");
     qmlRegisterType<Phoneme>("artikulate", 1, 0, "Phoneme");

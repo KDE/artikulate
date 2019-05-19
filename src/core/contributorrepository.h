@@ -33,7 +33,6 @@
 class SkeletonResource;
 class EditableCourseResource;
 class LanguageResource;
-class Skeleton;
 class Language;
 class ICourse;
 class QUrl;
@@ -158,7 +157,7 @@ public:
      *
      * \return created course
      */
-    Q_INVOKABLE EditableCourseResource * createCourse(Language *language, Skeleton *skeleton);
+    Q_INVOKABLE EditableCourseResource * createCourse(Language *language, SkeletonResource *skeleton);
 
     /**
      * Adds skeleton resource to resource manager
@@ -180,7 +179,7 @@ public:
      *
      * \param skeleton is the skeleton to be removed
      */
-    void removeSkeleton(Skeleton *skeleton);
+    void removeSkeleton(SkeletonResource *skeleton);
 
     /**
      * \return list of all loaded skeletons resources

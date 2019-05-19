@@ -21,16 +21,15 @@
 #include "skeletonresource.h"
 #include "courseparser.h"
 #include "core/language.h"
-#include "core/skeleton.h"
 #include "core/unit.h"
+#include "editablecourseresource.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
 #include "core/resources/languageresource.h"
 
-#include <QXmlSchema>
-#include <QXmlStreamReader>
 #include <QDomDocument>
 #include <QIODevice>
+#include <QXmlStreamReader>
 #include <QFile>
 
 #include "artikulate_debug.h"
@@ -38,117 +37,139 @@
 class SkeletonResourcePrivate
 {
 public:
-    SkeletonResourcePrivate()
-        : m_skeletonResource(nullptr)
+    SkeletonResourcePrivate(const QUrl &path)
+        : m_path(path)
     {
+        // load basic information from language file, but does not parse everything
+        QXmlStreamReader xml;
+        QFile file(path.toLocalFile());
+        if (file.open(QIODevice::ReadOnly)) {
+            xml.setDevice(&file);
+            xml.readNextStartElement();
+            while (xml.readNext() && !xml.atEnd()) {
+                if (xml.name() == "id") {
+                    m_identifier = xml.readElementText();
+                    continue;
+                }
+                if (xml.name() == "title") {
+                    m_title = xml.readElementText();
+                    continue;
+                }
+                if (xml.name() == "description") {
+                    m_description = xml.readElementText();
+                    continue;
+                }
+
+                // quit reading when basic elements are read
+                if (!m_identifier.isEmpty()
+                    && !m_title.isEmpty()
+                    && !m_description.isEmpty()
+                )
+                {
+                    break;
+                }
+            }
+            if (xml.hasError()) {
+                qCritical() << "Error occurred when reading Course XML file:" << path.toLocalFile();
+            }
+        } else {
+            qCCritical(ARTIKULATE_CORE()) << "Could not open course file" << path.toLocalFile();
+        }
+        xml.clear();
+        file.close();
     }
 
-    ~SkeletonResourcePrivate() = default;
+    QVector<Unit *> units() {
+        if (m_unitsParsed) {
+            return m_units;
+        }
+        m_units = CourseParser::parseUnits(m_path);
+        m_unitsParsed = true;
+        return m_units;
+    }
 
     QUrl m_path;
     QString m_identifier;
     QString m_title;
-    QString m_i18nTitle;
-    Skeleton *m_skeletonResource;
+    QString m_description;
+    QVector<Unit *> m_units;
+    bool m_unitsParsed{ false };
 };
 
-SkeletonResource::SkeletonResource(const QUrl &path)
-    : QObject()
-    , d(new SkeletonResourcePrivate)
+SkeletonResource::SkeletonResource(const QUrl &path, IResourceRepository *repository)
+    : ICourse()
+    , d(new SkeletonResourcePrivate(path))
 {
-    d->m_path = path;
-
-    // load basic information from language file, but does not parse everything
-    QXmlStreamReader xml;
-    QFile file(path.toLocalFile());
-    if (file.open(QIODevice::ReadOnly)) {
-        xml.setDevice(&file);
-        xml.readNextStartElement();
-        while (xml.readNext() && !xml.atEnd()) {
-            if (xml.name() == "id") {
-                d->m_identifier = xml.readElementText();
-                continue;
-            }
-            if (xml.name() == "title") {
-                d->m_title = xml.readElementText();
-                d->m_i18nTitle = d->m_title;
-                continue;
-            }
-            //TODO i18nTitle must be implemented, currently missing and hence not parsed
-
-            // quit reading when basic elements are read
-            if (!d->m_identifier.isEmpty()
-                && !d->m_title.isEmpty()
-                && !d->m_i18nTitle.isEmpty()
-            )
-            {
-                break;
-            }
-        }
-        if (xml.hasError()) {
-            qCritical() << "Error occurred when reading Skeleton XML file:" << path.toLocalFile();
-        }
-    }
-    xml.clear();
-    file.close();
+    Q_UNUSED(repository);
 }
 
-SkeletonResource::SkeletonResource(Skeleton *skeleton)
-    : QObject()
-    , d(new SkeletonResourcePrivate)
-{
-    d->m_path = skeleton->file();
-    d->m_identifier = skeleton->id();
-    d->m_title = skeleton->title();
-    d->m_skeletonResource = skeleton;
-}
+SkeletonResource::~SkeletonResource() = default;
 
-SkeletonResource::~SkeletonResource()
+QString SkeletonResource::id() const
 {
-
-}
-
-QString SkeletonResource::identifier()
-{
-    if (d->m_skeletonResource) {
-        return d->m_skeletonResource->id();
-    }
     return d->m_identifier;
 }
 
-QString SkeletonResource::title()
+void SkeletonResource::setId(const QString &id)
 {
-    if (d->m_skeletonResource) {
-        return d->m_skeletonResource->title();
+    if (d->m_identifier == id) {
+        return;
     }
+    d->m_identifier = id;
+    emit idChanged();
+}
+
+QString SkeletonResource::foreignId() const
+{
+    return id();
+}
+
+QString SkeletonResource::title() const
+{
     return d->m_title;
 }
 
-QString SkeletonResource::i18nTitle()
+void SkeletonResource::setTitle(const QString &title)
 {
-    if (d->m_skeletonResource) {
-        return d->m_skeletonResource->title(); //TODO
+    if (d->m_title == title) {
+        return;
     }
-    return d->m_i18nTitle;
+    d->m_title = title;
+    emit titleChanged();
 }
 
-void SkeletonResource::close()
+QString SkeletonResource::i18nTitle() const
 {
-    d->m_skeletonResource->deleteLater();
-    d->m_skeletonResource = nullptr;
+    // there are no localized titles available
+    return title();
+}
+
+QString SkeletonResource::description() const
+{
+    return d->m_description;
+}
+
+void SkeletonResource::setDescription(const QString &description)
+{
+    if (d->m_description == description) {
+        return;
+    }
+    d->m_description = description;
+    emit descriptionChanged();
+}
+
+void SkeletonResource::addUnit(Unit *unit)
+{
+    emit unitAboutToBeAdded(unit, d->m_units.count() - 1);
+    d->m_units.append(unit);
+    emit unitAdded();
 }
 
 void SkeletonResource::sync()
 {
-    Q_ASSERT(path().isValid());
-    Q_ASSERT(path().isLocalFile());
-    Q_ASSERT(!path().isEmpty());
-
-    // if resource was never loaded, it cannot be changed
-    if (!d->m_skeletonResource) {
-        qCDebug(ARTIKULATE_LOG) << "Aborting sync, skeleton was not parsed.";
-        return;
-    }
+    Q_ASSERT(file().isValid());
+    Q_ASSERT(file().isLocalFile());
+    Q_ASSERT(!file().isEmpty());
 
 //     // not writing back if not modified
 //     if (!d->m_skeletonResource->modified()) {
@@ -169,13 +190,13 @@ void SkeletonResource::sync()
     QDomElement titleElement = document.createElement(QStringLiteral("title"));
     QDomElement descriptionElement = document.createElement(QStringLiteral("description"));
 
-    idElement.appendChild(document.createTextNode(d->m_skeletonResource->id()));
-    titleElement.appendChild(document.createTextNode(d->m_skeletonResource->title()));
-    descriptionElement.appendChild(document.createTextNode(d->m_skeletonResource->description()));
+    idElement.appendChild(document.createTextNode(id()));
+    titleElement.appendChild(document.createTextNode(title()));
+    descriptionElement.appendChild(document.createTextNode(description()));
 
     QDomElement unitListElement = document.createElement(QStringLiteral("units"));
     // create units
-    foreach (Unit *unit, d->m_skeletonResource->unitList()) {
+    for (auto unit : d->m_units) {
         QDomElement unitElement = document.createElement(QStringLiteral("unit"));
 
         QDomElement unitIdElement = document.createElement(QStringLiteral("id"));
@@ -218,96 +239,28 @@ void SkeletonResource::sync()
 
     // write back to file
     //TODO port to KSaveFile
-    QFile file(path().toLocalFile());
-    if (!file.open(QIODevice::WriteOnly)) {
-        qCWarning(ARTIKULATE_LOG) << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+    QFile filePath(file().toLocalFile());
+    if (!filePath.open(QIODevice::WriteOnly)) {
+        qCWarning(ARTIKULATE_LOG) << "Unable to open file " << filePath.fileName() << " in write mode, aborting.";
         return;
     }
 
-    file.write(document.toByteArray());
+    filePath.write(document.toByteArray());
     return;
 }
 
-void SkeletonResource::reload()
+Language * SkeletonResource::language() const
 {
-    qCritical() << "NOT IMPLEMENTED";
+    // skeleton must not have a dedicated language
+    return nullptr;
 }
 
-bool SkeletonResource::isOpen() const
+QList<Unit *> SkeletonResource::unitList()
 {
-    return (d->m_skeletonResource != nullptr);
+    return d->units().toList();
 }
 
-QUrl SkeletonResource::path() const
+QUrl SkeletonResource::file() const
 {
-    if (d->m_skeletonResource) {
-        return d->m_skeletonResource->file();
-    }
     return d->m_path;
-}
-
-QObject * SkeletonResource::resource()
-{
-    if (d->m_skeletonResource) {
-        return d->m_skeletonResource;
-    }
-
-    if (!path().isLocalFile()) {
-        qCWarning(ARTIKULATE_LOG) << "Cannot open skeleton file at " << path().toLocalFile() << ", aborting.";
-        return nullptr;
-    }
-
-    QXmlSchema schema = CourseParser::loadXmlSchema(QStringLiteral("skeleton"));
-    if (!schema.isValid()) {
-        return nullptr;
-    }
-
-    QDomDocument document = CourseParser::loadDomDocument(path(), schema);
-    if (document.isNull()) {
-        qCWarning(ARTIKULATE_LOG) << "Could not parse document " << path().toLocalFile() << ", aborting.";
-        return nullptr;
-    }
-
-    // create skeleton
-    QDomElement root(document.documentElement());
-    d->m_skeletonResource = new Skeleton();
-
-    d->m_skeletonResource->setFile(d->m_path);
-    d->m_skeletonResource->setId(root.firstChildElement(QStringLiteral("id")).text());
-    d->m_skeletonResource->setTitle(root.firstChildElement(QStringLiteral("title")).text());
-    d->m_skeletonResource->setDescription(root.firstChildElement(QStringLiteral("title")).text());
-
-    // create units
-    for (QDomElement unitNode = root.firstChildElement(QStringLiteral("units")).firstChildElement();
-         !unitNode.isNull();
-         unitNode = unitNode.nextSiblingElement())
-    {
-        Unit *unit = new Unit(d->m_skeletonResource);
-        unit->setId(unitNode.firstChildElement(QStringLiteral("id")).text());
-        unit->setCourse(d->m_skeletonResource);
-        unit->setTitle(unitNode.firstChildElement(QStringLiteral("title")).text());
-        d->m_skeletonResource->addUnit(unit);
-
-        // create phrases
-        for (QDomElement phraseNode = unitNode.firstChildElement(QStringLiteral("phrases")).firstChildElement();
-            !phraseNode.isNull();
-            phraseNode = phraseNode.nextSiblingElement())
-        {
-            Phrase *phrase = new Phrase(unit);
-            phrase->setId(phraseNode.firstChildElement(QStringLiteral("id")).text());
-            phrase->setText(phraseNode.firstChildElement(QStringLiteral("text")).text());
-            phrase->setType(phraseNode.firstChildElement(QStringLiteral("type")).text());
-            phrase->setUnit(unit);
-
-            unit->addPhrase(phrase);
-        }
-    }
-    d->m_skeletonResource->setModified(false);
-
-    return d->m_skeletonResource;
-}
-
-Skeleton * SkeletonResource::skeleton()
-{
-    return qobject_cast<Skeleton*>(resource());
 }

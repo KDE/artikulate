@@ -49,7 +49,6 @@ set(artikulateCore_SRCS
     core/phoneme.cpp
     core/phonemegroup.cpp
     core/unit.cpp
-    core/skeleton.cpp
     core/editorsession.cpp
     core/trainingaction.cpp
     core/trainingactionicon.cpp
