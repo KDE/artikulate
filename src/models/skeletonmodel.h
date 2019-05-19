@@ -32,7 +32,7 @@ class QSignalMapper;
 class SkeletonModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(ContributorRepository *resourceRepository READ resourceRepository WRITE setResourceRepository NOTIFY resourceRepositoryChanged)
+    Q_PROPERTY(ContributorRepository *repository READ resourceRepository WRITE setResourceRepository NOTIFY resourceRepositoryChanged)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:

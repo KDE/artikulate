@@ -61,6 +61,7 @@ MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
     , m_editorSession(new EditorSession())
     , m_widget(new QQuickWidget)
 {
+    m_repository->setStorageLocation(Settings::courseRepositoryPath());
     m_editorSession->setContributorRepository(m_repository);
     setWindowIcon(QIcon::fromTheme(QStringLiteral("artikulate")));
     setWindowTitle(qAppName());
@@ -84,7 +85,7 @@ MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
     // set view
     m_widget->resize(QSize(800, 600));
     m_widget->rootContext()->setContextObject(new KLocalizedContext(m_widget));
-    m_widget->rootContext()->setContextProperty(QStringLiteral("g_resourceManager"), m_repository);
+    m_widget->rootContext()->setContextProperty(QStringLiteral("g_repository"), m_repository);
     m_widget->rootContext()->setContextProperty(QStringLiteral("editorSession"), m_repository);
 
     // set starting screen

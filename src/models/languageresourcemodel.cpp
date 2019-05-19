@@ -19,6 +19,7 @@
  */
 
 #include "languageresourcemodel.h"
+#include "application.h"
 #include "core/language.h"
 #include "core/iresourcerepository.h"
 #include "core/resources/languageresource.h"
@@ -36,6 +37,7 @@ LanguageResourceModel::LanguageResourceModel(QObject* parent)
     , m_signalMapper(new QSignalMapper(this))
 {
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLanguageChanged(int)));
+    setResourceRepository(artikulateApp->resourceRepository());
 }
 
 QHash< int, QByteArray > LanguageResourceModel::roleNames() const

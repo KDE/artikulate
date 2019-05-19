@@ -32,7 +32,7 @@ class QSignalMapper;
 class LanguageResourceModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(IResourceRepository *resourceRepository READ resourceRepository WRITE setResourceRepository NOTIFY resourceRepositoryChanged)
+    Q_PROPERTY(IResourceRepository *repository READ resourceRepository WRITE setResourceRepository NOTIFY resourceRepositoryChanged)
 
 public:
     enum LanguageRoles {

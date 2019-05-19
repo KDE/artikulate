@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -25,8 +25,7 @@ import QtQuick.Layouts 1.2
 import QtQml.Models 2.2
 import artikulate 1.0
 
-Item
-{
+Item {
     id: root
 
     width: 400 //parent.width
@@ -45,7 +44,7 @@ Item
         id: languageModel
         view: LanguageModel.AllLanguages
         resourceModel: LanguageResourceModel {
-            resourceManager: g_resourceManager
+            repository: g_repository
         }
     }
     CourseModel {
@@ -71,18 +70,13 @@ Item
 
         RowLayout {
             Label {
-                visible: !g_resourceManager.isRepositoryManager
-                text: i18n("no repository set")
-                color: "red"
-            }
-            Label {
                 text: i18n("Course Prototype:")
             }
             ComboBox {
                 Layout.minimumWidth: 300
                 model: SkeletonModel {
                     id: skeletonModel
-                    resourceManager: g_resourceManager
+                    repository: g_repository
                 }
                 textRole: "title"
                 onCurrentIndexChanged: {
@@ -179,7 +173,7 @@ Item
                 text: i18n("Create Course")
                 icon.name: "journal-new"
                 onClicked: {
-                    editorSession.course = g_resourceManager.createCourse(editorSession.language, editorSession.skeleton)
+                    editorSession.course = g_repository.createCourse(editorSession.language, editorSession.skeleton)
                 }
             }
             Item { Layout.fillHeight: true } //dummy
