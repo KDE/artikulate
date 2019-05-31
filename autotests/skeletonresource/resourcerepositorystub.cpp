@@ -1,5 +1,5 @@
 /*
- *  Copyright 2019  Andreas Cord-Landwehr <cordlandwehr@gmail.com>
+ *  Copyright 2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
