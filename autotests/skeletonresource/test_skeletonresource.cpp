@@ -99,15 +99,15 @@ void TestSkeletonResource::unitAddAndRemoveHandling()
     Language language;
     language.setId("de");
     ResourceRepositoryStub repository({&language});
-    const QString courseDirectory = "data/courses/de/";
-    const QString courseFile = courseDirectory + "de.xml";
+    const QString courseDirectory = "data/contributorrepository/skeletons/";
+    const QString courseFile = courseDirectory + "skeleton.xml";
     SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);
 
     // begin of test
     Unit unit;
     unit.setId("testunit");
     const int initialUnitNumber = course.unitList().count();
-    QCOMPARE(initialUnitNumber, 1);
+    QCOMPARE(initialUnitNumber, 2);
     QSignalSpy spyAboutToBeAdded(&course, SIGNAL(unitAboutToBeAdded(Unit*, int)));
     QSignalSpy spyAdded(&course, SIGNAL(unitAdded()));
     QCOMPARE(spyAboutToBeAdded.count(), 0);
@@ -124,8 +124,8 @@ void TestSkeletonResource::coursePropertyChanges()
     Language language;
     language.setId("de");
     ResourceRepositoryStub repository({&language});
-    const QString courseDirectory = "data/courses/de/";
-    const QString courseFile = courseDirectory + "de.xml";
+    const QString courseDirectory = "data/contributorrepository/skeletons/";
+    const QString courseFile = courseDirectory + "skeleton.xml";
     SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);
 
     // id
@@ -159,67 +159,54 @@ void TestSkeletonResource::coursePropertyChanges()
     }
 }
 
-// FIXME porting break
-//void TestCourseResource::fileLoadSaveCompleteness()
-//{
-//    ResourceManager manager;
-//    manager.addLanguage(QUrl::fromLocalFile(QStringLiteral("data/languages/de.xml")));
-//    manager.addCourse(QUrl::fromLocalFile(QStringLiteral("data/courses/de.xml")));
+void TestSkeletonResource::fileLoadSaveCompleteness()
+{
+    // boilerplate
+    Language language;
+    language.setId("de");
+    ResourceRepositoryStub repository({&language});
+    const QString courseDirectory = "data/contributorrepository/skeletons/";
+    const QString courseFile = courseDirectory + "skeleton.xml";
+    SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);
 
-//    // test to encure further logic
-//    QVERIFY(manager.courseResources(manager.languageResources().constFirst()->language()).count() == 1);
+    QTemporaryFile outputFile;
+    outputFile.open();
+    course.exportCourse(QUrl::fromLocalFile(outputFile.fileName()));
 
-//    Course *testCourse = manager.courseResources(manager.languageResources().constFirst()->language()).constFirst()->course();
-//    QTemporaryFile outputFile;
-//    outputFile.open();
-//    QUrl oldFileName = testCourse->file();
-//    testCourse->setFile(QUrl::fromLocalFile(outputFile.fileName()));
-//    testCourse->setLanguage(manager.languageResources().constFirst()->language());
-//    testCourse->sync();
-//    testCourse->setFile(oldFileName); // restore for later tests
+    // note: this only works, since the resource manager not checks uniqueness of course ids!
+    SkeletonResource loadedCourse(QUrl::fromLocalFile(outputFile.fileName()), &repository);
 
-//    QFile file(outputFile.fileName());
-//    if (!file.open(QIODevice::ReadOnly)) {
-//        qCritical() << "Could not open file to read.";
-//    }
+    // test that we actually call the different files
+    QVERIFY(course.file().toLocalFile() != loadedCourse.file().toLocalFile());
+    QCOMPARE(loadedCourse.id(), course.id());
+    QCOMPARE(loadedCourse.foreignId(), course.foreignId());
+    QCOMPARE(loadedCourse.title(), course.title());
+    QCOMPARE(loadedCourse.description(), course.description());
+    QCOMPARE(loadedCourse.language(), course.language());
+    QCOMPARE(loadedCourse.unitList().count(), course.unitList().count());
 
-//    //TODO this only works, since the resource manager not checks uniqueness of course ids!
-//    manager.addCourse(QUrl::fromLocalFile(outputFile.fileName()));
-//    Course *compareCourse = manager.courseResources(manager.languageResources().constFirst()->language()).constLast()->course();
+    Unit *testUnit = course.unitList().constFirst();
+    Unit *compareUnit = loadedCourse.unitList().constFirst();
+    QCOMPARE(testUnit->id(), compareUnit->id());
+    QCOMPARE(testUnit->foreignId(), compareUnit->foreignId());
+    QCOMPARE(testUnit->title(), compareUnit->title());
+    QCOMPARE(testUnit->phraseList().count(), compareUnit->phraseList().count());
 
-//    // test that we actually call the different files
-//    QVERIFY(testCourse->file().toLocalFile() != compareCourse->file().toLocalFile());
-//    QVERIFY(testCourse->id() == compareCourse->id());
-//    QVERIFY(testCourse->foreignId() == compareCourse->foreignId());
-//    QVERIFY(testCourse->title() == compareCourse->title());
-//    QVERIFY(testCourse->description() == compareCourse->description());
-//    QVERIFY(testCourse->language()->id() == compareCourse->language()->id());
-//    QVERIFY(testCourse->unitList().count() == compareCourse->unitList().count());
-
-//    Unit *testUnit = testCourse->unitList().constFirst();
-//    Unit *compareUnit = compareCourse->unitList().constFirst();
-//    QVERIFY(testUnit->id() == compareUnit->id());
-//    QVERIFY(testUnit->foreignId() == compareUnit->foreignId());
-//    QVERIFY(testUnit->title() == compareUnit->title());
-//    QVERIFY(testUnit->phraseList().count() == compareUnit->phraseList().count());
-
-//    Phrase *testPhrase = testUnit->phraseList().constFirst();
-//    Phrase *comparePhrase = new Phrase(this);
-//    // Note that this actually means that we DO NOT respect phrase orders by list order!
-//    foreach (Phrase *phrase, compareUnit->phraseList()) {
-//        if (testPhrase->id() == phrase->id()) {
-//            comparePhrase = phrase;
-//            break;
-//        }
-//    }
-//    QVERIFY(testPhrase->id() == comparePhrase->id());
-//    QVERIFY(testPhrase->foreignId() == comparePhrase->foreignId());
-//    QVERIFY(testPhrase->text() == comparePhrase->text());
-//    QVERIFY(testPhrase->type() == comparePhrase->type());
-//    QVERIFY(testPhrase->sound().fileName() == comparePhrase->sound().fileName());
-//    QVERIFY(testPhrase->phonemes().count() == comparePhrase->phonemes().count());
-//    //FIXME implement phoneme checks after phonemes are fully implemented
-//}
-
+    Phrase *testPhrase = testUnit->phraseList().constFirst();
+    Phrase *comparePhrase = new Phrase(this);
+    // note that this actually means that we DO NOT respect phrase orders by list order
+    for (Phrase *phrase : compareUnit->phraseList()) {
+        if (testPhrase->id() == phrase->id()) {
+            comparePhrase = phrase;
+            break;
+        }
+    }
+    QVERIFY(testPhrase->id() == comparePhrase->id());
+    QVERIFY(testPhrase->foreignId() == comparePhrase->foreignId());
+    QVERIFY(testPhrase->text() == comparePhrase->text());
+    QVERIFY(testPhrase->type() == comparePhrase->type());
+    QVERIFY(testPhrase->sound().fileName() == comparePhrase->sound().fileName());
+    QVERIFY(testPhrase->phonemes().count() == comparePhrase->phonemes().count());
+}
 
 QTEST_GUILESS_MAIN(TestSkeletonResource)

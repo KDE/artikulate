@@ -211,15 +211,11 @@ QString CourseParser::parseElement(QXmlStreamReader& xml, bool &ok)
         ok = false;
         return QString();
     }
-//    if(xml.tokenType() != QXmlStreamReader::Characters) {
-//        qCCritical(ARTIKULATE_PARSER()) << "Parsing non-character token";
-//        return QString();
-//    }
 
     QString elementName = xml.name().toString();
     xml.readNext();
 
-    qCDebug(ARTIKULATE_PARSER()) << "parsed: " << elementName << " / " << xml.text().toString();
+//    qCDebug(ARTIKULATE_PARSER()) << "parsed: " << elementName << " / " << xml.text().toString();
     return xml.text().toString();
 }
 

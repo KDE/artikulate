@@ -27,10 +27,12 @@
 #include "core/phonemegroup.h"
 #include "core/resources/languageresource.h"
 
+#include <QDir>
 #include <QDomDocument>
 #include <QIODevice>
 #include <QXmlStreamReader>
 #include <QFile>
+#include <QFileInfo>
 
 #include "artikulate_debug.h"
 
@@ -79,22 +81,103 @@ public:
         file.close();
     }
 
-    QVector<Unit *> units() {
-        if (m_unitsParsed) {
-            return m_units;
-        }
-        m_units = CourseParser::parseUnits(m_path);
-        m_unitsParsed = true;
-        return m_units;
-    }
+    QVector<Unit *> units();
+
+    void appendUnit(Unit *unit);
+
+    /**
+     * @return the skeleton resource as serialized byte array
+     */
+    QDomDocument serializedSkeleton();
 
     QUrl m_path;
     QString m_identifier;
     QString m_title;
     QString m_description;
-    QVector<Unit *> m_units;
     bool m_unitsParsed{ false };
+
+protected:
+    QVector<Unit *> m_units; ///!< the units variable is loaded lazily and shall never be access directly
 };
+
+QVector<Unit *> SkeletonResourcePrivate::units()
+{
+    if (m_unitsParsed) {
+        return m_units;
+    }
+    m_units = CourseParser::parseUnits(m_path);
+    m_unitsParsed = true;
+    return m_units;
+}
+
+void SkeletonResourcePrivate::appendUnit(Unit *unit) {
+    units(); // ensure that units are parsed
+    m_units.append(unit);
+}
+
+QDomDocument SkeletonResourcePrivate::serializedSkeleton()
+{
+    QDomDocument document;
+    // prepare xml header
+    QDomProcessingInstruction header = document.createProcessingInstruction(QStringLiteral("xml"), QStringLiteral("version=\"1.0\""));
+    document.appendChild(header);
+
+    // create main element
+    QDomElement root = document.createElement(QStringLiteral("skeleton"));
+    document.appendChild(root);
+
+    QDomElement idElement = document.createElement(QStringLiteral("id"));
+    QDomElement titleElement = document.createElement(QStringLiteral("title"));
+    QDomElement descriptionElement = document.createElement(QStringLiteral("description"));
+
+    idElement.appendChild(document.createTextNode(m_identifier));
+    titleElement.appendChild(document.createTextNode(m_title));
+    descriptionElement.appendChild(document.createTextNode(m_description));
+
+    QDomElement unitListElement = document.createElement(QStringLiteral("units"));
+    // create units
+    for (auto unit : units()) {
+        QDomElement unitElement = document.createElement(QStringLiteral("unit"));
+
+        QDomElement unitIdElement = document.createElement(QStringLiteral("id"));
+        QDomElement unitTitleElement = document.createElement(QStringLiteral("title"));
+        QDomElement unitPhraseListElement = document.createElement(QStringLiteral("phrases"));
+        unitIdElement.appendChild(document.createTextNode(unit->id()));
+        unitTitleElement.appendChild(document.createTextNode(unit->title()));
+
+        // construct phrases
+        for (Phrase *phrase : unit->phraseList()) {
+            QDomElement phraseElement = document.createElement(QStringLiteral("phrase"));
+            QDomElement phraseIdElement = document.createElement(QStringLiteral("id"));
+            QDomElement phraseTextElement = document.createElement(QStringLiteral("text"));
+            QDomElement phraseTypeElement = document.createElement(QStringLiteral("type"));
+
+            phraseIdElement.appendChild(document.createTextNode(phrase->id()));
+            phraseTextElement.appendChild(document.createTextNode(phrase->text()));
+            phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
+
+            phraseElement.appendChild(phraseIdElement);
+            phraseElement.appendChild(phraseTextElement);
+            phraseElement.appendChild(phraseTypeElement);
+
+            unitPhraseListElement.appendChild(phraseElement);
+        }
+
+        // construct the unit element
+        unitElement.appendChild(unitIdElement);
+        unitElement.appendChild(unitTitleElement);
+        unitElement.appendChild(unitPhraseListElement);
+
+        unitListElement.appendChild(unitElement);
+    }
+
+    root.appendChild(idElement);
+    root.appendChild(titleElement);
+    root.appendChild(descriptionElement);
+    root.appendChild(unitListElement);
+
+    return document;
+}
 
 SkeletonResource::SkeletonResource(const QUrl &path, IResourceRepository *repository)
     : ICourse()
@@ -158,95 +241,33 @@ void SkeletonResource::setDescription(const QString &description)
     emit descriptionChanged();
 }
 
-void SkeletonResource::addUnit(Unit *unit)
+bool SkeletonResource::exportCourse(const QUrl &filePath)
 {
-    emit unitAboutToBeAdded(unit, d->m_units.count() - 1);
-    d->m_units.append(unit);
-    emit unitAdded();
+    // write back to file
+    // create directories if necessary
+    QFileInfo info(filePath.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
+    if (!info.exists()) {
+        qCDebug(ARTIKULATE_LOG()) << "create xml output file directory, not existing";
+        QDir dir;
+        dir.mkpath(filePath.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
+    }
+
+    //TODO port to atomic file swap
+    QFile file(filePath.toLocalFile());
+    if (!file.open(QIODevice::WriteOnly)) {
+        qCWarning(ARTIKULATE_LOG()) << "Unable to open file " << filePath << " in write mode, aborting.";
+        return false;
+    }
+    file.write(d->serializedSkeleton().toByteArray());
+
+    return true;
 }
 
-void SkeletonResource::sync()
+void SkeletonResource::addUnit(Unit *unit)
 {
-    Q_ASSERT(file().isValid());
-    Q_ASSERT(file().isLocalFile());
-    Q_ASSERT(!file().isEmpty());
-
-//     // not writing back if not modified
-//     if (!d->m_skeletonResource->modified()) {
-//         qCDebug(ARTIKULATE_LOG) << "Aborting sync, skeleton was not modified.";
-//         return;
-//     }
-
-    QDomDocument document;
-    // prepare xml header
-    QDomProcessingInstruction header = document.createProcessingInstruction(QStringLiteral("xml"), QStringLiteral("version=\"1.0\""));
-    document.appendChild(header);
-
-    // create main element
-    QDomElement root = document.createElement(QStringLiteral("skeleton"));
-    document.appendChild(root);
-
-    QDomElement idElement = document.createElement(QStringLiteral("id"));
-    QDomElement titleElement = document.createElement(QStringLiteral("title"));
-    QDomElement descriptionElement = document.createElement(QStringLiteral("description"));
-
-    idElement.appendChild(document.createTextNode(id()));
-    titleElement.appendChild(document.createTextNode(title()));
-    descriptionElement.appendChild(document.createTextNode(description()));
-
-    QDomElement unitListElement = document.createElement(QStringLiteral("units"));
-    // create units
-    for (auto unit : d->m_units) {
-        QDomElement unitElement = document.createElement(QStringLiteral("unit"));
-
-        QDomElement unitIdElement = document.createElement(QStringLiteral("id"));
-        QDomElement unitTitleElement = document.createElement(QStringLiteral("title"));
-        QDomElement unitPhraseListElement = document.createElement(QStringLiteral("phrases"));
-        unitIdElement.appendChild(document.createTextNode(unit->id()));
-        unitTitleElement.appendChild(document.createTextNode(unit->title()));
-
-        // construct phrases
-        foreach (Phrase *phrase, unit->phraseList()) {
-            QDomElement phraseElement = document.createElement(QStringLiteral("phrase"));
-            QDomElement phraseIdElement = document.createElement(QStringLiteral("id"));
-            QDomElement phraseTextElement = document.createElement(QStringLiteral("text"));
-            QDomElement phraseTypeElement = document.createElement(QStringLiteral("type"));
-
-            phraseIdElement.appendChild(document.createTextNode(phrase->id()));
-            phraseTextElement.appendChild(document.createTextNode(phrase->text()));
-            phraseTypeElement.appendChild(document.createTextNode(phrase->typeString()));
-
-            phraseElement.appendChild(phraseIdElement);
-            phraseElement.appendChild(phraseTextElement);
-            phraseElement.appendChild(phraseTypeElement);
-
-            unitPhraseListElement.appendChild(phraseElement);
-        }
-
-        // construct the unit element
-        unitElement.appendChild(unitIdElement);
-        unitElement.appendChild(unitTitleElement);
-        unitElement.appendChild(unitPhraseListElement);
-
-        unitListElement.appendChild(unitElement);
-    }
-
-    root.appendChild(idElement);
-    root.appendChild(titleElement);
-    root.appendChild(descriptionElement);
-    root.appendChild(unitListElement);
-
-
-    // write back to file
-    //TODO port to KSaveFile
-    QFile filePath(file().toLocalFile());
-    if (!filePath.open(QIODevice::WriteOnly)) {
-        qCWarning(ARTIKULATE_LOG) << "Unable to open file " << filePath.fileName() << " in write mode, aborting.";
-        return;
-    }
-
-    filePath.write(document.toByteArray());
-    return;
+    emit unitAboutToBeAdded(unit, d->units().count() - 1);
+    d->appendUnit(unit);
+    emit unitAdded();
 }
 
 Language * SkeletonResource::language() const

@@ -63,8 +63,9 @@ public:
     QList<Unit *> unitList() override;
     QUrl file() const override;
 
+    bool exportCourse(const QUrl &filePath);
+
     void addUnit(Unit *unit);
-    void sync();
 
     bool isModified() const { return true;} //FIXME
 

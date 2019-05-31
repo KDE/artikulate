@@ -62,12 +62,6 @@ private slots:
      */
     void coursePropertyChanges();
 
-    /**
-     * Test if serialization of unserialized file gives original file.
-     * TODO this is a test by only string equality and should improved to test on a data level
-     */
-    void fileLoadSaveCompleteness();
-
 private:
     bool m_systemUseCourseRepositoryValue;
 };
