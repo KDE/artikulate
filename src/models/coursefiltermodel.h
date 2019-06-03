@@ -25,7 +25,6 @@
 
 class Course;
 class CourseModel;
-class QSignalMapper;
 
 class CourseFilterModel : public QSortFilterProxyModel
 {

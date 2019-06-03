@@ -25,7 +25,6 @@
 #include "course.h"
 #include "phrase.h"
 
-class QString;
 class Skeleton;
 class Language;
 class Course;

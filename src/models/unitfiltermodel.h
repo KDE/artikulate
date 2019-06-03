@@ -24,7 +24,6 @@
 #include <QSortFilterProxyModel>
 
 class UnitModel;
-class QSignalMapper;
 
 class UnitFilterModel : public QSortFilterProxyModel
 {

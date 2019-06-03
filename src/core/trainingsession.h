@@ -25,7 +25,6 @@
 #include "course.h"
 #include "phrase.h"
 
-class QString;
 class Language;
 class Course;
 class Unit;

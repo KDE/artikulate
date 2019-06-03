@@ -25,8 +25,6 @@
 #include <QString>
 
 class QAudioRecorder;
-class QMediaRecorder;
-class QMediaObject;
 
 class QtMultimediaCaptureBackend : public CaptureBackendInterface
 {

@@ -26,7 +26,6 @@
 class ResourceManager;
 class Course;
 class Skeleton;
-class Language;
 class QSignalMapper;
 
 class SkeletonModel : public QAbstractListModel

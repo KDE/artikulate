@@ -25,7 +25,6 @@
 #include <QWidget>
 
 class ResourceManager;
-class Course;
 
 class ResourcesDialogPage : public QWidget
 {

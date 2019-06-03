@@ -27,8 +27,6 @@
 #include "core/trainingsession.h"
 
 class EditorSession;
-class KActionCollection;
-class KMenu;
 class QQuickWidget;
 
 class MainWindowEditor : public KXmlGuiWindow
