@@ -26,6 +26,7 @@
 #include <QObject>
 #include <QMap>
 #include <QHash>
+#include <QVector>
 #include <QStringList>
 
 #include "liblearnerprofile/src/learninggoal.h"
@@ -180,10 +181,7 @@ public:
      */
     void removeSkeleton(SkeletonResource *skeleton);
 
-    /**
-     * \return list of all loaded skeletons resources
-     */
-    QList<SkeletonResource *> skeletonResources();
+    QVector<IEditableCourse *> skeletons() const override;
 
 Q_SIGNALS:
     void languageResourceAdded();
@@ -210,7 +208,7 @@ private:
     QString m_storageLocation;
     QList<LanguageResource *> m_languageResources;
     QMap<QString, QList<EditableCourseResource *> > m_courses; //!> (language-id, course-resource)
-    QList<SkeletonResource *> m_skeletonResources;
+    QVector<SkeletonResource *> m_skeletonResources;
     QStringList m_loadedResources;
 };
 

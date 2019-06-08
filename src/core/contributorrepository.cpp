@@ -471,7 +471,11 @@ void ContributorRepository::removeSkeleton(SkeletonResource *skeleton)
     }
 }
 
-QList< SkeletonResource* > ContributorRepository::skeletonResources()
+QVector<IEditableCourse *> ContributorRepository::skeletons() const
 {
-    return m_skeletonResources;
+    QVector<IEditableCourse *> skeletonList;
+    for (const auto &skeleton : m_skeletonResources) {
+        skeletonList.append(skeleton);
+    }
+    return skeletonList;
 }

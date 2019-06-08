@@ -27,6 +27,7 @@
 #include <QVector>
 
 class Language;
+class SkeletonResource;
 
 /**
  * @brief The EditableRepositoryStub is simple sub class only for testing
@@ -35,14 +36,23 @@ class EditableRepositoryStub : public IEditableRepository
 {
     Q_OBJECT
 public:
-    EditableRepositoryStub(QVector<IEditableCourse *> courses)
-        : m_courses{ courses }
+    EditableRepositoryStub(
+            QVector<Language *> languages,
+            QVector<IEditableCourse *> skeletons,
+            QVector<IEditableCourse *> courses)
+        : m_languages{ languages }
+        , m_skeletons{ skeletons }
+        , m_courses{ courses }
     {
     }
     ~EditableRepositoryStub() override;
     QString storageLocation() const override
     {
         return QString();
+    }
+    QVector<IEditableCourse *> skeletons() const override
+    {
+        return m_skeletons;
     }
     QVector<IEditableCourse *> editableCourses() const override
     {
@@ -73,7 +83,7 @@ public:
     }
     QVector<Language *> languages() const override
     {
-        return QVector<Language *>();
+        return m_languages;
     }
 Q_SIGNALS:
     void courseAboutToBeAdded(ICourse*,int) override;
@@ -81,6 +91,8 @@ Q_SIGNALS:
     void courseAboutToBeRemoved(int) override;
     void courseRemoved() override;
 private:
+    QVector<Language *> m_languages;
+    QVector<IEditableCourse *> m_skeletons;
     QVector<IEditableCourse *> m_courses;
 };
 

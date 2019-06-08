@@ -22,7 +22,7 @@
 #define SKELETONRESOURCE_H
 
 #include "artikulatecore_export.h"
-#include "core/icourse.h"
+#include "core/ieditablecourse.h"
 
 #include <QObject>
 
@@ -32,7 +32,7 @@ class IResourceRepository;
 /**
  * @brief The SkeletonResource class is a decorator for EditableCourseResource
  */
-class ARTIKULATECORE_EXPORT SkeletonResource : public ICourse
+class ARTIKULATECORE_EXPORT SkeletonResource : public IEditableCourse
 {
     Q_OBJECT
     Q_INTERFACES(ICourse)
@@ -47,19 +47,18 @@ public:
 
     QString id() const override;
 
-    void setId(const QString &id);
+    void setId(QString id) override;
 
     QString foreignId() const override;
+    void setForeignId(QString id) override;
     QString title() const override;
-
-    void setTitle(const QString &title);
-
+    void setTitle(QString title) override;
     QString i18nTitle() const override;
+    void setI18nTitle(QString title) override;
     QString description() const override;
-
-    void setDescription(const QString &description);
-
+    void setDescription(QString description) override;
     Language * language() const override;
+    void setLanguage(Language *language) override;
     QList<Unit *> unitList() override;
     QUrl file() const override;
 

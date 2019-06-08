@@ -25,6 +25,7 @@
 #include "src/core/ieditablecourse.h"
 #include "src/core/ieditablerepository.h"
 #include "src/core/language.h"
+#include "src/core/resources/skeletonresource.h"
 #include "src/core/unit.h"
 #include <QTest>
 #include <QSignalSpy>
@@ -126,13 +127,106 @@ void TestEditorSession::cleanup()
 
 void TestEditorSession::createEditorSession()
 {
-    Language language;
-    EditableCourseStub course(&language, QVector<Unit *>());
-    EditableRepositoryStub repository{ {&course} };
+    Language languageGerman;
+    languageGerman.setId("de");
+    Language languageEnglish;
+    languageEnglish.setId("en");
+    EditableCourseStub course(&languageGerman, QVector<Unit *>());
+    course.setLanguage(&languageGerman);
+    SkeletonResource skeleton(QUrl(), nullptr);
+
+    EditableRepositoryStub repository{
+        {&languageGerman, &languageEnglish}, // languages
+        {&skeleton},
+        {&course} // courses
+    };
     EditorSession session;
     session.setRepository(&repository);
-    QVERIFY(session.course() != nullptr);
-    QCOMPARE(session.course()->id(), course.id());
+    QVERIFY(session.course() == nullptr);
+    QVERIFY(session.language() == nullptr);
+    QVERIFY(session.skeleton() == nullptr);
 }
+
+void TestEditorSession::nonSkeletonSwitchingBehavior()
+{
+    Language languageGerman;
+    languageGerman.setId("de");
+    Language languageEnglish;
+    languageEnglish.setId("en");
+    EditableCourseStub courseGerman(&languageGerman, QVector<Unit *>());
+    courseGerman.setId("course-german");
+    EditableCourseStub courseEnglish(&languageEnglish, QVector<Unit *>());
+    courseEnglish.setId("course-english");
+
+    EditableRepositoryStub repository{
+        {&languageGerman, &languageEnglish}, // languages
+        {}, // skeletons
+        {&courseGerman, &courseEnglish} // courses
+    };
+    EditorSession session;
+    session.setRepository(&repository);
+
+    QVERIFY(session.course() == nullptr);
+    session.setCourse(&courseGerman);
+    QCOMPARE(session.course()->id(), courseGerman.id());
+    QVERIFY(session.language() != nullptr);
+    QCOMPARE(session.language()->id(), languageGerman.id());
+
+    QVERIFY(session.language() != nullptr);
+    QCOMPARE(session.language()->id(), languageGerman.id());
+    session.setCourse(&courseEnglish);
+    QVERIFY(session.course() != nullptr);
+    QCOMPARE(session.course()->id(), courseEnglish.id());
+    QVERIFY(session.language() != nullptr);
+    QCOMPARE(session.language()->id(), languageEnglish.id());
+
+}
+
+void TestEditorSession::skeletonSwitchingBehavior()
+{
+    Language languageGerman;
+    languageGerman.setId("de");
+    Language languageEnglish;
+    languageEnglish.setId("en");
+    EditableCourseStub courseGermanA(&languageGerman, QVector<Unit *>());
+    courseGermanA.setId("course-german");
+    courseGermanA.setForeignId("testskeletonA");
+    EditableCourseStub courseGermanB(&languageGerman, QVector<Unit *>());
+    courseGermanB.setId("course-german");
+    courseGermanB.setForeignId("testskeletonB");
+    EditableCourseStub courseEnglishA(&languageEnglish, QVector<Unit *>());
+    courseEnglishA.setId("course-english");
+    courseEnglishA.setForeignId("testskeletonA");
+    SkeletonResource skeletonA(QUrl(), nullptr);
+    skeletonA.setId("testskeletonA");
+    SkeletonResource skeletonB(QUrl(), nullptr);
+    skeletonB.setId("testskeletonB");
+
+    EditableRepositoryStub repository{
+        {&languageGerman, &languageEnglish}, // languages
+        {&skeletonA, &skeletonB}, // skeletons
+        {&courseGermanA, &courseEnglishA, &courseGermanB} // courses
+    };
+    EditorSession session;
+    session.setRepository(&repository);
+
+    session.setSkeleton(&skeletonA);
+    Q_ASSERT(session.skeleton() != nullptr);
+    QCOMPARE(session.skeleton()->id(), skeletonA.id());
+    Q_ASSERT(session.course() != nullptr);
+    QCOMPARE(session.course()->id(), courseGermanA.id());
+    session.setCourse(&courseEnglishA);
+    Q_ASSERT(session.course() != nullptr);
+    QCOMPARE(session.course()->id(), courseEnglishA.id());
+
+    session.setCourse(&courseGermanB);
+    QVERIFY(session.skeleton() != nullptr);
+    QCOMPARE(session.skeleton()->id(), skeletonB.id());
+    QVERIFY(session.course() != nullptr);
+    QCOMPARE(session.course()->id(), courseGermanB.id());
+    QVERIFY(session.language() != nullptr);
+    QCOMPARE(session.language()->id(), languageGerman.id());
+}
+
 
 QTEST_GUILESS_MAIN(TestEditorSession)

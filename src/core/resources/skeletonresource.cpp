@@ -180,7 +180,7 @@ QDomDocument SkeletonResourcePrivate::serializedSkeleton()
 }
 
 SkeletonResource::SkeletonResource(const QUrl &path, IResourceRepository *repository)
-    : ICourse()
+    : IEditableCourse()
     , d(new SkeletonResourcePrivate(path))
 {
     Q_UNUSED(repository);
@@ -193,7 +193,7 @@ QString SkeletonResource::id() const
     return d->m_identifier;
 }
 
-void SkeletonResource::setId(const QString &id)
+void SkeletonResource::setId(QString id)
 {
     if (d->m_identifier == id) {
         return;
@@ -207,12 +207,18 @@ QString SkeletonResource::foreignId() const
     return id();
 }
 
+void SkeletonResource::setForeignId(QString id)
+{
+    Q_UNUSED(id);
+    Q_UNREACHABLE();
+}
+
 QString SkeletonResource::title() const
 {
     return d->m_title;
 }
 
-void SkeletonResource::setTitle(const QString &title)
+void SkeletonResource::setTitle(QString title)
 {
     if (d->m_title == title) {
         return;
@@ -227,12 +233,18 @@ QString SkeletonResource::i18nTitle() const
     return title();
 }
 
+void SkeletonResource::setI18nTitle(QString title)
+{
+    Q_UNUSED(title);
+    Q_UNREACHABLE();
+}
+
 QString SkeletonResource::description() const
 {
     return d->m_description;
 }
 
-void SkeletonResource::setDescription(const QString &description)
+void SkeletonResource::setDescription(QString description)
 {
     if (d->m_description == description) {
         return;
@@ -274,6 +286,12 @@ Language * SkeletonResource::language() const
 {
     // skeleton must not have a dedicated language
     return nullptr;
+}
+
+void SkeletonResource::setLanguage(Language *language)
+{
+    Q_UNUSED(language);
+    Q_UNREACHABLE();
 }
 
 QList<Unit *> SkeletonResource::unitList()

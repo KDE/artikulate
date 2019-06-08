@@ -55,10 +55,10 @@ class IEditableRepository;
 class ARTIKULATECORE_EXPORT EditorSession : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool skeletonMode READ skeletonMode WRITE setSkeletonMode NOTIFY skeletonModeChanged)
+    Q_PROPERTY(bool skeletonMode READ skeletonMode NOTIFY skeletonModeChanged)
     Q_PROPERTY(bool editSkeleton READ isEditSkeleton WRITE setEditSkeleton NOTIFY editSkeletonChanged)
-    Q_PROPERTY(SkeletonResource *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
-    Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
+    Q_PROPERTY(IEditableCourse *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
+    Q_PROPERTY(Language *language READ language NOTIFY languageChanged)
     Q_PROPERTY(IEditableCourse *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
@@ -69,14 +69,12 @@ public:
     explicit EditorSession(QObject *parent = nullptr);
 
     void setRepository(IEditableRepository *repository);
-    void setSkeletonMode(bool enabled=true);
     bool skeletonMode() const;
     void setEditSkeleton(bool enabled=true);
     bool isEditSkeleton() const;
-    SkeletonResource * skeleton() const;
-    void setSkeleton(SkeletonResource *skeleton);
+    IEditableCourse * skeleton() const;
+    void setSkeleton(IEditableCourse *skeleton);
     Language * language() const;
-    void setLanguage(Language *language);
     IEditableCourse * course() const;
     void setCourse(IEditableCourse *course);
     Unit * unit() const;
@@ -106,15 +104,15 @@ Q_SIGNALS:
 
 private:
     Q_DISABLE_COPY(EditorSession)
-    IEditableRepository * m_repository;
-    bool m_skeletonMode;
-    bool m_editSkeleton;
-    SkeletonResource *m_skeleton;
-    Language *m_language;
-    IEditableCourse *m_course;
-    IEditableCourse *m_tmpCourseWhileSkeletonEditing;
-    Unit *m_unit;
-    Phrase *m_phrase;
+    IEditableRepository * m_repository{ nullptr };
+    bool m_skeletonMode{ false };
+    bool m_editSkeleton{ false };
+    IEditableCourse *m_skeleton{ nullptr };
+    Language *m_language{ nullptr };
+    IEditableCourse *m_course{ nullptr };
+    IEditableCourse *m_tmpCourseWhileSkeletonEditing{ nullptr };
+    Unit *m_unit{ nullptr };
+    Phrase *m_phrase{ nullptr };
 };
 
 #endif

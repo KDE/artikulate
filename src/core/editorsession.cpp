@@ -30,15 +30,6 @@
 
 EditorSession::EditorSession(QObject *parent)
     : QObject(parent)
-    , m_repository(nullptr)
-    , m_skeletonMode(true)
-    , m_editSkeleton(false)
-    , m_skeleton(nullptr)
-    , m_language(nullptr)
-    , m_course(nullptr)
-    , m_tmpCourseWhileSkeletonEditing(nullptr)
-    , m_unit(nullptr)
-    , m_phrase(nullptr)
 {
 
 }
@@ -46,18 +37,6 @@ EditorSession::EditorSession(QObject *parent)
 void EditorSession::setRepository(IEditableRepository *repository)
 {
     m_repository = repository;
-    if (!repository->editableCourses().isEmpty()) {
-        setCourse(repository->editableCourses().first());
-    }
-}
-
-void EditorSession::setSkeletonMode(bool enabled)
-{
-    if (m_skeletonMode == enabled) {
-        return;
-    }
-    m_skeletonMode = enabled;
-    emit skeletonModeChanged();
 }
 
 bool EditorSession::skeletonMode() const
@@ -86,38 +65,32 @@ bool EditorSession::isEditSkeleton() const
     return m_editSkeleton;
 }
 
-SkeletonResource * EditorSession::skeleton() const
+IEditableCourse * EditorSession::skeleton() const
 {
     return m_skeleton;
 }
 
-void EditorSession::setSkeleton(SkeletonResource *skeleton)
+void EditorSession::setSkeleton(IEditableCourse *skeleton)
 {
     if (m_skeleton == skeleton) {
         return;
     }
     m_skeleton = skeleton;
 
-    Language *language = m_language;
-    if (!m_language) {
-        language = m_repository->languages().constFirst();
+    if (m_skeletonMode != true) {
+        m_skeletonMode = true;
+        emit skeletonModeChanged();
     }
-
-    if (m_skeleton) {
-        bool found = false;
-        int resources = m_repository->courses(language).count();
-        for (int i=0; i < resources; ++i) {
-            auto course = m_repository->editableCourse(language, i);
+    IEditableCourse *newCourse{ nullptr };
+    if (m_skeleton && m_repository) {
+        for (const auto &course : m_repository->editableCourses()) {
             if (course->foreignId() == m_skeleton->id()) {
-                setCourse(course);
-                found = true;
+                newCourse = course;
                 break;
             }
         }
-        if (!found) {
-            setCourse(nullptr);
-        }
     }
+    setCourse(newCourse);
 
     emit skeletonChanged();
 }
@@ -125,37 +98,6 @@ void EditorSession::setSkeleton(SkeletonResource *skeleton)
 Language * EditorSession::language() const
 {
     return m_language;
-}
-
-void EditorSession::setLanguage(Language *language)
-{
-    if (m_language == language) {
-        return;
-    }
-    m_language = language;
-    if (m_skeletonMode) {
-        bool found = false;
-        if (m_skeleton) {
-            int resources = m_repository->courses(m_language).count();
-            for (int i=0; i < resources; ++i) {
-                IEditableCourse *course = m_repository->editableCourse(m_language, i);
-                if (course->foreignId() == m_skeleton->id()) {
-                    setCourse(course);
-                    found = true;
-                    break;
-                }
-            }
-        }
-        if (!found) {
-            setCourse(nullptr);
-        }
-    }
-    else { // not skeleton mode
-        if (m_repository->courses(m_language).count() > 0) {
-            setCourse(m_repository->editableCourse(m_language, 0));
-        }
-    }
-    emit languageChanged();
 }
 
 IEditableCourse * EditorSession::course() const
@@ -169,6 +111,23 @@ void EditorSession::setCourse(IEditableCourse *course)
         return;
     }
     m_course = course;
+    if (m_skeleton == nullptr || m_skeleton->id() != course->foreignId()) {
+        for (const auto &skeleton : m_repository->skeletons()) {
+            if (skeleton->id() == course->foreignId()) {
+                m_skeleton = skeleton;
+                emit skeletonChanged();
+                break;
+            }
+        }
+    }
+
+    if (m_course != nullptr) {
+        m_language = m_course->language();
+    } else {
+        m_language = nullptr;
+    }
+    emit languageChanged();
+
     if (m_course && !m_course->unitList().isEmpty()) {
         setUnit(m_course->unitList().constFirst());
     } else {

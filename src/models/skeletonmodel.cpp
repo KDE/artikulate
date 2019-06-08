@@ -85,11 +85,11 @@ QVariant SkeletonModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_repository->skeletonResources().count()) {
+    if (index.row() >= m_repository->skeletons().count()) {
         return QVariant();
     }
 
-    ICourse * const skeleton = m_repository->skeletonResources().at(index.row());
+    ICourse * const skeleton = m_repository->skeletons().at(index.row());
 
     switch(role)
     {
@@ -121,7 +121,7 @@ int SkeletonModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    return m_repository->skeletonResources().count();
+    return m_repository->skeletons().count();
 }
 
 void SkeletonModel::onSkeletonAboutToBeAdded(ICourse *skeleton, int index)
@@ -168,14 +168,14 @@ QVariant SkeletonModel::headerData(int section, Qt::Orientation orientation, int
 
 int SkeletonModel::count() const
 {
-    return m_repository->skeletonResources().count();
+    return m_repository->skeletons().count();
 }
 
 void SkeletonModel::updateMappings()
 {
-    int skeletons = m_repository->skeletonResources().count();
+    int skeletons = m_repository->skeletons().count();
     for (int i = 0; i < skeletons; ++i) {
-        m_signalMapper->setMapping(m_repository->skeletonResources().at(i), i);
+        m_signalMapper->setMapping(m_repository->skeletons().at(i), i);
     }
 }
 

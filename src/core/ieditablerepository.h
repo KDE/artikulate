@@ -39,6 +39,7 @@ public:
     virtual ~IEditableRepository() = default;
     virtual QVector<IEditableCourse *> editableCourses() const = 0;
     virtual IEditableCourse * editableCourse(Language *language, int index) const = 0;
+    virtual QVector<IEditableCourse *> skeletons() const = 0;
 };
 Q_DECLARE_INTERFACE(IEditableRepository, "IEditableRepository")
 

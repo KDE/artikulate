@@ -107,7 +107,9 @@ void Application::registerQmlTypes()
 
     // interfaces
     qmlRegisterInterface<IResourceRepository>("IResourceRepository");
+    qmlRegisterInterface<IResourceRepository>("IEditableRepository");
     qmlRegisterInterface<ICourse>("ICourse");
+    qmlRegisterInterface<IEditableCourse>("IEditableCourse");
 
     // concrete instantiable types
     qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");

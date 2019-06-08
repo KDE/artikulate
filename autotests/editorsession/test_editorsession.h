@@ -42,9 +42,19 @@ private Q_SLOTS:
     void cleanup();
 
      /**
-      * @brief Construct and destruct editor session
+      * @brief Construct and destruct editor session and test initial values
       */
      void createEditorSession();
+
+     /**
+      * @brief Test switching behavior for courses without skeleton.
+      */
+     void nonSkeletonSwitchingBehavior();
+
+     /**
+      * @brief Test handling of skeletons and respective course switching
+      */
+     void skeletonSwitchingBehavior();
 };
 
 #endif
