@@ -34,6 +34,7 @@
 #include "core/trainingsession.h"
 #include "core/unit.h"
 #include "core/resources/editablecourseresource.h"
+#include "core/resources/skeletonresource.h"
 #include "models/coursefiltermodel.h"
 #include "models/coursemodel.h"
 #include "models/languagemodel.h"
@@ -100,6 +101,10 @@ void Application::registerQmlTypes()
         "artikulate", 1, 0,
         "EditableCourseResource",
         QStringLiteral("EditableCourseResource objects are backend objects"));
+    qmlRegisterUncreatableType<SkeletonResource>(
+        "artikulate", 1, 0,
+        "SkeletonResource",
+        QStringLiteral("SkeletonResource objects are backend objects"));
 
     // interfaces
     qmlRegisterInterface<IResourceRepository>("IResourceRepository");
