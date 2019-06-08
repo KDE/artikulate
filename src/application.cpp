@@ -61,7 +61,6 @@
 #include <QQmlComponent>
 #include <QQmlContext>
 #include <QQmlEngine>
-#include <QGraphicsDropShadowEffect>
 
 Application::Application(int& argc, char** argv)
     : QApplication(argc, argv)
