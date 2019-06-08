@@ -22,8 +22,6 @@
 #include "application.h"
 #include "core/language.h"
 #include "core/iresourcerepository.h"
-#include "core/resources/languageresource.h"
-#include "core/resources/courseresource.h"
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
@@ -58,13 +56,11 @@ void LanguageResourceModel::setResourceRepository(IResourceRepository *repositor
         return;
     }
 
-    beginResetModel();
     if (m_repository) {
         m_repository->disconnect(this);
     }
     m_repository = repository;
-    updateResources();
-    endResetModel();
+    updateDisplayedLanguages();
 
     emit resourceRepositoryChanged();
 }
@@ -80,11 +76,11 @@ QVariant LanguageResourceModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_resources.count()) {
+    if (index.row() >= m_languages.count()) {
         return QVariant();
     }
 
-    Language * const language = m_resources.at(index.row())->language();
+    Language * const language = m_languages.at(index.row());
     switch(role)
     {
     case Qt::DisplayRole:
@@ -101,7 +97,7 @@ QVariant LanguageResourceModel::data(const QModelIndex &index, int role) const
     case DataRole:
         return QVariant::fromValue<QObject*>(language);
     case CourseNumberRole:
-        return m_resources.count();
+        return m_languages.count();
     default:
         return QVariant();
     }
@@ -112,45 +108,44 @@ int LanguageResourceModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid()) {
         return 0;
     }
-    return m_resources.count();
+    return m_languages.count();
 }
 
-void LanguageResourceModel::onLanguageResourceAboutToBeAdded(LanguageResource *resource, int index)
+void LanguageResourceModel::onLanguageAboutToBeAdded(Language *language, int index)
 {
     beginInsertRows(QModelIndex(), index, index);
-    m_resources.append(resource);
+    m_languages.append(language);
 
-    connect(resource->language(), SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
-    connect(resource->language(), SIGNAL(phonemesChanged()), m_signalMapper, SLOT(map()));
-    connect(resource->language(), SIGNAL(phonemeGroupsChanged()), m_signalMapper, SLOT(map()));
+    connect(language, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
+    connect(language, SIGNAL(phonemesChanged()), m_signalMapper, SLOT(map()));
+    connect(language, SIGNAL(phonemeGroupsChanged()), m_signalMapper, SLOT(map()));
 }
 
-void LanguageResourceModel::onLanguageResourceAdded()
+void LanguageResourceModel::onLanguageAdded()
 {
     updateMappings();
     endInsertRows();
 }
 
-void LanguageResourceModel::onLanguageResourceAboutToBeRemoved(int index)
+void LanguageResourceModel::onLanguageAboutToBeRemoved(int index)
 {
-    //FIXME adapt to repository
-//    if (!m_repository) {
-//        return;
-//    }
+    if (!m_repository) {
+        return;
+    }
 
-//    LanguageResource *originalResource = m_repository->languages().at(index);
-//    int modelIndex = m_resources.indexOf(originalResource);
+    Language *originalLanguage = m_repository->languages().at(index);
+    int modelIndex = m_languages.indexOf(originalLanguage);
 
-//    if (modelIndex == -1) {
-//        qCWarning(ARTIKULATE_LOG) << "Cannot remove language from model, not registered";
-//        return;
-//    }
-//    beginRemoveRows(QModelIndex(), modelIndex, modelIndex);
-//    originalResource->disconnect(m_signalMapper);
-//    m_resources.removeAt(modelIndex);
+    if (modelIndex == -1) {
+        qCWarning(ARTIKULATE_LOG()) << "Cannot remove language from model, not registered";
+        return;
+    }
+    beginRemoveRows(QModelIndex(), modelIndex, modelIndex);
+    originalLanguage->disconnect(m_signalMapper);
+    m_languages.removeAt(modelIndex);
 }
 
-void LanguageResourceModel::onLanguageResourceRemoved()
+void LanguageResourceModel::onLanguageRemoved()
 {
     endRemoveRows();
 }
@@ -177,16 +172,18 @@ void LanguageResourceModel::setView(LanguageModel::LanguageResourceView view)
     if (m_view == view) {
         return;
     }
-    beginResetModel();
     m_view = view;
-    updateResources();
-    endResetModel();
+    updateDisplayedLanguages();
 }
 
 void LanguageResourceModel::updateDisplayedLanguages()
 {
     beginResetModel();
-    updateResources();
+    m_languages.clear();
+    if (m_repository) {
+        m_languages = m_repository->languages();
+    }
+    updateMappings();
     endResetModel();
 }
 
@@ -195,25 +192,10 @@ LanguageModel::LanguageResourceView LanguageResourceModel::view() const
     return m_view;
 }
 
-void LanguageResourceModel::updateResources()
-{
-    if (!m_repository) {
-        return;
-    }
-
-    m_resources.clear();
-    QVector<Language*> resources = m_repository->languages();
-//FIXME complete switch to language resources
-//    for (LanguageResource *language : resources) {
-//        m_resources.append(language);
-//    }
-    updateMappings();
-}
-
 void LanguageResourceModel::updateMappings()
 {
-    int languages = m_resources.count();
+    int languages = m_languages.count();
     for (int i = 0; i < languages; i++) {
-        m_signalMapper->setMapping(m_resources.at(i), i);
+        m_signalMapper->setMapping(m_languages.at(i), i);
     }
 }

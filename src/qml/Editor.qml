@@ -49,11 +49,11 @@ Item {
     }
     CourseModel {
         id: courseModel
-        language: editorSession.language
+        language: g_editorSession.language
     }
     UnitModel {
         id: selectedUnitModel
-        course: editorSession.course
+        course: g_editorSession.course
     }
 
     ColumnLayout {
@@ -80,7 +80,7 @@ Item {
                 }
                 textRole: "title"
                 onCurrentIndexChanged: {
-                    editorSession.skeleton = skeletonModel.skeleton(currentIndex)
+                    g_editorSession.skeleton = skeletonModel.skeleton(currentIndex)
                 }
             }
             Button {
@@ -89,7 +89,7 @@ Item {
                 text: i18n("Edit Prototype")
                 icon.name: "code-class"
                 checkable: true
-                onClicked: editorSession.editSkeleton = checked
+                onClicked: g_editorSession.editSkeleton = checked
             }
             Item { Layout.fillWidth: true }
             Button {
@@ -102,15 +102,15 @@ Item {
                 ToolTip.delay: 1000
                 ToolTip.timeout: 5000
                 ToolTip.text: i18n("Update the course with elements from prototype.")
-                onClicked: editorSession.updateCourseFromSkeleton()
+                onClicked: g_editorSession.updateCourseFromSkeleton()
             }
             CheckBox {
                 Layout.alignment: Qt.AlignRight
                 enabled: false//FIXME for now deactivating non-skeleton mode
                 text: i18n("Prototype Mode")
-                checked: editorSession.skeletonMode
+                checked: g_editorSession.skeletonMode
                 onClicked: {
-                    editorSession.skeletonMode = !editorSession.skeletonMode
+                    g_editorSession.skeletonMode = !g_editorSession.skeletonMode
                 }
             }
         }
@@ -127,7 +127,7 @@ Item {
                 model: languageModel
                 textRole: "i18nTitle"
                 onCurrentIndexChanged: {
-                    editorSession.language = languageModel.language(currentIndex)
+                    g_editorSession.language = languageModel.language(currentIndex)
                 }
             }
         }
@@ -137,12 +137,12 @@ Item {
                 if (buttonEditSkeleton.checked) {
                     return false
                 }
-                if (editorSession.skeletonMode && editorSession.course !== null) {
+                if (g_editorSession.skeletonMode && g_editorSession.course !== null) {
                     return false
                 }
-                if (!editorSession.skeletonMode
-                    && editorSession.language !== null
-                    && editorSession.course !== null
+                if (!g_editorSession.skeletonMode
+                    && g_editorSession.language !== null
+                    && g_editorSession.course !== null
                 ) {
                     return false
                 }
@@ -154,18 +154,18 @@ Item {
             }
             ComboBox { // course selection only necessary when we do not edit skeleton derived course
                 id: comboCourse
-                visible: !editorSession.skeletonMode
+                visible: !g_editorSession.skeletonMode
                 Layout.fillWidth: true
                 model: courseModel
                 textRole: "title"
                 onCurrentIndexChanged: {
                     if (courseModel.course(currentIndex)) {
-                        editorSession.course = courseModel.course(currentIndex)
+                        g_editorSession.course = courseModel.course(currentIndex)
                     }
                 }
                 onVisibleChanged: {
                     if (visible && courseModel.course(currentIndex)) {
-                        editorSession.course = courseModel.course(currentIndex)
+                        g_editorSession.course = courseModel.course(currentIndex)
                     }
                 }
             }
@@ -173,14 +173,14 @@ Item {
                 text: i18n("Create Course")
                 icon.name: "journal-new"
                 onClicked: {
-                    editorSession.course = g_repository.createCourse(editorSession.language, editorSession.skeleton)
+                    g_editorSession.course = g_repository.createCourse(g_editorSession.language, g_editorSession.skeleton)
                 }
             }
             Item { Layout.fillHeight: true } //dummy
         }
         RowLayout {
             id: mainRow
-            visible: editorSession.course !== null
+            visible: g_editorSession.course !== null
             Layout.fillHeight: true
             ColumnLayout {
                 ScrollView {
@@ -200,7 +200,7 @@ Item {
                         }
                         model: PhraseModel {
                             id: phraseModel
-                            course: editorSession.course
+                            course: g_editorSession.course
                         }
                         selection: ItemSelectionModel {
                             model: phraseTree.model
@@ -215,21 +215,21 @@ Item {
                         }
                         onClicked: {
                             if (phraseModel.isPhrase(index)) {
-                                editorSession.phrase = phraseModel.phrase(index)
+                                g_editorSession.phrase = phraseModel.phrase(index)
                             } else {
-                                editorSession.phrase = null
-                                editorSession.unit = phraseModel.unit(index)
+                                g_editorSession.phrase = null
+                                g_editorSession.unit = phraseModel.unit(index)
                             }
                         }
                         Connections {
-                            target: editorSession
+                            target: g_editorSession
                             onPhraseChanged: {
-                                if (editorSession.phrase === null) {
+                                if (g_editorSession.phrase === null) {
                                     return
                                 }
-                                phraseTree.expand(phraseModel.indexUnit(editorSession.phrase.unit))
+                                phraseTree.expand(phraseModel.indexUnit(g_editorSession.phrase.unit))
                                 phraseTree.selection.setCurrentIndex(
-                                    phraseModel.indexPhrase(editorSession.phrase),
+                                    phraseModel.indexPhrase(g_editorSession.phrase),
                                     ItemSelectionModel.ClearAndSelect)
                             }
                         }
@@ -237,7 +237,7 @@ Item {
                 }
                 Button { // add units only if skeleton
                     id: newUnitButton
-                    visible: !editorSession.skeletonMode || editorSession.editSkeleton
+                    visible: !g_editorSession.skeletonMode || g_editorSession.editSkeleton
                     icon.name: "list-add"
                     text: i18n("New Unit")
                     onClicked: phraseModel.course.createUnit()
@@ -245,14 +245,14 @@ Item {
             }
             ColumnLayout {
                 UnitEditor {
-                    visible: editorSession.unit !== null && editorSession.phrase === null
-                    unit: editorSession.unit
-                    editPhrases: editorSession.skeletonMode && editorSession.editSkeleton
+                    visible: g_editorSession.unit !== null && g_editorSession.phrase === null
+                    unit: g_editorSession.unit
+                    editPhrases: g_editorSession.skeletonMode && g_editorSession.editSkeleton
                 }
                 PhraseEditor {
-                    visible: editorSession.phrase !== null
-                    phrase: editorSession.phrase
-                    isSkeletonPhrase: editorSession.editSkeleton
+                    visible: g_editorSession.phrase !== null
+                    phrase: g_editorSession.phrase
+                    isSkeletonPhrase: g_editorSession.editSkeleton
                     Layout.minimumWidth: Math.floor(main.width * 0.6)
                     Layout.fillHeight: true
                 }

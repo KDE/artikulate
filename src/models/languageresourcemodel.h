@@ -25,7 +25,6 @@
 #include "languagemodel.h"
 
 class IResourceRepository;
-class LanguageResource;
 class Language;
 class QSignalMapper;
 
@@ -61,18 +60,17 @@ Q_SIGNALS:
     void resourceRepositoryChanged();
 
 private Q_SLOTS:
-    void onLanguageResourceAboutToBeAdded(LanguageResource *resource, int index);
-    void onLanguageResourceAdded();
-    void onLanguageResourceAboutToBeRemoved(int index);
-    void onLanguageResourceRemoved();
+    void onLanguageAboutToBeAdded(Language *resource, int index);
+    void onLanguageAdded();
+    void onLanguageAboutToBeRemoved(int index);
+    void onLanguageRemoved();
     void emitLanguageChanged(int row);
     void updateDisplayedLanguages();
 
 private:
-    void updateResources();
     void updateMappings();
     IResourceRepository *m_repository;
-    QList<LanguageResource *> m_resources;
+    QVector<Language *> m_languages;
     LanguageModel::LanguageResourceView m_view;
     QSignalMapper *m_signalMapper;
 };

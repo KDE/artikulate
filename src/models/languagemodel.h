@@ -34,18 +34,18 @@ class LanguageModel : public QSortFilterProxyModel
     Q_PROPERTY(LanguageResourceView view READ view WRITE setView NOTIFY viewChanged)
 
 public:
-    Q_ENUMS(LanguageResourceView);
     enum LanguageResourceView {
         NonEmptyContributorOnlyResources,
         NonEmptyGhnsOnlyLanguages,
         NonEmptyLanguages,
         AllLanguages
     };
+    Q_ENUM(LanguageResourceView)
 
     explicit LanguageModel(QObject *parent = nullptr);
     LanguageResourceModel * resourceModel() const;
     void setResourceModel(LanguageResourceModel *resourceModel);
-    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
+    bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
     void setView(LanguageResourceView view);
     LanguageResourceView view() const;
     Q_INVOKABLE QVariant language(int index) const;

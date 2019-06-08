@@ -150,20 +150,20 @@ Item {
                         Layout.alignment: Qt.AlignBottom
                         width: 48
                         height: 48
-                        enabled: editorSession.hasPreviousPhrase
+                        enabled: g_editorSession.hasPreviousPhrase
                         icon.name: "go-previous"
                         onClicked: {
-                            editorSession.switchToPreviousPhrase()
+                            g_editorSession.switchToPreviousPhrase()
                         }
                     }
                     ToolButton {
                         Layout.alignment: Qt.AlignBottom
                         width: 48
                         height: 48
-                        enabled: editorSession.hasNextPhrase
+                        enabled: g_editorSession.hasNextPhrase
                         icon.name: "go-next"
                         onClicked: {
-                            editorSession.switchToNextPhrase()
+                            g_editorSession.switchToNextPhrase()
                         }
                     }
                 }

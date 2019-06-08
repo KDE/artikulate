@@ -86,7 +86,7 @@ MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
     m_widget->resize(QSize(800, 600));
     m_widget->rootContext()->setContextObject(new KLocalizedContext(m_widget));
     m_widget->rootContext()->setContextProperty(QStringLiteral("g_repository"), m_repository);
-    m_widget->rootContext()->setContextProperty(QStringLiteral("editorSession"), m_repository);
+    m_widget->rootContext()->setContextProperty(QStringLiteral("g_editorSession"), m_editorSession);
 
     // set starting screen
     m_widget->setSource(QUrl(QStringLiteral("qrc:/artikulate/qml/Editor.qml")));
