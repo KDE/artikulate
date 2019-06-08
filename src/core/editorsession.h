@@ -26,10 +26,10 @@
 
 class QString;
 class Language;
-class EditableCourseResource;
+class IEditableCourse;
 class Unit;
 class SkeletonResource;
-class ContributorRepository;
+class IEditableRepository;
 
 /**
  * \class EditorSession
@@ -59,7 +59,7 @@ class ARTIKULATECORE_EXPORT EditorSession : public QObject
     Q_PROPERTY(bool editSkeleton READ isEditSkeleton WRITE setEditSkeleton NOTIFY editSkeletonChanged)
     Q_PROPERTY(SkeletonResource *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
-    Q_PROPERTY(EditableCourseResource *course READ course WRITE setCourse NOTIFY courseChanged) //TODO interface should provde ICourse
+    Q_PROPERTY(IEditableCourse *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
@@ -68,7 +68,7 @@ class ARTIKULATECORE_EXPORT EditorSession : public QObject
 public:
     explicit EditorSession(QObject *parent = nullptr);
 
-    void setContributorRepository(ContributorRepository *manager);
+    void setRepository(IEditableRepository *repository);
     void setSkeletonMode(bool enabled=true);
     bool skeletonMode() const;
     void setEditSkeleton(bool enabled=true);
@@ -77,8 +77,8 @@ public:
     void setSkeleton(SkeletonResource *skeleton);
     Language * language() const;
     void setLanguage(Language *language);
-    EditableCourseResource * course() const;
-    void setCourse(EditableCourseResource *course);
+    IEditableCourse * course() const;
+    void setCourse(IEditableCourse *course);
     Unit * unit() const;
     void setUnit(Unit *unit);
     Phrase * phrase() const;
@@ -106,13 +106,13 @@ Q_SIGNALS:
 
 private:
     Q_DISABLE_COPY(EditorSession)
-    ContributorRepository * m_repository;
+    IEditableRepository * m_repository;
     bool m_skeletonMode;
     bool m_editSkeleton;
     SkeletonResource *m_skeleton;
     Language *m_language;
-    EditableCourseResource *m_course;
-    EditableCourseResource *m_tmpCourseWhileSkeletonEditing;
+    IEditableCourse *m_course;
+    IEditableCourse *m_tmpCourseWhileSkeletonEditing;
     Unit *m_unit;
     Phrase *m_phrase;
 };

@@ -24,6 +24,7 @@
 #include "artikulatecore_export.h"
 #include "courseresource.h"
 #include "core/icourse.h"
+#include "core/ieditablecourse.h"
 
 #include <memory>
 #include <QObject>
@@ -41,10 +42,11 @@ class QDomDocument;
  *
  * This decorator adds functionality to modify and write back changes of a course.
  */
-class ARTIKULATECORE_EXPORT EditableCourseResource : public ICourse
+class ARTIKULATECORE_EXPORT EditableCourseResource : public IEditableCourse
 {
     Q_OBJECT
     Q_INTERFACES(ICourse)
+    Q_INTERFACES(IEditableCourse)
 
 public:
     /**
@@ -59,42 +61,42 @@ public:
      */
     QString id() const override;
 
-    void setId(const QString &id);
+    void setId(QString id) override;
 
     /**
      * \return unique identifier
      */
     QString foreignId() const override;
 
-    void setForeignId(const QString &foreignId);
+    void setForeignId(QString foreignId) override;
 
     /**
      * \return human readable localized title
      */
     QString title() const override;
 
-    void setTitle(const QString &title);
+    void setTitle(QString title) override;
 
     /**
      * \return human readable title in English
      */
     QString i18nTitle() const override;
 
-    void seti18nTitle(const QString &i18nTitle);
+    void setI18nTitle(QString i18nTitle) override;
 
     /**
      * \return description text for course
      */
     QString description() const override;
 
-    void setDescription(const QString &description);
+    void setDescription(QString description) override;
 
     /**
      * \return language identifier of this course
      */
     Language * language() const override;
 
-    void setLanguage(Language *language);
+    void setLanguage(Language *language) override;
 
     void sync();
 

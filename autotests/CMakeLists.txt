@@ -47,6 +47,7 @@ target_link_libraries(test_resourcerepository
 add_test(test_resourcerepository test_resourcerepository)
 ecm_mark_as_test(test_resourcerepository)
 
+
 # integration tests for iresource repository interface derived classes
 set(TestIResourceRepository_SRCS iresourcerepository_integration/test_iresourcerepository.cpp)
 qt5_add_resources(TestIResourceRepository_SRCS ../data/languages.qrc)
@@ -58,6 +59,7 @@ target_link_libraries(test_iresourcerepository_integration
 add_test(test_iresourcerepository_integration test_iresourcerepository_integration)
 ecm_mark_as_test(test_iresourcerepository_integration)
 
+
 # training session tests
 set(TestTrainingSession_SRCS trainingsession/test_trainingsession.cpp)
 add_executable(test_trainingsession ${TestTrainingSession_SRCS})
@@ -67,6 +69,21 @@ target_link_libraries(test_trainingsession
 )
 add_test(test_trainingsession test_trainingsession)
 ecm_mark_as_test(test_trainingsession)
+
+
+# editor session tests
+set(TestEditorSession_SRCS
+    editorsession/test_editorsession.cpp
+    editorsession/editablerepositorystub.cpp
+)
+add_executable(test_editorsession ${TestEditorSession_SRCS})
+target_link_libraries(test_editorsession
+    artikulatecore
+    Qt5::Test
+)
+add_test(test_editorsession test_editorsession)
+ecm_mark_as_test(test_editorsession)
+
 
 # test course resource class
 set(TestCourseResource_SRCS
@@ -82,6 +99,7 @@ target_link_libraries(test_courseresource
 add_test(test_courseresource test_courseresource)
 ecm_mark_as_test(test_courseresource)
 
+
 # test skeleton resource class
 set(TestSkeletonResource_SRCS
     skeletonresource/test_skeletonresource.cpp
@@ -95,6 +113,7 @@ target_link_libraries(test_skeletonresource
 )
 add_test(test_skeletonresource test_skeletonresource)
 ecm_mark_as_test(test_skeletonresource)
+
 
 # test editable course resource class
 set(TestEditableCourseResource_SRCS
@@ -110,6 +129,7 @@ target_link_libraries(test_editablecourseresource
 )
 add_test(test_editablecourseresource test_editablecourseresource)
 ecm_mark_as_test(test_editablecourseresource)
+
 
 # basic tests language files (input/output)
 set(TestLanguageFiles_SRCS testlanguagefiles.cpp)

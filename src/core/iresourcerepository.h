@@ -62,7 +62,7 @@ public:
     virtual void reloadCourses() = 0;
 
     /**
-     * @return list of all loaded languages
+     * \return list of all available languages
      */
     virtual QVector<Language *> languages() const = 0;
 

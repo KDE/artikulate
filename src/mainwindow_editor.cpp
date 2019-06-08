@@ -62,7 +62,7 @@ MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
     , m_widget(new QQuickWidget)
 {
     m_repository->setStorageLocation(Settings::courseRepositoryPath());
-    m_editorSession->setContributorRepository(m_repository);
+    m_editorSession->setRepository(m_repository);
     setWindowIcon(QIcon::fromTheme(QStringLiteral("artikulate")));
     setWindowTitle(qAppName());
     setAutoSaveSettings();

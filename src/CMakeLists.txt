@@ -40,8 +40,10 @@ include_directories(
 # set the source code files from which Artikulate is compiled
 set(artikulateCore_SRCS
     core/icourse.h
-    core/drawertrainingactions.cpp
+    core/ieditablecourse.h
+    core/ieditablerepository.h
     core/iresourcerepository.h
+    core/drawertrainingactions.cpp
     core/resourcerepository.cpp
     core/contributorrepository.cpp
     core/language.cpp

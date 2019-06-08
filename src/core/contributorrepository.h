@@ -22,7 +22,7 @@
 #define CONTRIBUTORREPOSITORY_H
 
 #include "artikulatecore_export.h"
-#include "iresourcerepository.h"
+#include "ieditablerepository.h"
 #include <QObject>
 #include <QMap>
 #include <QHash>
@@ -41,10 +41,11 @@ class QUrl;
  * @class ContributorRepository
  * This class handles the resources of a contributor.
  */
-class ARTIKULATECORE_EXPORT ContributorRepository : public IResourceRepository
+class ARTIKULATECORE_EXPORT ContributorRepository : public IEditableRepository
 {
     Q_OBJECT
     Q_INTERFACES(IResourceRepository)
+    Q_INTERFACES(IEditableRepository)
 
     Q_PROPERTY(QString repositoryUrl READ storageLocation NOTIFY repositoryChanged)
 
@@ -77,9 +78,6 @@ public:
      */
     Q_DECL_DEPRECATED QList<LanguageResource *> languageResources() const;
 
-    /**
-     * \return list of all available language specifications
-     */
     QVector<Language *> languages() const override;
 
     /**
@@ -93,6 +91,7 @@ public:
     Q_INVOKABLE Language * language(LearnerProfile::LearningGoal* learningGoal) const;
 
     QVector<ICourse *> courses() const override;
+    QVector<IEditableCourse *> editableCourses() const override;
     QVector<ICourse *> courses(Language *language) const override;
 
     /**
@@ -100,7 +99,7 @@ public:
      */
     QList<EditableCourseResource *> courseResources(Language *language);
 
-    Q_INVOKABLE EditableCourseResource * course(Language *language, int index) const;
+    Q_INVOKABLE IEditableCourse * editableCourse(Language *language, int index) const override;
 
     /**
      * Reset the file for this course or skeleton.

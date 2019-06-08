@@ -39,7 +39,7 @@
 #include <QStandardPaths>
 
 ContributorRepository::ContributorRepository(QObject *parent)
-    : IResourceRepository()
+    : IEditableRepository()
 {
     loadLanguageResources();
 }
@@ -180,6 +180,17 @@ QVector<ICourse *> ContributorRepository::courses() const
     return courses;
 }
 
+QVector<IEditableCourse *> ContributorRepository::editableCourses() const
+{
+    QVector<IEditableCourse *> courses;
+    for (const auto &courseList : m_courses) {
+        for (const auto &course : courseList) {
+            courses.append(course);
+        }
+    }
+    return courses;
+}
+
 QVector<ICourse *> ContributorRepository::courses(Language *language) const
 {
     if (language == nullptr) {
@@ -195,7 +206,7 @@ QVector<ICourse *> ContributorRepository::courses(Language *language) const
     return courses;
 }
 
-EditableCourseResource * ContributorRepository::course(Language *language, int index) const
+IEditableCourse * ContributorRepository::editableCourse(Language *language, int index) const
 {
     Q_ASSERT(m_courses.contains(language->id()));
     Q_ASSERT(index >= 0 && index < m_courses[language->id()].count());

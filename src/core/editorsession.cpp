@@ -43,9 +43,12 @@ EditorSession::EditorSession(QObject *parent)
 
 }
 
-void EditorSession::setContributorRepository(ContributorRepository *repository)
+void EditorSession::setRepository(IEditableRepository *repository)
 {
     m_repository = repository;
+    if (!repository->editableCourses().isEmpty()) {
+        setCourse(repository->editableCourses().first());
+    }
 }
 
 void EditorSession::setSkeletonMode(bool enabled)
@@ -102,9 +105,9 @@ void EditorSession::setSkeleton(SkeletonResource *skeleton)
 
     if (m_skeleton) {
         bool found = false;
-        int resources = m_repository->courseResources(language).count();
+        int resources = m_repository->courses(language).count();
         for (int i=0; i < resources; ++i) {
-            EditableCourseResource * course = m_repository->course(language, i);
+            auto course = m_repository->editableCourse(language, i);
             if (course->foreignId() == m_skeleton->id()) {
                 setCourse(course);
                 found = true;
@@ -133,9 +136,9 @@ void EditorSession::setLanguage(Language *language)
     if (m_skeletonMode) {
         bool found = false;
         if (m_skeleton) {
-            int resources = m_repository->courseResources(m_language).count();
+            int resources = m_repository->courses(m_language).count();
             for (int i=0; i < resources; ++i) {
-                EditableCourseResource * course = m_repository->course(m_language, i);
+                IEditableCourse *course = m_repository->editableCourse(m_language, i);
                 if (course->foreignId() == m_skeleton->id()) {
                     setCourse(course);
                     found = true;
@@ -148,19 +151,19 @@ void EditorSession::setLanguage(Language *language)
         }
     }
     else { // not skeleton mode
-        if (m_repository->courseResources(m_language).count() > 0) {
-            setCourse(m_repository->course(m_language, 0));
+        if (m_repository->courses(m_language).count() > 0) {
+            setCourse(m_repository->editableCourse(m_language, 0));
         }
     }
     emit languageChanged();
 }
 
-EditableCourseResource * EditorSession::course() const
+IEditableCourse * EditorSession::course() const
 {
     return m_course;
 }
 
-void EditorSession::setCourse(EditableCourseResource *course)
+void EditorSession::setCourse(IEditableCourse *course)
 {
     if (m_course == course) {
         return;

@@ -51,7 +51,7 @@ QString EditableCourseResource::id() const
     return m_course->id();
 }
 
-void EditableCourseResource::setId(const QString &id)
+void EditableCourseResource::setId(QString id)
 {
     m_course->setId(id);
 }
@@ -61,9 +61,9 @@ QString EditableCourseResource::foreignId() const
     return m_course->foreignId();
 }
 
-void EditableCourseResource::setForeignId(const QString &foreignId)
+void EditableCourseResource::setForeignId(QString foreignId)
 {
-    m_course->setForeignId(foreignId);
+    m_course->setForeignId(std::move(foreignId));
 }
 
 QString EditableCourseResource::title() const
@@ -71,7 +71,7 @@ QString EditableCourseResource::title() const
     return m_course->title();
 }
 
-void EditableCourseResource::setTitle(const QString &title)
+void EditableCourseResource::setTitle(QString title)
 {
     m_course->setTitle(title);
 }
@@ -81,7 +81,7 @@ QString EditableCourseResource::i18nTitle() const
     return m_course->i18nTitle();
 }
 
-void EditableCourseResource::seti18nTitle(const QString &i18nTitle)
+void EditableCourseResource::setI18nTitle(QString i18nTitle)
 {
     m_course->setI18nTitle(i18nTitle);
 }
@@ -91,7 +91,7 @@ QString EditableCourseResource::description() const
     return m_course->description();
 }
 
-void EditableCourseResource::setDescription(const QString &description)
+void EditableCourseResource::setDescription(QString description)
 {
     m_course->setDescription(description);
 }
