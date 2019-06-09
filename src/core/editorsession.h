@@ -83,6 +83,11 @@ public:
     Language * language() const;
     IEditableCourse * course() const;
     void setCourse(IEditableCourse *course);
+    /**
+     * @brief Open course resource by specifying the language
+     * @param language the target language
+     */
+    Q_INVOKABLE void setCourseByLanguage(Language *language);
     IEditableCourse * displayedCourse() const;
     Unit * unit() const;
     void setUnit(Unit *unit);

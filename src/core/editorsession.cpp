@@ -126,6 +126,25 @@ void EditorSession::setCourse(IEditableCourse *course)
     emit courseChanged();
 }
 
+void EditorSession::setCourseByLanguage(Language *language)
+{
+    if (!skeletonMode() || m_skeleton == nullptr) {
+        qDebug() << "Course selection by language is only available in skeleton mode";
+        return;
+    }
+    if (language == nullptr || m_repository == nullptr) {
+        return;
+    }
+    IEditableCourse *newCourse{ nullptr };
+    for (auto course : m_repository->editableCourses()) {
+        if (course->foreignId() == m_skeleton->id() && course->language()->id() == language->id()) {
+            newCourse = course;
+            break;
+        }
+    }
+    setCourse(newCourse);
+}
+
 IEditableCourse * EditorSession::displayedCourse() const
 {
     IEditableCourse * course{ nullptr };

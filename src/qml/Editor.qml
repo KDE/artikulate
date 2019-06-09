@@ -113,30 +113,21 @@ Item {
                 text: i18n("Language:")
             }
             ComboBox {
+                id: languageSelectionComboBox
                 Layout.minimumWidth: 200
                 Layout.fillWidth: true
                 enabled: !buttonEditSkeleton.checked
                 model: languageModel
                 textRole: "i18nTitle"
                 onCurrentIndexChanged: {
-//                    g_editorSession.language = languageModel.language(currentIndex)
-                    //FIXME language selection shall not change the language but the course
+                    g_editorSession.setCourseByLanguage(languageModel.language(currentIndex))
                 }
             }
         }
         RowLayout {
-            id: courseRow
+            id: createNewCourseRow
             visible: {
-                if (buttonEditSkeleton.checked) {
-                    return false
-                }
-                if (g_editorSession.skeletonMode && g_editorSession.course !== null) {
-                    return false
-                }
-                if (!g_editorSession.skeletonMode
-                    && g_editorSession.language !== null
-                    && g_editorSession.course !== null
-                ) {
+                if (buttonEditSkeleton.checked || g_editorSession.displayedCourse !== null) {
                     return false
                 }
                 return true
@@ -147,18 +138,18 @@ Item {
             }
             ComboBox { // course selection only necessary when we do not edit skeleton derived course
                 id: comboCourse
-                enabled: !g_editorSession.skeletonMode
+                visible: !g_editorSession.skeletonMode
                 Layout.fillWidth: true
                 model: courseModel
                 textRole: "title"
                 onCurrentIndexChanged: {
                     if (courseModel.course(currentIndex)) {
-                        g_editorSession.course = courseModel.course(currentIndex)
+                        g_editorSession.course = courseModel.course(languageSelectionComboBox.currentIndex)
                     }
                 }
                 onVisibleChanged: {
                     if (visible && courseModel.course(currentIndex)) {
-                        g_editorSession.course = courseModel.course(currentIndex)
+                        g_editorSession.course = courseModel.course(languageSelectionComboBox.currentIndex)
                     }
                 }
             }
@@ -166,14 +157,14 @@ Item {
                 text: i18n("Create Course")
                 icon.name: "journal-new"
                 onClicked: {
-                    g_editorSession.course = g_repository.createCourse(g_editorSession.language, g_editorSession.skeleton)
+                    g_editorSession.course = g_repository.createCourse(languageModel.language(languageSelectionComboBox.currentIndex), g_editorSession.skeleton)
                 }
             }
             Item { Layout.fillHeight: true } //dummy
         }
         RowLayout {
             id: mainRow
-            visible: g_editorSession.course !== null
+            visible: g_editorSession.course !== null && createNewCourseRow.visible === false
             Layout.fillHeight: true
             ColumnLayout {
                 ScrollView {
