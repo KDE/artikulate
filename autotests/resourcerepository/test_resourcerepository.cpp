@@ -22,7 +22,6 @@
 #include <QTest>
 #include <QSignalSpy>
 #include <QObject>
-
 #include "src/core/resourcerepository.h"
 #include "src/core/language.h"
 
@@ -81,6 +80,5 @@ void TestResourceRepository::iResourceRepositoryCompatability()
     QCOMPARE(interface->courses(german).count(), 1); // there is exactly one German course
     QCOMPARE(interface->courses(nullptr).count(), 2); // all courses in total are 2
 }
-
 
 QTEST_GUILESS_MAIN(TestResourceRepository)

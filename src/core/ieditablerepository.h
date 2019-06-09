@@ -40,6 +40,12 @@ public:
     virtual QVector<IEditableCourse *> editableCourses() const = 0;
     virtual IEditableCourse * editableCourse(Language *language, int index) const = 0;
     virtual QVector<IEditableCourse *> skeletons() const = 0;
+    /**
+     * Imports units and phrases from skeleton, deassociates removed ones.
+     *
+     * \param course the course to be updated
+     */
+    virtual void updateCourseFromSkeleton(IEditableCourse *course) = 0;
 };
 Q_DECLARE_INTERFACE(IEditableRepository, "IEditableRepository")
 

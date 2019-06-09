@@ -115,12 +115,7 @@ public:
      */
     void reloadCourses() override;
 
-    /**
-     * Imports units and phrases from skeleton, deassociates removed ones.
-     *
-     * \param course the course to be update
-     */
-    void updateCourseFromSkeleton(EditableCourseResource *course);
+    void updateCourseFromSkeleton(IEditableCourse *course) override;
 
     /**
      * Add language to resource manager by parsing the given language specification file.

@@ -97,6 +97,10 @@ public:
     {
         return m_units.toList();
     }
+    void addUnit(Unit *unit) override
+    {
+        m_units.append(unit);
+    }
     QUrl file() const override
     {
         return QUrl();
@@ -133,8 +137,7 @@ void TestEditorSession::createEditorSession()
     Language languageEnglish;
     languageEnglish.setId("en");
     EditableCourseStub course(&languageGerman, QVector<Unit *>());
-    course.setLanguage(&languageGerman);
-    SkeletonResource skeleton(QUrl(), nullptr);
+    course.setLanguage(&languageGerman); SkeletonResource skeleton(QUrl(), nullptr);
 
     EditableRepositoryStub repository{
         {&languageGerman, &languageEnglish}, // languages

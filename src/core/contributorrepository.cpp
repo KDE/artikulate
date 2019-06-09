@@ -308,7 +308,7 @@ void ContributorRepository::reloadCourses()
     emit repositoryChanged();
 }
 
-void ContributorRepository::updateCourseFromSkeleton(EditableCourseResource *course)
+void ContributorRepository::updateCourseFromSkeleton(IEditableCourse *course)
 {
     //TODO implement status information that are shown at mainwindow
     if (course->foreignId().isEmpty())  {
@@ -328,11 +328,11 @@ void ContributorRepository::updateCourseFromSkeleton(EditableCourseResource *cou
     }
 
     // update now
-    foreach (Unit *unitSkeleton, skeleton->unitList()) {
+    for (Unit *unitSkeleton : skeleton->unitList()) {
         // import unit if not exists
         Unit *currentUnit = nullptr;
         bool found = false;
-        foreach (Unit *unit, course->unitList()) {
+        for (Unit *unit : course->unitList()) {
             if (unit->foreignId() == unitSkeleton->id()) {
                 found = true;
                 currentUnit = unit;
@@ -346,13 +346,12 @@ void ContributorRepository::updateCourseFromSkeleton(EditableCourseResource *cou
             currentUnit->setForeignId(unitSkeleton->id());
             currentUnit->setCourse(course);
             course->addUnit(currentUnit);
-            course->setModified(true);
         }
 
         // update phrases
-        foreach (Phrase *phraseSkeleton, unitSkeleton->phraseList()) {
+        for (Phrase *phraseSkeleton : unitSkeleton->phraseList()) {
             bool found = false;
-            foreach (Phrase *phrase, currentUnit->phraseList()) {
+            for (Phrase *phrase : currentUnit->phraseList()) {
                 if (phrase->foreignId() == phraseSkeleton->id()) {
                     if (phrase->i18nText() != phraseSkeleton->text()) {
                         phrase->setEditState(Phrase::Unknown);
@@ -371,12 +370,10 @@ void ContributorRepository::updateCourseFromSkeleton(EditableCourseResource *cou
                 newPhrase->setType(phraseSkeleton->type());
                 newPhrase->setUnit(currentUnit);
                 currentUnit->addPhrase(newPhrase);
-                course->setModified(true);
             }
         }
     }
     // FIXME deassociate removed phrases
-
     qCDebug(ARTIKULATE_LOG) << "Update performed!";
 }
 

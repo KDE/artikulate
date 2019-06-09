@@ -107,11 +107,10 @@ public:
      */
     bool exportCourse(const QUrl &filePath);
 
-    void addUnit(Unit *);
+    void addUnit(Unit *unit) override;
 
     bool isModified() const;
 
-    void setModified(bool modified); //TODO this method should not be public API but only used internally
 
     QUrl file() const override;
 
@@ -132,6 +131,7 @@ Q_SIGNALS:
 
 private:
     Q_DISABLE_COPY(EditableCourseResource)
+    void setModified(bool modified);
     bool m_modified{ false };
     const std::unique_ptr<CourseResource> m_course;
 };

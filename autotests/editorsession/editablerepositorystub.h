@@ -85,11 +85,18 @@ public:
     {
         return m_languages;
     }
+    void updateCourseFromSkeleton(IEditableCourse *course) override
+    {
+        Q_UNUSED(course);
+        // do nothing
+    }
+
 Q_SIGNALS:
     void courseAboutToBeAdded(ICourse*,int) override;
     void courseAdded() override;
     void courseAboutToBeRemoved(int) override;
     void courseRemoved() override;
+
 private:
     QVector<Language *> m_languages;
     QVector<IEditableCourse *> m_skeletons;

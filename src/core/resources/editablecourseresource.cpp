@@ -158,6 +158,7 @@ bool EditableCourseResource::exportCourse(const QUrl &filePath)
 void EditableCourseResource::addUnit(Unit *unit)
 {
     m_course->addUnit(unit);
+    setModified(true);
 }
 
 bool EditableCourseResource::isModified() const

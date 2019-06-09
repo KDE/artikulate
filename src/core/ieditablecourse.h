@@ -42,6 +42,7 @@ public:
     virtual void setI18nTitle(QString title) = 0;
     virtual void setDescription(QString description) = 0;
     virtual void setLanguage(Language *language) = 0;
+    virtual void addUnit(Unit *unit) = 0;
 };
 
 Q_DECLARE_INTERFACE(IEditableCourse, "com.kde.artikulate.IEditableCourse/1.0")
