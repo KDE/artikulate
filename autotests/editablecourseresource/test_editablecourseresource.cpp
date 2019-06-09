@@ -107,15 +107,15 @@ void TestEditableCourseResource::unitAddAndRemoveHandling()
     EditableCourseResource course(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
     // begin of test
-    Unit unit;
-    unit.setId("testunit");
+    Unit *unit = new Unit; // TODO: change to unique pointer when interface is changed to scoped pointers
+    unit->setId("testunit");
     const int initialUnitNumber = course.unitList().count();
     QCOMPARE(initialUnitNumber, 1);
     QSignalSpy spyAboutToBeAdded(&course, SIGNAL(unitAboutToBeAdded(Unit*, int)));
     QSignalSpy spyAdded(&course, SIGNAL(unitAdded()));
     QCOMPARE(spyAboutToBeAdded.count(), 0);
     QCOMPARE(spyAdded.count(), 0);
-    course.addUnit(&unit);
+    course.addUnit(unit);
     QCOMPARE(course.unitList().count(), initialUnitNumber + 1);
     QCOMPARE(spyAboutToBeAdded.count(), 1);
     QCOMPARE(spyAdded.count(), 1);

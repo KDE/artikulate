@@ -50,6 +50,14 @@ ResourceRepository::ResourceRepository(const QUrl &storageLocation, QObject *par
     }
 }
 
+ResourceRepository::~ResourceRepository()
+{
+    for (auto language : m_languages) {
+        language->deleteLater();
+    }
+    m_languages.clear();
+}
+
 QString ResourceRepository::storageLocation() const
 {
     return m_storageLocation;

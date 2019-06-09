@@ -48,6 +48,7 @@ class ARTIKULATECORE_EXPORT ResourceRepository : public IResourceRepository
 
 public:
     explicit ResourceRepository(QObject *parent = nullptr);
+    ~ResourceRepository() override;
 
     /**
      * @brief Construtor for ResourceRepository object with explicitly set course folder

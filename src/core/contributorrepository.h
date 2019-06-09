@@ -52,7 +52,7 @@ class ARTIKULATECORE_EXPORT ContributorRepository : public IEditableRepository
 
 public:
     explicit ContributorRepository(QObject *parent = nullptr);
-    ~ContributorRepository() override = default;
+    ~ContributorRepository() override;
 
     /**
      * save all changes to course resources

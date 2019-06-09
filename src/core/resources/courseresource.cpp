@@ -41,6 +41,7 @@ class CourseResourcePrivate
 {
 public:
     CourseResourcePrivate() = default;
+    ~CourseResourcePrivate();
 
     void loadCourse(CourseResource *parent);
 
@@ -56,6 +57,14 @@ public:
     QVector<Unit *> m_units;
     bool m_courseLoaded{ false }; ///<! indicates if course was completely parsed
 };
+
+CourseResourcePrivate::~CourseResourcePrivate()
+{
+    for (auto unit : m_units) {
+        unit->deleteLater();
+    }
+    m_units.clear();
+}
 
 void CourseResourcePrivate::loadCourse(CourseResource *parent)
 {

@@ -44,6 +44,17 @@ ContributorRepository::ContributorRepository(QObject *parent)
     loadLanguageResources();
 }
 
+ContributorRepository::~ContributorRepository()
+{
+    for (auto skeleton : m_skeletonResources) {
+        skeleton->deleteLater();
+    }
+    m_skeletonResources.clear();
+    for (auto language : m_languageResources) {
+        language->deleteLater();
+    }
+}
+
 void ContributorRepository::loadLanguageResources()
 {
     // load language resources

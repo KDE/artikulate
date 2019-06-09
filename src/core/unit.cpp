@@ -41,6 +41,10 @@ Unit::Unit(QObject *parent)
 
 Unit::~Unit()
 {
+    for (auto phrase : m_phraseList) {
+        phrase->deleteLater();
+    }
+    m_phraseList.clear();
     m_phraseSignalMapper->deleteLater();
 }
 

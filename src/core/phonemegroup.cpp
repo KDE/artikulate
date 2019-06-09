@@ -28,6 +28,14 @@ PhonemeGroup::PhonemeGroup(QObject *parent)
 {
 }
 
+PhonemeGroup::~PhonemeGroup()
+{
+    for (auto phoneme : m_phonemes) {
+        phoneme->deleteLater();
+    }
+    m_phonemes.clear();
+}
+
 QString PhonemeGroup::id() const
 {
     return m_id;

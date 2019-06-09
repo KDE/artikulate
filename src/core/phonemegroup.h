@@ -40,6 +40,7 @@ class ARTIKULATECORE_EXPORT PhonemeGroup : public QObject
 
 public:
     explicit PhonemeGroup(QObject *parent = 0);
+    ~PhonemeGroup() override;
     QString id() const;
     void setId(const QString &id);
     QString title() const;
