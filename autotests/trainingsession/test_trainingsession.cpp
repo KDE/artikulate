@@ -107,20 +107,20 @@ void TestTrainingSession::createTrainingSessionWithEmptySounds()
     Language language;
     Unit unitA;
     Unit unitB;
-    Phrase phraseA1;
-    Phrase phraseA2;
-    Phrase phraseB1;
-    Phrase phraseB2;
+    Phrase *phraseA1 = new Phrase;
+    Phrase *phraseA2 = new Phrase;
+    Phrase *phraseB1 = new Phrase;
+    Phrase *phraseB2 = new Phrase;
     // note: phrases without soundfiles are skipped in session generation
-    phraseA1.setId("A1");
-    phraseA2.setId("A2");
-    phraseB1.setId("B1");
-    phraseB2.setId("B2");
-    phraseA1.setSound(QUrl::fromLocalFile("/tmp/a1.ogg"));
-    unitA.addPhrase(&phraseA1);
-    unitA.addPhrase(&phraseA2);
-    unitB.addPhrase(&phraseB1);
-    unitB.addPhrase(&phraseB2);
+    phraseA1->setId("A1");
+    phraseA2->setId("A2");
+    phraseB1->setId("B1");
+    phraseB2->setId("B2");
+    phraseA1->setSound(QUrl::fromLocalFile("/tmp/a1.ogg"));
+    unitA.addPhrase(phraseA1);
+    unitA.addPhrase(phraseA2);
+    unitB.addPhrase(phraseB1);
+    unitB.addPhrase(phraseB2);
 
     CourseStub course(&language, QVector<Unit *>({&unitA, &unitB}));
     LearnerProfile::ProfileManager manager;
@@ -150,10 +150,10 @@ void TestTrainingSession::createTrainingSessionWithUnitsAndPhrases()
 {
     Language language;
     Unit unit;
-    Phrase firstPhrase;
-    Phrase secondPhrase;
-    unit.addPhrase(&firstPhrase);
-    unit.addPhrase(&secondPhrase);
+    Phrase *firstPhrase = new Phrase;
+    Phrase *secondPhrase = new Phrase;
+    unit.addPhrase(firstPhrase);
+    unit.addPhrase(secondPhrase);
 
     CourseStub course(&language, QVector<Unit *>({&unit}));
     LearnerProfile::ProfileManager manager;
@@ -167,23 +167,23 @@ void TestTrainingSession::iterateCourse()
     Language language;
     Unit unitA;
     Unit unitB;
-    Phrase phraseA1;
-    Phrase phraseA2;
-    Phrase phraseB1;
-    Phrase phraseB2;
+    Phrase *phraseA1 = new Phrase;
+    Phrase *phraseA2 = new Phrase;
+    Phrase *phraseB1 = new Phrase;
+    Phrase *phraseB2 = new Phrase;
     // note: phrases without soundfiles are skipped in session generation
-    phraseA1.setId("A1");
-    phraseA2.setId("A2");
-    phraseB1.setId("B1");
-    phraseB2.setId("B2");
-    phraseA1.setSound(QUrl::fromLocalFile("/tmp/a1.ogg"));
-    phraseA2.setSound(QUrl::fromLocalFile("/tmp/a1.ogg"));
-    phraseB1.setSound(QUrl::fromLocalFile("/tmp/b1.ogg"));
-    phraseB2.setSound(QUrl::fromLocalFile("/tmp/b2.ogg"));
-    unitA.addPhrase(&phraseA1);
-    unitA.addPhrase(&phraseA2);
-    unitB.addPhrase(&phraseB1);
-    unitB.addPhrase(&phraseB2);
+    phraseA1->setId("A1");
+    phraseA2->setId("A2");
+    phraseB1->setId("B1");
+    phraseB2->setId("B2");
+    phraseA1->setSound(QUrl::fromLocalFile("/tmp/a1.ogg"));
+    phraseA2->setSound(QUrl::fromLocalFile("/tmp/a1.ogg"));
+    phraseB1->setSound(QUrl::fromLocalFile("/tmp/b1.ogg"));
+    phraseB2->setSound(QUrl::fromLocalFile("/tmp/b2.ogg"));
+    unitA.addPhrase(phraseA1);
+    unitA.addPhrase(phraseA2);
+    unitB.addPhrase(phraseB1);
+    unitB.addPhrase(phraseB2);
 
     CourseStub course(&language, QVector<Unit *>({&unitA, &unitB}));
     LearnerProfile::ProfileManager manager;
@@ -192,7 +192,7 @@ void TestTrainingSession::iterateCourse()
 
     // session assumed to initialize with first units's first phrase
     QCOMPARE(session.activeUnit(), &unitA);
-    QCOMPARE(session.activePhrase(), &phraseA1);
+    QCOMPARE(session.activePhrase(), phraseA1);
     QVERIFY(&course == session.course());
 
     // test direct unit setters
@@ -202,11 +202,11 @@ void TestTrainingSession::iterateCourse()
     QCOMPARE(session.activeUnit(), &unitB);
 
     // test direct phrase setters
-    session.setPhrase(&phraseA1);
-    QCOMPARE(session.activePhrase(), &phraseA1);
+    session.setPhrase(phraseA1);
+    QCOMPARE(session.activePhrase(), phraseA1);
     QCOMPARE(session.activeUnit(), &unitA);
-    session.setPhrase(&phraseB1);
-    QCOMPARE(session.activePhrase(), &phraseB1);
+    session.setPhrase(phraseB1);
+    QCOMPARE(session.activePhrase(), phraseB1);
     QCOMPARE(session.activeUnit(), &unitB);
 
     // test number of actions
@@ -216,38 +216,38 @@ void TestTrainingSession::iterateCourse()
     QCOMPARE(actions.at(1)->actions().count(), 2);
 
     // test phrase iterators: accept iterator
-    session.setPhrase(&phraseA1);
+    session.setPhrase(phraseA1);
     QCOMPARE(session.activeUnit(), &unitA);
-    QCOMPARE(session.activePhrase(), &phraseA1);
+    QCOMPARE(session.activePhrase(), phraseA1);
     QVERIFY(session.hasNext());
     session.accept();
     QCOMPARE(session.activeUnit(), &unitA);
-    QCOMPARE(session.activePhrase(), &phraseA2);
+    QCOMPARE(session.activePhrase(), phraseA2);
     session.accept();
-    QCOMPARE(session.activePhrase(), &phraseB1);
+    QCOMPARE(session.activePhrase(), phraseB1);
     session.accept();
-    QCOMPARE(session.activePhrase(), &phraseB2);
+    QCOMPARE(session.activePhrase(), phraseB2);
     QVERIFY(!session.hasNext());
 
     // test phrase iterators: skip iterator
-    session.setPhrase(&phraseA1);
+    session.setPhrase(phraseA1);
     QCOMPARE(session.activeUnit(), &unitA);
-    QCOMPARE(session.activePhrase(), &phraseA1);
+    QCOMPARE(session.activePhrase(), phraseA1);
     QVERIFY(!session.hasPrevious());
     QVERIFY(session.hasNext());
     session.skip();
     QCOMPARE(session.activeUnit(), &unitA);
-    QCOMPARE(session.activePhrase(), &phraseA2);
+    QCOMPARE(session.activePhrase(), phraseA2);
     session.skip();
-    QCOMPARE(session.activePhrase(), &phraseB1);
+    QCOMPARE(session.activePhrase(), phraseB1);
     session.skip();
-    QCOMPARE(session.activePhrase(), &phraseB2);
+    QCOMPARE(session.activePhrase(), phraseB2);
     QVERIFY(session.hasPrevious());
     QVERIFY(!session.hasNext());
 
     // test completed signal
     QSignalSpy spy(&session, SIGNAL(completed()));
-    session.setPhrase(&phraseB1);
+    session.setPhrase(phraseB1);
     session.accept();
     QCOMPARE(spy.count(), 0);
     session.accept();
