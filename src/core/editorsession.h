@@ -58,8 +58,14 @@ class ARTIKULATECORE_EXPORT EditorSession : public QObject
     Q_PROPERTY(bool skeletonMode READ skeletonMode NOTIFY skeletonModeChanged)
     Q_PROPERTY(bool editSkeleton READ isEditSkeleton WRITE setEditSkeleton NOTIFY editSkeletonChanged)
     Q_PROPERTY(IEditableCourse *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
-    Q_PROPERTY(Language *language READ language NOTIFY languageChanged)
     Q_PROPERTY(IEditableCourse *course READ course WRITE setCourse NOTIFY courseChanged)
+
+    // editor elements depending on curently selected mode, skeleton and course
+    /**
+     * @brief the displayed course (skeleton or course) depending on the user selection
+     */
+    Q_PROPERTY(IEditableCourse *displayedCourse READ displayedCourse NOTIFY displayedCourseChanged)
+    Q_PROPERTY(Language *language READ language NOTIFY languageChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
@@ -77,6 +83,7 @@ public:
     Language * language() const;
     IEditableCourse * course() const;
     void setCourse(IEditableCourse *course);
+    IEditableCourse * displayedCourse() const;
     Unit * unit() const;
     void setUnit(Unit *unit);
     Phrase * phrase() const;
@@ -89,6 +96,9 @@ public:
     Q_INVOKABLE void switchToNextPhrase();
     Q_INVOKABLE void updateCourseFromSkeleton();
 
+private Q_SLOTS:
+    void updateDisplayedUnit();
+
 private:
     Phrase * nextPhrase() const;
     Phrase * previousPhrase() const;
@@ -99,18 +109,17 @@ Q_SIGNALS:
     void skeletonChanged();
     void languageChanged();
     void courseChanged();
+    void displayedCourseChanged();
     void unitChanged();
     void phraseChanged();
 
 private:
     Q_DISABLE_COPY(EditorSession)
     IEditableRepository * m_repository{ nullptr };
-    bool m_skeletonMode{ false };
     bool m_editSkeleton{ false };
     IEditableCourse *m_skeleton{ nullptr };
     Language *m_language{ nullptr };
     IEditableCourse *m_course{ nullptr };
-    IEditableCourse *m_tmpCourseWhileSkeletonEditing{ nullptr };
     Unit *m_unit{ nullptr };
     Phrase *m_phrase{ nullptr };
 };

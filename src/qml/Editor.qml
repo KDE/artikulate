@@ -53,7 +53,7 @@ Item {
     }
     UnitModel {
         id: selectedUnitModel
-        course: g_editorSession.course
+        course: g_editorSession.displayedCourse
     }
 
     ColumnLayout {
@@ -89,6 +89,7 @@ Item {
                 text: i18n("Edit Prototype")
                 icon.name: "code-class"
                 checkable: true
+                enabled: g_editorSession.skeletonMode
                 onClicked: g_editorSession.editSkeleton = checked
             }
             Item { Layout.fillWidth: true }
@@ -104,15 +105,6 @@ Item {
                 ToolTip.text: i18n("Update the course with elements from prototype.")
                 onClicked: g_editorSession.updateCourseFromSkeleton()
             }
-            CheckBox {
-                Layout.alignment: Qt.AlignRight
-                enabled: false//FIXME for now deactivating non-skeleton mode
-                text: i18n("Prototype Mode")
-                checked: g_editorSession.skeletonMode
-                onClicked: {
-                    g_editorSession.skeletonMode = !g_editorSession.skeletonMode
-                }
-            }
         }
 
         RowLayout {
@@ -127,7 +119,8 @@ Item {
                 model: languageModel
                 textRole: "i18nTitle"
                 onCurrentIndexChanged: {
-                    g_editorSession.language = languageModel.language(currentIndex)
+//                    g_editorSession.language = languageModel.language(currentIndex)
+                    //FIXME language selection shall not change the language but the course
                 }
             }
         }
@@ -154,7 +147,7 @@ Item {
             }
             ComboBox { // course selection only necessary when we do not edit skeleton derived course
                 id: comboCourse
-                visible: !g_editorSession.skeletonMode
+                enabled: !g_editorSession.skeletonMode
                 Layout.fillWidth: true
                 model: courseModel
                 textRole: "title"
@@ -200,7 +193,7 @@ Item {
                         }
                         model: PhraseModel {
                             id: phraseModel
-                            course: g_editorSession.course
+                            course: g_editorSession.displayedCourse
                         }
                         selection: ItemSelectionModel {
                             model: phraseTree.model

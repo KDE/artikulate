@@ -31,7 +31,11 @@
 EditorSession::EditorSession(QObject *parent)
     : QObject(parent)
 {
-
+    connect(this, &EditorSession::skeletonChanged, this, &EditorSession::displayedCourseChanged);
+    connect(this, &EditorSession::courseChanged, this, &EditorSession::displayedCourseChanged);
+    connect(this, &EditorSession::editSkeletonChanged, this, &EditorSession::displayedCourseChanged);
+    connect(this, &EditorSession::displayedCourseChanged, this, &EditorSession::updateDisplayedUnit);
+    connect(this, &EditorSession::courseChanged, this, &EditorSession::skeletonModeChanged);
 }
 
 void EditorSession::setRepository(IEditableRepository *repository)
@@ -41,7 +45,7 @@ void EditorSession::setRepository(IEditableRepository *repository)
 
 bool EditorSession::skeletonMode() const
 {
-    return m_skeletonMode;
+    return m_skeleton != nullptr;
 }
 
 void EditorSession::setEditSkeleton(bool enabled)
@@ -50,13 +54,6 @@ void EditorSession::setEditSkeleton(bool enabled)
         return;
     }
     m_editSkeleton = enabled;
-    if (enabled) {
-        m_tmpCourseWhileSkeletonEditing = m_course;
-//        setCourse(m_skeleton); //FIXME port skeleton for this
-    } else {
-        setCourse(m_tmpCourseWhileSkeletonEditing);
-        m_tmpCourseWhileSkeletonEditing = nullptr;
-    }
     emit editSkeletonChanged();
 }
 
@@ -77,10 +74,6 @@ void EditorSession::setSkeleton(IEditableCourse *skeleton)
     }
     m_skeleton = skeleton;
 
-    if (m_skeletonMode != true) {
-        m_skeletonMode = true;
-        emit skeletonModeChanged();
-    }
     IEditableCourse *newCourse{ nullptr };
     if (m_skeleton && m_repository) {
         for (const auto &course : m_repository->editableCourses()) {
@@ -91,7 +84,6 @@ void EditorSession::setSkeleton(IEditableCourse *skeleton)
         }
     }
     setCourse(newCourse);
-
     emit skeletonChanged();
 }
 
@@ -111,29 +103,48 @@ void EditorSession::setCourse(IEditableCourse *course)
         return;
     }
     m_course = course;
-    if (m_skeleton == nullptr || m_skeleton->id() != course->foreignId()) {
-        for (const auto &skeleton : m_repository->skeletons()) {
-            if (skeleton->id() == course->foreignId()) {
-                m_skeleton = skeleton;
-                emit skeletonChanged();
-                break;
-            }
-        }
-    }
 
     if (m_course != nullptr) {
+        // update skeleton
+        IEditableCourse * newSkeleton{ nullptr };
+        if (m_skeleton == nullptr || m_skeleton->id() != course->foreignId()) {
+            for (const auto &skeleton : m_repository->skeletons()) {
+                if (skeleton->id() == course->foreignId()) {
+                    newSkeleton = skeleton;
+                    break;
+                }
+            }
+            m_skeleton = newSkeleton;
+            emit skeletonChanged();
+        }
+        // update language
         m_language = m_course->language();
     } else {
         m_language = nullptr;
     }
     emit languageChanged();
+    emit courseChanged();
+}
 
-    if (m_course && !m_course->unitList().isEmpty()) {
-        setUnit(m_course->unitList().constFirst());
+IEditableCourse * EditorSession::displayedCourse() const
+{
+    IEditableCourse * course{ nullptr };
+    if (m_editSkeleton) {
+        course = m_skeleton;
+    } else {
+        course = m_course;
+    }
+    return course;
+}
+
+void EditorSession::updateDisplayedUnit()
+{
+    auto course = displayedCourse();
+    if (course && !course->unitList().isEmpty()) {
+        setUnit(course->unitList().constFirst());
     } else {
         setUnit(nullptr);
     }
-    emit courseChanged();
 }
 
 Unit * EditorSession::unit() const
