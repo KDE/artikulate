@@ -140,11 +140,14 @@ IEditableCourse * EditorSession::displayedCourse() const
 void EditorSession::updateDisplayedUnit()
 {
     auto course = displayedCourse();
-    if (course && !course->unitList().isEmpty()) {
-        setUnit(course->unitList().constFirst());
-    } else {
-        setUnit(nullptr);
+    Unit * unit{ nullptr };
+    if (course != nullptr) {
+        auto units = course->unitList();
+        if (!units.isEmpty()) {
+            unit = units.constFirst();
+        }
     }
+    setUnit(unit);
 }
 
 Unit * EditorSession::unit() const
