@@ -38,6 +38,7 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 include(ECMInstallIcons)
 include(ECMOptionalAddSubdirectory)
 include(ECMSetupVersion)
+include(ECMEnableSanitizers)
 include(FeatureSummary)
 include(GenerateExportHeader)
 
