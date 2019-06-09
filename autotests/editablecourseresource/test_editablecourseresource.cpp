@@ -51,13 +51,13 @@ void TestEditableCourseResource::cleanup()
 
 void TestEditableCourseResource::courseSchemeValidationTest()
 {
-    QUrl schemeFile = QUrl::fromLocalFile(QStringLiteral("schemes/course.xsd"));
+    QUrl schemeFile = QUrl::fromLocalFile(":/artikulate/schemes/course.xsd");
     QXmlSchema courseSchema;
     QVERIFY(courseSchema.load(schemeFile));
     QVERIFY(courseSchema.isValid());
 
     //TODO shall be used in skeleton specific test
-    QUrl skeletonFile = QUrl::fromLocalFile(QStringLiteral("schemes/skeleton.xsd"));
+    QUrl skeletonFile = QUrl::fromLocalFile(":/artikulate/schemes/skeleton.xsd");
     QXmlSchema skeletonScheme;
     QVERIFY(skeletonScheme.load(skeletonFile));
     QVERIFY(skeletonScheme.isValid());

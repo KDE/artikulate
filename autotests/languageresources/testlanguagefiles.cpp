@@ -22,10 +22,12 @@
 #include "core/language.h"
 #include "core/unit.h"
 #include "core/phrase.h"
+#include "core/resources/courseparser.h"
 
 #include <QTest>
 #include <QDebug>
 #include <QTemporaryFile>
+#include <QDirIterator>
 #include <QUrl>
 
 #include <QIODevice>
@@ -49,42 +51,9 @@ void TestLanguageFiles::cleanup()
     // TODO cleanup after test run
 }
 
-QXmlSchema TestLanguageFiles::loadXmlSchema(const QString &schemeName) const
-{
-    QString relPath = QStringLiteral("schemes/%1.xsd").arg(schemeName);
-    QUrl file = QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::DataLocation, relPath));
-
-    QXmlSchema schema;
-    if (schema.load(file) == false) {
-        qWarning() << "Schema at file " << file.toLocalFile() << " is invalid.";
-    }
-    return schema;
-}
-
-QDomDocument TestLanguageFiles::loadDomDocument(const QUrl &path, const QXmlSchema &schema) const
-{
-    QDomDocument document;
-    QXmlSchemaValidator validator(schema);
-    if (!validator.validate(path)) {
-        qWarning() << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
-        return document;
-    }
-
-    QString errorMsg;
-    QFile file(path.toLocalFile());
-    if (file.open(QIODevice::ReadOnly)) {
-        if (!document.setContent(&file, &errorMsg)) {
-            qWarning() << errorMsg;
-        }
-    } else {
-        qWarning() << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
-    }
-    return document;
-}
-
 void TestLanguageFiles::languageSchemeValidationTest()
 {
-    QUrl languageFile = QUrl::fromLocalFile(QStringLiteral("schemes/language.xsd"));
+    QUrl languageFile = QUrl::fromLocalFile(":/artikulate/schemes/language.xsd");
     QXmlSchema languageSchema;
     QVERIFY(languageSchema.load(languageFile));
     QVERIFY(languageSchema.isValid());
@@ -92,17 +61,18 @@ void TestLanguageFiles::languageSchemeValidationTest()
 
 void TestLanguageFiles::checkIdUniqueness()
 {
-    QStringList languageFiles = QStandardPaths::locateAll(QStandardPaths::DataLocation, QStringLiteral("data/languages/*.xml"));
-    foreach (const QString &file, languageFiles) {
+    QDirIterator iter(QDir(":/artikulate/languages/"));
+    while (iter.hasNext()) {
+        const QString &file = iter.next();
         qDebug() << "File being parsed: " << file;
         QStringList idList;
         const QUrl &languageFile = QUrl::fromLocalFile(file);
         QVERIFY(languageFile.isLocalFile());
 
-        QXmlSchema schema = loadXmlSchema(QStringLiteral("language"));
+        QXmlSchema schema = CourseParser::loadXmlSchema(QStringLiteral("language"));
         QVERIFY(schema.isValid());
 
-        QDomDocument document = loadDomDocument(languageFile, schema);
+        QDomDocument document = CourseParser::loadDomDocument(languageFile, schema);
         QVERIFY(!document.isNull());
 
         QDomElement root(document.documentElement());

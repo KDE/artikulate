@@ -50,7 +50,7 @@ void TestCourseResource::cleanup()
 
 void TestCourseResource::courseSchemeValidationTest()
 {
-    QUrl schemeFile = QUrl::fromLocalFile(QStringLiteral("schemes/course.xsd"));
+    QUrl schemeFile = QUrl::fromLocalFile(":/artikulate/schemes/course.xsd");
     QXmlSchema courseSchema;
     QVERIFY(courseSchema.load(schemeFile));
     QVERIFY(courseSchema.isValid());

@@ -131,12 +131,15 @@ add_test(NAME test_editablecourseresource COMMAND test_editablecourseresource)
 ecm_mark_as_test(test_editablecourseresource)
 
 
-# basic tests language files (input/output)
-set(TestLanguageFiles_SRCS testlanguagefiles.cpp)
-add_executable(TestLanguageFiles ${TestLanguageFiles_SRCS} )
-target_link_libraries(TestLanguageFiles
+# basic tests language resource conformance with XSD
+set(TestLanguageFiles_SRCS
+    languageresources/testlanguagefiles.cpp
+)
+qt5_add_resources(TestLanguageFiles_SRCS ../data/languages.qrc)
+add_executable(test_languageresources ${TestLanguageFiles_SRCS} )
+target_link_libraries(test_languageresources
     artikulatecore
     Qt5::Test
 )
-add_test(NAME TestLanguageFiles COMMAND TestLanguageFiles)
-ecm_mark_as_test(TestLanguageFiles)
+add_test(NAME test_languageresources COMMAND test_languageresources)
+ecm_mark_as_test(test_languageresources)
