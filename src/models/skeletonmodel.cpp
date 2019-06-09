@@ -47,7 +47,7 @@ QHash< int, QByteArray > SkeletonModel::roleNames() const
     return roles;
 }
 
-void SkeletonModel::setResourceRepository(ContributorRepository *repository)
+void SkeletonModel::setResourceRepository(IEditableRepository *repository)
 {
     if (m_repository == repository) {
         return;
@@ -74,7 +74,7 @@ void SkeletonModel::setResourceRepository(ContributorRepository *repository)
     emit resourceRepositoryChanged();
 }
 
-ContributorRepository * SkeletonModel::resourceRepository() const
+IEditableRepository * SkeletonModel::resourceRepository() const
 {
     return m_repository;
 }

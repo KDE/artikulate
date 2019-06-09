@@ -23,7 +23,7 @@
 
 #include <QAbstractListModel>
 
-class ContributorRepository;
+class IEditableRepository;
 class ICourse;
 class Skeleton;
 class Language;
@@ -32,7 +32,7 @@ class QSignalMapper;
 class SkeletonModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(ContributorRepository *repository READ resourceRepository WRITE setResourceRepository NOTIFY resourceRepositoryChanged)
+    Q_PROPERTY(IEditableRepository *repository READ resourceRepository WRITE setResourceRepository NOTIFY resourceRepositoryChanged)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
@@ -44,12 +44,12 @@ public:
     };
 
     explicit SkeletonModel(QObject *parent = nullptr);
-    void setResourceRepository(ContributorRepository *repository);
+    void setResourceRepository(IEditableRepository *repository);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
     virtual QHash<int,QByteArray> roleNames() const override;
-    ContributorRepository * resourceRepository() const;
+    IEditableRepository * resourceRepository() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
@@ -70,7 +70,7 @@ private Q_SLOTS:
 
 private:
     void updateMappings();
-    ContributorRepository *m_repository;
+    IEditableRepository *m_repository;
     QSignalMapper *m_signalMapper;
 };
 
