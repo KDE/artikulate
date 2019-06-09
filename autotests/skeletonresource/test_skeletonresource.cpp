@@ -50,7 +50,7 @@ void TestSkeletonResource::cleanup()
 
 void TestSkeletonResource::schemeValidationTest()
 {
-    QUrl skeletonFile = QUrl::fromLocalFile(QStringLiteral("schemes/skeleton.xsd"));
+    QUrl skeletonFile = QUrl::fromLocalFile(":/artikulate/schemes/skeleton.xsd");
     QXmlSchema skeletonScheme;
     QVERIFY(skeletonScheme.load(skeletonFile));
     QVERIFY(skeletonScheme.isValid());
