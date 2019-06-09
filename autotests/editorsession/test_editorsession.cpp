@@ -34,7 +34,8 @@ class EditableCourseStub : public IEditableCourse
 {
 public:
     EditableCourseStub(Language *language, QVector<Unit *> units)
-        : m_language(language)
+        : IEditableCourse()
+        , m_language(language)
         , m_units(units)
     {
     }
@@ -227,6 +228,5 @@ void TestEditorSession::skeletonSwitchingBehavior()
     QVERIFY(session.language() != nullptr);
     QCOMPARE(session.language()->id(), languageGerman.id());
 }
-
 
 QTEST_GUILESS_MAIN(TestEditorSession)

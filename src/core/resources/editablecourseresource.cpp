@@ -26,6 +26,7 @@
 #include "core/phoneme.h"
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QDomDocument>
 #include <QDir>
 #include <QFile>
@@ -35,8 +36,10 @@
 #include <KLocalizedString>
 
 EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceRepository *repository)
-    : m_course(new CourseResource(path, repository))
+    : IEditableCourse()
+    , m_course(new CourseResource(path, repository))
 {
+    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
     connect(m_course.get(), &ICourse::unitAboutToBeAdded, this, &ICourse::unitAboutToBeAdded);
     connect(m_course.get(), &ICourse::unitAdded, this, &ICourse::unitAdded);
     connect(m_course.get(), &CourseResource::idChanged, this, &EditableCourseResource::idChanged);

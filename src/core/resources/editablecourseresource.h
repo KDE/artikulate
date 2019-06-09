@@ -131,6 +131,7 @@ Q_SIGNALS:
     void languageChanged();
 
 private:
+    Q_DISABLE_COPY(EditableCourseResource)
     bool m_modified{ false };
     const std::unique_ptr<CourseResource> m_course;
 };

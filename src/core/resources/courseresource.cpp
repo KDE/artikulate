@@ -28,6 +28,7 @@
 #include "core/language.h"
 #include "core/iresourcerepository.h"
 
+#include <QQmlEngine>
 #include <QXmlSchema>
 #include <QXmlStreamReader>
 #include <QDomDocument>
@@ -129,6 +130,7 @@ CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository
     : ICourse(repository)
     , d(new CourseResourcePrivate())
 {
+    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
     d->m_file = path;
     d->m_repository = repository;
 

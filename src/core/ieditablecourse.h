@@ -31,6 +31,10 @@ class Language;
 class ARTIKULATECORE_EXPORT IEditableCourse : public ICourse
 {
 public:
+    IEditableCourse(QObject *parent = nullptr)
+        : ICourse(parent)
+    {
+    }
     virtual ~IEditableCourse() = default;
     virtual void setId(QString id) = 0;
     virtual void setForeignId(QString foreignId) = 0;

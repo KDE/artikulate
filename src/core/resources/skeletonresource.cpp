@@ -28,6 +28,7 @@
 #include "core/resources/languageresource.h"
 
 #include <QDir>
+#include <QQmlEngine>
 #include <QDomDocument>
 #include <QIODevice>
 #include <QXmlStreamReader>
@@ -183,6 +184,7 @@ SkeletonResource::SkeletonResource(const QUrl &path, IResourceRepository *reposi
     : IEditableCourse()
     , d(new SkeletonResourcePrivate(path))
 {
+    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
     Q_UNUSED(repository);
 }
 
