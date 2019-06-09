@@ -25,7 +25,6 @@
 
 class LanguageResourceModel;
 class Language;
-class QSignalMapper;
 
 class LanguageModel : public QSortFilterProxyModel
 {

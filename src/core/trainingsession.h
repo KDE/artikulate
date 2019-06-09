@@ -25,7 +25,6 @@
 #include "phrase.h"
 #include <QVector>
 
-class QString;
 class Language;
 class ICourse;
 class Unit;

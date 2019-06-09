@@ -25,7 +25,6 @@
 #include <QTemporaryFile>
 #include <QWidget>
 
-class QMediaPlayer;
 
 class SoundDeviceDialogPage :
     public QWidget

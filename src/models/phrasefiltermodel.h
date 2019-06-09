@@ -25,7 +25,6 @@
 #include <QSortFilterProxyModel>
 
 class PhraseListModel;
-class QSignalMapper;
 
 class PhraseFilterModel : public QSortFilterProxyModel
 {

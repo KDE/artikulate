@@ -24,7 +24,6 @@
 #include "artikulatecore_export.h"
 #include "phrase.h"
 
-class QString;
 class Language;
 class IEditableCourse;
 class Unit;

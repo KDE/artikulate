@@ -42,7 +42,7 @@ Storage::Storage(QObject* parent)
 
 }
 
-Storage::Storage(const QString databasePath, QObject* parent)
+Storage::Storage(const QString &databasePath, QObject* parent)
     : QObject(parent)
     , m_databasePath(databasePath)
     , m_errorMessage(QString())

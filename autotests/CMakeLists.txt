@@ -44,7 +44,7 @@ target_link_libraries(test_resourcerepository
     artikulatecore
     Qt5::Test
 )
-add_test(test_resourcerepository test_resourcerepository)
+add_test(NAME test_resourcerepository COMMAND test_resourcerepository)
 ecm_mark_as_test(test_resourcerepository)
 
 
@@ -56,7 +56,7 @@ target_link_libraries(test_iresourcerepository_integration
     artikulatecore
     Qt5::Test
 )
-add_test(test_iresourcerepository_integration test_iresourcerepository_integration)
+add_test(NAME test_iresourcerepository_integration COMMAND test_iresourcerepository_integration)
 ecm_mark_as_test(test_iresourcerepository_integration)
 
 
@@ -67,7 +67,7 @@ target_link_libraries(test_trainingsession
     artikulatecore
     Qt5::Test
 )
-add_test(test_trainingsession test_trainingsession)
+add_test(NAME test_trainingsession COMMAND test_trainingsession)
 ecm_mark_as_test(test_trainingsession)
 
 
@@ -81,7 +81,7 @@ target_link_libraries(test_editorsession
     artikulatecore
     Qt5::Test
 )
-add_test(test_editorsession test_editorsession)
+add_test(NAME test_editorsession COMMAND test_editorsession)
 ecm_mark_as_test(test_editorsession)
 
 
@@ -96,7 +96,7 @@ target_link_libraries(test_courseresource
     artikulatecore
     Qt5::Test
 )
-add_test(test_courseresource test_courseresource)
+add_test(NAME test_courseresource COMMAND test_courseresource)
 ecm_mark_as_test(test_courseresource)
 
 
@@ -111,7 +111,7 @@ target_link_libraries(test_skeletonresource
     artikulatecore
     Qt5::Test
 )
-add_test(test_skeletonresource test_skeletonresource)
+add_test(NAME test_skeletonresource COMMAND test_skeletonresource)
 ecm_mark_as_test(test_skeletonresource)
 
 
@@ -127,7 +127,7 @@ target_link_libraries(test_editablecourseresource
     artikulatecore
     Qt5::Test
 )
-add_test(test_editablecourseresource test_editablecourseresource)
+add_test(NAME test_editablecourseresource COMMAND test_editablecourseresource)
 ecm_mark_as_test(test_editablecourseresource)
 
 
@@ -138,5 +138,5 @@ target_link_libraries(TestLanguageFiles
     artikulatecore
     Qt5::Test
 )
-add_test(TestLanguageFiles TestLanguageFiles)
+add_test(NAME TestLanguageFiles COMMAND TestLanguageFiles)
 ecm_mark_as_test(TestLanguageFiles)

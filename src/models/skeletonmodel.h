@@ -26,7 +26,6 @@
 class IEditableRepository;
 class ICourse;
 class Skeleton;
-class Language;
 class QSignalMapper;
 
 class SkeletonModel : public QAbstractListModel
