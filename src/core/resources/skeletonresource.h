@@ -64,7 +64,7 @@ public:
 
     bool exportCourse(const QUrl &filePath);
 
-    void addUnit(Unit *unit);
+    void addUnit(Unit *unit) override;
 
     bool isModified() const { return true;} //FIXME
 
