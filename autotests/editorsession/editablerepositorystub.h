@@ -37,55 +37,61 @@ class EditableRepositoryStub : public IEditableRepository
     Q_OBJECT
 public:
     EditableRepositoryStub(
-            QVector<Language *> languages,
-            QVector<IEditableCourse *> skeletons,
-            QVector<IEditableCourse *> courses)
-        : m_languages{ languages }
-        , m_skeletons{ skeletons }
-        , m_courses{ courses }
+            std::vector<std::shared_ptr<Language>> languages,
+            std::vector<std::shared_ptr<IEditableCourse>> skeletons,
+            std::vector<std::shared_ptr<IEditableCourse>> courses)
     {
+        for (auto &language : languages) {
+            m_languages.append(std::move(language));
+        }
+        for (auto &skeleton : skeletons) {
+            m_skeletons.append(std::move(skeleton));
+        }
+        for (auto &course : courses) {
+            m_courses.append(course);
+        }
     }
     ~EditableRepositoryStub() override;
     QString storageLocation() const override
     {
         return QString();
     }
-    QVector<IEditableCourse *> skeletons() const override
+    QVector<std::shared_ptr<IEditableCourse>> skeletons() const override
     {
         return m_skeletons;
     }
-    QVector<IEditableCourse *> editableCourses() const override
+    QVector<std::shared_ptr<IEditableCourse>> editableCourses() const override
     {
         return m_courses;
     }
-    QVector<ICourse *> courses() const override
+    QVector<std::shared_ptr<ICourse>> courses() const override
     {
-        QVector<ICourse *> courses;
+        QVector<std::shared_ptr<ICourse>> courses;
         for (auto course : m_courses) {
             courses.push_back(course);
         }
         return courses;
     }
-    QVector<ICourse *> courses(Language *language) const override
+    QVector<std::shared_ptr<ICourse>> courses(const QString &languageId) const override
     {
-        Q_UNUSED(language);
-        return QVector<ICourse *>();
+        Q_UNUSED(languageId);
+        return QVector<std::shared_ptr<ICourse>>();
     }
-    IEditableCourse * editableCourse(Language *language, int index) const override
+    std::shared_ptr<IEditableCourse> editableCourse(std::shared_ptr<Language> language, int index) const override
     {
         Q_UNUSED(language);
         Q_UNUSED(index);
-        return nullptr;
+        return std::shared_ptr<IEditableCourse>();
     }
     void reloadCourses() override
     {
         // do nothing
     }
-    QVector<Language *> languages() const override
+    QVector<std::shared_ptr<Language>> languages() const override
     {
         return m_languages;
     }
-    void updateCourseFromSkeleton(IEditableCourse *course) override
+    void updateCourseFromSkeleton(std::shared_ptr<IEditableCourse> course) override
     {
         Q_UNUSED(course);
         // do nothing
@@ -98,9 +104,9 @@ Q_SIGNALS:
     void courseRemoved() override;
 
 private:
-    QVector<Language *> m_languages;
-    QVector<IEditableCourse *> m_skeletons;
-    QVector<IEditableCourse *> m_courses;
+    QVector<std::shared_ptr<Language>> m_languages;
+    QVector<std::shared_ptr<IEditableCourse>> m_skeletons;
+    QVector<std::shared_ptr<IEditableCourse>> m_courses;
 };
 
 #endif

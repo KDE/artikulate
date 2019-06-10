@@ -69,7 +69,7 @@ void TestResourceRepository::iResourceRepositoryCompatability()
 
     // test access of courses grouped by language
     auto languages = interface->languages();
-    Language *german = nullptr;
+    std::shared_ptr<Language> german;
     for (auto language : interface->languages()) {
         if (language->id() == "de") {
             german = language;
@@ -77,7 +77,7 @@ void TestResourceRepository::iResourceRepositoryCompatability()
         }
     }
     QVERIFY(german != nullptr); // ensure that German language was found
-    QCOMPARE(interface->courses(german).count(), 1); // there is exactly one German course
+    QCOMPARE(interface->courses(german->id()).count(), 1); // there is exactly one German course
     QCOMPARE(interface->courses(nullptr).count(), 2); // all courses in total are 2
 }
 

@@ -66,17 +66,17 @@ public:
     /**
      * @return list of available courses
      */
-    QVector<ICourse*> courses() const override;
+    QVector<std::shared_ptr<ICourse>> courses() const override;
 
     /**
      * @return list of available courses
      */
-    QVector<ICourse*> courses(Language *language) const override;
+    QVector<std::shared_ptr<ICourse>> courses(const QString &languageId) const override;
 
     /**
      * @return list of all available language specifications
      */
-    QVector<Language *> languages() const override;
+    QVector<std::shared_ptr<Language>> languages() const override;
 
     Language * language(const QString &id) const;
 
@@ -95,8 +95,8 @@ Q_SIGNALS:
 private:
     bool loadCourse(const QString &resourceFile);
     bool loadLanguage(const QString &resourceFile);
-    QVector<CourseResource *> m_courses;
-    QHash<QString, LanguageResource*> m_languages; ///>! (language-identifier, language resource)
+    QVector<std::shared_ptr<CourseResource>> m_courses;
+    QHash<QString, std::shared_ptr<LanguageResource>> m_languages; ///>! (language-identifier, language resource)
     QStringList m_loadedCourses;
     const QString m_storageLocation;
 };

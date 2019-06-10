@@ -58,9 +58,12 @@ void TestCourseResource::courseSchemeValidationTest()
 
 void TestCourseResource::loadCourseResource()
 {
-    Language language;
-    language.setId("de");
-    ResourceRepositoryStub repository({&language});
+    std::unique_ptr<Language> language(new Language);
+    language->setId("de");
+    std::vector<std::unique_ptr<Language>> languages;
+    languages.push_back(std::move(language));
+    ResourceRepositoryStub repository(std::move(languages));
+
     const QString courseDirectory = "data/courses/de/";
     const QString courseFile = courseDirectory + "de.xml";
 
@@ -96,15 +99,18 @@ void TestCourseResource::loadCourseResource()
 void TestCourseResource::unitAddAndRemoveHandling()
 {
     // boilerplate
-    Language language;
-    language.setId("de");
-    ResourceRepositoryStub repository({&language});
+    std::unique_ptr<Language> language(new Language);
+    language->setId("de");
+    std::vector<std::unique_ptr<Language>> languages;
+    languages.push_back(std::move(language));
+    ResourceRepositoryStub repository(std::move(languages));
+
     const QString courseDirectory = "data/courses/de/";
     const QString courseFile = courseDirectory + "de.xml";
     CourseResource course(QUrl::fromLocalFile(courseFile), &repository);
 
     // begin of test
-    Unit *unit = new Unit;
+    std::unique_ptr<Unit> unit(new Unit);
     unit->setId("testunit");
     const int initialUnitNumber = course.unitList().count();
     QCOMPARE(initialUnitNumber, 1);
@@ -112,7 +118,7 @@ void TestCourseResource::unitAddAndRemoveHandling()
     QSignalSpy spyAdded(&course, SIGNAL(unitAdded()));
     QCOMPARE(spyAboutToBeAdded.count(), 0);
     QCOMPARE(spyAdded.count(), 0);
-    course.addUnit(unit);
+    course.addUnit(std::move(unit));
     QCOMPARE(course.unitList().count(), initialUnitNumber + 1);
     QCOMPARE(spyAboutToBeAdded.count(), 1);
     QCOMPARE(spyAdded.count(), 1);
@@ -121,9 +127,12 @@ void TestCourseResource::unitAddAndRemoveHandling()
 void TestCourseResource::coursePropertyChanges()
 {
     // boilerplate
-    Language language;
-    language.setId("de");
-    ResourceRepositoryStub repository({&language});
+    std::unique_ptr<Language> language(new Language);
+    language->setId("de");
+    std::vector<std::unique_ptr<Language>> languages;
+    languages.push_back(std::move(language));
+    ResourceRepositoryStub repository(std::move(languages));
+
     const QString courseDirectory = "data/courses/de/";
     const QString courseFile = courseDirectory + "de.xml";
     CourseResource course(QUrl::fromLocalFile(courseFile), &repository);
@@ -180,11 +189,11 @@ void TestCourseResource::coursePropertyChanges()
 
     // language
     {
-        Language testLanguage;
+        std::shared_ptr<Language> testLanguage;
         QSignalSpy spy(&course, SIGNAL(languageChanged()));
         QCOMPARE(spy.count(), 0);
-        course.setLanguage(&testLanguage);
-        QCOMPARE(course.language(), &testLanguage);
+        course.setLanguage(testLanguage);
+        QCOMPARE(course.language(), testLanguage);
         QCOMPARE(spy.count(), 1);
     }
 }

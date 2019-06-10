@@ -28,6 +28,7 @@
 #include "core/language.h"
 #include "core/iresourcerepository.h"
 
+#include <memory>
 #include <QQmlEngine>
 #include <QXmlSchema>
 #include <QXmlStreamReader>
@@ -52,20 +53,14 @@ public:
     QString m_foreignId;
     QString m_title;
     QString m_languageId;
-    Language *m_language{ nullptr };
+    std::shared_ptr<Language> m_language;
     QString m_i18nTitle;
     QString m_description;
-    QVector<Unit *> m_units;
+    QVector<std::shared_ptr<Unit>> m_units;
     bool m_courseLoaded{ false }; ///<! indicates if course was completely parsed
 };
 
-CourseResourcePrivate::~CourseResourcePrivate()
-{
-    for (auto unit : m_units) {
-        unit->deleteLater();
-    }
-    m_units.clear();
-}
+CourseResourcePrivate::~CourseResourcePrivate() = default;
 
 void CourseResourcePrivate::loadCourse(CourseResource *parent)
 {
@@ -106,23 +101,23 @@ void CourseResourcePrivate::loadCourse(CourseResource *parent)
          !unitNode.isNull();
          unitNode = unitNode.nextSiblingElement())
     {
-        Unit *unit = new Unit(nullptr);
+        std::unique_ptr<Unit> unit(new Unit);
         unit->setId(unitNode.firstChildElement(QStringLiteral("id")).text());
         unit->setCourse(parent);
         unit->setTitle(unitNode.firstChildElement(QStringLiteral("title")).text());
         if (!unitNode.firstChildElement(QStringLiteral("foreignId")).isNull()) {
             unit->setForeignId(unitNode.firstChildElement(QStringLiteral("foreignId")).text());
         }
-        parent->addUnit(unit);
 
         // create phrases
         for (QDomElement phraseNode = unitNode.firstChildElement(QStringLiteral("phrases")).firstChildElement();
             !phraseNode.isNull();
             phraseNode = phraseNode.nextSiblingElement())
         {
-            unit->addPhrase(CourseParser::parsePhrase(phraseNode, unit)); // add to unit at last step to produce only one signal
+            unit->addPhrase(CourseParser::parsePhrase(phraseNode, unit.get())); // add to unit at last step to produce only one signal
             //FIXME phrase does not cause unit signals that phonemes list is changed
         }
+        parent->addUnit(std::move(unit));
     }
 }
 
@@ -273,12 +268,12 @@ void CourseResource::setDescription(const QString &description)
     emit descriptionChanged();
 }
 
-Language * CourseResource::language() const
+std::shared_ptr<Language> CourseResource::language() const
 {
     return d->m_language;
 }
 
-void CourseResource::setLanguage(Language *language)
+void CourseResource::setLanguage(std::shared_ptr<Language> language)
 {
     if (d->m_language == language) {
         return;
@@ -287,11 +282,12 @@ void CourseResource::setLanguage(Language *language)
     emit languageChanged();
 }
 
-void CourseResource::addUnit(Unit *unit)
+std::shared_ptr<Unit> CourseResource::addUnit(std::unique_ptr<Unit> unit)
 {
-    emit unitAboutToBeAdded(unit, d->m_units.count() - 1);
-    d->m_units.append(unit);
+    emit unitAboutToBeAdded(unit.get(), d->m_units.count() - 1);
+    d->m_units.append(std::move(unit));
     emit unitAdded();
+    return d->m_units.last();
 }
 
 QList<Unit *> CourseResource::unitList()
@@ -299,10 +295,14 @@ QList<Unit *> CourseResource::unitList()
     if (d->m_courseLoaded == false) {
         d->loadCourse(this);
     }
-    return d->m_units.toList();
+    QList<Unit *> rawList;
+    for (auto unit : d->m_units) {
+        rawList.append(unit.get());
+    }
+    return rawList;
 }
 
-QVector<Unit *> CourseResource::units()
+QVector<std::shared_ptr<Unit>> CourseResource::units()
 {
     if (d->m_courseLoaded == false) {
         d->loadCourse(this);

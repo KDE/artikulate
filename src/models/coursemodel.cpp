@@ -82,8 +82,15 @@ void CourseModel::setResourceRepository(IResourceRepository *resourceRepository)
         connect(m_resourceRepository, &IResourceRepository::courseAdded, this, &CourseModel::onCourseAdded);
         connect(m_resourceRepository, &IResourceRepository::courseAboutToBeRemoved, this, &CourseModel::onCourseAboutToBeRemoved);
     }
+    m_courses.clear();
+    QString languageId;
+    if (m_language) {
+        languageId = m_language->id();
+    }
     if (m_resourceRepository) {
-        m_courses = m_resourceRepository->courses(m_language);
+        for (auto course : m_resourceRepository->courses(languageId)) {
+            m_courses.append(course.get());
+        }
     }
     endResetModel();
     emit resourceManagerChanged();
@@ -103,7 +110,14 @@ void CourseModel::setLanguage(Language *language)
 {
     beginResetModel();
     m_language = language;
-    m_courses = m_resourceRepository->courses(m_language);
+    m_courses.clear();
+    QString languageId;
+    if (m_language) {
+        languageId = m_language->id();
+    }
+    for (auto course : m_resourceRepository->courses(languageId)) {
+        m_courses.append(course.get());
+    }
     emit languageChanged();
     endResetModel();
     emit rowCountChanged();
@@ -137,7 +151,7 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
     case ContributerResourceRole:
         return false;// m_resources.at(index.row())->isContributorResource();//FIXME
     case LanguageRole:
-        return QVariant::fromValue<QObject*>(course->language());
+        return QVariant::fromValue<QObject*>(course->language().get());
     case DataRole:
         return QVariant::fromValue<QObject*>(course);
     default:
@@ -172,10 +186,14 @@ void CourseModel::onCourseAdded()
 
 void CourseModel::onCourseAboutToBeRemoved(int index)
 {
-    if (index >= m_resourceRepository->courses(m_language).count()) {
+    QString languageId;
+    if (m_language) {
+        languageId = m_language->id();
+    }
+    if (index >= m_resourceRepository->courses(languageId).count()) {
         return;
     }
-    ICourse *originalCourse = m_resourceRepository->courses(m_language).at(index);
+    ICourse *originalCourse = m_resourceRepository->courses(languageId).at(index).get();
     int modelIndex = m_courses.indexOf(originalCourse);
 
     if (modelIndex == -1) {

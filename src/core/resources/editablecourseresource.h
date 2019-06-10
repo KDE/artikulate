@@ -94,9 +94,9 @@ public:
     /**
      * \return language identifier of this course
      */
-    Language * language() const override;
+    std::shared_ptr<Language> language() const override;
 
-    void setLanguage(Language *language) override;
+    void setLanguage(std::shared_ptr<Language> language) override;
 
     void sync();
 
@@ -107,7 +107,7 @@ public:
      */
     bool exportCourse(const QUrl &filePath);
 
-    void addUnit(Unit *unit) override;
+    std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override;
 
     bool isModified() const;
 

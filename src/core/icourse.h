@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QMap>
 #include <QUrl>
+#include <memory>
 
 class QString;
 class Language;
@@ -37,7 +38,6 @@ class ARTIKULATECORE_EXPORT ICourse : public QObject
     Q_PROPERTY(QString title READ title NOTIFY titleChanged)
     Q_PROPERTY(QString i18nTitle READ i18nTitle NOTIFY titleChanged)
     Q_PROPERTY(QString description READ description NOTIFY descriptionChanged)
-    Q_PROPERTY(Language * language READ language NOTIFY languageChanged)
 
 public:
     ICourse(QObject *parent = nullptr)
@@ -50,7 +50,7 @@ public:
     virtual QString title() const = 0;
     virtual QString i18nTitle() const = 0;
     virtual QString description() const = 0;
-    virtual Language * language() const = 0;
+    virtual std::shared_ptr<Language> language() const = 0;
     /**
      * @brief Lazy loading unit list
      * @return list of units in course

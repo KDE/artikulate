@@ -76,7 +76,7 @@ void TestLanguageFiles::checkIdUniqueness()
         QVERIFY(!document.isNull());
 
         QDomElement root(document.documentElement());
-        Language *language = new Language(this);
+        std::unique_ptr<Language> language(new Language);
         language->setFile(languageFile);
         language->setId(root.firstChildElement(QStringLiteral("id")).text());
         language->setTitle(root.firstChildElement(QStringLiteral("title")).text());

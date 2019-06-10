@@ -23,6 +23,7 @@
 
 #include "artikulatecore_export.h"
 #include "ieditablerepository.h"
+#include <memory>
 #include <QObject>
 #include <QMap>
 #include <QHash>
@@ -75,47 +76,42 @@ public:
      */
     void setStorageLocation(const QString &path);
 
-    /**
-     * \return list of all available language specifications
-     */
-    Q_DECL_DEPRECATED QList<LanguageResource *> languageResources() const;
-
-    QVector<Language *> languages() const override;
+    QVector<std::shared_ptr<Language>> languages() const override;
 
     /**
      * \return language by \p index
      */
-    Q_INVOKABLE Language * language(int index) const;
+    std::shared_ptr<Language> language(int index) const;
 
     /**
      * \return language by \p learningGoal
      */
     Q_INVOKABLE Language * language(LearnerProfile::LearningGoal* learningGoal) const;
 
-    QVector<ICourse *> courses() const override;
-    QVector<IEditableCourse *> editableCourses() const override;
-    QVector<ICourse *> courses(Language *language) const override;
+    QVector<std::shared_ptr<ICourse>> courses() const override;
+    QVector<std::shared_ptr<ICourse>> courses(const QString &languageId) const override;
+    QVector<std::shared_ptr<IEditableCourse>> editableCourses() const override;
 
     /**
      * \return list of all loaded courses for language \p language
      */
-    QList<EditableCourseResource *> courseResources(Language *language);
+    QVector<std::shared_ptr<EditableCourseResource>> courseResources(std::shared_ptr<Language> language);
 
-    Q_INVOKABLE IEditableCourse * editableCourse(Language *language, int index) const override;
+    std::shared_ptr<IEditableCourse> editableCourse(std::shared_ptr<Language> language, int index) const override;
 
     /**
      * Reset the file for this course or skeleton.
      *
      * \param course the course to be reloaded
      */
-    Q_INVOKABLE void reloadCourseOrSkeleton(ICourse *course);
+    void reloadCourseOrSkeleton(std::shared_ptr<ICourse> course);
 
     /**
      * @brief Implementation of course resource reloading
      */
     void reloadCourses() override;
 
-    void updateCourseFromSkeleton(IEditableCourse *course) override;
+    void updateCourseFromSkeleton(std::shared_ptr<IEditableCourse> course) override;
 
     /**
      * Add language to resource manager by parsing the given language specification file.
@@ -130,7 +126,7 @@ public:
      * \param courseFile is the local XML file containing the course
      * \return true if loaded successfully, otherwise false
      */
-    EditableCourseResource * addCourse(const QUrl &courseFile);
+    std::shared_ptr<EditableCourseResource> addCourse(const QUrl &courseFile);
 
     /**
      * Adds course to resource manager. If the course's language is not registered, the language
@@ -138,7 +134,7 @@ public:
      *
      * \param resource the course resource to add to resource manager
      */
-    void addCourseResource(EditableCourseResource *resource);
+    std::shared_ptr<EditableCourseResource> addCourseResource(std::unique_ptr<EditableCourseResource> resource);
 
     /**
      * Remove course from resource manager. If the course is modified its changes are NOT
@@ -146,28 +142,28 @@ public:
      *
      * \param course is the course to be removed
      */
-    void removeCourse(ICourse *course);
+    void removeCourse(std::shared_ptr<ICourse> course);
 
     /**
      * Create new course for \p language and derived from \p skeleton.
      *
      * \return created course
      */
-    Q_INVOKABLE EditableCourseResource * createCourse(Language *language, SkeletonResource *skeleton);
+    Q_INVOKABLE IEditableCourse * createCourse(std::shared_ptr<Language> language, std::shared_ptr<SkeletonResource> skeleton);
 
     /**
      * Adds skeleton resource to resource manager
      *
      * \param resource the skeleton resource to add to resource manager
      */
-    void addSkeleton(const QUrl &skeletonFile);
+    std::shared_ptr<SkeletonResource> addSkeleton(const QUrl &skeletonFile);
 
     /**
      * Adds skeleton resource to resource manager
      *
      * \param resource the skeleton resource to add to resource manager
      */
-    void addSkeletonResource(SkeletonResource *resource);
+    std::shared_ptr<SkeletonResource> addSkeletonResource(std::unique_ptr<SkeletonResource> resource);
 
     /**
      * Remove skeleton from resource manager. If the skeleton is modified its changes are NOT
@@ -177,7 +173,7 @@ public:
      */
     void removeSkeleton(SkeletonResource *skeleton);
 
-    QVector<IEditableCourse *> skeletons() const override;
+    QVector<std::shared_ptr<IEditableCourse>> skeletons() const override;
 
 Q_SIGNALS:
     void languageResourceAdded();
@@ -202,9 +198,9 @@ private:
      */
     void loadLanguageResources();
     QString m_storageLocation;
-    QList<LanguageResource *> m_languageResources;
-    QMap<QString, QList<EditableCourseResource *> > m_courses; //!> (language-id, course-resource)
-    QVector<SkeletonResource *> m_skeletonResources;
+    QVector<std::shared_ptr<LanguageResource>> m_languageResources;
+    QMap<QString, QVector<std::shared_ptr<EditableCourseResource>> > m_courses; //!> (language-id, course-resource)
+    QVector<std::shared_ptr<SkeletonResource>> m_skeletonResources;
     QStringList m_loadedResources;
 };
 

@@ -22,6 +22,7 @@
 #define IRESOURCEREPOSITORY_H
 
 #include "artikulatecore_export.h"
+#include <memory>
 #include <QObject>
 
 class ICourse;
@@ -46,13 +47,13 @@ public:
     /**
      * @return list of all loaded courses
      */
-    virtual QVector<ICourse *> courses() const = 0;
+    virtual QVector<std::shared_ptr<ICourse>> courses() const = 0;
 
     /**
      * @param language to use for filtering
      * @return list of all loaded courses filtered by the named language
      */
-    virtual QVector<ICourse *> courses(Language *language) const = 0;
+    virtual QVector<std::shared_ptr<ICourse>> courses(const QString &languageId) const = 0;
 
     /**
      * @brief Requests a refresh of all resources
@@ -64,7 +65,7 @@ public:
     /**
      * \return list of all available languages
      */
-    virtual QVector<Language *> languages() const = 0;
+    virtual QVector<std::shared_ptr<Language>> languages() const = 0;
 
 Q_SIGNALS:
     virtual void courseAboutToBeAdded(ICourse*,int) = 0;

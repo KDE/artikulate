@@ -133,7 +133,7 @@ void LanguageResourceModel::onLanguageAboutToBeRemoved(int index)
         return;
     }
 
-    Language *originalLanguage = m_repository->languages().at(index);
+    Language *originalLanguage = m_repository->languages().at(index).get();
     int modelIndex = m_languages.indexOf(originalLanguage);
 
     if (modelIndex == -1) {
@@ -181,7 +181,10 @@ void LanguageResourceModel::updateDisplayedLanguages()
     beginResetModel();
     m_languages.clear();
     if (m_repository) {
-        m_languages = m_repository->languages();
+        m_languages.clear();
+        for (auto language: m_repository->languages()) {
+            m_languages.append(language.get());
+        }
     }
     updateMappings();
     endResetModel();

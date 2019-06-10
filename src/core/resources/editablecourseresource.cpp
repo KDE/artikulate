@@ -99,12 +99,12 @@ void EditableCourseResource::setDescription(QString description)
     m_course->setDescription(description);
 }
 
-Language * EditableCourseResource::language() const
+std::shared_ptr<Language> EditableCourseResource::language() const
 {
     return m_course->language();
 }
 
-void EditableCourseResource::setLanguage(Language *language)
+void EditableCourseResource::setLanguage(std::shared_ptr<Language> language)
 {
     m_course->setLanguage(language);
 }
@@ -155,10 +155,10 @@ bool EditableCourseResource::exportCourse(const QUrl &filePath)
     return true;
 }
 
-void EditableCourseResource::addUnit(Unit *unit)
+std::shared_ptr<Unit> EditableCourseResource::addUnit(std::unique_ptr<Unit> unit)
 {
-    m_course->addUnit(unit);
     setModified(true);
+    return m_course->addUnit(std::move(unit));
 }
 
 bool EditableCourseResource::isModified() const
@@ -175,7 +175,7 @@ Unit * EditableCourseResource::createUnit()
 {
     // find first unused id
     QStringList unitIds;
-    for (auto *unit : m_course->units()) {
+    for (auto unit : m_course->units()) {
         unitIds.append(unit->id());
     }
     QString id = QUuid::createUuid().toString();
@@ -185,20 +185,20 @@ Unit * EditableCourseResource::createUnit()
     }
 
     // create unit
-    Unit *unit = new Unit(this);
+    std::unique_ptr<Unit> unit(new Unit(this));
     unit->setCourse(this);
     unit->setId(id);
     unit->setTitle(i18n("New Unit"));
-    addUnit(unit);
+    auto sharedUnit = addUnit(std::move(unit));
 
-    return unit;
+    return sharedUnit.get();
 }
 
 Phrase * EditableCourseResource::createPhrase(Unit *unit)
 {
     // find globally unique phrase id inside course
     QStringList phraseIds;
-    for (auto *unit : m_course->units()) {
+    for (auto unit : m_course->units()) {
         for (auto *phrase : unit->phraseList()) {
             phraseIds.append(phrase->id());
         }

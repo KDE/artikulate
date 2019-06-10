@@ -23,6 +23,7 @@
 
 #include "artikulatecore_export.h"
 #include "icourse.h"
+#include <memory>
 #include <QObject>
 
 class QString;
@@ -41,8 +42,8 @@ public:
     virtual void setTitle(QString title) = 0;
     virtual void setI18nTitle(QString title) = 0;
     virtual void setDescription(QString description) = 0;
-    virtual void setLanguage(Language *language) = 0;
-    virtual void addUnit(Unit *unit) = 0;
+    virtual void setLanguage(std::shared_ptr<Language> language) = 0;
+    virtual std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) = 0;
 };
 
 Q_DECLARE_INTERFACE(IEditableCourse, "com.kde.artikulate.IEditableCourse/1.0")

@@ -87,13 +87,13 @@ void ContributorRepository::sync()
 bool ContributorRepository::modified() const
 {
     for (auto iter = m_courses.constBegin(); iter != m_courses.constEnd(); ++iter) {
-        for (auto *course : iter.value()) {
+        for (auto course : iter.value()) {
             if (course->isModified()) {
                 return true;
             }
         }
     }
-    foreach (auto const &courseRes, m_skeletonResources) {
+    for (auto const &courseRes : m_skeletonResources) {
         if (courseRes->isModified()) {
             return true;
         }
@@ -107,12 +107,12 @@ void ContributorRepository::addLanguage(const QUrl &languageFile)
         return;
     }
 
-    LanguageResource *resource = new LanguageResource(languageFile);
+    std::shared_ptr<LanguageResource> resource(new LanguageResource(languageFile));
 
-    emit languageResourceAboutToBeAdded(resource, m_languageResources.count());
+    emit languageResourceAboutToBeAdded(resource.get(), m_languageResources.count());
     m_languageResources.append(resource);
     m_loadedResources.append(languageFile.toLocalFile());
-    m_courses.insert(resource->identifier(), QList<EditableCourseResource*>());
+    m_courses.insert(resource->identifier(), QVector<std::shared_ptr<EditableCourseResource>>());
     emit languageResourceAdded();
 }
 
@@ -126,21 +126,16 @@ void ContributorRepository::setStorageLocation(const QString &path)
     m_storageLocation = path;
 }
 
-QList< LanguageResource* > ContributorRepository::languageResources() const
+QVector<std::shared_ptr<Language>> ContributorRepository::languages() const
 {
-    return m_languageResources;
-}
-
-QVector<Language *> ContributorRepository::languages() const
-{
-    QVector<Language *> languages;
+    QVector<std::shared_ptr<Language>> languages;
     for (auto resourse : m_languageResources) {
         languages.append(resourse->language());
     }
     return languages;
 }
 
-Language * ContributorRepository::language(int index) const
+std::shared_ptr<Language> ContributorRepository::language(int index) const
 {
     Q_ASSERT(index >= 0 && index < m_languageResources.count());
     return m_languageResources.at(index)->language();
@@ -155,19 +150,19 @@ Language * ContributorRepository::language(LearnerProfile::LearningGoal *learnin
         qCritical() << "Cannot translate non-language learning goal to language";
         return nullptr;
     }
-    foreach (LanguageResource *resource, m_languageResources) {
+    for (auto resource : m_languageResources) {
         if (resource->identifier() == learningGoal->identifier()) {
-            return resource->language();
+            return resource->language().get();
         }
     }
     qCritical() << "No language registered with identifier " << learningGoal->identifier() << ": aborting";
     return nullptr;
 }
 
-QList<EditableCourseResource *> ContributorRepository::courseResources(Language *language)
+QVector<std::shared_ptr<EditableCourseResource>> ContributorRepository::courseResources(std::shared_ptr<Language> language)
 {
     if (!language) {
-        QList<EditableCourseResource *> courses;
+        QVector<std::shared_ptr<EditableCourseResource>> courses;
         for (auto iter = m_courses.constBegin(); iter != m_courses.constEnd(); ++iter) {
             courses.append(iter.value());
         }
@@ -175,14 +170,14 @@ QList<EditableCourseResource *> ContributorRepository::courseResources(Language 
     }
     // return empty list if no course available for language
     if (!m_courses.contains(language->id())) {
-        return QList< EditableCourseResource* >();
+        return QVector<std::shared_ptr<EditableCourseResource>>();
     }
     return m_courses[language->id()];
 }
 
-QVector<ICourse *> ContributorRepository::courses() const
+QVector<std::shared_ptr<ICourse>> ContributorRepository::courses() const
 {
-    QVector<ICourse *> courses;
+    QVector<std::shared_ptr<ICourse>> courses;
     for (const auto &courseList : m_courses) {
         for (const auto &course : courseList) {
             courses.append(course);
@@ -191,9 +186,9 @@ QVector<ICourse *> ContributorRepository::courses() const
     return courses;
 }
 
-QVector<IEditableCourse *> ContributorRepository::editableCourses() const
+QVector<std::shared_ptr<IEditableCourse>> ContributorRepository::editableCourses() const
 {
-    QVector<IEditableCourse *> courses;
+    QVector<std::shared_ptr<IEditableCourse>> courses;
     for (const auto &courseList : m_courses) {
         for (const auto &course : courseList) {
             courses.append(course);
@@ -202,22 +197,22 @@ QVector<IEditableCourse *> ContributorRepository::editableCourses() const
     return courses;
 }
 
-QVector<ICourse *> ContributorRepository::courses(Language *language) const
+QVector<std::shared_ptr<ICourse>> ContributorRepository::courses(const QString &languageId) const
 {
-    if (language == nullptr) {
+    if (languageId.isEmpty()) {
         return courses();
     }
 
-    QVector<ICourse *> courses;
-    if (m_courses.contains(language->id())) {
-        for (const auto &course : m_courses[language->id()]) {
+    QVector<std::shared_ptr<ICourse>> courses;
+    if (m_courses.contains(languageId)) {
+        for (const auto &course : m_courses[languageId]) {
             courses.append(course);
         }
     }
     return courses;
 }
 
-IEditableCourse * ContributorRepository::editableCourse(Language *language, int index) const
+std::shared_ptr<IEditableCourse> ContributorRepository::editableCourse(std::shared_ptr<Language> language, int index) const
 {
     Q_ASSERT(m_courses.contains(language->id()));
     Q_ASSERT(index >= 0 && index < m_courses[language->id()].count());
@@ -225,7 +220,7 @@ IEditableCourse * ContributorRepository::editableCourse(Language *language, int 
     return m_courses[language->id()].at(index);
 }
 
-void ContributorRepository::reloadCourseOrSkeleton(ICourse *courseOrSkeleton)
+void ContributorRepository::reloadCourseOrSkeleton(std::shared_ptr<ICourse> courseOrSkeleton)
 {
     if (!courseOrSkeleton) {
         qCritical() << "Cannot reload non-existing course";
@@ -245,7 +240,7 @@ void ContributorRepository::reloadCourseOrSkeleton(ICourse *courseOrSkeleton)
         removeCourse(courseOrSkeleton);
         addCourse(file);
     } else {
-        for (SkeletonResource *resource : m_skeletonResources) {
+        for (auto resource : m_skeletonResources) {
             if (resource->id() == courseOrSkeleton->id()) {
                 // TODO no reload available
                 return;
@@ -308,14 +303,14 @@ void ContributorRepository::reloadCourses()
     emit repositoryChanged();
 }
 
-void ContributorRepository::updateCourseFromSkeleton(IEditableCourse *course)
+void ContributorRepository::updateCourseFromSkeleton(std::shared_ptr<IEditableCourse> course)
 {
     //TODO implement status information that are shown at mainwindow
     if (course->foreignId().isEmpty())  {
         qCritical() << "No skeleton ID specified, aborting update.";
         return;
     }
-    ICourse *skeleton = nullptr;
+    std::shared_ptr<ICourse> skeleton;
     for (const auto &iter : m_skeletonResources) {
         if (iter->id() == course->foreignId()) {
             skeleton = iter;
@@ -327,89 +322,91 @@ void ContributorRepository::updateCourseFromSkeleton(IEditableCourse *course)
         return;
     }
 
-    // update now
-    for (Unit *unitSkeleton : skeleton->unitList()) {
-        // import unit if not exists
-        Unit *currentUnit = nullptr;
-        bool found = false;
-        for (Unit *unit : course->unitList()) {
-            if (unit->foreignId() == unitSkeleton->id()) {
-                found = true;
-                currentUnit = unit;
-                break;
-            }
-        }
-        if (found == false) {
-            currentUnit = new Unit(course);
-            currentUnit->setId(QUuid::createUuid().toString());
-            currentUnit->setTitle(unitSkeleton->title());
-            currentUnit->setForeignId(unitSkeleton->id());
-            currentUnit->setCourse(course);
-            course->addUnit(currentUnit);
-        }
+// FIXME memory handling logic is broken
+//    // update now
+//    for (Unit *unitSkeleton : skeleton->unitList()) {
+//        // import unit if not exists
+//        std::unique_ptr<Unit> currentUnit(new Unit);
+//        bool found = false;
+//        for (Unit *unit : course->unitList()) {
+//            if (unit->foreignId() == unitSkeleton->id()) {
+//                found = true;
+//                currentUnit = unit;
+//                break;
+//            }
+//        }
+//        if (found == false) {
+//            currentUnit = new Unit(course);
+//            currentUnit->setId(QUuid::createUuid().toString());
+//            currentUnit->setTitle(unitSkeleton->title());
+//            currentUnit->setForeignId(unitSkeleton->id());
+//            currentUnit->setCourse(course);
+//            course->addUnit(std::move(currentUnit));
+//        }
 
-        // update phrases
-        for (Phrase *phraseSkeleton : unitSkeleton->phraseList()) {
-            bool found = false;
-            for (Phrase *phrase : currentUnit->phraseList()) {
-                if (phrase->foreignId() == phraseSkeleton->id()) {
-                    if (phrase->i18nText() != phraseSkeleton->text()) {
-                        phrase->setEditState(Phrase::Unknown);
-                        phrase->seti18nText(phraseSkeleton->text());
-                    }
-                    found = true;
-                    break;
-                }
-            }
-            if (found == false) {
-                Phrase *newPhrase = new Phrase(course);
-                newPhrase->setForeignId(phraseSkeleton->id());
-                newPhrase->setId(QUuid::createUuid().toString());
-                newPhrase->setText(phraseSkeleton->text());
-                newPhrase->seti18nText(phraseSkeleton->text());
-                newPhrase->setType(phraseSkeleton->type());
-                newPhrase->setUnit(currentUnit);
-                currentUnit->addPhrase(newPhrase);
-            }
-        }
-    }
+//        // update phrases
+//        for (Phrase *phraseSkeleton : unitSkeleton->phraseList()) {
+//            bool found = false;
+//            for (Phrase *phrase : currentUnit->phraseList()) {
+//                if (phrase->foreignId() == phraseSkeleton->id()) {
+//                    if (phrase->i18nText() != phraseSkeleton->text()) {
+//                        phrase->setEditState(Phrase::Unknown);
+//                        phrase->seti18nText(phraseSkeleton->text());
+//                    }
+//                    found = true;
+//                    break;
+//                }
+//            }
+//            if (found == false) {
+//                Phrase *newPhrase = new Phrase(course);
+//                newPhrase->setForeignId(phraseSkeleton->id());
+//                newPhrase->setId(QUuid::createUuid().toString());
+//                newPhrase->setText(phraseSkeleton->text());
+//                newPhrase->seti18nText(phraseSkeleton->text());
+//                newPhrase->setType(phraseSkeleton->type());
+//                newPhrase->setUnit(currentUnit.get());
+//                currentUnit->addPhrase(newPhrase);
+//            }
+//        }
+//    }
     // FIXME deassociate removed phrases
     qCDebug(ARTIKULATE_LOG) << "Update performed!";
 }
 
-EditableCourseResource * ContributorRepository::addCourse(const QUrl &courseFile)
+std::shared_ptr<EditableCourseResource> ContributorRepository::addCourse(const QUrl &courseFile)
 {
-    EditableCourseResource *resource = new EditableCourseResource(courseFile, this);
+    std::unique_ptr<EditableCourseResource> resource(new EditableCourseResource(courseFile, this));
     if (resource->language() == nullptr) {
-        delete resource;
         qCritical() << "Could not load course, language unknown:" << courseFile.toLocalFile();
-        return nullptr;
+        return std::shared_ptr<EditableCourseResource>();
     }
 
     // skip already loaded resources
     if (m_loadedResources.contains(courseFile.toLocalFile())) {
-        delete resource;
-        return nullptr;
+        //TODO return the already loaded course
+        return std::shared_ptr<EditableCourseResource>();
     }
     m_loadedResources.append(courseFile.toLocalFile());
-    addCourseResource(resource);
+    auto course = addCourseResource(std::move(resource));
     emit languageCoursesChanged();
-    return resource;
+    return course;
 }
 
-void ContributorRepository::addCourseResource(EditableCourseResource *resource)
+std::shared_ptr<EditableCourseResource> ContributorRepository::addCourseResource(std::unique_ptr<EditableCourseResource> resource)
 {
-    Q_ASSERT(m_courses.contains(resource->language()->id()));
-
-    if (!m_courses.contains(resource->language()->id())) {
-        m_courses.insert(resource->language()->id(), QList<EditableCourseResource*>());
+    const QString languageId = resource->language()->id();
+    Q_ASSERT(!languageId.isEmpty());
+    if (!m_courses.contains(languageId)) {
+        m_courses.insert(languageId, QVector<std::shared_ptr<EditableCourseResource>>());
     }
-    emit courseAboutToBeAdded(resource, m_courses[resource->language()->id()].count());
-    m_courses[resource->language()->id()].append(resource);
+    emit courseAboutToBeAdded(resource.get(), m_courses[resource->language()->id()].count());
+    m_courses[languageId].append(std::move(resource));
     emit courseAdded();
+    Q_ASSERT(m_courses[languageId].size() > 0);
+    return m_courses[languageId].last();
 }
 
-void ContributorRepository::removeCourse(ICourse *course)
+void ContributorRepository::removeCourse(std::shared_ptr<ICourse> course)
 {
     for (int index = 0; index < m_courses[course->language()->id()].length(); ++index) {
         if (m_courses[course->language()->id()].at(index) == course) {
@@ -422,7 +419,7 @@ void ContributorRepository::removeCourse(ICourse *course)
     }
 }
 
-EditableCourseResource * ContributorRepository::createCourse(Language *language, SkeletonResource *skeleton)
+IEditableCourse * ContributorRepository::createCourse(std::shared_ptr<Language> language, std::shared_ptr<SkeletonResource> skeleton)
 {
     // set path
     QString path = QStringLiteral("%1/%2/%3/%4/%4.xml")
@@ -431,7 +428,7 @@ EditableCourseResource * ContributorRepository::createCourse(Language *language,
              skeleton->id(),
              language->id());
 
-    EditableCourseResource * course = new EditableCourseResource(QUrl::fromLocalFile(path), this);
+    std::unique_ptr<EditableCourseResource> course(new EditableCourseResource(QUrl::fromLocalFile(path), this));
 
     Q_ASSERT(course);
     course->setId(QUuid::createUuid().toString());
@@ -443,27 +440,27 @@ EditableCourseResource * ContributorRepository::createCourse(Language *language,
     // set skeleton
     course->setForeignId(skeleton->id());
 
-    addCourseResource(course);
-
-    return course;
+    return addCourseResource(std::move(course)).get();
 }
 
-void ContributorRepository::addSkeleton(const QUrl &file)
+std::shared_ptr<SkeletonResource> ContributorRepository::addSkeleton(const QUrl &file)
 {
-    SkeletonResource *resource = new SkeletonResource(file, this);
-    addSkeletonResource(resource);
+    std::unique_ptr<SkeletonResource> resource(new SkeletonResource(file, this));
+    return addSkeletonResource(std::move(resource));
 }
 
-void ContributorRepository::addSkeletonResource(SkeletonResource *resource)
+std::shared_ptr<SkeletonResource> ContributorRepository::addSkeletonResource(std::unique_ptr<SkeletonResource> resource)
 {
     // skip already loaded resources
     if (m_loadedResources.contains(resource->file().toLocalFile())) {
-        return;
+        // TODO return existing skeleton
+        return std::shared_ptr<SkeletonResource>();
     }
     m_loadedResources.append(resource->file().toLocalFile());
-    emit skeletonAboutToBeAdded(resource, m_skeletonResources.count());
-    m_skeletonResources.append(resource);
+    emit skeletonAboutToBeAdded(resource.get(), m_skeletonResources.count());
+    m_skeletonResources.append(std::move(resource));
     emit skeletonAdded();
+    return m_skeletonResources.last();
 }
 
 void ContributorRepository::removeSkeleton(SkeletonResource *skeleton)
@@ -479,9 +476,9 @@ void ContributorRepository::removeSkeleton(SkeletonResource *skeleton)
     }
 }
 
-QVector<IEditableCourse *> ContributorRepository::skeletons() const
+QVector<std::shared_ptr<IEditableCourse>> ContributorRepository::skeletons() const
 {
-    QVector<IEditableCourse *> skeletonList;
+    QVector<std::shared_ptr<IEditableCourse>> skeletonList;
     for (const auto &skeleton : m_skeletonResources) {
         skeletonList.append(skeleton);
     }

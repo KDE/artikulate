@@ -22,6 +22,7 @@
 #define COURSEMODEL_H
 
 #include <QAbstractListModel>
+#include <memory>
 
 class IResourceRepository;
 class ICourse;
@@ -81,7 +82,7 @@ private:
     void updateMappings();
     IResourceRepository *m_resourceRepository;
     Language *m_language;
-    QVector<ICourse*> m_courses;
+    QVector<ICourse *> m_courses;
     QSignalMapper *m_signalMapper;
 };
 

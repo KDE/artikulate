@@ -23,6 +23,7 @@
 #include "core/resources/languageresource.h"
 #include "core/resources/editablecourseresource.h"
 #include "core/resources/courseparser.h"
+#include "core/language.h"
 #include "core/icourse.h"
 #include "artikulate_debug.h"
 #include <KLocalizedString>
@@ -59,10 +60,10 @@ ExportGhnsDialog::ExportGhnsDialog(IResourceRepository *repository)
 
     // add courses to combo box
     int counter = 0;
-    for (auto *language : repository->languages()) {
-        for (auto *course : repository->courses(language)) {
+    for (auto language : repository->languages()) {
+        for (auto course : repository->courses(language->id())) {
             ui->courseListCombo->insertItem(counter, course->i18nTitle(),
-                                            QVariant::fromValue<QObject*>(course));
+                                            QVariant::fromValue<QObject*>(course.get()));
             ++counter;
         }
     }

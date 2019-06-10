@@ -69,9 +69,9 @@ QDomDocument CourseParser::loadDomDocument(const QUrl &path, const QXmlSchema &s
     return document;
 }
 
-QVector<Unit *> CourseParser::parseUnits(const QUrl &path)
+std::vector<std::unique_ptr<Unit>> CourseParser::parseUnits(const QUrl &path)
 {
-    QVector<Unit *> units;
+    std::vector<std::unique_ptr<Unit>> units;
 
     QFileInfo info(path.toLocalFile());
     if (!info.exists()) {
@@ -98,7 +98,7 @@ QVector<Unit *> CourseParser::parseUnits(const QUrl &path)
                 } else if (xml.name() == "unit") {
                     auto unit = parseUnit(xml, elementOk);
                     if (elementOk) {
-                        units.append(unit);
+                        units.push_back(std::move(unit));
                     }
                 }
             }
@@ -115,9 +115,9 @@ QVector<Unit *> CourseParser::parseUnits(const QUrl &path)
     return units;
 }
 
-Unit * CourseParser::parseUnit(QXmlStreamReader &xml, bool &ok)
+std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, bool &ok)
 {
-    Unit * unit = new Unit(nullptr);
+    std::unique_ptr<Unit> unit(new Unit);
     ok = true;
 
     if (xml.tokenType() != QXmlStreamReader::StartElement

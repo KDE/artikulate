@@ -22,6 +22,7 @@
 #define LANGUAGERESOURCE_H
 
 #include "artikulatecore_export.h"
+#include <memory>
 #include <QObject>
 
 class LanguageResourcePrivate;
@@ -70,13 +71,7 @@ public:
      * \return reference to the loaded resource
      * if resource is not open yet, it will be loaded
      */
-    QObject * resource();
-
-    /**
-     * \return reference to the loaded language resource
-     * Same behavior as \see resource() but casted to Language
-     */
-    Language * language();
+    std::shared_ptr<Language> language();
 
 private:
     const QScopedPointer<LanguageResourcePrivate> d;

@@ -23,7 +23,7 @@
 
 #include "artikulatecore_export.h"
 #include "core/icourse.h"
-
+#include <memory>
 #include <QObject>
 #include <QVector>
 
@@ -84,11 +84,11 @@ public:
     /**
      * \return language identifier of this course
      */
-    Language * language() const override;
+    std::shared_ptr<Language> language() const override;
 
-    void setLanguage(Language *language);
+    void setLanguage(std::shared_ptr<Language> language);
 
-    void addUnit(Unit *unit);
+    std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit);
 
     /**
      * \return true if resource is loaded, otherwise false
@@ -101,7 +101,7 @@ public:
 
     QList<Unit *> unitList() override;
 
-    QVector<Unit *> units();
+    QVector<std::shared_ptr<Unit>> units();
 
 Q_SIGNALS:
     void idChanged();

@@ -27,6 +27,7 @@
 #include "core/resources/languageresource.h"
 #include "core/resources/editablecourseresource.h"
 
+#include <memory>
 #include <QTest>
 #include <QDebug>
 #include <QTemporaryFile>
@@ -65,9 +66,11 @@ void TestEditableCourseResource::courseSchemeValidationTest()
 
 void TestEditableCourseResource::loadCourseResource()
 {
-    Language language;
-    language.setId("de");
-    ResourceRepositoryStub repository({&language});
+    std::unique_ptr<Language> language(new Language);
+    language->setId("de");
+    std::vector<std::unique_ptr<Language>> languages;
+    languages.push_back(std::move(language));
+    ResourceRepositoryStub repository(std::move(languages));
 
     EditableCourseResource course(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
     QCOMPARE(course.file().toLocalFile(), ":/courses/de.xml");
@@ -101,13 +104,15 @@ void TestEditableCourseResource::loadCourseResource()
 void TestEditableCourseResource::unitAddAndRemoveHandling()
 {
     // boilerplate
-    Language language;
-    language.setId("de");
-    ResourceRepositoryStub repository({&language});
+    std::unique_ptr<Language> language(new Language);
+    language->setId("de");
+    std::vector<std::unique_ptr<Language>> languages;
+    languages.push_back(std::move(language));
+    ResourceRepositoryStub repository(std::move(languages));
     EditableCourseResource course(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
     // begin of test
-    Unit *unit = new Unit; // TODO: change to unique pointer when interface is changed to scoped pointers
+    std::unique_ptr<Unit> unit(new Unit);
     unit->setId("testunit");
     const int initialUnitNumber = course.unitList().count();
     QCOMPARE(initialUnitNumber, 1);
@@ -115,7 +120,7 @@ void TestEditableCourseResource::unitAddAndRemoveHandling()
     QSignalSpy spyAdded(&course, SIGNAL(unitAdded()));
     QCOMPARE(spyAboutToBeAdded.count(), 0);
     QCOMPARE(spyAdded.count(), 0);
-    course.addUnit(unit);
+    course.addUnit(std::move(unit));
     QCOMPARE(course.unitList().count(), initialUnitNumber + 1);
     QCOMPARE(spyAboutToBeAdded.count(), 1);
     QCOMPARE(spyAdded.count(), 1);
@@ -124,9 +129,11 @@ void TestEditableCourseResource::unitAddAndRemoveHandling()
 void TestEditableCourseResource::coursePropertyChanges()
 {
     // boilerplate
-    Language language;
-    language.setId("de");
-    ResourceRepositoryStub repository({&language});
+    std::unique_ptr<Language> language(new Language);
+    language->setId("de");
+    std::vector<std::unique_ptr<Language>> languages;
+    languages.push_back(std::move(language));
+    ResourceRepositoryStub repository(std::move(languages));
     CourseResource course(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
     // id
@@ -181,11 +188,11 @@ void TestEditableCourseResource::coursePropertyChanges()
 
     // language
     {
-        Language testLanguage;
+        std::shared_ptr<Language> testLanguage;
         QSignalSpy spy(&course, SIGNAL(languageChanged()));
         QCOMPARE(spy.count(), 0);
-        course.setLanguage(&testLanguage);
-        QCOMPARE(course.language(), &testLanguage);
+        course.setLanguage(testLanguage);
+        QCOMPARE(course.language(), testLanguage);
         QCOMPARE(spy.count(), 1);
     }
 }
@@ -193,9 +200,11 @@ void TestEditableCourseResource::coursePropertyChanges()
 void TestEditableCourseResource::fileLoadSaveCompleteness()
 {
     // boilerplate
-    Language language;
-    language.setId("de");
-    ResourceRepositoryStub repository({&language});
+    std::unique_ptr<Language> language(new Language);
+    language->setId("de");
+    std::vector<std::unique_ptr<Language>> languages;
+    languages.push_back(std::move(language));
+    ResourceRepositoryStub repository(std::move(languages));
     EditableCourseResource course(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
     QTemporaryFile outputFile;

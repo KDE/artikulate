@@ -61,7 +61,7 @@ public:
     {
         return "description of the course";
     }
-    Language * language() const override
+    std::shared_ptr<Language> language() const override
     {
         return m_language;
     }
@@ -75,7 +75,7 @@ public:
     }
 
 private:
-    Language *m_language{nullptr};
+    std::shared_ptr<Language> m_language;
     QVector<Unit *> m_units;
 };
 

@@ -25,8 +25,8 @@
 #include "artikulate_debug.h"
 #include <KLocalizedString>
 
-Language::Language(QObject *parent)
-    : QObject(parent)
+Language::Language()
+    : QObject()
 {
 }
 

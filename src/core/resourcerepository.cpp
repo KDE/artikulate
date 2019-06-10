@@ -22,6 +22,7 @@
 #include "artikulate_debug.h"
 #include "resources/courseresource.h"
 #include "resources/languageresource.h"
+#include "core/language.h"
 #include <QStandardPaths>
 #include <QUrl>
 #include <QDir>
@@ -50,33 +51,27 @@ ResourceRepository::ResourceRepository(const QUrl &storageLocation, QObject *par
     }
 }
 
-ResourceRepository::~ResourceRepository()
-{
-    for (auto language : m_languages) {
-        language->deleteLater();
-    }
-    m_languages.clear();
-}
+ResourceRepository::~ResourceRepository() = default;
 
 QString ResourceRepository::storageLocation() const
 {
     return m_storageLocation;
 }
 
-QVector<ICourse *> ResourceRepository::courses() const
+QVector<std::shared_ptr<ICourse>> ResourceRepository::courses() const
 {
-    QVector<ICourse *> courses;
+    QVector<std::shared_ptr<ICourse>> courses;
     for (const auto &course : m_courses) {
         courses.append(course);
     }
     return courses;
 }
 
-QVector<ICourse *> ResourceRepository::courses(Language *language) const
+QVector<std::shared_ptr<ICourse>> ResourceRepository::courses(const QString &languageId) const
 {
-    QVector<ICourse *> courses;
+    QVector<std::shared_ptr<ICourse>> courses;
     for (const auto &course : m_courses) {
-        if (language != nullptr && course->language() != language) {
+        if (course->language() && course->language()->id() == languageId) {
             continue;
         }
         courses.append(course);
@@ -84,9 +79,9 @@ QVector<ICourse *> ResourceRepository::courses(Language *language) const
     return courses;
 }
 
-QVector<Language *> ResourceRepository::languages() const
+QVector<std::shared_ptr<Language>> ResourceRepository::languages() const
 {
-    QVector<Language *> languages;
+    QVector<std::shared_ptr<Language>> languages;
     for (const auto &language : m_languages) {
         if (language == nullptr) {
             continue;
@@ -99,7 +94,7 @@ QVector<Language *> ResourceRepository::languages() const
 Language * ResourceRepository::language(const QString &id) const
 {
     if (m_languages.contains(id)) {
-        return m_languages.value(id)->language();
+        return m_languages.value(id)->language().get();
     }
     return nullptr;
 }
@@ -136,15 +131,15 @@ bool ResourceRepository::loadCourse(const QString &resourceFile)
         return false;
     }
 
-    CourseResource *resource = new CourseResource(QUrl::fromLocalFile(resourceFile), this);
+    std::shared_ptr<CourseResource> resource(new CourseResource(QUrl::fromLocalFile(resourceFile), this));
     if (resource->language() == nullptr) {
         resource->deleteLater();
         qCCritical(ARTIKULATE_CORE()) << "Could not load course, language unknown:" << resourceFile;
         return false;
     }
 
-    emit courseAboutToBeAdded(resource, m_courses.count() - 1);
-    m_courses.append(resource);
+    emit courseAboutToBeAdded(resource.get(), m_courses.count() - 1);
+    m_courses.append(std::move(resource));
     emit courseAdded();
     m_loadedCourses.append(resourceFile);
     return true;
@@ -152,7 +147,7 @@ bool ResourceRepository::loadCourse(const QString &resourceFile)
 
 bool ResourceRepository::loadLanguage(const QString &resourceFile)
 {
-    LanguageResource *resource = new LanguageResource(QUrl::fromLocalFile(resourceFile));
+    std::shared_ptr<LanguageResource> resource(new LanguageResource(QUrl::fromLocalFile(resourceFile)));
     if (!resource) {
         qCWarning(ARTIKULATE_CORE()) << "Could not load language" << resourceFile;
         resource->deleteLater();

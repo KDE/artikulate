@@ -58,9 +58,9 @@ void TestSkeletonResource::schemeValidationTest()
 
 void TestSkeletonResource::loadSkeletonResource()
 {
-    Language language;
-    language.setId("de");
-    ResourceRepositoryStub repository({&language});
+    std::shared_ptr<Language> language(new Language);
+    language->setId("de");
+    ResourceRepositoryStub repository({language});
     const QString courseDirectory = "data/contributorrepository/skeletons/";
     const QString courseFile = courseDirectory + "skeleton.xml";
 
@@ -96,23 +96,23 @@ void TestSkeletonResource::loadSkeletonResource()
 void TestSkeletonResource::unitAddAndRemoveHandling()
 {
     // boilerplate
-    Language language;
-    language.setId("de");
-    ResourceRepositoryStub repository({&language});
+    std::shared_ptr<Language> language(new Language);
+    language->setId("de");
+    ResourceRepositoryStub repository({language});
     const QString courseDirectory = "data/contributorrepository/skeletons/";
     const QString courseFile = courseDirectory + "skeleton.xml";
     SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);
 
     // begin of test
-    Unit unit;
-    unit.setId("testunit");
+    std::unique_ptr<Unit> unit(new Unit);
+    unit->setId("testunit");
     const int initialUnitNumber = course.unitList().count();
     QCOMPARE(initialUnitNumber, 2);
     QSignalSpy spyAboutToBeAdded(&course, SIGNAL(unitAboutToBeAdded(Unit*, int)));
     QSignalSpy spyAdded(&course, SIGNAL(unitAdded()));
     QCOMPARE(spyAboutToBeAdded.count(), 0);
     QCOMPARE(spyAdded.count(), 0);
-    course.addUnit(&unit);
+    course.addUnit(std::move(unit));
     QCOMPARE(course.unitList().count(), initialUnitNumber + 1);
     QCOMPARE(spyAboutToBeAdded.count(), 1);
     QCOMPARE(spyAdded.count(), 1);
@@ -121,9 +121,9 @@ void TestSkeletonResource::unitAddAndRemoveHandling()
 void TestSkeletonResource::coursePropertyChanges()
 {
     // boilerplate
-    Language language;
-    language.setId("de");
-    ResourceRepositoryStub repository({&language});
+    std::shared_ptr<Language> language(new Language);
+    language->setId("de");
+    ResourceRepositoryStub repository({language});
     const QString courseDirectory = "data/contributorrepository/skeletons/";
     const QString courseFile = courseDirectory + "skeleton.xml";
     SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);
@@ -162,9 +162,9 @@ void TestSkeletonResource::coursePropertyChanges()
 void TestSkeletonResource::fileLoadSaveCompleteness()
 {
     // boilerplate
-    Language language;
-    language.setId("de");
-    ResourceRepositoryStub repository({&language});
+    std::shared_ptr<Language> language(new Language);
+    language->setId("de");
+    ResourceRepositoryStub repository({language});
     const QString courseDirectory = "data/contributorrepository/skeletons/";
     const QString courseFile = courseDirectory + "skeleton.xml";
     SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);

@@ -82,9 +82,9 @@ public:
         file.close();
     }
 
-    QVector<Unit *> units();
+    QVector<std::shared_ptr<Unit>> units();
 
-    void appendUnit(Unit *unit);
+    std::shared_ptr<Unit> appendUnit(std::unique_ptr<Unit> unit);
 
     /**
      * @return the skeleton resource as serialized byte array
@@ -98,22 +98,26 @@ public:
     bool m_unitsParsed{ false };
 
 protected:
-    QVector<Unit *> m_units; ///!< the units variable is loaded lazily and shall never be access directly
+    QVector<std::shared_ptr<Unit>> m_units; ///!< the units variable is loaded lazily and shall never be access directly
 };
 
-QVector<Unit *> SkeletonResourcePrivate::units()
+QVector<std::shared_ptr<Unit>> SkeletonResourcePrivate::units()
 {
     if (m_unitsParsed) {
         return m_units;
     }
-    m_units = CourseParser::parseUnits(m_path);
+    auto units = CourseParser::parseUnits(m_path);
+    for (auto &unit : units) {
+        m_units.append(std::move(unit));
+    }
     m_unitsParsed = true;
     return m_units;
 }
 
-void SkeletonResourcePrivate::appendUnit(Unit *unit) {
+std::shared_ptr<Unit> SkeletonResourcePrivate::appendUnit(std::unique_ptr<Unit> unit) {
     units(); // ensure that units are parsed
-    m_units.append(unit);
+    m_units.append(std::move(unit));
+    return m_units.last();
 }
 
 QDomDocument SkeletonResourcePrivate::serializedSkeleton()
@@ -277,20 +281,21 @@ bool SkeletonResource::exportCourse(const QUrl &filePath)
     return true;
 }
 
-void SkeletonResource::addUnit(Unit *unit)
+std::shared_ptr<Unit> SkeletonResource::addUnit(std::unique_ptr<Unit> unit)
 {
-    emit unitAboutToBeAdded(unit, d->units().count() - 1);
-    d->appendUnit(unit);
+    emit unitAboutToBeAdded(unit.get(), d->units().count() - 1);
+    auto sharedUnit = d->appendUnit(std::move(unit));
     emit unitAdded();
+    return sharedUnit;
 }
 
-Language * SkeletonResource::language() const
+std::shared_ptr<Language> SkeletonResource::language() const
 {
     // skeleton must not have a dedicated language
-    return nullptr;
+    return std::shared_ptr<Language>();
 }
 
-void SkeletonResource::setLanguage(Language *language)
+void SkeletonResource::setLanguage(std::shared_ptr<Language> language)
 {
     Q_UNUSED(language);
     Q_UNREACHABLE();
@@ -298,7 +303,11 @@ void SkeletonResource::setLanguage(Language *language)
 
 QList<Unit *> SkeletonResource::unitList()
 {
-    return d->units().toList();
+    QList<Unit *> rawList;
+    for (auto unit : d->units()) {
+        rawList.append(unit.get());
+    }
+    return rawList;
 }
 
 QUrl SkeletonResource::file() const

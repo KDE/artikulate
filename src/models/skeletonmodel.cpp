@@ -89,7 +89,7 @@ QVariant SkeletonModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    ICourse * const skeleton = m_repository->skeletons().at(index.row());
+    std::shared_ptr<ICourse> skeleton = m_repository->skeletons().at(index.row());
 
     switch(role)
     {
@@ -105,7 +105,7 @@ QVariant SkeletonModel::data(const QModelIndex& index, int role) const
     case IdRole:
         return skeleton->id();
     case DataRole:
-        return QVariant::fromValue<QObject*>(skeleton);
+        return QVariant::fromValue<QObject*>(skeleton.get());
     default:
         return QVariant();
     }
@@ -175,7 +175,7 @@ void SkeletonModel::updateMappings()
 {
     int skeletons = m_repository->skeletons().count();
     for (int i = 0; i < skeletons; ++i) {
-        m_signalMapper->setMapping(m_repository->skeletons().at(i), i);
+        m_signalMapper->setMapping(m_repository->skeletons().at(i).get(), i);
     }
 }
 

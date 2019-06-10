@@ -33,7 +33,7 @@
 class EditableCourseStub : public IEditableCourse
 {
 public:
-    EditableCourseStub(Language *language, QVector<Unit *> units)
+    EditableCourseStub(std::shared_ptr<Language> language, QVector<std::shared_ptr<Unit>> units)
         : IEditableCourse()
         , m_language(language)
         , m_units(units)
@@ -84,22 +84,27 @@ public:
         m_description = description;
         emit descriptionChanged();
     }
-    Language * language() const override
+    std::shared_ptr<Language> language() const override
     {
         return m_language;
     }
-    void setLanguage(Language *language) override
+    void setLanguage(std::shared_ptr<Language> language) override
     {
         m_language = language;
         emit languageChanged();
     }
     QList<Unit *> unitList() override
     {
-        return m_units.toList();
+        QList<Unit *> rawList;
+        for (auto unit : m_units) {
+            rawList.append(unit.get());
+        }
+        return rawList;
     }
-    void addUnit(Unit *unit) override
+    std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override
     {
-        m_units.append(unit);
+        m_units.append(std::move(unit));
+        return m_units.last();
     }
     QUrl file() const override
     {
@@ -112,8 +117,8 @@ private:
     QString m_title{ "title" };
     QString m_i18nTitle{ "i18n title" };
     QString m_description{ "description of the course" };
-    Language *m_language{nullptr};
-    QVector<Unit *> m_units;
+    std::shared_ptr<Language> m_language;
+    QVector<std::shared_ptr<Unit>> m_units;
 };
 
 // define one virtual method out of line to pin CourseStub to this translation unit
@@ -132,17 +137,19 @@ void TestEditorSession::cleanup()
 
 void TestEditorSession::createEditorSession()
 {
-    Language languageGerman;
-    languageGerman.setId("de");
-    Language languageEnglish;
-    languageEnglish.setId("en");
-    EditableCourseStub course(&languageGerman, QVector<Unit *>());
-    course.setLanguage(&languageGerman); SkeletonResource skeleton(QUrl(), nullptr);
+    std::shared_ptr<Language> languageGerman(new Language);
+    languageGerman->setId("de");
+    std::shared_ptr<Language> languageEnglish(new Language);
+    languageEnglish->setId("en");
+
+    std::shared_ptr<IEditableCourse> course(new EditableCourseStub(languageGerman, QVector<std::shared_ptr<Unit>>()));
+    course->setLanguage(languageGerman);
+    std::shared_ptr<IEditableCourse> skeleton(new SkeletonResource(QUrl(), nullptr));
 
     EditableRepositoryStub repository{
-        {&languageGerman, &languageEnglish}, // languages
-        {&skeleton},
-        {&course} // courses
+        {languageGerman, languageEnglish}, // languages
+        {skeleton}, // skeletons
+        {course} // courses
     };
     EditorSession session;
     session.setRepository(&repository);
@@ -153,83 +160,83 @@ void TestEditorSession::createEditorSession()
 
 void TestEditorSession::nonSkeletonSwitchingBehavior()
 {
-    Language languageGerman;
-    languageGerman.setId("de");
-    Language languageEnglish;
-    languageEnglish.setId("en");
-    EditableCourseStub courseGerman(&languageGerman, QVector<Unit *>());
-    courseGerman.setId("course-german");
-    EditableCourseStub courseEnglish(&languageEnglish, QVector<Unit *>());
-    courseEnglish.setId("course-english");
+    std::shared_ptr<Language> languageGerman;
+    languageGerman->setId("de");
+    std::shared_ptr<Language> languageEnglish;
+    languageEnglish->setId("en");
+    std::shared_ptr<IEditableCourse> courseGerman(new EditableCourseStub(languageGerman, QVector<std::shared_ptr<Unit>>()));
+    courseGerman->setId("course-german");
+    std::shared_ptr<IEditableCourse> courseEnglish(new EditableCourseStub(languageEnglish, QVector<std::shared_ptr<Unit>>()));
+    courseEnglish->setId("course-english");
 
     EditableRepositoryStub repository{
-        {&languageGerman, &languageEnglish}, // languages
+        {languageGerman, languageEnglish}, // languages
         {}, // skeletons
-        {&courseGerman, &courseEnglish} // courses
+        {courseGerman, courseEnglish} // courses
     };
     EditorSession session;
     session.setRepository(&repository);
 
     QVERIFY(session.course() == nullptr);
-    session.setCourse(&courseGerman);
-    QCOMPARE(session.course()->id(), courseGerman.id());
+    session.setCourse(courseGerman.get());
+    QCOMPARE(session.course()->id(), courseGerman->id());
     QVERIFY(session.language() != nullptr);
-    QCOMPARE(session.language()->id(), languageGerman.id());
+    QCOMPARE(session.language()->id(), languageGerman->id());
 
     QVERIFY(session.language() != nullptr);
-    QCOMPARE(session.language()->id(), languageGerman.id());
-    session.setCourse(&courseEnglish);
+    QCOMPARE(session.language()->id(), languageGerman->id());
+    session.setCourse(courseEnglish.get());
     QVERIFY(session.course() != nullptr);
-    QCOMPARE(session.course()->id(), courseEnglish.id());
+    QCOMPARE(session.course()->id(), courseEnglish->id());
     QVERIFY(session.language() != nullptr);
-    QCOMPARE(session.language()->id(), languageEnglish.id());
+    QCOMPARE(session.language()->id(), languageEnglish->id());
 
 }
 
 void TestEditorSession::skeletonSwitchingBehavior()
 {
-    Language languageGerman;
-    languageGerman.setId("de");
-    Language languageEnglish;
-    languageEnglish.setId("en");
-    EditableCourseStub courseGermanA(&languageGerman, QVector<Unit *>());
-    courseGermanA.setId("course-german");
-    courseGermanA.setForeignId("testskeletonA");
-    EditableCourseStub courseGermanB(&languageGerman, QVector<Unit *>());
-    courseGermanB.setId("course-german");
-    courseGermanB.setForeignId("testskeletonB");
-    EditableCourseStub courseEnglishA(&languageEnglish, QVector<Unit *>());
-    courseEnglishA.setId("course-english");
-    courseEnglishA.setForeignId("testskeletonA");
-    SkeletonResource skeletonA(QUrl(), nullptr);
-    skeletonA.setId("testskeletonA");
-    SkeletonResource skeletonB(QUrl(), nullptr);
-    skeletonB.setId("testskeletonB");
+    std::shared_ptr<Language> languageGerman;
+    languageGerman->setId("de");
+    std::shared_ptr<Language> languageEnglish;
+    languageEnglish->setId("en");
+    std::shared_ptr<IEditableCourse> courseGermanA(new EditableCourseStub(languageGerman, QVector<std::shared_ptr<Unit>>()));
+    courseGermanA->setId("course-german");
+    courseGermanA->setForeignId("testskeletonA");
+    std::shared_ptr<IEditableCourse> courseGermanB(new EditableCourseStub(languageGerman, QVector<std::shared_ptr<Unit>>()));
+    courseGermanB->setId("course-german");
+    courseGermanB->setForeignId("testskeletonB");
+    std::shared_ptr<IEditableCourse> courseEnglishA(new EditableCourseStub(languageEnglish, QVector<std::shared_ptr<Unit>>()));
+    courseEnglishA->setId("course-english");
+    courseEnglishA->setForeignId("testskeletonA");
+    std::shared_ptr<IEditableCourse> skeletonA(new SkeletonResource(QUrl(), nullptr));
+    skeletonA->setId("testskeletonA");
+    std::shared_ptr<IEditableCourse> skeletonB(new SkeletonResource(QUrl(), nullptr));
+    skeletonB->setId("testskeletonB");
 
     EditableRepositoryStub repository{
-        {&languageGerman, &languageEnglish}, // languages
-        {&skeletonA, &skeletonB}, // skeletons
-        {&courseGermanA, &courseEnglishA, &courseGermanB} // courses
+        {languageGerman, languageEnglish}, // languages
+        {skeletonA, skeletonB}, // skeletons
+        {courseGermanA, courseEnglishA, courseGermanB} // courses
     };
     EditorSession session;
     session.setRepository(&repository);
 
-    session.setSkeleton(&skeletonA);
+    session.setSkeleton(skeletonA.get());
     Q_ASSERT(session.skeleton() != nullptr);
-    QCOMPARE(session.skeleton()->id(), skeletonA.id());
+    QCOMPARE(session.skeleton()->id(), skeletonA->id());
     Q_ASSERT(session.course() != nullptr);
-    QCOMPARE(session.course()->id(), courseGermanA.id());
-    session.setCourse(&courseEnglishA);
+    QCOMPARE(session.course()->id(), courseGermanA->id());
+    session.setCourse(courseEnglishA.get());
     Q_ASSERT(session.course() != nullptr);
-    QCOMPARE(session.course()->id(), courseEnglishA.id());
+    QCOMPARE(session.course()->id(), courseEnglishA->id());
 
-    session.setCourse(&courseGermanB);
+    session.setCourse(courseGermanB.get());
     QVERIFY(session.skeleton() != nullptr);
-    QCOMPARE(session.skeleton()->id(), skeletonB.id());
+    QCOMPARE(session.skeleton()->id(), skeletonB->id());
     QVERIFY(session.course() != nullptr);
-    QCOMPARE(session.course()->id(), courseGermanB.id());
+    QCOMPARE(session.course()->id(), courseGermanB->id());
     QVERIFY(session.language() != nullptr);
-    QCOMPARE(session.language()->id(), languageGerman.id());
+    QCOMPARE(session.language()->id(), languageGerman->id());
 }
 
 QTEST_GUILESS_MAIN(TestEditorSession)

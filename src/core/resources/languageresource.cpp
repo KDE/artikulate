@@ -35,16 +35,10 @@
 class LanguageResourcePrivate
 {
 public:
-    LanguageResourcePrivate()
-        : m_languageResource(nullptr)
-    {
-    }
+    LanguageResourcePrivate() = default;
+    ~LanguageResourcePrivate() = default;
 
-    ~LanguageResourcePrivate()
-    {
-    }
-
-    Language *m_languageResource;
+    std::shared_ptr<Language> m_language;
     QString m_identifier;
     QUrl m_path;
     QString m_title;
@@ -117,7 +111,7 @@ void LanguageResource::close()
 
 bool LanguageResource::isOpen() const
 {
-    return (d->m_languageResource != nullptr);
+    return (d->m_language != nullptr);
 }
 
 QUrl LanguageResource::path() const
@@ -125,10 +119,10 @@ QUrl LanguageResource::path() const
     return d->m_path;
 }
 
-QObject * LanguageResource::resource()
+std::shared_ptr<Language> LanguageResource::language()
 {
-    if (d->m_languageResource != nullptr) {
-        return d->m_languageResource;
+    if (d->m_language) {
+        return d->m_language;
     }
 
     if (!d->m_path.isLocalFile()) {
@@ -148,17 +142,17 @@ QObject * LanguageResource::resource()
     }
 
     QDomElement root(document.documentElement());
-    d->m_languageResource = new Language(this);
-    d->m_languageResource->setFile(d->m_path);
-    d->m_languageResource->setId(root.firstChildElement(QStringLiteral("id")).text());
-    d->m_languageResource->setTitle(root.firstChildElement(QStringLiteral("title")).text());
-    d->m_languageResource->seti18nTitle(root.firstChildElement(QStringLiteral("i18nTitle")).text());
+    d->m_language = std::shared_ptr<Language>(new Language());
+    d->m_language->setFile(d->m_path);
+    d->m_language->setId(root.firstChildElement(QStringLiteral("id")).text());
+    d->m_language->setTitle(root.firstChildElement(QStringLiteral("title")).text());
+    d->m_language->seti18nTitle(root.firstChildElement(QStringLiteral("i18nTitle")).text());
     // create phoneme groups
     for (QDomElement groupNode = root.firstChildElement(QStringLiteral("phonemeGroups")).firstChildElement();
          !groupNode.isNull();
          groupNode = groupNode.nextSiblingElement())
     {
-        PhonemeGroup *group = d->m_languageResource->addPhonemeGroup(
+        PhonemeGroup *group = d->m_language->addPhonemeGroup(
             groupNode.firstChildElement(QStringLiteral("id")).text(),
             groupNode.firstChildElement(QStringLiteral("title")).text());
         group->setDescription(groupNode.attribute(QStringLiteral("description")));
@@ -171,10 +165,5 @@ QObject * LanguageResource::resource()
         }
     }
 
-    return d->m_languageResource;
-}
-
-Language * LanguageResource::language()
-{
-    return qobject_cast<Language*>(resource());
+    return d->m_language;
 }

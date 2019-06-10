@@ -23,6 +23,7 @@
 
 #include "artikulatecore_export.h"
 #include "iresourcerepository.h"
+#include <memory>
 
 class IEditableCourse;
 class Language;
@@ -37,15 +38,15 @@ class ARTIKULATECORE_EXPORT IEditableRepository : public IResourceRepository
     Q_OBJECT
 public:
     virtual ~IEditableRepository() = default;
-    virtual QVector<IEditableCourse *> editableCourses() const = 0;
-    virtual IEditableCourse * editableCourse(Language *language, int index) const = 0;
-    virtual QVector<IEditableCourse *> skeletons() const = 0;
+    virtual QVector<std::shared_ptr<IEditableCourse>> editableCourses() const = 0;
+    virtual std::shared_ptr<IEditableCourse> editableCourse(std::shared_ptr<Language> language, int index) const = 0;
+    virtual QVector<std::shared_ptr<IEditableCourse>> skeletons() const = 0;
     /**
      * Imports units and phrases from skeleton, deassociates removed ones.
      *
      * \param course the course to be updated
      */
-    virtual void updateCourseFromSkeleton(IEditableCourse *course) = 0;
+    virtual void updateCourseFromSkeleton(std::shared_ptr<IEditableCourse> course) = 0;
 };
 Q_DECLARE_INTERFACE(IEditableRepository, "IEditableRepository")
 

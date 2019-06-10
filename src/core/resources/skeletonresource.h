@@ -57,14 +57,14 @@ public:
     void setI18nTitle(QString title) override;
     QString description() const override;
     void setDescription(QString description) override;
-    Language * language() const override;
-    void setLanguage(Language *language) override;
+    std::shared_ptr<Language> language() const override;
+    void setLanguage(std::shared_ptr<Language> language) override;
     QList<Unit *> unitList() override;
     QUrl file() const override;
 
     bool exportCourse(const QUrl &filePath);
 
-    void addUnit(Unit *unit) override;
+    std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override;
 
     bool isModified() const { return true;} //FIXME
 

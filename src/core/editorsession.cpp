@@ -78,7 +78,7 @@ void EditorSession::setSkeleton(IEditableCourse *skeleton)
     if (m_skeleton && m_repository) {
         for (const auto &course : m_repository->editableCourses()) {
             if (course->foreignId() == m_skeleton->id()) {
-                newCourse = course;
+                newCourse = course.get();
                 break;
             }
         }
@@ -110,7 +110,7 @@ void EditorSession::setCourse(IEditableCourse *course)
         if (m_skeleton == nullptr || m_skeleton->id() != course->foreignId()) {
             for (const auto &skeleton : m_repository->skeletons()) {
                 if (skeleton->id() == course->foreignId()) {
-                    newSkeleton = skeleton;
+                    newSkeleton = skeleton.get();
                     break;
                 }
             }
@@ -118,7 +118,7 @@ void EditorSession::setCourse(IEditableCourse *course)
             emit skeletonChanged();
         }
         // update language
-        m_language = m_course->language();
+        m_language = m_course->language().get();
     } else {
         m_language = nullptr;
     }
@@ -136,9 +136,13 @@ void EditorSession::setCourseByLanguage(Language *language)
         return;
     }
     IEditableCourse *newCourse{ nullptr };
+    QString languageId;
+    if (language) {
+        languageId = language->id();
+    }
     for (auto course : m_repository->editableCourses()) {
         if (course->foreignId() == m_skeleton->id() && course->language()->id() == language->id()) {
-            newCourse = course;
+            newCourse = course.get();
             break;
         }
     }
@@ -269,5 +273,6 @@ void EditorSession::updateCourseFromSkeleton()
         qCritical() << "Not updating course from skeleton, no one set.";
         return;
     }
-    m_repository->updateCourseFromSkeleton(m_course);
+    //FIXME convert to interface
+//    m_repository->updateCourseFromSkeleton(m_course);
 }

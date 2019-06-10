@@ -35,9 +35,9 @@ class ResourceRepositoryStub : public IResourceRepository
 {
     Q_OBJECT
 public:
-    ResourceRepositoryStub(QVector<Language *> languages)
+    ResourceRepositoryStub(QVector<std::shared_ptr<Language>> languages)
+        : m_languages(languages)
     {
-        m_languages = languages;
     }
 
     ~ResourceRepositoryStub() override;
@@ -47,15 +47,15 @@ public:
         return m_storageLocation;
     }
 
-    QVector<ICourse *> courses() const override
+    QVector<std::shared_ptr<ICourse>> courses() const override
     {
-        return QVector<ICourse *>(); // do not return any courses: stub shall only provide languages
+        return QVector<std::shared_ptr<ICourse>>(); // do not return any courses: stub shall only provide languages
     }
 
-    QVector<ICourse *> courses(Language *language) const override
+    QVector<std::shared_ptr<ICourse>> courses(const QString &languageId) const override
     {
-        Q_UNUSED(language);
-        return QVector<ICourse *>(); // do not return any courses: stub shall only provide languages
+        Q_UNUSED(languageId);
+        return QVector<std::shared_ptr<ICourse>>(); // do not return any courses: stub shall only provide languages
     }
 
     void reloadCourses() override
@@ -63,7 +63,7 @@ public:
         ; // do nothing, stub shall only provide languages
     }
 
-    QVector<Language *> languages() const override
+    QVector<std::shared_ptr<Language>> languages() const override
     {
         return m_languages;
     }
@@ -75,7 +75,7 @@ Q_SIGNALS:
 
 private:
     QString m_storageLocation;
-    QVector<Language *> m_languages;
+    QVector<std::shared_ptr<Language>> m_languages;
 };
 
 #endif
