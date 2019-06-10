@@ -38,7 +38,7 @@
 #include <QUrl>
 #include <QStandardPaths>
 
-ContributorRepository::ContributorRepository(QObject *parent)
+ContributorRepository::ContributorRepository()
     : IEditableRepository()
 {
     loadLanguageResources();

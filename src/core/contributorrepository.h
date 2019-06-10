@@ -51,7 +51,7 @@ class ARTIKULATECORE_EXPORT ContributorRepository : public IEditableRepository
     Q_PROPERTY(QString repositoryUrl READ storageLocation NOTIFY repositoryChanged)
 
 public:
-    explicit ContributorRepository(QObject *parent = nullptr);
+    explicit ContributorRepository();
     ~ContributorRepository() override;
 
     /**
