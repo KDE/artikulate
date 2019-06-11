@@ -76,47 +76,8 @@ void CourseResourcePrivate::loadCourse(CourseResource *parent)
         return;
     }
 
-    // load existing file
-    QXmlSchema schema = CourseParser::loadXmlSchema(QStringLiteral("course"));
-    if (!schema.isValid()) {
-        qCWarning(ARTIKULATE_CORE()) << "Scheme not valid, aborting";
-        return;
-    }
-    QDomDocument document = CourseParser::loadDomDocument(m_file, schema);
-    if (document.isNull()) {
-        qCWarning(ARTIKULATE_CORE()) << "Could not parse document " << m_file.toLocalFile() << ", aborting.";
-        return;
-    }
-
-    // load missing elements of course
-    // TODO usage of QDomElement is quite slow and should be exchanged with the QXmlParser in the future
-    QDomElement root(document.documentElement());
-
-    if (!root.firstChildElement(QStringLiteral("foreignId")).isNull()) {
-        m_foreignId = root.firstChildElement(QStringLiteral("foreignId")).text();
-    }
-
-    // create units
-    for (QDomElement unitNode = root.firstChildElement(QStringLiteral("units")).firstChildElement();
-         !unitNode.isNull();
-         unitNode = unitNode.nextSiblingElement())
-    {
-        std::unique_ptr<Unit> unit(new Unit);
-        unit->setId(unitNode.firstChildElement(QStringLiteral("id")).text());
-        unit->setCourse(parent);
-        unit->setTitle(unitNode.firstChildElement(QStringLiteral("title")).text());
-        if (!unitNode.firstChildElement(QStringLiteral("foreignId")).isNull()) {
-            unit->setForeignId(unitNode.firstChildElement(QStringLiteral("foreignId")).text());
-        }
-
-        // create phrases
-        for (QDomElement phraseNode = unitNode.firstChildElement(QStringLiteral("phrases")).firstChildElement();
-            !phraseNode.isNull();
-            phraseNode = phraseNode.nextSiblingElement())
-        {
-            unit->addPhrase(CourseParser::parsePhrase(phraseNode, unit.get())); // add to unit at last step to produce only one signal
-            //FIXME phrase does not cause unit signals that phonemes list is changed
-        }
+    auto units = CourseParser::parseUnits(m_file);
+    for (auto &unit : units) {
         parent->addUnit(std::move(unit));
     }
 }

@@ -60,16 +60,14 @@ public:
 
     static std::vector<std::unique_ptr<Unit>> parseUnits(const QUrl &path);
 
-    static Phrase * parsePhrase(QDomElement phraseNode, Unit* parentUnit);
     static QDomDocument serializedDocument(ICourse *course, bool trainingExport);
     static QDomElement serializedPhrase(Phrase *phrase, QDomDocument &document);
     static bool exportCourseToGhnsPackage(ICourse *course, const QString &exportPath);
 
 private:
-    static std::unique_ptr<Unit> parseUnit(QXmlStreamReader &xml, bool &ok);
-    static Phrase * parsePhrase(QXmlStreamReader &xml, bool &ok);
+    static std::unique_ptr<Unit> parseUnit(QXmlStreamReader &xml, const QUrl &path, bool &ok);
+    static Phrase * parsePhrase(QXmlStreamReader &xml, const QUrl &path, bool &ok);
     static QString parseElement(QXmlStreamReader &xml, bool &ok);
-
 };
 
 #endif

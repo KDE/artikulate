@@ -96,7 +96,7 @@ std::vector<std::unique_ptr<Unit>> CourseParser::parseUnits(const QUrl &path)
                 if (xml.name() == "units") {
                     continue;
                 } else if (xml.name() == "unit") {
-                    auto unit = parseUnit(xml, elementOk);
+                    auto unit = parseUnit(xml, path, elementOk);
                     if (elementOk) {
                         units.push_back(std::move(unit));
                     }
@@ -115,7 +115,7 @@ std::vector<std::unique_ptr<Unit>> CourseParser::parseUnits(const QUrl &path)
     return units;
 }
 
-std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, bool &ok)
+std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl &path, bool &ok)
 {
     std::unique_ptr<Unit> unit(new Unit);
     ok = true;
@@ -133,6 +133,9 @@ std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, bool &ok)
             if (xml.name() == "id") {
                 unit->setId(parseElement(xml, elementOk));
                 ok &= elementOk;
+            }  else if (xml.name() == "foreignId") {
+                unit->setForeignId(parseElement(xml, elementOk));
+                ok &= elementOk;
             } else if (xml.name() == "title") {
                 unit->setTitle(parseElement(xml, elementOk));
                 ok &= elementOk;
@@ -140,7 +143,7 @@ std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, bool &ok)
                 // nothing to do
             }
             else if (xml.name() == "phrase") {
-                auto phrase = parsePhrase(xml, elementOk);
+                auto phrase = parsePhrase(xml, path, elementOk);
                 if (elementOk) {
                     unit->addPhrase(phrase);
                 }
@@ -157,7 +160,7 @@ std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, bool &ok)
     return unit;
 }
 
-Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, bool &ok)
+Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, const QUrl &path, bool &ok)
 {
     Phrase * phrase = new Phrase(nullptr);
     ok = true;
@@ -176,8 +179,19 @@ Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, bool &ok)
             if (xml.name() == "id") {
                 phrase->setId(parseElement(xml, elementOk));
                 ok &= elementOk;
+            } else if (xml.name() == "foreignId") {
+                phrase->setForeignId(parseElement(xml, elementOk));
+                ok &= elementOk;
             } else if (xml.name() == "text") {
                 phrase->setText(parseElement(xml, elementOk));
+                ok &= elementOk;
+            } else if (xml.name() == "i18nText") {
+                phrase->seti18nText(parseElement(xml, elementOk));
+                ok &= elementOk;
+            } else if (xml.name() == "soundFile") {
+                phrase->setSound(QUrl::fromLocalFile(
+                        path.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path()
+                        + '/' + parseElement(xml, elementOk)));
                 ok &= elementOk;
             } else if (xml.name() == "type") {
                 const QString type = parseElement(xml, elementOk);
@@ -189,6 +203,16 @@ Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, bool &ok)
                     phrase->setType(Phrase::Sentence);
                 } else if (type == "paragraph") {
                     phrase->setType(Phrase::Paragraph);
+                }
+                ok &= elementOk;
+            } else if (xml.name() == "editState") {
+                const QString type = parseElement(xml, elementOk);
+                if (type == "translated") {
+                    phrase->setEditState(Phrase::EditState::Translated);
+                } else if (type == "completed") {
+                    phrase->setEditState(Phrase::EditState::Completed);
+                } else if (type == "unknown") {
+                    phrase->setEditState(Phrase::EditState::Completed);
                 }
                 ok &= elementOk;
             } else {
@@ -219,55 +243,6 @@ QString CourseParser::parseElement(QXmlStreamReader& xml, bool &ok)
     return xml.text().toString();
 }
 
-Phrase * CourseParser::parsePhrase(QDomElement phraseNode, Unit* parentUnit)
-{
-    const ICourse *course = parentUnit->course();
-    Q_ASSERT(course != nullptr);
-
-    Phrase *phrase = new Phrase(parentUnit);
-    phrase->setId(phraseNode.firstChildElement(QStringLiteral("id")).text());
-    phrase->setText(phraseNode.firstChildElement(QStringLiteral("text")).text());
-    phrase->seti18nText(phraseNode.firstChildElement(QStringLiteral("i18nText")).text());
-    phrase->setUnit(parentUnit);
-    if (!phraseNode.firstChildElement(QStringLiteral("soundFile")).text().isEmpty()) {
-        phrase->setSound(QUrl::fromLocalFile(
-                course->file().adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path()
-                + '/' + phraseNode.firstChildElement(QStringLiteral("soundFile")).text())
-            );
-    }
-    phrase->setType(phraseNode.firstChildElement(QStringLiteral("type")).text());
-    phrase->setEditState(phraseNode.firstChildElement(QStringLiteral("editState")).text());
-    if (!phraseNode.firstChildElement(QStringLiteral("foreignId")).isNull()) {
-        phrase->setForeignId(phraseNode.firstChildElement(QStringLiteral("foreignId")).text());
-    }
-
-    // add phonemes
-    QList<Phoneme *> phonemes = course->language()->phonemes();
-    for (QDomElement phonemeID = phraseNode.firstChildElement(QStringLiteral("phonemes")).firstChildElement();
-        !phonemeID.isNull();
-            phonemeID = phonemeID.nextSiblingElement())
-    {
-        QString id = phonemeID.text();
-        if (id.isEmpty()) {
-            qCritical() << "Phoneme ID string is empty for phrase "<< phrase->id() <<", aborting.";
-            continue;
-        }
-        for (Phoneme *phoneme : phonemes) {
-            if (phoneme->id() == id) {
-                phrase->addPhoneme(phoneme);
-                break;
-            }
-        }
-    }
-
-    if (!phraseNode.firstChildElement(QStringLiteral("excluded")).isNull() &&
-        phraseNode.firstChildElement(QStringLiteral("excluded")).text() == QLatin1String("true"))
-    {
-        phrase->setExcluded(true);
-    }
-
-    return phrase;
-}
 
 QDomDocument CourseParser::serializedDocument(ICourse *course, bool trainingExport)
 {
