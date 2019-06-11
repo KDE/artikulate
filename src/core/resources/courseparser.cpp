@@ -193,6 +193,9 @@ Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, const QUrl &path, bool
                         path.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path()
                         + '/' + parseElement(xml, elementOk)));
                 ok &= elementOk;
+            } else if (xml.name() == "phonemes") {
+                parsePhonemeIds(xml, elementOk); //TODO register language phonemes at phrase
+                ok &= elementOk;
             } else if (xml.name() == "type") {
                 const QString type = parseElement(xml, elementOk);
                 if (type == "word") {
@@ -225,6 +228,39 @@ Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, const QUrl &path, bool
         qCWarning(ARTIKULATE_PARSER()) << "Errors occured while parsing phrase" << phrase->text() << phrase->id();
     }
     return phrase;
+}
+
+QStringList CourseParser::parsePhonemeIds(QXmlStreamReader &xml, bool &ok)
+{
+    QStringList ids;
+    ok = true;
+
+    if (xml.tokenType() != QXmlStreamReader::StartElement
+        && xml.name() == "phonemes") {
+        qCWarning(ARTIKULATE_PARSER()) << "Expected to parse 'phonemes' element, aborting here";
+        ok = false;
+        return ids;
+    }
+
+    xml.readNext();
+    while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "phonemes")) {
+        xml.readNext();
+        if (xml.name() == "phoneme") {
+            while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "phoneme")) {
+                if (xml.tokenType() == QXmlStreamReader::StartElement) {
+                    bool elementOk{ false };
+                    if (xml.name() == "phonemeID") {
+                        ids.append(parseElement(xml, elementOk));
+                        ok &= elementOk;
+                    } else {
+                        qCWarning(ARTIKULATE_PARSER()) << "Skipping unknown token" << xml.name();
+                    }
+                }
+                xml.readNext();
+            }
+        }
+    }
+    return ids;
 }
 
 QString CourseParser::parseElement(QXmlStreamReader& xml, bool &ok)

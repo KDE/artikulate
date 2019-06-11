@@ -28,6 +28,7 @@
 class ICourse;
 class Unit;
 class Phrase;
+class Phoneme;
 class QXmlSchema;
 class QJSonDocument;
 class QDomDocument;
@@ -67,6 +68,7 @@ public:
 private:
     static std::unique_ptr<Unit> parseUnit(QXmlStreamReader &xml, const QUrl &path, bool &ok);
     static Phrase * parsePhrase(QXmlStreamReader &xml, const QUrl &path, bool &ok);
+    static QStringList parsePhonemeIds(QXmlStreamReader &xml, bool &ok);
     static QString parseElement(QXmlStreamReader &xml, bool &ok);
 };
 
