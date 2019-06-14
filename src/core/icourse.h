@@ -30,6 +30,7 @@
 class QString;
 class Language;
 class Unit;
+class Phoneme;
 
 class ARTIKULATECORE_EXPORT ICourse : public QObject
 {

@@ -22,6 +22,7 @@
 #include "courseparser.h"
 #include "core/language.h"
 #include "core/unit.h"
+#include "core/phrase.h"
 #include "editablecourseresource.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"

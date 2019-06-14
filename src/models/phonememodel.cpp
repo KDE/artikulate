@@ -69,7 +69,7 @@ QVariant PhonemeModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    Phoneme * const phoneme = m_language->phonemes().at(index.row());
+    auto phoneme = m_language->phonemes().at(index.row());
 
     switch(role)
     {
@@ -83,7 +83,7 @@ QVariant PhonemeModel::data(const QModelIndex& index, int role) const
     case IdRole:
         return phoneme->id();
     case DataRole:
-        return QVariant::fromValue<QObject*>(phoneme);
+        return QVariant::fromValue<QObject*>(phoneme.get());
     default:
         return QVariant();
     }
@@ -148,6 +148,6 @@ void PhonemeModel::updateMappings()
     }
     int phonemes = m_language->phonemes().count();
     for (int i = 0; i < phonemes; i++) {
-        m_signalMapper->setMapping(m_language->phonemes().at(i), i);
+        m_signalMapper->setMapping(m_language->phonemes().at(i).get(), i);
     }
 }

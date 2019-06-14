@@ -22,8 +22,9 @@
 #define LANGUAGE_H
 
 #include "artikulatecore_export.h"
+#include <memory>
 #include <QObject>
-#include <QList>
+#include <QVector>
 #include <QUrl>
 
 class QString;
@@ -49,10 +50,9 @@ public:
     void setTitle(const QString &title);
     QUrl file() const;
     void setFile(const QUrl &file);
-    QList<Phoneme *> phonemes() const;
-    Phoneme * addPhoneme(const QString &identifier, const QString &title);
-    QList<PhonemeGroup *> phonemeGroups() const;
-    PhonemeGroup * addPhonemeGroup(const QString &identifier, const QString &title);
+    QVector<std::shared_ptr<Phoneme>> phonemes() const;
+    QVector<std::shared_ptr<PhonemeGroup>> phonemeGroups() const;
+    std::shared_ptr<PhonemeGroup> addPhonemeGroup(const QString &identifier, const QString &title);
 
 Q_SIGNALS:
     void idChanged();
@@ -67,7 +67,7 @@ private:
     QString m_title;
     QString m_i18nTitle;
     QUrl m_file;
-    QList<PhonemeGroup *> m_phonemeGroups;
+    QVector<std::shared_ptr<PhonemeGroup>> m_phonemeGroups;
 };
 
 #endif // LANGUAGE_H

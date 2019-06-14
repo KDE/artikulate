@@ -69,7 +69,7 @@ QDomDocument CourseParser::loadDomDocument(const QUrl &path, const QXmlSchema &s
     return document;
 }
 
-std::vector<std::unique_ptr<Unit>> CourseParser::parseUnits(const QUrl &path)
+std::vector<std::unique_ptr<Unit>> CourseParser::parseUnits(const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes)
 {
     std::vector<std::unique_ptr<Unit>> units;
 
@@ -96,7 +96,7 @@ std::vector<std::unique_ptr<Unit>> CourseParser::parseUnits(const QUrl &path)
                 if (xml.name() == "units") {
                     continue;
                 } else if (xml.name() == "unit") {
-                    auto unit = parseUnit(xml, path, elementOk);
+                    auto unit = parseUnit(xml, path, phonemes, elementOk);
                     if (elementOk) {
                         units.push_back(std::move(unit));
                     }
@@ -115,7 +115,7 @@ std::vector<std::unique_ptr<Unit>> CourseParser::parseUnits(const QUrl &path)
     return units;
 }
 
-std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl &path, bool &ok)
+std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok)
 {
     std::unique_ptr<Unit> unit(new Unit);
     ok = true;
@@ -143,7 +143,7 @@ std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl 
                 // nothing to do
             }
             else if (xml.name() == "phrase") {
-                auto phrase = parsePhrase(xml, path, elementOk);
+                auto phrase = parsePhrase(xml, path, phonemes, elementOk);
                 if (elementOk) {
                     unit->addPhrase(phrase);
                 }
@@ -160,9 +160,9 @@ std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl 
     return unit;
 }
 
-Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, const QUrl &path, bool &ok)
+Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok)
 {
-    Phrase * phrase = new Phrase(nullptr);
+    Phrase * phrase = new Phrase;
     ok = true;
 
     if (xml.tokenType() != QXmlStreamReader::StartElement
@@ -194,7 +194,12 @@ Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, const QUrl &path, bool
                         + '/' + parseElement(xml, elementOk)));
                 ok &= elementOk;
             } else if (xml.name() == "phonemes") {
-                parsePhonemeIds(xml, elementOk); //TODO register language phonemes at phrase
+                auto parsedPhonemeIds = parsePhonemeIds(xml, elementOk);
+                for (auto phoneme : phonemes) {
+                    if (parsedPhonemeIds.contains(phoneme->id())) {
+                        phrase->addPhoneme(phoneme.get());
+                    }
+                }
                 ok &= elementOk;
             } else if (xml.name() == "type") {
                 const QString type = parseElement(xml, elementOk);
@@ -245,18 +250,13 @@ QStringList CourseParser::parsePhonemeIds(QXmlStreamReader &xml, bool &ok)
     xml.readNext();
     while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "phonemes")) {
         xml.readNext();
-        if (xml.name() == "phoneme") {
-            while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "phoneme")) {
-                if (xml.tokenType() == QXmlStreamReader::StartElement) {
-                    bool elementOk{ false };
-                    if (xml.name() == "phonemeID") {
-                        ids.append(parseElement(xml, elementOk));
-                        ok &= elementOk;
-                    } else {
-                        qCWarning(ARTIKULATE_PARSER()) << "Skipping unknown token" << xml.name();
-                    }
-                }
-                xml.readNext();
+        if (xml.tokenType() == QXmlStreamReader::StartElement) {
+            if (xml.name() == "phonemeID") {
+                bool elementOk{ false };
+                ids.append(parseElement(xml, elementOk));
+                ok &= elementOk;
+            } else {
+                qCWarning(ARTIKULATE_PARSER()) << "Skipping unknown token" << xml.name();
             }
         }
     }
@@ -275,7 +275,7 @@ QString CourseParser::parseElement(QXmlStreamReader& xml, bool &ok)
     QString elementName = xml.name().toString();
     xml.readNext();
 
-//    qCDebug(ARTIKULATE_PARSER()) << "parsed: " << elementName << " / " << xml.text().toString();
+    qCDebug(ARTIKULATE_PARSER()) << "parsed: " << elementName << " / " << xml.text().toString();
     return xml.text().toString();
 }
 

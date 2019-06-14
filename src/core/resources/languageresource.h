@@ -58,11 +58,6 @@ public:
     bool isOpen() const;
 
     /**
-     * close resource without writing changes back to file
-     */
-    void close();
-
-    /**
      * \return path to resource file
      */
     QUrl path() const;

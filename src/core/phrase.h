@@ -26,6 +26,7 @@
 #include <QObject>
 #include <QUrl>
 #include <QList>
+#include <QVector>
 #include <QTemporaryFile>
 
 class QString;
@@ -96,7 +97,7 @@ public:
     void setEditState(const QString &stateString);
     QUrl sound() const;
     void setSound(const QUrl &soundFile);
-    QList<Phoneme *> phonemes() const;
+    QVector<Phoneme *> phonemes() const;
     bool isExcluded() const;
     void setExcluded(bool excluded = false);
     int progress() const;
@@ -132,7 +133,7 @@ private:
     unsigned m_trainingProgress;
     int m_skipCounter; // count how many skips occurred since last progress update
     bool m_excludedFromUnit;
-    QList<Phoneme *> m_phonemes;
+    QVector<Phoneme *> m_phonemes;
     QUrl m_nativeSoundFile;
 };
 

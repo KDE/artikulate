@@ -103,12 +103,6 @@ QString LanguageResource::i18nTitle()
     return d->m_i18nTitle;
 }
 
-void LanguageResource::close()
-{
-    // do nothing
-    // language files are never closed
-}
-
 bool LanguageResource::isOpen() const
 {
     return (d->m_language != nullptr);
@@ -152,7 +146,7 @@ std::shared_ptr<Language> LanguageResource::language()
          !groupNode.isNull();
          groupNode = groupNode.nextSiblingElement())
     {
-        PhonemeGroup *group = d->m_language->addPhonemeGroup(
+        auto group = d->m_language->addPhonemeGroup(
             groupNode.firstChildElement(QStringLiteral("id")).text(),
             groupNode.firstChildElement(QStringLiteral("title")).text());
         group->setDescription(groupNode.attribute(QStringLiteral("description")));

@@ -23,6 +23,7 @@
 #include "core/language.h"
 #include "core/unit.h"
 #include "core/phrase.h"
+#include "core/phonemegroup.h"
 #include "core/resources/languageresource.h"
 #include "core/resources/courseresource.h"
 
@@ -60,6 +61,9 @@ void TestCourseResource::loadCourseResource()
 {
     std::unique_ptr<Language> language(new Language);
     language->setId("de");
+    auto group = language->addPhonemeGroup("id", "title");
+    group->addPhoneme("g", "G");
+    group->addPhoneme("u", "U");
     std::vector<std::unique_ptr<Language>> languages;
     languages.push_back(std::move(language));
     ResourceRepositoryStub repository(std::move(languages));
@@ -93,7 +97,7 @@ void TestCourseResource::loadCourseResource()
     QCOMPARE(firstPhrase->text(), "Guten Tag.");
     QCOMPARE(firstPhrase->soundFileUrl(), courseDirectory + "de_01.ogg");
     QCOMPARE(firstPhrase->type(), Phrase::Type::Sentence);
-    QVERIFY(firstPhrase->phonemes().isEmpty());
+    QCOMPARE(firstPhrase->phonemes().count(), 2);
 }
 
 void TestCourseResource::unitAddAndRemoveHandling()

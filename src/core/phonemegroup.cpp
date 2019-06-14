@@ -23,8 +23,8 @@
 
 #include "artikulate_debug.h"
 
-PhonemeGroup::PhonemeGroup(QObject *parent)
-    : QObject(parent)
+PhonemeGroup::PhonemeGroup()
+    : QObject(nullptr)
 {
 }
 
@@ -73,61 +73,48 @@ void PhonemeGroup::setDescription(const QString &description)
     emit descriptionChanged();
 }
 
-QList< Phoneme* > PhonemeGroup::phonemes() const
+QVector<std::shared_ptr<Phoneme>> PhonemeGroup::phonemes() const
 {
     return m_phonemes;
 }
 
-bool PhonemeGroup::contains(Phoneme *phoneme) const
+bool PhonemeGroup::contains(std::shared_ptr<Phoneme> phoneme) const
 {
-    QList<Phoneme *>::ConstIterator iter = m_phonemes.constBegin();
-    while (iter != m_phonemes.constEnd()) {
-        if (QString::compare((*iter)->id(), phoneme->id()) == 0) {
+    for (auto testPhoneme : m_phonemes) {
+        if (QString::compare(testPhoneme->id(), phoneme->id()) == 0) {
             return true;
         }
-        ++iter;
     }
     return false;
 }
 
-void PhonemeGroup::addPhoneme(Phoneme *phoneme)
+std::shared_ptr<Phoneme> PhonemeGroup::addPhoneme(std::unique_ptr<Phoneme> phoneme)
 {
-    QList<Phoneme *>::ConstIterator iter = m_phonemes.constBegin();
-    while (iter != m_phonemes.constEnd()) {
-        if (QString::compare((*iter)->id(), phoneme->id()) == 0) {
-            qCWarning(ARTIKULATE_LOG) << "Phoneme identifier already registered in group "<< m_title <<", aborting";
-            return;
-        }
-        ++iter;
+    std::shared_ptr<Phoneme> newPhoneme(std::move(phoneme));
+    if (!contains(newPhoneme)) {
+        m_phonemes.append(newPhoneme);
     }
-    m_phonemes.append(phoneme);
+    else {
+        qCWarning(ARTIKULATE_LOG) << "Phoneme identifier already registered in group "<< m_title <<", aborting";
+    }
+    return std::shared_ptr<Phoneme>();
 }
 
-Phoneme * PhonemeGroup::addPhoneme(const QString &identifier, const QString &title)
+std::shared_ptr<Phoneme> PhonemeGroup::addPhoneme(const QString &identifier, const QString &title)
 {
     Q_ASSERT(!identifier.isEmpty());
 
     // check that identifier is not used
-    QList<Phoneme *>::ConstIterator iter = m_phonemes.constBegin();
-    while (iter != m_phonemes.constEnd()) {
-        if (QString::compare((*iter)->id(), identifier) == 0) {
+    for (auto phoneme : m_phonemes) {
+        if (QString::compare(phoneme->id(), identifier) == 0) {
             qCWarning(ARTIKULATE_LOG) << "Phoneme identifier " << identifier <<" already registered in group "
                 << m_title <<", aborting";
-            return nullptr;
+            return std::shared_ptr<Phoneme>();
         }
-        ++iter;
     }
 
-    // create phoneme and add it
-    Phoneme *newPhoneme = new Phoneme();
+    std::unique_ptr<Phoneme> newPhoneme(new Phoneme);
     newPhoneme->setId(identifier);
     newPhoneme->setTitle(title);
-    addPhoneme(newPhoneme);
-
-    return newPhoneme;
-}
-
-void PhonemeGroup::removePhoneme(Phoneme *phoneme)
-{
-    m_phonemes.removeOne(phoneme);
+    return addPhoneme(std::move(newPhoneme));
 }

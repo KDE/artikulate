@@ -17,7 +17,10 @@
                     <text>Guten Tag.</text>
                     <soundFile>de_01.ogg</soundFile>
                     <type>sentence</type>
-                    <phonemes></phonemes>
+                    <phonemes>
+                        <phonemeID>g</phonemeID>
+                        <phonemeID>u</phonemeID>
+                    </phonemes>
                 </phrase>
                 <phrase>
                     <id>2</id>

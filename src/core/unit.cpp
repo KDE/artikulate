@@ -41,10 +41,10 @@ Unit::Unit(QObject *parent)
 
 Unit::~Unit()
 {
-    for (auto phrase : m_phraseList) {
+    for (auto phrase : m_phrases) {
         phrase->deleteLater();
     }
-    m_phraseList.clear();
+    m_phrases.clear();
     m_phraseSignalMapper->deleteLater();
 }
 
@@ -100,15 +100,15 @@ void Unit::setTitle(const QString &title)
     }
 }
 
-QList< Phrase* > Unit::phraseList() const
+QList<Phrase*> Unit::phraseList() const
 {
-    return m_phraseList;
+    return m_phrases;
 }
 
 void Unit::addPhrase(Phrase *phrase)
 {
-    QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
-    while (iter != m_phraseList.constEnd()) {
+    auto iter = m_phrases.constBegin();
+    while (iter != m_phrases.constEnd()) {
         if (phrase->id() == (*iter)->id()) {
             qCWarning(ARTIKULATE_LOG()) << "Phrase is already contained in this unit, aborting";
             return;
@@ -116,8 +116,8 @@ void Unit::addPhrase(Phrase *phrase)
         ++iter;
     }
     phrase->setUnit(this);
-    emit phraseAboutToBeAdded(phrase, m_phraseList.length());
-    m_phraseList.append(phrase);
+    emit phraseAboutToBeAdded(phrase, m_phrases.length());
+    m_phrases.append(phrase);
     m_phraseSignalMapper->setMapping(phrase, phrase->id());
 
     emit phraseAdded(phrase);
@@ -132,19 +132,17 @@ void Unit::addPhrase(Phrase *phrase)
 QList<Phrase *> Unit::excludedSkeletonPhraseList() const
 {
     QList<Phrase *> excludedPhraseList;
-    QList<Phrase *>::ConstIterator iter = m_phraseList.constBegin();
-    while (iter != m_phraseList.constEnd()) {
-        if ((*iter)->isExcluded() == true) {
-            excludedPhraseList.append(*iter);
+    for (auto phrase : m_phrases) {
+        if (phrase->isExcluded() == true) {
+            excludedPhraseList.append(phrase);
         }
-        ++iter;
     }
     return excludedPhraseList;
 }
 
 void Unit::excludeSkeletonPhrase(const QString &phraseId)
 {
-    foreach (Phrase *phrase, m_phraseList) {
+    for (auto phrase : m_phrases) {
         if (phrase->id() == phraseId) {
             phrase->setExcluded(true);
             emit modified();
@@ -156,7 +154,7 @@ void Unit::excludeSkeletonPhrase(const QString &phraseId)
 
 void Unit::includeSkeletonPhrase(const QString &phraseId)
 {
-    foreach (Phrase *phrase, m_phraseList) {
+    for (auto phrase : m_phrases) {
         if (phrase->id() == phraseId) {
             phrase->setExcluded(false);
             emit modified();

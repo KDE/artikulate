@@ -22,9 +22,10 @@
 #define PHONEMEGROUP_H
 
 #include "artikulatecore_export.h"
+#include <memory>
+#include <QVector>
 #include <QObject>
 #include <QMap>
-#include "phoneme.h"
 
 class QString;
 class Phoneme;
@@ -39,7 +40,7 @@ class ARTIKULATECORE_EXPORT PhonemeGroup : public QObject
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
 
 public:
-    explicit PhonemeGroup(QObject *parent = 0);
+    explicit PhonemeGroup();
     ~PhonemeGroup() override;
     QString id() const;
     void setId(const QString &id);
@@ -47,31 +48,29 @@ public:
     void setTitle(const QString &title);
     QString description() const;
     void setDescription(const QString &description);
-    void addPhoneme(Phoneme *phoneme);
-    Phoneme * addPhoneme(const QString &identifier, const QString &title);
-    void removePhoneme(Phoneme *phoneme);
-    QList<Phoneme *> phonemes() const;
+    std::shared_ptr<Phoneme> addPhoneme(std::unique_ptr<Phoneme> phoneme);
+    std::shared_ptr<Phoneme> addPhoneme(const QString &identifier, const QString &title);
+    QVector<std::shared_ptr<Phoneme>> phonemes() const;
     /**
      * Checks by identifier comparison whether phoneme is registered in this group.
      *
      * \param poneme is the phoneme to be checked for if registered
      * \return true if registered, false otherwise
      */
-    bool contains(Phoneme *phoneme) const;
+    bool contains(std::shared_ptr<Phoneme> phoneme) const;
 
-signals:
+Q_SIGNALS:
     void idChanged();
     void titleChanged();
     void descriptionChanged();
     void phonemeAdded(const Phoneme&);
-    void phonemeRemoved(const Phoneme&);
 
 private:
     Q_DISABLE_COPY(PhonemeGroup)
     QString m_id;
     QString m_title;
     QString m_description;
-    QList<Phoneme *> m_phonemes;
+    QVector<std::shared_ptr<Phoneme>> m_phonemes;
 };
 
 #endif // PHONEMEGROUP_H

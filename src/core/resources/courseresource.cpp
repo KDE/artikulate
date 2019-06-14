@@ -76,7 +76,8 @@ void CourseResourcePrivate::loadCourse(CourseResource *parent)
         return;
     }
 
-    auto units = CourseParser::parseUnits(m_file);
+    QVector<std::shared_ptr<Phoneme>> phonemes = m_language->phonemes();
+    auto units = CourseParser::parseUnits(m_file, phonemes);
     for (auto &unit : units) {
         parent->addUnit(std::move(unit));
     }

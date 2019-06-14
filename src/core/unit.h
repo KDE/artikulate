@@ -22,9 +22,10 @@
 #define UNIT_H
 
 #include "artikulatecore_export.h"
-#include "phrase.h"
+#include <memory>
 #include <QObject>
 #include <QList>
+#include <QVector>
 #include <QStringList>
 
 class QSignalMapper;
@@ -51,7 +52,7 @@ public:
     void setCourse(ICourse* course);
     QString title() const;
     void setTitle(const QString &title);
-    QList<Phrase *> phraseList() const;
+    QList<Phrase*> phraseList() const;
     void addPhrase(Phrase *phrase);
     QList<Phrase *> excludedSkeletonPhraseList() const;
 
@@ -81,7 +82,7 @@ private:
     QString m_foreignId;
     ICourse *m_course;
     QString m_title;
-    QList<Phrase *> m_phraseList;
+    QList<Phrase*> m_phrases;
     QSignalMapper *m_phraseSignalMapper;
 };
 

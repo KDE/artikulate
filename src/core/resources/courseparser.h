@@ -29,6 +29,7 @@ class ICourse;
 class Unit;
 class Phrase;
 class Phoneme;
+class IResourceRepository;
 class QXmlSchema;
 class QJSonDocument;
 class QDomDocument;
@@ -59,15 +60,15 @@ public:
      */
     static QDomDocument loadDomDocument(const QUrl &path, const QXmlSchema &schema);
 
-    static std::vector<std::unique_ptr<Unit>> parseUnits(const QUrl &path);
+    static std::vector<std::unique_ptr<Unit>> parseUnits(const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes = QVector<std::shared_ptr<Phoneme>>());
 
     static QDomDocument serializedDocument(ICourse *course, bool trainingExport);
     static QDomElement serializedPhrase(Phrase *phrase, QDomDocument &document);
     static bool exportCourseToGhnsPackage(ICourse *course, const QString &exportPath);
 
 private:
-    static std::unique_ptr<Unit> parseUnit(QXmlStreamReader &xml, const QUrl &path, bool &ok);
-    static Phrase * parsePhrase(QXmlStreamReader &xml, const QUrl &path, bool &ok);
+    static std::unique_ptr<Unit> parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok);
+    static Phrase * parsePhrase(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok);
     static QStringList parsePhonemeIds(QXmlStreamReader &xml, bool &ok);
     static QString parseElement(QXmlStreamReader &xml, bool &ok);
 };

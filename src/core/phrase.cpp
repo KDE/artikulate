@@ -47,10 +47,7 @@ Phrase::Phrase(QObject *parent)
     connect(this, &Phrase::excludedChanged, this, &Phrase::modified);
 }
 
-Phrase::~Phrase()
-{
-
-}
+Phrase::~Phrase() = default;
 
 QString Phrase::id() const
 {
@@ -310,7 +307,7 @@ void Phrase::updateProgress(Phrase::Progress progress)
     }
 }
 
-QList<Phoneme *> Phrase::phonemes() const
+QVector<Phoneme *> Phrase::phonemes() const
 {
     return m_phonemes;
 }

@@ -30,10 +30,7 @@ Language::Language()
 {
 }
 
-Language::~Language()
-{
-    qDeleteAll(m_phonemeGroups);
-}
+Language::~Language() = default;
 
 QString Language::id() const
 {
@@ -85,40 +82,36 @@ void Language::setFile(const QUrl &file)
     m_file = file;
 }
 
-QList<Phoneme *> Language::phonemes() const
+QVector<std::shared_ptr<Phoneme>> Language::phonemes() const
 {
-    QList<Phoneme *> list;
-    foreach (PhonemeGroup *group, m_phonemeGroups) {
-        list.append(group->phonemes());
+    QVector<std::shared_ptr<Phoneme>> list;
+    for (auto group : m_phonemeGroups) {
+        list << group->phonemes();
     }
     return list;
 }
 
-QList<PhonemeGroup*> Language::phonemeGroups() const
+QVector<std::shared_ptr<PhonemeGroup>> Language::phonemeGroups() const
 {
     return m_phonemeGroups;
 }
 
-PhonemeGroup * Language::addPhonemeGroup(const QString &identifier, const QString &title)
+std::shared_ptr<PhonemeGroup> Language::addPhonemeGroup(const QString &identifier, const QString &title)
 {
-    QList<PhonemeGroup *>::ConstIterator iter = m_phonemeGroups.constBegin();
-    while (iter != m_phonemeGroups.constEnd()) {
-        if (QString::compare((*iter)->id(), identifier) == 0) {
+    for (auto group : m_phonemeGroups) {
+        if (QString::compare(group->id(), identifier) == 0) {
             qCWarning(ARTIKULATE_LOG) << "Pronunciation Group identifier already registered, aborting";
-            return nullptr;
+            return std::shared_ptr<PhonemeGroup>();
         }
-        ++iter;
     }
 
-    PhonemeGroup *newGroup = new PhonemeGroup();
-    newGroup->setId(identifier);
-    newGroup->setTitle(title);
-    m_phonemeGroups.append(newGroup);
+    std::shared_ptr<PhonemeGroup> phonemeGroup(new PhonemeGroup);
+    phonemeGroup->setId(identifier);
+    phonemeGroup->setTitle(title);
+    m_phonemeGroups.append(phonemeGroup);
 
-    connect(newGroup, &PhonemeGroup::phonemeAdded, this, &Language::phonemesChanged);
-    connect(newGroup, &PhonemeGroup::phonemeRemoved, this, &Language::phonemesChanged);
-
+    connect(phonemeGroup.get(), &PhonemeGroup::phonemeAdded, this, &Language::phonemesChanged);
     emit phonemeGroupsChanged();
 
-    return newGroup;
+    return phonemeGroup;
 }
