@@ -413,7 +413,6 @@ void ContributorRepository::removeCourse(std::shared_ptr<ICourse> course)
             emit courseAboutToBeRemoved(index);
             m_courses[course->language()->id()].removeAt(index);
             emit courseRemoved();
-            course->deleteLater();
             return;
         }
     }
@@ -434,7 +433,6 @@ IEditableCourse * ContributorRepository::createCourse(std::shared_ptr<Language> 
     course->setId(QUuid::createUuid().toString());
     course->setTitle(skeleton->title());
     course->setDescription(skeleton->description());
-    course->setFile(QUrl::fromLocalFile(path));
     course->setLanguage(language);
 
     // set skeleton
@@ -470,7 +468,6 @@ void ContributorRepository::removeSkeleton(SkeletonResource *skeleton)
             emit skeletonAboutToBeRemoved(index, index);
             m_skeletonResources.removeAt(index);
             emit skeletonRemoved();
-            skeleton->deleteLater();
             return;
         }
     }

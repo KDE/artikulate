@@ -90,11 +90,6 @@ public:
 
     std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit);
 
-    /**
-     * \return true if resource is loaded, otherwise false
-     */
-    bool isOpen() const;
-
     void sync();
 
     QUrl file() const override;

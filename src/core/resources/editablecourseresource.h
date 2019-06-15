@@ -114,8 +114,6 @@ public:
 
     QUrl file() const override;
 
-    void setFile(const QUrl &) {}
-
     Q_INVOKABLE Unit * createUnit();
     Q_INVOKABLE Phrase * createPhrase(Unit *unit);
 
