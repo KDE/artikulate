@@ -34,7 +34,7 @@
 class CourseStub : public ICourse
 {
 public:
-    CourseStub(Language *language, QVector<Unit *> units)
+    CourseStub(std::shared_ptr<Language> language, QVector<Unit *> units)
         : m_language(language)
         , m_units(units)
     {
@@ -94,8 +94,8 @@ void TestTrainingSession::cleanup()
 
 void TestTrainingSession::createTrainingSessionWithoutUnits()
 {
-    Language language;
-    CourseStub course(&language, QVector<Unit *>());
+    auto language = std::make_shared<Language>();
+    CourseStub course(language, QVector<Unit *>());
     LearnerProfile::ProfileManager manager;
     TrainingSession session(&manager);
     session.setCourse(&course);
@@ -104,7 +104,7 @@ void TestTrainingSession::createTrainingSessionWithoutUnits()
 
 void TestTrainingSession::createTrainingSessionWithEmptySounds()
 {
-    Language language;
+    auto language = std::make_shared<Language>();
     Unit unitA;
     Unit unitB;
     Phrase *phraseA1 = new Phrase;
@@ -122,7 +122,7 @@ void TestTrainingSession::createTrainingSessionWithEmptySounds()
     unitB.addPhrase(phraseB1);
     unitB.addPhrase(phraseB2);
 
-    CourseStub course(&language, QVector<Unit *>({&unitA, &unitB}));
+    CourseStub course(language, QVector<Unit *>({&unitA, &unitB}));
     LearnerProfile::ProfileManager manager;
     TrainingSession session(&manager);
     session.setCourse(&course);
@@ -135,11 +135,11 @@ void TestTrainingSession::createTrainingSessionWithEmptySounds()
 
 void TestTrainingSession::createTrainingSessionWithEmptyUnits()
 {
-    Language language;
+    auto language = std::make_shared<Language>();
     Unit firstUnit;
     Unit secondUnit;
 
-    CourseStub course(&language, QVector<Unit *>({&firstUnit, &secondUnit}));
+    CourseStub course(language, QVector<Unit *>({&firstUnit, &secondUnit}));
     LearnerProfile::ProfileManager manager;
     TrainingSession session(&manager);
     session.setCourse(&course);
@@ -148,14 +148,14 @@ void TestTrainingSession::createTrainingSessionWithEmptyUnits()
 
 void TestTrainingSession::createTrainingSessionWithUnitsAndPhrases()
 {
-    Language language;
+    auto language = std::make_shared<Language>();
     Unit unit;
     Phrase *firstPhrase = new Phrase;
     Phrase *secondPhrase = new Phrase;
     unit.addPhrase(firstPhrase);
     unit.addPhrase(secondPhrase);
 
-    CourseStub course(&language, QVector<Unit *>({&unit}));
+    CourseStub course(language, QVector<Unit *>({&unit}));
     LearnerProfile::ProfileManager manager;
     TrainingSession session(&manager);
     session.setCourse(&course);
@@ -164,7 +164,7 @@ void TestTrainingSession::createTrainingSessionWithUnitsAndPhrases()
 
 void TestTrainingSession::iterateCourse()
 {
-    Language language;
+    auto language = std::make_shared<Language>();
     Unit unitA;
     Unit unitB;
     Phrase *phraseA1 = new Phrase;
@@ -185,7 +185,7 @@ void TestTrainingSession::iterateCourse()
     unitB.addPhrase(phraseB1);
     unitB.addPhrase(phraseB2);
 
-    CourseStub course(&language, QVector<Unit *>({&unitA, &unitB}));
+    CourseStub course(language, QVector<Unit *>({&unitA, &unitB}));
     LearnerProfile::ProfileManager manager;
     TrainingSession session(&manager);
     session.setCourse(&course);
