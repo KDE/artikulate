@@ -150,8 +150,8 @@ void TestTrainingSession::createTrainingSessionWithUnitsAndPhrases()
 {
     auto language = std::make_shared<Language>();
     Unit unit;
-    Phrase *firstPhrase = new Phrase;
-    Phrase *secondPhrase = new Phrase;
+    Phrase *firstPhrase = new Phrase();
+    Phrase *secondPhrase = new Phrase();
     unit.addPhrase(firstPhrase);
     unit.addPhrase(secondPhrase);
 

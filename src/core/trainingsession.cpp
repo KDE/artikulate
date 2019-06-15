@@ -282,7 +282,7 @@ void TrainingSession::updateTrainingActions()
 
     const auto unitList = m_course->unitList();
     for (const auto &unit : qAsConst(unitList)) {
-        auto action = new TrainingAction(unit->title());
+        auto action = new TrainingAction(unit->title(), this);
         const auto phraseList = unit->phraseList();
         for (const auto &phrase : qAsConst(phraseList)) {
             if (phrase->sound().isEmpty()) {

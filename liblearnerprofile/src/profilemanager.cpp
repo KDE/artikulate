@@ -22,6 +22,7 @@
 #include "storage.h"
 #include "learner.h"
 
+#include <memory>
 #include <QObject>
 #include <QList>
 #include "liblearner_debug.h"
@@ -45,7 +46,7 @@ public:
     QList<Learner*> m_profiles;
     Learner *m_activeProfile;
     QList<LearningGoal*> m_goals;
-    KConfig *m_config;
+    std::unique_ptr<KConfig> m_config;
     Storage m_storage;
 };
 }
@@ -53,15 +54,14 @@ public:
 LearnerProfile::ProfileManagerPrivate::ProfileManagerPrivate()
     : m_profiles(QList<Learner*>())
     , m_activeProfile(nullptr)
-    , m_config(nullptr)
+    , m_config(new KConfig(QStringLiteral("learnerprofilerc")))
 {
     // load all profiles from storage
     m_goals.append(m_storage.loadGoals());
     m_profiles.append(m_storage.loadProfiles(m_goals));
 
     // set last used profile
-    m_config = new KConfig(QStringLiteral("learnerprofilerc"));
-    KConfigGroup activeProfileGroup(m_config, "ActiveProfile");
+    KConfigGroup activeProfileGroup(m_config.get(), "ActiveProfile");
     int lastProfileId = activeProfileGroup.readEntry("profileId", "0").toInt();
     QList<int> activeGoalsCategories = activeProfileGroup.readEntry("activeGoalsCategories", QList<int>());
     QList<QString> activeGoalsIdentifiers = activeProfileGroup.readEntry("activeGoalsIdentifiers", QList<QString>());
@@ -93,7 +93,7 @@ void ProfileManagerPrivate::sync()
 {
     // sync last used profile data
     if (m_activeProfile) {
-        KConfigGroup activeProfileGroup(m_config, "ActiveProfile");
+        KConfigGroup activeProfileGroup(m_config.get(), "ActiveProfile");
         activeProfileGroup.writeEntry("profileId", m_activeProfile->identifier());
 
         // compute activer learning goals by category
@@ -139,8 +139,11 @@ ProfileManager::ProfileManager(QObject *parent)
 
 ProfileManager::~ProfileManager()
 {
-    foreach (Learner *learner, d->m_profiles) {
+    for (auto learner : d->m_profiles) {
         learner->deleteLater();
+    }
+    for (auto goal : d->m_goals) {
+        goal->deleteLater();
     }
 }
 
