@@ -108,7 +108,7 @@ void TestSkeletonResource::unitAddAndRemoveHandling()
     unit->setId("testunit");
     const int initialUnitNumber = course.units().count();
     QCOMPARE(initialUnitNumber, 2);
-    QSignalSpy spyAboutToBeAdded(&course, SIGNAL(unitAboutToBeAdded(Unit*, int)));
+    QSignalSpy spyAboutToBeAdded(&course, SIGNAL(unitAboutToBeAdded(std::shared_ptr<Unit>, int)));
     QSignalSpy spyAdded(&course, SIGNAL(unitAdded()));
     QCOMPARE(spyAboutToBeAdded.count(), 0);
     QCOMPARE(spyAdded.count(), 0);
