@@ -109,11 +109,6 @@ void EditableCourseResource::setLanguage(std::shared_ptr<Language> language)
     m_course->setLanguage(language);
 }
 
-QList<Unit *> EditableCourseResource::unitList()
-{
-    return m_course->unitList();
-}
-
 QUrl EditableCourseResource::file() const
 {
     return m_course->file();
@@ -159,6 +154,11 @@ std::shared_ptr<Unit> EditableCourseResource::addUnit(std::unique_ptr<Unit> unit
 {
     setModified(true);
     return m_course->addUnit(std::move(unit));
+}
+
+QVector<std::shared_ptr<Unit>> EditableCourseResource::units()
+{
+    return m_course->units();
 }
 
 bool EditableCourseResource::isModified() const

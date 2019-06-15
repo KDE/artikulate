@@ -79,9 +79,9 @@ void TestCourseResource::loadCourseResource()
     QCOMPARE(course.description(), "Ein Kurs in (hoch-)deutscher Aussprache.");
     QVERIFY(course.language() != nullptr);
     QCOMPARE(course.language()->id(), "de");
-    QCOMPARE(course.unitList().count(), 1);
+    QCOMPARE(course.units().count(), 1);
 
-    const auto unit = course.unitList().first();
+    const auto unit = course.units().first();
     QVERIFY(unit != nullptr);
     QCOMPARE(unit->id(), "1");
     QCOMPARE(unit->title(), QStringLiteral("Auf der Straße"));
@@ -116,14 +116,14 @@ void TestCourseResource::unitAddAndRemoveHandling()
     // begin of test
     std::unique_ptr<Unit> unit(new Unit);
     unit->setId("testunit");
-    const int initialUnitNumber = course.unitList().count();
+    const int initialUnitNumber = course.units().count();
     QCOMPARE(initialUnitNumber, 1);
     QSignalSpy spyAboutToBeAdded(&course, SIGNAL(unitAboutToBeAdded(Unit*, int)));
     QSignalSpy spyAdded(&course, SIGNAL(unitAdded()));
     QCOMPARE(spyAboutToBeAdded.count(), 0);
     QCOMPARE(spyAdded.count(), 0);
     course.addUnit(std::move(unit));
-    QCOMPARE(course.unitList().count(), initialUnitNumber + 1);
+    QCOMPARE(course.units().count(), initialUnitNumber + 1);
     QCOMPARE(spyAboutToBeAdded.count(), 1);
     QCOMPARE(spyAdded.count(), 1);
 }

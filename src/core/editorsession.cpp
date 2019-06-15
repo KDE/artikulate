@@ -163,14 +163,13 @@ IEditableCourse * EditorSession::displayedCourse() const
 void EditorSession::updateDisplayedUnit()
 {
     auto course = displayedCourse();
-    Unit * unit{ nullptr };
     if (course != nullptr) {
-        auto units = course->unitList();
+        auto units = course->units();
         if (!units.isEmpty()) {
-            unit = units.constFirst();
+            setUnit(units.constFirst().get());
+            return;
         }
     }
-    setUnit(unit);
 }
 
 Unit * EditorSession::unit() const
@@ -216,10 +215,17 @@ Phrase * EditorSession::previousPhrase() const
     if (index > 0) {
         return m_phrase->unit()->phraseList().at(index - 1);
     } else {
-        Unit *unit = m_phrase->unit();
-        int uIndex = unit->course()->unitList().indexOf(unit);
+        auto unit = m_phrase->unit();
+        int uIndex{ -1 };
+        for (int i = 0; i < unit->course()->units().size(); ++i) {
+            auto testUnit = unit->course()->units().at(i);
+            if (testUnit->id() == unit->id()) {
+                uIndex = i;
+                break;
+            }
+        }
         if (uIndex > 0) {
-            return unit->course()->unitList().at(uIndex - 1)->phraseList().last();
+            return unit->course()->units().at(uIndex - 1)->phraseList().last();
         }
     }
     return nullptr;
@@ -235,9 +241,16 @@ Phrase * EditorSession::nextPhrase() const
         return m_phrase->unit()->phraseList().at(index + 1);
     } else {
         Unit *unit = m_phrase->unit();
-        int uIndex = unit->course()->unitList().indexOf(unit);
-        if (uIndex < unit->course()->unitList().length() - 1) {
-            Unit *nextUnit = unit->course()->unitList().at(uIndex + 1);
+        int uIndex{ -1 };
+        for (int i = 0; i < unit->course()->units().size(); ++i) {
+            auto testUnit = unit->course()->units().at(i);
+            if (testUnit->id() == unit->id()) {
+                uIndex = i;
+                break;
+            }
+        }
+        if (uIndex < unit->course()->units().length() - 1) {
+            auto nextUnit = unit->course()->units().at(uIndex + 1);
             if (nextUnit->phraseList().isEmpty()) {
                 return nullptr;
             }

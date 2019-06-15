@@ -21,6 +21,7 @@
 #ifndef PHRASEMODEL_H
 #define PHRASEMODEL_H
 
+#include <memory>
 #include <QAbstractItemModel>
 #include "core/phrase.h"
 
@@ -67,7 +68,7 @@ private Q_SLOTS:
     void onPhrasesAboutToBeRemoved(int first, int last);
     void onPhrasesRemoved();
     void onPhraseChanged(QObject *phrase);
-    void onUnitAboutToBeAdded(Unit *unit, int index);
+    void onUnitAboutToBeAdded(std::shared_ptr<Unit> unit, int index);
     void onUnitAdded();
     void onUnitsAboutToBeRemoved(int first, int last);
     void onUnitsRemoved();

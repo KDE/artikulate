@@ -88,11 +88,11 @@ QVariant UnitModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_course->unitList().count()) {
+    if (index.row() >= m_course->units().count()) {
         return QVariant();
     }
 
-    Unit * const unit = m_course->unitList().at(index.row());
+    auto unit = m_course->units().at(index.row());
 
     switch(role)
     {
@@ -113,7 +113,7 @@ QVariant UnitModel::data(const QModelIndex& index, int role) const
     case IdRole:
         return unit->id();
     case DataRole:
-        return QVariant::fromValue<QObject*>(unit);
+        return QVariant::fromValue<QObject*>(unit.get());
     default:
         return QVariant();
     }
@@ -129,12 +129,12 @@ int UnitModel::rowCount(const QModelIndex& parent) const
         return 0;
     }
 
-    return m_course->unitList().count();
+    return m_course->units().count();
 }
 
-void UnitModel::onUnitAboutToBeAdded(Unit *unit, int index)
+void UnitModel::onUnitAboutToBeAdded(std::shared_ptr<Unit> unit, int index)
 {
-    connect(unit, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
+    connect(unit.get(), SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
     //TODO add missing signals
     beginInsertRows(QModelIndex(), index, index);
 }
@@ -174,8 +174,8 @@ QVariant UnitModel::headerData(int section, Qt::Orientation orientation, int rol
 
 void UnitModel::updateMappings()
 {
-    int units = m_course->unitList().count();
+    int units = m_course->units().count();
     for (int i = 0; i < units; i++) {
-        m_signalMapper->setMapping(m_course->unitList().at(i), i);
+        m_signalMapper->setMapping(m_course->units().at(i).get(), i);
     }
 }

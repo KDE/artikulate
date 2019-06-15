@@ -59,7 +59,7 @@ public:
     void setDescription(QString description) override;
     std::shared_ptr<Language> language() const override;
     void setLanguage(std::shared_ptr<Language> language) override;
-    QList<Unit *> unitList() override;
+    QVector<std::shared_ptr<Unit>> units() override;
     QUrl file() const override;
 
     bool exportCourse(const QUrl &filePath);

@@ -93,13 +93,9 @@ public:
         m_language = language;
         emit languageChanged();
     }
-    QList<Unit *> unitList() override
+    QVector<std::shared_ptr<Unit>> units() override
     {
-        QList<Unit *> rawList;
-        for (auto unit : m_units) {
-            rawList.append(unit.get());
-        }
-        return rawList;
+        return m_units;
     }
     std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override
     {

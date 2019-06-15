@@ -34,7 +34,7 @@
 class CourseStub : public ICourse
 {
 public:
-    CourseStub(std::shared_ptr<Language> language, QVector<Unit *> units)
+    CourseStub(std::shared_ptr<Language> language, QVector<std::shared_ptr<Unit>> units)
         : m_language(language)
         , m_units(units)
     {
@@ -65,9 +65,9 @@ public:
     {
         return m_language;
     }
-    QList<Unit *> unitList() override
+    QVector<std::shared_ptr<Unit>> units() override
     {
-        return m_units.toList();
+        return m_units;
     }
     QUrl file() const override
     {
@@ -76,7 +76,7 @@ public:
 
 private:
     std::shared_ptr<Language> m_language;
-    QVector<Unit *> m_units;
+    QVector<std::shared_ptr<Unit>> m_units;
 };
 
 // define one virtual method out of line to pin CourseStub to this translation unit
@@ -95,7 +95,7 @@ void TestTrainingSession::cleanup()
 void TestTrainingSession::createTrainingSessionWithoutUnits()
 {
     auto language = std::make_shared<Language>();
-    CourseStub course(language, QVector<Unit *>());
+    CourseStub course(language, QVector<std::shared_ptr<Unit>>());
     LearnerProfile::ProfileManager manager;
     TrainingSession session(&manager);
     session.setCourse(&course);
@@ -105,8 +105,8 @@ void TestTrainingSession::createTrainingSessionWithoutUnits()
 void TestTrainingSession::createTrainingSessionWithEmptySounds()
 {
     auto language = std::make_shared<Language>();
-    Unit unitA;
-    Unit unitB;
+    std::shared_ptr<Unit> unitA(new Unit);
+    std::shared_ptr<Unit> unitB(new Unit);
     Phrase *phraseA1 = new Phrase;
     Phrase *phraseA2 = new Phrase;
     Phrase *phraseB1 = new Phrase;
@@ -117,12 +117,12 @@ void TestTrainingSession::createTrainingSessionWithEmptySounds()
     phraseB1->setId("B1");
     phraseB2->setId("B2");
     phraseA1->setSound(QUrl::fromLocalFile("/tmp/a1.ogg"));
-    unitA.addPhrase(phraseA1);
-    unitA.addPhrase(phraseA2);
-    unitB.addPhrase(phraseB1);
-    unitB.addPhrase(phraseB2);
+    unitA->addPhrase(phraseA1);
+    unitA->addPhrase(phraseA2);
+    unitB->addPhrase(phraseB1);
+    unitB->addPhrase(phraseB2);
 
-    CourseStub course(language, QVector<Unit *>({&unitA, &unitB}));
+    CourseStub course(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
     LearnerProfile::ProfileManager manager;
     TrainingSession session(&manager);
     session.setCourse(&course);
@@ -136,10 +136,9 @@ void TestTrainingSession::createTrainingSessionWithEmptySounds()
 void TestTrainingSession::createTrainingSessionWithEmptyUnits()
 {
     auto language = std::make_shared<Language>();
-    Unit firstUnit;
-    Unit secondUnit;
-
-    CourseStub course(language, QVector<Unit *>({&firstUnit, &secondUnit}));
+    std::shared_ptr<Unit> unitA(new Unit);
+    std::shared_ptr<Unit> unitB(new Unit);
+    CourseStub course(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
     LearnerProfile::ProfileManager manager;
     TrainingSession session(&manager);
     session.setCourse(&course);
@@ -149,13 +148,13 @@ void TestTrainingSession::createTrainingSessionWithEmptyUnits()
 void TestTrainingSession::createTrainingSessionWithUnitsAndPhrases()
 {
     auto language = std::make_shared<Language>();
-    Unit unit;
+    std::shared_ptr<Unit> unit(new Unit);
     Phrase *firstPhrase = new Phrase();
     Phrase *secondPhrase = new Phrase();
-    unit.addPhrase(firstPhrase);
-    unit.addPhrase(secondPhrase);
+    unit->addPhrase(firstPhrase);
+    unit->addPhrase(secondPhrase);
 
-    CourseStub course(language, QVector<Unit *>({&unit}));
+    CourseStub course(language, QVector<std::shared_ptr<Unit>>({unit}));
     LearnerProfile::ProfileManager manager;
     TrainingSession session(&manager);
     session.setCourse(&course);
@@ -165,8 +164,8 @@ void TestTrainingSession::createTrainingSessionWithUnitsAndPhrases()
 void TestTrainingSession::iterateCourse()
 {
     auto language = std::make_shared<Language>();
-    Unit unitA;
-    Unit unitB;
+    std::shared_ptr<Unit> unitA(new Unit);
+    std::shared_ptr<Unit> unitB(new Unit);
     Phrase *phraseA1 = new Phrase;
     Phrase *phraseA2 = new Phrase;
     Phrase *phraseB1 = new Phrase;
@@ -180,34 +179,34 @@ void TestTrainingSession::iterateCourse()
     phraseA2->setSound(QUrl::fromLocalFile("/tmp/a1.ogg"));
     phraseB1->setSound(QUrl::fromLocalFile("/tmp/b1.ogg"));
     phraseB2->setSound(QUrl::fromLocalFile("/tmp/b2.ogg"));
-    unitA.addPhrase(phraseA1);
-    unitA.addPhrase(phraseA2);
-    unitB.addPhrase(phraseB1);
-    unitB.addPhrase(phraseB2);
+    unitA->addPhrase(phraseA1);
+    unitA->addPhrase(phraseA2);
+    unitB->addPhrase(phraseB1);
+    unitB->addPhrase(phraseB2);
 
-    CourseStub course(language, QVector<Unit *>({&unitA, &unitB}));
+    CourseStub course(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
     LearnerProfile::ProfileManager manager;
     TrainingSession session(&manager);
     session.setCourse(&course);
 
     // session assumed to initialize with first units's first phrase
-    QCOMPARE(session.activeUnit(), &unitA);
+    QCOMPARE(session.activeUnit(), unitA.get());
     QCOMPARE(session.activePhrase(), phraseA1);
     QVERIFY(&course == session.course());
 
     // test direct unit setters
-    session.setUnit(&unitA);
-    QCOMPARE(session.activeUnit(), &unitA);
-    session.setUnit(&unitB);
-    QCOMPARE(session.activeUnit(), &unitB);
+    session.setUnit(unitA.get());
+    QCOMPARE(session.activeUnit(), unitA.get());
+    session.setUnit(unitB.get());
+    QCOMPARE(session.activeUnit(), unitB.get());
 
     // test direct phrase setters
     session.setPhrase(phraseA1);
     QCOMPARE(session.activePhrase(), phraseA1);
-    QCOMPARE(session.activeUnit(), &unitA);
+    QCOMPARE(session.activeUnit(), unitA.get());
     session.setPhrase(phraseB1);
     QCOMPARE(session.activePhrase(), phraseB1);
-    QCOMPARE(session.activeUnit(), &unitB);
+    QCOMPARE(session.activeUnit(), unitB.get());
 
     // test number of actions
     auto actions = session.trainingActions();
@@ -217,11 +216,11 @@ void TestTrainingSession::iterateCourse()
 
     // test phrase iterators: accept iterator
     session.setPhrase(phraseA1);
-    QCOMPARE(session.activeUnit(), &unitA);
+    QCOMPARE(session.activeUnit(), unitA.get());
     QCOMPARE(session.activePhrase(), phraseA1);
     QVERIFY(session.hasNext());
     session.accept();
-    QCOMPARE(session.activeUnit(), &unitA);
+    QCOMPARE(session.activeUnit(), unitA.get());
     QCOMPARE(session.activePhrase(), phraseA2);
     session.accept();
     QCOMPARE(session.activePhrase(), phraseB1);
@@ -231,12 +230,12 @@ void TestTrainingSession::iterateCourse()
 
     // test phrase iterators: skip iterator
     session.setPhrase(phraseA1);
-    QCOMPARE(session.activeUnit(), &unitA);
+    QCOMPARE(session.activeUnit(), unitA.get());
     QCOMPARE(session.activePhrase(), phraseA1);
     QVERIFY(!session.hasPrevious());
     QVERIFY(session.hasNext());
     session.skip();
-    QCOMPARE(session.activeUnit(), &unitA);
+    QCOMPARE(session.activeUnit(), unitA.get());
     QCOMPARE(session.activePhrase(), phraseA2);
     session.skip();
     QCOMPARE(session.activePhrase(), phraseB1);

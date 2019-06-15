@@ -99,9 +99,7 @@ public:
 
     QUrl file() const override;
 
-    QList<Unit *> unitList() override;
-
-    QVector<std::shared_ptr<Unit>> units();
+    QVector<std::shared_ptr<Unit>> units() override;
 
 Q_SIGNALS:
     void idChanged();

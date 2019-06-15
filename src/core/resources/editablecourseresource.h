@@ -108,15 +108,13 @@ public:
     bool exportCourse(const QUrl &filePath);
 
     std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override;
+    QVector<std::shared_ptr<Unit>> units() override;
 
     bool isModified() const;
-
 
     QUrl file() const override;
 
     void setFile(const QUrl &) {}
-
-    QList<Unit *> unitList() override;
 
     Q_INVOKABLE Unit * createUnit();
     Q_INVOKABLE Phrase * createPhrase(Unit *unit);

@@ -246,22 +246,11 @@ void CourseResource::setLanguage(std::shared_ptr<Language> language)
 
 std::shared_ptr<Unit> CourseResource::addUnit(std::unique_ptr<Unit> unit)
 {
-    emit unitAboutToBeAdded(unit.get(), d->m_units.count() - 1);
-    d->m_units.append(std::move(unit));
+    std::shared_ptr<Unit> storedUnit(std::move(unit));
+    emit unitAboutToBeAdded(storedUnit, d->m_units.count() - 1);
+    d->m_units.append(storedUnit);
     emit unitAdded();
-    return d->m_units.last();
-}
-
-QList<Unit *> CourseResource::unitList()
-{
-    if (d->m_courseLoaded == false) {
-        d->loadCourse(this);
-    }
-    QList<Unit *> rawList;
-    for (auto unit : d->m_units) {
-        rawList.append(unit.get());
-    }
-    return rawList;
+    return storedUnit;
 }
 
 QVector<std::shared_ptr<Unit>> CourseResource::units()

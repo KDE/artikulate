@@ -21,6 +21,7 @@
 #ifndef UNITMODEL_H
 #define UNITMODEL_H
 
+#include <memory>
 #include <QAbstractListModel>
 
 class ICourse;
@@ -56,7 +57,7 @@ Q_SIGNALS:
     void courseChanged();
 
 private Q_SLOTS:
-    void onUnitAboutToBeAdded(Unit *unit, int index);
+    void onUnitAboutToBeAdded(std::shared_ptr<Unit> unit, int index);
     void onUnitAdded();
     void onUnitsAboutToBeRemoved(int first, int last);
     void onUnitsRemoved();

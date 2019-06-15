@@ -85,7 +85,7 @@ public:
 
     QVector<std::shared_ptr<Unit>> units();
 
-    std::shared_ptr<Unit> appendUnit(std::unique_ptr<Unit> unit);
+    std::shared_ptr<Unit> appendUnit(std::shared_ptr<Unit> unit);
 
     /**
      * @return the skeleton resource as serialized byte array
@@ -115,9 +115,9 @@ QVector<std::shared_ptr<Unit>> SkeletonResourcePrivate::units()
     return m_units;
 }
 
-std::shared_ptr<Unit> SkeletonResourcePrivate::appendUnit(std::unique_ptr<Unit> unit) {
+std::shared_ptr<Unit> SkeletonResourcePrivate::appendUnit(std::shared_ptr<Unit> unit) {
     units(); // ensure that units are parsed
-    m_units.append(std::move(unit));
+    m_units.append(unit);
     return m_units.last();
 }
 
@@ -284,10 +284,11 @@ bool SkeletonResource::exportCourse(const QUrl &filePath)
 
 std::shared_ptr<Unit> SkeletonResource::addUnit(std::unique_ptr<Unit> unit)
 {
-    emit unitAboutToBeAdded(unit.get(), d->units().count() - 1);
-    auto sharedUnit = d->appendUnit(std::move(unit));
+    std::shared_ptr<Unit> storedUnit(std::move(unit));
+    emit unitAboutToBeAdded(storedUnit, d->units().count() - 1);
+    d->appendUnit(storedUnit);
     emit unitAdded();
-    return sharedUnit;
+    return storedUnit;
 }
 
 std::shared_ptr<Language> SkeletonResource::language() const
@@ -302,13 +303,9 @@ void SkeletonResource::setLanguage(std::shared_ptr<Language> language)
     Q_UNREACHABLE();
 }
 
-QList<Unit *> SkeletonResource::unitList()
+QVector<std::shared_ptr<Unit>> SkeletonResource::units()
 {
-    QList<Unit *> rawList;
-    for (auto unit : d->units()) {
-        rawList.append(unit.get());
-    }
-    return rawList;
+    return d->units();
 }
 
 QUrl SkeletonResource::file() const

@@ -72,9 +72,9 @@ void TestSkeletonResource::loadSkeletonResource()
     QCOMPARE(course.description(), "Artikulate Test Course Description");
     QVERIFY(course.language() == nullptr); // a skeleton must not have a language
 
-    QCOMPARE(course.unitList().count(), 2);
+    QCOMPARE(course.units().count(), 2);
 
-    const auto unit = course.unitList().first();
+    const auto unit = course.units().first();
     QVERIFY(unit != nullptr);
     QCOMPARE(unit->id(), "{11111111-b885-4833-97ff-27cb1ca2f543}");
     QCOMPARE(unit->title(), QStringLiteral("Numbers"));
@@ -106,14 +106,14 @@ void TestSkeletonResource::unitAddAndRemoveHandling()
     // begin of test
     std::unique_ptr<Unit> unit(new Unit);
     unit->setId("testunit");
-    const int initialUnitNumber = course.unitList().count();
+    const int initialUnitNumber = course.units().count();
     QCOMPARE(initialUnitNumber, 2);
     QSignalSpy spyAboutToBeAdded(&course, SIGNAL(unitAboutToBeAdded(Unit*, int)));
     QSignalSpy spyAdded(&course, SIGNAL(unitAdded()));
     QCOMPARE(spyAboutToBeAdded.count(), 0);
     QCOMPARE(spyAdded.count(), 0);
     course.addUnit(std::move(unit));
-    QCOMPARE(course.unitList().count(), initialUnitNumber + 1);
+    QCOMPARE(course.units().count(), initialUnitNumber + 1);
     QCOMPARE(spyAboutToBeAdded.count(), 1);
     QCOMPARE(spyAdded.count(), 1);
 }
@@ -183,10 +183,10 @@ void TestSkeletonResource::fileLoadSaveCompleteness()
     QCOMPARE(loadedCourse.title(), course.title());
     QCOMPARE(loadedCourse.description(), course.description());
     QCOMPARE(loadedCourse.language(), course.language());
-    QCOMPARE(loadedCourse.unitList().count(), course.unitList().count());
+    QCOMPARE(loadedCourse.units().count(), course.units().count());
 
-    Unit *testUnit = course.unitList().constFirst();
-    Unit *compareUnit = loadedCourse.unitList().constFirst();
+    auto testUnit = course.units().constFirst();
+    auto compareUnit = loadedCourse.units().constFirst();
     QCOMPARE(testUnit->id(), compareUnit->id());
     QCOMPARE(testUnit->foreignId(), compareUnit->foreignId());
     QCOMPARE(testUnit->title(), compareUnit->title());

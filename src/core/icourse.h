@@ -56,7 +56,7 @@ public:
      * @brief Lazy loading unit list
      * @return list of units in course
      */
-    virtual QList<Unit *> unitList() = 0;
+    virtual QVector<std::shared_ptr<Unit>> units() = 0;
     virtual QUrl file() const = 0;
 
 Q_SIGNALS:
@@ -65,7 +65,7 @@ Q_SIGNALS:
     void descriptionChanged();
     void languageChanged();
     void unitAdded();
-    void unitAboutToBeAdded(Unit*,int);
+    void unitAboutToBeAdded(std::shared_ptr<Unit>,int);
     void unitsRemoved();
     void unitsAboutToBeRemoved(int,int);
 };

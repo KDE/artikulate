@@ -303,7 +303,7 @@ QDomDocument CourseParser::serializedDocument(ICourse *course, bool trainingExpo
 
     QDomElement unitListElement = document.createElement(QStringLiteral("units"));
     // create units
-    for (Unit *unit : course->unitList()) {
+    for (auto unit : course->units()) {
         QDomElement unitElement = document.createElement(QStringLiteral("unit"));
 
         QDomElement unitIdElement = document.createElement(QStringLiteral("id"));
@@ -410,7 +410,7 @@ bool CourseParser::exportCourseToGhnsPackage(ICourse *course, const QString &exp
         return false;
     }
 
-    for (auto *unit : course->unitList()) {
+    for (auto unit : course->units()) {
         for (auto *phrase : unit->phraseList()) {
             if (QFile::exists(phrase->soundFileUrl())) {
                 tar.addLocalFile(phrase->soundFileUrl(), phrase->id() + ".ogg");

@@ -51,8 +51,8 @@ void TrainingSession::setCourse(ICourse *course)
         return;
     }
     m_course = course;
-    if (m_course && m_course->unitList().count() > 0) {
-        setUnit(m_course->unitList().constFirst());
+    if (m_course && m_course->units().count() > 0) {
+        setUnit(m_course->units().constFirst().get());
     }
 
     // lazy loading of training data
@@ -69,8 +69,8 @@ void TrainingSession::setCourse(ICourse *course)
         goal,
         m_course->id()
     );
-    const auto unitList = m_course->unitList();
-    for (Unit *unit : qAsConst(unitList)) {
+    const auto unitList = m_course->units();
+    for (auto unit : qAsConst(unitList)) {
         const auto phraseList = unit->phraseList();
         for (Phrase *phrase : qAsConst(phraseList)) {
             auto iter = data.find(phrase->id());
@@ -280,7 +280,7 @@ void TrainingSession::updateTrainingActions()
         return;
     }
 
-    const auto unitList = m_course->unitList();
+    const auto unitList = m_course->units();
     for (const auto &unit : qAsConst(unitList)) {
         auto action = new TrainingAction(unit->title(), this);
         const auto phraseList = unit->phraseList();
@@ -288,7 +288,7 @@ void TrainingSession::updateTrainingActions()
             if (phrase->sound().isEmpty()) {
                 continue;
             }
-            action->appendChild(new TrainingAction(phrase, this, unit));
+            action->appendChild(new TrainingAction(phrase, this, unit.get()));
         }
         if (action->hasChildren()) {
             m_actions.append(action);
@@ -300,9 +300,9 @@ void TrainingSession::updateTrainingActions()
     // update indices
     m_indexUnit = -1;
     m_indexPhrase = -1;
-    if (m_course->unitList().count() > 0) {
+    if (m_course->units().count() > 0) {
         m_indexUnit = 0;
-        if (m_course->unitList().constFirst()->phraseList().count() > 0) {
+        if (m_course->units().constFirst()->phraseList().count() > 0) {
             m_indexPhrase = 0;
         }
     }
