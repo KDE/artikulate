@@ -23,9 +23,9 @@
 #include <QSignalSpy>
 #include <QObject>
 
-#include "src/core/resourcerepository.h"
-#include "src/core/contributorrepository.h"
-#include "src/core/language.h"
+#include "core/resourcerepository.h"
+#include "core/contributorrepository.h"
+#include "core/language.h"
 #include "../src/settings.h"
 
 void TestIResourceRepository::init()

@@ -22,10 +22,10 @@
 #define RESOURCEREPOSITORYSTUB_H
 
 #include "core/iresourcerepository.h"
+#include "core/language.h"
 #include <QObject>
 #include <QVector>
 
-class Language;
 class ICourse;
 
 /**
@@ -35,9 +35,18 @@ class ResourceRepositoryStub : public IResourceRepository
 {
     Q_OBJECT
 public:
-    ResourceRepositoryStub(QVector<std::shared_ptr<Language>> languages)
-        : m_languages(languages)
+    ResourceRepositoryStub(std::vector<std::unique_ptr<Language>> languages)
     {
+        for (auto &language : languages) {
+            m_languages.append(std::move(language));
+        }
+    }
+
+    ResourceRepositoryStub(std::vector<std::shared_ptr<Language>> languages)
+    {
+        for (auto &language : languages) {
+            m_languages.append(language);
+        }
     }
 
     ~ResourceRepositoryStub() override;

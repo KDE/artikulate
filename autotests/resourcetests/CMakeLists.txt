@@ -23,7 +23,22 @@
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-add_subdirectory(unittests)
-add_subdirectory(integrationtests)
-add_subdirectory(resourcetests)
+include_directories(
+    ../../src/
+    ../../
+    ../mocks/
+    ${CMAKE_CURRENT_BINARY_DIR}
+)
 
+# basic tests language resource conformance with XSD
+set(TestLanguageFiles_SRCS
+    languageresources/testlanguagefiles.cpp
+)
+qt5_add_resources(TestLanguageFiles_SRCS ../../data/languages.qrc)
+add_executable(test_languageresources ${TestLanguageFiles_SRCS} )
+target_link_libraries(test_languageresources
+    artikulatecore
+    Qt5::Test
+)
+add_test(NAME test_languageresources COMMAND test_languageresources)
+ecm_mark_as_test(test_languageresources)
