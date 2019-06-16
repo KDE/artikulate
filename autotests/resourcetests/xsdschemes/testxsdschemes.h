@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -18,47 +18,43 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTCOURSERESOURCE_H
-#define TESTCOURSERESOURCE_H
+#ifndef TESTXSDSCHEMES_H
+#define TESTXSDSCHEMES_H
 
 #include <QObject>
-#include <QVariant>
 
-class TestCourseResource : public QObject
+class TestXsdSchemes : public QObject
 {
     Q_OBJECT
 
 public:
-    TestCourseResource();
+    TestXsdSchemes();
 
 private slots:
     /**
-     * @brief Called before every test case.
+     * Called before every test case.
      */
     void init();
 
     /**
-     * @brief Called after every test case.
+     * Called after every test case.
      */
     void cleanup();
 
     /**
-     * @brief Test simple loading of course resource XML file
+     * @brief Test if language XSD specification is valid.
      */
-    void loadCourseResource();
+    void languageSchemeValidationTest();
 
     /**
-     * @brief Test handling of unit insertions (specifically, the signals)
+     * @brief Test if course XSD specification is valid.
      */
-    void unitAddAndRemoveHandling();
+    void courseSchemeValidationTest();
 
     /**
-     * @brief Test of all course property changes except unit handling
+     * @brief Test if course XSD specification is valid.
      */
-    void coursePropertyChanges();
-
-private:
-    bool m_systemUseCourseRepositoryValue;
+    void schemeValidationTest();
 };
 
 #endif

@@ -48,14 +48,6 @@ void TestSkeletonResource::cleanup()
 {
 }
 
-void TestSkeletonResource::schemeValidationTest()
-{
-    QUrl skeletonFile = QUrl::fromLocalFile(":/artikulate/schemes/skeleton.xsd");
-    QXmlSchema skeletonScheme;
-    QVERIFY(skeletonScheme.load(skeletonFile));
-    QVERIFY(skeletonScheme.isValid());
-}
-
 void TestSkeletonResource::loadSkeletonResource()
 {
     std::shared_ptr<Language> language(new Language);

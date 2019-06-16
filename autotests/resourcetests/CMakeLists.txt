@@ -42,3 +42,17 @@ target_link_libraries(test_languageresources
 )
 add_test(NAME test_languageresources COMMAND test_languageresources)
 ecm_mark_as_test(test_languageresources)
+
+
+# test correctness of XSD files
+set(TestXsdSchemes_SRCS
+    xsdschemes/testxsdschemes.cpp
+)
+add_executable(test_xsdschemes ${TestXsdSchemes_SRCS} )
+target_link_libraries(test_xsdschemes
+    Qt5::Test
+    Qt5::XmlPatterns
+    Qt5::Core
+)
+add_test(NAME test_xsdschemes COMMAND test_xsdschemes)
+ecm_mark_as_test(test_xsdschemes)

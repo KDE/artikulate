@@ -43,11 +43,6 @@ private slots:
     void cleanup();
 
     /**
-     * @brief Test if course XSD specification is valid.
-     */
-    void schemeValidationTest();
-
-    /**
      * @brief Test simple loading of course resource XML file
      */
      void loadSkeletonResource();

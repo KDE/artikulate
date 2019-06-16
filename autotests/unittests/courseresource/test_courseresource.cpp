@@ -49,14 +49,6 @@ void TestCourseResource::cleanup()
 {
 }
 
-void TestCourseResource::courseSchemeValidationTest()
-{
-    QUrl schemeFile = QUrl::fromLocalFile(":/artikulate/schemes/course.xsd");
-    QXmlSchema courseSchema;
-    QVERIFY(courseSchema.load(schemeFile));
-    QVERIFY(courseSchema.isValid());
-}
-
 void TestCourseResource::loadCourseResource()
 {
     std::unique_ptr<Language> language(new Language);
