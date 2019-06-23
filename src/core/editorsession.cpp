@@ -177,15 +177,22 @@ Unit * EditorSession::unit() const
     return m_unit;
 }
 
+Unit * EditorSession::activeUnit() const
+{
+    return m_unit;
+}
+
 void EditorSession::setUnit(Unit *unit)
 {
     if (m_unit == unit) {
         return;
     }
     m_unit = unit;
-    // different than above, do not directly enter phrases
-    // but first show editing information for units
-    setPhrase(nullptr);
+    if (!m_unit->phraseList().isEmpty()) {
+        setPhrase(m_unit->phraseList().first());
+    } else {
+        setPhrase(nullptr);
+    }
     emit unitChanged();
 }
 
@@ -199,6 +206,11 @@ void EditorSession::setPhrase(Phrase *phrase)
     }
     m_phrase = phrase;
     emit phraseChanged();
+}
+
+Phrase * EditorSession::activePhrase() const
+{
+    return m_phrase;
 }
 
 Phrase * EditorSession::phrase() const
@@ -219,7 +231,7 @@ Phrase * EditorSession::previousPhrase() const
         int uIndex{ -1 };
         for (int i = 0; i < unit->course()->units().size(); ++i) {
             auto testUnit = unit->course()->units().at(i);
-            if (testUnit->id() == unit->id()) {
+            if (testUnit.get() == unit) {
                 uIndex = i;
                 break;
             }
@@ -228,7 +240,7 @@ Phrase * EditorSession::previousPhrase() const
             return unit->course()->units().at(uIndex - 1)->phraseList().last();
         }
     }
-    return nullptr;
+    return m_phrase;
 }
 
 Phrase * EditorSession::nextPhrase() const
@@ -244,7 +256,7 @@ Phrase * EditorSession::nextPhrase() const
         int uIndex{ -1 };
         for (int i = 0; i < unit->course()->units().size(); ++i) {
             auto testUnit = unit->course()->units().at(i);
-            if (testUnit->id() == unit->id()) {
+            if (testUnit.get() == unit) {
                 uIndex = i;
                 break;
             }
@@ -257,27 +269,62 @@ Phrase * EditorSession::nextPhrase() const
             return nextUnit->phraseList().constFirst();
         }
     }
-    return nullptr;
+    return m_phrase;
 }
 
 void EditorSession::switchToPreviousPhrase()
 {
-    setPhrase(previousPhrase());
+    if (hasPreviousPhrase()) {
+        setPhrase(previousPhrase());
+    }
 }
 
 void EditorSession::switchToNextPhrase()
 {
-    setPhrase(nextPhrase());
+    if (hasNextPhrase()) {
+        setPhrase(nextPhrase());
+    }
 }
 
 bool EditorSession::hasPreviousPhrase() const
 {
-    return previousPhrase() != nullptr;
+    if (!m_course || !m_unit || !m_phrase) {
+        return false;
+    }
+
+    const int phraseIndex = m_phrase->unit()->phraseList().indexOf(m_phrase);
+    int unitIndex = -1;
+    for (int i = 0; i < m_unit->course()->units().size(); ++i) {
+        if (m_unit->course()->units().at(i).get() == m_unit) {
+            unitIndex = i;
+            break;
+        }
+    }
+    if (unitIndex > 0 || phraseIndex > 0) {
+        return true;
+    }
+    return false;
 }
 
 bool EditorSession::hasNextPhrase() const
 {
-    return nextPhrase() != nullptr;
+    if (!m_course || !m_unit || !m_phrase) {
+        return false;
+    }
+
+    const int phraseIndex = m_phrase->unit()->phraseList().indexOf(m_phrase);
+    int unitIndex = -1;
+    for (int i = 0; i < m_unit->course()->units().size(); ++i) {
+        if (m_unit->course()->units().at(i).get() == m_unit) {
+            unitIndex = i;
+            break;
+        }
+    }
+    if ((unitIndex >= 0 && unitIndex < m_course->units().size() - 1)
+            || (phraseIndex >= 0 && phraseIndex < m_unit->phraseList().size() - 1)) {
+        return true;
+    }
+    return false;
 }
 
 void EditorSession::updateCourseFromSkeleton()

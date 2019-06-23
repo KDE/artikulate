@@ -38,6 +38,9 @@ public:
         , m_language(language)
         , m_units(units)
     {
+        for (auto unit : m_units) {
+            unit->setCourse(this);
+        }
     }
     ~EditableCourseStub() override;
 
@@ -100,7 +103,9 @@ public:
     std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override
     {
         m_units.append(std::move(unit));
-        return m_units.last();
+        auto unitPtr = m_units.last();
+        unitPtr->setCourse(this);
+        return unitPtr;
     }
     QUrl file() const override
     {
@@ -233,6 +238,96 @@ void TestEditorSession::skeletonSwitchingBehavior()
     QCOMPARE(session.course()->id(), courseGermanB->id());
     QVERIFY(session.language() != nullptr);
     QCOMPARE(session.language()->id(), languageGerman->id());
+}
+
+void TestEditorSession::iterateCourse()
+{
+    // language
+    auto language = std::make_shared<Language>();
+    language->setId("de");
+
+    // course
+    std::shared_ptr<Unit> unitA(new Unit);
+    std::shared_ptr<Unit> unitB(new Unit);
+    Phrase *phraseA1 = new Phrase;
+    Phrase *phraseA2 = new Phrase;
+    Phrase *phraseB1 = new Phrase;
+    Phrase *phraseB2 = new Phrase;
+    // note: phrases without soundfiles are skipped in session generation
+    phraseA1->setId("A1");
+    phraseA2->setId("A2");
+    phraseB1->setId("B1");
+    phraseB2->setId("B2");
+    phraseA1->setSound(QUrl::fromLocalFile("/tmp/a1.ogg"));
+    phraseA2->setSound(QUrl::fromLocalFile("/tmp/a1.ogg"));
+    phraseB1->setSound(QUrl::fromLocalFile("/tmp/b1.ogg"));
+    phraseB2->setSound(QUrl::fromLocalFile("/tmp/b2.ogg"));
+    unitA->addPhrase(phraseA1);
+    unitA->addPhrase(phraseA2);
+    unitB->addPhrase(phraseB1);
+    unitB->addPhrase(phraseB2);
+    auto course = std::make_shared<EditableCourseStub>(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
+
+    EditableRepositoryStub repository{
+        {language}, // languages
+        {}, // skeletons
+        {course} // courses
+    };
+    EditorSession session;
+    session.setRepository(&repository);
+    session.setCourse(course.get());
+
+    // session assumed to initialize with first units's first phrase
+    QCOMPARE(session.activeUnit(), unitA.get());
+    QCOMPARE(session.activePhrase(), phraseA1);
+    QVERIFY(course.get() == session.course());
+
+    // test direct unit setters
+    session.setUnit(unitA.get());
+    QCOMPARE(session.activeUnit(), unitA.get());
+    session.setUnit(unitB.get());
+    QCOMPARE(session.activeUnit(), unitB.get());
+
+    // test direct phrase setters
+    session.setPhrase(phraseA1);
+    QCOMPARE(session.activePhrase(), phraseA1);
+    QCOMPARE(session.activeUnit(), unitA.get());
+    session.setPhrase(phraseB1);
+    QCOMPARE(session.activePhrase(), phraseB1);
+    QCOMPARE(session.activeUnit(), unitB.get());
+
+    // test phrase forward iterators
+    session.setPhrase(phraseA1);
+    QCOMPARE(session.activeUnit(), unitA.get());
+    QCOMPARE(session.activePhrase()->id(), phraseA1->id());
+    QVERIFY(session.hasNextPhrase());
+    session.switchToNextPhrase();
+    QCOMPARE(session.activeUnit(), unitA.get());
+    QCOMPARE(session.activePhrase()->id(), phraseA2->id());
+    session.switchToNextPhrase();
+    QCOMPARE(session.activePhrase(), phraseB1);
+    session.switchToNextPhrase();
+    QCOMPARE(session.activePhrase(), phraseB2);
+    QVERIFY(!session.hasNextPhrase());
+
+    // at the end, do not iterate further
+    session.switchToNextPhrase();
+    QCOMPARE(session.activePhrase(), phraseB2);
+
+    // test phrase backward iterators
+    QVERIFY(session.hasPreviousPhrase());
+    session.switchToPreviousPhrase();
+    QCOMPARE(session.activePhrase(), phraseB1);
+    session.switchToPreviousPhrase();
+    QCOMPARE(session.activePhrase()->id(), phraseA2->id());
+    session.switchToPreviousPhrase();
+    QCOMPARE(session.activePhrase()->id(), phraseA1->id());
+    QVERIFY(!session.hasPreviousPhrase());
+
+    // at the end, do not iterate further
+    session.switchToPreviousPhrase();
+    QCOMPARE(session.activePhrase()->id(), phraseA1->id());
+
 }
 
 QTEST_GUILESS_MAIN(TestEditorSession)

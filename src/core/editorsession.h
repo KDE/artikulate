@@ -88,9 +88,11 @@ public:
      */
     Q_INVOKABLE void setCourseByLanguage(Language *language);
     IEditableCourse * displayedCourse() const;
-    Unit * unit() const;
+    Q_DECL_DEPRECATED Unit * unit() const;
+    Unit * activeUnit() const;
     void setUnit(Unit *unit);
-    Phrase * phrase() const;
+    Q_DECL_DEPRECATED Phrase * phrase() const;
+    Phrase * activePhrase() const;
     void setPhrase(Phrase *phrase);
     Phrase::Type phraseType() const;
     void setPhraseType(Phrase::Type type);
@@ -100,12 +102,12 @@ public:
     Q_INVOKABLE void switchToNextPhrase();
     Q_INVOKABLE void updateCourseFromSkeleton();
 
-private Q_SLOTS:
-    void updateDisplayedUnit();
-
 private:
     Phrase * nextPhrase() const;
     Phrase * previousPhrase() const;
+
+private Q_SLOTS:
+    void updateDisplayedUnit();
 
 Q_SIGNALS:
     void editSkeletonChanged();

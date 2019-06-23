@@ -55,6 +55,11 @@ private Q_SLOTS:
       * @brief Test handling of skeletons and respective course switching
       */
      void skeletonSwitchingBehavior();
+
+     /**
+      * @brief Test for all iterator functionality
+      */
+     void iterateCourse();
 };
 
 #endif
