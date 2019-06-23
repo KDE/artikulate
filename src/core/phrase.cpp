@@ -27,6 +27,7 @@
 
 #include "artikulate_debug.h"
 #include <QTemporaryFile>
+#include <QQmlEngine>
 
 Phrase::Phrase(QObject *parent)
     : QObject(parent)
@@ -37,6 +38,8 @@ Phrase::Phrase(QObject *parent)
     , m_skipCounter(0)
     , m_excludedFromUnit(false)
 {
+    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
+
     connect(this, &Phrase::idChanged, this, &Phrase::modified);
     connect(this, &Phrase::typeChanged, this, &Phrase::modified);
     connect(this, &Phrase::textChanged, this, &Phrase::modified);
