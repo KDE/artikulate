@@ -81,6 +81,7 @@ void TestEditableCourseResource::loadCourseResource()
     QVERIFY(course.language() != nullptr);
     QCOMPARE(course.language()->id(), "de");
     QCOMPARE(course.units().count(), 1);
+    QCOMPARE(course.units().first()->course(), &course);
 
     const auto unit = course.units().first();
     QVERIFY(unit != nullptr);
@@ -120,10 +121,11 @@ void TestEditableCourseResource::unitAddAndRemoveHandling()
     QSignalSpy spyAdded(&course, SIGNAL(unitAdded()));
     QCOMPARE(spyAboutToBeAdded.count(), 0);
     QCOMPARE(spyAdded.count(), 0);
-    course.addUnit(std::move(unit));
+    auto sharedUnit = course.addUnit(std::move(unit));
     QCOMPARE(course.units().count(), initialUnitNumber + 1);
     QCOMPARE(spyAboutToBeAdded.count(), 1);
     QCOMPARE(spyAdded.count(), 1);
+    QCOMPARE(sharedUnit->course(), &course);
 }
 
 void TestEditableCourseResource::coursePropertyChanges()

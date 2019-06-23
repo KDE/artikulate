@@ -40,6 +40,11 @@ EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceReposi
     , m_course(new CourseResource(path, repository))
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
+
+    for (auto unit : m_course->units()) {
+        unit->setCourse(this);
+    }
+
     connect(m_course.get(), &ICourse::unitAboutToBeAdded, this, &ICourse::unitAboutToBeAdded);
     connect(m_course.get(), &ICourse::unitAdded, this, &ICourse::unitAdded);
     connect(m_course.get(), &CourseResource::idChanged, this, &EditableCourseResource::idChanged);
@@ -153,7 +158,9 @@ bool EditableCourseResource::exportCourse(const QUrl &filePath)
 std::shared_ptr<Unit> EditableCourseResource::addUnit(std::unique_ptr<Unit> unit)
 {
     setModified(true);
-    return m_course->addUnit(std::move(unit));
+    auto sharedUnit = m_course->addUnit(std::move(unit));
+    sharedUnit->setCourse(this);
+    return sharedUnit;
 }
 
 QVector<std::shared_ptr<Unit>> EditableCourseResource::units()

@@ -26,6 +26,8 @@
 #include "core/resourcerepository.h"
 #include "core/contributorrepository.h"
 #include "core/language.h"
+#include "core/icourse.h"
+#include "core/unit.h"
 #include "../src/settings.h"
 
 void TestIResourceRepository::init()
@@ -84,6 +86,7 @@ void TestIResourceRepository::performInterfaceTests(IResourceRepository *interfa
     QVERIFY(german != nullptr); // ensure that German language was found
     QCOMPARE(interface->courses(german->id()).count(), 1); // there is exactly one German course
     QCOMPARE(interface->courses(nullptr).count(), 2); // all courses in total are 2
+    QVERIFY(interface->courses().first()->units().size() > 0);
 }
 
 QTEST_GUILESS_MAIN(TestIResourceRepository)
