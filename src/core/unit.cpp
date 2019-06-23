@@ -27,6 +27,7 @@
 #include <QSignalMapper>
 #include <QStringList>
 #include <QUuid>
+#include <QQmlEngine>
 
 #include "artikulate_debug.h"
 #include <KLocalizedString>
@@ -37,6 +38,7 @@ Unit::Unit(QObject *parent)
     , m_course(nullptr)
     , m_phraseSignalMapper(new QSignalMapper(this))
 {
+    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 }
 
 Unit::~Unit()
