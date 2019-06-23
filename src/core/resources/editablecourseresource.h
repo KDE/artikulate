@@ -49,11 +49,7 @@ class ARTIKULATECORE_EXPORT EditableCourseResource : public IEditableCourse
     Q_INTERFACES(IEditableCourse)
 
 public:
-    /**
-     * Create course resource from file.
-     */
-    explicit EditableCourseResource(const QUrl &path, IResourceRepository *repository);
-
+    static std::shared_ptr<EditableCourseResource> create(const QUrl &path, IResourceRepository *repository);
     ~EditableCourseResource() override = default;
 
     /**
@@ -105,12 +101,12 @@ public:
      * @param filePath the absolute path to the export file
      * @return true of export finished without errors
      */
-    bool exportCourse(const QUrl &filePath);
+    bool exportToFile(const QUrl &filePath) const override;
 
     std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override;
     QVector<std::shared_ptr<Unit>> units() override;
 
-    bool isModified() const;
+    bool isModified() const override;
 
     QUrl file() const override;
 
@@ -127,6 +123,11 @@ Q_SIGNALS:
 
 private:
     Q_DISABLE_COPY(EditableCourseResource)
+    /**
+     * Create course resource from file.
+     */
+    explicit EditableCourseResource(const QUrl &path, IResourceRepository *repository);
+    void setSelf(std::shared_ptr<ICourse> self) override;
     void setModified(bool modified);
     bool m_modified{ false };
     const std::unique_ptr<CourseResource> m_course;

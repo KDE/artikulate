@@ -38,17 +38,11 @@ class ARTIKULATECORE_EXPORT SkeletonResource : public IEditableCourse
     Q_INTERFACES(ICourse)
 
 public:
-    /**
-     * Create course resource from file.
-     */
-    explicit SkeletonResource(const QUrl &path, IResourceRepository *repository);
-
+    static std::shared_ptr<SkeletonResource> create(const QUrl &path, IResourceRepository *repository);
     ~SkeletonResource() override;
 
     QString id() const override;
-
     void setId(QString id) override;
-
     QString foreignId() const override;
     void setForeignId(QString id) override;
     QString title() const override;
@@ -61,14 +55,16 @@ public:
     void setLanguage(std::shared_ptr<Language> language) override;
     QVector<std::shared_ptr<Unit>> units() override;
     QUrl file() const override;
-
-    bool exportCourse(const QUrl &filePath);
-
+    bool exportToFile(const QUrl &filePath) const override;
     std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override;
-
-    bool isModified() const { return true;} //FIXME
+    bool isModified() const override;
 
 private:
+    /**
+     * Create course resource from file.
+     */
+    explicit SkeletonResource(const QUrl &path, IResourceRepository *repository);
+    void setSelf(std::shared_ptr<ICourse> self) override;
     const QScopedPointer<SkeletonResourcePrivate> d;
 };
 

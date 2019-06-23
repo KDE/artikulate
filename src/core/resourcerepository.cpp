@@ -29,11 +29,11 @@
 #include <QDirIterator>
 
 ResourceRepository::ResourceRepository(QObject *parent)
-    : ResourceRepository(QUrl::fromLocalFile(QStandardPaths::standardLocations(QStandardPaths::DataLocation).constFirst() + QStringLiteral("/courses/")), parent)
+    : ResourceRepository(QUrl::fromLocalFile(QStandardPaths::standardLocations(QStandardPaths::DataLocation).constFirst() + QStringLiteral("/courses/")))
 {
 }
 
-ResourceRepository::ResourceRepository(const QUrl &storageLocation, QObject *parent)
+ResourceRepository::ResourceRepository(const QUrl &storageLocation)
     : IResourceRepository()
     , m_storageLocation(storageLocation.toLocalFile())
 {
@@ -131,15 +131,14 @@ bool ResourceRepository::loadCourse(const QString &resourceFile)
         return false;
     }
 
-    std::shared_ptr<CourseResource> resource(new CourseResource(QUrl::fromLocalFile(resourceFile), this));
+    auto resource = CourseResource::create(QUrl::fromLocalFile(resourceFile), this);
     if (resource->language() == nullptr) {
-        resource->deleteLater();
         qCCritical(ARTIKULATE_CORE()) << "Could not load course, language unknown:" << resourceFile;
         return false;
     }
 
     emit courseAboutToBeAdded(resource.get(), m_courses.count() - 1);
-    m_courses.append(std::move(resource));
+    m_courses.append(resource);
     emit courseAdded();
     m_loadedCourses.append(resourceFile);
     return true;

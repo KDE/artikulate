@@ -56,17 +56,17 @@ void TestSkeletonResource::loadSkeletonResource()
     const QString courseDirectory = "data/contributorrepository/skeletons/";
     const QString courseFile = courseDirectory + "skeleton.xml";
 
-    SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);
-    QCOMPARE(course.file().toLocalFile(), courseFile);
-    QCOMPARE(course.id(), "skeleton-testdata");
-    QCOMPARE(course.foreignId(), "skeleton-testdata"); // always same as ID
-    QCOMPARE(course.title(), "Artikulate Test Course Title");
-    QCOMPARE(course.description(), "Artikulate Test Course Description");
-    QVERIFY(course.language() == nullptr); // a skeleton must not have a language
+    auto skeleton = SkeletonResource::create(QUrl::fromLocalFile(courseFile), &repository);
+    QCOMPARE(skeleton->file().toLocalFile(), courseFile);
+    QCOMPARE(skeleton->id(), "skeleton-testdata");
+    QCOMPARE(skeleton->foreignId(), "skeleton-testdata"); // always same as ID
+    QCOMPARE(skeleton->title(), "Artikulate Test Course Title");
+    QCOMPARE(skeleton->description(), "Artikulate Test Course Description");
+    QVERIFY(skeleton->language() == nullptr); // a skeleton must not have a language
 
-    QCOMPARE(course.units().count(), 2);
+    QCOMPARE(skeleton->units().count(), 2);
 
-    const auto unit = course.units().first();
+    const auto unit = skeleton->units().first();
     QVERIFY(unit != nullptr);
     QCOMPARE(unit->id(), "{11111111-b885-4833-97ff-27cb1ca2f543}");
     QCOMPARE(unit->title(), QStringLiteral("Numbers"));
@@ -93,19 +93,19 @@ void TestSkeletonResource::unitAddAndRemoveHandling()
     ResourceRepositoryStub repository({language});
     const QString courseDirectory = "data/contributorrepository/skeletons/";
     const QString courseFile = courseDirectory + "skeleton.xml";
-    SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);
+    auto skeleton = SkeletonResource::create(QUrl::fromLocalFile(courseFile), &repository);
 
     // begin of test
     std::unique_ptr<Unit> unit(new Unit);
     unit->setId("testunit");
-    const int initialUnitNumber = course.units().count();
+    const int initialUnitNumber = skeleton->units().count();
     QCOMPARE(initialUnitNumber, 2);
-    QSignalSpy spyAboutToBeAdded(&course, SIGNAL(unitAboutToBeAdded(std::shared_ptr<Unit>, int)));
-    QSignalSpy spyAdded(&course, SIGNAL(unitAdded()));
+    QSignalSpy spyAboutToBeAdded(skeleton.get(), SIGNAL(unitAboutToBeAdded(std::shared_ptr<Unit>, int)));
+    QSignalSpy spyAdded(skeleton.get(), SIGNAL(unitAdded()));
     QCOMPARE(spyAboutToBeAdded.count(), 0);
     QCOMPARE(spyAdded.count(), 0);
-    course.addUnit(std::move(unit));
-    QCOMPARE(course.units().count(), initialUnitNumber + 1);
+    skeleton->addUnit(std::move(unit));
+    QCOMPARE(skeleton->units().count(), initialUnitNumber + 1);
     QCOMPARE(spyAboutToBeAdded.count(), 1);
     QCOMPARE(spyAdded.count(), 1);
 }
@@ -118,35 +118,35 @@ void TestSkeletonResource::coursePropertyChanges()
     ResourceRepositoryStub repository({language});
     const QString courseDirectory = "data/contributorrepository/skeletons/";
     const QString courseFile = courseDirectory + "skeleton.xml";
-    SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);
+    auto skeleton = SkeletonResource::create(QUrl::fromLocalFile(courseFile), &repository);
 
     // id
     {
         const QString value = "newId";
-        QSignalSpy spy(&course, SIGNAL(idChanged()));
+        QSignalSpy spy(skeleton.get(), SIGNAL(idChanged()));
         QCOMPARE(spy.count(), 0);
-        course.setId(value);
-        QCOMPARE(course.id(), value);
+        skeleton->setId(value);
+        QCOMPARE(skeleton->id(), value);
         QCOMPARE(spy.count(), 1);
     }
 
     // title
     {
         const QString value = "newTitle";
-        QSignalSpy spy(&course, SIGNAL(titleChanged()));
+        QSignalSpy spy(skeleton.get(), SIGNAL(titleChanged()));
         QCOMPARE(spy.count(), 0);
-        course.setTitle(value);
-        QCOMPARE(course.title(), value);
+        skeleton->setTitle(value);
+        QCOMPARE(skeleton->title(), value);
         QCOMPARE(spy.count(), 1);
     }
 
     // description
     {
         const QString value = "newDescription";
-        QSignalSpy spy(&course, SIGNAL(descriptionChanged()));
+        QSignalSpy spy(skeleton.get(), SIGNAL(descriptionChanged()));
         QCOMPARE(spy.count(), 0);
-        course.setDescription(value);
-        QCOMPARE(course.description(), value);
+        skeleton->setDescription(value);
+        QCOMPARE(skeleton->description(), value);
         QCOMPARE(spy.count(), 1);
     }
 }
@@ -159,26 +159,26 @@ void TestSkeletonResource::fileLoadSaveCompleteness()
     ResourceRepositoryStub repository({language});
     const QString courseDirectory = "data/contributorrepository/skeletons/";
     const QString courseFile = courseDirectory + "skeleton.xml";
-    SkeletonResource course(QUrl::fromLocalFile(courseFile), &repository);
+    auto skeleton = SkeletonResource::create(QUrl::fromLocalFile(courseFile), &repository);
 
     QTemporaryFile outputFile;
     outputFile.open();
-    course.exportCourse(QUrl::fromLocalFile(outputFile.fileName()));
+    skeleton->exportToFile(QUrl::fromLocalFile(outputFile.fileName()));
 
     // note: this only works, since the resource manager not checks uniqueness of course ids!
-    SkeletonResource loadedCourse(QUrl::fromLocalFile(outputFile.fileName()), &repository);
+    auto loadedSkeleton = SkeletonResource::create(QUrl::fromLocalFile(outputFile.fileName()), &repository);
 
     // test that we actually call the different files
-    QVERIFY(course.file().toLocalFile() != loadedCourse.file().toLocalFile());
-    QCOMPARE(loadedCourse.id(), course.id());
-    QCOMPARE(loadedCourse.foreignId(), course.foreignId());
-    QCOMPARE(loadedCourse.title(), course.title());
-    QCOMPARE(loadedCourse.description(), course.description());
-    QCOMPARE(loadedCourse.language(), course.language());
-    QCOMPARE(loadedCourse.units().count(), course.units().count());
+    QVERIFY(skeleton->file().toLocalFile() != loadedSkeleton->file().toLocalFile());
+    QCOMPARE(loadedSkeleton->id(), skeleton->id());
+    QCOMPARE(loadedSkeleton->foreignId(), skeleton->foreignId());
+    QCOMPARE(loadedSkeleton->title(), skeleton->title());
+    QCOMPARE(loadedSkeleton->description(), skeleton->description());
+    QCOMPARE(loadedSkeleton->language(), skeleton->language());
+    QCOMPARE(loadedSkeleton->units().count(), skeleton->units().count());
 
-    auto testUnit = course.units().constFirst();
-    auto compareUnit = loadedCourse.units().constFirst();
+    auto testUnit = skeleton->units().constFirst();
+    auto compareUnit = loadedSkeleton->units().constFirst();
     QCOMPARE(testUnit->id(), compareUnit->id());
     QCOMPARE(testUnit->foreignId(), compareUnit->foreignId());
     QCOMPARE(testUnit->title(), compareUnit->title());

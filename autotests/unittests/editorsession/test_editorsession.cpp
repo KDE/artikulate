@@ -44,6 +44,11 @@ public:
     }
     ~EditableCourseStub() override;
 
+    void setSelf(std::shared_ptr<ICourse> self) override
+    {
+        m_self = self;
+    }
+
     QString id() const override
     {
         return m_id;
@@ -111,8 +116,18 @@ public:
     {
         return QUrl();
     }
+    bool isModified() const override
+    {
+        return false;
+    }
+    bool exportToFile(const QUrl &) const override
+    {
+        // do nothing
+        return false;
+    }
 
 private:
+    std::weak_ptr<ICourse> m_self;
     QString m_id{ "courseid" };
     QString m_foreignId{ "foreigncourseid" };
     QString m_title{ "title" };
@@ -145,7 +160,7 @@ void TestEditorSession::createEditorSession()
 
     std::shared_ptr<IEditableCourse> course(new EditableCourseStub(languageGerman, QVector<std::shared_ptr<Unit>>()));
     course->setLanguage(languageGerman);
-    std::shared_ptr<IEditableCourse> skeleton(new SkeletonResource(QUrl(), nullptr));
+    auto skeleton = SkeletonResource::create(QUrl(), nullptr);
 
     EditableRepositoryStub repository{
         {languageGerman, languageEnglish}, // languages
@@ -209,9 +224,9 @@ void TestEditorSession::skeletonSwitchingBehavior()
     std::shared_ptr<IEditableCourse> courseEnglishA(new EditableCourseStub(languageEnglish, QVector<std::shared_ptr<Unit>>()));
     courseEnglishA->setId("course-english");
     courseEnglishA->setForeignId("testskeletonA");
-    std::shared_ptr<IEditableCourse> skeletonA(new SkeletonResource(QUrl(), nullptr));
+    auto skeletonA = SkeletonResource::create(QUrl(), nullptr);
     skeletonA->setId("testskeletonA");
-    std::shared_ptr<IEditableCourse> skeletonB(new SkeletonResource(QUrl(), nullptr));
+    auto skeletonB = SkeletonResource::create(QUrl(), nullptr);
     skeletonB->setId("testskeletonB");
 
     EditableRepositoryStub repository{
@@ -327,7 +342,6 @@ void TestEditorSession::iterateCourse()
     // at the end, do not iterate further
     session.switchToPreviousPhrase();
     QCOMPARE(session.activePhrase()->id(), phraseA1->id());
-
 }
 
 QTEST_GUILESS_MAIN(TestEditorSession)

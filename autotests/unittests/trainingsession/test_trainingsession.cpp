@@ -41,6 +41,11 @@ public:
     }
     ~CourseStub() override;
 
+    void setSelf(std::shared_ptr<ICourse> self) override
+    {
+        m_self = self;
+    }
+
     QString id() const override
     {
         return "courseid";
@@ -75,6 +80,7 @@ public:
     }
 
 private:
+    std::weak_ptr<ICourse> m_self;
     std::shared_ptr<Language> m_language;
     QVector<std::shared_ptr<Unit>> m_units;
 };

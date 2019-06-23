@@ -32,6 +32,7 @@ class CourseResourcePrivate;
 class Unit;
 class Phrase;
 class IResourceRepository;
+class EditableCourseResource;
 
 class ARTIKULATECORE_EXPORT CourseResource : public ICourse
 {
@@ -39,10 +40,7 @@ class ARTIKULATECORE_EXPORT CourseResource : public ICourse
     Q_INTERFACES(ICourse)
 
 public:
-    /**
-     * Create course resource from file.
-     */
-    explicit CourseResource(const QUrl &path, IResourceRepository *repository);
+    static std::shared_ptr<CourseResource> create(const QUrl &path, IResourceRepository *repository);
 
     ~CourseResource() override;
 
@@ -105,7 +103,14 @@ Q_SIGNALS:
     void languageChanged();
 
 private:
-    const QScopedPointer<CourseResourcePrivate> d;
+    /**
+     * Create course resource from file.
+     */
+    explicit CourseResource(const QUrl &path, IResourceRepository *repository);
+    void setSelf(std::shared_ptr<ICourse> self) override;
+    const std::unique_ptr<CourseResourcePrivate> d;
+
+    friend EditableCourseResource;
 };
 
 #endif

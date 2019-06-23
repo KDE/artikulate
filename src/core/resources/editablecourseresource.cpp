@@ -54,6 +54,19 @@ EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceReposi
     connect(m_course.get(), &CourseResource::languageChanged, this, &EditableCourseResource::languageChanged);
 }
 
+std::shared_ptr<EditableCourseResource> EditableCourseResource::create(const QUrl &path, IResourceRepository *repository)
+{
+    std::shared_ptr<EditableCourseResource> course(new EditableCourseResource(path, repository));
+    course->setSelf(course);
+    return course;
+}
+
+
+void EditableCourseResource::setSelf(std::shared_ptr<ICourse> self)
+{
+    m_course->setSelf(self);
+}
+
 QString EditableCourseResource::id() const
 {
     return m_course->id();
@@ -130,10 +143,10 @@ void EditableCourseResource::sync()
         qCDebug(ARTIKULATE_LOG()) << "Aborting sync, course was not modified.";
         return;
     }
-    exportCourse(file());
+    exportToFile(file());
 }
 
-bool EditableCourseResource::exportCourse(const QUrl &filePath)
+bool EditableCourseResource::exportToFile(const QUrl &filePath) const
 {
     // write back to file
     // create directories if necessary

@@ -375,35 +375,31 @@ void ContributorRepository::updateCourseFromSkeleton(std::shared_ptr<IEditableCo
 
 std::shared_ptr<EditableCourseResource> ContributorRepository::addCourse(const QUrl &courseFile)
 {
-    std::unique_ptr<EditableCourseResource> resource(new EditableCourseResource(courseFile, this));
-    if (resource->language() == nullptr) {
-        qCritical() << "Could not load course, language unknown:" << courseFile.toLocalFile();
-        return std::shared_ptr<EditableCourseResource>();
-    }
+    std::shared_ptr<EditableCourseResource> course;
 
     // skip already loaded resources
     if (m_loadedResources.contains(courseFile.toLocalFile())) {
-        //TODO return the already loaded course
-        return std::shared_ptr<EditableCourseResource>();
-    }
-    m_loadedResources.append(courseFile.toLocalFile());
-    auto course = addCourseResource(std::move(resource));
-    emit languageCoursesChanged();
-    return course;
-}
+        // TODO return existing resource
+    } else {
+        course = EditableCourseResource::create(courseFile, this);
+        if (course->language() == nullptr) {
+            qCritical() << "Could not load course, language unknown:" << courseFile.toLocalFile();
+            course.reset();
+        } else { // this is the regular case
+            m_loadedResources.append(courseFile.toLocalFile());
 
-std::shared_ptr<EditableCourseResource> ContributorRepository::addCourseResource(std::unique_ptr<EditableCourseResource> resource)
-{
-    const QString languageId = resource->language()->id();
-    Q_ASSERT(!languageId.isEmpty());
-    if (!m_courses.contains(languageId)) {
-        m_courses.insert(languageId, QVector<std::shared_ptr<EditableCourseResource>>());
+            const QString languageId = course->language()->id();
+            Q_ASSERT(!languageId.isEmpty());
+            if (!m_courses.contains(languageId)) {
+                m_courses.insert(languageId, QVector<std::shared_ptr<EditableCourseResource>>());
+            }
+            emit courseAboutToBeAdded(course.get(), m_courses[course->language()->id()].count());
+            m_courses[languageId].append(course);
+            emit courseAdded();
+            emit languageCoursesChanged();
+        }
     }
-    emit courseAboutToBeAdded(resource.get(), m_courses[resource->language()->id()].count());
-    m_courses[languageId].append(std::move(resource));
-    emit courseAdded();
-    Q_ASSERT(m_courses[languageId].size() > 0);
-    return m_courses[languageId].last();
+    return course;
 }
 
 void ContributorRepository::removeCourse(std::shared_ptr<ICourse> course)
@@ -427,38 +423,39 @@ IEditableCourse * ContributorRepository::createCourse(std::shared_ptr<Language> 
              skeleton->id(),
              language->id());
 
-    std::unique_ptr<EditableCourseResource> course(new EditableCourseResource(QUrl::fromLocalFile(path), this));
+    auto course = EditableCourseResource::create(QUrl::fromLocalFile(path), this);
 
     Q_ASSERT(course);
     course->setId(QUuid::createUuid().toString());
     course->setTitle(skeleton->title());
     course->setDescription(skeleton->description());
     course->setLanguage(language);
-
-    // set skeleton
     course->setForeignId(skeleton->id());
 
-    return addCourseResource(std::move(course)).get();
+    return course.get();
 }
 
-std::shared_ptr<SkeletonResource> ContributorRepository::addSkeleton(const QUrl &file)
+std::shared_ptr<IEditableCourse> ContributorRepository::addSkeleton(const QUrl &file)
 {
-    std::unique_ptr<SkeletonResource> resource(new SkeletonResource(file, this));
-    return addSkeletonResource(std::move(resource));
-}
+    std::shared_ptr<IEditableCourse> resource;
 
-std::shared_ptr<SkeletonResource> ContributorRepository::addSkeletonResource(std::unique_ptr<SkeletonResource> resource)
-{
     // skip already loaded resources
-    if (m_loadedResources.contains(resource->file().toLocalFile())) {
-        // TODO return existing skeleton
-        return std::shared_ptr<SkeletonResource>();
+    if (m_loadedResources.contains(file.toLocalFile())) {
+        qCInfo(ARTIKULATE_LOG()) << "Skeleton already loaded, using known resource:" << file;
+        for (auto skeleton : m_skeletonResources) {
+            if (skeleton->file() == file) {
+                resource = skeleton;
+                break;
+            }
+        }
+    } else {
+        resource = SkeletonResource::create(file, this);
+        m_loadedResources.append(resource->file().toLocalFile());
+        emit skeletonAboutToBeAdded(resource.get(), m_skeletonResources.count());
+        m_skeletonResources.append(resource);
+        emit skeletonAdded();
     }
-    m_loadedResources.append(resource->file().toLocalFile());
-    emit skeletonAboutToBeAdded(resource.get(), m_skeletonResources.count());
-    m_skeletonResources.append(std::move(resource));
-    emit skeletonAdded();
-    return m_skeletonResources.last();
+    return resource;
 }
 
 void ContributorRepository::removeSkeleton(SkeletonResource *skeleton)

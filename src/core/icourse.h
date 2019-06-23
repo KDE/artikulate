@@ -41,10 +41,6 @@ class ARTIKULATECORE_EXPORT ICourse : public QObject
     Q_PROPERTY(QString description READ description NOTIFY descriptionChanged)
 
 public:
-    ICourse(QObject *parent = nullptr)
-        : QObject(parent)
-    {
-    }
     virtual ~ICourse() = default;
     virtual QString id() const = 0;
     virtual QString foreignId() const = 0;
@@ -58,6 +54,13 @@ public:
      */
     virtual QVector<std::shared_ptr<Unit>> units() = 0;
     virtual QUrl file() const = 0;
+
+protected:
+    ICourse(QObject *parent = nullptr)
+        : QObject(parent)
+    {
+    }
+    virtual void setSelf(std::shared_ptr<ICourse> course) = 0;
 
 Q_SIGNALS:
     void idChanged();

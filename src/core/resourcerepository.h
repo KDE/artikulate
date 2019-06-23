@@ -54,9 +54,8 @@ public:
      * @brief Construtor for ResourceRepository object with explicitly set course folder
      *
      * @param storageLocation relative or absolute path to courses/ folder (including that directory)
-     * @param parent the parent object in the QObject hierarchy
      */
-    explicit ResourceRepository(const QUrl &storageLocation, QObject *parent = nullptr);
+    explicit ResourceRepository(const QUrl &storageLocation);
 
     /**
      * @return path to repository location
@@ -95,7 +94,7 @@ Q_SIGNALS:
 private:
     bool loadCourse(const QString &resourceFile);
     bool loadLanguage(const QString &resourceFile);
-    QVector<std::shared_ptr<CourseResource>> m_courses;
+    QVector<std::shared_ptr<ICourse>> m_courses;
     QHash<QString, std::shared_ptr<LanguageResource>> m_languages; ///>! (language-identifier, language resource)
     QStringList m_loadedCourses;
     const QString m_storageLocation;

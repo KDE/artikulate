@@ -47,6 +47,7 @@ public:
 
     void loadCourse(CourseResource *parent);
 
+    std::weak_ptr<ICourse> m_self;
     IResourceRepository *m_repository{ nullptr };
     QUrl m_file;
     QString m_identifier;
@@ -81,6 +82,18 @@ void CourseResourcePrivate::loadCourse(CourseResource *parent)
     for (auto &unit : units) {
         parent->addUnit(std::move(unit));
     }
+}
+
+std::shared_ptr<CourseResource> CourseResource::create(const QUrl &path, IResourceRepository *repository)
+{
+    std::shared_ptr<CourseResource> course(new CourseResource(path, repository));
+    course->setSelf(course);
+    return course;
+}
+
+void CourseResource::setSelf(std::shared_ptr<ICourse> self)
+{
+    d->m_self = self;
 }
 
 CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository)

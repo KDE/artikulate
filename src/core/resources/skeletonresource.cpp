@@ -92,6 +92,7 @@ public:
      */
     QDomDocument serializedSkeleton();
 
+    std::weak_ptr<ICourse> m_self;
     QUrl m_path;
     QString m_identifier;
     QString m_title;
@@ -185,6 +186,13 @@ QDomDocument SkeletonResourcePrivate::serializedSkeleton()
     return document;
 }
 
+std::shared_ptr<SkeletonResource> SkeletonResource::create(const QUrl &path, IResourceRepository *repository)
+{
+    std::shared_ptr<SkeletonResource> course(new SkeletonResource(path, repository));
+    course->setSelf(course);
+    return course;
+}
+
 SkeletonResource::SkeletonResource(const QUrl &path, IResourceRepository *repository)
     : IEditableCourse()
     , d(new SkeletonResourcePrivate(path))
@@ -194,6 +202,11 @@ SkeletonResource::SkeletonResource(const QUrl &path, IResourceRepository *reposi
 }
 
 SkeletonResource::~SkeletonResource() = default;
+
+void SkeletonResource::setSelf(std::shared_ptr<ICourse> self)
+{
+    d->m_self = self;
+}
 
 QString SkeletonResource::id() const
 {
@@ -260,7 +273,7 @@ void SkeletonResource::setDescription(QString description)
     emit descriptionChanged();
 }
 
-bool SkeletonResource::exportCourse(const QUrl &filePath)
+bool SkeletonResource::exportToFile(const QUrl &filePath) const
 {
     // write back to file
     // create directories if necessary
@@ -289,6 +302,11 @@ std::shared_ptr<Unit> SkeletonResource::addUnit(std::unique_ptr<Unit> unit)
     d->appendUnit(storedUnit);
     emit unitAdded();
     return storedUnit;
+}
+
+bool SkeletonResource::isModified() const
+{
+    return false; //FIXME
 }
 
 std::shared_ptr<Language> SkeletonResource::language() const

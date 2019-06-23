@@ -156,14 +156,7 @@ public:
      *
      * \param resource the skeleton resource to add to resource manager
      */
-    std::shared_ptr<SkeletonResource> addSkeleton(const QUrl &skeletonFile);
-
-    /**
-     * Adds skeleton resource to resource manager
-     *
-     * \param resource the skeleton resource to add to resource manager
-     */
-    std::shared_ptr<SkeletonResource> addSkeletonResource(std::unique_ptr<SkeletonResource> resource);
+    std::shared_ptr<IEditableCourse> addSkeleton(const QUrl &skeletonFile);
 
     /**
      * Remove skeleton from resource manager. If the skeleton is modified its changes are NOT
@@ -200,7 +193,7 @@ private:
     QString m_storageLocation;
     QVector<std::shared_ptr<LanguageResource>> m_languageResources;
     QMap<QString, QVector<std::shared_ptr<EditableCourseResource>> > m_courses; //!> (language-id, course-resource)
-    QVector<std::shared_ptr<SkeletonResource>> m_skeletonResources;
+    QVector<std::shared_ptr<IEditableCourse>> m_skeletonResources;
     QStringList m_loadedResources;
 };
 

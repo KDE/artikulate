@@ -32,10 +32,6 @@ class Language;
 class ARTIKULATECORE_EXPORT IEditableCourse : public ICourse
 {
 public:
-    IEditableCourse(QObject *parent = nullptr)
-        : ICourse(parent)
-    {
-    }
     virtual ~IEditableCourse() = default;
     virtual void setId(QString id) = 0;
     virtual void setForeignId(QString foreignId) = 0;
@@ -44,6 +40,14 @@ public:
     virtual void setDescription(QString description) = 0;
     virtual void setLanguage(std::shared_ptr<Language> language) = 0;
     virtual std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) = 0;
+    virtual bool exportToFile(const QUrl &filePath) const = 0;
+    virtual bool isModified() const = 0;
+
+protected:
+    IEditableCourse(QObject *parent = nullptr)
+        : ICourse(parent)
+    {
+    }
 };
 
 Q_DECLARE_INTERFACE(IEditableCourse, "com.kde.artikulate.IEditableCourse/1.0")
