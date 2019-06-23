@@ -24,10 +24,12 @@
 #include "phonemegroup.h"
 #include "artikulate_debug.h"
 #include <KLocalizedString>
+#include <QQmlEngine>
 
 Language::Language()
     : QObject()
 {
+    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 }
 
 Language::~Language() = default;
