@@ -55,6 +55,7 @@ set_target_properties(
 
 install(
     TARGETS artikulatesound
+    LIBRARY NAMELINK_SKIP
     ${INSTALL_TARGETS_DEFAULT_ARGS}
 )
 

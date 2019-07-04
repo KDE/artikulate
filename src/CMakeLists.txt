@@ -107,6 +107,7 @@ set_target_properties(
 )
 install(
     TARGETS artikulatecore
+    LIBRARY NAMELINK_SKIP
     DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS}
 )
 install(FILES artikulate.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR})
