@@ -118,3 +118,19 @@ target_link_libraries(test_editablecourseresource
 )
 add_test(NAME test_editablecourseresource COMMAND test_editablecourseresource)
 ecm_mark_as_test(test_editablecourseresource)
+
+
+# test course model class
+set(TestCourseModel_SRCS
+    coursemodel/test_coursemodel.cpp
+    ../mocks/resourcerepositorystub.cpp
+)
+qt5_add_resources(TestCourseModel_SRCS ../../data/languages.qrc)
+qt5_add_resources(TestCourseModel_SRCS ../testdata/testdata.qrc)
+add_executable(test_coursemodel ${TestCourseModel_SRCS} )
+target_link_libraries(test_coursemodel
+    artikulatecore
+    Qt5::Test
+)
+add_test(NAME test_coursemodel COMMAND test_coursemodel)
+ecm_mark_as_test(test_coursemodel)
