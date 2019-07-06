@@ -48,6 +48,7 @@ ecm_mark_as_test(test_languageresources)
 set(TestXsdSchemes_SRCS
     xsdschemes/testxsdschemes.cpp
 )
+qt5_add_resources(TestXsdSchemes_SRCS ../../data/languages.qrc)
 add_executable(test_xsdschemes ${TestXsdSchemes_SRCS} )
 target_link_libraries(test_xsdschemes
     Qt5::Test
