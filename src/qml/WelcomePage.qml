@@ -58,7 +58,7 @@ Kirigami.ScrollablePage {
                     ColumnLayout {
                         Kirigami.Heading {
                             level: 2
-                            text: model.language.title  + " / " + model.title
+                            text: i18nc("@title:window language / course name", "%1 / %2", model.language.title, model.title)
                         }
                         Kirigami.Separator {
                             Layout.fillWidth: true
@@ -72,7 +72,7 @@ Kirigami.ScrollablePage {
                     QQC2.Button {
                         Layout.alignment: Qt.AlignRight|Qt.AlignVCenter
                         Layout.columnSpan: 2
-                        text: qsTr("Start Training")
+                        text: i18nc("@action:button", "Start Training")
                         onClicked: {
                             showPassiveNotification("Starting training session for course " + model.title + ".");
                             g_trainingSession.course = model.dataRole

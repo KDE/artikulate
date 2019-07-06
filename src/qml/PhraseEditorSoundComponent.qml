@@ -71,7 +71,7 @@ Item {
             ToolButton {
                 anchors.verticalCenter: parent.verticalCenter
                 icon.name: "dialog-ok-apply"
-                text: i18n("Replace existing recording")
+                text: i18n("Replace Existing Recording")
                 onClicked: {
                     recorder.storeToFile(phrase.soundFileOutputPath())
                 }

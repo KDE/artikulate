@@ -60,7 +60,7 @@ Item {
                     spacing: 10
                     visible: { root.phrase != null && originalPhrase != "" && !root.isSkeletonPhrase}
                     Text {
-                        text: i18n("Original Phrase:") + " <i>" + originalPhraseInfo.originalPhrase + "</i>"
+                        text: i18n("Original Phrase: <i>%1</i>", originalPhraseInfo.originalPhrase)
                         width: root.width - 70
                         wrapMode: Text.WordWrap
                     }

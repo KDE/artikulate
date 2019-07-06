@@ -64,7 +64,7 @@ Item {
             ExclusiveGroup { id: editStateGroup }
             RadioButton {
                 id: buttonUnknown
-                text: i18n("Unknown")
+                text: i18nc("state", "Unknown")
                 onCheckedChanged: {
                     if (!checked) return
                     root.phrase.editState = Phrase.Unknown
@@ -73,7 +73,7 @@ Item {
             }
             RadioButton {
                 id: buttonTranslated
-                text: i18n("Translated")
+                text: i18nc("state", "Translated")
                 onCheckedChanged: {
                     if (!checked) return
                     root.phrase.editState = Phrase.Translated
@@ -82,7 +82,7 @@ Item {
             }
             RadioButton {
                 id: buttonCompleted
-                text: i18n("Completed")
+                text: i18nc("state", "Completed")
                 onCheckedChanged: {
                     if (!checked) return
                     root.phrase.editState = Phrase.Completed

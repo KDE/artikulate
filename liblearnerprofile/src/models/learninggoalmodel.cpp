@@ -169,7 +169,7 @@ QVariant LearningGoalModel::data(const QModelIndex &index, int role) const
     {
     case Qt::DisplayRole:
         return !goal->name().isEmpty()?
-                QVariant(goal->name()): QVariant(i18nc("@item:inlistbox:", "unknown"));
+                QVariant(goal->name()): QVariant(i18nc("@item:inlistbox unknown learning goal", "unknown"));
     case Qt::ToolTipRole:
         return QVariant(goal->name());
     case TitleRole:

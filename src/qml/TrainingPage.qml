@@ -41,7 +41,7 @@ Kirigami.Page {
             titleString += i18n("Category: no category selected");
         }
         else {
-            titleString += i18n("Category: ") + g_trainingSession.unit.title
+            titleString += i18n("Category: %1", g_trainingSession.unit.title)
         }
         if (g_trainingSession.unit !== null && g_trainingSession.course !== null) {
             titleString += " / " + g_trainingSession.course.i18nTitle
