@@ -58,7 +58,7 @@ void TestIResourceRepository::performInterfaceTests(IResourceRepository *interfa
     QCOMPARE(interface->courses().count(), 0); // load courses only on demand
 
     // test adding
-    QSignalSpy spyAboutToBeAdded(dynamic_cast<QObject *>(interface), SIGNAL(courseAboutToBeAdded(ICourse*, int)));
+    QSignalSpy spyAboutToBeAdded(dynamic_cast<QObject *>(interface), SIGNAL(courseAboutToBeAdded(std::shared_ptr<ICourse>, int)));
     QSignalSpy spyAdded(dynamic_cast<QObject *>(interface), SIGNAL(courseAdded()));
     QCOMPARE(spyAboutToBeAdded.count(), 0);
     QCOMPARE(spyAdded.count(), 0);
