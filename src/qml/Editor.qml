@@ -49,7 +49,6 @@ Item {
     }
     CourseModel {
         id: courseModel
-        language: g_editorSession.language
     }
     UnitModel {
         id: selectedUnitModel
@@ -140,16 +139,20 @@ Item {
                 id: comboCourse
                 visible: !g_editorSession.skeletonMode
                 Layout.fillWidth: true
-                model: courseModel
+                model: CourseFilterModel {
+                    id: courseFilterModel
+                    courseModel: courseModel
+                    language: g_editorSession.language
+                }
                 textRole: "title"
                 onCurrentIndexChanged: {
-                    if (courseModel.course(currentIndex)) {
-                        g_editorSession.course = courseModel.course(languageSelectionComboBox.currentIndex)
+                    if (courseFilterModel.course(currentIndex)) {
+                        g_editorSession.course = courseFilterModel.course(languageSelectionComboBox.currentIndex)
                     }
                 }
                 onVisibleChanged: {
-                    if (visible && courseModel.course(currentIndex)) {
-                        g_editorSession.course = courseModel.course(languageSelectionComboBox.currentIndex)
+                    if (visible && courseFilterModel.course(currentIndex)) {
+                        g_editorSession.course = courseFilterModel.course(languageSelectionComboBox.currentIndex)
                     }
                 }
             }

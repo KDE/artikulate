@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014-2015  Andreas Cord-Landwehr <cordlandwehr@gkde.org>
+ *  Copyright 2014-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -25,40 +25,34 @@
 
 class Course;
 class CourseModel;
+class Language;
 
 class CourseFilterModel : public QSortFilterProxyModel
 {
     Q_OBJECT
     Q_PROPERTY(CourseModel *courseModel READ courseModel WRITE setCourseModel NOTIFY courseModelChanged)
-    Q_PROPERTY(CourseResourceView view READ view WRITE setView NOTIFY viewChanged)
     Q_PROPERTY(int filteredCount READ filteredCount NOTIFY filteredCountChanged)
+    Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
 
 public:
-    Q_ENUMS(CourseResourceView);
-    enum CourseResourceView {
-        OnlyGetHotNewStuffResources = 1,
-        OnlyContributorResources = 2,
-        AllResources = 3
-    };
     explicit CourseFilterModel(QObject *parent = nullptr);
     CourseModel * courseModel() const;
     void setCourseModel(CourseModel* courseModel);
     int filteredCount() const;
-    virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
-    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
-    void setView(CourseResourceView view);
-    CourseResourceView view() const;
+    bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
+    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
+    void setLanguage(Language *language);
+    Language * language() const;
     Q_INVOKABLE QVariant course(int row) const;
 
 Q_SIGNALS:
     void courseModelChanged();
-    void viewChanged();
-    void sortOptionChanged();
     void filteredCountChanged();
+    void languageChanged();
 
 private:
-    CourseModel *m_courseModel;
-    CourseResourceView m_view;
+    CourseModel *m_courseModel{ nullptr };
+    Language *m_language{ nullptr };
 };
 
 #endif

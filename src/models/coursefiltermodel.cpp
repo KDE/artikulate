@@ -20,6 +20,7 @@
 
 #include "coursefiltermodel.h"
 #include "models/coursemodel.h"
+#include "../core/language.h"
 #include <KLocalizedString>
 #include <QSortFilterProxyModel>
 #include <QVariant>
@@ -28,7 +29,6 @@
 CourseFilterModel::CourseFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)
     , m_courseModel(nullptr)
-    , m_view(CourseFilterModel::AllResources)
 {
 
 }
@@ -38,20 +38,20 @@ CourseModel * CourseFilterModel::courseModel() const
     return m_courseModel;
 }
 
-void CourseFilterModel::setView(CourseFilterModel::CourseResourceView view)
+Language * CourseFilterModel::language() const
 {
-    if (view == m_view) {
-        return;
-    }
-    m_view = view;
-    invalidateFilter();
-    emit viewChanged();
-    emit filteredCountChanged();
+    return m_language;
 }
 
-CourseFilterModel::CourseResourceView CourseFilterModel::view() const
+void CourseFilterModel::setLanguage(Language *language)
 {
-    return m_view;
+    if (m_language == language) {
+        return;
+    }
+    m_language = language;
+    emit languageChanged();
+    invalidateFilter();
+    emit filteredCountChanged();
 }
 
 void CourseFilterModel::setCourseModel(CourseModel *courseModel)
@@ -81,15 +81,12 @@ bool CourseFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourc
 {
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
-    switch (m_view) {
-    case CourseFilterModel::AllResources:
+    if (m_language == nullptr) {
         return true;
-//    case CourseFilterModel::OnlyContributorResources: //FIXME this role was removed
-//        return sourceModel()->data(index, CourseModel::ContributerResourceRole).toBool();
-//    case CourseFilterModel::OnlyGetHotNewStuffResources:
-//        return !sourceModel()->data(index, CourseModel::ContributerResourceRole).toBool();
     }
-    Q_UNREACHABLE();
+    else if (sourceModel()->data(index, CourseModel::LanguageRole).value<Language*>()->id() == m_language->id()) {
+        return true;
+    }
     return false;
 }
 
