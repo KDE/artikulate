@@ -24,69 +24,13 @@
 #include "src/core/language.h"
 #include "src/core/unit.h"
 #include "src/core/trainingaction.h"
+#include "../mocks/coursestub.h"
 #include "liblearnerprofile/src/profilemanager.h"
 #include <QTest>
 #include <QSignalSpy>
 
 // assumption: during a training session the units and phrases of a course do not change
 //   any change of such a course shall result in a reload of a training session
-
-class CourseStub : public ICourse
-{
-public:
-    CourseStub(std::shared_ptr<Language> language, QVector<std::shared_ptr<Unit>> units)
-        : m_language(language)
-        , m_units(units)
-    {
-    }
-    ~CourseStub() override;
-
-    void setSelf(std::shared_ptr<ICourse> self) override
-    {
-        m_self = self;
-    }
-
-    QString id() const override
-    {
-        return "courseid";
-    }
-    QString foreignId() const override
-    {
-        return "foreigncourseid";
-    }
-    QString title() const override
-    {
-        return "title";
-    }
-    QString i18nTitle() const override
-    {
-        return "i18n title";
-    }
-    QString description() const override
-    {
-        return "description of the course";
-    }
-    std::shared_ptr<Language> language() const override
-    {
-        return m_language;
-    }
-    QVector<std::shared_ptr<Unit>> units() override
-    {
-        return m_units;
-    }
-    QUrl file() const override
-    {
-        return QUrl();
-    }
-
-private:
-    std::weak_ptr<ICourse> m_self;
-    std::shared_ptr<Language> m_language;
-    QVector<std::shared_ptr<Unit>> m_units;
-};
-
-// define one virtual method out of line to pin CourseStub to this translation unit
-CourseStub::~CourseStub() = default;
 
 void TestTrainingSession::init()
 {

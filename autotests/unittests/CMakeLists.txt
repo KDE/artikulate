@@ -50,7 +50,10 @@ ecm_mark_as_test(test_resourcerepository)
 
 
 # training session tests
-set(TestTrainingSession_SRCS trainingsession/test_trainingsession.cpp)
+set(TestTrainingSession_SRCS
+    trainingsession/test_trainingsession.cpp
+    ../mocks/coursestub.cpp
+)
 add_executable(test_trainingsession ${TestTrainingSession_SRCS})
 target_link_libraries(test_trainingsession
     artikulatecore
@@ -124,6 +127,7 @@ ecm_mark_as_test(test_editablecourseresource)
 set(TestCourseModel_SRCS
     coursemodel/test_coursemodel.cpp
     ../mocks/resourcerepositorystub.cpp
+    ../mocks/coursestub.cpp
 )
 qt5_add_resources(TestCourseModel_SRCS ../../data/languages.qrc)
 qt5_add_resources(TestCourseModel_SRCS ../testdata/testdata.qrc)
