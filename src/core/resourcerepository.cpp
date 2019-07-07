@@ -28,7 +28,7 @@
 #include <QDir>
 #include <QDirIterator>
 
-ResourceRepository::ResourceRepository(QObject *parent)
+ResourceRepository::ResourceRepository()
     : ResourceRepository(QUrl::fromLocalFile(QStandardPaths::standardLocations(QStandardPaths::DataLocation).constFirst() + QStringLiteral("/courses/")))
 {
 }

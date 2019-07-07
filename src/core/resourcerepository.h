@@ -47,7 +47,7 @@ class ARTIKULATECORE_EXPORT ResourceRepository : public IResourceRepository
     Q_INTERFACES(IResourceRepository)
 
 public:
-    explicit ResourceRepository(QObject *parent = nullptr);
+    explicit ResourceRepository();
     ~ResourceRepository() override;
 
     /**
