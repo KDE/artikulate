@@ -22,6 +22,7 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
+#include "artikulatecore_export.h"
 #include <QApplication>
 
 class IResourceRepository;
@@ -32,7 +33,7 @@ class Application;
 #endif
 #define artikulateApp (static_cast<Application *>(QCoreApplication::instance()))
 
-class Application : public QApplication
+class ARTIKULATECORE_EXPORT Application : public QApplication
 {
     Q_OBJECT
 

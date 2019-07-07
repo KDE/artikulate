@@ -1,5 +1,5 @@
 ###
-#  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+#  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -39,6 +39,8 @@ include_directories(
 
 # set the source code files from which Artikulate is compiled
 set(artikulateCore_SRCS
+    application.cpp
+    artikulate_debug.cpp
     core/icourse.h
     core/ieditablecourse.h
     core/ieditablerepository.h
@@ -63,12 +65,24 @@ set(artikulateCore_SRCS
     core/resources/skeletonresource.cpp
     core/player.cpp
     core/recorder.cpp
-
+    models/coursemodel.cpp
+    models/coursefiltermodel.cpp
+    models/languagemodel.cpp
+    models/languageresourcemodel.cpp
+#     models/learningprogressmodel.cpp //TODO must be adapted to new trainingsession
+    models/unitmodel.cpp
+    models/unitfiltermodel.cpp
+    models/phrasemodel.cpp
+    models/phraselistmodel.cpp
+    models/phrasefiltermodel.cpp
+    models/phonememodel.cpp
+    models/phonemegroupmodel.cpp
+    models/phonemeunitmodel.cpp
+    models/profilemodel.cpp
+    models/skeletonmodel.cpp
     qmlcontrols/iconitem.cpp
     qmlcontrols/imagetexturescache.cpp
     qmlcontrols/managedtexturenode.cpp
-
-    artikulate_debug.cpp
 )
 
 kconfig_add_kcfg_files (artikulateCore_SRCS settings.kcfgc)
@@ -79,6 +93,7 @@ target_link_libraries(artikulatecore
         artikulatelearnerprofile
         artikulatesound
         Qt5::XmlPatterns
+        Qt5::Qml
         Qt5::Quick
         KF5::Archive
         KF5::ConfigGui
@@ -101,24 +116,7 @@ install(FILES artikulate.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR})
 set(artikulate_SRCS
     main.cpp
     mainwindow.cpp
-    application.cpp
     artikulate_debug.cpp
-
-    models/coursemodel.cpp
-    models/coursefiltermodel.cpp
-    models/languagemodel.cpp
-    models/languageresourcemodel.cpp
-#     models/learningprogressmodel.cpp //TODO must be adapted to new trainingsession
-    models/unitmodel.cpp
-    models/unitfiltermodel.cpp
-    models/phrasemodel.cpp
-    models/phraselistmodel.cpp
-    models/phrasefiltermodel.cpp
-    models/phonememodel.cpp
-    models/phonemegroupmodel.cpp
-    models/phonemeunitmodel.cpp
-    models/profilemodel.cpp
-    models/skeletonmodel.cpp
 
     ui/sounddevicedialogpage.cpp
     ui/appearencedialogpage.cpp
@@ -136,25 +134,7 @@ kconfig_add_kcfg_files (artikulate_SRCS settings.kcfgc)
 set(artikulate_editor_SRCS
     main_editor.cpp
     mainwindow_editor.cpp
-    application.cpp
     artikulate_debug.cpp
-
-    models/coursemodel.cpp
-    models/coursefiltermodel.cpp
-    models/languagemodel.cpp
-    models/languageresourcemodel.cpp
-#     models/learningprogressmodel.cpp //TODO must be adapted to new trainingsession
-    models/unitmodel.cpp
-    models/unitfiltermodel.cpp
-    models/phrasemodel.cpp
-    models/phraselistmodel.cpp
-    models/phrasefiltermodel.cpp
-    models/phonememodel.cpp
-    models/phonemegroupmodel.cpp
-    models/phonemeunitmodel.cpp
-    models/profilemodel.cpp
-    models/skeletonmodel.cpp
-
     ui/sounddevicedialogpage.cpp
     ui/appearencedialogpage.cpp
     ui/resourcesdialogpage.cpp

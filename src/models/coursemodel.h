@@ -21,6 +21,7 @@
 #ifndef COURSEMODEL_H
 #define COURSEMODEL_H
 
+#include "artikulatecore_export.h"
 #include <QAbstractListModel>
 #include <memory>
 
@@ -30,7 +31,7 @@ class Language;
 class QSignalMapper;
 
 
-class CourseModel : public QAbstractListModel
+class ARTIKULATECORE_EXPORT CourseModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
