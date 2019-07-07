@@ -50,20 +50,6 @@ void TestEditableCourseResource::cleanup()
 {
 }
 
-void TestEditableCourseResource::courseSchemeValidationTest()
-{
-    QUrl schemeFile = QUrl::fromLocalFile(":/artikulate/schemes/course->xsd");
-    QXmlSchema courseSchema;
-    QVERIFY(courseSchema.load(schemeFile));
-    QVERIFY(courseSchema.isValid());
-
-    //TODO shall be used in skeleton specific test
-    QUrl skeletonFile = QUrl::fromLocalFile(":/artikulate/schemes/skeleton.xsd");
-    QXmlSchema skeletonScheme;
-    QVERIFY(skeletonScheme.load(skeletonFile));
-    QVERIFY(skeletonScheme.isValid());
-}
-
 void TestEditableCourseResource::loadCourseResource()
 {
     std::unique_ptr<Language> language(new Language);

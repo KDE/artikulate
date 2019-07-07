@@ -43,11 +43,6 @@ private Q_SLOTS:
     void cleanup();
 
     /**
-     * @brief Test if course XSD specification is valid.
-     */
-    void courseSchemeValidationTest();
-
-    /**
      * @brief Test simple loading of course resource XML file
      */
     void loadCourseResource();
