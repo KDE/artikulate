@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -28,34 +28,26 @@
 class IResourceRepository;
 class ICourse;
 class Language;
-class QSignalMapper;
-
 
 class ARTIKULATECORE_EXPORT CourseModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
-    Q_PROPERTY(int size READ rowCount NOTIFY rowCountChanged)
 
 public:
     enum courseRoles {
         TitleRole = Qt::UserRole + 1,
+        I18nTitleRole,
         DescriptionRole,
         IdRole,
-        ContributerResourceRole,
         LanguageRole,
         DataRole
     };
 
     explicit CourseModel(QObject *parent = nullptr);
+    CourseModel(IResourceRepository *repository, QObject *parent = nullptr);
     ~CourseModel() override = default;
-    /**
-     * Reimplemented from QAbstractListModel::roleNames()
-     */
     QHash<int,QByteArray> roleNames() const override;
     IResourceRepository * resourceRepository() const;
-    void setLanguage(Language *language);
-    Language * language() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
@@ -64,27 +56,14 @@ public:
 protected:
     void setResourceRepository(IResourceRepository *resourceRepository);
 
-Q_SIGNALS:
-    void courseChanged(int index);
-    void resourceManagerChanged();
-    void languageChanged();
-    void rowCountChanged();
-
 private Q_SLOTS:
-    void onCourseAboutToBeAdded(ICourse *resource, int index);
+    void onCourseAboutToBeAdded(std::shared_ptr<ICourse> course, int index);
     void onCourseAdded();
-    void onCourseAboutToBeRemoved(int index);
-    void emitCourseChanged(int row);
+    void onCourseAboutToBeRemoved(int row);
 
 private:
-    /**
-     * Updates internal mappings of course signals.
-     */
-    void updateMappings();
-    IResourceRepository *m_resourceRepository;
-    Language *m_language;
-    QVector<ICourse *> m_courses;
-    QSignalMapper *m_signalMapper;
+    IResourceRepository *m_resourceRepository{ nullptr };
+    QVector<QMetaObject::Connection> m_updateConnections;
 };
 
 #endif // COURSEMODEL_H

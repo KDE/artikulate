@@ -68,10 +68,10 @@ public:
     virtual QVector<std::shared_ptr<Language>> languages() const = 0;
 
 Q_SIGNALS:
-    virtual void courseAboutToBeAdded(ICourse*,int) = 0;
-    virtual void courseAdded() = 0;
-    virtual void courseAboutToBeRemoved(int) = 0;
-    virtual void courseRemoved() = 0;
+    void courseAboutToBeAdded(std::shared_ptr<ICourse>,int);
+    void courseAdded();
+    void courseAboutToBeRemoved(int);
+    void courseRemoved();
 };
 Q_DECLARE_INTERFACE(IResourceRepository, "IResourceRepository")
 

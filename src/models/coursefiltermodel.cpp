@@ -59,17 +59,7 @@ void CourseFilterModel::setCourseModel(CourseModel *courseModel)
     if (courseModel == m_courseModel) {
         return;
     }
-    if (m_courseModel) {
-        disconnect(m_courseModel, &CourseModel::languageChanged,
-                this, &CourseFilterModel::filteredCountChanged);
-        disconnect(m_courseModel, &CourseModel::rowCountChanged,
-                this, &CourseFilterModel::filteredCountChanged);
-    }
     m_courseModel = courseModel;
-    connect(m_courseModel, &CourseModel::languageChanged,
-            this, &CourseFilterModel::filteredCountChanged);
-    connect(m_courseModel, &CourseModel::rowCountChanged,
-            this, &CourseFilterModel::filteredCountChanged);
 
     setSourceModel(m_courseModel);
     sort(0);
@@ -94,10 +84,10 @@ bool CourseFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourc
     switch (m_view) {
     case CourseFilterModel::AllResources:
         return true;
-    case CourseFilterModel::OnlyContributorResources:
-        return sourceModel()->data(index, CourseModel::ContributerResourceRole).toBool();
-    case CourseFilterModel::OnlyGetHotNewStuffResources:
-        return !sourceModel()->data(index, CourseModel::ContributerResourceRole).toBool();
+//    case CourseFilterModel::OnlyContributorResources: //FIXME this role was removed
+//        return sourceModel()->data(index, CourseModel::ContributerResourceRole).toBool();
+//    case CourseFilterModel::OnlyGetHotNewStuffResources:
+//        return !sourceModel()->data(index, CourseModel::ContributerResourceRole).toBool();
     }
     Q_UNREACHABLE();
     return false;

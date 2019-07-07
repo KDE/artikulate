@@ -40,6 +40,21 @@ private Q_SLOTS:
      * Called after every test case.
      */
     void cleanup();
+
+    /**
+     * @brief Test course model initialization from a resource repository stub
+     */
+    void testInit();
+
+    /**
+     * @brief Test add/remove signal propagation as emitted from resource repository stub
+     */
+    void testAddRemoveOperations();
+
+    /**
+     * @brief Test data changed signal emit
+     */
+    void testDataChangedSignals();
 };
 
 #endif

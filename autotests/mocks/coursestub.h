@@ -59,7 +59,12 @@ public:
     }
     QString title() const override
     {
-        return "title";
+        return m_title;
+    }
+    void setTitle(QString title)
+    {
+        m_title = title;
+        emit titleChanged();
     }
     QString i18nTitle() const override
     {
@@ -83,6 +88,7 @@ public:
     }
 
 private:
+    QString m_title{ "title" };
     std::weak_ptr<ICourse> m_self;
     std::shared_ptr<Language> m_language;
     QVector<std::shared_ptr<Unit>> m_units;

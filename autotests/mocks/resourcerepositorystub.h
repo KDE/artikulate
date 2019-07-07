@@ -25,6 +25,7 @@
 #include "core/language.h"
 #include <QObject>
 #include <QVector>
+#include <QDebug>
 
 class ICourse;
 
@@ -49,6 +50,16 @@ public:
         }
     }
 
+    ResourceRepositoryStub(std::vector<std::shared_ptr<Language>> languages, std::vector<std::shared_ptr<ICourse>> courses)
+    {
+        for (auto &language : languages) {
+            m_languages.append(language);
+        }
+        for (auto &course : courses) {
+            m_courses.append(course);
+        }
+    }
+
     ~ResourceRepositoryStub() override;
 
     QString storageLocation() const override
@@ -58,13 +69,13 @@ public:
 
     QVector<std::shared_ptr<ICourse>> courses() const override
     {
-        return QVector<std::shared_ptr<ICourse>>(); // do not return any courses: stub shall only provide languages
+        return m_courses;
     }
 
     QVector<std::shared_ptr<ICourse>> courses(const QString &languageId) const override
     {
         Q_UNUSED(languageId);
-        return QVector<std::shared_ptr<ICourse>>(); // do not return any courses: stub shall only provide languages
+        return m_courses; // do not filter by languages
     }
 
     void reloadCourses() override
@@ -76,15 +87,29 @@ public:
     {
         return m_languages;
     }
-Q_SIGNALS:
-    void courseAboutToBeAdded(ICourse*,int) override;
-    void courseAdded() override;
-    void courseAboutToBeRemoved(int) override;
-    void courseRemoved() override;
+
+    void appendCourse(std::shared_ptr<ICourse> course)
+    {
+        emit courseAboutToBeAdded(course, m_courses.count());
+        m_courses.append(course);
+        emit courseAdded();
+    }
+
+    void removeCourse(std::shared_ptr<ICourse> course)
+    {
+        auto index = m_courses.indexOf(course);
+        Q_ASSERT(index >= 0);
+        if (index >= 0) {
+            emit courseAboutToBeRemoved(index);
+            m_courses.remove(index);
+            emit courseRemoved();
+        }
+    }
 
 private:
     QString m_storageLocation;
     QVector<std::shared_ptr<Language>> m_languages;
+    QVector<std::shared_ptr<ICourse>> m_courses;
 };
 
 #endif

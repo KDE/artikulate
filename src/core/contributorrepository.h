@@ -174,10 +174,6 @@ Q_SIGNALS:
     void languageResourceRemoved();
     void languageResourceAboutToBeRemoved(int);
     void repositoryChanged();
-    void courseAdded() override;
-    void courseAboutToBeAdded(ICourse*,int) override;
-    void courseAboutToBeRemoved(int) override;
-    void courseRemoved() override;
     void skeletonAdded();
     void skeletonAboutToBeAdded(ICourse*,int);
     void skeletonRemoved();

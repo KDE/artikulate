@@ -137,7 +137,7 @@ bool ResourceRepository::loadCourse(const QString &resourceFile)
         return false;
     }
 
-    emit courseAboutToBeAdded(resource.get(), m_courses.count() - 1);
+    emit courseAboutToBeAdded(resource, m_courses.count() - 1);
     m_courses.append(resource);
     emit courseAdded();
     m_loadedCourses.append(resourceFile);

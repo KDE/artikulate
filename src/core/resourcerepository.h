@@ -85,12 +85,6 @@ public Q_SLOTS:
      */
     void reloadCourses() override;
 
-Q_SIGNALS:
-     void courseAboutToBeAdded(ICourse*, int) override;
-     void courseAdded() override;
-     void courseAboutToBeRemoved(int) override;
-     void courseRemoved() override;
-
 private:
     bool loadCourse(const QString &resourceFile);
     bool loadLanguage(const QString &resourceFile);

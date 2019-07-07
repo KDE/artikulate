@@ -97,12 +97,6 @@ public:
         // do nothing
     }
 
-Q_SIGNALS:
-    void courseAboutToBeAdded(ICourse*,int) override;
-    void courseAdded() override;
-    void courseAboutToBeRemoved(int) override;
-    void courseRemoved() override;
-
 private:
     QVector<std::shared_ptr<Language>> m_languages;
     QVector<std::shared_ptr<IEditableCourse>> m_skeletons;

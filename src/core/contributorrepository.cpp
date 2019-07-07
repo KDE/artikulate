@@ -393,7 +393,7 @@ std::shared_ptr<EditableCourseResource> ContributorRepository::addCourse(const Q
             if (!m_courses.contains(languageId)) {
                 m_courses.insert(languageId, QVector<std::shared_ptr<EditableCourseResource>>());
             }
-            emit courseAboutToBeAdded(course.get(), m_courses[course->language()->id()].count());
+            emit courseAboutToBeAdded(course, m_courses[course->language()->id()].count());
             m_courses[languageId].append(course);
             emit courseAdded();
             emit languageCoursesChanged();
