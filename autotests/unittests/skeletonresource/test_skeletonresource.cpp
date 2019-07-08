@@ -24,6 +24,7 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/resources/skeletonresource.h"
+#include "../mocks/languagestub.h"
 
 #include <QTest>
 #include <QDebug>
@@ -49,8 +50,7 @@ void TestSkeletonResource::cleanup()
 
 void TestSkeletonResource::loadSkeletonResource()
 {
-    std::shared_ptr<Language> language(new Language);
-    language->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     ResourceRepositoryStub repository({language});
     const QString courseDirectory = "data/contributorrepository/skeletons/";
     const QString courseFile = courseDirectory + "skeleton.xml";
@@ -87,8 +87,7 @@ void TestSkeletonResource::loadSkeletonResource()
 void TestSkeletonResource::unitAddAndRemoveHandling()
 {
     // boilerplate
-    std::shared_ptr<Language> language(new Language);
-    language->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     ResourceRepositoryStub repository({language});
     const QString courseDirectory = "data/contributorrepository/skeletons/";
     const QString courseFile = courseDirectory + "skeleton.xml";
@@ -112,8 +111,7 @@ void TestSkeletonResource::unitAddAndRemoveHandling()
 void TestSkeletonResource::coursePropertyChanges()
 {
     // boilerplate
-    std::shared_ptr<Language> language(new Language);
-    language->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     ResourceRepositoryStub repository({language});
     const QString courseDirectory = "data/contributorrepository/skeletons/";
     const QString courseFile = courseDirectory + "skeleton.xml";
@@ -153,8 +151,7 @@ void TestSkeletonResource::coursePropertyChanges()
 void TestSkeletonResource::fileLoadSaveCompleteness()
 {
     // boilerplate
-    std::shared_ptr<Language> language(new Language);
-    language->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     ResourceRepositoryStub repository({language});
     const QString courseDirectory = "data/contributorrepository/skeletons/";
     const QString courseFile = courseDirectory + "skeleton.xml";

@@ -25,7 +25,7 @@
 #include "core/phrase.h"
 #include "core/phonemegroup.h"
 #include "core/resources/courseresource.h"
-#include <memory>
+#include "../mocks/languagestub.h"
 #include <QTest>
 #include <QDebug>
 #include <QTemporaryFile>
@@ -50,8 +50,7 @@ void TestCourseResource::cleanup()
 
 void TestCourseResource::loadCourseResource()
 {
-    std::shared_ptr<ILanguage> language(new Language);
-    std::static_pointer_cast<Language>(language)->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     auto group = std::static_pointer_cast<Language>(language)->addPhonemeGroup("id", "title");
     group->addPhoneme("g", "G");
     group->addPhoneme("u", "U");
@@ -95,8 +94,7 @@ void TestCourseResource::loadCourseResource()
 void TestCourseResource::unitAddAndRemoveHandling()
 {
     // boilerplate
-    std::shared_ptr<ILanguage> language(new Language);
-    std::static_pointer_cast<Language>(language)->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     ResourceRepositoryStub repository({language});
 
     const QString courseDirectory = "data/courses/de/";
@@ -122,8 +120,7 @@ void TestCourseResource::unitAddAndRemoveHandling()
 void TestCourseResource::coursePropertyChanges()
 {
     // boilerplate
-    std::shared_ptr<ILanguage> language(new Language);
-    std::static_pointer_cast<Language>(language)->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     ResourceRepositoryStub repository({language});
 
     const QString courseDirectory = "data/courses/de/";

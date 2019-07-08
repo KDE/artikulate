@@ -22,20 +22,13 @@
 #include "core/language.h"
 #include "core/unit.h"
 #include "core/phrase.h"
+#include "core/phoneme.h"
 #include "core/resources/courseparser.h"
 
 #include <QTest>
-#include <QDebug>
-#include <QTemporaryFile>
 #include <QDirIterator>
+#include <QDebug>
 #include <QUrl>
-
-#include <QIODevice>
-#include <QFile>
-#include <QXmlSchema>
-#include <QXmlSchemaValidator>
-#include <QDomDocument>
-#include <QStandardPaths>
 
 TestLanguageFiles::TestLanguageFiles()
 {
@@ -51,14 +44,6 @@ void TestLanguageFiles::cleanup()
     // TODO cleanup after test run
 }
 
-void TestLanguageFiles::languageSchemeValidationTest()
-{
-    QUrl languageFile = QUrl::fromLocalFile(":/artikulate/schemes/language.xsd");
-    QXmlSchema languageSchema;
-    QVERIFY(languageSchema.load(languageFile));
-    QVERIFY(languageSchema.isValid());
-}
-
 void TestLanguageFiles::checkIdUniqueness()
 {
     QDirIterator iter(QDir(":/artikulate/languages/"));
@@ -66,34 +51,11 @@ void TestLanguageFiles::checkIdUniqueness()
         const QString &file = iter.next();
         qDebug() << "File being parsed: " << file;
         QStringList idList;
-        const QUrl &languageFile = QUrl::fromLocalFile(file);
-        QVERIFY(languageFile.isLocalFile());
 
-        QXmlSchema schema = CourseParser::loadXmlSchema(QStringLiteral("language"));
-        QVERIFY(schema.isValid());
-
-        QDomDocument document = CourseParser::loadDomDocument(languageFile, schema);
-        QVERIFY(!document.isNull());
-
-        QDomElement root(document.documentElement());
-        std::unique_ptr<Language> language(new Language);
-        language->setFile(languageFile);
-        language->setId(root.firstChildElement(QStringLiteral("id")).text());
-        language->setTitle(root.firstChildElement(QStringLiteral("title")).text());
-        // create phoneme groups
-        for (QDomElement groupNode = root.firstChildElement(QStringLiteral("phonemeGroups")).firstChildElement();
-             !groupNode.isNull();
-             groupNode = groupNode.nextSiblingElement())
-        {
-            for (QDomElement phonemeNode = groupNode.firstChildElement(QStringLiteral("phonemes")).firstChildElement();
-                 !phonemeNode.isNull();
-                 phonemeNode = phonemeNode.nextSiblingElement())
-            {
-                QString id = phonemeNode.firstChildElement(QStringLiteral("id")).text();
-                qDebug() << "ID: " << id;
-                QVERIFY2(!idList.contains(id),"Phoneme ID used more than once in the tested file");
-                idList.append(id);
-            }
+        auto language = Language::create(QUrl::fromLocalFile(file));
+        for (auto phoneme : language->phonemes()) {
+            QVERIFY2(!idList.contains(phoneme->id()), "Phoneme ID used more than once in the tested file");
+            idList.append(phoneme->id());
         }
     }
 }

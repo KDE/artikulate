@@ -25,6 +25,7 @@
 #include "src/core/unit.h"
 #include "src/core/trainingaction.h"
 #include "../mocks/coursestub.h"
+#include "../mocks/languagestub.h"
 #include "liblearnerprofile/src/profilemanager.h"
 #include <QTest>
 #include <QSignalSpy>
@@ -44,7 +45,7 @@ void TestTrainingSession::cleanup()
 
 void TestTrainingSession::createTrainingSessionWithoutUnits()
 {
-    auto language = std::make_shared<Language>();
+    auto language = std::make_shared<LanguageStub>("de");
     CourseStub course(language, QVector<std::shared_ptr<Unit>>());
     LearnerProfile::ProfileManager manager;
     TrainingSession session(&manager);
@@ -54,7 +55,7 @@ void TestTrainingSession::createTrainingSessionWithoutUnits()
 
 void TestTrainingSession::createTrainingSessionWithEmptySounds()
 {
-    auto language = std::make_shared<Language>();
+    auto language = std::make_shared<LanguageStub>("de");
     std::shared_ptr<Unit> unitA(new Unit);
     std::shared_ptr<Unit> unitB(new Unit);
     Phrase *phraseA1 = new Phrase;
@@ -85,7 +86,7 @@ void TestTrainingSession::createTrainingSessionWithEmptySounds()
 
 void TestTrainingSession::createTrainingSessionWithEmptyUnits()
 {
-    auto language = std::make_shared<Language>();
+    auto language = std::make_shared<LanguageStub>("de");
     std::shared_ptr<Unit> unitA(new Unit);
     std::shared_ptr<Unit> unitB(new Unit);
     CourseStub course(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
@@ -97,7 +98,7 @@ void TestTrainingSession::createTrainingSessionWithEmptyUnits()
 
 void TestTrainingSession::createTrainingSessionWithUnitsAndPhrases()
 {
-    auto language = std::make_shared<Language>();
+    auto language = std::make_shared<LanguageStub>("de");
     std::shared_ptr<Unit> unit(new Unit);
     Phrase *firstPhrase = new Phrase();
     Phrase *secondPhrase = new Phrase();
@@ -113,7 +114,7 @@ void TestTrainingSession::createTrainingSessionWithUnitsAndPhrases()
 
 void TestTrainingSession::iterateCourse()
 {
-    auto language = std::make_shared<Language>();
+    auto language = std::make_shared<LanguageStub>("de");
     std::shared_ptr<Unit> unitA(new Unit);
     std::shared_ptr<Unit> unitB(new Unit);
     Phrase *phraseA1 = new Phrase;

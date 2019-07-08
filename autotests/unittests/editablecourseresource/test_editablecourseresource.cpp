@@ -25,6 +25,7 @@
 #include "core/phrase.h"
 #include "core/resources/courseparser.h"
 #include "core/resources/editablecourseresource.h"
+#include "../mocks/languagestub.h"
 
 #include <memory>
 #include <QTest>
@@ -51,8 +52,7 @@ void TestEditableCourseResource::cleanup()
 
 void TestEditableCourseResource::loadCourseResource()
 {
-    std::shared_ptr<ILanguage> language(new Language);
-    std::static_pointer_cast<Language>(language)->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     ResourceRepositoryStub repository({language});
 
     auto course = EditableCourseResource::create(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
@@ -88,8 +88,7 @@ void TestEditableCourseResource::loadCourseResource()
 void TestEditableCourseResource::unitAddAndRemoveHandling()
 {
     // boilerplate
-    std::shared_ptr<ILanguage> language(new Language);
-    std::static_pointer_cast<Language>(language)->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     ResourceRepositoryStub repository({language});
     auto course = EditableCourseResource::create(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
@@ -112,8 +111,7 @@ void TestEditableCourseResource::unitAddAndRemoveHandling()
 void TestEditableCourseResource::coursePropertyChanges()
 {
     // boilerplate
-    std::shared_ptr<ILanguage> language(new Language);
-    std::static_pointer_cast<Language>(language)->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     ResourceRepositoryStub repository({language});
     auto course = CourseResource::create(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
@@ -181,8 +179,7 @@ void TestEditableCourseResource::coursePropertyChanges()
 void TestEditableCourseResource::fileLoadSaveCompleteness()
 {
     // boilerplate
-    std::shared_ptr<ILanguage> language(new Language);
-    std::static_pointer_cast<Language>(language)->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     ResourceRepositoryStub repository({language});
     auto course = EditableCourseResource::create(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 

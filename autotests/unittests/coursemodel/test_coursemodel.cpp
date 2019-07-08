@@ -24,6 +24,7 @@
 #include "src/models/coursemodel.h"
 #include "../mocks/resourcerepositorystub.h"
 #include "../mocks/coursestub.h"
+#include "../mocks/languagestub.h"
 
 #include <QTest>
 #include <QSignalSpy>
@@ -41,8 +42,7 @@ void TestCourseModel::cleanup()
 void TestCourseModel::testInit()
 {
     // boilerplate
-    std::shared_ptr<ILanguage> language(new Language);
-    std::static_pointer_cast<Language>(language)->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     std::vector<std::shared_ptr<ILanguage>> languages;
     languages.push_back(language);
     auto course = CourseStub::create(language, QVector<std::shared_ptr<Unit>>({}));
@@ -58,8 +58,7 @@ void TestCourseModel::testInit()
 void TestCourseModel::testAddRemoveOperations()
 {
     // boilerplate
-    std::shared_ptr<ILanguage> language(new Language);
-    std::static_pointer_cast<Language>(language)->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     std::vector<std::shared_ptr<ILanguage>> languages;
     languages.push_back(language);
     ResourceRepositoryStub repository(languages, {});
@@ -98,8 +97,7 @@ void TestCourseModel::testAddRemoveOperations()
 void TestCourseModel::testDataChangedSignals()
 {
     // boilerplate
-    std::shared_ptr<ILanguage> language(new Language);
-    std::static_pointer_cast<Language>(language)->setId("de");
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     std::vector<std::shared_ptr<ILanguage>> languages;
     languages.push_back(language);
     auto course = CourseStub::create(language, QVector<std::shared_ptr<Unit>>({}));
@@ -123,7 +121,7 @@ void TestCourseModel::testDataChangedSignals()
         QCOMPARE(spyUpdate.count(), 0);
         repository.removeCourse(course);
         std::static_pointer_cast<CourseStub>(course)->setTitle("TitleSwitchedAgain");
-//        QCOMPARE(spyUpdate.count(), 0);
+        QCOMPARE(spyUpdate.count(), 0);
     }
 }
 

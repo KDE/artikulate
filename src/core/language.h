@@ -45,16 +45,16 @@ public:
     static std::shared_ptr<Language> create(QUrl file);
     ~Language() override;
 
-    QString id() const;
+    QString id() const override;
     void setId(const QString &id);
-    QString title() const;
+    QString title() const override;
     void seti18nTitle(const QString &title);
-    QString i18nTitle() const;
+    QString i18nTitle() const override;
     void setTitle(const QString &title);
     QUrl file() const;
     void setFile(const QUrl &file);
-    QVector<std::shared_ptr<Phoneme>> phonemes() const;
-    QVector<std::shared_ptr<PhonemeGroup>> phonemeGroups() const;
+    QVector<std::shared_ptr<Phoneme>> phonemes() const override;
+    QVector<std::shared_ptr<PhonemeGroup>> phonemeGroups() const override;
     std::shared_ptr<PhonemeGroup> addPhonemeGroup(const QString &identifier, const QString &title);
 
 Q_SIGNALS:
@@ -64,7 +64,7 @@ Q_SIGNALS:
     void phonemesChanged();
     void phonemeGroupsChanged();
 
-public: // TODO
+protected:
     explicit Language();
 
 private:

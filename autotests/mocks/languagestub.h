@@ -1,5 +1,4 @@
 /*
- *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
  *  Copyright 2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
@@ -19,33 +18,55 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTLANGUAGEFILES_H
-#define TESTLANGUAGEFILES_H
+#ifndef LANGUAGESTUB_H
+#define LANGUAGESTUB_H
 
+#include "src/core/ilanguage.h"
 #include <QObject>
+#include <QVector>
 
-class TestLanguageFiles : public QObject
+class Phoneme;
+class PhonemeGroup;
+
+class LanguageStub : public ILanguage
 {
-    Q_OBJECT
-
 public:
-    TestLanguageFiles();
+    LanguageStub(QString id)
+        : m_id(id)
+    {
+    }
+    ~LanguageStub() override;
 
-private slots:
-    /**
-     * Called before every test case.
-     */
-    void init();
+    QString id() const override
+    {
+        return m_id;
+    }
+    QString title() const override
+    {
+        return m_title;
+    }
+    void setTitle(QString title)
+    {
+        m_title = title;
+        emit titleChanged();
+    }
+    QString i18nTitle() const override
+    {
+        return "i18n title";
+    }
+    QVector<std::shared_ptr<Phoneme>> phonemes() const override
+    {
+        return QVector<std::shared_ptr<Phoneme>>();
+    }
+    QVector<std::shared_ptr<PhonemeGroup>> phonemeGroups() const override
+    {
+        return QVector<std::shared_ptr<PhonemeGroup>>();
+    }
 
-    /**
-     * Called after every test case.
-     */
-    void cleanup();
-
-    /**
-     * Test if id of each phoneme is unique in every language file.
-     */
-    void checkIdUniqueness();
+private:
+    QString m_id{ "UNKNOWN_ID" };
+    QString m_title{ "title" };
 };
+
 
 #endif

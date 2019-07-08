@@ -1,5 +1,4 @@
 /*
- *  Copyright 2013  Oindrila Gupta <oindrila.gupta92@gmail.com>
  *  Copyright 2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
@@ -19,33 +18,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTLANGUAGEFILES_H
-#define TESTLANGUAGEFILES_H
+#include "languagestub.h"
 
-#include <QObject>
-
-class TestLanguageFiles : public QObject
-{
-    Q_OBJECT
-
-public:
-    TestLanguageFiles();
-
-private slots:
-    /**
-     * Called before every test case.
-     */
-    void init();
-
-    /**
-     * Called after every test case.
-     */
-    void cleanup();
-
-    /**
-     * Test if id of each phoneme is unique in every language file.
-     */
-    void checkIdUniqueness();
-};
-
-#endif
+// define one virtual method out of line to pin LanguageStub to this translation unit
+LanguageStub::~LanguageStub() = default;

@@ -27,13 +27,14 @@
 #include "src/core/language.h"
 #include "src/core/resources/skeletonresource.h"
 #include "src/core/unit.h"
+#include "../mocks/languagestub.h"
 #include <QTest>
 #include <QSignalSpy>
 
 class EditableCourseStub : public IEditableCourse
 {
 public:
-    EditableCourseStub(std::shared_ptr<Language> language, QVector<std::shared_ptr<Unit>> units)
+    EditableCourseStub(std::shared_ptr<ILanguage> language, QVector<std::shared_ptr<Unit>> units)
         : IEditableCourse()
         , m_language(language)
         , m_units(units)
@@ -153,10 +154,8 @@ void TestEditorSession::cleanup()
 
 void TestEditorSession::createEditorSession()
 {
-    auto languageGerman = std::make_shared<Language>();
-    languageGerman->setId("de");
-    auto languageEnglish = std::make_shared<Language>();
-    languageEnglish->setId("en");
+    auto languageGerman = std::make_shared<LanguageStub>("de");
+    auto languageEnglish = std::make_shared<LanguageStub>("en");
 
     std::shared_ptr<IEditableCourse> course(new EditableCourseStub(languageGerman, QVector<std::shared_ptr<Unit>>()));
     course->setLanguage(languageGerman);
@@ -176,10 +175,8 @@ void TestEditorSession::createEditorSession()
 
 void TestEditorSession::nonSkeletonSwitchingBehavior()
 {
-    auto languageGerman = std::make_shared<Language>();
-    languageGerman->setId("de");
-    auto languageEnglish = std::make_shared<Language>();
-    languageEnglish->setId("en");
+    auto languageGerman = std::make_shared<LanguageStub>("de");
+    auto languageEnglish = std::make_shared<LanguageStub>("en");
     std::shared_ptr<IEditableCourse> courseGerman(new EditableCourseStub(languageGerman, QVector<std::shared_ptr<Unit>>()));
     courseGerman->setId("course-german");
     std::shared_ptr<IEditableCourse> courseEnglish(new EditableCourseStub(languageEnglish, QVector<std::shared_ptr<Unit>>()));
@@ -211,10 +208,8 @@ void TestEditorSession::nonSkeletonSwitchingBehavior()
 
 void TestEditorSession::skeletonSwitchingBehavior()
 {
-    auto languageGerman = std::make_shared<Language>();
-    languageGerman->setId("de");
-    auto languageEnglish = std::make_shared<Language>();
-    languageEnglish->setId("en");
+    auto languageGerman = std::make_shared<LanguageStub>("de");
+    auto languageEnglish = std::make_shared<LanguageStub>("en");
     std::shared_ptr<IEditableCourse> courseGermanA(new EditableCourseStub(languageGerman, QVector<std::shared_ptr<Unit>>()));
     courseGermanA->setId("course-german");
     courseGermanA->setForeignId("testskeletonA");
@@ -258,8 +253,7 @@ void TestEditorSession::skeletonSwitchingBehavior()
 void TestEditorSession::iterateCourse()
 {
     // language
-    auto language = std::make_shared<Language>();
-    language->setId("de");
+    auto language = std::make_shared<LanguageStub>("de");
 
     // course
     std::shared_ptr<Unit> unitA(new Unit);

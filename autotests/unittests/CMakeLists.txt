@@ -53,6 +53,7 @@ ecm_mark_as_test(test_resourcerepository)
 set(TestTrainingSession_SRCS
     trainingsession/test_trainingsession.cpp
     ../mocks/coursestub.cpp
+    ../mocks/languagestub.cpp
 )
 add_executable(test_trainingsession ${TestTrainingSession_SRCS})
 target_link_libraries(test_trainingsession
@@ -67,6 +68,7 @@ ecm_mark_as_test(test_trainingsession)
 set(TestEditorSession_SRCS
     editorsession/test_editorsession.cpp
     ../mocks/editablerepositorystub.cpp
+    ../mocks/languagestub.cpp
 )
 add_executable(test_editorsession ${TestEditorSession_SRCS})
 target_link_libraries(test_editorsession
@@ -81,6 +83,7 @@ ecm_mark_as_test(test_editorsession)
 set(TestCourseResource_SRCS
     courseresource/test_courseresource.cpp
     ../mocks/resourcerepositorystub.cpp
+    ../mocks/languagestub.cpp
 )
 qt5_add_resources(TestCourseResource_SRCS ../../data/languages.qrc)
 add_executable(test_courseresource ${TestCourseResource_SRCS} )
@@ -96,6 +99,7 @@ ecm_mark_as_test(test_courseresource)
 set(TestSkeletonResource_SRCS
     skeletonresource/test_skeletonresource.cpp
     ../mocks/resourcerepositorystub.cpp
+    ../mocks/languagestub.cpp
 )
 qt5_add_resources(TestSkeletonResource_SRCS ../../data/languages.qrc)
 add_executable(test_skeletonresource ${TestSkeletonResource_SRCS} )
@@ -111,6 +115,7 @@ ecm_mark_as_test(test_skeletonresource)
 set(TestEditableCourseResource_SRCS
     editablecourseresource/test_editablecourseresource.cpp
     ../mocks/resourcerepositorystub.cpp
+    ../mocks/languagestub.cpp
 )
 qt5_add_resources(TestEditableCourseResource_SRCS ../../data/languages.qrc)
 qt5_add_resources(TestEditableCourseResource_SRCS ../testdata/testdata.qrc)
@@ -128,6 +133,7 @@ set(TestCourseModel_SRCS
     coursemodel/test_coursemodel.cpp
     ../mocks/resourcerepositorystub.cpp
     ../mocks/coursestub.cpp
+    ../mocks/languagestub.cpp
 )
 qt5_add_resources(TestCourseModel_SRCS ../../data/languages.qrc)
 qt5_add_resources(TestCourseModel_SRCS ../testdata/testdata.qrc)
