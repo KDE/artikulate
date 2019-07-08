@@ -41,9 +41,9 @@ void TestCourseModel::cleanup()
 void TestCourseModel::testInit()
 {
     // boilerplate
-    std::shared_ptr<Language> language(new Language);
-    language->setId("de");
-    std::vector<std::shared_ptr<Language>> languages;
+    std::shared_ptr<ILanguage> language(new Language);
+    std::static_pointer_cast<Language>(language)->setId("de");
+    std::vector<std::shared_ptr<ILanguage>> languages;
     languages.push_back(language);
     auto course = CourseStub::create(language, QVector<std::shared_ptr<Unit>>({}));
     ResourceRepositoryStub repository(languages, {course});
@@ -58,9 +58,9 @@ void TestCourseModel::testInit()
 void TestCourseModel::testAddRemoveOperations()
 {
     // boilerplate
-    std::shared_ptr<Language> language(new Language);
-    language->setId("de");
-    std::vector<std::shared_ptr<Language>> languages;
+    std::shared_ptr<ILanguage> language(new Language);
+    std::static_pointer_cast<Language>(language)->setId("de");
+    std::vector<std::shared_ptr<ILanguage>> languages;
     languages.push_back(language);
     ResourceRepositoryStub repository(languages, {});
 
@@ -98,9 +98,9 @@ void TestCourseModel::testAddRemoveOperations()
 void TestCourseModel::testDataChangedSignals()
 {
     // boilerplate
-    std::shared_ptr<Language> language(new Language);
-    language->setId("de");
-    std::vector<std::shared_ptr<Language>> languages;
+    std::shared_ptr<ILanguage> language(new Language);
+    std::static_pointer_cast<Language>(language)->setId("de");
+    std::vector<std::shared_ptr<ILanguage>> languages;
     languages.push_back(language);
     auto course = CourseStub::create(language, QVector<std::shared_ptr<Unit>>({}));
     ResourceRepositoryStub repository(languages, {course});

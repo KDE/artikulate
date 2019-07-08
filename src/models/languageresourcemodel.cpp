@@ -80,7 +80,7 @@ QVariant LanguageResourceModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    Language * const language = m_languages.at(index.row());
+    ILanguage * const language = m_languages.at(index.row());
     switch(role)
     {
     case Qt::DisplayRole:
@@ -133,7 +133,7 @@ void LanguageResourceModel::onLanguageAboutToBeRemoved(int index)
         return;
     }
 
-    Language *originalLanguage = m_repository->languages().at(index).get();
+    ILanguage *originalLanguage = m_repository->languages().at(index).get();
     int modelIndex = m_languages.indexOf(originalLanguage);
 
     if (modelIndex == -1) {

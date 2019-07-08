@@ -86,7 +86,7 @@ void EditorSession::setSkeleton(IEditableCourse *skeleton)
     emit skeletonChanged();
 }
 
-Language * EditorSession::language() const
+ILanguage * EditorSession::language() const
 {
     return m_language;
 }
@@ -125,7 +125,7 @@ void EditorSession::setCourse(IEditableCourse *course)
     emit courseChanged();
 }
 
-void EditorSession::setCourseByLanguage(Language *language)
+void EditorSession::setCourseByLanguage(ILanguage *language)
 {
     if (!skeletonMode() || m_skeleton == nullptr) {
         qDebug() << "Course selection by language is only available in skeleton mode";

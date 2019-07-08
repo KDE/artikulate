@@ -92,11 +92,11 @@ public:
         m_description = description;
         emit descriptionChanged();
     }
-    std::shared_ptr<Language> language() const override
+    std::shared_ptr<ILanguage> language() const override
     {
         return m_language;
     }
-    void setLanguage(std::shared_ptr<Language> language) override
+    void setLanguage(std::shared_ptr<ILanguage> language) override
     {
         m_language = language;
         emit languageChanged();
@@ -133,7 +133,7 @@ private:
     QString m_title{ "title" };
     QString m_i18nTitle{ "i18n title" };
     QString m_description{ "description of the course" };
-    std::shared_ptr<Language> m_language;
+    std::shared_ptr<ILanguage> m_language;
     QVector<std::shared_ptr<Unit>> m_units;
 };
 

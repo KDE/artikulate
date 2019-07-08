@@ -76,17 +76,17 @@ public:
      */
     void setStorageLocation(const QString &path);
 
-    QVector<std::shared_ptr<Language>> languages() const override;
+    QVector<std::shared_ptr<ILanguage>> languages() const override;
 
     /**
      * \return language by \p index
      */
-    std::shared_ptr<Language> language(int index) const;
+    std::shared_ptr<ILanguage> language(int index) const;
 
     /**
      * \return language by \p learningGoal
      */
-    Q_INVOKABLE Language * language(LearnerProfile::LearningGoal* learningGoal) const;
+    Q_INVOKABLE ILanguage * language(LearnerProfile::LearningGoal* learningGoal) const;
 
     QVector<std::shared_ptr<ICourse>> courses() const override;
     QVector<std::shared_ptr<ICourse>> courses(const QString &languageId) const override;
@@ -95,9 +95,9 @@ public:
     /**
      * \return list of all loaded courses for language \p language
      */
-    QVector<std::shared_ptr<EditableCourseResource>> courseResources(std::shared_ptr<Language> language);
+    QVector<std::shared_ptr<EditableCourseResource>> courseResources(std::shared_ptr<ILanguage> language);
 
-    std::shared_ptr<IEditableCourse> editableCourse(std::shared_ptr<Language> language, int index) const override;
+    std::shared_ptr<IEditableCourse> editableCourse(std::shared_ptr<ILanguage> language, int index) const override;
 
     /**
      * Reset the file for this course or skeleton.
@@ -149,7 +149,7 @@ public:
      *
      * \return created course
      */
-    Q_INVOKABLE IEditableCourse * createCourse(std::shared_ptr<Language> language, std::shared_ptr<SkeletonResource> skeleton);
+    Q_INVOKABLE IEditableCourse * createCourse(std::shared_ptr<ILanguage> language, std::shared_ptr<SkeletonResource> skeleton);
 
     /**
      * Adds skeleton resource to resource manager
@@ -170,7 +170,7 @@ public:
 
 Q_SIGNALS:
     void languageResourceAdded();
-    void languageResourceAboutToBeAdded(std::shared_ptr<Language>,int);
+    void languageResourceAboutToBeAdded(std::shared_ptr<ILanguage>,int);
     void languageResourceRemoved();
     void languageResourceAboutToBeRemoved(int);
     void repositoryChanged();
@@ -187,7 +187,7 @@ private:
      */
     void loadLanguageResources();
     QString m_storageLocation;
-    QVector<std::shared_ptr<Language>> m_languages;
+    QVector<std::shared_ptr<ILanguage>> m_languages;
     QMap<QString, QVector<std::shared_ptr<EditableCourseResource>> > m_courses; //!> (language-id, course-resource)
     QVector<std::shared_ptr<IEditableCourse>> m_skeletonResources;
     QStringList m_loadedResources;

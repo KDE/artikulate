@@ -30,14 +30,14 @@
 class CourseStub : public ICourse
 {
 public:
-    CourseStub(std::shared_ptr<Language> language, QVector<std::shared_ptr<Unit>> units)
+    CourseStub(std::shared_ptr<ILanguage> language, QVector<std::shared_ptr<Unit>> units)
         : m_language(language)
         , m_units(units)
     {
     }
     ~CourseStub() override;
 
-    static std::shared_ptr<ICourse> create(std::shared_ptr<Language> language, QVector<std::shared_ptr<Unit>> units)
+    static std::shared_ptr<ICourse> create(std::shared_ptr<ILanguage> language, QVector<std::shared_ptr<Unit>> units)
     {
         auto course = std::make_shared<CourseStub>(language, units);
         course->setSelf(course);
@@ -74,7 +74,7 @@ public:
     {
         return "description of the course";
     }
-    std::shared_ptr<Language> language() const override
+    std::shared_ptr<ILanguage> language() const override
     {
         return m_language;
     }
@@ -90,7 +90,7 @@ public:
 private:
     QString m_title{ "title" };
     std::weak_ptr<ICourse> m_self;
-    std::shared_ptr<Language> m_language;
+    std::shared_ptr<ILanguage> m_language;
     QVector<std::shared_ptr<Unit>> m_units;
 };
 

@@ -44,6 +44,7 @@ set(artikulateCore_SRCS
     core/icourse.h
     core/ieditablecourse.h
     core/ieditablerepository.h
+    core/ilanguage.h
     core/iresourcerepository.h
     core/drawertrainingactions.cpp
     core/resourcerepository.cpp

@@ -25,7 +25,7 @@
 #include "core/phrase.h"
 #include "core/phonemegroup.h"
 #include "core/resources/courseresource.h"
-
+#include <memory>
 #include <QTest>
 #include <QDebug>
 #include <QTemporaryFile>
@@ -50,14 +50,14 @@ void TestCourseResource::cleanup()
 
 void TestCourseResource::loadCourseResource()
 {
-    std::unique_ptr<Language> language(new Language);
-    language->setId("de");
-    auto group = language->addPhonemeGroup("id", "title");
+    std::shared_ptr<ILanguage> language(new Language);
+    std::static_pointer_cast<Language>(language)->setId("de");
+    auto group = std::static_pointer_cast<Language>(language)->addPhonemeGroup("id", "title");
     group->addPhoneme("g", "G");
     group->addPhoneme("u", "U");
-    std::vector<std::unique_ptr<Language>> languages;
-    languages.push_back(std::move(language));
-    ResourceRepositoryStub repository(std::move(languages));
+    std::vector<std::shared_ptr<ILanguage>> languages;
+    languages.push_back(language);
+    ResourceRepositoryStub repository(languages);
 
     const QString courseDirectory = "data/courses/de/";
     const QString courseFile = courseDirectory + "de.xml";
@@ -95,11 +95,9 @@ void TestCourseResource::loadCourseResource()
 void TestCourseResource::unitAddAndRemoveHandling()
 {
     // boilerplate
-    std::unique_ptr<Language> language(new Language);
-    language->setId("de");
-    std::vector<std::unique_ptr<Language>> languages;
-    languages.push_back(std::move(language));
-    ResourceRepositoryStub repository(std::move(languages));
+    std::shared_ptr<ILanguage> language(new Language);
+    std::static_pointer_cast<Language>(language)->setId("de");
+    ResourceRepositoryStub repository({language});
 
     const QString courseDirectory = "data/courses/de/";
     const QString courseFile = courseDirectory + "de.xml";
@@ -124,11 +122,9 @@ void TestCourseResource::unitAddAndRemoveHandling()
 void TestCourseResource::coursePropertyChanges()
 {
     // boilerplate
-    std::unique_ptr<Language> language(new Language);
-    language->setId("de");
-    std::vector<std::unique_ptr<Language>> languages;
-    languages.push_back(std::move(language));
-    ResourceRepositoryStub repository(std::move(languages));
+    std::shared_ptr<ILanguage> language(new Language);
+    std::static_pointer_cast<Language>(language)->setId("de");
+    ResourceRepositoryStub repository({language});
 
     const QString courseDirectory = "data/courses/de/";
     const QString courseFile = courseDirectory + "de.xml";

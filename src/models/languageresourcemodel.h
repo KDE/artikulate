@@ -25,7 +25,7 @@
 #include "languagemodel.h"
 
 class IResourceRepository;
-class Language;
+class ILanguage;
 class QSignalMapper;
 
 class LanguageResourceModel : public QAbstractListModel
@@ -70,7 +70,7 @@ private Q_SLOTS:
 private:
     void updateMappings();
     IResourceRepository *m_repository;
-    QVector<Language *> m_languages;
+    QVector<ILanguage *> m_languages;
     LanguageModel::LanguageResourceView m_view;
     QSignalMapper *m_signalMapper;
 };

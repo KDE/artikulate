@@ -22,6 +22,7 @@
 #define LANGUAGE_H
 
 #include "artikulatecore_export.h"
+#include "ilanguage.h"
 #include <memory>
 #include <QObject>
 #include <QVector>
@@ -31,18 +32,18 @@ class QString;
 class Phoneme;
 class PhonemeGroup;
 
-class ARTIKULATECORE_EXPORT Language : public QObject
+class ARTIKULATECORE_EXPORT Language : public ILanguage
 {
     Q_OBJECT
+    Q_INTERFACES(ILanguage)
+
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QString i18nTitle READ i18nTitle WRITE seti18nTitle NOTIFY i18nTitleChanged)
 
 public:
-    explicit Language();
-    ~Language();
-
     static std::shared_ptr<Language> create(QUrl file);
+    ~Language() override;
 
     QString id() const;
     void setId(const QString &id);
@@ -58,11 +59,13 @@ public:
 
 Q_SIGNALS:
     void idChanged();
-    void associatedLanguageItemChanged();
     void titleChanged();
     void i18nTitleChanged();
     void phonemesChanged();
     void phonemeGroupsChanged();
+
+public: // TODO
+    explicit Language();
 
 private:
     QString m_id;

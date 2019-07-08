@@ -90,9 +90,9 @@ public:
     /**
      * \return language identifier of this course
      */
-    std::shared_ptr<Language> language() const override;
+    std::shared_ptr<ILanguage> language() const override;
 
-    void setLanguage(std::shared_ptr<Language> language) override;
+    void setLanguage(std::shared_ptr<ILanguage> language) override;
 
     void sync();
 

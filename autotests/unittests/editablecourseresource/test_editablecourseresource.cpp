@@ -51,11 +51,9 @@ void TestEditableCourseResource::cleanup()
 
 void TestEditableCourseResource::loadCourseResource()
 {
-    std::unique_ptr<Language> language(new Language);
-    language->setId("de");
-    std::vector<std::unique_ptr<Language>> languages;
-    languages.push_back(std::move(language));
-    ResourceRepositoryStub repository(std::move(languages));
+    std::shared_ptr<ILanguage> language(new Language);
+    std::static_pointer_cast<Language>(language)->setId("de");
+    ResourceRepositoryStub repository({language});
 
     auto course = EditableCourseResource::create(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
     QCOMPARE(course->file().toLocalFile(), ":/courses/de.xml");
@@ -90,11 +88,9 @@ void TestEditableCourseResource::loadCourseResource()
 void TestEditableCourseResource::unitAddAndRemoveHandling()
 {
     // boilerplate
-    std::unique_ptr<Language> language(new Language);
-    language->setId("de");
-    std::vector<std::unique_ptr<Language>> languages;
-    languages.push_back(std::move(language));
-    ResourceRepositoryStub repository(std::move(languages));
+    std::shared_ptr<ILanguage> language(new Language);
+    std::static_pointer_cast<Language>(language)->setId("de");
+    ResourceRepositoryStub repository({language});
     auto course = EditableCourseResource::create(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
     // begin of test
@@ -116,11 +112,9 @@ void TestEditableCourseResource::unitAddAndRemoveHandling()
 void TestEditableCourseResource::coursePropertyChanges()
 {
     // boilerplate
-    std::unique_ptr<Language> language(new Language);
-    language->setId("de");
-    std::vector<std::unique_ptr<Language>> languages;
-    languages.push_back(std::move(language));
-    ResourceRepositoryStub repository(std::move(languages));
+    std::shared_ptr<ILanguage> language(new Language);
+    std::static_pointer_cast<Language>(language)->setId("de");
+    ResourceRepositoryStub repository({language});
     auto course = CourseResource::create(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
     // id
@@ -187,11 +181,9 @@ void TestEditableCourseResource::coursePropertyChanges()
 void TestEditableCourseResource::fileLoadSaveCompleteness()
 {
     // boilerplate
-    std::unique_ptr<Language> language(new Language);
-    language->setId("de");
-    std::vector<std::unique_ptr<Language>> languages;
-    languages.push_back(std::move(language));
-    ResourceRepositoryStub repository(std::move(languages));
+    std::shared_ptr<ILanguage> language(new Language);
+    std::static_pointer_cast<Language>(language)->setId("de");
+    ResourceRepositoryStub repository({language});
     auto course = EditableCourseResource::create(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
     QTemporaryFile outputFile;

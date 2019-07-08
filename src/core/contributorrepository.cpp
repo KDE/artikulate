@@ -116,18 +116,18 @@ void ContributorRepository::setStorageLocation(const QString &path)
     m_storageLocation = path;
 }
 
-QVector<std::shared_ptr<Language>> ContributorRepository::languages() const
+QVector<std::shared_ptr<ILanguage>> ContributorRepository::languages() const
 {
     return m_languages;
 }
 
-std::shared_ptr<Language> ContributorRepository::language(int index) const
+std::shared_ptr<ILanguage> ContributorRepository::language(int index) const
 {
     Q_ASSERT(index >= 0 && index < m_languages.count());
     return m_languages.at(index);
 }
 
-Language * ContributorRepository::language(LearnerProfile::LearningGoal *learningGoal) const
+ILanguage * ContributorRepository::language(LearnerProfile::LearningGoal *learningGoal) const
 {
     if (!learningGoal) {
         return nullptr;
@@ -145,7 +145,7 @@ Language * ContributorRepository::language(LearnerProfile::LearningGoal *learnin
     return nullptr;
 }
 
-QVector<std::shared_ptr<EditableCourseResource>> ContributorRepository::courseResources(std::shared_ptr<Language> language)
+QVector<std::shared_ptr<EditableCourseResource>> ContributorRepository::courseResources(std::shared_ptr<ILanguage> language)
 {
     if (!language) {
         QVector<std::shared_ptr<EditableCourseResource>> courses;
@@ -198,7 +198,7 @@ QVector<std::shared_ptr<ICourse>> ContributorRepository::courses(const QString &
     return courses;
 }
 
-std::shared_ptr<IEditableCourse> ContributorRepository::editableCourse(std::shared_ptr<Language> language, int index) const
+std::shared_ptr<IEditableCourse> ContributorRepository::editableCourse(std::shared_ptr<ILanguage> language, int index) const
 {
     Q_ASSERT(m_courses.contains(language->id()));
     Q_ASSERT(index >= 0 && index < m_courses[language->id()].count());
@@ -400,7 +400,7 @@ void ContributorRepository::removeCourse(std::shared_ptr<ICourse> course)
     }
 }
 
-IEditableCourse * ContributorRepository::createCourse(std::shared_ptr<Language> language, std::shared_ptr<SkeletonResource> skeleton)
+IEditableCourse * ContributorRepository::createCourse(std::shared_ptr<ILanguage> language, std::shared_ptr<SkeletonResource> skeleton)
 {
     // set path
     QString path = QStringLiteral("%1/%2/%3/%4/%4.xml")

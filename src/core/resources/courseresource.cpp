@@ -54,7 +54,7 @@ public:
     QString m_foreignId;
     QString m_title;
     QString m_languageId;
-    std::shared_ptr<Language> m_language;
+    std::shared_ptr<ILanguage> m_language;
     QString m_i18nTitle;
     QString m_description;
     QVector<std::shared_ptr<Unit>> m_units;
@@ -243,12 +243,12 @@ void CourseResource::setDescription(const QString &description)
     emit descriptionChanged();
 }
 
-std::shared_ptr<Language> CourseResource::language() const
+std::shared_ptr<ILanguage> CourseResource::language() const
 {
     return d->m_language;
 }
 
-void CourseResource::setLanguage(std::shared_ptr<Language> language)
+void CourseResource::setLanguage(std::shared_ptr<ILanguage> language)
 {
     if (d->m_language == language) {
         return;

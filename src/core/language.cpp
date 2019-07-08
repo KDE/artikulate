@@ -69,7 +69,7 @@ std::shared_ptr<Language> Language::create(QUrl file)
 }
 
 Language::Language()
-    : QObject()
+    : ILanguage()
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 }

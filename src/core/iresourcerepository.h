@@ -26,7 +26,7 @@
 #include <QObject>
 
 class ICourse;
-class Language;
+class ILanguage;
 
 /**
  * \class IResourceRepository
@@ -65,7 +65,7 @@ public:
     /**
      * \return list of all available languages
      */
-    virtual QVector<std::shared_ptr<Language>> languages() const = 0;
+    virtual QVector<std::shared_ptr<ILanguage>> languages() const = 0;
 
 Q_SIGNALS:
     void courseAboutToBeAdded(std::shared_ptr<ICourse>,int);

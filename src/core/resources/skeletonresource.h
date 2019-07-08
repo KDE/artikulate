@@ -51,8 +51,8 @@ public:
     void setI18nTitle(QString title) override;
     QString description() const override;
     void setDescription(QString description) override;
-    std::shared_ptr<Language> language() const override;
-    void setLanguage(std::shared_ptr<Language> language) override;
+    std::shared_ptr<ILanguage> language() const override;
+    void setLanguage(std::shared_ptr<ILanguage> language) override;
     QVector<std::shared_ptr<Unit>> units() override;
     QUrl file() const override;
     bool exportToFile(const QUrl &filePath) const override;

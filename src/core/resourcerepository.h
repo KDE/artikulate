@@ -75,9 +75,9 @@ public:
     /**
      * @return list of all available language specifications
      */
-    QVector<std::shared_ptr<Language>> languages() const override;
+    QVector<std::shared_ptr<ILanguage>> languages() const override;
 
-    Language * language(const QString &id) const;
+    std::shared_ptr<ILanguage> language(const QString &id) const;
 
 public Q_SLOTS:
     /**
@@ -89,7 +89,7 @@ private:
     bool loadCourse(const QString &resourceFile);
     bool loadLanguage(const QString &resourceFile);
     QVector<std::shared_ptr<ICourse>> m_courses;
-    QHash<QString, std::shared_ptr<Language>> m_languages; ///>! (language-identifier, language resource)
+    QHash<QString, std::shared_ptr<ILanguage>> m_languages; ///>! (language-identifier, language resource)
     QStringList m_loadedCourses;
     const QString m_storageLocation;
 };

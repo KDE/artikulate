@@ -306,13 +306,13 @@ bool SkeletonResource::isModified() const
     return false; //FIXME
 }
 
-std::shared_ptr<Language> SkeletonResource::language() const
+std::shared_ptr<ILanguage> SkeletonResource::language() const
 {
     // skeleton must not have a dedicated language
     return std::shared_ptr<Language>();
 }
 
-void SkeletonResource::setLanguage(std::shared_ptr<Language> language)
+void SkeletonResource::setLanguage(std::shared_ptr<ILanguage> language)
 {
     Q_UNUSED(language);
     Q_UNREACHABLE();

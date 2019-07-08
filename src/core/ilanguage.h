@@ -18,38 +18,47 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IEDITABLECOURSE_H
-#define IEDITABLECOURSE_H
+#ifndef ILANGUAGE_H
+#define ILANGUAGE_H
 
 #include "artikulatecore_export.h"
-#include "icourse.h"
 #include <memory>
 #include <QObject>
+#include <QVector>
+#include <QUrl>
 
 class QString;
-class ILanguage;
+class Phoneme;
+class PhonemeGroup;
 
-class ARTIKULATECORE_EXPORT IEditableCourse : public ICourse
+class ARTIKULATECORE_EXPORT ILanguage : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(QString id READ id NOTIFY idChanged)
+    Q_PROPERTY(QString title READ title NOTIFY titleChanged)
+    Q_PROPERTY(QString i18nTitle READ i18nTitle NOTIFY i18nTitleChanged)
+
 public:
-    virtual ~IEditableCourse() = default;
-    virtual void setId(QString id) = 0;
-    virtual void setForeignId(QString foreignId) = 0;
-    virtual void setTitle(QString title) = 0;
-    virtual void setI18nTitle(QString title) = 0;
-    virtual void setDescription(QString description) = 0;
-    virtual void setLanguage(std::shared_ptr<ILanguage> language) = 0;
-    virtual std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) = 0;
-    virtual bool exportToFile(const QUrl &filePath) const = 0;
-    virtual bool isModified() const = 0;
+    virtual ~ILanguage() = default;
+    virtual QString id() const = 0;
+    virtual QString title() const = 0;
+    virtual QString i18nTitle() const = 0;
+    virtual QVector<std::shared_ptr<Phoneme>> phonemes() const = 0;
+    virtual QVector<std::shared_ptr<PhonemeGroup>> phonemeGroups() const = 0;
 
 protected:
-    IEditableCourse(QObject *parent = nullptr)
-        : ICourse(parent)
+    ILanguage(QObject *parent = nullptr)
+        : QObject(parent)
     {
     }
+
+Q_SIGNALS:
+    void idChanged();
+    void titleChanged();
+    void i18nTitleChanged();
+    void phonemesChanged();
+    void phonemeGroupsChanged();
 };
+Q_DECLARE_INTERFACE(ILanguage, "com.kde.artikulate.ILanguage/1.0")
 
-Q_DECLARE_INTERFACE(IEditableCourse, "com.kde.artikulate.IEditableCourse/1.0")
-
-#endif // EDITABLECOURSE_H
+#endif // ILANGUAGE_H

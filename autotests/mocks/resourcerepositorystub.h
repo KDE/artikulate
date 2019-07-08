@@ -36,21 +36,21 @@ class ResourceRepositoryStub : public IResourceRepository
 {
     Q_OBJECT
 public:
-    ResourceRepositoryStub(std::vector<std::unique_ptr<Language>> languages)
+    ResourceRepositoryStub(std::vector<std::unique_ptr<ILanguage>> languages)
     {
         for (auto &language : languages) {
             m_languages.append(std::move(language));
         }
     }
 
-    ResourceRepositoryStub(std::vector<std::shared_ptr<Language>> languages)
+    ResourceRepositoryStub(std::vector<std::shared_ptr<ILanguage>> languages)
     {
         for (auto &language : languages) {
             m_languages.append(language);
         }
     }
 
-    ResourceRepositoryStub(std::vector<std::shared_ptr<Language>> languages, std::vector<std::shared_ptr<ICourse>> courses)
+    ResourceRepositoryStub(std::vector<std::shared_ptr<ILanguage>> languages, std::vector<std::shared_ptr<ICourse>> courses)
     {
         for (auto &language : languages) {
             m_languages.append(language);
@@ -83,7 +83,7 @@ public:
         ; // do nothing, stub shall only provide languages
     }
 
-    QVector<std::shared_ptr<Language>> languages() const override
+    QVector<std::shared_ptr<ILanguage>> languages() const override
     {
         return m_languages;
     }
@@ -108,7 +108,7 @@ public:
 
 private:
     QString m_storageLocation;
-    QVector<std::shared_ptr<Language>> m_languages;
+    QVector<std::shared_ptr<ILanguage>> m_languages;
     QVector<std::shared_ptr<ICourse>> m_courses;
 };
 

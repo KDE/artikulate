@@ -31,6 +31,7 @@ class QString;
 class CourseResourcePrivate;
 class Unit;
 class Phrase;
+class ILanguage;
 class IResourceRepository;
 class EditableCourseResource;
 
@@ -82,9 +83,9 @@ public:
     /**
      * \return language identifier of this course
      */
-    std::shared_ptr<Language> language() const override;
+    std::shared_ptr<ILanguage> language() const override;
 
-    void setLanguage(std::shared_ptr<Language> language);
+    void setLanguage(std::shared_ptr<ILanguage> language);
 
     std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit);
 

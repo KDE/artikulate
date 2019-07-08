@@ -78,9 +78,9 @@ QVector<std::shared_ptr<ICourse>> ResourceRepository::courses(const QString &lan
     return courses;
 }
 
-QVector<std::shared_ptr<Language>> ResourceRepository::languages() const
+QVector<std::shared_ptr<ILanguage>> ResourceRepository::languages() const
 {
-    QVector<std::shared_ptr<Language>> languages;
+    QVector<std::shared_ptr<ILanguage>> languages;
     for (const auto &language : m_languages) {
         if (language == nullptr) {
             continue;
@@ -90,10 +90,10 @@ QVector<std::shared_ptr<Language>> ResourceRepository::languages() const
     return languages;
 }
 
-Language * ResourceRepository::language(const QString &id) const
+std::shared_ptr<ILanguage> ResourceRepository::language(const QString &id) const
 {
     if (m_languages.contains(id)) {
-        return m_languages.value(id).get();
+        return m_languages.value(id);
     }
     return nullptr;
 }

@@ -21,11 +21,12 @@
 #include "application.h"
 
 #include "core/iresourcerepository.h"
+#include "core/ilanguage.h"
+#include "core/language.h"
 #include "core/contributorrepository.h"
 #include "core/drawertrainingactions.h"
 #include "core/trainingaction.h"
 #include "core/editorsession.h"
-#include "core/language.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
 #include "core/phrase.h"
@@ -110,6 +111,7 @@ void Application::registerQmlTypes()
     qmlRegisterInterface<IResourceRepository>("IEditableRepository");
     qmlRegisterInterface<ICourse>("ICourse");
     qmlRegisterInterface<IEditableCourse>("IEditableCourse");
+    qmlRegisterInterface<ICourse>("ILanguage");
 
     // concrete instantiable types
     qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");

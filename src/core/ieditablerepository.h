@@ -26,7 +26,7 @@
 #include <memory>
 
 class IEditableCourse;
-class Language;
+class ILanguage;
 
 /**
  * \class IEditableRepository
@@ -39,7 +39,7 @@ class ARTIKULATECORE_EXPORT IEditableRepository : public IResourceRepository
 public:
     virtual ~IEditableRepository() = default;
     virtual QVector<std::shared_ptr<IEditableCourse>> editableCourses() const = 0;
-    virtual std::shared_ptr<IEditableCourse> editableCourse(std::shared_ptr<Language> language, int index) const = 0;
+    virtual std::shared_ptr<IEditableCourse> editableCourse(std::shared_ptr<ILanguage> language, int index) const = 0;
     virtual QVector<std::shared_ptr<IEditableCourse>> skeletons() const = 0;
     /**
      * Imports units and phrases from skeleton, deassociates removed ones.

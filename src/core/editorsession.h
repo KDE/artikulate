@@ -24,7 +24,7 @@
 #include "artikulatecore_export.h"
 #include "phrase.h"
 
-class Language;
+class ILanguage;
 class IEditableCourse;
 class Unit;
 class SkeletonResource;
@@ -64,7 +64,7 @@ class ARTIKULATECORE_EXPORT EditorSession : public QObject
      * @brief the displayed course (skeleton or course) depending on the user selection
      */
     Q_PROPERTY(IEditableCourse *displayedCourse READ displayedCourse NOTIFY displayedCourseChanged)
-    Q_PROPERTY(Language *language READ language NOTIFY languageChanged)
+    Q_PROPERTY(ILanguage *language READ language NOTIFY languageChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
@@ -79,14 +79,14 @@ public:
     bool isEditSkeleton() const;
     IEditableCourse * skeleton() const;
     void setSkeleton(IEditableCourse *skeleton);
-    Language * language() const;
+    ILanguage * language() const;
     IEditableCourse * course() const;
     void setCourse(IEditableCourse *course);
     /**
      * @brief Open course resource by specifying the language
      * @param language the target language
      */
-    Q_INVOKABLE void setCourseByLanguage(Language *language);
+    Q_INVOKABLE void setCourseByLanguage(ILanguage *language);
     IEditableCourse * displayedCourse() const;
     Q_DECL_DEPRECATED Unit * unit() const;
     Unit * activeUnit() const;
@@ -124,7 +124,7 @@ private:
     IEditableRepository * m_repository{ nullptr };
     bool m_editSkeleton{ false };
     IEditableCourse *m_skeleton{ nullptr };
-    Language *m_language{ nullptr };
+    ILanguage *m_language{ nullptr };
     IEditableCourse *m_course{ nullptr };
     Unit *m_unit{ nullptr };
     Phrase *m_phrase{ nullptr };

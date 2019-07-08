@@ -26,7 +26,7 @@
 #include <QObject>
 #include <QVector>
 
-class Language;
+class ILanguage;
 class SkeletonResource;
 
 /**
@@ -37,7 +37,7 @@ class EditableRepositoryStub : public IEditableRepository
     Q_OBJECT
 public:
     EditableRepositoryStub(
-            std::vector<std::shared_ptr<Language>> languages,
+            std::vector<std::shared_ptr<ILanguage>> languages,
             std::vector<std::shared_ptr<IEditableCourse>> skeletons,
             std::vector<std::shared_ptr<IEditableCourse>> courses)
     {
@@ -77,7 +77,7 @@ public:
         Q_UNUSED(languageId);
         return QVector<std::shared_ptr<ICourse>>();
     }
-    std::shared_ptr<IEditableCourse> editableCourse(std::shared_ptr<Language> language, int index) const override
+    std::shared_ptr<IEditableCourse> editableCourse(std::shared_ptr<ILanguage> language, int index) const override
     {
         Q_UNUSED(language);
         Q_UNUSED(index);
@@ -87,7 +87,7 @@ public:
     {
         // do nothing
     }
-    QVector<std::shared_ptr<Language>> languages() const override
+    QVector<std::shared_ptr<ILanguage>> languages() const override
     {
         return m_languages;
     }
@@ -98,7 +98,7 @@ public:
     }
 
 private:
-    QVector<std::shared_ptr<Language>> m_languages;
+    QVector<std::shared_ptr<ILanguage>> m_languages;
     QVector<std::shared_ptr<IEditableCourse>> m_skeletons;
     QVector<std::shared_ptr<IEditableCourse>> m_courses;
 };

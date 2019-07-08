@@ -28,7 +28,7 @@
 #include <memory>
 
 class QString;
-class Language;
+class ILanguage;
 class Unit;
 class Phoneme;
 
@@ -47,7 +47,7 @@ public:
     virtual QString title() const = 0;
     virtual QString i18nTitle() const = 0;
     virtual QString description() const = 0;
-    virtual std::shared_ptr<Language> language() const = 0;
+    virtual std::shared_ptr<ILanguage> language() const = 0;
     /**
      * @brief Lazy loading unit list
      * @return list of units in course

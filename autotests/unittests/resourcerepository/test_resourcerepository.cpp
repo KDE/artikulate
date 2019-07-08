@@ -69,7 +69,7 @@ void TestResourceRepository::iResourceRepositoryCompatability()
 
     // test access of courses grouped by language
     auto languages = interface->languages();
-    std::shared_ptr<Language> german;
+    std::shared_ptr<ILanguage> german;
     for (auto language : interface->languages()) {
         if (language->id() == "de") {
             german = language;
