@@ -25,7 +25,6 @@
 #include "phrase.h"
 #include "phoneme.h"
 #include "phonemegroup.h"
-#include "resources/languageresource.h"
 #include "resources/editablecourseresource.h"
 #include "resources/skeletonresource.h"
 #include "liblearnerprofile/src/profilemanager.h"
@@ -44,16 +43,7 @@ ContributorRepository::ContributorRepository()
     loadLanguageResources();
 }
 
-ContributorRepository::~ContributorRepository()
-{
-    for (auto skeleton : m_skeletonResources) {
-        skeleton->deleteLater();
-    }
-    m_skeletonResources.clear();
-    for (auto language : m_languageResources) {
-        language->deleteLater();
-    }
-}
+ContributorRepository::~ContributorRepository() = default;
 
 void ContributorRepository::loadLanguageResources()
 {
@@ -107,12 +97,12 @@ void ContributorRepository::addLanguage(const QUrl &languageFile)
         return;
     }
 
-    std::shared_ptr<LanguageResource> resource(new LanguageResource(languageFile));
+    auto language = Language::create(languageFile);
 
-    emit languageResourceAboutToBeAdded(resource.get(), m_languageResources.count());
-    m_languageResources.append(resource);
+    emit languageResourceAboutToBeAdded(language, m_languages.count());
+    m_languages.append(language);
     m_loadedResources.append(languageFile.toLocalFile());
-    m_courses.insert(resource->identifier(), QVector<std::shared_ptr<EditableCourseResource>>());
+    m_courses.insert(language->id(), QVector<std::shared_ptr<EditableCourseResource>>());
     emit languageResourceAdded();
 }
 
@@ -128,17 +118,13 @@ void ContributorRepository::setStorageLocation(const QString &path)
 
 QVector<std::shared_ptr<Language>> ContributorRepository::languages() const
 {
-    QVector<std::shared_ptr<Language>> languages;
-    for (auto resourse : m_languageResources) {
-        languages.append(resourse->language());
-    }
-    return languages;
+    return m_languages;
 }
 
 std::shared_ptr<Language> ContributorRepository::language(int index) const
 {
-    Q_ASSERT(index >= 0 && index < m_languageResources.count());
-    return m_languageResources.at(index)->language();
+    Q_ASSERT(index >= 0 && index < m_languages.count());
+    return m_languages.at(index);
 }
 
 Language * ContributorRepository::language(LearnerProfile::LearningGoal *learningGoal) const
@@ -150,9 +136,9 @@ Language * ContributorRepository::language(LearnerProfile::LearningGoal *learnin
         qCritical() << "Cannot translate non-language learning goal to language";
         return nullptr;
     }
-    for (auto resource : m_languageResources) {
-        if (resource->identifier() == learningGoal->identifier()) {
-            return resource->language().get();
+    for (auto language : m_languages) {
+        if (language->id() == learningGoal->identifier()) {
+            return language.get();
         }
     }
     qCritical() << "No language registered with identifier " << learningGoal->identifier() << ": aborting";

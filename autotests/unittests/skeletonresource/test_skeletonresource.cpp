@@ -23,7 +23,6 @@
 #include "core/language.h"
 #include "core/unit.h"
 #include "core/phrase.h"
-#include "core/resources/languageresource.h"
 #include "core/resources/skeletonresource.h"
 
 #include <QTest>

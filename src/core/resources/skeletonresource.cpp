@@ -26,8 +26,6 @@
 #include "editablecourseresource.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
-#include "core/resources/languageresource.h"
-
 #include <QDir>
 #include <QQmlEngine>
 #include <QDomDocument>
@@ -35,7 +33,6 @@
 #include <QXmlStreamReader>
 #include <QFile>
 #include <QFileInfo>
-
 #include "artikulate_debug.h"
 
 class SkeletonResourcePrivate

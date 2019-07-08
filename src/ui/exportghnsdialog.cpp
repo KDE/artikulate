@@ -20,7 +20,6 @@
 
 #include "exportghnsdialog.h"
 #include "core/iresourcerepository.h"
-#include "core/resources/languageresource.h"
 #include "core/resources/editablecourseresource.h"
 #include "core/resources/courseparser.h"
 #include "core/language.h"

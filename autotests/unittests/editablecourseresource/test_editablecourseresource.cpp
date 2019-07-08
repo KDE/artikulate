@@ -24,7 +24,6 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/resources/courseparser.h"
-#include "core/resources/languageresource.h"
 #include "core/resources/editablecourseresource.h"
 
 #include <memory>

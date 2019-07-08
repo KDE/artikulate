@@ -170,7 +170,7 @@ public:
 
 Q_SIGNALS:
     void languageResourceAdded();
-    void languageResourceAboutToBeAdded(LanguageResource*,int);
+    void languageResourceAboutToBeAdded(std::shared_ptr<Language>,int);
     void languageResourceRemoved();
     void languageResourceAboutToBeRemoved(int);
     void repositoryChanged();
@@ -187,7 +187,7 @@ private:
      */
     void loadLanguageResources();
     QString m_storageLocation;
-    QVector<std::shared_ptr<LanguageResource>> m_languageResources;
+    QVector<std::shared_ptr<Language>> m_languages;
     QMap<QString, QVector<std::shared_ptr<EditableCourseResource>> > m_courses; //!> (language-id, course-resource)
     QVector<std::shared_ptr<IEditableCourse>> m_skeletonResources;
     QStringList m_loadedResources;

@@ -57,8 +57,6 @@ set(artikulateCore_SRCS
     core/trainingaction.cpp
     core/trainingactionicon.cpp
     core/trainingsession.cpp
-    core/resources/resourceinterface.cpp
-    core/resources/languageresource.cpp
     core/resources/courseparser.cpp
     core/resources/courseresource.cpp
     core/resources/editablecourseresource.cpp

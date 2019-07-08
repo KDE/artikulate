@@ -25,6 +25,48 @@
 #include "artikulate_debug.h"
 #include <KLocalizedString>
 #include <QQmlEngine>
+#include <QXmlSchema>
+#include <QDomDocument>
+#include "resources/courseparser.h"
+
+std::shared_ptr<Language> Language::create(QUrl file)
+{
+    QXmlSchema schema = CourseParser::loadXmlSchema(QStringLiteral("language"));
+    if (!schema.isValid()) {
+        return nullptr;
+    }
+
+    QDomDocument document = CourseParser::loadDomDocument(file, schema);
+    if (document.isNull()) {
+        qCWarning(ARTIKULATE_LOG) << "Could not parse document " << file.toLocalFile() << ", aborting.";
+        return nullptr;
+    }
+
+    QDomElement root(document.documentElement());
+    auto language = std::shared_ptr<Language>(new Language());
+    language->setFile(file);
+    language->setId(root.firstChildElement(QStringLiteral("id")).text());
+    language->setTitle(root.firstChildElement(QStringLiteral("title")).text());
+    language->seti18nTitle(root.firstChildElement(QStringLiteral("i18nTitle")).text());
+    // create phoneme groups
+    for (QDomElement groupNode = root.firstChildElement(QStringLiteral("phonemeGroups")).firstChildElement();
+         !groupNode.isNull();
+         groupNode = groupNode.nextSiblingElement())
+    {
+        auto group = language->addPhonemeGroup(
+            groupNode.firstChildElement(QStringLiteral("id")).text(),
+            groupNode.firstChildElement(QStringLiteral("title")).text());
+        group->setDescription(groupNode.attribute(QStringLiteral("description")));
+        // register phonemes
+        for (QDomElement phonemeNode = groupNode.firstChildElement(QStringLiteral("phonemes")).firstChildElement();
+            !phonemeNode.isNull();
+            phonemeNode = phonemeNode.nextSiblingElement())
+        {
+            group->addPhoneme(phonemeNode.firstChildElement(QStringLiteral("id")).text(), phonemeNode.firstChildElement(QStringLiteral("title")).text());
+        }
+    }
+    return language;
+}
 
 Language::Language()
     : QObject()

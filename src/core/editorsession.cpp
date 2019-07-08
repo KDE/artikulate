@@ -22,7 +22,6 @@
 #include "core/language.h"
 #include "core/resources/editablecourseresource.h"
 #include "core/resources/skeletonresource.h"
-#include "core/resources/languageresource.h"
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/contributorrepository.h"

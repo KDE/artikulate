@@ -24,7 +24,6 @@
 #include "core/unit.h"
 #include "core/phrase.h"
 #include "core/phonemegroup.h"
-#include "core/resources/languageresource.h"
 #include "core/resources/courseresource.h"
 
 #include <QTest>

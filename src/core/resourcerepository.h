@@ -89,7 +89,7 @@ private:
     bool loadCourse(const QString &resourceFile);
     bool loadLanguage(const QString &resourceFile);
     QVector<std::shared_ptr<ICourse>> m_courses;
-    QHash<QString, std::shared_ptr<LanguageResource>> m_languages; ///>! (language-identifier, language resource)
+    QHash<QString, std::shared_ptr<Language>> m_languages; ///>! (language-identifier, language resource)
     QStringList m_loadedCourses;
     const QString m_storageLocation;
 };

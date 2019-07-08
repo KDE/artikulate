@@ -42,6 +42,8 @@ public:
     explicit Language();
     ~Language();
 
+    static std::shared_ptr<Language> create(QUrl file);
+
     QString id() const;
     void setId(const QString &id);
     QString title() const;
