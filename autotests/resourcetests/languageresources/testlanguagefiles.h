@@ -43,6 +43,11 @@ private slots:
     void cleanup();
 
     /**
+     * Test language parser by loading German
+     */
+    void loadGerman();
+
+    /**
      * Test if id of each phoneme is unique in every language file.
      */
     void checkIdUniqueness();
