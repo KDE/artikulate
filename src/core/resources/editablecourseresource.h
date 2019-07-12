@@ -86,28 +86,17 @@ public:
     QString description() const override;
 
     void setDescription(QString description) override;
-
     /**
      * \return language identifier of this course
      */
     std::shared_ptr<ILanguage> language() const override;
-
     void setLanguage(std::shared_ptr<ILanguage> language) override;
-
-    void sync();
-
-    /**
-     * @brief Export course to specified file.
-     * @param filePath the absolute path to the export file
-     * @return true of export finished without errors
-     */
+    bool sync() override;
     bool exportToFile(const QUrl &filePath) const override;
 
     std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override;
     QVector<std::shared_ptr<Unit>> units() override;
-
     bool isModified() const override;
-
     QUrl file() const override;
 
     Q_INVOKABLE Unit * createUnit();
@@ -128,7 +117,6 @@ private:
      */
     explicit EditableCourseResource(const QUrl &path, IResourceRepository *repository);
     void setSelf(std::shared_ptr<ICourse> self) override;
-    void setModified(bool modified);
     bool m_modified{ false };
     const std::unique_ptr<CourseResource> m_course;
 };

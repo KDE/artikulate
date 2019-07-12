@@ -74,7 +74,10 @@ QString EditableCourseResource::id() const
 
 void EditableCourseResource::setId(QString id)
 {
-    m_course->setId(id);
+    if (m_course->id() != id) {
+        m_course->setId(id);
+        m_modified = true;
+    }
 }
 
 QString EditableCourseResource::foreignId() const
@@ -94,7 +97,10 @@ QString EditableCourseResource::title() const
 
 void EditableCourseResource::setTitle(QString title)
 {
-    m_course->setTitle(title);
+    if (m_course->title() != title) {
+        m_course->setTitle(title);
+        m_modified = true;
+    }
 }
 
 QString EditableCourseResource::i18nTitle() const
@@ -104,7 +110,10 @@ QString EditableCourseResource::i18nTitle() const
 
 void EditableCourseResource::setI18nTitle(QString i18nTitle)
 {
-    m_course->setI18nTitle(i18nTitle);
+    if (m_course->i18nTitle() != i18nTitle) {
+        m_course->setI18nTitle(i18nTitle);
+        m_modified = true;
+    }
 }
 
 QString EditableCourseResource::description() const
@@ -114,7 +123,10 @@ QString EditableCourseResource::description() const
 
 void EditableCourseResource::setDescription(QString description)
 {
-    m_course->setDescription(description);
+    if (m_course->description() != description) {
+        m_course->setDescription(description);
+        m_modified = true;
+    }
 }
 
 std::shared_ptr<ILanguage> EditableCourseResource::language() const
@@ -124,7 +136,10 @@ std::shared_ptr<ILanguage> EditableCourseResource::language() const
 
 void EditableCourseResource::setLanguage(std::shared_ptr<ILanguage> language)
 {
-    m_course->setLanguage(language);
+    if (m_course->language() != language) {
+        m_course->setLanguage(language);
+        m_modified = true;
+    }
 }
 
 QUrl EditableCourseResource::file() const
@@ -132,7 +147,7 @@ QUrl EditableCourseResource::file() const
     return m_course->file();
 }
 
-void EditableCourseResource::sync()
+bool EditableCourseResource::sync()
 {
     Q_ASSERT(file().isValid());
     Q_ASSERT(file().isLocalFile());
@@ -141,9 +156,13 @@ void EditableCourseResource::sync()
     // not writing back if not modified
     if (!m_modified) {
         qCDebug(ARTIKULATE_LOG()) << "Aborting sync, course was not modified.";
-        return;
+        return false;
     }
-    exportToFile(file());
+    bool ok = exportToFile(file());
+    if (ok) {
+        m_modified = false;
+    }
+    return ok;
 }
 
 bool EditableCourseResource::exportToFile(const QUrl &filePath) const
@@ -170,7 +189,7 @@ bool EditableCourseResource::exportToFile(const QUrl &filePath) const
 
 std::shared_ptr<Unit> EditableCourseResource::addUnit(std::unique_ptr<Unit> unit)
 {
-    setModified(true);
+    m_modified = true;
     auto sharedUnit = m_course->addUnit(std::move(unit));
     sharedUnit->setCourse(this);
     return sharedUnit;
@@ -184,11 +203,6 @@ QVector<std::shared_ptr<Unit>> EditableCourseResource::units()
 bool EditableCourseResource::isModified() const
 {
     return m_modified;
-}
-
-void EditableCourseResource::setModified(bool modified)
-{
-    m_modified = modified;
 }
 
 Unit * EditableCourseResource::createUnit()

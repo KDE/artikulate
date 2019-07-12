@@ -61,6 +61,11 @@ private Q_SLOTS:
      * Test if serialization of unserialized file gives original file.
      */
     void fileLoadSaveCompleteness();
+
+    /**
+     * Test if the modified status is correctly set.
+     */
+    void modifiedStatus();
 };
 
 #endif

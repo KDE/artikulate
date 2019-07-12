@@ -63,15 +63,14 @@ void ContributorRepository::loadLanguageResources()
 
 void ContributorRepository::sync()
 {
-//    QMap< QString, QList< CourseResource* > >::iterator iter;
-//    for (iter = m_courseResources.begin(); iter != m_courseResources.end(); ++iter) {
-//        foreach (auto const &courseRes, iter.value()) {
-//            courseRes->sync();
-//        }
-//    }
-//    foreach (auto const &courseRes, m_skeletonResources) {
-//        courseRes->sync();
-//    }
+    for (auto iter = m_courses.begin(); iter != m_courses.end(); ++iter) {
+        for (auto course : iter.value()) {
+            course->sync();
+        }
+    }
+    for (auto skeleton : m_skeletonResources) {
+        skeleton->sync();
+    }
 }
 
 bool ContributorRepository::modified() const

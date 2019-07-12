@@ -117,6 +117,10 @@ public:
     {
         return QUrl();
     }
+    bool sync() override
+    {
+        return false;
+    }
     bool isModified() const override
     {
         return false;

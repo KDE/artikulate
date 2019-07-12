@@ -223,4 +223,95 @@ void TestEditableCourseResource::fileLoadSaveCompleteness()
     QVERIFY(testPhrase->phonemes().count() == comparePhrase->phonemes().count());
 }
 
+void TestEditableCourseResource::modifiedStatus()
+{
+    // boilerplate
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
+    ResourceRepositoryStub repository({language});
+    auto course = EditableCourseResource::create(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
+
+    { // initial file loading
+        QTemporaryFile outputFile;
+        outputFile.open();
+        course->exportToFile(QUrl::fromLocalFile(outputFile.fileName()));
+        auto loadedCourse = EditableCourseResource::create(QUrl::fromLocalFile(outputFile.fileName()), &repository);
+        QCOMPARE(loadedCourse->isModified(), false);
+    }
+
+    { // set ID
+        QTemporaryFile outputFile;
+        outputFile.open();
+        course->exportToFile(QUrl::fromLocalFile(outputFile.fileName()));
+        auto loadedCourse = EditableCourseResource::create(QUrl::fromLocalFile(outputFile.fileName()), &repository);
+        QCOMPARE(loadedCourse->isModified(), false);
+        loadedCourse->setId("ASDF");
+        QCOMPARE(loadedCourse->isModified(), true);
+        loadedCourse->sync();
+        QCOMPARE(loadedCourse->isModified(), false);
+    }
+
+    { // set title
+        QTemporaryFile outputFile;
+        outputFile.open();
+        course->exportToFile(QUrl::fromLocalFile(outputFile.fileName()));
+        auto loadedCourse = EditableCourseResource::create(QUrl::fromLocalFile(outputFile.fileName()), &repository);
+        QCOMPARE(loadedCourse->isModified(), false);
+        loadedCourse->setTitle("ASDF");
+        QCOMPARE(loadedCourse->isModified(), true);
+        loadedCourse->sync();
+        QCOMPARE(loadedCourse->isModified(), false);
+    }
+
+    { // set i18n title
+        QTemporaryFile outputFile;
+        outputFile.open();
+        course->exportToFile(QUrl::fromLocalFile(outputFile.fileName()));
+        auto loadedCourse = EditableCourseResource::create(QUrl::fromLocalFile(outputFile.fileName()), &repository);
+        QCOMPARE(loadedCourse->isModified(), false);
+        loadedCourse->setI18nTitle("ASDF");
+        QCOMPARE(loadedCourse->isModified(), true);
+        loadedCourse->sync();
+        QCOMPARE(loadedCourse->isModified(), false);
+    }
+
+    { // set description
+        QTemporaryFile outputFile;
+        outputFile.open();
+        course->exportToFile(QUrl::fromLocalFile(outputFile.fileName()));
+        auto loadedCourse = EditableCourseResource::create(QUrl::fromLocalFile(outputFile.fileName()), &repository);
+        QCOMPARE(loadedCourse->isModified(), false);
+        loadedCourse->setDescription("ASDF");
+        QCOMPARE(loadedCourse->isModified(), true);
+        loadedCourse->sync();
+        QCOMPARE(loadedCourse->isModified(), false);
+    }
+
+    { // set language
+        QTemporaryFile outputFile;
+        outputFile.open();
+        course->exportToFile(QUrl::fromLocalFile(outputFile.fileName()));
+        auto loadedCourse = EditableCourseResource::create(QUrl::fromLocalFile(outputFile.fileName()), &repository);
+        QCOMPARE(loadedCourse->isModified(), false);
+        std::shared_ptr<ILanguage> newLanguage(new LanguageStub("en"));
+        loadedCourse->setLanguage(newLanguage);
+        QCOMPARE(loadedCourse->isModified(), true);
+        loadedCourse->sync();
+        QCOMPARE(loadedCourse->isModified(), false);
+    }
+
+    { // add unit
+        QTemporaryFile outputFile;
+        outputFile.open();
+        course->exportToFile(QUrl::fromLocalFile(outputFile.fileName()));
+        auto loadedCourse = EditableCourseResource::create(QUrl::fromLocalFile(outputFile.fileName()), &repository);
+        QCOMPARE(loadedCourse->isModified(), false);
+        std::unique_ptr<Unit> unit(new Unit);
+        unit->setId("testunit");
+        loadedCourse->addUnit(std::move(unit));
+        QCOMPARE(loadedCourse->isModified(), true);
+        loadedCourse->sync();
+        QCOMPARE(loadedCourse->isModified(), false);
+    }
+}
+
 QTEST_GUILESS_MAIN(TestEditableCourseResource)

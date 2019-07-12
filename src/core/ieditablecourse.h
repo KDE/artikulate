@@ -40,7 +40,17 @@ public:
     virtual void setDescription(QString description) = 0;
     virtual void setLanguage(std::shared_ptr<ILanguage> language) = 0;
     virtual std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) = 0;
+    /**
+     * @brief Export course to specified file.
+     * @param filePath the absolute path to the export file
+     * @return true of export finished without errors
+     */
     virtual bool exportToFile(const QUrl &filePath) const = 0;
+    /**
+     * @brief store editable course in file and set modified to false
+     * @return true if no errors occured
+     */
+    virtual bool sync() = 0;
     virtual bool isModified() const = 0;
 
 protected:

@@ -78,6 +78,7 @@ public:
         }
         xml.clear();
         file.close();
+        m_modified = false;
     }
 
     QVector<std::shared_ptr<Unit>> units();
@@ -95,6 +96,7 @@ public:
     QString m_title;
     QString m_description;
     bool m_unitsParsed{ false };
+    bool m_modified{ false };
 
 protected:
     QVector<std::shared_ptr<Unit>> m_units; ///!< the units variable is loaded lazily and shall never be access directly
@@ -116,6 +118,7 @@ QVector<std::shared_ptr<Unit>> SkeletonResourcePrivate::units()
 std::shared_ptr<Unit> SkeletonResourcePrivate::appendUnit(std::shared_ptr<Unit> unit) {
     units(); // ensure that units are parsed
     m_units.append(unit);
+    m_modified = true;
     return m_units.last();
 }
 
@@ -195,6 +198,16 @@ SkeletonResource::SkeletonResource(const QUrl &path, IResourceRepository *reposi
     , d(new SkeletonResourcePrivate(path))
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
+    connect(this, &SkeletonResource::idChanged, this, [=]() {
+        d->m_modified = true;
+    });
+    connect(this, &SkeletonResource::titleChanged, this, [=]() {
+        d->m_modified = true;
+    });
+    connect(this, &SkeletonResource::descriptionChanged, this, [=]() {
+        d->m_modified = true;
+    });
+
     Q_UNUSED(repository);
 }
 
@@ -301,9 +314,22 @@ std::shared_ptr<Unit> SkeletonResource::addUnit(std::unique_ptr<Unit> unit)
     return storedUnit;
 }
 
+bool SkeletonResource::sync()
+{
+    if (!d->m_modified) {
+        qCDebug(ARTIKULATE_LOG()) << "Aborting sync, skeleton was not modified.";
+        return false;
+    }
+    bool ok = exportToFile(file());
+    if (ok) {
+        d->m_modified = false;
+    }
+    return ok;
+}
+
 bool SkeletonResource::isModified() const
 {
-    return false; //FIXME
+    return d->m_modified;
 }
 
 std::shared_ptr<ILanguage> SkeletonResource::language() const
