@@ -55,14 +55,12 @@ public:
     void setFile(const QUrl &file);
     QVector<std::shared_ptr<Phoneme>> phonemes() const override;
     QVector<std::shared_ptr<PhonemeGroup>> phonemeGroups() const override;
-    std::shared_ptr<PhonemeGroup> addPhonemeGroup(const QString &identifier, const QString &title);
 
 Q_SIGNALS:
     void idChanged();
     void titleChanged();
     void i18nTitleChanged();
     void phonemesChanged();
-    void phonemeGroupsChanged();
 
 protected:
     explicit Language();

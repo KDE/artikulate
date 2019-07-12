@@ -51,7 +51,7 @@ void TestCourseResource::cleanup()
 void TestCourseResource::loadCourseResource()
 {
     std::shared_ptr<ILanguage> language(new LanguageStub("de"));
-    auto group = std::static_pointer_cast<Language>(language)->addPhonemeGroup("id", "title");
+    auto group = std::static_pointer_cast<LanguageStub>(language)->addPhonemeGroup("id", "title");
     group->addPhoneme("g", "G");
     group->addPhoneme("u", "U");
     std::vector<std::shared_ptr<ILanguage>> languages;

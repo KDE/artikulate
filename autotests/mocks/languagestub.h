@@ -22,6 +22,7 @@
 #define LANGUAGESTUB_H
 
 #include "src/core/ilanguage.h"
+#include "core/phonemegroup.h"
 #include <QObject>
 #include <QVector>
 
@@ -56,16 +57,31 @@ public:
     }
     QVector<std::shared_ptr<Phoneme>> phonemes() const override
     {
-        return QVector<std::shared_ptr<Phoneme>>();
+        QVector<std::shared_ptr<Phoneme>> phonemes;
+        for (auto group : m_phonemeGroups) {
+            phonemes.append(group->phonemes());
+        }
+        return phonemes;
     }
     QVector<std::shared_ptr<PhonemeGroup>> phonemeGroups() const override
     {
-        return QVector<std::shared_ptr<PhonemeGroup>>();
+        return m_phonemeGroups;
     }
+
+    std::shared_ptr<PhonemeGroup> addPhonemeGroup(const QString &identifier, const QString &title)
+    {
+        std::shared_ptr<PhonemeGroup> phonemeGroup(new PhonemeGroup);
+        phonemeGroup->setId(identifier);
+        phonemeGroup->setTitle(title);
+        m_phonemeGroups.append(phonemeGroup);
+        return phonemeGroup;
+    }
+
 
 private:
     QString m_id{ "UNKNOWN_ID" };
     QString m_title{ "title" };
+    QVector<std::shared_ptr<PhonemeGroup>> m_phonemeGroups;
 };
 
 

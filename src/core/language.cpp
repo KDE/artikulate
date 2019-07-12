@@ -157,23 +157,3 @@ QVector<std::shared_ptr<PhonemeGroup>> Language::phonemeGroups() const
 {
     return m_phonemeGroups;
 }
-
-std::shared_ptr<PhonemeGroup> Language::addPhonemeGroup(const QString &identifier, const QString &title)
-{
-    for (auto group : m_phonemeGroups) {
-        if (QString::compare(group->id(), identifier) == 0) {
-            qCWarning(ARTIKULATE_LOG) << "Pronunciation Group identifier already registered, aborting";
-            return std::shared_ptr<PhonemeGroup>();
-        }
-    }
-
-    std::shared_ptr<PhonemeGroup> phonemeGroup(new PhonemeGroup);
-    phonemeGroup->setId(identifier);
-    phonemeGroup->setTitle(title);
-    m_phonemeGroups.append(phonemeGroup);
-
-    connect(phonemeGroup.get(), &PhonemeGroup::phonemeAdded, this, &Language::phonemesChanged);
-    emit phonemeGroupsChanged();
-
-    return phonemeGroup;
-}
