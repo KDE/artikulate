@@ -97,7 +97,7 @@ void CourseResource::setSelf(std::shared_ptr<ICourse> self)
 }
 
 CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository)
-    : ICourse(repository)
+    : ICourse()
     , d(new CourseResourcePrivate())
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);

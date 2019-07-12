@@ -56,8 +56,8 @@ public:
     virtual QUrl file() const = 0;
 
 protected:
-    ICourse(QObject *parent = nullptr)
-        : QObject(parent)
+    ICourse()
+        : QObject()
     {
     }
     virtual void setSelf(std::shared_ptr<ICourse> course) = 0;

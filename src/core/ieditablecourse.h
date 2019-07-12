@@ -44,8 +44,8 @@ public:
     virtual bool isModified() const = 0;
 
 protected:
-    IEditableCourse(QObject *parent = nullptr)
-        : ICourse(parent)
+    IEditableCourse()
+        : ICourse()
     {
     }
 };
