@@ -59,6 +59,7 @@ public:
      */
     virtual void updateFrom(std::shared_ptr<ICourse> skeleton) = 0;
     virtual bool isModified() const = 0;
+    virtual std::shared_ptr<IEditableCourse> self() const = 0;
 
 protected:
     IEditableCourse()

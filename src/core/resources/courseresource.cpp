@@ -96,6 +96,11 @@ void CourseResource::setSelf(std::shared_ptr<ICourse> self)
     d->m_self = self;
 }
 
+std::shared_ptr<ICourse> CourseResource::self() const
+{
+    return d->m_self.lock();
+}
+
 CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository)
     : ICourse()
     , d(new CourseResourcePrivate())

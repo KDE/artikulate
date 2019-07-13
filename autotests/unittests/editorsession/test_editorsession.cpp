@@ -49,7 +49,10 @@ public:
     {
         m_self = self;
     }
-
+    std::shared_ptr<IEditableCourse> self() const override
+    {
+        return std::static_pointer_cast<IEditableCourse>(m_self.lock());
+    }
     QString id() const override
     {
         return m_id;

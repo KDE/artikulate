@@ -66,9 +66,15 @@ std::shared_ptr<EditableCourseResource> EditableCourseResource::create(
     return course;
 }
 
-void EditableCourseResource::setSelf(std::shared_ptr<ICourse> self) { m_course->setSelf(self); }
+void EditableCourseResource::setSelf(std::shared_ptr<ICourse> self)
+{
+    m_course->setSelf(self);
+}
 
-QString EditableCourseResource::id() const { return m_course->id(); }
+QString EditableCourseResource::id() const
+{
+    return m_course->id();
+}
 
 void EditableCourseResource::setId(QString id)
 {
@@ -125,7 +131,15 @@ void EditableCourseResource::setLanguage(std::shared_ptr<ILanguage> language)
     }
 }
 
-QUrl EditableCourseResource::file() const { return m_course->file(); }
+QUrl EditableCourseResource::file() const
+{
+    return m_course->file();
+}
+
+std::shared_ptr<IEditableCourse> EditableCourseResource::self() const
+{
+    return std::static_pointer_cast<IEditableCourse>(m_course->self());
+}
 
 bool EditableCourseResource::sync()
 {

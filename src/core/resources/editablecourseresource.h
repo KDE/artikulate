@@ -99,6 +99,7 @@ public:
     void updateFrom(std::shared_ptr<ICourse> course) override;
     bool isModified() const override;
     QUrl file() const override;
+    std::shared_ptr<IEditableCourse> self() const override;
 
     Q_INVOKABLE Unit * createUnit();
     Q_INVOKABLE Phrase * createPhrase(Unit *unit);

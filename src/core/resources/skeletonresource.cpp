@@ -218,6 +218,11 @@ void SkeletonResource::setSelf(std::shared_ptr<ICourse> self)
     d->m_self = self;
 }
 
+std::shared_ptr<IEditableCourse> SkeletonResource::self() const
+{
+    return std::static_pointer_cast<IEditableCourse>(d->m_self.lock());
+}
+
 QString SkeletonResource::id() const
 {
     return d->m_identifier;

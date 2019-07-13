@@ -332,6 +332,5 @@ void EditorSession::updateCourseFromSkeleton()
         qCritical() << "Not updating course from skeleton, no one set.";
         return;
     }
-    //FIXME convert to interface
-//    m_repository->updateCourseFromSkeleton(m_course);
+    m_repository->updateCourseFromSkeleton(m_course->self());
 }

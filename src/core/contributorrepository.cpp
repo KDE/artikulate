@@ -304,58 +304,9 @@ void ContributorRepository::updateCourseFromSkeleton(std::shared_ptr<IEditableCo
     }
     if (!skeleton)  {
         qCritical() << "Could not find skeleton with id " << course->foreignId() << ", aborting update.";
-        return;
+    } else {
+        course->updateFrom(skeleton);
     }
-
-// FIXME memory handling logic is broken
-//    // update now
-//    for (Unit *unitSkeleton : skeleton->unitList()) {
-//        // import unit if not exists
-//        std::unique_ptr<Unit> currentUnit(new Unit);
-//        bool found = false;
-//        for (Unit *unit : course->unitList()) {
-//            if (unit->foreignId() == unitSkeleton->id()) {
-//                found = true;
-//                currentUnit = unit;
-//                break;
-//            }
-//        }
-//        if (found == false) {
-//            currentUnit = new Unit(course);
-//            currentUnit->setId(QUuid::createUuid().toString());
-//            currentUnit->setTitle(unitSkeleton->title());
-//            currentUnit->setForeignId(unitSkeleton->id());
-//            currentUnit->setCourse(course);
-//            course->addUnit(std::move(currentUnit));
-//        }
-
-//        // update phrases
-//        for (Phrase *phraseSkeleton : unitSkeleton->phraseList()) {
-//            bool found = false;
-//            for (Phrase *phrase : currentUnit->phraseList()) {
-//                if (phrase->foreignId() == phraseSkeleton->id()) {
-//                    if (phrase->i18nText() != phraseSkeleton->text()) {
-//                        phrase->setEditState(Phrase::Unknown);
-//                        phrase->seti18nText(phraseSkeleton->text());
-//                    }
-//                    found = true;
-//                    break;
-//                }
-//            }
-//            if (found == false) {
-//                Phrase *newPhrase = new Phrase(course);
-//                newPhrase->setForeignId(phraseSkeleton->id());
-//                newPhrase->setId(QUuid::createUuid().toString());
-//                newPhrase->setText(phraseSkeleton->text());
-//                newPhrase->seti18nText(phraseSkeleton->text());
-//                newPhrase->setType(phraseSkeleton->type());
-//                newPhrase->setUnit(currentUnit.get());
-//                currentUnit->addPhrase(newPhrase);
-//            }
-//        }
-//    }
-    // FIXME deassociate removed phrases
-    qCDebug(ARTIKULATE_LOG) << "Update performed!";
 }
 
 std::shared_ptr<EditableCourseResource> ContributorRepository::addCourse(const QUrl &courseFile)

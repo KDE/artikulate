@@ -109,6 +109,7 @@ private:
      */
     explicit CourseResource(const QUrl &path, IResourceRepository *repository);
     void setSelf(std::shared_ptr<ICourse> self) override;
+    std::shared_ptr<ICourse> self() const;
     const std::unique_ptr<CourseResourcePrivate> d;
 
     friend EditableCourseResource;
