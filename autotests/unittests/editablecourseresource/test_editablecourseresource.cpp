@@ -26,6 +26,7 @@
 #include "core/resources/courseparser.h"
 #include "core/resources/editablecourseresource.h"
 #include "../mocks/languagestub.h"
+#include "../mocks/coursestub.h"
 
 #include <memory>
 #include <QTest>
@@ -312,6 +313,51 @@ void TestEditableCourseResource::modifiedStatus()
         loadedCourse->sync();
         QCOMPARE(loadedCourse->isModified(), false);
     }
+}
+
+void TestEditableCourseResource::skeletonUpdate()
+{
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
+    ResourceRepositoryStub repository({language});
+    auto course = EditableCourseResource::create(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
+    QCOMPARE(course->units().count(), 1);
+
+    // create skeleton stub
+    auto importPhrase = new Phrase;
+    importPhrase->setId("importPhraseId");
+    importPhrase->setText("phraseText");
+    importPhrase->setType(Phrase::Sentence);
+    auto importUnit = std::shared_ptr<Unit>(new Unit);
+    importUnit->setId("importId");
+    importUnit->addPhrase(importPhrase);
+    auto skeleton = CourseStub::create(language, {importUnit});
+
+    // test import
+    course->updateFrom(skeleton);
+    QCOMPARE(course->units().count(), 2);
+    {
+        std::shared_ptr<Unit> importedUnit;
+        for (auto unit : course->units()) {
+            if (unit->foreignId() == importUnit->id()) {
+                importedUnit = unit;
+                break;
+            }
+        }
+        QVERIFY(importedUnit != nullptr);
+        QCOMPARE(importedUnit->foreignId(), importUnit->id());
+        QCOMPARE(importedUnit->id(), importUnit->id());
+        QCOMPARE(importedUnit->title(), importUnit->title());
+        QCOMPARE(importedUnit->phraseList().count(), 1);
+        auto importedPhrase = importedUnit->phraseList().first();
+        QCOMPARE(importedPhrase->id(), importPhrase->id());
+        QCOMPARE(importedPhrase->foreignId(), importPhrase->id());
+        QCOMPARE(importedPhrase->text(), importPhrase->text());
+        QCOMPARE(importedPhrase->type(), importPhrase->type());
+    }
+
+    // test that re-import does not change course
+    course->updateFrom(skeleton);
+    QCOMPARE(course->units().count(), 2);
 }
 
 QTEST_GUILESS_MAIN(TestEditableCourseResource)

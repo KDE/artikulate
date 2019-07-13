@@ -58,6 +58,7 @@ public:
     bool exportToFile(const QUrl &filePath) const override;
     std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override;
     bool sync() override;
+    void updateFrom(std::shared_ptr<ICourse>);
     bool isModified() const override;
 
 private:

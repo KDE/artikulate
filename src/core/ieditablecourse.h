@@ -51,6 +51,13 @@ public:
      * @return true if no errors occured
      */
     virtual bool sync() = 0;
+    /**
+     * @brief Update course from skeleton
+     * This method imports all units and phrases from the specified skeleton
+     *
+     * @param skeleton
+     */
+    virtual void updateFrom(std::shared_ptr<ICourse> skeleton) = 0;
     virtual bool isModified() const = 0;
 
 protected:

@@ -327,6 +327,11 @@ bool SkeletonResource::sync()
     return ok;
 }
 
+void SkeletonResource::updateFrom(std::shared_ptr<ICourse>)
+{
+    // not supported
+}
+
 bool SkeletonResource::isModified() const
 {
     return d->m_modified;

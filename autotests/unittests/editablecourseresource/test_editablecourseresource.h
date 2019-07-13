@@ -66,6 +66,11 @@ private Q_SLOTS:
      * Test if the modified status is correctly set.
      */
     void modifiedStatus();
+
+    /**
+     * Test correct update of course from a skeleton
+     */
+    void skeletonUpdate();
 };
 
 #endif

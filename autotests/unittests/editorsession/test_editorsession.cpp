@@ -121,6 +121,10 @@ public:
     {
         return false;
     }
+    void updateFrom(std::shared_ptr<ICourse>) override
+    {
+        // not implemented
+    }
     bool isModified() const override
     {
         return false;

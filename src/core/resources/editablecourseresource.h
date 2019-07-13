@@ -96,6 +96,7 @@ public:
 
     std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override;
     QVector<std::shared_ptr<Unit>> units() override;
+    void updateFrom(std::shared_ptr<ICourse> course) override;
     bool isModified() const override;
     QUrl file() const override;
 

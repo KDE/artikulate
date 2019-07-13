@@ -19,21 +19,21 @@
  */
 
 #include "editablecourseresource.h"
-#include "courseparser.h"
 #include "artikulate_debug.h"
-#include "core/unit.h"
-#include "core/phrase.h"
 #include "core/phoneme.h"
+#include "core/phrase.h"
+#include "core/unit.h"
+#include "courseparser.h"
 
-#include <QObject>
-#include <QQmlEngine>
-#include <QDomDocument>
+#include <KLocalizedString>
+#include <KTar>
 #include <QDir>
+#include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>
+#include <QObject>
+#include <QQmlEngine>
 #include <QUuid>
-#include <KTar>
-#include <KLocalizedString>
 
 EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceRepository *repository)
     : IEditableCourse()
@@ -48,29 +48,27 @@ EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceReposi
     connect(m_course.get(), &ICourse::unitAboutToBeAdded, this, &ICourse::unitAboutToBeAdded);
     connect(m_course.get(), &ICourse::unitAdded, this, &ICourse::unitAdded);
     connect(m_course.get(), &CourseResource::idChanged, this, &EditableCourseResource::idChanged);
-    connect(m_course.get(), &CourseResource::foreignIdChanged, this, &EditableCourseResource::foreignIdChanged);
-    connect(m_course.get(), &CourseResource::titleChanged, this, &EditableCourseResource::titleChanged);
-    connect(m_course.get(), &CourseResource::descriptionChanged, this, &EditableCourseResource::descriptionChanged);
-    connect(m_course.get(), &CourseResource::languageChanged, this, &EditableCourseResource::languageChanged);
+    connect(m_course.get(), &CourseResource::foreignIdChanged, this,
+        &EditableCourseResource::foreignIdChanged);
+    connect(
+        m_course.get(), &CourseResource::titleChanged, this, &EditableCourseResource::titleChanged);
+    connect(m_course.get(), &CourseResource::descriptionChanged, this,
+        &EditableCourseResource::descriptionChanged);
+    connect(m_course.get(), &CourseResource::languageChanged, this,
+        &EditableCourseResource::languageChanged);
 }
 
-std::shared_ptr<EditableCourseResource> EditableCourseResource::create(const QUrl &path, IResourceRepository *repository)
+std::shared_ptr<EditableCourseResource> EditableCourseResource::create(
+    const QUrl &path, IResourceRepository *repository)
 {
     std::shared_ptr<EditableCourseResource> course(new EditableCourseResource(path, repository));
     course->setSelf(course);
     return course;
 }
 
+void EditableCourseResource::setSelf(std::shared_ptr<ICourse> self) { m_course->setSelf(self); }
 
-void EditableCourseResource::setSelf(std::shared_ptr<ICourse> self)
-{
-    m_course->setSelf(self);
-}
-
-QString EditableCourseResource::id() const
-{
-    return m_course->id();
-}
+QString EditableCourseResource::id() const { return m_course->id(); }
 
 void EditableCourseResource::setId(QString id)
 {
@@ -80,20 +78,14 @@ void EditableCourseResource::setId(QString id)
     }
 }
 
-QString EditableCourseResource::foreignId() const
-{
-    return m_course->foreignId();
-}
+QString EditableCourseResource::foreignId() const { return m_course->foreignId(); }
 
 void EditableCourseResource::setForeignId(QString foreignId)
 {
     m_course->setForeignId(std::move(foreignId));
 }
 
-QString EditableCourseResource::title() const
-{
-    return m_course->title();
-}
+QString EditableCourseResource::title() const { return m_course->title(); }
 
 void EditableCourseResource::setTitle(QString title)
 {
@@ -103,10 +95,7 @@ void EditableCourseResource::setTitle(QString title)
     }
 }
 
-QString EditableCourseResource::i18nTitle() const
-{
-    return m_course->i18nTitle();
-}
+QString EditableCourseResource::i18nTitle() const { return m_course->i18nTitle(); }
 
 void EditableCourseResource::setI18nTitle(QString i18nTitle)
 {
@@ -116,10 +105,7 @@ void EditableCourseResource::setI18nTitle(QString i18nTitle)
     }
 }
 
-QString EditableCourseResource::description() const
-{
-    return m_course->description();
-}
+QString EditableCourseResource::description() const { return m_course->description(); }
 
 void EditableCourseResource::setDescription(QString description)
 {
@@ -129,10 +115,7 @@ void EditableCourseResource::setDescription(QString description)
     }
 }
 
-std::shared_ptr<ILanguage> EditableCourseResource::language() const
-{
-    return m_course->language();
-}
+std::shared_ptr<ILanguage> EditableCourseResource::language() const { return m_course->language(); }
 
 void EditableCourseResource::setLanguage(std::shared_ptr<ILanguage> language)
 {
@@ -142,10 +125,7 @@ void EditableCourseResource::setLanguage(std::shared_ptr<ILanguage> language)
     }
 }
 
-QUrl EditableCourseResource::file() const
-{
-    return m_course->file();
-}
+QUrl EditableCourseResource::file() const { return m_course->file(); }
 
 bool EditableCourseResource::sync()
 {
@@ -169,17 +149,18 @@ bool EditableCourseResource::exportToFile(const QUrl &filePath) const
 {
     // write back to file
     // create directories if necessary
-    QFileInfo info(filePath.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
+    QFileInfo info(filePath.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash).path());
     if (!info.exists()) {
         qCDebug(ARTIKULATE_LOG()) << "create xml output file directory, not existing";
         QDir dir;
-        dir.mkpath(filePath.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
+        dir.mkpath(filePath.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash).path());
     }
 
-    //TODO port to KSaveFile
+    // TODO port to KSaveFile
     QFile file(filePath.toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
-        qCWarning(ARTIKULATE_LOG()) << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+        qCWarning(ARTIKULATE_LOG())
+            << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return false;
     }
 
@@ -195,17 +176,55 @@ std::shared_ptr<Unit> EditableCourseResource::addUnit(std::unique_ptr<Unit> unit
     return sharedUnit;
 }
 
-QVector<std::shared_ptr<Unit>> EditableCourseResource::units()
+QVector<std::shared_ptr<Unit>> EditableCourseResource::units() { return m_course->units(); }
+
+void EditableCourseResource::updateFrom(std::shared_ptr<ICourse> skeleton)
 {
-    return m_course->units();
+    for (auto skeletonUnit : skeleton->units()) {
+
+        // find matching unit or create one
+        std::shared_ptr<Unit> matchingUnit;
+        auto it = std::find_if(m_course->units().cbegin(), m_course->units().cend(),
+            [skeletonUnit](std::shared_ptr<Unit> compareUnit) {
+                return compareUnit->foreignId() == skeletonUnit->id();
+            });
+        if (it == m_course->units().cend()) {
+            // import complete unit
+            auto importUnit = std::unique_ptr<Unit>(new Unit);
+            importUnit->setId(skeletonUnit->id());
+            importUnit->setForeignId(skeletonUnit->id());
+            importUnit->setTitle(skeletonUnit->title());
+            matchingUnit = m_course->addUnit(std::move(importUnit));
+        } else {
+            matchingUnit = *it;
+        }
+
+        // import phrases
+        for (auto skeletonPhrase : skeletonUnit->phraseList()) {
+            auto it = std::find_if(matchingUnit->phraseList().cbegin(),
+                matchingUnit->phraseList().cend(), [skeletonPhrase](Phrase *comparePhrase) {
+                    return comparePhrase->foreignId() == skeletonPhrase->id();
+                });
+            if (it == matchingUnit->phraseList().cend()) {
+                // import complete Phrase
+                Phrase *importPhrase = new Phrase(matchingUnit.get());
+                importPhrase->setId(skeletonPhrase->id());
+                importPhrase->setForeignId(skeletonPhrase->id());
+                importPhrase->setText(skeletonPhrase->text());
+                importPhrase->seti18nText(skeletonPhrase->i18nText());
+                importPhrase->setType(skeletonPhrase->type());
+                importPhrase->setUnit(matchingUnit.get());
+                matchingUnit->addPhrase(importPhrase);
+            }
+        }
+    }
+
+    qCInfo(ARTIKULATE_LOG()) << "Update performed!";
 }
 
-bool EditableCourseResource::isModified() const
-{
-    return m_modified;
-}
+bool EditableCourseResource::isModified() const { return m_modified; }
 
-Unit * EditableCourseResource::createUnit()
+Unit *EditableCourseResource::createUnit()
 {
     // find first unused id
     QStringList unitIds;
@@ -228,7 +247,7 @@ Unit * EditableCourseResource::createUnit()
     return sharedUnit.get();
 }
 
-Phrase * EditableCourseResource::createPhrase(Unit *unit)
+Phrase *EditableCourseResource::createPhrase(Unit *unit)
 {
     // find globally unique phrase id inside course
     QStringList phraseIds;

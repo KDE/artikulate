@@ -115,6 +115,7 @@ ecm_mark_as_test(test_skeletonresource)
 set(TestEditableCourseResource_SRCS
     editablecourseresource/test_editablecourseresource.cpp
     ../mocks/resourcerepositorystub.cpp
+    ../mocks/coursestub.cpp
     ../mocks/languagestub.cpp
 )
 qt5_add_resources(TestEditableCourseResource_SRCS ../../data/languages.qrc)
