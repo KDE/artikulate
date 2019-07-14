@@ -287,9 +287,10 @@ void EditorSession::switchToNextPhrase()
 
 bool EditorSession::hasPreviousPhrase() const
 {
-    if (!m_course || !m_unit || !m_phrase) {
+    if (!m_unit || !m_phrase) {
         return false;
     }
+    Q_ASSERT(m_unit->course() != nullptr);
 
     const int phraseIndex = m_phrase->unit()->phraseList().indexOf(m_phrase);
     int unitIndex = -1;
@@ -307,9 +308,10 @@ bool EditorSession::hasPreviousPhrase() const
 
 bool EditorSession::hasNextPhrase() const
 {
-    if (!m_course || !m_unit || !m_phrase) {
+    if (!m_unit || !m_phrase) {
         return false;
     }
+    Q_ASSERT(m_unit->course() != nullptr);
 
     const int phraseIndex = m_phrase->unit()->phraseList().indexOf(m_phrase);
     int unitIndex = -1;

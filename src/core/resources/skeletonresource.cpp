@@ -109,16 +109,21 @@ QVector<std::shared_ptr<Unit>> SkeletonResourcePrivate::units()
     }
     auto units = CourseParser::parseUnits(m_path);
     for (auto &unit : units) {
+        Q_ASSERT(m_self.lock() != nullptr);
+        unit->setCourse(m_self.lock().get());
         m_units.append(std::move(unit));
     }
     m_unitsParsed = true;
     return m_units;
 }
 
-std::shared_ptr<Unit> SkeletonResourcePrivate::appendUnit(std::shared_ptr<Unit> unit) {
+std::shared_ptr<Unit> SkeletonResourcePrivate::appendUnit(std::shared_ptr<Unit> unit)
+{
     units(); // ensure that units are parsed
     m_units.append(unit);
     m_modified = true;
+    Q_ASSERT(m_self.lock() != nullptr);
+    unit->setCourse(m_self.lock().get());
     return m_units.last();
 }
 

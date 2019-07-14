@@ -70,6 +70,9 @@ void TestSkeletonResource::loadSkeletonResource()
     QCOMPARE(unit->id(), "{11111111-b885-4833-97ff-27cb1ca2f543}");
     QCOMPARE(unit->title(), QStringLiteral("Numbers"));
     QCOMPARE(unit->phraseList().count(), 2);
+    QVERIFY(unit->course() != nullptr);
+    QCOMPARE(unit->course(), skeleton.get());
+
     // note: this test takes the silent assumption that phrases are added to the list in same
     //   order as they are defined in the file. This assumption should be made explicit or dropped
     const auto firstPhrase = unit->phraseList().first();
@@ -102,10 +105,11 @@ void TestSkeletonResource::unitAddAndRemoveHandling()
     QSignalSpy spyAdded(skeleton.get(), SIGNAL(unitAdded()));
     QCOMPARE(spyAboutToBeAdded.count(), 0);
     QCOMPARE(spyAdded.count(), 0);
-    skeleton->addUnit(std::move(unit));
+    auto sharedUnit = skeleton->addUnit(std::move(unit));
     QCOMPARE(skeleton->units().count(), initialUnitNumber + 1);
     QCOMPARE(spyAboutToBeAdded.count(), 1);
     QCOMPARE(spyAdded.count(), 1);
+    QCOMPARE(sharedUnit->course(), skeleton.get());
 }
 
 void TestSkeletonResource::coursePropertyChanges()

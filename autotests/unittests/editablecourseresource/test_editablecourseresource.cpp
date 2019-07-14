@@ -72,6 +72,7 @@ void TestEditableCourseResource::loadCourseResource()
     QCOMPARE(unit->id(), "1");
     QCOMPARE(unit->title(), QStringLiteral("Auf der Straße"));
     QCOMPARE(unit->foreignId(), "{dd60f04a-eb37-44b7-9787-67aaf7d3578d}");
+    QCOMPARE(unit->course(), course.get());
 
     QCOMPARE(unit->phraseList().count(), 3);
     // note: this test takes the silent assumption that phrases are added to the list in same
