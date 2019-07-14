@@ -25,7 +25,6 @@
 #include "core/unit.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
-#include "core/language.h"
 #include "core/iresourcerepository.h"
 
 #include <memory>

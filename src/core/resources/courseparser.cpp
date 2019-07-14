@@ -155,7 +155,7 @@ std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl 
         xml.readNext();
     }
     if (!ok) {
-        qCWarning(ARTIKULATE_PARSER()) << "Errors occured while parsing unit" << unit->title() << unit->id();
+        qCWarning(ARTIKULATE_PARSER()) << "Errors occurred while parsing unit" << unit->title() << unit->id();
     }
     return unit;
 }
@@ -230,7 +230,7 @@ Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, const QUrl &path, QVec
         xml.readNext();
     }
     if (!ok) {
-        qCWarning(ARTIKULATE_PARSER()) << "Errors occured while parsing phrase" << phrase->text() << phrase->id();
+        qCWarning(ARTIKULATE_PARSER()) << "Errors occurred while parsing phrase" << phrase->text() << phrase->id();
     }
     return phrase;
 }

@@ -48,7 +48,7 @@ public:
     virtual bool exportToFile(const QUrl &filePath) const = 0;
     /**
      * @brief store editable course in file and set modified to false
-     * @return true if no errors occured
+     * @return true if no errors occurred
      */
     virtual bool sync() = 0;
     /**
