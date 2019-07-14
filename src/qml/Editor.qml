@@ -75,7 +75,6 @@ Item {
                 Layout.minimumWidth: 300
                 model: SkeletonModel {
                     id: skeletonModel
-                    repository: g_repository
                 }
                 textRole: "title"
                 onCurrentIndexChanged: {
