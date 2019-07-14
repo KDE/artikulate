@@ -35,12 +35,12 @@
 
 void TestTrainingSession::init()
 {
-    // TODO initialization of test case
+    // no initialization of test case
 }
 
 void TestTrainingSession::cleanup()
 {
-    // TODO cleanup after test run
+    // no cleanup after test run
 }
 
 void TestTrainingSession::createTrainingSessionWithoutUnits()

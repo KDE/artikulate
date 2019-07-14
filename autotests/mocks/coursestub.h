@@ -41,7 +41,7 @@ public:
     {
         auto course = std::make_shared<CourseStub>(language, units);
         course->setSelf(course);
-        return course;
+        return std::static_pointer_cast<ICourse>(course);
     }
 
     void setSelf(std::shared_ptr<ICourse> self) override

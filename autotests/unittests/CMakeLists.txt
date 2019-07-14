@@ -68,6 +68,7 @@ ecm_mark_as_test(test_trainingsession)
 set(TestEditorSession_SRCS
     editorsession/test_editorsession.cpp
     ../mocks/editablerepositorystub.cpp
+    ../mocks/editablecoursestub.cpp
     ../mocks/languagestub.cpp
 )
 add_executable(test_editorsession ${TestEditorSession_SRCS})
@@ -138,10 +139,28 @@ set(TestCourseModel_SRCS
 )
 qt5_add_resources(TestCourseModel_SRCS ../../data/languages.qrc)
 qt5_add_resources(TestCourseModel_SRCS ../testdata/testdata.qrc)
-add_executable(test_coursemodel ${TestCourseModel_SRCS} )
+add_executable(test_coursemodel ${TestCourseModel_SRCS})
 target_link_libraries(test_coursemodel
     artikulatecore
     Qt5::Test
 )
 add_test(NAME test_coursemodel COMMAND test_coursemodel)
 ecm_mark_as_test(test_coursemodel)
+
+
+# test skeleton model class
+set(TestSkeletonModel_SRCS
+    skeletonmodel/test_skeletonmodel.cpp
+    ../mocks/editablerepositorystub.cpp
+    ../mocks/editablecoursestub.cpp
+    ../mocks/languagestub.cpp
+)
+qt5_add_resources(TestSkeletonModel_SRCS ../../data/languages.qrc)
+qt5_add_resources(TestSkeletonModel_SRCS ../testdata/testdata.qrc)
+add_executable(test_skeletonmodel ${TestSkeletonModel_SRCS})
+target_link_libraries(test_skeletonmodel
+    artikulatecore
+    Qt5::Test
+)
+add_test(NAME test_skeletonmodel COMMAND test_skeletonmodel)
+ecm_mark_as_test(test_skeletonmodel)

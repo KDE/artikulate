@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013-2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -21,21 +21,20 @@
 #ifndef SKELETONMODEL_H
 #define SKELETONMODEL_H
 
+#include "artikulatecore_export.h"
 #include <QAbstractListModel>
+#include <memory>
 
 class IEditableRepository;
+class IEditableCourse;
 class ICourse;
-class Skeleton;
-class QSignalMapper;
 
-class SkeletonModel : public QAbstractListModel
+class ARTIKULATECORE_EXPORT SkeletonModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(IEditableRepository *repository READ resourceRepository WRITE setResourceRepository NOTIFY resourceRepositoryChanged)
-    Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
-    enum courseRoles {
+    enum skeletonRoles {
         TitleRole = Qt::UserRole + 1,
         DescriptionRole,
         IdRole,
@@ -43,34 +42,27 @@ public:
     };
 
     explicit SkeletonModel(QObject *parent = nullptr);
-    void setResourceRepository(IEditableRepository *repository);
-    /**
-     * Reimplemented from QAbstractListModel::roleNames()
-     */
-    virtual QHash<int,QByteArray> roleNames() const override;
+    SkeletonModel(IEditableRepository *repository, QObject *parent = nullptr);
+    ~SkeletonModel() override = default;
+    QHash<int,QByteArray> roleNames() const override;
     IEditableRepository * resourceRepository() const;
-    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-    int count() const;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     Q_INVOKABLE QVariant skeleton(int index) const;
 
-Q_SIGNALS:
-    void skeletonChanged(int index);
-    void resourceRepositoryChanged();
-    void countChanged();
+protected:
+    void setResourceRepository(IEditableRepository *resourceRepository);
 
 private Q_SLOTS:
-    void onSkeletonAboutToBeAdded(ICourse *skeleton, int index);
+    void onSkeletonAboutToBeAdded(std::shared_ptr<IEditableCourse> skeleton, int index);
     void onSkeletonAdded();
-    void onSkeletonsAboutToBeRemoved(int first, int last);
-    void onSkeletonsRemoved();
-    void emitSkeletonChanged(int row);
+    void onSkeletonAboutToBeRemoved(int row);
+    void onSkeletonRemoved();
 
 private:
-    void updateMappings();
-    IEditableRepository *m_repository;
-    QSignalMapper *m_signalMapper;
+    IEditableRepository *m_repository{ nullptr };
+    QVector<QMetaObject::Connection> m_updateConnections;
 };
 
 #endif // SKELETONMODEL_H

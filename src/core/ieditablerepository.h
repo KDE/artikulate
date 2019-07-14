@@ -47,6 +47,12 @@ public:
      * \param course the course to be updated
      */
     virtual void updateCourseFromSkeleton(std::shared_ptr<IEditableCourse> course) = 0;
+
+Q_SIGNALS:
+    void skeletonAboutToBeAdded(std::shared_ptr<IEditableCourse>,int);
+    void skeletonAdded();
+    void skeletonAboutToBeRemoved(int);
+    void skeletonRemoved();
 };
 Q_DECLARE_INTERFACE(IEditableRepository, "IEditableRepository")
 

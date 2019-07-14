@@ -19,31 +19,34 @@
  */
 
 #include "skeletonmodel.h"
-#include "core/icourse.h"
+#include "application.h"
 #include "core/contributorrepository.h"
+#include "core/icourse.h"
 #include "core/resources/skeletonresource.h"
 
+#include "artikulate_debug.h"
+#include <KLocalizedString>
 #include <QAbstractListModel>
 #include <QSignalMapper>
-#include <KLocalizedString>
-#include "artikulate_debug.h"
 
 SkeletonModel::SkeletonModel(QObject *parent)
-    : QAbstractListModel(parent)
-    , m_repository(nullptr)
-    , m_signalMapper(new QSignalMapper(this))
+    : SkeletonModel(artikulateApp->editableRepository(), parent)
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitSkeletonChanged(int)));
 }
 
-QHash< int, QByteArray > SkeletonModel::roleNames() const
+SkeletonModel::SkeletonModel(IEditableRepository *repository, QObject *parent)
+    : QAbstractListModel(parent)
+{
+    setResourceRepository(repository);
+}
+
+QHash<int, QByteArray> SkeletonModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[DescriptionRole] = "description";
     roles[IdRole] = "id";
     roles[DataRole] = "dataRole";
-
     return roles;
 }
 
@@ -56,22 +59,43 @@ void SkeletonModel::setResourceRepository(IEditableRepository *repository)
     beginResetModel();
 
     if (m_repository) {
-        m_repository->disconnect(this);
+        disconnect(m_repository, &IEditableRepository::skeletonAboutToBeAdded, this,
+            &SkeletonModel::onSkeletonAboutToBeAdded);
+        disconnect(m_repository, &IEditableRepository::skeletonAdded, this,
+            &SkeletonModel::onSkeletonAdded);
+        disconnect(m_repository, &IEditableRepository::skeletonAboutToBeRemoved, this,
+            &SkeletonModel::onSkeletonAboutToBeRemoved);
+        disconnect(m_repository, &IEditableRepository::skeletonRemoved, this,
+            &SkeletonModel::onSkeletonRemoved);
     }
 
     m_repository = repository;
 
     if (m_repository) {
-        //FIXME
-//        connect(m_resourceManager, &ResourceManager::skeletonAboutToBeAdded, this, &SkeletonModel::onSkeletonAboutToBeAdded);
-//        connect(m_resourceManager, &ResourceManager::skeletonAdded, this, &SkeletonModel::onSkeletonAdded);
-//        connect(m_resourceManager, &ResourceManager::skeletonAboutToBeRemoved, this, &SkeletonModel::onSkeletonsAboutToBeRemoved);
-//        connect(m_resourceManager, &ResourceManager::skeletonRemoved, this, &SkeletonModel::onSkeletonsRemoved);
+        connect(m_repository, &IEditableRepository::skeletonAboutToBeAdded, this,
+            &SkeletonModel::onSkeletonAboutToBeAdded);
+        connect(m_repository, &IEditableRepository::skeletonAdded, this,
+            &SkeletonModel::onSkeletonAdded);
+        connect(m_repository, &IEditableRepository::skeletonAboutToBeRemoved, this,
+            &SkeletonModel::onSkeletonAboutToBeRemoved);
+        connect(m_repository, &IEditableRepository::skeletonRemoved, this,
+            &SkeletonModel::onSkeletonRemoved);
+    }
+
+    if (m_repository) {
+        auto skeletons = m_repository->skeletons();
+        for (int i = 0; i < skeletons.count(); ++i) {
+            auto skeleton = skeletons.at(i);
+            // TODO only title changed is connected, change this to a general changed signal
+            auto connection = connect(skeleton.get(), &IEditableCourse::titleChanged, this, [=](){
+                const auto row = m_repository->skeletons().indexOf(skeleton);
+                emit dataChanged(index(row, 0), index(row, 0));
+            });
+            m_updateConnections.insert(i, connection);
+        }
     }
 
     endResetModel();
-
-    emit resourceRepositoryChanged();
 }
 
 IEditableRepository * SkeletonModel::resourceRepository() const
@@ -79,23 +103,22 @@ IEditableRepository * SkeletonModel::resourceRepository() const
     return m_repository;
 }
 
-QVariant SkeletonModel::data(const QModelIndex& index, int role) const
+QVariant SkeletonModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid()) {
+    if (!index.isValid() || m_repository == nullptr) {
         return QVariant();
     }
 
-    if (index.row() >= m_repository->skeletons().count()) {
+    if (index.row() >= rowCount()) {
         return QVariant();
     }
 
-    std::shared_ptr<ICourse> skeleton = m_repository->skeletons().at(index.row());
+    auto skeleton = m_repository->skeletons().at(index.row());
 
-    switch(role)
-    {
+    switch (role) {
     case Qt::DisplayRole:
-        return !skeleton->title().isEmpty() ?
-                QVariant(skeleton->title()): QVariant(i18nc("@item:inlistbox:", "unknown"));
+        return !skeleton->title().isEmpty() ? QVariant(skeleton->title())
+                                            : QVariant(i18nc("@item:inlistbox:", "unknown"));
     case Qt::ToolTipRole:
         return QVariant(skeleton->title());
     case TitleRole:
@@ -105,54 +128,45 @@ QVariant SkeletonModel::data(const QModelIndex& index, int role) const
     case IdRole:
         return skeleton->id();
     case DataRole:
-        return QVariant::fromValue<QObject*>(skeleton.get());
+        return QVariant::fromValue<QObject *>(skeleton.get());
     default:
         return QVariant();
     }
 }
 
-int SkeletonModel::rowCount(const QModelIndex &parent) const
+int SkeletonModel::rowCount(const QModelIndex &) const
 {
-    if (!m_repository) {
+    if (m_repository == nullptr) {
         return 0;
     }
-
-    if (parent.isValid()) {
-        return 0;
-    }
-
     return m_repository->skeletons().count();
 }
 
-void SkeletonModel::onSkeletonAboutToBeAdded(ICourse *skeleton, int index)
+void SkeletonModel::onSkeletonAboutToBeAdded(std::shared_ptr<IEditableCourse> skeleton, int row)
 {
-    connect(skeleton, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
-    //TODO add missing signals
-    beginInsertRows(QModelIndex(), index, index);
+    beginInsertRows(QModelIndex(), row, row);
+    auto connection = connect(skeleton.get(), &IEditableCourse::titleChanged, this, [=](){
+        const auto row = m_repository->courses().indexOf(skeleton);
+        emit dataChanged(index(row, 0), index(row, 0));
+    });
+    m_updateConnections.insert(row, connection);
 }
 
 void SkeletonModel::onSkeletonAdded()
 {
-    updateMappings();
     endInsertRows();
-    emit countChanged();
 }
 
-void SkeletonModel::onSkeletonsAboutToBeRemoved(int first, int last)
+void SkeletonModel::onSkeletonAboutToBeRemoved(int row)
 {
-    beginRemoveRows(QModelIndex(), first, last);
+    beginRemoveRows(QModelIndex(), row, row);
+    QObject::disconnect(m_updateConnections.at(row));
+    m_updateConnections.removeAt(row);
 }
 
-void SkeletonModel::onSkeletonsRemoved()
+void SkeletonModel::onSkeletonRemoved()
 {
     endRemoveRows();
-    emit countChanged();
-}
-
-void SkeletonModel::emitSkeletonChanged(int row)
-{
-    emit skeletonChanged(row);
-    emit dataChanged(index(row, 0), index(row, 0));
 }
 
 QVariant SkeletonModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -164,19 +178,6 @@ QVariant SkeletonModel::headerData(int section, Qt::Orientation orientation, int
         return QVariant(section + 1);
     }
     return QVariant(i18nc("@title:column", "Skeleton"));
-}
-
-int SkeletonModel::count() const
-{
-    return m_repository->skeletons().count();
-}
-
-void SkeletonModel::updateMappings()
-{
-    int skeletons = m_repository->skeletons().count();
-    for (int i = 0; i < skeletons; ++i) {
-        m_signalMapper->setMapping(m_repository->skeletons().at(i).get(), i);
-    }
 }
 
 QVariant SkeletonModel::skeleton(int row) const

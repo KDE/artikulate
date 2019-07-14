@@ -21,7 +21,7 @@
 #include "coursemodel.h"
 #include "application.h"
 #include "artikulate_debug.h"
-#include "core/language.h"
+#include "core/ilanguage.h"
 #include "core/iresourcerepository.h"
 #include "core/icourse.h"
 #include <QAbstractListModel>
@@ -85,7 +85,7 @@ void CourseModel::setResourceRepository(IResourceRepository *resourceRepository)
         auto courses = m_resourceRepository->courses();
         for (int i = 0; i < courses.count(); ++i) {
             auto course = courses.at(i);
-            // TODO only title chagned is connected, change this to a general changed signal
+            // TODO only title changed is connected, change this to a general changed signal
             auto connection = connect(course.get(), &ICourse::titleChanged, this, [=](){
                 const auto row = m_resourceRepository->courses().indexOf(course);
                 emit dataChanged(index(row, 0), index(row, 0));

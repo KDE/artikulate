@@ -21,6 +21,7 @@
 #include "application.h"
 
 #include "core/iresourcerepository.h"
+#include "core/ieditablerepository.h"
 #include "core/ilanguage.h"
 #include "core/language.h"
 #include "core/contributorrepository.h"
@@ -72,6 +73,11 @@ Application::Application(int& argc, char** argv)
 IResourceRepository * Application::resourceRepository() const
 {
     return m_resourceRepository;
+}
+
+IEditableRepository * Application::editableRepository() const
+{
+    return qobject_cast<IEditableRepository*>(m_resourceRepository);
 }
 
 void Application::installResourceRepository(IResourceRepository *resourceRepository)

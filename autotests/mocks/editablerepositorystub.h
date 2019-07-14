@@ -91,6 +91,40 @@ public:
     {
         return m_languages;
     }
+    void appendCourse(std::shared_ptr<IEditableCourse> course)
+    {
+        emit courseAboutToBeAdded(course, m_courses.count());
+        m_courses.append(course);
+        emit courseAdded();
+    }
+
+    void removeCourse(std::shared_ptr<IEditableCourse> course)
+    {
+        auto index = m_courses.indexOf(course);
+        Q_ASSERT(index >= 0);
+        if (index >= 0) {
+            emit courseAboutToBeRemoved(index);
+            m_courses.remove(index);
+            emit courseRemoved();
+        }
+    }
+    void appendSkeleton(std::shared_ptr<IEditableCourse> skeleton)
+    {
+        emit skeletonAboutToBeAdded(skeleton, m_skeletons.count());
+        m_skeletons.append(skeleton);
+        emit skeletonAdded();
+    }
+
+    void removeSkeleton(std::shared_ptr<IEditableCourse> skeleton)
+    {
+        auto index = m_skeletons.indexOf(skeleton);
+        Q_ASSERT(index >= 0);
+        if (index >= 0) {
+            emit skeletonAboutToBeRemoved(index);
+            m_skeletons.remove(index);
+            emit skeletonRemoved();
+        }
+    }
     void updateCourseFromSkeleton(std::shared_ptr<IEditableCourse> course) override
     {
         Q_UNUSED(course);

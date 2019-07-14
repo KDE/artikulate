@@ -26,6 +26,7 @@
 #include <QApplication>
 
 class IResourceRepository;
+class IEditableRepository;
 class Application;
 
 #if defined(artikulateApp)
@@ -51,6 +52,12 @@ public:
      * @return the repository
      */
     IResourceRepository * resourceRepository() const;
+
+    /**
+     * @brief getter for global editable repository
+     * @return the repository
+     */
+    IEditableRepository * editableRepository() const;
 
 private:
     void registerQmlTypes();
