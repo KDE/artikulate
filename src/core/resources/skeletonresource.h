@@ -60,7 +60,7 @@ public:
     bool sync() override;
     void updateFrom(std::shared_ptr<ICourse>) override;
     bool isModified() const override;
-    std::shared_ptr<IEditableCourse> self() const;
+    std::shared_ptr<IEditableCourse> self() const override;
 
 private:
     /**
