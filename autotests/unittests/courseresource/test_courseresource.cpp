@@ -92,6 +92,31 @@ void TestCourseResource::loadCourseResource()
     QCOMPARE(firstPhrase->phonemes().count(), 2);
 }
 
+void TestCourseResource::loadCourseResourceSkipIncomplete()
+{
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
+    auto group = std::static_pointer_cast<LanguageStub>(language)->addPhonemeGroup("id", "title");
+    group->addPhoneme("g", "G");
+    group->addPhoneme("u", "U");
+    std::vector<std::shared_ptr<ILanguage>> languages;
+    languages.push_back(language);
+    ResourceRepositoryStub repository(languages);
+
+    const QString courseDirectory = "data/courses/de/";
+    const QString courseFile = courseDirectory + "de.xml";
+
+    auto course = CourseResource::create(QUrl::fromLocalFile(courseFile), &repository, true);
+    QCOMPARE(course->file().toLocalFile(), courseFile);
+    QCOMPARE(course->id(), "de");
+    QCOMPARE(course->units().count(), 1);
+    QCOMPARE(course->units().first()->course(), course.get());
+
+    const auto unit = course->units().first();
+    QVERIFY(unit != nullptr);
+    QCOMPARE(unit->id(), "1");
+    QCOMPARE(unit->phraseList().count(), 2);
+}
+
 void TestCourseResource::unitAddAndRemoveHandling()
 {
     // boilerplate

@@ -47,6 +47,12 @@ private slots:
      */
     void loadCourseResource();
 
+
+    /**
+     * @brief Test simple loading of course resource XML file and skip all incomplete units/phrases
+     */
+    void loadCourseResourceSkipIncomplete();
+
     /**
      * @brief Test handling of unit insertions (specifically, the signals)
      */

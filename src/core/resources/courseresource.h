@@ -41,7 +41,7 @@ class ARTIKULATECORE_EXPORT CourseResource : public ICourse
     Q_INTERFACES(ICourse)
 
 public:
-    static std::shared_ptr<CourseResource> create(const QUrl &path, IResourceRepository *repository);
+    static std::shared_ptr<CourseResource> create(const QUrl &path, IResourceRepository *repository, bool skipIncomplete = false);
 
     ~CourseResource() override;
 
@@ -107,7 +107,7 @@ private:
     /**
      * Create course resource from file.
      */
-    explicit CourseResource(const QUrl &path, IResourceRepository *repository);
+    explicit CourseResource(const QUrl &path, IResourceRepository *repository, bool skipIncomplete);
     void setSelf(std::shared_ptr<ICourse> self) override;
     std::shared_ptr<ICourse> self() const;
     const std::unique_ptr<CourseResourcePrivate> d;

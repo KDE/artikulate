@@ -44,7 +44,7 @@ public:
     CourseResourcePrivate() = default;
     ~CourseResourcePrivate();
 
-    void loadCourse(CourseResource *parent);
+    void loadCourse(CourseResource *parent, bool skipIncomplete);
 
     std::weak_ptr<ICourse> m_self;
     IResourceRepository *m_repository{ nullptr };
@@ -58,11 +58,12 @@ public:
     QString m_description;
     QVector<std::shared_ptr<Unit>> m_units;
     bool m_courseLoaded{ false }; ///<! indicates if course was completely parsed
+    bool m_skipIncomplete{ false };
 };
 
 CourseResourcePrivate::~CourseResourcePrivate() = default;
 
-void CourseResourcePrivate::loadCourse(CourseResource *parent)
+void CourseResourcePrivate::loadCourse(CourseResource *parent, bool skipIncomplete)
 {
     if (m_courseLoaded == true) {
         qCWarning(ARTIKULATE_CORE()) << "Skipping loading of course, no reloading implemented yet";
@@ -77,15 +78,17 @@ void CourseResourcePrivate::loadCourse(CourseResource *parent)
     }
 
     QVector<std::shared_ptr<Phoneme>> phonemes = m_language->phonemes();
-    auto units = CourseParser::parseUnits(m_file, phonemes);
+    auto units = CourseParser::parseUnits(m_file, phonemes, skipIncomplete);
     for (auto &unit : units) {
-        parent->addUnit(std::move(unit));
+        if (!skipIncomplete || unit->phraseList().count() > 0) {
+            parent->addUnit(std::move(unit));
+        }
     }
 }
 
-std::shared_ptr<CourseResource> CourseResource::create(const QUrl &path, IResourceRepository *repository)
+std::shared_ptr<CourseResource> CourseResource::create(const QUrl &path, IResourceRepository *repository, bool skipIncomplete)
 {
-    std::shared_ptr<CourseResource> course(new CourseResource(path, repository));
+    std::shared_ptr<CourseResource> course(new CourseResource(path, repository, skipIncomplete));
     course->setSelf(course);
     return course;
 }
@@ -100,13 +103,14 @@ std::shared_ptr<ICourse> CourseResource::self() const
     return d->m_self.lock();
 }
 
-CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository)
+CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository, bool skipIncomplete)
     : ICourse()
     , d(new CourseResourcePrivate())
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
     d->m_file = path;
     d->m_repository = repository;
+    d->m_skipIncomplete = skipIncomplete;
 
     // load basic information from language file, but does not parse everything
     QXmlStreamReader xml;
@@ -274,7 +278,7 @@ std::shared_ptr<Unit> CourseResource::addUnit(std::unique_ptr<Unit> unit)
 QVector<std::shared_ptr<Unit>> CourseResource::units()
 {
     if (d->m_courseLoaded == false) {
-        d->loadCourse(this);
+        d->loadCourse(this, d->m_skipIncomplete);
     }
     return d->m_units;
 }

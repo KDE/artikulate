@@ -60,14 +60,21 @@ public:
      */
     static QDomDocument loadDomDocument(const QUrl &path, const QXmlSchema &schema);
 
-    static std::vector<std::unique_ptr<Unit>> parseUnits(const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes = QVector<std::shared_ptr<Phoneme>>());
+    /**
+     * @brief Parse unit from XML file
+     * @param path the path to the file
+     * @param phonemes list of phonemes that are generated for the language of the unit
+     * @param skipIncomplete if set to true, empty units and phrases without native sound files are skipped
+     * @return parsed unit
+     */
+    static std::vector<std::unique_ptr<Unit>> parseUnits(const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes = QVector<std::shared_ptr<Phoneme>>(), bool skipIncomplete = false);
 
     static QDomDocument serializedDocument(ICourse *course, bool trainingExport);
     static QDomElement serializedPhrase(Phrase *phrase, QDomDocument &document);
     static bool exportCourseToGhnsPackage(ICourse *course, const QString &exportPath);
 
 private:
-    static std::unique_ptr<Unit> parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok);
+    static std::unique_ptr<Unit> parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool skipIncomplete, bool &ok);
     static Phrase * parsePhrase(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok);
     static QStringList parsePhonemeIds(QXmlStreamReader &xml, bool &ok);
     static QString parseElement(QXmlStreamReader &xml, bool &ok);
