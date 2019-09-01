@@ -92,14 +92,6 @@ Kirigami.GlobalDrawer {
 //                 }
 //             }
 //             Kirigami.Action {
-//                 text: i18n("About Artikulate")
-//                 iconName: "artikulate"
-//                 onTriggered: {
-//                     triggerAction("help_about_app")
-//                     globalDrawer.resetMenu();
-//                 }
-//             }
-//             Kirigami.Action {
 //                 text: i18n("About KDE")
 //                 iconName: "help-about"
 //                 onTriggered: {
@@ -144,6 +136,16 @@ Kirigami.GlobalDrawer {
                 onTriggered: {
                     root.pageStack.pop();
                     root.pageStack.push(downloadPageComponent);
+                }
+            }
+        }
+        ActionListItem {
+            action: Kirigami.Action {
+                text: i18n("About")
+                iconName: "help-about"
+                onTriggered: {
+                    root.pageStack.pop();
+                    root.pageStack.push(aboutPageComponent);
                 }
             }
         }

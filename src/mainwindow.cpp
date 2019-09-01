@@ -36,6 +36,7 @@
 
 #include <KActionCollection>
 #include <KConfigDialog>
+#include <KAboutData>
 #include <KHelpMenu>
 #include <KLocalizedString>
 #include <KLocalizedContext>
@@ -67,6 +68,7 @@ MainWindow::MainWindow()
     // set view
     rootContext()->setContextProperty(QStringLiteral("g_trainingSession"), m_trainingSession);
     rootContext()->setContextProperty(QStringLiteral("g_profileManager"), m_profileManager);
+    rootContext()->setContextProperty(QStringLiteral("g_artikulateAboutData"), QVariant::fromValue(KAboutData::applicationData()));
     rootContext()->setContextProperty(QStringLiteral("kcfg_UseContributorResources"), Settings::useCourseRepository());
     rootContext()->setContextProperty(QStringLiteral("kcfg_ShowMenuBar"), Settings::showMenuBar());
 

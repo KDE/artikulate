@@ -20,10 +20,10 @@
 
 import QtQuick 2.5
 import QtQuick.Controls 2.0 as QQC2
-import org.kde.kirigami 2.0 as Kirigami2
+import org.kde.kirigami 2.6
 import artikulate 1.0
 
-Kirigami2.ApplicationWindow {
+ApplicationWindow {
     id: root
 
     function changePage(pageItem) {
@@ -36,7 +36,7 @@ Kirigami2.ApplicationWindow {
         pageStack: root.pageStack
     }
 
-    contextDrawer: Kirigami2.OverlayDrawer {
+    contextDrawer: OverlayDrawer {
         id: contextDrawer
     }
 
@@ -52,7 +52,7 @@ Kirigami2.ApplicationWindow {
     }
 
     pageStack.initialPage: welcomePageComponent
-    pageStack.globalToolBar.style: Kirigami2.ApplicationHeaderStyle.Titles
+    pageStack.globalToolBar.style: ApplicationHeaderStyle.Titles
 
     // pages
     Component {
@@ -67,6 +67,13 @@ Kirigami2.ApplicationWindow {
         id: profileSettingsPageComponent
         ProfileSettingsPage { }
     }
+    Component {
+        id: aboutPageComponent
+        AboutPage {
+            aboutData: g_artikulateAboutData
+        }
+    }
+
     Component {
         id: downloadPageComponent
         DownloadPage {
