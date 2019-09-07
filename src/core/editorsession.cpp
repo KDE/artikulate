@@ -187,15 +187,15 @@ void EditorSession::setUnit(Unit *unit)
         return;
     }
     m_unit = unit;
-    if (!m_unit->phraseList().isEmpty()) {
-        setPhrase(m_unit->phraseList().first());
+    if (!m_unit->phrases().isEmpty()) {
+        setPhrase(m_unit->phrases().first());
     } else {
         setPhrase(nullptr);
     }
     emit unitChanged();
 }
 
-void EditorSession::setPhrase(Phrase *phrase)
+void EditorSession::setPhrase(std::shared_ptr<IPhrase> phrase)
 {
     if (m_phrase == phrase) {
         return;
@@ -207,24 +207,19 @@ void EditorSession::setPhrase(Phrase *phrase)
     emit phraseChanged();
 }
 
-Phrase * EditorSession::activePhrase() const
+std::shared_ptr<IPhrase> EditorSession::activePhrase() const
 {
     return m_phrase;
 }
 
-Phrase * EditorSession::phrase() const
-{
-    return m_phrase;
-}
-
-Phrase * EditorSession::previousPhrase() const
+std::shared_ptr<IPhrase> EditorSession::previousPhrase() const
 {
     if (!m_phrase) {
         return nullptr;
     }
-    const int index = m_phrase->unit()->phraseList().indexOf(m_phrase);
+    const int index = m_phrase->unit()->phrases().indexOf(m_phrase);
     if (index > 0) {
-        return m_phrase->unit()->phraseList().at(index - 1);
+        return m_phrase->unit()->phrases().at(index - 1);
     } else {
         auto unit = m_phrase->unit();
         int uIndex{ -1 };
@@ -236,20 +231,20 @@ Phrase * EditorSession::previousPhrase() const
             }
         }
         if (uIndex > 0) {
-            return unit->course()->units().at(uIndex - 1)->phraseList().last();
+            return unit->course()->units().at(uIndex - 1)->phrases().last();
         }
     }
     return m_phrase;
 }
 
-Phrase * EditorSession::nextPhrase() const
+std::shared_ptr<IPhrase> EditorSession::nextPhrase() const
 {
     if (!m_phrase) {
         return nullptr;
     }
-    const int index = m_phrase->unit()->phraseList().indexOf(m_phrase);
-    if (index < m_phrase->unit()->phraseList().length() - 1) {
-        return m_phrase->unit()->phraseList().at(index + 1);
+    const int index = m_phrase->unit()->phrases().indexOf(m_phrase);
+    if (index < m_phrase->unit()->phrases().length() - 1) {
+        return m_phrase->unit()->phrases().at(index + 1);
     } else {
         Unit *unit = m_phrase->unit();
         int uIndex{ -1 };
@@ -262,10 +257,10 @@ Phrase * EditorSession::nextPhrase() const
         }
         if (uIndex < unit->course()->units().length() - 1) {
             auto nextUnit = unit->course()->units().at(uIndex + 1);
-            if (nextUnit->phraseList().isEmpty()) {
+            if (nextUnit->phrases().isEmpty()) {
                 return nullptr;
             }
-            return nextUnit->phraseList().constFirst();
+            return nextUnit->phrases().constFirst();
         }
     }
     return m_phrase;
@@ -292,7 +287,7 @@ bool EditorSession::hasPreviousPhrase() const
     }
     Q_ASSERT(m_unit->course() != nullptr);
 
-    const int phraseIndex = m_phrase->unit()->phraseList().indexOf(m_phrase);
+    const int phraseIndex = m_phrase->unit()->phrases().indexOf(m_phrase);
     int unitIndex = -1;
     for (int i = 0; i < m_unit->course()->units().size(); ++i) {
         if (m_unit->course()->units().at(i).get() == m_unit) {
@@ -313,7 +308,7 @@ bool EditorSession::hasNextPhrase() const
     }
     Q_ASSERT(m_unit->course() != nullptr);
 
-    const int phraseIndex = m_phrase->unit()->phraseList().indexOf(m_phrase);
+    const int phraseIndex = m_phrase->unit()->phrases().indexOf(m_phrase);
     int unitIndex = -1;
     for (int i = 0; i < m_unit->course()->units().size(); ++i) {
         if (m_unit->course()->units().at(i).get() == m_unit) {
@@ -322,7 +317,7 @@ bool EditorSession::hasNextPhrase() const
         }
     }
     if ((unitIndex >= 0 && unitIndex < m_course->units().size() - 1)
-            || (phraseIndex >= 0 && phraseIndex < m_unit->phraseList().size() - 1)) {
+            || (phraseIndex >= 0 && phraseIndex < m_unit->phrases().size() - 1)) {
         return true;
     }
     return false;

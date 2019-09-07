@@ -69,18 +69,18 @@ void TestSkeletonResource::loadSkeletonResource()
     QVERIFY(unit != nullptr);
     QCOMPARE(unit->id(), "{11111111-b885-4833-97ff-27cb1ca2f543}");
     QCOMPARE(unit->title(), QStringLiteral("Numbers"));
-    QCOMPARE(unit->phraseList().count(), 2);
+    QCOMPARE(unit->phrases().count(), 2);
     QVERIFY(unit->course() != nullptr);
     QCOMPARE(unit->course(), skeleton.get());
 
     // note: this test takes the silent assumption that phrases are added to the list in same
     //   order as they are defined in the file. This assumption should be made explicit or dropped
-    const auto firstPhrase = unit->phraseList().first();
+    const auto firstPhrase = unit->phrases().first();
     QVERIFY(firstPhrase != nullptr);
     QCOMPARE(firstPhrase->id(), "{22222222-9234-4da5-a6fe-dbd5104f57d5}");
     QCOMPARE(firstPhrase->text(), "0");
     QCOMPARE(firstPhrase->type(), Phrase::Type::Word);
-    const auto secondPhrase = unit->phraseList().at(1);
+    const auto secondPhrase = unit->phrases().at(1);
     QVERIFY(secondPhrase != nullptr);
     QCOMPARE(secondPhrase->id(), "{333333333-b4a9-4264-9a26-75a55aa5d302}");
     QCOMPARE(secondPhrase->text(), "1");
@@ -182,12 +182,12 @@ void TestSkeletonResource::fileLoadSaveCompleteness()
     QCOMPARE(testUnit->id(), compareUnit->id());
     QCOMPARE(testUnit->foreignId(), compareUnit->foreignId());
     QCOMPARE(testUnit->title(), compareUnit->title());
-    QCOMPARE(testUnit->phraseList().count(), compareUnit->phraseList().count());
+    QCOMPARE(testUnit->phrases().count(), compareUnit->phrases().count());
 
-    Phrase *testPhrase = testUnit->phraseList().constFirst();
-    Phrase *comparePhrase = new Phrase(this);
+    std::shared_ptr<IPhrase> testPhrase = testUnit->phrases().constFirst();
+    std::shared_ptr<IPhrase> comparePhrase = Phrase::create();
     // note that this actually means that we DO NOT respect phrase orders by list order
-    for (Phrase *phrase : compareUnit->phraseList()) {
+    for (const auto &phrase : compareUnit->phrases()) {
         if (testPhrase->id() == phrase->id()) {
             comparePhrase = phrase;
             break;

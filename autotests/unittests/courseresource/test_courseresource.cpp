@@ -79,10 +79,10 @@ void TestCourseResource::loadCourseResource()
     QCOMPARE(unit->foreignId(), "{dd60f04a-eb37-44b7-9787-67aaf7d3578d}");
     QCOMPARE(unit->course(), course.get());
 
-    QCOMPARE(unit->phraseList().count(), 3);
+    QCOMPARE(unit->phrases().count(), 3);
     // note: this test takes the silent assumption that phrases are added to the list in same
     //   order as they are defined in the file. This assumption should be made explicit or dropped
-    const auto firstPhrase = unit->phraseList().first();
+    const auto firstPhrase = unit->phrases().first();
     QVERIFY(firstPhrase != nullptr);
     QCOMPARE(firstPhrase->id(), "1");
     QCOMPARE(firstPhrase->foreignId(), "{3a4c1926-60d7-44c6-80d1-03165a641c75}");

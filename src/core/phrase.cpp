@@ -19,20 +19,16 @@
  */
 
 #include "phrase.h"
-#include "libsound/src/capturedevicecontroller.h"
-#include "libsound/src/outputdevicecontroller.h"
 #include "unit.h"
 #include "icourse.h"
-#include "settings.h"
-
 #include "artikulate_debug.h"
 #include <QTemporaryFile>
 #include <QQmlEngine>
 
-Phrase::Phrase(QObject *parent)
-    : QObject(parent)
-    , m_type(Phrase::AllTypes)
-    , m_editState(Unknown)
+Phrase::Phrase()
+    : IEditablePhrase()
+    , m_type(IPhrase::Type::AllTypes)
+    , m_editState(IEditablePhrase::EditState::Unknown)
     , m_unit(nullptr)
     , m_trainingProgress(0)
     , m_skipCounter(0)
@@ -52,15 +48,28 @@ Phrase::Phrase(QObject *parent)
 
 Phrase::~Phrase() = default;
 
+std::shared_ptr<Phrase> Phrase::create()
+{
+    std::shared_ptr<Phrase> phrase(new Phrase);
+    phrase->setSelf(phrase);
+    return phrase;
+}
+
+
+void Phrase::setSelf(std::shared_ptr<IPhrase> self)
+{
+    m_self = self;
+}
+
 QString Phrase::id() const
 {
     return m_id;
 }
 
-void Phrase::setId(const QString &id)
+void Phrase::setId(QString id)
 {
     if (id != m_id) {
-        m_id = id;
+        m_id = std::move(id);
         emit idChanged();
     }
 }
@@ -70,9 +79,9 @@ QString Phrase::foreignId() const
     return m_foreignId;
 }
 
-void Phrase::setForeignId(const QString &id)
+void Phrase::setForeignId(QString id)
 {
-    m_foreignId = id;
+    m_foreignId = std::move(id);
 }
 
 QString Phrase::text() const
@@ -80,7 +89,7 @@ QString Phrase::text() const
     return m_text;
 }
 
-void Phrase::setText(const QString &text)
+void Phrase::setText(QString text)
 {
     if (QString::compare(text, m_text) != 0) {
         m_text = text.trimmed();
@@ -93,11 +102,11 @@ QString Phrase::i18nText() const
     return m_i18nText;
 }
 
-void Phrase::seti18nText(const QString &text)
+void Phrase::seti18nText(QString text)
 {
     if (QString::compare(text, m_i18nText) != 0) {
         // copy unmodified original text string
-        m_i18nText = text;
+        m_i18nText = std::move(text);
         emit i18nTextChanged();
     }
 }
@@ -110,13 +119,13 @@ Phrase::Type Phrase::type() const
 QString Phrase::typeString() const
 {
     switch(m_type) {
-    case Word:
+    case IPhrase::Type::Word:
         return QStringLiteral("word");
-    case Expression:
+    case IPhrase::Type::Expression:
         return QStringLiteral("expression");
-    case Sentence:
+    case IPhrase::Type::Sentence:
         return QStringLiteral("sentence");
-    case Paragraph:
+    case IPhrase::Type::Paragraph:
         return QStringLiteral("paragraph");
     default:
         return QStringLiteral("ERROR_UNKNOWN_TYPE");
@@ -135,22 +144,22 @@ void Phrase::setType(Phrase::Type type)
 void Phrase::setType(const QString &typeString)
 {
     if (typeString == QLatin1String("word")) {
-        setType(Word);
+        setType(IPhrase::Type::Word);
         return;
     }
     if (typeString == QLatin1String("expression")) {
-        setType(Expression);
+        setType(IPhrase::Type::Expression);
         return;
     }
     if (typeString == QLatin1String("sentence")) {
-        setType(Sentence);
+        setType(IPhrase::Type::Sentence);
         return;
     }
     if (typeString == QLatin1String("paragraph")) {
-        setType(Paragraph);
+        setType(IPhrase::Type::Paragraph);
         return;
     }
-    qCWarning(ARTIKULATE_LOG) << "Cannot set type from unknown identifier, aborting";
+    qCWarning(ARTIKULATE_CORE()) << "Cannot set type from unknown identifier, aborting";
     return;
 }
 
@@ -162,11 +171,11 @@ Phrase::EditState Phrase::editState() const
 QString Phrase::editStateString() const
 {
     switch(m_editState) {
-    case Unknown:
+    case IEditablePhrase::EditState::Unknown:
         return QStringLiteral("unknown");
-    case Translated:
+    case IEditablePhrase::EditState::Translated:
         return QStringLiteral("translated");
-    case Completed:
+    case IEditablePhrase::EditState::Completed:
         return QStringLiteral("completed");
     }
     Q_UNREACHABLE();
@@ -187,15 +196,15 @@ void Phrase::setEditState(const QString &stateString)
         return;
     }
     if (stateString == QLatin1String("unknown")) {
-        setEditState(Unknown);
+        setEditState(IEditablePhrase::EditState::Unknown);
         return;
     }
     if (stateString == QLatin1String("translated")) {
-        setEditState(Translated);
+        setEditState(IEditablePhrase::EditState::Translated);
         return;
     }
     if (stateString == QLatin1String("completed")) {
-        setEditState(Completed);
+        setEditState(IEditablePhrase::EditState::Completed);
         return;
     }
     qCWarning(ARTIKULATE_LOG) << "Cannot set edit state from unknown identifier " << stateString << ", aborting";
@@ -221,13 +230,13 @@ QUrl Phrase::sound() const
     return m_nativeSoundFile;
 }
 
-void Phrase::setSound(const QUrl &soundFile)
+void Phrase::setSound(QUrl soundFile)
 {
     if (!soundFile.isValid() || soundFile.isEmpty()) {
         qCWarning(ARTIKULATE_LOG) << "Not setting empty sound file path.";
         return;
     }
-    m_nativeSoundFile = soundFile;
+    m_nativeSoundFile = std::move(soundFile);
     emit soundChanged();
 }
 

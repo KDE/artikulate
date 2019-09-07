@@ -27,6 +27,7 @@
 class ILanguage;
 class IEditableCourse;
 class Unit;
+class IPhrase;
 class SkeletonResource;
 class IEditableRepository;
 
@@ -66,7 +67,7 @@ class ARTIKULATECORE_EXPORT EditorSession : public QObject
     Q_PROPERTY(IEditableCourse *displayedCourse READ displayedCourse NOTIFY displayedCourseChanged)
     Q_PROPERTY(ILanguage *language READ language NOTIFY languageChanged)
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
-    Q_PROPERTY(Phrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged)
+//    Q_PROPERTY(IPhrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged) //FIXME
     Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasPreviousPhrase READ hasPreviousPhrase NOTIFY phraseChanged)
 
@@ -91,11 +92,10 @@ public:
     Q_DECL_DEPRECATED Unit * unit() const;
     Unit * activeUnit() const;
     void setUnit(Unit *unit);
-    Q_DECL_DEPRECATED Phrase * phrase() const;
-    Phrase * activePhrase() const;
-    void setPhrase(Phrase *phrase);
-    Phrase::Type phraseType() const;
-    void setPhraseType(Phrase::Type type);
+    std::shared_ptr<IPhrase> activePhrase() const;
+    void setPhrase(std::shared_ptr<IPhrase> phrase);
+    IPhrase::Type phraseType() const;
+    void setPhraseType(IPhrase::Type type);
     bool hasPreviousPhrase() const;
     bool hasNextPhrase() const;
     Q_INVOKABLE void switchToPreviousPhrase();
@@ -103,8 +103,8 @@ public:
     Q_INVOKABLE void updateCourseFromSkeleton();
 
 private:
-    Phrase * nextPhrase() const;
-    Phrase * previousPhrase() const;
+    std::shared_ptr<IPhrase> nextPhrase() const;
+    std::shared_ptr<IPhrase> previousPhrase() const;
 
 private Q_SLOTS:
     void updateDisplayedUnit();
@@ -127,7 +127,7 @@ private:
     ILanguage *m_language{ nullptr };
     IEditableCourse *m_course{ nullptr };
     Unit *m_unit{ nullptr };
-    Phrase *m_phrase{ nullptr };
+    std::shared_ptr<IPhrase> m_phrase;
 };
 
 #endif

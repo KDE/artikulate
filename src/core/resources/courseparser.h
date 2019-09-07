@@ -68,7 +68,7 @@ public:
 
 private:
     static std::unique_ptr<Unit> parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok);
-    static Phrase * parsePhrase(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok);
+    static std::shared_ptr<Phrase> parsePhrase(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok);
     static QStringList parsePhonemeIds(QXmlStreamReader &xml, bool &ok);
     static QString parseElement(QXmlStreamReader &xml, bool &ok);
 };

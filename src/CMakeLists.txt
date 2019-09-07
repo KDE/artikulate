@@ -43,8 +43,10 @@ set(artikulateCore_SRCS
     artikulate_debug.cpp
     core/icourse.h
     core/ieditablecourse.h
+    core/ieditablephrase.h
     core/ieditablerepository.h
     core/ilanguage.h
+    core/iphrase.h
     core/iresourcerepository.h
     core/drawertrainingactions.cpp
     core/resourcerepository.cpp

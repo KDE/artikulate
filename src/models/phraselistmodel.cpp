@@ -60,7 +60,7 @@ void PhraseListModel::setUnit(Unit *unit)
 
     if (m_unit) {
         m_unit->disconnect(this);
-        foreach (Phrase *phrase, m_unit->phraseList()) {
+        for (auto &phrase : m_unit->phrases()) {
             phrase->disconnect(this);
         }
     }
@@ -74,9 +74,9 @@ void PhraseListModel::setUnit(Unit *unit)
         connect(m_unit, &Unit::phraseRemoved, this, &PhraseListModel::onPhrasesRemoved);
 
         // insert and connect all already existing phrases
-        int phrases = m_unit->phraseList().count();
-        for (int i=0; i < phrases; ++i) {
-            onPhraseAboutToBeAdded(m_unit->phraseList().at(i), i);
+        int phrases = m_unit->phrases().count();
+        for (int i = 0; i < phrases; ++i) {
+            onPhraseAboutToBeAdded(m_unit->phrases().at(i).get(), i);
             endInsertRows();
             emit countChanged();
         }
@@ -101,11 +101,11 @@ QVariant PhraseListModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_unit->phraseList().count()) {
+    if (index.row() >= m_unit->phrases().count()) {
         return QVariant();
     }
 
-    Phrase * const phrase = m_unit->phraseList().at(index.row());
+    std::shared_ptr<IPhrase> const phrase = m_unit->phrases().at(index.row());
 
     switch(role)
     {
@@ -121,11 +121,11 @@ QVariant PhraseListModel::data(const QModelIndex &index, int role) const
     case IdRole:
         return phrase->id();
     case TypeRole:
-        return phrase->type();
-    case ExcludedRole:
-        return phrase->isExcluded();
+        return QVariant::fromValue<IPhrase::Type>(phrase->type());
+//    case ExcludedRole: //FIXME
+//        return phrase->isExcluded();
     case DataRole:
-        return QVariant::fromValue<QObject*>(phrase);
+        return QVariant::fromValue<QObject*>(phrase.get());
     default:
         return QVariant();
     }
@@ -140,10 +140,10 @@ int PhraseListModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid()) {
         return 0;
     }
-    return m_unit->phraseList().count();
+    return m_unit->phrases().count();
 }
 
-void PhraseListModel::onPhraseAboutToBeAdded(Phrase *phrase, int index)
+void PhraseListModel::onPhraseAboutToBeAdded(IPhrase *phrase, int index)
 {
     connect(phrase, SIGNAL(textChanged()), m_signalMapper, SLOT(map()));
     connect(phrase, SIGNAL(typeChanged()), m_signalMapper, SLOT(map()));
@@ -195,7 +195,7 @@ int PhraseListModel::count() const
     if (!m_unit) {
         return 0;
     }
-    return m_unit->phraseList().count();
+    return m_unit->phrases().count();
 }
 
 void PhraseListModel::updateMappings()
@@ -203,8 +203,8 @@ void PhraseListModel::updateMappings()
     if (!m_unit) {
         return;
     }
-    int phrases = m_unit->phraseList().count();
+    int phrases = m_unit->phrases().count();
     for (int i = 0; i < phrases; ++i) {
-        m_signalMapper->setMapping(m_unit->phraseList().at(i), i);
+        m_signalMapper->setMapping(m_unit->phrases().at(i).get(), i);
     }
 }

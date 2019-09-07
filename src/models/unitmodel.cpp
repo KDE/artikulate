@@ -104,10 +104,10 @@ QVariant UnitModel::data(const QModelIndex& index, int role) const
     case TitleRole:
         return unit->title();
     case ContainsTrainingData:
-        foreach (Phrase *phrase, unit->phraseList()) {
-            if (phrase->editState() == Phrase::Completed) {
-                return true;
-            }
+        for (const auto &phrase : unit->phrases()) {
+//            if (phrase->editState() == Phrase::Completed) { //TODO introduce editablephrase
+//                return true;
+//            }
         }
         return false;
     case IdRole:

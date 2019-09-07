@@ -111,6 +111,10 @@ void Application::registerQmlTypes()
         "artikulate", 1, 0,
         "SkeletonResource",
         QStringLiteral("SkeletonResource objects are backend objects"));
+    qmlRegisterUncreatableType<Phrase>(
+        "artikulate", 1, 0,
+        "Phrase",
+        QStringLiteral("Phrase objects are backend objects"));
 
     // interfaces
     qmlRegisterInterface<IResourceRepository>("IResourceRepository");
@@ -118,13 +122,13 @@ void Application::registerQmlTypes()
     qmlRegisterInterface<ICourse>("ICourse");
     qmlRegisterInterface<IEditableCourse>("IEditableCourse");
     qmlRegisterInterface<ICourse>("ILanguage");
+    qmlRegisterInterface<IPhrase>("IPhrase");
 
     // concrete instantiable types
     qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");
     qmlRegisterType<LearnerProfile::LearningGoal>("artikulate", 1, 0, "LearningGoal");
     qmlRegisterType<Unit>("artikulate", 1, 0, "Unit");
     qmlRegisterType<Language>("artikulate", 1, 0, "Language");
-    qmlRegisterType<Phrase>("artikulate", 1, 0, "Phrase");
     qmlRegisterType<Phoneme>("artikulate", 1, 0, "Phoneme");
     qmlRegisterType<PhonemeGroup>("artikulate", 1, 0, "PhonemeGroup");
     qmlRegisterType<Player>("artikulate", 1, 0, "Player");

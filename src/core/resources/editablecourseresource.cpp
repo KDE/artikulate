@@ -214,14 +214,14 @@ void EditableCourseResource::updateFrom(std::shared_ptr<ICourse> skeleton)
         }
 
         // import phrases
-        for (auto skeletonPhrase : skeletonUnit->phraseList()) {
-            auto it = std::find_if(matchingUnit->phraseList().cbegin(),
-                matchingUnit->phraseList().cend(), [skeletonPhrase](Phrase *comparePhrase) {
+        for (auto skeletonPhrase : skeletonUnit->phrases()) {
+            auto it = std::find_if(matchingUnit->phrases().cbegin(),
+                matchingUnit->phrases().cend(), [skeletonPhrase](std::shared_ptr<IPhrase> comparePhrase) {
                     return comparePhrase->foreignId() == skeletonPhrase->id();
                 });
-            if (it == matchingUnit->phraseList().cend()) {
+            if (it == matchingUnit->phrases().cend()) {
                 // import complete Phrase
-                Phrase *importPhrase = new Phrase(matchingUnit.get());
+                std::shared_ptr<Phrase> importPhrase = Phrase::create();
                 importPhrase->setId(skeletonPhrase->id());
                 importPhrase->setForeignId(skeletonPhrase->id());
                 importPhrase->setText(skeletonPhrase->text());
@@ -261,12 +261,12 @@ Unit *EditableCourseResource::createUnit()
     return sharedUnit.get();
 }
 
-Phrase *EditableCourseResource::createPhrase(Unit *unit)
+std::shared_ptr<Phrase> EditableCourseResource::createPhrase(Unit *unit)
 {
     // find globally unique phrase id inside course
     QStringList phraseIds;
     for (auto unit : m_course->units()) {
-        for (auto *phrase : unit->phraseList()) {
+        for (auto &phrase : unit->phrases()) {
             phraseIds.append(phrase->id());
         }
     }
@@ -277,10 +277,10 @@ Phrase *EditableCourseResource::createPhrase(Unit *unit)
     }
 
     // create unit
-    Phrase *phrase = new Phrase(this);
+    std::shared_ptr<Phrase> phrase = Phrase::create();
     phrase->setId(id);
     phrase->setText(QLatin1String(""));
-    phrase->setType(Phrase::Word);
+    phrase->setType(IPhrase::Type::Word);
 
     unit->addPhrase(phrase);
 

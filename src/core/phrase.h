@@ -22,82 +22,65 @@
 #define PHRASE_H
 
 #include "artikulatecore_export.h"
-
-#include <QObject>
+#include "iphrase.h"
+#include "ieditablephrase.h"
 #include <QUrl>
 #include <QList>
 #include <QVector>
-#include <QTemporaryFile>
+#include <memory>
 
 class QString;
 class Phoneme;
 class Unit;
 class QUrl;
 
-class ARTIKULATECORE_EXPORT Phrase : public QObject
+class ARTIKULATECORE_EXPORT Phrase : public IEditablePhrase
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(QString i18nText READ i18nText WRITE seti18nText NOTIFY i18nTextChanged)
     Q_PROPERTY(QString soundFileUrl READ soundFileUrl NOTIFY soundChanged)
-    Q_PROPERTY(Phrase::Type type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(IPhrase::Type type READ type WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(Phrase::EditState editState READ editState WRITE setEditState NOTIFY editStateChanged)
     Q_PROPERTY(Unit *unit READ unit NOTIFY unitChanged)
     Q_PROPERTY(bool excluded READ isExcluded NOTIFY excludedChanged)
     Q_PROPERTY(int progress READ progress NOTIFY progressChanged)
 public:
-    Q_ENUMS(EditState)
-    Q_ENUMS(TrainingState)
-    Q_ENUMS(Type)
-    enum EditState {
-        Unknown,
-        Translated,
-        Completed
-    };
-    enum TrainingState { //TODO not needed anymore with statistics
-        Trained,
-        Untrained
-    };
     enum class Progress {
         Skip,
         Done
     };
-    enum Type {
-        Word,
-        Expression,
-        Sentence,
-        Paragraph,
-        AllTypes
-    };
+    Q_ENUM(Progress)
 
-    explicit Phrase(QObject *parent = nullptr);
-    ~Phrase();
+    static std::shared_ptr<Phrase> create();
 
-    QString id() const;
-    void setId(const QString &id);
-    QString foreignId() const;
-    void setForeignId(const QString &id);
-    QString text() const;
-    void setText(const QString &text);
-    QString i18nText() const;
-    void seti18nText(const QString &text);
-    Unit * unit() const;
-    void setUnit(Unit *unit);
-    Phrase::Type type() const;
-    QString typeString() const;
-    void setType(Phrase::Type type);
+    ~Phrase() override;
+
+    QString id() const override;
+    void setId(QString id) override;
+    QString foreignId() const override;
+    void setForeignId(QString id) override;
+    QString text() const override;
+    void setText(QString text) override;
+    QString i18nText() const override;
+    void seti18nText(QString text) override;
+    Unit * unit() const override;
+    void setUnit(Unit *unit) override;
+    IPhrase::Type type() const override;
+    QString typeString() const override;
+    void setType(IPhrase::Type type) override;
     void setType(const QString &typeString);
-    QString soundFileUrl() const;
+    QString soundFileUrl() const override;
     Q_INVOKABLE QString soundFileOutputPath() const;
-    Q_INVOKABLE void setSoundFileUrl();
-    Phrase::EditState editState() const;
-    QString editStateString() const;
-    void setEditState(Phrase::EditState state);
-    void setEditState(const QString &stateString);
-    QUrl sound() const;
-    void setSound(const QUrl &soundFile);
-    QVector<Phoneme *> phonemes() const;
+    Q_INVOKABLE void setSoundFileUrl() override;
+    IEditablePhrase::EditState editState() const override;
+    QString editStateString() const override;
+    void setEditState(IEditablePhrase::EditState state) override;
+    void setEditState(const QString &stateString) override;
+    QUrl sound() const override;
+    void setSound(QUrl soundFile) override;
+    QVector<Phoneme *> phonemes() const override;
     bool isExcluded() const;
     void setExcluded(bool excluded = false);
     int progress() const;
@@ -109,25 +92,19 @@ public:
     Q_INVOKABLE void removePhoneme(Phoneme *phoneme);
 
 Q_SIGNALS:
-    void idChanged();
-    void unitChanged();
-    void textChanged();
-    void i18nTextChanged();
-    void typeChanged();
-    void editStateChanged();
-    void soundChanged();
-    void excludedChanged();
-    void phonemesChanged();
-    void modified();
     void progressChanged();
+    void excludedChanged();
 
 private:
     Q_DISABLE_COPY(Phrase)
+    explicit Phrase();
+    void setSelf(std::shared_ptr<IPhrase> self) override;
+    std::weak_ptr<IPhrase> m_self;
     QString m_id;
     QString m_foreignId;
     QString m_text;
     QString m_i18nText;
-    Type m_type;
+    IPhrase::Type m_type;
     EditState m_editState;
     Unit *m_unit;
     unsigned m_trainingProgress;

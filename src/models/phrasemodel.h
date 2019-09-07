@@ -51,7 +51,7 @@ public:
     virtual QModelIndex index(int row, int column, const QModelIndex &parent) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     Q_INVOKABLE bool isPhrase(const QModelIndex &index) const;
-    Q_INVOKABLE Phrase * phrase(const QModelIndex &index) const;
+    Q_INVOKABLE IPhrase * phrase(const QModelIndex &index) const;
     Q_INVOKABLE Unit * unit(const QModelIndex &index) const;
     Q_INVOKABLE QModelIndex indexPhrase(Phrase *phrase) const;
     Q_INVOKABLE QModelIndex indexUnit(Unit *unit) const;
@@ -63,7 +63,7 @@ Q_SIGNALS:
     void typeChanged();
 
 private Q_SLOTS:
-    void onPhraseAboutToBeAdded(Phrase *phrase, int index);
+    void onPhraseAboutToBeAdded(IPhrase *phrase, int index);
     void onPhraseAdded();
     void onPhrasesAboutToBeRemoved(int first, int last);
     void onPhrasesRemoved();

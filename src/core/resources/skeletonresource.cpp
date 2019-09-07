@@ -158,7 +158,7 @@ QDomDocument SkeletonResourcePrivate::serializedSkeleton()
         unitTitleElement.appendChild(document.createTextNode(unit->title()));
 
         // construct phrases
-        for (Phrase *phrase : unit->phraseList()) {
+        for (auto &phrase : unit->phrases()) {
             QDomElement phraseElement = document.createElement(QStringLiteral("phrase"));
             QDomElement phraseIdElement = document.createElement(QStringLiteral("id"));
             QDomElement phraseTextElement = document.createElement(QStringLiteral("text"));

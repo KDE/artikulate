@@ -102,7 +102,7 @@ public:
     std::shared_ptr<IEditableCourse> self() const override;
 
     Q_INVOKABLE Unit * createUnit();
-    Q_INVOKABLE Phrase * createPhrase(Unit *unit);
+    Q_INVOKABLE std::shared_ptr<Phrase> createPhrase(Unit *unit);
 
 Q_SIGNALS:
     void idChanged();

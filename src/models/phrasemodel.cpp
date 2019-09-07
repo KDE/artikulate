@@ -60,7 +60,7 @@ void PhraseModel::setCourse(ICourse *course)
         m_course->disconnect(this);
         for (auto unit : m_course->units()) {
             unit->disconnect(this);
-            foreach (auto const &phrase, unit->phraseList()) {
+            for (auto &phrase : unit->phrases()) {
                 phrase->disconnect(this);
             }
         }
@@ -84,9 +84,9 @@ void PhraseModel::setCourse(ICourse *course)
             connect(unit.get(), &Unit::titleChanged, m_unitSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 
             // insert and connect all already existing phrases
-            int phrases = unit->phraseList().count();
+            int phrases = unit->phrases().count();
             for (int i = 0; i < phrases; ++i) {
-                onPhraseAboutToBeAdded(unit->phraseList().at(i), i);
+                onPhraseAboutToBeAdded(unit->phrases().at(i).get(), i);
                 endInsertRows();
             }
         }
@@ -132,9 +132,9 @@ QVariant PhraseModel::data(const QModelIndex &index, int role) const
         switch(role)
         {
         case TextRole:
-            return unit->phraseList().at(index.row())->text();
+            return unit->phrases().at(index.row())->text();
         case DataRole:
-            return QVariant::fromValue<QObject*>(unit->phraseList().at(index.row()));
+            return QVariant::fromValue<QObject*>(unit->phrases().at(index.row()).get());
         default:
             return QVariant();
         }
@@ -159,7 +159,7 @@ int PhraseModel::rowCount(const QModelIndex &parent) const
 
     // else -> must be a unit
     Unit *unit = m_course->units().at(parent.row()).get();
-    return unit->phraseList().count();
+    return unit->phrases().count();
 }
 
 int PhraseModel::columnCount(const QModelIndex &parent) const
@@ -197,11 +197,11 @@ QModelIndex PhraseModel::index(int row, int column, const QModelIndex &parent) c
 
 QModelIndex PhraseModel::indexPhrase(Phrase *phrase) const
 {
-    if (!phrase) {
-        return QModelIndex();
-    }
-    Unit *unit = phrase->unit();
-    return createIndex(unit->phraseList().indexOf(phrase), 0, unit);
+//    if (!phrase) {
+        return QModelIndex(); //FIXME
+//    }
+//    Unit *unit = phrase->unit();
+//    return createIndex(unit->phrases().indexOf(phrase), 0, unit);
 }
 
 QModelIndex PhraseModel::indexUnit(Unit *unit) const
@@ -224,7 +224,7 @@ bool PhraseModel::isUnit(const QModelIndex &index) const
     return (index.internalPointer() == nullptr);
 }
 
-void PhraseModel::onPhraseAboutToBeAdded(Phrase *phrase, int index)
+void PhraseModel::onPhraseAboutToBeAdded(IPhrase *phrase, int index)
 {
     int uIndex{ -1 };
     for (int i = 0; i < m_course->units().size(); ++i) {
@@ -233,7 +233,7 @@ void PhraseModel::onPhraseAboutToBeAdded(Phrase *phrase, int index)
             break;
         }
     }
-    connect(phrase, &Phrase::textChanged, m_phraseSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
+    connect(phrase, &IPhrase::textChanged, m_phraseSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
     beginInsertRows(createIndex(uIndex, 0), index, index);
 }
 
@@ -314,14 +314,14 @@ bool PhraseModel::isPhrase(const QModelIndex &index) const
     return false;
 }
 
-Phrase * PhraseModel::phrase(const QModelIndex &index) const
+IPhrase * PhraseModel::phrase(const QModelIndex &index) const
 {
     if (index.internalPointer()) {
         Unit *unit = static_cast<Unit *>(index.internalPointer());
-        return unit->phraseList().at(index.row());
+        return unit->phrases().at(index.row()).get();
     }
-    if (!m_course->units().at(index.row())->phraseList().isEmpty()) {
-        return m_course->units().at(index.row())->phraseList().first();
+    if (!m_course->units().at(index.row())->phrases().isEmpty()) {
+        return m_course->units().at(index.row())->phrases().first().get();
     }
     return nullptr;
 }
@@ -344,8 +344,8 @@ void PhraseModel::updatePhraseMappings()
     //TODO this might be quite costly for long units
     // better, implement access based on index pairs
     for (auto unit : m_course->units()) {
-        foreach (Phrase *phrase, unit->phraseList()) {
-            m_phraseSignalMapper->setMapping(phrase, phrase);
+        for (const auto &phrase : unit->phrases()) {
+            m_phraseSignalMapper->setMapping(phrase.get(), phrase.get());
         }
     }
 }

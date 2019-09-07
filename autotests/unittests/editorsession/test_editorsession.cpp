@@ -148,10 +148,10 @@ void TestEditorSession::iterateCourse()
     // course
     std::shared_ptr<Unit> unitA(new Unit);
     std::shared_ptr<Unit> unitB(new Unit);
-    Phrase *phraseA1 = new Phrase;
-    Phrase *phraseA2 = new Phrase;
-    Phrase *phraseB1 = new Phrase;
-    Phrase *phraseB2 = new Phrase;
+    std::shared_ptr<Phrase> phraseA1 = Phrase::create();
+    std::shared_ptr<Phrase> phraseA2 = Phrase::create();
+    std::shared_ptr<Phrase> phraseB1 = Phrase::create();
+    std::shared_ptr<Phrase> phraseB2 = Phrase::create();
     // note: phrases without soundfiles are skipped in session generation
     phraseA1->setId("A1");
     phraseA2->setId("A2");

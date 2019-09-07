@@ -69,7 +69,7 @@ Q_SIGNALS:
     void countChanged();
 
 private Q_SLOTS:
-    void onPhraseAboutToBeAdded(Phrase *unit, int index);
+    void onPhraseAboutToBeAdded(IPhrase *unit, int index);
     void onPhraseAdded();
     void onPhrasesAboutToBeRemoved(int first, int last);
     void onPhrasesRemoved();

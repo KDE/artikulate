@@ -58,10 +58,10 @@ void TestTrainingSession::createTrainingSessionWithEmptySounds()
     auto language = std::make_shared<LanguageStub>("de");
     std::shared_ptr<Unit> unitA(new Unit);
     std::shared_ptr<Unit> unitB(new Unit);
-    Phrase *phraseA1 = new Phrase;
-    Phrase *phraseA2 = new Phrase;
-    Phrase *phraseB1 = new Phrase;
-    Phrase *phraseB2 = new Phrase;
+    std::shared_ptr<Phrase> phraseA1 = Phrase::create();
+    std::shared_ptr<Phrase> phraseA2 = Phrase::create();
+    std::shared_ptr<Phrase> phraseB1 = Phrase::create();
+    std::shared_ptr<Phrase> phraseB2 = Phrase::create();
     // note: phrases without soundfiles are skipped in session generation
     phraseA1->setId("A1");
     phraseA2->setId("A2");
@@ -100,8 +100,8 @@ void TestTrainingSession::createTrainingSessionWithUnitsAndPhrases()
 {
     auto language = std::make_shared<LanguageStub>("de");
     std::shared_ptr<Unit> unit(new Unit);
-    Phrase *firstPhrase = new Phrase();
-    Phrase *secondPhrase = new Phrase();
+    std::shared_ptr<Phrase> firstPhrase = Phrase::create();
+    std::shared_ptr<Phrase> secondPhrase = Phrase::create();
     unit->addPhrase(firstPhrase);
     unit->addPhrase(secondPhrase);
 
@@ -117,10 +117,10 @@ void TestTrainingSession::iterateCourse()
     auto language = std::make_shared<LanguageStub>("de");
     std::shared_ptr<Unit> unitA(new Unit);
     std::shared_ptr<Unit> unitB(new Unit);
-    Phrase *phraseA1 = new Phrase;
-    Phrase *phraseA2 = new Phrase;
-    Phrase *phraseB1 = new Phrase;
-    Phrase *phraseB2 = new Phrase;
+    std::shared_ptr<Phrase> phraseA1 = Phrase::create();
+    std::shared_ptr<Phrase> phraseA2 = Phrase::create();
+    std::shared_ptr<Phrase> phraseB1 = Phrase::create();
+    std::shared_ptr<Phrase> phraseB2 = Phrase::create();
     // note: phrases without soundfiles are skipped in session generation
     phraseA1->setId("A1");
     phraseA2->setId("A2");
@@ -142,7 +142,7 @@ void TestTrainingSession::iterateCourse()
 
     // session assumed to initialize with first units's first phrase
     QCOMPARE(session.activeUnit(), unitA.get());
-    QCOMPARE(session.activePhrase(), phraseA1);
+    QCOMPARE(session.activePhrase(), phraseA1.get());
     QVERIFY(&course == session.course());
 
     // test direct unit setters
@@ -152,11 +152,11 @@ void TestTrainingSession::iterateCourse()
     QCOMPARE(session.activeUnit(), unitB.get());
 
     // test direct phrase setters
-    session.setPhrase(phraseA1);
-    QCOMPARE(session.activePhrase(), phraseA1);
+    session.setPhrase(phraseA1.get());
+    QCOMPARE(session.activePhrase(), phraseA1.get());
     QCOMPARE(session.activeUnit(), unitA.get());
-    session.setPhrase(phraseB1);
-    QCOMPARE(session.activePhrase(), phraseB1);
+    session.setPhrase(phraseB1.get());
+    QCOMPARE(session.activePhrase(), phraseB1.get());
     QCOMPARE(session.activeUnit(), unitB.get());
 
     // test number of actions
@@ -166,38 +166,38 @@ void TestTrainingSession::iterateCourse()
     QCOMPARE(actions.at(1)->actions().count(), 2);
 
     // test phrase iterators: accept iterator
-    session.setPhrase(phraseA1);
+    session.setPhrase(phraseA1.get());
     QCOMPARE(session.activeUnit(), unitA.get());
-    QCOMPARE(session.activePhrase(), phraseA1);
+    QCOMPARE(session.activePhrase(), phraseA1.get());
     QVERIFY(session.hasNext());
     session.accept();
     QCOMPARE(session.activeUnit(), unitA.get());
-    QCOMPARE(session.activePhrase(), phraseA2);
+    QCOMPARE(session.activePhrase(), phraseA2.get());
     session.accept();
-    QCOMPARE(session.activePhrase(), phraseB1);
+    QCOMPARE(session.activePhrase(), phraseB1.get());
     session.accept();
-    QCOMPARE(session.activePhrase(), phraseB2);
+    QCOMPARE(session.activePhrase(), phraseB2.get());
     QVERIFY(!session.hasNext());
 
     // test phrase iterators: skip iterator
-    session.setPhrase(phraseA1);
+    session.setPhrase(phraseA1.get());
     QCOMPARE(session.activeUnit(), unitA.get());
-    QCOMPARE(session.activePhrase(), phraseA1);
+    QCOMPARE(session.activePhrase(), phraseA1.get());
     QVERIFY(!session.hasPrevious());
     QVERIFY(session.hasNext());
     session.skip();
     QCOMPARE(session.activeUnit(), unitA.get());
-    QCOMPARE(session.activePhrase(), phraseA2);
+    QCOMPARE(session.activePhrase(), phraseA2.get());
     session.skip();
-    QCOMPARE(session.activePhrase(), phraseB1);
+    QCOMPARE(session.activePhrase(), phraseB1.get());
     session.skip();
-    QCOMPARE(session.activePhrase(), phraseB2);
+    QCOMPARE(session.activePhrase(), phraseB2.get());
     QVERIFY(session.hasPrevious());
     QVERIFY(!session.hasNext());
 
     // test completed signal
     QSignalSpy spy(&session, SIGNAL(completed()));
-    session.setPhrase(phraseB1);
+    session.setPhrase(phraseB1.get());
     session.accept();
     QCOMPARE(spy.count(), 0);
     session.accept();

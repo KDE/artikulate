@@ -24,13 +24,13 @@
 #include "artikulatecore_export.h"
 #include <memory>
 #include <QObject>
-#include <QList>
 #include <QVector>
 #include <QStringList>
 
 class QSignalMapper;
 class QString;
 class Phrase;
+class IPhrase;
 class ICourse;
 
 class ARTIKULATECORE_EXPORT Unit : public QObject
@@ -52,9 +52,9 @@ public:
     void setCourse(ICourse* course);
     QString title() const;
     void setTitle(const QString &title);
-    QList<Phrase*> phraseList() const;
-    void addPhrase(Phrase *phrase);
-    QList<Phrase *> excludedSkeletonPhraseList() const;
+    QVector<std::shared_ptr<IPhrase>> phrases() const;
+    void addPhrase(std::shared_ptr<Phrase> phrase);
+    QList<IPhrase *> excludedSkeletonPhraseList() const;
 
     /**
      * Removes phrase with ID \p phraseId from unit and adds ID to set
@@ -71,9 +71,9 @@ Q_SIGNALS:
     void courseChanged();
     void displayPhraseTypeChanged();
     void modified();
-    void phraseAdded(Phrase*);
-    void phraseAboutToBeAdded(Phrase*,int);
-    void phraseRemoved(Phrase*);
+    void phraseAdded(IPhrase*); //TODO
+    void phraseAboutToBeAdded(IPhrase*,int);//TODO
+    void phraseRemoved(IPhrase*);//TODO
     void phraseAboutToBeRemoved(int,int);
 
 private:
@@ -82,7 +82,7 @@ private:
     QString m_foreignId;
     ICourse *m_course;
     QString m_title;
-    QList<Phrase*> m_phrases;
+    QVector<std::shared_ptr<IPhrase>> m_phrases;
     QSignalMapper *m_phraseSignalMapper;
 };
 

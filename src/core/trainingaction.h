@@ -23,7 +23,7 @@
 
 #include "artikulatecore_export.h"
 #include "trainingactionicon.h"
-#include "phrase.h"
+#include "iphrase.h"
 #include "trainingsession.h"
 #include <QObject>
 #include <QDebug>
@@ -45,7 +45,7 @@ class ARTIKULATECORE_EXPORT TrainingAction : public QObject
 public:
     TrainingAction(QObject *parent = nullptr);
     TrainingAction(const QString &text, QObject *parent = nullptr);
-    TrainingAction(Phrase *phrase, TrainingSession *session, QObject *parent = nullptr);
+    TrainingAction(std::shared_ptr<IPhrase> phrase, TrainingSession *session, QObject *parent = nullptr);
     void appendChild(QObject *child);
     bool hasChildren() const;
     Q_INVOKABLE void trigger();
@@ -54,7 +54,7 @@ public:
     void setChecked(bool checked);
     bool checked() const;
     QObject * icon() const;
-    Phrase * phrase() const;
+    IPhrase * phrase() const;
     QList<QObject*> actions() const;
 
 Q_SIGNALS:
@@ -72,7 +72,7 @@ private:
     bool m_checkable{false};
     QString m_tooltip{QString()};
     QList<QObject*> m_actions;
-    Phrase *m_phrase{nullptr};
+    std::shared_ptr<IPhrase> m_phrase;
     TrainingSession * m_trainingSession{nullptr};
 };
 

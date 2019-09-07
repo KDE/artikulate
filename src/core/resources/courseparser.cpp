@@ -160,9 +160,9 @@ std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl 
     return unit;
 }
 
-Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok)
+std::shared_ptr<Phrase> CourseParser::parsePhrase(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok)
 {
-    Phrase * phrase = new Phrase;
+    std::shared_ptr<Phrase> phrase = Phrase::create();
     ok = true;
 
     if (xml.tokenType() != QXmlStreamReader::StartElement
@@ -204,13 +204,13 @@ Phrase * CourseParser::parsePhrase(QXmlStreamReader &xml, const QUrl &path, QVec
             } else if (xml.name() == "type") {
                 const QString type = parseElement(xml, elementOk);
                 if (type == "word") {
-                    phrase->setType(Phrase::Word);
+                    phrase->setType(IPhrase::Type::Word);
                 } else if (type == "expression") {
-                    phrase->setType(Phrase::Expression);
+                    phrase->setType(IPhrase::Type::Expression);
                 } else if (type == "sentence") {
-                    phrase->setType(Phrase::Sentence);
+                    phrase->setType(IPhrase::Type::Sentence);
                 } else if (type == "paragraph") {
-                    phrase->setType(Phrase::Paragraph);
+                    phrase->setType(IPhrase::Type::Paragraph);
                 }
                 ok &= elementOk;
             } else if (xml.name() == "editState") {
@@ -313,11 +313,11 @@ QDomDocument CourseParser::serializedDocument(ICourse *course, bool trainingExpo
         unitTitleElement.appendChild(document.createTextNode(unit->title()));
 
         // construct phrases
-        for (Phrase *phrase : unit->phraseList()) {
+        for (auto &phrase : unit->phrases()) {
             if (trainingExport && phrase->soundFileUrl().isEmpty()) {
                 continue;
             }
-            unitPhraseListElement.appendChild(serializedPhrase(phrase, document));
+//            unitPhraseListElement.appendChild(serializedPhrase(phrase, document)); //FIXME
         }
 
         if (trainingExport && unitPhraseListElement.childNodes().isEmpty()) {
@@ -411,7 +411,7 @@ bool CourseParser::exportCourseToGhnsPackage(ICourse *course, const QString &exp
     }
 
     for (auto unit : course->units()) {
-        for (auto *phrase : unit->phraseList()) {
+        for (auto &phrase : unit->phrases()) {
             if (QFile::exists(phrase->soundFileUrl())) {
                 tar.addLocalFile(phrase->soundFileUrl(), phrase->id() + ".ogg");
             }
