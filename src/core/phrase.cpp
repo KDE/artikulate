@@ -29,7 +29,6 @@ Phrase::Phrase()
     : IEditablePhrase()
     , m_type(IPhrase::Type::AllTypes)
     , m_editState(IEditablePhrase::EditState::Unknown)
-    , m_unit(nullptr)
     , m_trainingProgress(0)
     , m_skipCounter(0)
     , m_excludedFromUnit(false)
@@ -55,10 +54,14 @@ std::shared_ptr<Phrase> Phrase::create()
     return phrase;
 }
 
-
 void Phrase::setSelf(std::shared_ptr<IPhrase> self)
 {
     m_self = self;
+}
+
+std::shared_ptr<IPhrase> Phrase::self() const
+{
+    return m_self.lock();
 }
 
 QString Phrase::id() const
@@ -211,14 +214,15 @@ void Phrase::setEditState(const QString &stateString)
     return;
 }
 
-Unit * Phrase::unit() const
+std::shared_ptr<IUnit> Phrase::unit() const
 {
-    return m_unit;
+    return m_unit.lock();
 }
 
-void Phrase::setUnit(Unit *unit)
+void Phrase::setUnit(std::shared_ptr<IUnit> unit)
 {
-    if (unit == m_unit) {
+    Q_ASSERT(unit);
+    if (unit == m_unit.lock()) {
         return;
     }
     m_unit = unit;
@@ -248,7 +252,7 @@ QString Phrase::soundFileUrl() const
 QString Phrase::soundFileOutputPath() const
 {
     if (m_nativeSoundFile.isEmpty()) {
-        QString outputDir = m_unit->course()->file().path() + '/';
+        QString outputDir = m_unit.lock()->course()->file().path() + '/';
         //TODO take care that this is proper ASCII
         return outputDir + id() + ".ogg";
     } else {

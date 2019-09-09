@@ -39,7 +39,7 @@ public:
     virtual void setI18nTitle(QString title) = 0;
     virtual void setDescription(QString description) = 0;
     virtual void setLanguage(std::shared_ptr<ILanguage> language) = 0;
-    virtual std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) = 0;
+    virtual std::shared_ptr<Unit> addUnit(std::shared_ptr<Unit> unit) = 0;
     /**
      * @brief Export course to specified file.
      * @param filePath the absolute path to the export file

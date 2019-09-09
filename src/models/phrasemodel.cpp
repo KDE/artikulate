@@ -86,7 +86,7 @@ void PhraseModel::setCourse(ICourse *course)
             // insert and connect all already existing phrases
             int phrases = unit->phrases().count();
             for (int i = 0; i < phrases; ++i) {
-                onPhraseAboutToBeAdded(unit->phrases().at(i).get(), i);
+                onPhraseAboutToBeAdded(unit->phrases().at(i), i);
                 endInsertRows();
             }
         }
@@ -197,11 +197,11 @@ QModelIndex PhraseModel::index(int row, int column, const QModelIndex &parent) c
 
 QModelIndex PhraseModel::indexPhrase(Phrase *phrase) const
 {
-//    if (!phrase) {
-        return QModelIndex(); //FIXME
-//    }
-//    Unit *unit = phrase->unit();
-//    return createIndex(unit->phrases().indexOf(phrase), 0, unit);
+    if (!phrase) {
+        return QModelIndex();
+    }
+    auto unit = phrase->unit();
+    return createIndex(unit->phrases().indexOf(phrase->self()), 0, unit.get());
 }
 
 QModelIndex PhraseModel::indexUnit(Unit *unit) const
@@ -224,7 +224,7 @@ bool PhraseModel::isUnit(const QModelIndex &index) const
     return (index.internalPointer() == nullptr);
 }
 
-void PhraseModel::onPhraseAboutToBeAdded(IPhrase *phrase, int index)
+void PhraseModel::onPhraseAboutToBeAdded(std::shared_ptr<IPhrase> phrase, int index)
 {
     int uIndex{ -1 };
     for (int i = 0; i < m_course->units().size(); ++i) {
@@ -233,7 +233,7 @@ void PhraseModel::onPhraseAboutToBeAdded(IPhrase *phrase, int index)
             break;
         }
     }
-    connect(phrase, &IPhrase::textChanged, m_phraseSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
+    connect(phrase.get(), &IPhrase::textChanged, m_phraseSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
     beginInsertRows(createIndex(uIndex, 0), index, index);
 }
 

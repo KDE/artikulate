@@ -69,9 +69,9 @@ QDomDocument CourseParser::loadDomDocument(const QUrl &path, const QXmlSchema &s
     return document;
 }
 
-std::vector<std::unique_ptr<Unit>> CourseParser::parseUnits(const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes)
+std::vector<std::shared_ptr<Unit>> CourseParser::parseUnits(const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes)
 {
-    std::vector<std::unique_ptr<Unit>> units;
+    std::vector<std::shared_ptr<Unit>> units;
 
     QFileInfo info(path.toLocalFile());
     if (!info.exists()) {
@@ -115,9 +115,9 @@ std::vector<std::unique_ptr<Unit>> CourseParser::parseUnits(const QUrl &path, QV
     return units;
 }
 
-std::unique_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok)
+std::shared_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok)
 {
-    std::unique_ptr<Unit> unit(new Unit);
+    std::shared_ptr<Unit> unit = Unit::create();
     ok = true;
 
     if (xml.tokenType() != QXmlStreamReader::StartElement

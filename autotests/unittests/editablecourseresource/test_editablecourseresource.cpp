@@ -65,14 +65,14 @@ void TestEditableCourseResource::loadCourseResource()
     QVERIFY(course->language() != nullptr);
     QCOMPARE(course->language()->id(), "de");
     QCOMPARE(course->units().count(), 1);
-    QCOMPARE(course->units().first()->course(), course.get());
+    QCOMPARE(course->units().first()->course(), course);
 
     const auto unit = course->units().first();
     QVERIFY(unit != nullptr);
     QCOMPARE(unit->id(), "1");
     QCOMPARE(unit->title(), QStringLiteral("Auf der Straße"));
     QCOMPARE(unit->foreignId(), "{dd60f04a-eb37-44b7-9787-67aaf7d3578d}");
-    QCOMPARE(unit->course(), course.get());
+    QCOMPARE(unit->course(), course);
 
     QCOMPARE(unit->phrases().count(), 3);
     // note: this test takes the silent assumption that phrases are added to the list in same
@@ -95,7 +95,7 @@ void TestEditableCourseResource::unitAddAndRemoveHandling()
     auto course = EditableCourseResource::create(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
 
     // begin of test
-    std::unique_ptr<Unit> unit(new Unit);
+    auto unit = Unit::create();
     unit->setId("testunit");
     const int initialUnitNumber = course->units().count();
     QCOMPARE(initialUnitNumber, 1);
@@ -107,7 +107,7 @@ void TestEditableCourseResource::unitAddAndRemoveHandling()
     QCOMPARE(course->units().count(), initialUnitNumber + 1);
     QCOMPARE(spyAboutToBeAdded.count(), 1);
     QCOMPARE(spyAdded.count(), 1);
-    QCOMPARE(sharedUnit->course(), course.get());
+    QCOMPARE(sharedUnit->course(), course);
 }
 
 void TestEditableCourseResource::coursePropertyChanges()
@@ -307,7 +307,7 @@ void TestEditableCourseResource::modifiedStatus()
         course->exportToFile(QUrl::fromLocalFile(outputFile.fileName()));
         auto loadedCourse = EditableCourseResource::create(QUrl::fromLocalFile(outputFile.fileName()), &repository);
         QCOMPARE(loadedCourse->isModified(), false);
-        std::unique_ptr<Unit> unit(new Unit);
+        auto unit = Unit::create();
         unit->setId("testunit");
         loadedCourse->addUnit(std::move(unit));
         QCOMPARE(loadedCourse->isModified(), true);
@@ -328,7 +328,7 @@ void TestEditableCourseResource::skeletonUpdate()
     importPhrase->setId("importPhraseId");
     importPhrase->setText("phraseText");
     importPhrase->setType(IPhrase::Type::Sentence);
-    auto importUnit = std::shared_ptr<Unit>(new Unit);
+    auto importUnit = Unit::create();
     importUnit->setId("importId");
     importUnit->addPhrase(importPhrase);
     auto skeleton = CourseStub::create(language, {importUnit});

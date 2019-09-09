@@ -34,8 +34,7 @@
 #include <QUrl>
 
 Unit::Unit(QObject *parent)
-    : QObject(parent)
-    , m_course(nullptr)
+    : IEditableUnit(parent)
     , m_phraseSignalMapper(new QSignalMapper(this))
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
@@ -48,6 +47,23 @@ Unit::~Unit()
     }
     m_phrases.clear();
     m_phraseSignalMapper->deleteLater();
+}
+
+std::shared_ptr<Unit> Unit::create()
+{
+    std::shared_ptr<Unit> unit(new Unit);
+    unit->setSelf(unit);
+    return unit;
+}
+
+void Unit::setSelf(std::shared_ptr<IUnit> self)
+{
+    m_self = self;
+}
+
+std::shared_ptr<IUnit> Unit::self() const
+{
+     return m_self.lock();
 }
 
 QString Unit::id() const
@@ -74,14 +90,14 @@ void Unit::setForeignId(const QString &id)
     m_foreignId = id;
 }
 
-ICourse *Unit::course() const
+std::shared_ptr<ICourse> Unit::course() const
 {
-    return m_course;
+    return m_course.lock();
 }
 
-void Unit::setCourse(ICourse *course)
+void Unit::setCourse(std::shared_ptr<ICourse> course)
 {
-    if (course == m_course) {
+    if (course == m_course.lock()) {
         return;
     }
     m_course = course;
@@ -107,7 +123,7 @@ QVector<std::shared_ptr<IPhrase>> Unit::phrases() const
     return m_phrases;
 }
 
-void Unit::addPhrase(std::shared_ptr<Phrase> phrase)
+void Unit::addPhrase(std::shared_ptr<IEditablePhrase> phrase)
 {
     auto iter = m_phrases.constBegin();
     while (iter != m_phrases.constEnd()) {
@@ -117,12 +133,12 @@ void Unit::addPhrase(std::shared_ptr<Phrase> phrase)
         }
         ++iter;
     }
-    phrase->setUnit(this);
-    emit phraseAboutToBeAdded(phrase.get(), m_phrases.length());
+    phrase->setUnit(m_self.lock());
+    emit phraseAboutToBeAdded(phrase, m_phrases.length());
     m_phrases.append(phrase);
     m_phraseSignalMapper->setMapping(phrase.get(), phrase->id());
 
-    emit phraseAdded(phrase.get());
+    emit phraseAdded(phrase);
 
     connect(phrase.get(), &Phrase::typeChanged, m_phraseSignalMapper,
         static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));

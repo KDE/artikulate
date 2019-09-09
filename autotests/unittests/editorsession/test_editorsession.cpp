@@ -146,8 +146,8 @@ void TestEditorSession::iterateCourse()
     auto language = std::make_shared<LanguageStub>("de");
 
     // course
-    std::shared_ptr<Unit> unitA(new Unit);
-    std::shared_ptr<Unit> unitB(new Unit);
+    auto unitA = Unit::create();
+    auto unitB = Unit::create();
     std::shared_ptr<Phrase> phraseA1 = Phrase::create();
     std::shared_ptr<Phrase> phraseA2 = Phrase::create();
     std::shared_ptr<Phrase> phraseB1 = Phrase::create();
@@ -178,45 +178,45 @@ void TestEditorSession::iterateCourse()
 
     // session assumed to initialize with first units's first phrase
     QCOMPARE(session.activeUnit(), unitA.get());
-    QCOMPARE(session.activePhrase(), phraseA1);
+    QCOMPARE(session.activePhrase()->self(), phraseA1);
     QVERIFY(course.get() == session.course());
 
     // test direct unit setters
     session.setUnit(unitA.get());
-    QCOMPARE(session.activeUnit(), unitA.get());
+    QCOMPARE(session.activeUnit()->self(), unitA);
     session.setUnit(unitB.get());
-    QCOMPARE(session.activeUnit(), unitB.get());
+    QCOMPARE(session.activeUnit()->self(), unitB);
 
     // test direct phrase setters
-    session.setPhrase(phraseA1);
-    QCOMPARE(session.activePhrase(), phraseA1);
-    QCOMPARE(session.activeUnit(), unitA.get());
-    session.setPhrase(phraseB1);
-    QCOMPARE(session.activePhrase(), phraseB1);
-    QCOMPARE(session.activeUnit(), unitB.get());
+    session.setActivePhrase(phraseA1.get());
+    QCOMPARE(session.activePhrase()->self(), phraseA1);
+    QCOMPARE(session.activeUnit()->self(), unitA);
+    session.setActivePhrase(phraseB1.get());
+    QCOMPARE(session.activePhrase()->self(), phraseB1);
+    QCOMPARE(session.activeUnit()->self(), unitB);
 
     // test phrase forward iterators
-    session.setPhrase(phraseA1);
-    QCOMPARE(session.activeUnit(), unitA.get());
+    session.setActivePhrase(phraseA1.get());
+    QCOMPARE(session.activeUnit()->self(), unitA);
     QCOMPARE(session.activePhrase()->id(), phraseA1->id());
     QVERIFY(session.hasNextPhrase());
     session.switchToNextPhrase();
-    QCOMPARE(session.activeUnit(), unitA.get());
+    QCOMPARE(session.activeUnit()->self(), unitA);
     QCOMPARE(session.activePhrase()->id(), phraseA2->id());
     session.switchToNextPhrase();
-    QCOMPARE(session.activePhrase(), phraseB1);
+    QCOMPARE(session.activePhrase()->self(), phraseB1);
     session.switchToNextPhrase();
-    QCOMPARE(session.activePhrase(), phraseB2);
+    QCOMPARE(session.activePhrase()->self(), phraseB2);
     QVERIFY(!session.hasNextPhrase());
 
     // at the end, do not iterate further
     session.switchToNextPhrase();
-    QCOMPARE(session.activePhrase(), phraseB2);
+    QCOMPARE(session.activePhrase()->self(), phraseB2);
 
     // test phrase backward iterators
     QVERIFY(session.hasPreviousPhrase());
     session.switchToPreviousPhrase();
-    QCOMPARE(session.activePhrase(), phraseB1);
+    QCOMPARE(session.activePhrase()->self(), phraseB1);
     session.switchToPreviousPhrase();
     QCOMPARE(session.activePhrase()->id(), phraseA2->id());
     session.switchToPreviousPhrase();

@@ -56,8 +56,8 @@ void TestTrainingSession::createTrainingSessionWithoutUnits()
 void TestTrainingSession::createTrainingSessionWithEmptySounds()
 {
     auto language = std::make_shared<LanguageStub>("de");
-    std::shared_ptr<Unit> unitA(new Unit);
-    std::shared_ptr<Unit> unitB(new Unit);
+    auto unitA = Unit::create();
+    auto unitB = Unit::create();
     std::shared_ptr<Phrase> phraseA1 = Phrase::create();
     std::shared_ptr<Phrase> phraseA2 = Phrase::create();
     std::shared_ptr<Phrase> phraseB1 = Phrase::create();
@@ -87,8 +87,8 @@ void TestTrainingSession::createTrainingSessionWithEmptySounds()
 void TestTrainingSession::createTrainingSessionWithEmptyUnits()
 {
     auto language = std::make_shared<LanguageStub>("de");
-    std::shared_ptr<Unit> unitA(new Unit);
-    std::shared_ptr<Unit> unitB(new Unit);
+    auto unitA = Unit::create();
+    auto unitB = Unit::create();
     CourseStub course(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
     LearnerProfile::ProfileManager manager;
     TrainingSession session(&manager);
@@ -99,7 +99,7 @@ void TestTrainingSession::createTrainingSessionWithEmptyUnits()
 void TestTrainingSession::createTrainingSessionWithUnitsAndPhrases()
 {
     auto language = std::make_shared<LanguageStub>("de");
-    std::shared_ptr<Unit> unit(new Unit);
+    auto unit = Unit::create();
     std::shared_ptr<Phrase> firstPhrase = Phrase::create();
     std::shared_ptr<Phrase> secondPhrase = Phrase::create();
     unit->addPhrase(firstPhrase);
@@ -115,8 +115,8 @@ void TestTrainingSession::createTrainingSessionWithUnitsAndPhrases()
 void TestTrainingSession::iterateCourse()
 {
     auto language = std::make_shared<LanguageStub>("de");
-    std::shared_ptr<Unit> unitA(new Unit);
-    std::shared_ptr<Unit> unitB(new Unit);
+    auto unitA = Unit::create();
+    auto unitB = Unit::create();
     std::shared_ptr<Phrase> phraseA1 = Phrase::create();
     std::shared_ptr<Phrase> phraseA2 = Phrase::create();
     std::shared_ptr<Phrase> phraseB1 = Phrase::create();
@@ -141,8 +141,8 @@ void TestTrainingSession::iterateCourse()
     session.setCourse(&course);
 
     // session assumed to initialize with first units's first phrase
-    QCOMPARE(session.activeUnit(), unitA.get());
-    QCOMPARE(session.activePhrase(), phraseA1.get());
+    QCOMPARE(session.activeUnit()->self(), unitA);
+    QCOMPARE(session.activePhrase()->self(), phraseA1);
     QVERIFY(&course == session.course());
 
     // test direct unit setters

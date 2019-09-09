@@ -87,7 +87,7 @@ public:
 
     void setLanguage(std::shared_ptr<ILanguage> language);
 
-    std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit);
+    std::shared_ptr<Unit> addUnit(std::shared_ptr<Unit> unit);
 
     void sync();
 

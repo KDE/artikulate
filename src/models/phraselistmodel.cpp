@@ -76,7 +76,7 @@ void PhraseListModel::setUnit(Unit *unit)
         // insert and connect all already existing phrases
         int phrases = m_unit->phrases().count();
         for (int i = 0; i < phrases; ++i) {
-            onPhraseAboutToBeAdded(m_unit->phrases().at(i).get(), i);
+            onPhraseAboutToBeAdded(m_unit->phrases().at(i), i);
             endInsertRows();
             emit countChanged();
         }
@@ -143,11 +143,11 @@ int PhraseListModel::rowCount(const QModelIndex &parent) const
     return m_unit->phrases().count();
 }
 
-void PhraseListModel::onPhraseAboutToBeAdded(IPhrase *phrase, int index)
+void PhraseListModel::onPhraseAboutToBeAdded(std::shared_ptr<IPhrase> phrase, int index)
 {
-    connect(phrase, SIGNAL(textChanged()), m_signalMapper, SLOT(map()));
-    connect(phrase, SIGNAL(typeChanged()), m_signalMapper, SLOT(map()));
-    connect(phrase, SIGNAL(excludedChanged()), m_signalMapper, SLOT(map()));
+    connect(phrase.get(), SIGNAL(textChanged()), m_signalMapper, SLOT(map()));
+    connect(phrase.get(), SIGNAL(typeChanged()), m_signalMapper, SLOT(map()));
+    connect(phrase.get(), SIGNAL(excludedChanged()), m_signalMapper, SLOT(map()));
     beginInsertRows(QModelIndex(), index, index);
 }
 

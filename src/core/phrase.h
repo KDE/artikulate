@@ -23,6 +23,7 @@
 
 #include "artikulatecore_export.h"
 #include "iphrase.h"
+#include "iunit.h"
 #include "ieditablephrase.h"
 #include <QUrl>
 #include <QList>
@@ -31,7 +32,7 @@
 
 class QString;
 class Phoneme;
-class Unit;
+class IUnit;
 class QUrl;
 
 class ARTIKULATECORE_EXPORT Phrase : public IEditablePhrase
@@ -43,7 +44,6 @@ class ARTIKULATECORE_EXPORT Phrase : public IEditablePhrase
     Q_PROPERTY(QString soundFileUrl READ soundFileUrl NOTIFY soundChanged)
     Q_PROPERTY(IPhrase::Type type READ type WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(Phrase::EditState editState READ editState WRITE setEditState NOTIFY editStateChanged)
-    Q_PROPERTY(Unit *unit READ unit NOTIFY unitChanged)
     Q_PROPERTY(bool excluded READ isExcluded NOTIFY excludedChanged)
     Q_PROPERTY(int progress READ progress NOTIFY progressChanged)
 public:
@@ -54,6 +54,7 @@ public:
     Q_ENUM(Progress)
 
     static std::shared_ptr<Phrase> create();
+    std::shared_ptr<IPhrase> self() const override;
 
     ~Phrase() override;
 
@@ -65,8 +66,8 @@ public:
     void setText(QString text) override;
     QString i18nText() const override;
     void seti18nText(QString text) override;
-    Unit * unit() const override;
-    void setUnit(Unit *unit) override;
+    std::shared_ptr<IUnit> unit() const override;
+    void setUnit(std::shared_ptr<IUnit> unit) override;
     IPhrase::Type type() const override;
     QString typeString() const override;
     void setType(IPhrase::Type type) override;
@@ -106,7 +107,7 @@ private:
     QString m_i18nText;
     IPhrase::Type m_type;
     EditState m_editState;
-    Unit *m_unit;
+    std::weak_ptr<IUnit> m_unit;
     unsigned m_trainingProgress;
     int m_skipCounter; // count how many skips occurred since last progress update
     bool m_excludedFromUnit;

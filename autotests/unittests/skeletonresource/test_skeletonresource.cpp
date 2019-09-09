@@ -71,7 +71,7 @@ void TestSkeletonResource::loadSkeletonResource()
     QCOMPARE(unit->title(), QStringLiteral("Numbers"));
     QCOMPARE(unit->phrases().count(), 2);
     QVERIFY(unit->course() != nullptr);
-    QCOMPARE(unit->course(), skeleton.get());
+    QCOMPARE(unit->course().get(), skeleton.get());
 
     // note: this test takes the silent assumption that phrases are added to the list in same
     //   order as they are defined in the file. This assumption should be made explicit or dropped
@@ -97,7 +97,7 @@ void TestSkeletonResource::unitAddAndRemoveHandling()
     auto skeleton = SkeletonResource::create(QUrl::fromLocalFile(courseFile), &repository);
 
     // begin of test
-    std::unique_ptr<Unit> unit(new Unit);
+    auto unit = Unit::create();
     unit->setId("testunit");
     const int initialUnitNumber = skeleton->units().count();
     QCOMPARE(initialUnitNumber, 2);
@@ -109,7 +109,7 @@ void TestSkeletonResource::unitAddAndRemoveHandling()
     QCOMPARE(skeleton->units().count(), initialUnitNumber + 1);
     QCOMPARE(spyAboutToBeAdded.count(), 1);
     QCOMPARE(spyAdded.count(), 1);
-    QCOMPARE(sharedUnit->course(), skeleton.get());
+    QCOMPARE(sharedUnit->course(), skeleton);
 }
 
 void TestSkeletonResource::coursePropertyChanges()

@@ -23,6 +23,7 @@
 #include "core/resources/editablecourseresource.h"
 #include "core/resources/skeletonresource.h"
 #include "core/unit.h"
+#include "core/iunit.h"
 #include "core/phrase.h"
 #include "core/contributorrepository.h"
 #include "artikulate_debug.h"
@@ -171,45 +172,46 @@ void EditorSession::updateDisplayedUnit()
     }
 }
 
-Unit * EditorSession::unit() const
+IUnit * EditorSession::unit() const
 {
-    return m_unit;
+    return m_unit.get();
 }
 
-Unit * EditorSession::activeUnit() const
+IUnit * EditorSession::activeUnit() const
 {
-    return m_unit;
+    return m_unit.get();
 }
 
-void EditorSession::setUnit(Unit *unit)
+void EditorSession::setUnit(IUnit *unit)
 {
-    if (m_unit == unit) {
-        return;
-    }
-    m_unit = unit;
-    if (!m_unit->phrases().isEmpty()) {
-        setPhrase(m_unit->phrases().first());
+    if (!unit) {
+        m_unit.reset();
     } else {
-        setPhrase(nullptr);
+        m_unit = unit->self();
+    }
+    if (m_unit && !m_unit->phrases().isEmpty()) {
+        setActivePhrase(m_unit->phrases().first().get());
+    } else {
+        setActivePhrase(nullptr);
     }
     emit unitChanged();
 }
 
-void EditorSession::setPhrase(std::shared_ptr<IPhrase> phrase)
+void EditorSession::setActivePhrase(IPhrase * phrase)
 {
-    if (m_phrase == phrase) {
+    if (m_phrase == phrase->self()) {
         return;
     }
     if (phrase) {
-        setUnit(phrase->unit());
+        setUnit(phrase->unit().get());
     }
-    m_phrase = phrase;
+    m_phrase = phrase->self();
     emit phraseChanged();
 }
 
-std::shared_ptr<IPhrase> EditorSession::activePhrase() const
+IPhrase * EditorSession::activePhrase() const
 {
-    return m_phrase;
+    return m_phrase.get();
 }
 
 std::shared_ptr<IPhrase> EditorSession::previousPhrase() const
@@ -225,7 +227,7 @@ std::shared_ptr<IPhrase> EditorSession::previousPhrase() const
         int uIndex{ -1 };
         for (int i = 0; i < unit->course()->units().size(); ++i) {
             auto testUnit = unit->course()->units().at(i);
-            if (testUnit.get() == unit) {
+            if (testUnit.get() == unit.get()) {
                 uIndex = i;
                 break;
             }
@@ -246,11 +248,11 @@ std::shared_ptr<IPhrase> EditorSession::nextPhrase() const
     if (index < m_phrase->unit()->phrases().length() - 1) {
         return m_phrase->unit()->phrases().at(index + 1);
     } else {
-        Unit *unit = m_phrase->unit();
+        auto unit = m_phrase->unit();
         int uIndex{ -1 };
         for (int i = 0; i < unit->course()->units().size(); ++i) {
             auto testUnit = unit->course()->units().at(i);
-            if (testUnit.get() == unit) {
+            if (testUnit.get() == unit.get()) {
                 uIndex = i;
                 break;
             }
@@ -269,14 +271,14 @@ std::shared_ptr<IPhrase> EditorSession::nextPhrase() const
 void EditorSession::switchToPreviousPhrase()
 {
     if (hasPreviousPhrase()) {
-        setPhrase(previousPhrase());
+        setActivePhrase(previousPhrase().get());
     }
 }
 
 void EditorSession::switchToNextPhrase()
 {
     if (hasNextPhrase()) {
-        setPhrase(nextPhrase());
+        setActivePhrase(nextPhrase().get());
     }
 }
 
@@ -290,7 +292,7 @@ bool EditorSession::hasPreviousPhrase() const
     const int phraseIndex = m_phrase->unit()->phrases().indexOf(m_phrase);
     int unitIndex = -1;
     for (int i = 0; i < m_unit->course()->units().size(); ++i) {
-        if (m_unit->course()->units().at(i).get() == m_unit) {
+        if (m_unit->course()->units().at(i) == m_unit) {
             unitIndex = i;
             break;
         }
@@ -311,7 +313,7 @@ bool EditorSession::hasNextPhrase() const
     const int phraseIndex = m_phrase->unit()->phrases().indexOf(m_phrase);
     int unitIndex = -1;
     for (int i = 0; i < m_unit->course()->units().size(); ++i) {
-        if (m_unit->course()->units().at(i).get() == m_unit) {
+        if (m_unit->course()->units().at(i) == m_unit) {
             unitIndex = i;
             break;
         }

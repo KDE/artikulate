@@ -63,7 +63,7 @@ Q_SIGNALS:
     void typeChanged();
 
 private Q_SLOTS:
-    void onPhraseAboutToBeAdded(IPhrase *phrase, int index);
+    void onPhraseAboutToBeAdded(std::shared_ptr<IPhrase> phrase, int index);
     void onPhraseAdded();
     void onPhrasesAboutToBeRemoved(int first, int last);
     void onPhrasesRemoved();

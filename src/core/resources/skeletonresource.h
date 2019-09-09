@@ -56,7 +56,7 @@ public:
     QVector<std::shared_ptr<Unit>> units() override;
     QUrl file() const override;
     bool exportToFile(const QUrl &filePath) const override;
-    std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override;
+    std::shared_ptr<Unit> addUnit(std::shared_ptr<Unit> unit) override;
     bool sync() override;
     void updateFrom(std::shared_ptr<ICourse>) override;
     bool isModified() const override;

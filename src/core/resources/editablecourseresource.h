@@ -94,7 +94,7 @@ public:
     bool sync() override;
     bool exportToFile(const QUrl &filePath) const override;
 
-    std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override;
+    std::shared_ptr<Unit> addUnit(std::shared_ptr<Unit> unit) override;
     QVector<std::shared_ptr<Unit>> units() override;
     void updateFrom(std::shared_ptr<ICourse> course) override;
     bool isModified() const override;

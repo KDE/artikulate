@@ -28,7 +28,7 @@
 #include <memory>
 
 class QString;
-class Unit;
+class IUnit;
 class Phoneme;
 
 class ARTIKULATECORE_EXPORT IPhrase : public QObject
@@ -39,7 +39,6 @@ class ARTIKULATECORE_EXPORT IPhrase : public QObject
     Q_PROPERTY(QString i18nText READ i18nText NOTIFY i18nTextChanged)
     Q_PROPERTY(QString soundFileUrl READ soundFileUrl NOTIFY soundChanged)
     Q_PROPERTY(IPhrase::Type type READ type NOTIFY typeChanged)
-    Q_PROPERTY(Unit *unit READ unit NOTIFY unitChanged)
 
 public:
     enum class Type {
@@ -57,12 +56,13 @@ public:
     virtual QString foreignId() const = 0;
     virtual QString text() const = 0;
     virtual QString i18nText() const = 0;
-    virtual Unit * unit() const = 0;
+    virtual std::shared_ptr<IUnit> unit() const = 0;
     virtual IPhrase::Type type() const = 0;
     virtual QString typeString() const = 0;
     virtual QString soundFileUrl() const = 0;
     virtual QUrl sound() const = 0;
     virtual QVector<Phoneme *> phonemes() const = 0;
+    virtual std::shared_ptr<IPhrase> self() const = 0;
 
 protected:
     IPhrase()

@@ -70,14 +70,14 @@ void TestCourseResource::loadCourseResource()
     QVERIFY(course->language() != nullptr);
     QCOMPARE(course->language()->id(), "de");
     QCOMPARE(course->units().count(), 1);
-    QCOMPARE(course->units().first()->course(), course.get());
+    QCOMPARE(course->units().first()->course(), course);
 
     const auto unit = course->units().first();
     QVERIFY(unit != nullptr);
     QCOMPARE(unit->id(), "1");
     QCOMPARE(unit->title(), QStringLiteral("Auf der Straße"));
     QCOMPARE(unit->foreignId(), "{dd60f04a-eb37-44b7-9787-67aaf7d3578d}");
-    QCOMPARE(unit->course(), course.get());
+    QCOMPARE(unit->course(), course);
 
     QCOMPARE(unit->phrases().count(), 3);
     // note: this test takes the silent assumption that phrases are added to the list in same
@@ -103,7 +103,7 @@ void TestCourseResource::unitAddAndRemoveHandling()
     auto course = CourseResource::create(QUrl::fromLocalFile(courseFile), &repository);
 
     // begin of test
-    std::unique_ptr<Unit> unit(new Unit);
+    auto unit = Unit::create();
     unit->setId("testunit");
     const int initialUnitNumber = course->units().count();
     QCOMPARE(initialUnitNumber, 1);
@@ -115,7 +115,7 @@ void TestCourseResource::unitAddAndRemoveHandling()
     QCOMPARE(course->units().count(), initialUnitNumber + 1);
     QCOMPARE(spyAboutToBeAdded.count(), 1);
     QCOMPARE(spyAdded.count(), 1);
-    QCOMPARE(sharedUnit->course(), course.get());
+    QCOMPARE(sharedUnit->course(), course);
 }
 
 void TestCourseResource::coursePropertyChanges()

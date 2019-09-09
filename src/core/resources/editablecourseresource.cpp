@@ -24,7 +24,7 @@
 #include "core/phrase.h"
 #include "core/unit.h"
 #include "courseparser.h"
-
+#include <memory>
 #include <KLocalizedString>
 #include <KTar>
 #include <QDir>
@@ -42,7 +42,7 @@ EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceReposi
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 
     for (auto unit : m_course->units()) {
-        unit->setCourse(this);
+        unit->setCourse(self());
     }
 
     connect(m_course.get(), &ICourse::unitAboutToBeAdded, this, &ICourse::unitAboutToBeAdded);
@@ -182,11 +182,11 @@ bool EditableCourseResource::exportToFile(const QUrl &filePath) const
     return true;
 }
 
-std::shared_ptr<Unit> EditableCourseResource::addUnit(std::unique_ptr<Unit> unit)
+std::shared_ptr<Unit> EditableCourseResource::addUnit(std::shared_ptr<Unit> unit)
 {
     m_modified = true;
     auto sharedUnit = m_course->addUnit(std::move(unit));
-    sharedUnit->setCourse(this);
+    sharedUnit->setCourse(self());
     return sharedUnit;
 }
 
@@ -204,7 +204,7 @@ void EditableCourseResource::updateFrom(std::shared_ptr<ICourse> skeleton)
             });
         if (it == m_course->units().cend()) {
             // import complete unit
-            auto importUnit = std::unique_ptr<Unit>(new Unit);
+            auto importUnit = Unit::create();
             importUnit->setId(skeletonUnit->id());
             importUnit->setForeignId(skeletonUnit->id());
             importUnit->setTitle(skeletonUnit->title());
@@ -227,7 +227,7 @@ void EditableCourseResource::updateFrom(std::shared_ptr<ICourse> skeleton)
                 importPhrase->setText(skeletonPhrase->text());
                 importPhrase->seti18nText(skeletonPhrase->i18nText());
                 importPhrase->setType(skeletonPhrase->type());
-                importPhrase->setUnit(matchingUnit.get());
+                importPhrase->setUnit(matchingUnit);
                 matchingUnit->addPhrase(importPhrase);
             }
         }
@@ -252,8 +252,8 @@ Unit *EditableCourseResource::createUnit()
     }
 
     // create unit
-    std::unique_ptr<Unit> unit(new Unit(this));
-    unit->setCourse(this);
+    std::shared_ptr<Unit> unit = Unit::create();
+    unit->setCourse(self());
     unit->setId(id);
     unit->setTitle(i18n("New Unit"));
     auto sharedUnit = addUnit(std::move(unit));

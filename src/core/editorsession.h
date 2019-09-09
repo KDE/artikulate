@@ -60,14 +60,14 @@ class ARTIKULATECORE_EXPORT EditorSession : public QObject
     Q_PROPERTY(IEditableCourse *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
     Q_PROPERTY(IEditableCourse *course READ course WRITE setCourse NOTIFY courseChanged)
 
-    // editor elements depending on curently selected mode, skeleton and course
+    // editor elements depending on currently selected mode, skeleton and course
     /**
      * @brief the displayed course (skeleton or course) depending on the user selection
      */
     Q_PROPERTY(IEditableCourse *displayedCourse READ displayedCourse NOTIFY displayedCourseChanged)
     Q_PROPERTY(ILanguage *language READ language NOTIFY languageChanged)
-    Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
-//    Q_PROPERTY(IPhrase *phrase READ phrase WRITE setPhrase NOTIFY phraseChanged) //FIXME
+    Q_PROPERTY(IUnit *unit READ unit WRITE setUnit NOTIFY unitChanged)
+    Q_PROPERTY(IPhrase *phrase READ activePhrase WRITE setActivePhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasPreviousPhrase READ hasPreviousPhrase NOTIFY phraseChanged)
 
@@ -89,11 +89,11 @@ public:
      */
     Q_INVOKABLE void setCourseByLanguage(ILanguage *language);
     IEditableCourse * displayedCourse() const;
-    Q_DECL_DEPRECATED Unit * unit() const;
-    Unit * activeUnit() const;
-    void setUnit(Unit *unit);
-    std::shared_ptr<IPhrase> activePhrase() const;
-    void setPhrase(std::shared_ptr<IPhrase> phrase);
+    Q_DECL_DEPRECATED IUnit * unit() const;
+    IUnit * activeUnit() const;
+    void setUnit(IUnit *unit);
+    IPhrase * activePhrase() const;
+    void setActivePhrase(IPhrase * phrase);
     IPhrase::Type phraseType() const;
     void setPhraseType(IPhrase::Type type);
     bool hasPreviousPhrase() const;
@@ -126,7 +126,7 @@ private:
     IEditableCourse *m_skeleton{ nullptr };
     ILanguage *m_language{ nullptr };
     IEditableCourse *m_course{ nullptr };
-    Unit *m_unit{ nullptr };
+    std::shared_ptr<IUnit> m_unit{ nullptr };
     std::shared_ptr<IPhrase> m_phrase;
 };
 

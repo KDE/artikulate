@@ -83,21 +83,21 @@ void TrainingSession::setCourse(ICourse *course)
     emit courseChanged();
 }
 
-Unit * TrainingSession::activeUnit() const
+IUnit * TrainingSession::activeUnit() const
 {
     if (auto phrase = activePhrase()) {
-        return phrase->unit();
+        return phrase->unit().get();
     }
     return nullptr;
 }
 
-void TrainingSession::setUnit(Unit *unit)
+void TrainingSession::setUnit(IUnit *unit)
 {
     // checking phrases in increasing order ensures that always the first phrase is selected
     for (int i = 0; i < m_actions.count(); ++i) {
         for (int j = 0; j < m_actions.at(i)->actions().count(); ++j) {
             const auto testPhrase = qobject_cast<TrainingAction*>(m_actions.at(i)->actions().at(j))->phrase();
-            if (unit == testPhrase->unit()) {
+            if (unit == testPhrase->unit().get()) {
                 if (auto action = activeAction()) {
                     action->setChecked(false);
                 }

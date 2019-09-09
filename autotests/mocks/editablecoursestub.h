@@ -36,7 +36,7 @@ public:
         , m_units(units)
     {
         for (auto unit : m_units) {
-            unit->setCourse(this);
+            unit->setCourse(self());
         }
     }
     ~EditableCourseStub() override;
@@ -112,11 +112,11 @@ public:
     {
         return m_units;
     }
-    std::shared_ptr<Unit> addUnit(std::unique_ptr<Unit> unit) override
+    std::shared_ptr<Unit> addUnit(std::shared_ptr<Unit> unit) override
     {
         m_units.append(std::move(unit));
         auto unitPtr = m_units.last();
-        unitPtr->setCourse(this);
+        unitPtr->setCourse(self());
         return unitPtr;
     }
     QUrl file() const override

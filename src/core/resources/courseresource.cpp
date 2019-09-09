@@ -261,10 +261,10 @@ void CourseResource::setLanguage(std::shared_ptr<ILanguage> language)
     emit languageChanged();
 }
 
-std::shared_ptr<Unit> CourseResource::addUnit(std::unique_ptr<Unit> unit)
+std::shared_ptr<Unit> CourseResource::addUnit(std::shared_ptr<Unit> unit)
 {
     std::shared_ptr<Unit> storedUnit(std::move(unit));
-    storedUnit->setCourse(this);
+    storedUnit->setCourse(self());
     emit unitAboutToBeAdded(storedUnit, d->m_units.count() - 1);
     d->m_units.append(storedUnit);
     emit unitAdded();

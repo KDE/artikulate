@@ -41,7 +41,7 @@ class ARTIKULATECORE_EXPORT TrainingSession : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
-    Q_PROPERTY(Unit *unit READ activeUnit WRITE setUnit NOTIFY phraseChanged)
+    Q_PROPERTY(IUnit *unit READ activeUnit WRITE setUnit NOTIFY phraseChanged)
     Q_PROPERTY(IPhrase *phrase READ activePhrase WRITE setPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNext READ hasNext NOTIFY phraseChanged)
 
@@ -50,8 +50,8 @@ public:
 
     ICourse * course() const;
     void setCourse(ICourse *course);
-    Unit * activeUnit() const;
-    void setUnit(Unit *unit);
+    IUnit * activeUnit() const;
+    void setUnit(IUnit *unit);
     TrainingAction * activeAction() const;
     IPhrase * activePhrase() const;
     void setPhrase(IPhrase *phrase);

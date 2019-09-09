@@ -40,7 +40,6 @@ class ARTIKULATECORE_EXPORT IEditablePhrase : public IPhrase
     Q_PROPERTY(QString i18nText READ i18nText NOTIFY i18nTextChanged)
     Q_PROPERTY(QString soundFileUrl READ soundFileUrl NOTIFY soundChanged)
     Q_PROPERTY(IPhrase::Type type READ type NOTIFY typeChanged)
-    Q_PROPERTY(Unit *unit READ unit NOTIFY unitChanged)
 
 public:
     enum class EditState {
@@ -56,7 +55,7 @@ public:
     virtual void setForeignId(QString id) = 0;
     virtual void setText(QString text) = 0;
     virtual void seti18nText(QString text) = 0;
-    virtual void setUnit(Unit *unit) = 0; //TODO check why this is not part of the constructor
+    virtual void setUnit(std::shared_ptr<IUnit> unit) = 0;
     virtual void setType(IPhrase::Type type) = 0;
     virtual void setSoundFileUrl() = 0; //TODO revisit as a setter should have an argument
     virtual IEditablePhrase::EditState editState() const = 0;

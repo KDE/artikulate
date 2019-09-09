@@ -22,6 +22,7 @@
 #define UNIT_H
 
 #include "artikulatecore_export.h"
+#include "ieditableunit.h"
 #include <memory>
 #include <QObject>
 #include <QVector>
@@ -33,28 +34,28 @@ class Phrase;
 class IPhrase;
 class ICourse;
 
-class ARTIKULATECORE_EXPORT Unit : public QObject
+class ARTIKULATECORE_EXPORT Unit : public IEditableUnit
 {
     Q_OBJECT
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
-    Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
 
 public:
-    explicit Unit(QObject *parent = nullptr);
-    ~Unit();
+    static std::shared_ptr<Unit> create();
+    ~Unit() override;
 
-    QString id() const;
-    void setId(const QString &id);
-    QString foreignId() const;
-    void setForeignId(const QString &id);
-    ICourse * course() const;
-    void setCourse(ICourse* course);
-    QString title() const;
-    void setTitle(const QString &title);
-    QVector<std::shared_ptr<IPhrase>> phrases() const;
-    void addPhrase(std::shared_ptr<Phrase> phrase);
+    QString id() const override;
+    void setId(const QString &id) override;
+    QString foreignId() const override;
+    void setForeignId(const QString &id) override;
+    std::shared_ptr<ICourse> course() const override;
+    void setCourse(std::shared_ptr<ICourse> course) override;
+    QString title() const override;
+    void setTitle(const QString &title) override;
+    QVector<std::shared_ptr<IPhrase>> phrases() const override;
+    void addPhrase(std::shared_ptr<IEditablePhrase> phrase) override;
     QList<IPhrase *> excludedSkeletonPhraseList() const;
+    std::shared_ptr<IUnit> self() const override;
 
     /**
      * Removes phrase with ID \p phraseId from unit and adds ID to set
@@ -65,22 +66,16 @@ public:
     Q_INVOKABLE void excludeSkeletonPhrase(const QString &phraseId);
     Q_INVOKABLE void includeSkeletonPhrase(const QString &phraseId);
 
-Q_SIGNALS:
-    void idChanged();
-    void titleChanged();
-    void courseChanged();
-    void displayPhraseTypeChanged();
-    void modified();
-    void phraseAdded(IPhrase*); //TODO
-    void phraseAboutToBeAdded(IPhrase*,int);//TODO
-    void phraseRemoved(IPhrase*);//TODO
-    void phraseAboutToBeRemoved(int,int);
+protected:
+    explicit Unit(QObject *parent = nullptr);
 
 private:
+    void setSelf(std::shared_ptr<IUnit> self) override;
     Q_DISABLE_COPY(Unit)
+    std::weak_ptr<IUnit> m_self;
     QString m_id;
     QString m_foreignId;
-    ICourse *m_course;
+    std::weak_ptr<ICourse> m_course;
     QString m_title;
     QVector<std::shared_ptr<IPhrase>> m_phrases;
     QSignalMapper *m_phraseSignalMapper;
