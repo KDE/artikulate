@@ -26,8 +26,11 @@
 project(artikulate)
 
 cmake_minimum_required(VERSION 3.5.0)
+set(QT_MIN_VERSION "5.11.0")
+set(KF5_MIN_VERSION "5.57.0")
 
-find_package(ECM 5.15.0 REQUIRED NO_MODULE)
+
+find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
 find_package(KF5DocTools)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
@@ -42,7 +45,7 @@ include(ECMEnableSanitizers)
 include(FeatureSummary)
 include(GenerateExportHeader)
 
-find_package(Qt5 5.10 REQUIRED COMPONENTS
+find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Widgets
     Sql
     XmlPatterns
@@ -51,7 +54,7 @@ find_package(Qt5 5.10 REQUIRED COMPONENTS
     QuickWidgets
     Test
 )
-find_package(KF5 5.57 REQUIRED COMPONENTS
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Archive
     Config
     Crash
