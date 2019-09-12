@@ -30,9 +30,9 @@ QtMultimediaCaptureBackend::QtMultimediaCaptureBackend(QObject *parent)
     QAudioEncoderSettings audioSettings;
 
     QStringList availableCodecs = m_recorder.supportedAudioCodecs();
-    if (availableCodecs.contains(QStringLiteral("audio/x-vorbis"))) {
+    if (availableCodecs.contains(QLatin1String("audio/x-vorbis"))) {
         audioSettings.setCodec(QStringLiteral("audio/x-vorbis"));
-    } else if (availableCodecs.contains(QStringLiteral("audio/vorbis"))) {
+    } else if (availableCodecs.contains(QLatin1String("audio/vorbis"))) {
         audioSettings.setCodec(QStringLiteral("audio/vorbis"));
     } else {
         qCWarning(LIBSOUND_LOG()) << "No vorbis codec was found for recordings";

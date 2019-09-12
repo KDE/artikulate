@@ -320,7 +320,7 @@ QDomDocument CourseParser::serializedDocument(ICourse *course, bool trainingExpo
             unitPhraseListElement.appendChild(serializedPhrase(phrase, document));
         }
 
-        if (trainingExport && unitPhraseListElement.childNodes().count() == 0) {
+        if (trainingExport && unitPhraseListElement.childNodes().isEmpty()) {
             continue;
         }
 

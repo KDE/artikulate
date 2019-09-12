@@ -74,7 +74,7 @@ MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
     OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
 
     // load resources
-    if (m_repository->languages().count() == 0) {
+    if (m_repository->languages().isEmpty()) {
         qFatal("No language resources found, cannot start application.");
     }
     m_repository->reloadCourses();
