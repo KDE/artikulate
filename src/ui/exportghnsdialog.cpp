@@ -78,8 +78,8 @@ ExportGhnsDialog::~ExportGhnsDialog()
 
 void ExportGhnsDialog::onExportCourse()
 {
-    ICourse *res = qobject_cast<ICourse *>(
+    IEditableCourse *res = qobject_cast<IEditableCourse *>(
         ui->courseListCombo->currentData().value<QObject*>());
     qCDebug(ARTIKULATE_LOG) << res << "export GHNS file for" << res->i18nTitle();
-    CourseParser::exportCourseToGhnsPackage(res, ui->exportDirectory->text());
+    CourseParser::exportCourseToGhnsPackage(res->self(), ui->exportDirectory->text());
 }

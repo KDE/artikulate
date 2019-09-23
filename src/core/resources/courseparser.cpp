@@ -19,7 +19,7 @@
  */
 
 #include "courseparser.h"
-#include "core/icourse.h"
+#include "core/ieditablecourse.h"
 #include "core/language.h"
 #include "core/unit.h"
 #include "core/phrase.h"
@@ -280,7 +280,7 @@ QString CourseParser::parseElement(QXmlStreamReader& xml, bool &ok)
 }
 
 
-QDomDocument CourseParser::serializedDocument(ICourse *course, bool trainingExport)
+QDomDocument CourseParser::serializedDocument(std::shared_ptr<IEditableCourse> course, bool trainingExport)
 {
     QDomDocument document;
     // prepare xml header
@@ -317,7 +317,7 @@ QDomDocument CourseParser::serializedDocument(ICourse *course, bool trainingExpo
             if (trainingExport && phrase->soundFileUrl().isEmpty()) {
                 continue;
             }
-//            unitPhraseListElement.appendChild(serializedPhrase(phrase, document)); //FIXME
+            unitPhraseListElement.appendChild(serializedPhrase(std::static_pointer_cast<IEditablePhrase>(phrase), document));
         }
 
         if (trainingExport && unitPhraseListElement.childNodes().isEmpty()) {
@@ -351,7 +351,7 @@ QDomDocument CourseParser::serializedDocument(ICourse *course, bool trainingExpo
     return document;
 }
 
-QDomElement CourseParser::serializedPhrase(Phrase *phrase, QDomDocument &document)
+QDomElement CourseParser::serializedPhrase(std::shared_ptr<IEditablePhrase> phrase, QDomDocument &document)
 {
     QDomElement phraseElement = document.createElement(QStringLiteral("phrase"));
     QDomElement phraseIdElement = document.createElement(QStringLiteral("id"));
@@ -370,7 +370,7 @@ QDomElement CourseParser::serializedPhrase(Phrase *phrase, QDomDocument &documen
     phraseEditStateElement.appendChild(document.createTextNode(phrase->editStateString()));
 
     // add phonemes
-    foreach (Phoneme *phoneme, phrase->phonemes()) {
+    for (auto &phoneme : phrase->phonemes()) {
         QDomElement phonemeElement = document.createElement(QStringLiteral("phonemeID"));
         phonemeElement.appendChild(document.createTextNode(phoneme->id()));
         phrasePhonemeListElement.appendChild(phonemeElement);
@@ -389,16 +389,10 @@ QDomElement CourseParser::serializedPhrase(Phrase *phrase, QDomDocument &documen
     phraseElement.appendChild(phraseEditStateElement);
     phraseElement.appendChild(phrasePhonemeListElement);
 
-    if (phrase->isExcluded()) {
-        QDomElement phraseIsExcludedElement = document.createElement(QStringLiteral("excluded"));
-        phraseIsExcludedElement.appendChild(document.createTextNode(QStringLiteral("true")));
-        phraseElement.appendChild(phraseIsExcludedElement);
-    }
-
     return phraseElement;
 }
 
-bool CourseParser::exportCourseToGhnsPackage(ICourse *course, const QString &exportPath)
+bool CourseParser::exportCourseToGhnsPackage(std::shared_ptr<IEditableCourse> course, const QString &exportPath)
 {
     // filename
     const QString fileName = course->id() + ".tar.bz2";
@@ -410,7 +404,7 @@ bool CourseParser::exportCourseToGhnsPackage(ICourse *course, const QString &exp
         return false;
     }
 
-    for (auto unit : course->units()) {
+    for (auto &unit : course->units()) {
         for (auto &phrase : unit->phrases()) {
             if (QFile::exists(phrase->soundFileUrl())) {
                 tar.addLocalFile(phrase->soundFileUrl(), phrase->id() + ".ogg");

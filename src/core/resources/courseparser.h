@@ -25,7 +25,9 @@
 #include <memory>
 #include <QVector>
 
-class ICourse;
+class IEditableCourse;
+class IEditablePhrase;
+class IUnit;
 class Unit;
 class Phrase;
 class Phoneme;
@@ -60,11 +62,11 @@ public:
      */
     static QDomDocument loadDomDocument(const QUrl &path, const QXmlSchema &schema);
 
-    static std::vector<std::shared_ptr<Unit>> parseUnits(const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes = QVector<std::shared_ptr<Phoneme>>());
+    static std::vector<std::shared_ptr<Unit> > parseUnits(const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes = QVector<std::shared_ptr<Phoneme>>());
 
-    static QDomDocument serializedDocument(ICourse *course, bool trainingExport);
-    static QDomElement serializedPhrase(Phrase *phrase, QDomDocument &document);
-    static bool exportCourseToGhnsPackage(ICourse *course, const QString &exportPath);
+    static QDomDocument serializedDocument(std::shared_ptr<IEditableCourse> course, bool trainingExport);
+    static QDomElement serializedPhrase(std::shared_ptr<IEditablePhrase> phrase, QDomDocument &document);
+    static bool exportCourseToGhnsPackage(std::shared_ptr<IEditableCourse> course, const QString &exportPath);
 
 private:
     static std::shared_ptr<Unit> parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok);

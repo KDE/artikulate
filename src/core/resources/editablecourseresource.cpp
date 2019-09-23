@@ -178,7 +178,7 @@ bool EditableCourseResource::exportToFile(const QUrl &filePath) const
         return false;
     }
 
-    file.write(CourseParser::serializedDocument(m_course.get(), false).toByteArray());
+    file.write(CourseParser::serializedDocument(self(), false).toByteArray());
     return true;
 }
 

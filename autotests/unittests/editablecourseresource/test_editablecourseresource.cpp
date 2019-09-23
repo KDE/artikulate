@@ -188,7 +188,6 @@ void TestEditableCourseResource::fileLoadSaveCompleteness()
     QTemporaryFile outputFile;
     outputFile.open();
     course->exportToFile(QUrl::fromLocalFile(outputFile.fileName()));
-
     // note: this only works, since the resource manager not checks uniqueness of course ids!
     auto loadedCourse = EditableCourseResource::create(QUrl::fromLocalFile(outputFile.fileName()), &repository);
 
@@ -199,14 +198,14 @@ void TestEditableCourseResource::fileLoadSaveCompleteness()
     QVERIFY(course->title() == loadedCourse->title());
     QVERIFY(course->description() == loadedCourse->description());
     QVERIFY(course->language()->id() == loadedCourse->language()->id());
-    QVERIFY(course->units().count() == loadedCourse->units().count());
+    QCOMPARE(loadedCourse->units().count(), course->units().count());
 
     auto testUnit = course->units().constFirst();
     auto compareUnit = loadedCourse->units().constFirst();
-    QVERIFY(testUnit->id() == compareUnit->id());
-    QVERIFY(testUnit->foreignId() == compareUnit->foreignId());
-    QVERIFY(testUnit->title() == compareUnit->title());
-    QCOMPARE(testUnit->phrases().count(), compareUnit->phrases().count());
+    QCOMPARE(compareUnit->id(), testUnit->id());
+    QCOMPARE(compareUnit->foreignId(), testUnit->foreignId());
+    QCOMPARE( compareUnit->title(), testUnit->title());
+    QCOMPARE(compareUnit->phrases().count(), testUnit->phrases().count());
 
     std::shared_ptr<IPhrase> testPhrase = testUnit->phrases().constFirst();
     std::shared_ptr<IPhrase> comparePhrase = Phrase::create();
