@@ -92,11 +92,13 @@ std::shared_ptr<CourseResource> CourseResource::create(const QUrl &path, IResour
 
 void CourseResource::setSelf(std::shared_ptr<ICourse> self)
 {
+    Q_ASSERT(d->m_self.expired());
     d->m_self = self;
 }
 
 std::shared_ptr<ICourse> CourseResource::self() const
 {
+    Q_ASSERT(!d->m_self.expired());
     return d->m_self.lock();
 }
 

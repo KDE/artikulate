@@ -206,7 +206,7 @@ void TestEditableCourseResource::fileLoadSaveCompleteness()
     QVERIFY(testUnit->id() == compareUnit->id());
     QVERIFY(testUnit->foreignId() == compareUnit->foreignId());
     QVERIFY(testUnit->title() == compareUnit->title());
-    QVERIFY(testUnit->phrases().count() == compareUnit->phrases().count());
+    QCOMPARE(testUnit->phrases().count(), compareUnit->phrases().count());
 
     std::shared_ptr<IPhrase> testPhrase = testUnit->phrases().constFirst();
     std::shared_ptr<IPhrase> comparePhrase = Phrase::create();

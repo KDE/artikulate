@@ -41,10 +41,6 @@ EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceReposi
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 
-    for (auto unit : m_course->units()) {
-        unit->setCourse(self());
-    }
-
     connect(m_course.get(), &ICourse::unitAboutToBeAdded, this, &ICourse::unitAboutToBeAdded);
     connect(m_course.get(), &ICourse::unitAdded, this, &ICourse::unitAdded);
     connect(m_course.get(), &CourseResource::idChanged, this, &EditableCourseResource::idChanged);
@@ -63,6 +59,10 @@ std::shared_ptr<EditableCourseResource> EditableCourseResource::create(
 {
     std::shared_ptr<EditableCourseResource> course(new EditableCourseResource(path, repository));
     course->setSelf(course);
+    for (auto &unit : course->units()) {
+        unit->setCourse(course);
+    }
+
     return course;
 }
 
