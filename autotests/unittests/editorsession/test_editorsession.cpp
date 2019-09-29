@@ -47,7 +47,7 @@ void TestEditorSession::createEditorSession()
     auto languageGerman = std::make_shared<LanguageStub>("de");
     auto languageEnglish = std::make_shared<LanguageStub>("en");
 
-    std::shared_ptr<IEditableCourse> course(new EditableCourseStub(languageGerman, QVector<std::shared_ptr<Unit>>()));
+    std::shared_ptr<IEditableCourse> course = EditableCourseStub::create(languageGerman, QVector<std::shared_ptr<Unit>>());
     course->setLanguage(languageGerman);
     auto skeleton = SkeletonResource::create(QUrl(), nullptr);
 
@@ -67,9 +67,9 @@ void TestEditorSession::nonSkeletonSwitchingBehavior()
 {
     auto languageGerman = std::make_shared<LanguageStub>("de");
     auto languageEnglish = std::make_shared<LanguageStub>("en");
-    std::shared_ptr<IEditableCourse> courseGerman(new EditableCourseStub(languageGerman, QVector<std::shared_ptr<Unit>>()));
+    std::shared_ptr<IEditableCourse> courseGerman = EditableCourseStub::create(languageGerman, QVector<std::shared_ptr<Unit>>());
     courseGerman->setId("course-german");
-    std::shared_ptr<IEditableCourse> courseEnglish(new EditableCourseStub(languageEnglish, QVector<std::shared_ptr<Unit>>()));
+    std::shared_ptr<IEditableCourse> courseEnglish = EditableCourseStub::create(languageEnglish, QVector<std::shared_ptr<Unit>>());
     courseEnglish->setId("course-english");
 
     EditableRepositoryStub repository{
@@ -100,13 +100,13 @@ void TestEditorSession::skeletonSwitchingBehavior()
 {
     auto languageGerman = std::make_shared<LanguageStub>("de");
     auto languageEnglish = std::make_shared<LanguageStub>("en");
-    std::shared_ptr<IEditableCourse> courseGermanA(new EditableCourseStub(languageGerman, QVector<std::shared_ptr<Unit>>()));
+    std::shared_ptr<IEditableCourse> courseGermanA = EditableCourseStub::create(languageGerman, QVector<std::shared_ptr<Unit>>());
     courseGermanA->setId("course-german");
     courseGermanA->setForeignId("testskeletonA");
-    std::shared_ptr<IEditableCourse> courseGermanB(new EditableCourseStub(languageGerman, QVector<std::shared_ptr<Unit>>()));
+    std::shared_ptr<IEditableCourse> courseGermanB = EditableCourseStub::create(languageGerman, QVector<std::shared_ptr<Unit>>());
     courseGermanB->setId("course-german");
     courseGermanB->setForeignId("testskeletonB");
-    std::shared_ptr<IEditableCourse> courseEnglishA(new EditableCourseStub(languageEnglish, QVector<std::shared_ptr<Unit>>()));
+    std::shared_ptr<IEditableCourse> courseEnglishA = EditableCourseStub::create(languageEnglish, QVector<std::shared_ptr<Unit>>());
     courseEnglishA->setId("course-english");
     courseEnglishA->setForeignId("testskeletonA");
     auto skeletonA = SkeletonResource::create(QUrl(), nullptr);
@@ -165,7 +165,7 @@ void TestEditorSession::iterateCourse()
     unitA->addPhrase(phraseA2);
     unitB->addPhrase(phraseB1);
     unitB->addPhrase(phraseB2);
-    auto course = std::make_shared<EditableCourseStub>(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
+    auto course = EditableCourseStub::create(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
 
     EditableRepositoryStub repository{
         {language}, // languages

@@ -35,9 +35,6 @@ public:
         , m_language(language)
         , m_units(units)
     {
-        for (auto unit : m_units) {
-            unit->setCourse(self());
-        }
     }
     ~EditableCourseStub() override;
 
@@ -45,6 +42,9 @@ public:
     {
         auto course = std::make_shared<EditableCourseStub>(language, units);
         course->setSelf(course);
+        for (auto &unit : units) {
+            unit->setCourse(course);
+        }
         return std::static_pointer_cast<IEditableCourse>(course);
     }
 
