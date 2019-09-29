@@ -127,7 +127,7 @@ Item {
                     cellHeight: 30
                     model:
                         PhonemeModel {
-                            language: { (phrase != null) ? root.phrase.unit.course.language : null }
+                            language: g_editorSession.language
                         }
                     delegate: phonemeItem
                 }
