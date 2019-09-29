@@ -128,7 +128,7 @@ void EditorSession::setCourse(IEditableCourse *course)
 
 void EditorSession::setCourseByLanguage(ILanguage *language)
 {
-    if (!skeletonMode() || m_skeleton == nullptr) {
+    if (!skeletonMode()) {
         qDebug() << "Course selection by language is only available in skeleton mode";
         return;
     }
@@ -184,28 +184,33 @@ IUnit * EditorSession::activeUnit() const
 
 void EditorSession::setUnit(IUnit *unit)
 {
-    if (!unit) {
-        m_unit.reset();
-    } else {
-        m_unit = unit->self();
+    if (unit != m_unit.get()) {
+        if (!unit) {
+            m_unit.reset();
+        } else {
+            m_unit = unit->self();
+        }
+        if (m_unit && !m_unit->phrases().isEmpty()) {
+            setActivePhrase(m_unit->phrases().first().get());
+        } else {
+            setActivePhrase(nullptr);
+        }
+        emit unitChanged();
     }
-    if (m_unit && !m_unit->phrases().isEmpty()) {
-        setActivePhrase(m_unit->phrases().first().get());
-    } else {
-        setActivePhrase(nullptr);
-    }
-    emit unitChanged();
 }
 
 void EditorSession::setActivePhrase(IPhrase * phrase)
 {
-    if (m_phrase == phrase->self()) {
+    if (phrase && m_phrase == phrase->self()) {
         return;
     }
-    if (phrase) {
-        setUnit(phrase->unit().get());
+    if (phrase == nullptr) {
+        m_phrase = nullptr;
     }
-    m_phrase = phrase->self();
+    else {
+        setUnit(phrase->unit().get());
+        m_phrase = phrase->self();
+    }
     emit phraseChanged();
 }
 
