@@ -23,8 +23,6 @@
 #include "phrase.h"
 
 #include <QMap>
-#include <QList>
-#include <QSignalMapper>
 #include <QStringList>
 #include <QUuid>
 #include <QQmlEngine>
@@ -35,19 +33,11 @@
 
 Unit::Unit(QObject *parent)
     : IEditableUnit(parent)
-    , m_phraseSignalMapper(new QSignalMapper(this))
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 }
 
-Unit::~Unit()
-{
-    for (auto phrase : m_phrases) {
-        phrase->deleteLater();
-    }
-    m_phrases.clear();
-    m_phraseSignalMapper->deleteLater();
-}
+Unit::~Unit() = default;
 
 std::shared_ptr<Unit> Unit::create()
 {
@@ -136,12 +126,9 @@ void Unit::addPhrase(std::shared_ptr<IEditablePhrase> phrase)
     phrase->setUnit(m_self.lock());
     emit phraseAboutToBeAdded(phrase, m_phrases.length());
     m_phrases.append(phrase);
-    m_phraseSignalMapper->setMapping(phrase.get(), phrase->id());
 
     emit phraseAdded(phrase);
 
-    connect(phrase.get(), &Phrase::typeChanged, m_phraseSignalMapper,
-        static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
     connect(phrase.get(), &Phrase::modified, this, &Unit::modified);
 
     emit modified();

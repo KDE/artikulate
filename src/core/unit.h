@@ -28,7 +28,6 @@
 #include <QVector>
 #include <QStringList>
 
-class QSignalMapper;
 class QString;
 class Phrase;
 class IPhrase;
@@ -78,7 +77,6 @@ private:
     std::weak_ptr<ICourse> m_course;
     QString m_title;
     QVector<std::shared_ptr<IPhrase>> m_phrases;
-    QSignalMapper *m_phraseSignalMapper;
 };
 
 #endif // UNIT_H
