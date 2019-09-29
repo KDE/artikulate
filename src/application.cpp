@@ -125,7 +125,7 @@ void Application::registerQmlTypes()
     qmlRegisterInterface<IResourceRepository>("IEditableRepository");
     qmlRegisterInterface<ICourse>("ICourse");
     qmlRegisterInterface<IEditableCourse>("IEditableCourse");
-    qmlRegisterInterface<ICourse>("ILanguage");
+    qmlRegisterInterface<ILanguage>("ILanguage");
     qmlRegisterInterface<IPhrase>("IPhrase");
     qmlRegisterInterface<IEditablePhrase>("IEditablePhrase");
     qmlRegisterInterface<IUnit>("IUnit");
