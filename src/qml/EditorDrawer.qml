@@ -27,7 +27,7 @@ import artikulate 1.0
 Kirigami.GlobalDrawer {
     id: root
 
-    title: "Artikulate"
+    title: "Editor"
     titleIcon: "artikulate"
     resetMenuOnTriggered: false
     bottomPadding: 0
@@ -45,11 +45,21 @@ Kirigami.GlobalDrawer {
             Layout.rightMargin: -root.rightPadding
             ActionListItem {
                 action: Kirigami.Action {
-                    text: i18n("Training")
+                    text: i18n("Courses")
                     iconName: "artikulate"
                     onTriggered: {
                         root.pageStack.clear();
                         root.pageStack.push(welcomePageComponent);
+                    }
+                }
+            }
+            ActionListItem {
+                action: Kirigami.Action {
+                    text: i18n("Repository")
+                    iconName: "document-edit"
+                    onTriggered: {
+                        root.pageStack.clear();
+                        root.pageStack.push(repositoryPageComponent);
                     }
                 }
             }
@@ -63,10 +73,10 @@ Kirigami.GlobalDrawer {
     actions: trainingActions.actions
     DrawerTrainingActions {
         id: trainingActions
-        session: g_trainingSession
+        session: g_editorSession
         onTriggerTrainingView: {
             root.pageStack.clear();
-            root.pageStack.push(trainingPageComponent);
+            root.pageStack.push(editCoursePageComponent);
         }
     }
 
@@ -112,34 +122,17 @@ Kirigami.GlobalDrawer {
             Layout.fillWidth: true
         }
 
-//TODO currently disabled while contents have to be ported
+//TODO planned but not implemented
 //        ActionListItem {
 //            action: Kirigami.Action {
-//                text: i18n("Statistics")
-//                iconName: "user-properties"
+//                text: i18n("Upload Training")
+//                iconName: "get-hot-new-stuff"
 //                onTriggered: {
 //                    root.pageStack.pop();
-//                    root.pageStack.push(profileSettingsPageComponent);
+//                    root.pageStack.push(downloadPageComponent);
 //                }
 //            }
 //        }
-//        ActionListItem {
-//            action: Kirigami.Action {
-//                text: i18n("Settings")
-//                iconName: "settings-configure"
-//                onTriggered: triggerSettingsDialog()
-//            }
-//        }
-        ActionListItem {
-            action: Kirigami.Action {
-                text: i18n("Download Training")
-                iconName: "get-hot-new-stuff"
-                onTriggered: {
-                    root.pageStack.pop();
-                    root.pageStack.push(downloadPageComponent);
-                }
-            }
-        }
         ActionListItem {
             action: Kirigami.Action {
                 text: i18n("About")

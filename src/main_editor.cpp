@@ -53,9 +53,6 @@ int main(int argc, char **argv)
     KCrash::initialize();
 
     MainWindowEditor *mainWindow = new MainWindowEditor(&repository);
-    QSize size(800, 600);
-    mainWindow->setMinimumSize(size);
-    mainWindow->show();
 
     return app.exec();
 }

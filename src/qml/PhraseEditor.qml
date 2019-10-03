@@ -145,27 +145,6 @@ Item {
                     Label { // dummy
                         Layout.fillWidth: true
                     }
-
-                    ToolButton {
-                        Layout.alignment: Qt.AlignBottom
-                        width: 48
-                        height: 48
-                        enabled: g_editorSession.hasPreviousPhrase
-                        icon.name: "go-previous"
-                        onClicked: {
-                            g_editorSession.switchToPreviousPhrase()
-                        }
-                    }
-                    ToolButton {
-                        Layout.alignment: Qt.AlignBottom
-                        width: 48
-                        height: 48
-                        enabled: g_editorSession.hasNextPhrase
-                        icon.name: "go-next"
-                        onClicked: {
-                            g_editorSession.switchToNextPhrase()
-                        }
-                    }
                 }
             }
         }

@@ -20,7 +20,7 @@
 
 import QtQuick 2.5
 import QtQuick.Controls 2.0 as QQC2
-import org.kde.kirigami 2.6
+import org.kde.kirigami 2.7
 import artikulate 1.0
 
 ApplicationWindow {

@@ -21,7 +21,7 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.1 as QQC2
-import org.kde.kirigami 2.0 as Kirigami
+import org.kde.kirigami 2.7 as Kirigami
 import org.kde.newstuff 1.0 as KNS
 
 Kirigami.Page {

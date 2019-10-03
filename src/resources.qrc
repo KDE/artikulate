@@ -3,7 +3,9 @@
         <file>qml/ActionListItem.qml</file>
         <file>qml/ArtikulateDrawer.qml</file>
         <file>qml/DownloadPage.qml</file>
+        <file>qml/EditCoursePage.qml</file>
         <file>qml/Editor.qml</file>
+        <file>qml/EditorDrawer.qml</file>
         <file>qml/Main.qml</file>
         <file>qml/PhonemeUnitSelector.qml</file>
         <file>qml/PhraseEditor.qml</file>
@@ -19,6 +21,7 @@
         <file>qml/TrainingPage.qml</file>
         <file>qml/UnitEditor.qml</file>
         <file>qml/WelcomePage.qml</file>
+        <file>qml/WelcomePageEditor.qml</file>
     </qresource>
     <qresource prefix="/artikulate/config">
         <file>artikulate.knsrc</file>

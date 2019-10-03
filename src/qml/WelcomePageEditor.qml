@@ -26,7 +26,7 @@ import artikulate 1.0
 
 Kirigami.ScrollablePage {
     id: root
-    title: i18n("Welcome to Artikulate")
+    title: i18n("Welcome to Artikulate Course Editor")
 
     Kirigami.CardsListView {
         id: listView
@@ -72,10 +72,10 @@ Kirigami.ScrollablePage {
                     QQC2.Button {
                         Layout.alignment: Qt.AlignRight|Qt.AlignVCenter
                         Layout.columnSpan: 2
-                        text: i18nc("@action:button", "Start Training")
+                        text: i18nc("@action:button", "Select Course")
                         onClicked: {
-                            showPassiveNotification("Starting training session for course " + model.title + ".");
-                            g_trainingSession.course = model.dataRole
+                            showPassiveNotification("Selected course for editor: " + model.title + ".");
+                            g_editorSession.course = model.dataRole
                         }
                     }
                 }

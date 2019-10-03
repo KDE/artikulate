@@ -21,7 +21,7 @@
 #ifndef MAINWINDOW_EDITOR_H
 #define MAINWINDOW_EDITOR_H
 
-#include <KXmlGuiWindow>
+#include <QQmlApplicationEngine>
 #include <QQuickWidget>
 #include "core/contributorrepository.h"
 #include "core/trainingsession.h"
@@ -29,12 +29,11 @@
 class EditorSession;
 class QQuickWidget;
 
-class MainWindowEditor : public KXmlGuiWindow
+class MainWindowEditor : public QQmlApplicationEngine
 {
     Q_OBJECT
 
 public:
-
     /**
      * Default Constructor
      */
@@ -49,10 +48,6 @@ public:
 
     void setupActions();
 
-    QSize sizeHint() const override { return QSize(1000, 700); }
-
-    bool queryClose() override;
-
 public Q_SLOTS:
     void showSettingsDialog();
     void save();
@@ -64,7 +59,6 @@ Q_SIGNALS:
 private:
     ContributorRepository *m_repository;
     EditorSession *m_editorSession;
-    QQuickWidget *m_widget;
 };
 
 #endif

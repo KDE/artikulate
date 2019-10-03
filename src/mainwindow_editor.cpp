@@ -34,9 +34,8 @@
 #include <KConfigDialog>
 #include <KLocalizedString>
 #include <KLocalizedContext>
-#include <KMessageBox>
-#include <KNS3/DownloadDialog>
 #include <KStandardAction>
+#include <KAboutData>
 
 #include <QAction>
 #include <QApplication>
@@ -59,53 +58,28 @@ using namespace LearnerProfile;
 MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
     : m_repository(repository)
     , m_editorSession(new EditorSession())
-    , m_widget(new QQuickWidget)
 {
+    rootContext()->setContextObject(new KLocalizedContext(this));
+    rootContext()->setContextProperty(QStringLiteral("g_repository"), m_repository);
+    rootContext()->setContextProperty(QStringLiteral("g_editorSession"), m_editorSession);
+    rootContext()->setContextProperty(QStringLiteral("g_artikulateAboutData"), QVariant::fromValue(KAboutData::applicationData()));
+
     m_repository->setStorageLocation(Settings::courseRepositoryPath());
     m_editorSession->setRepository(m_repository);
-    setWindowIcon(QIcon::fromTheme(QStringLiteral("artikulate")));
-    setWindowTitle(qAppName());
-    setAutoSaveSettings();
-
-    // workaround for QTBUG-40765
-    qApp->setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
 
     // load saved sound settings
     OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
 
-    // load resources
-    if (m_repository->languages().isEmpty()) {
-        qFatal("No language resources found, cannot start application.");
-    }
     m_repository->reloadCourses();
 
     // create menu
     setupActions();
 
-    // set view
-    m_widget->resize(QSize(800, 600));
-    m_widget->rootContext()->setContextObject(new KLocalizedContext(m_widget));
-    m_widget->rootContext()->setContextProperty(QStringLiteral("g_repository"), m_repository);
-    m_widget->rootContext()->setContextProperty(QStringLiteral("g_editorSession"), m_editorSession);
-
     // set starting screen
-    m_widget->setSource(QUrl(QStringLiteral("qrc:/artikulate/qml/Editor.qml")));
-    m_widget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+    load(QUrl(QStringLiteral("qrc:/artikulate/qml/Editor.qml")));
 
-    QAction *newAct = KStandardAction::save(this, SLOT(save()), actionCollection());
-    actionCollection()->addAction(QStringLiteral("save"), newAct);
-
-    // set status bar
-    statusBar()->setEnabled(true);
-    QLabel *repositoryLabel = new QLabel;
-    repositoryLabel->setText(i18n("Course Repository: %1", m_repository->storageLocation()));
-    connect(m_repository, &ContributorRepository::repositoryChanged, this, [=]() {
-        repositoryLabel->setText(i18n("Course Repository: %1", m_repository->storageLocation()));
-    });
-    statusBar()->insertWidget(0, repositoryLabel);
-
-    createGUI(QStringLiteral("artikulateui_editor.rc"));
-    setCentralWidget(m_widget);
+//    QAction *newAct = KStandardAction::save(this, SLOT(save()), actionCollection());
+//    actionCollection()->addAction(QStringLiteral("save"), newAct);
 }
 
 MainWindowEditor::~MainWindowEditor()
@@ -121,22 +95,22 @@ ContributorRepository * MainWindowEditor::resourceRepository() const
 
 void MainWindowEditor::setupActions()
 {
-    QAction *settingsAction = new QAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
-    connect(settingsAction, &QAction::triggered, this, &MainWindowEditor::showSettingsDialog);
-    actionCollection()->addAction(QStringLiteral("settings"), settingsAction);
-    settingsAction->setIcon(QIcon::fromTheme(QStringLiteral("configure")));
+//    QAction *settingsAction = new QAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
+//    connect(settingsAction, &QAction::triggered, this, &MainWindowEditor::showSettingsDialog);
+//    actionCollection()->addAction(QStringLiteral("settings"), settingsAction);
+//    settingsAction->setIcon(QIcon::fromTheme(QStringLiteral("configure")));
 
-    QAction *exportAction = new QAction(i18nc("@item:inmenu", "Export GHNS Files"), this);
-    connect(exportAction, &QAction::triggered, this, [=]() {
-        QPointer<QDialog> dialog = new ExportGhnsDialog(m_repository);
-        dialog->exec();
-    });
-    actionCollection()->addAction(QStringLiteral("export_ghns"), exportAction);
-    exportAction->setIcon(QIcon::fromTheme(QStringLiteral("document-export")));
+//    QAction *exportAction = new QAction(i18nc("@item:inmenu", "Export GHNS Files"), this);
+//    connect(exportAction, &QAction::triggered, this, [=]() {
+//        QPointer<QDialog> dialog = new ExportGhnsDialog(m_repository);
+//        dialog->exec();
+//    });
+//    actionCollection()->addAction(QStringLiteral("export_ghns"), exportAction);
+//    exportAction->setIcon(QIcon::fromTheme(QStringLiteral("document-export")));
 
-    KStandardAction::quit(this, SLOT(quit()), actionCollection());
+//    KStandardAction::quit(this, SLOT(quit()), actionCollection());
 
-    setupGUI(Keys | Save | Create, QStringLiteral("artikulateui_editor.rc"));
+//    setupGUI(Keys | Save | Create, QStringLiteral("artikulateui_editor.rc"));
 }
 
 void MainWindowEditor::showSettingsDialog()
@@ -172,27 +146,27 @@ void MainWindowEditor::save()
 
 void MainWindowEditor::quit()
 {
-    if (queryClose()) {
-        qApp->quit();
-    }
+//    if (queryClose()) {
+//        qApp->quit();
+//    }
 }
 
-bool MainWindowEditor::queryClose()
-{
-    if (!m_repository->modified()) {
-        return true;
-    }
+//bool MainWindowEditor::queryClose()
+//{
+//    if (!m_repository->modified()) {
+//        return true;
+//    }
 
-    int result = KMessageBox::warningYesNoCancel(nullptr, i18nc("@info",
-        "The currently open course contains unsaved changes. Do you want to save them?"));
+//    int result = KMessageBox::warningYesNoCancel(nullptr, i18nc("@info",
+//        "The currently open course contains unsaved changes. Do you want to save them?"));
 
-    switch(result) {
-    case KMessageBox::Yes:
-        m_repository->sync();
-        return true;
-    case KMessageBox::No:
-        return true;
-    default:
-        return false;
-    }
-}
+//    switch(result) {
+//    case KMessageBox::Yes:
+//        m_repository->sync();
+//        return true;
+//    case KMessageBox::No:
+//        return true;
+//    default:
+//        return false;
+//    }
+//}
