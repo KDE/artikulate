@@ -67,8 +67,6 @@ class ARTIKULATECORE_EXPORT EditorSession : public ISessionActions
      * @brief the displayed course (skeleton or course) depending on the user selection
      */
     Q_PROPERTY(IEditableCourse *displayedCourse READ displayedCourse NOTIFY displayedCourseChanged)
-    Q_PROPERTY(ILanguage *language READ language NOTIFY languageChanged)
-    Q_PROPERTY(IUnit *unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(IPhrase *phrase READ activePhrase WRITE setActivePhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasPreviousPhrase READ hasPreviousPhrase NOTIFY phraseChanged)
@@ -91,9 +89,8 @@ public:
      */
     Q_INVOKABLE void setCourseByLanguage(ILanguage *language);
     IEditableCourse * displayedCourse() const;
-    Q_DECL_DEPRECATED IUnit * unit() const;
     IUnit * activeUnit() const;
-    void setUnit(IUnit *unit);
+    void setActiveUnit(IUnit *unit);
     IPhrase * activePhrase() const;
     void setActivePhrase(IPhrase *phrase) override;
     IPhrase::Type phraseType() const;
@@ -105,10 +102,6 @@ public:
     Q_INVOKABLE void updateCourseFromSkeleton();
     TrainingAction * activeAction() const override;
     QVector<TrainingAction *> trainingActions() const override;
-
-private:
-    std::shared_ptr<IPhrase> nextPhrase() const;
-    std::shared_ptr<IPhrase> previousPhrase() const;
 
 private Q_SLOTS:
     void updateDisplayedUnit();
@@ -129,9 +122,9 @@ private:
     IEditableCourse *m_skeleton{ nullptr };
     ILanguage *m_language{ nullptr };
     IEditableCourse *m_course{ nullptr };
-    std::shared_ptr<IUnit> m_unit{ nullptr };
-    std::shared_ptr<IPhrase> m_phrase;
     QVector<TrainingAction*> m_actions;
+    int m_indexUnit{-1};
+    int m_indexPhrase{-1};
 };
 
 #endif

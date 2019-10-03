@@ -168,166 +168,127 @@ void EditorSession::updateDisplayedUnit()
     if (course != nullptr) {
         auto units = course->units();
         if (!units.isEmpty()) {
-            setUnit(units.constFirst().get());
+            setActiveUnit(units.constFirst().get());
             return;
         }
     }
 }
 
-IUnit * EditorSession::unit() const
-{
-    return m_unit.get();
-}
-
 IUnit * EditorSession::activeUnit() const
 {
-    return m_unit.get();
+    if (auto phrase = activePhrase()) {
+        return phrase->unit().get();
+    }
+    return nullptr;
 }
 
-void EditorSession::setUnit(IUnit *unit)
+void EditorSession::setActiveUnit(IUnit *unit)
 {
-    if (unit != m_unit.get()) {
-        if (!unit) {
-            m_unit.reset();
-        } else {
-            m_unit = unit->self();
+    // checking phrases in increasing order ensures that always the first phrase is selected
+    for (int i = 0; i < m_actions.count(); ++i) {
+        for (int j = 0; j < m_actions.at(i)->actions().count(); ++j) {
+            const auto testPhrase = qobject_cast<TrainingAction*>(m_actions.at(i)->actions().at(j))->phrase();
+            if (unit == testPhrase->unit().get()) {
+                if (auto action = activeAction()) {
+                    action->setChecked(false);
+                }
+                m_indexUnit = i;
+                m_indexPhrase = j;
+                if (auto action = activeAction()) {
+                    action->setChecked(true);
+                }
+                emit phraseChanged();
+                return;
+            }
         }
-        if (m_unit && !m_unit->phrases().isEmpty()) {
-            setActivePhrase(m_unit->phrases().first().get());
-        } else {
-            setActivePhrase(nullptr);
-        }
-        emit unitChanged();
     }
 }
 
 void EditorSession::setActivePhrase(IPhrase * phrase)
 {
-    if (phrase && m_phrase == phrase->self()) {
-        return;
+    for (int i = 0; i < m_actions.count(); ++i) {
+        for (int j = 0; j < m_actions.at(i)->actions().count(); ++j) {
+            const auto testPhrase = qobject_cast<TrainingAction*>(m_actions.at(i)->actions().at(j))->phrase();
+            if (phrase == testPhrase) {
+                if (auto action = activeAction()) {
+                    action->setChecked(false);
+                }
+                m_indexUnit = i;
+                m_indexPhrase = j;
+                if (auto action = activeAction()) {
+                    action->setChecked(true);
+                }
+                emit phraseChanged();
+                return;
+            }
+        }
     }
-    if (phrase == nullptr) {
-        m_phrase = nullptr;
-    }
-    else {
-        setUnit(phrase->unit().get());
-        m_phrase = phrase->self();
-    }
-    emit phraseChanged();
 }
 
 IPhrase * EditorSession::activePhrase() const
 {
-    return m_phrase.get();
-}
-
-std::shared_ptr<IPhrase> EditorSession::previousPhrase() const
-{
-    if (!m_phrase) {
-        return nullptr;
+    if (const auto action = activeAction()) {
+        return action->phrase();
     }
-    const int index = m_phrase->unit()->phrases().indexOf(m_phrase);
-    if (index > 0) {
-        return m_phrase->unit()->phrases().at(index - 1);
-    } else {
-        auto unit = m_phrase->unit();
-        int uIndex{ -1 };
-        for (int i = 0; i < unit->course()->units().size(); ++i) {
-            auto testUnit = unit->course()->units().at(i);
-            if (testUnit.get() == unit.get()) {
-                uIndex = i;
-                break;
-            }
-        }
-        if (uIndex > 0) {
-            return unit->course()->units().at(uIndex - 1)->phrases().last();
-        }
-    }
-    return m_phrase;
-}
-
-std::shared_ptr<IPhrase> EditorSession::nextPhrase() const
-{
-    if (!m_phrase) {
-        return nullptr;
-    }
-    const int index = m_phrase->unit()->phrases().indexOf(m_phrase);
-    if (index < m_phrase->unit()->phrases().length() - 1) {
-        return m_phrase->unit()->phrases().at(index + 1);
-    } else {
-        auto unit = m_phrase->unit();
-        int uIndex{ -1 };
-        for (int i = 0; i < unit->course()->units().size(); ++i) {
-            auto testUnit = unit->course()->units().at(i);
-            if (testUnit.get() == unit.get()) {
-                uIndex = i;
-                break;
-            }
-        }
-        if (uIndex < unit->course()->units().length() - 1) {
-            auto nextUnit = unit->course()->units().at(uIndex + 1);
-            if (nextUnit->phrases().isEmpty()) {
-                return nullptr;
-            }
-            return nextUnit->phrases().constFirst();
-        }
-    }
-    return m_phrase;
+    return nullptr;
 }
 
 void EditorSession::switchToPreviousPhrase()
 {
     if (hasPreviousPhrase()) {
-        setActivePhrase(previousPhrase().get());
+        if (m_indexPhrase == 0) {
+            qCDebug(ARTIKULATE_CORE()) << "switching to previous unit";
+            if (m_indexUnit > 0) {
+                --m_indexUnit;
+                m_indexPhrase = m_actions.at(m_indexUnit)->actions().count() - 1;
+            }
+        } else {
+            --m_indexPhrase;
+        }
+        if (auto action = activeAction()) {
+            action->setChecked(true);
+        }
+        emit phraseChanged();
+    } else {
+      qCWarning(ARTIKULATE_CORE()) << "The is no previous phrase, aborting";
     }
 }
 
 void EditorSession::switchToNextPhrase()
 {
     if (hasNextPhrase()) {
-        setActivePhrase(nextPhrase().get());
+        if (m_indexPhrase >= m_actions.at(m_indexUnit)->actions().count() - 1) {
+            qCDebug(ARTIKULATE_CORE()) << "switching to next unit";
+            if (m_indexUnit < m_actions.count() - 1) {
+                ++m_indexUnit;
+                m_indexPhrase = 0;
+            }
+        } else {
+            ++m_indexPhrase;
+        }
+        if (auto action = activeAction()) {
+            action->setChecked(true);
+        }
+        emit phraseChanged();
+    } else {
+      qCWarning(ARTIKULATE_CORE()) << "The is no next phrase, aborting";
     }
 }
 
 bool EditorSession::hasPreviousPhrase() const
 {
-    if (!m_unit || !m_phrase) {
-        return false;
-    }
-    Q_ASSERT(m_unit->course() != nullptr);
-
-    const int phraseIndex = m_phrase->unit()->phrases().indexOf(m_phrase);
-    int unitIndex = -1;
-    for (int i = 0; i < m_unit->course()->units().size(); ++i) {
-        if (m_unit->course()->units().at(i) == m_unit) {
-            unitIndex = i;
-            break;
-        }
-    }
-    if (unitIndex > 0 || phraseIndex > 0) {
-        return true;
-    }
-    return false;
+    return m_indexUnit > 0 || m_indexPhrase > 0;
 }
 
 bool EditorSession::hasNextPhrase() const
 {
-    if (!m_unit || !m_phrase) {
-        return false;
-    }
-    Q_ASSERT(m_unit->course() != nullptr);
-
-    const int phraseIndex = m_phrase->unit()->phrases().indexOf(m_phrase);
-    int unitIndex = -1;
-    for (int i = 0; i < m_unit->course()->units().size(); ++i) {
-        if (m_unit->course()->units().at(i) == m_unit) {
-            unitIndex = i;
-            break;
-        }
-    }
-    if ((unitIndex >= 0 && unitIndex < m_course->units().size() - 1)
-            || (phraseIndex >= 0 && phraseIndex < m_unit->phrases().size() - 1)) {
+    if (m_indexUnit < m_actions.count() - 1) {
         return true;
+    }
+    if (m_actions.constLast()) {
+        if (m_indexPhrase < m_actions.constLast()->actions().count() - 1) {
+            return true;
+        }
     }
     return false;
 }
@@ -343,11 +304,10 @@ void EditorSession::updateCourseFromSkeleton()
 
 TrainingAction * EditorSession::activeAction() const
 {
-    if (!m_phrase) {
+    if (m_indexUnit < 0 || m_indexPhrase < 0) {
         return nullptr;
     }
-    return nullptr;
-//    return qobject_cast<TrainingAction*>(m_actions.at(m_indexUnit)->actions().at(m_indexPhrase));
+    return qobject_cast<TrainingAction*>(m_actions.at(m_indexUnit)->actions().at(m_indexPhrase));
 }
 
 void EditorSession::updateTrainingActions()
@@ -356,6 +316,12 @@ void EditorSession::updateTrainingActions()
         action->deleteLater();
     }
     m_actions.clear();
+
+    if (!m_course) {
+        m_indexUnit = -1;
+        m_indexPhrase = -1;
+        return;
+    }
 
     const auto unitList = m_course->units();
     for (const auto &unit : qAsConst(unitList)) {
@@ -375,14 +341,14 @@ void EditorSession::updateTrainingActions()
     }
 
     // update indices
-//    m_indexUnit = -1;
-//    m_indexPhrase = -1;
-//    if (m_course->units().count() > 0) {
-//        m_indexUnit = 0;
-//        if (m_course->units().constFirst()->phrases().count() > 0) {
-//            m_indexPhrase = 0;
-//        }
-//    }
+    m_indexUnit = -1;
+    m_indexPhrase = -1;
+    if (m_course->units().count() > 0) {
+        m_indexUnit = 0;
+        if (m_course->units().constFirst()->phrases().count() > 0) {
+            m_indexPhrase = 0;
+        }
+    }
 }
 
 QVector<TrainingAction *> EditorSession::trainingActions() const

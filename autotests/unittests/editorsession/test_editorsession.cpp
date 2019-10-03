@@ -182,9 +182,9 @@ void TestEditorSession::iterateCourse()
     QVERIFY(course.get() == session.course());
 
     // test direct unit setters
-    session.setUnit(unitA.get());
+    session.setActiveUnit(unitA.get());
     QCOMPARE(session.activeUnit()->self(), unitA);
-    session.setUnit(unitB.get());
+    session.setActiveUnit(unitB.get());
     QCOMPARE(session.activeUnit()->self(), unitB);
 
     // test direct phrase setters
