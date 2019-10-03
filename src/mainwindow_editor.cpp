@@ -29,27 +29,23 @@
 #include "models/languagemodel.h"
 #include "settings.h"
 #include "libsound/src/outputdevicecontroller.h"
-
+#include "artikulate_debug.h"
 #include <KActionCollection>
 #include <KConfigDialog>
 #include <KLocalizedString>
 #include <KLocalizedContext>
 #include <KStandardAction>
 #include <KAboutData>
-
 #include <QAction>
 #include <QApplication>
 #include <QCloseEvent>
 #include <QCoreApplication>
-#include "artikulate_debug.h"
-#include <QGraphicsObject>
 #include <QIcon>
 #include <QPointer>
 #include <QQmlContext>
 #include <QQmlProperty>
 #include <QQuickItem>
 #include <QQuickView>
-#include <QQuickWidget>
 #include <QStandardPaths>
 #include <QStatusBar>
 
@@ -109,8 +105,6 @@ void MainWindowEditor::setupActions()
 //    exportAction->setIcon(QIcon::fromTheme(QStringLiteral("document-export")));
 
 //    KStandardAction::quit(this, SLOT(quit()), actionCollection());
-
-//    setupGUI(Keys | Save | Create, QStringLiteral("artikulateui_editor.rc"));
 }
 
 void MainWindowEditor::showSettingsDialog()

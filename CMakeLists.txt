@@ -51,7 +51,6 @@ find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     XmlPatterns
     Qml
     Quick
-    QuickWidgets
     Test
 )
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
@@ -60,7 +59,6 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Crash
     I18n
     NewStuff
-    XmlGui
     Kirigami2
 )
 

@@ -177,10 +177,8 @@ target_link_libraries(artikulate_editor
         artikulatecore
         Qt5::Qml
         Qt5::Quick
-        Qt5::QuickWidgets
         KF5::Crash
         KF5::NewStuff
-        KF5::XmlGui
 )
 
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})

@@ -1,6 +1,3 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-    <qresource prefix="/kxmlgui5/artikulate_editor">
-        <file>artikulateui_editor.rc</file>
-    </qresource>
+<RCC>
+    <qresource prefix="/kxmlgui5/artikulate_editor"/>
 </RCC>

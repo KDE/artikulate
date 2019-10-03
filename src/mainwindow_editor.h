@@ -22,7 +22,6 @@
 #define MAINWINDOW_EDITOR_H
 
 #include <QQmlApplicationEngine>
-#include <QQuickWidget>
 #include "core/contributorrepository.h"
 #include "core/trainingsession.h"
 
