@@ -129,7 +129,7 @@ IPhrase * TrainingSession::activePhrase() const
     return nullptr;
 }
 
-void TrainingSession::setPhrase(IPhrase *phrase)
+void TrainingSession::setActivePhrase(IPhrase *phrase)
 {
     for (int i = 0; i < m_actions.count(); ++i) {
         for (int j = 0; j < m_actions.at(i)->actions().count(); ++j) {

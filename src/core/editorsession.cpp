@@ -25,11 +25,12 @@
 #include "core/unit.h"
 #include "core/iunit.h"
 #include "core/phrase.h"
+#include "core/trainingaction.h"
 #include "core/contributorrepository.h"
 #include "artikulate_debug.h"
 
 EditorSession::EditorSession(QObject *parent)
-    : QObject(parent)
+    : ISessionActions(parent)
 {
     connect(this, &EditorSession::skeletonChanged, this, &EditorSession::displayedCourseChanged);
     connect(this, &EditorSession::courseChanged, this, &EditorSession::displayedCourseChanged);
@@ -92,7 +93,7 @@ ILanguage * EditorSession::language() const
     return m_language;
 }
 
-IEditableCourse * EditorSession::course() const
+IEditableCourse *EditorSession::course() const
 {
     return m_course;
 }
@@ -122,6 +123,7 @@ void EditorSession::setCourse(IEditableCourse *course)
     } else {
         m_language = nullptr;
     }
+    updateTrainingActions();
     emit languageChanged();
     emit courseChanged();
 }
@@ -337,4 +339,53 @@ void EditorSession::updateCourseFromSkeleton()
         return;
     }
     m_repository->updateCourseFromSkeleton(m_course->self());
+}
+
+TrainingAction * EditorSession::activeAction() const
+{
+    if (!m_phrase) {
+        return nullptr;
+    }
+    return nullptr;
+//    return qobject_cast<TrainingAction*>(m_actions.at(m_indexUnit)->actions().at(m_indexPhrase));
+}
+
+void EditorSession::updateTrainingActions()
+{
+    for (const auto &action : qAsConst(m_actions)) {
+        action->deleteLater();
+    }
+    m_actions.clear();
+
+    const auto unitList = m_course->units();
+    for (const auto &unit : qAsConst(unitList)) {
+        auto action = new TrainingAction(unit->title(), this);
+        const auto phraseList = unit->phrases();
+        for (const auto &phrase : qAsConst(phraseList)) {
+            if (phrase->sound().isEmpty()) {
+                continue;
+            }
+            action->appendChild(new TrainingAction(phrase, this, unit.get()));
+        }
+        if (action->hasChildren()) {
+            m_actions.append(action);
+        } else {
+            action->deleteLater();
+        }
+    }
+
+    // update indices
+//    m_indexUnit = -1;
+//    m_indexPhrase = -1;
+//    if (m_course->units().count() > 0) {
+//        m_indexUnit = 0;
+//        if (m_course->units().constFirst()->phrases().count() > 0) {
+//            m_indexPhrase = 0;
+//        }
+//    }
+}
+
+QVector<TrainingAction *> EditorSession::trainingActions() const
+{
+    return m_actions;
 }

@@ -45,7 +45,7 @@ class ARTIKULATECORE_EXPORT TrainingAction : public QObject
 public:
     TrainingAction(QObject *parent = nullptr);
     TrainingAction(const QString &text, QObject *parent = nullptr);
-    TrainingAction(std::shared_ptr<IPhrase> phrase, TrainingSession *session, QObject *parent = nullptr);
+    TrainingAction(std::shared_ptr<IPhrase> phrase, ISessionActions *session, QObject *parent = nullptr);
     void appendChild(QObject *child);
     bool hasChildren() const;
     Q_INVOKABLE void trigger();
@@ -73,7 +73,7 @@ private:
     QString m_tooltip{QString()};
     QList<QObject*> m_actions;
     std::shared_ptr<IPhrase> m_phrase;
-    TrainingSession * m_trainingSession{nullptr};
+    ISessionActions * m_session{nullptr};
 };
 
 #endif

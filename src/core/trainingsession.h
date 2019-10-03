@@ -41,21 +41,22 @@ namespace LearnerProfile {
 class ARTIKULATECORE_EXPORT TrainingSession : public ISessionActions
 {
     Q_OBJECT
+    Q_INTERFACES(ISessionActions)
     Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(IUnit *unit READ activeUnit WRITE setUnit NOTIFY phraseChanged)
-    Q_PROPERTY(IPhrase *phrase READ activePhrase WRITE setPhrase NOTIFY phraseChanged)
+    Q_PROPERTY(IPhrase *phrase READ activePhrase WRITE setActivePhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNext READ hasNext NOTIFY phraseChanged)
 
 public:
     explicit TrainingSession(LearnerProfile::ProfileManager *manager, QObject *parent = nullptr);
 
-    ICourse * course() const override;
+    ICourse * course() const;
     void setCourse(ICourse *course);
     IUnit * activeUnit() const;
     void setUnit(IUnit *unit);
     TrainingAction * activeAction() const override;
-    IPhrase * activePhrase() const override;
-    void setPhrase(IPhrase *phrase) override;
+    IPhrase * activePhrase() const;
+    void setActivePhrase(IPhrase *phrase) override;
     bool hasPrevious() const;
     bool hasNext() const;
     Q_INVOKABLE void accept();

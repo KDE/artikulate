@@ -37,11 +37,11 @@ TrainingAction::TrainingAction(const QString &text, QObject *parent)
 {
 }
 
-TrainingAction::TrainingAction(std::shared_ptr<IPhrase> phrase, TrainingSession *session, QObject* parent)
+TrainingAction::TrainingAction(std::shared_ptr<IPhrase> phrase, ISessionActions *session, QObject* parent)
     : QObject(parent)
     , m_icon(new TrainingActionIcon(this, QString()))
     , m_phrase(phrase)
-    , m_trainingSession(session)
+    , m_session(session)
 {
     if (m_phrase) {
         m_text = phrase->text();
@@ -61,8 +61,8 @@ bool TrainingAction::hasChildren() const
 
 void TrainingAction::trigger()
 {
-    if (m_phrase && m_trainingSession) {
-        m_trainingSession->setPhrase(m_phrase.get());
+    if (m_phrase && m_session) {
+        m_session->setActivePhrase(m_phrase.get());
     }
 }
 
@@ -101,7 +101,7 @@ QObject * TrainingAction::icon() const
 
 IPhrase * TrainingAction::phrase() const
 {
-    return m_phrase.get(); //TODO
+    return m_phrase.get();
 }
 
 QList<QObject *> TrainingAction::actions() const

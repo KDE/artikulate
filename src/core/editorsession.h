@@ -23,6 +23,7 @@
 
 #include "artikulatecore_export.h"
 #include "phrase.h"
+#include "isessionactions.h"
 
 class ILanguage;
 class IEditableCourse;
@@ -52,9 +53,10 @@ class IEditableRepository;
  *
  * The main switch is \c EditorSession::setSkeletonMode(bool)
  */
-class ARTIKULATECORE_EXPORT EditorSession : public QObject
+class ARTIKULATECORE_EXPORT EditorSession : public ISessionActions
 {
     Q_OBJECT
+    Q_INTERFACES(ISessionActions)
     Q_PROPERTY(bool skeletonMode READ skeletonMode NOTIFY skeletonModeChanged)
     Q_PROPERTY(bool editSkeleton READ isEditSkeleton WRITE setEditSkeleton NOTIFY editSkeletonChanged)
     Q_PROPERTY(IEditableCourse *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
@@ -93,7 +95,7 @@ public:
     IUnit * activeUnit() const;
     void setUnit(IUnit *unit);
     IPhrase * activePhrase() const;
-    void setActivePhrase(IPhrase * phrase);
+    void setActivePhrase(IPhrase *phrase) override;
     IPhrase::Type phraseType() const;
     void setPhraseType(IPhrase::Type type);
     bool hasPreviousPhrase() const;
@@ -101,6 +103,8 @@ public:
     Q_INVOKABLE void switchToPreviousPhrase();
     Q_INVOKABLE void switchToNextPhrase();
     Q_INVOKABLE void updateCourseFromSkeleton();
+    TrainingAction * activeAction() const override;
+    QVector<TrainingAction *> trainingActions() const override;
 
 private:
     std::shared_ptr<IPhrase> nextPhrase() const;
@@ -114,13 +118,12 @@ Q_SIGNALS:
     void skeletonModeChanged();
     void skeletonChanged();
     void languageChanged();
-    void courseChanged();
     void displayedCourseChanged();
     void unitChanged();
-    void phraseChanged();
 
 private:
     Q_DISABLE_COPY(EditorSession)
+    void updateTrainingActions();
     IEditableRepository * m_repository{ nullptr };
     bool m_editSkeleton{ false };
     IEditableCourse *m_skeleton{ nullptr };
@@ -128,6 +131,7 @@ private:
     IEditableCourse *m_course{ nullptr };
     std::shared_ptr<IUnit> m_unit{ nullptr };
     std::shared_ptr<IPhrase> m_phrase;
+    QVector<TrainingAction*> m_actions;
 };
 
 #endif

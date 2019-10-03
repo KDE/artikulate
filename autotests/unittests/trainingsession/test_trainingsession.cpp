@@ -152,10 +152,10 @@ void TestTrainingSession::iterateCourse()
     QCOMPARE(session.activeUnit(), unitB.get());
 
     // test direct phrase setters
-    session.setPhrase(phraseA1.get());
+    session.setActivePhrase(phraseA1.get());
     QCOMPARE(session.activePhrase(), phraseA1.get());
     QCOMPARE(session.activeUnit(), unitA.get());
-    session.setPhrase(phraseB1.get());
+    session.setActivePhrase(phraseB1.get());
     QCOMPARE(session.activePhrase(), phraseB1.get());
     QCOMPARE(session.activeUnit(), unitB.get());
 
@@ -166,7 +166,7 @@ void TestTrainingSession::iterateCourse()
     QCOMPARE(actions.at(1)->actions().count(), 2);
 
     // test phrase iterators: accept iterator
-    session.setPhrase(phraseA1.get());
+    session.setActivePhrase(phraseA1.get());
     QCOMPARE(session.activeUnit(), unitA.get());
     QCOMPARE(session.activePhrase(), phraseA1.get());
     QVERIFY(session.hasNext());
@@ -180,7 +180,7 @@ void TestTrainingSession::iterateCourse()
     QVERIFY(!session.hasNext());
 
     // test phrase iterators: skip iterator
-    session.setPhrase(phraseA1.get());
+    session.setActivePhrase(phraseA1.get());
     QCOMPARE(session.activeUnit(), unitA.get());
     QCOMPARE(session.activePhrase(), phraseA1.get());
     QVERIFY(!session.hasPrevious());
@@ -197,7 +197,7 @@ void TestTrainingSession::iterateCourse()
 
     // test completed signal
     QSignalSpy spy(&session, SIGNAL(completed()));
-    session.setPhrase(phraseB1.get());
+    session.setActivePhrase(phraseB1.get());
     session.accept();
     QCOMPARE(spy.count(), 0);
     session.accept();
