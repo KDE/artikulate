@@ -59,10 +59,6 @@ std::shared_ptr<EditableCourseResource> EditableCourseResource::create(
 {
     std::shared_ptr<EditableCourseResource> course(new EditableCourseResource(path, repository));
     course->setSelf(course);
-    for (auto &unit : course->units()) {
-        unit->setCourse(course);
-    }
-
     return course;
 }
 
@@ -190,7 +186,16 @@ std::shared_ptr<Unit> EditableCourseResource::addUnit(std::shared_ptr<Unit> unit
     return sharedUnit;
 }
 
-QVector<std::shared_ptr<Unit>> EditableCourseResource::units() { return m_course->units(); }
+QVector<std::shared_ptr<Unit>> EditableCourseResource::units()
+{
+    if (!m_unitsLoaded) {
+        for (auto &unit : m_course->units()) {
+            unit->setCourse(self());
+        }
+        m_unitsLoaded = true;
+    }
+    return m_course->units();
+}
 
 void EditableCourseResource::updateFrom(std::shared_ptr<ICourse> skeleton)
 {

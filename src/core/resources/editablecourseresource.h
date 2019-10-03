@@ -119,6 +119,7 @@ private:
      */
     explicit EditableCourseResource(const QUrl &path, IResourceRepository *repository);
     void setSelf(std::shared_ptr<ICourse> self) override;
+    mutable bool m_unitsLoaded{ false }; ///< parsing of all units is postponed until needed, this variable indicates if they are read
     bool m_modified{ false };
     const std::unique_ptr<CourseResource> m_course;
 };
