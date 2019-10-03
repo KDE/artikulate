@@ -31,7 +31,7 @@ DrawerTrainingActions::DrawerTrainingActions(QObject* parent)
 {
 }
 
-void DrawerTrainingActions::setSession(TrainingSession *session)
+void DrawerTrainingActions::setSession(ISessionActions *session)
 {
     if (session == m_session) {
         return;
@@ -49,7 +49,7 @@ void DrawerTrainingActions::setSession(TrainingSession *session)
     emit actionsChanged();
 }
 
-TrainingSession * DrawerTrainingActions::session() const
+ISessionActions * DrawerTrainingActions::session() const
 {
     return m_session;
 }

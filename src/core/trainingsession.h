@@ -22,6 +22,7 @@
 #define TRAININGSESSION_H
 
 #include "artikulatecore_export.h"
+#include "isessionactions.h"
 #include "phrase.h"
 #include <QVector>
 
@@ -37,7 +38,7 @@ namespace LearnerProfile {
 /**
  * \class TrainingSession
  */
-class ARTIKULATECORE_EXPORT TrainingSession : public QObject
+class ARTIKULATECORE_EXPORT TrainingSession : public ISessionActions
 {
     Q_OBJECT
     Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
@@ -48,13 +49,13 @@ class ARTIKULATECORE_EXPORT TrainingSession : public QObject
 public:
     explicit TrainingSession(LearnerProfile::ProfileManager *manager, QObject *parent = nullptr);
 
-    ICourse * course() const;
+    ICourse * course() const override;
     void setCourse(ICourse *course);
     IUnit * activeUnit() const;
     void setUnit(IUnit *unit);
-    TrainingAction * activeAction() const;
-    IPhrase * activePhrase() const;
-    void setPhrase(IPhrase *phrase);
+    TrainingAction * activeAction() const override;
+    IPhrase * activePhrase() const override;
+    void setPhrase(IPhrase *phrase) override;
     bool hasPrevious() const;
     bool hasNext() const;
     Q_INVOKABLE void accept();
@@ -68,11 +69,9 @@ public:
      *
      * @note phrases without sound file paths are skipped when generating actions
      */
-    QVector<TrainingAction *> trainingActions() const;
+    QVector<TrainingAction *> trainingActions() const override;
 
 Q_SIGNALS:
-    void courseChanged();
-    void phraseChanged();
     /**
      * @brief Emitted when last phrase of session is skipped or marked as completed.
      */

@@ -22,7 +22,7 @@
 #define DRAWERTRAININGACTIONS_H
 
 #include "artikulatecore_export.h"
-#include "trainingaction.h"
+#include "isessionactions.h"
 #include <QObject>
 
 class Course;
@@ -30,13 +30,13 @@ class Course;
 class ARTIKULATECORE_EXPORT DrawerTrainingActions : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(TrainingSession *session READ session WRITE setSession NOTIFY sessionChanged)
+    Q_PROPERTY(ISessionActions *session READ session WRITE setSession NOTIFY sessionChanged)
     Q_PROPERTY(QList<QObject *> actions READ actions NOTIFY actionsChanged)
 
 public:
     DrawerTrainingActions(QObject *parent = nullptr);
-    void setSession(TrainingSession *session);
-    TrainingSession * session() const;
+    void setSession(ISessionActions *session);
+    ISessionActions * session() const;
     QList<QObject *> actions() const;
 
 Q_SIGNALS:
@@ -48,7 +48,7 @@ Q_SIGNALS:
     void triggerTrainingView();
 
 private:
-    TrainingSession *m_session{nullptr};
+    ISessionActions *m_session{nullptr};
     TrainingAction *m_defaultAction{nullptr};
 };
 

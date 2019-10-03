@@ -20,23 +20,24 @@
 
 #include "application.h"
 
-#include "core/iresourcerepository.h"
-#include "core/ieditablerepository.h"
-#include "core/ilanguage.h"
-#include "core/language.h"
 #include "core/contributorrepository.h"
 #include "core/drawertrainingactions.h"
-#include "core/trainingaction.h"
 #include "core/editorsession.h"
+#include "core/ieditablerepository.h"
+#include "core/ilanguage.h"
+#include "core/iresourcerepository.h"
+#include "core/isessionactions.h"
+#include "core/language.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
 #include "core/phrase.h"
 #include "core/player.h"
 #include "core/recorder.h"
-#include "core/trainingsession.h"
-#include "core/unit.h"
 #include "core/resources/editablecourseresource.h"
 #include "core/resources/skeletonresource.h"
+#include "core/trainingaction.h"
+#include "core/trainingsession.h"
+#include "core/unit.h"
 #include "models/coursefiltermodel.h"
 #include "models/coursemodel.h"
 #include "models/languagemodel.h"
@@ -121,42 +122,43 @@ void Application::registerQmlTypes()
         QStringLiteral("Unit objects are backend objects"));
 
     // interfaces
-    qmlRegisterInterface<IResourceRepository>("IResourceRepository");
-    qmlRegisterInterface<IResourceRepository>("IEditableRepository");
     qmlRegisterInterface<ICourse>("ICourse");
     qmlRegisterInterface<IEditableCourse>("IEditableCourse");
+    qmlRegisterInterface<IEditablePhrase>("IEditablePhrase");
     qmlRegisterInterface<ILanguage>("ILanguage");
     qmlRegisterInterface<IPhrase>("IPhrase");
-    qmlRegisterInterface<IEditablePhrase>("IEditablePhrase");
+    qmlRegisterInterface<IResourceRepository>("IEditableRepository");
+    qmlRegisterInterface<IResourceRepository>("IResourceRepository");
+    qmlRegisterInterface<ISessionActions>("ISessionActions");
     qmlRegisterInterface<IUnit>("IUnit");
 
     // concrete instantiable types
+    qmlRegisterType<DrawerTrainingActions>("artikulate", 1, 0, "DrawerTrainingActions");
+    qmlRegisterType<IconItem>("artikulate", 1, 0, "Icon");
+    qmlRegisterType<Language>("artikulate", 1, 0, "Language");
     qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");
     qmlRegisterType<LearnerProfile::LearningGoal>("artikulate", 1, 0, "LearningGoal");
-    qmlRegisterType<Language>("artikulate", 1, 0, "Language");
     qmlRegisterType<Phoneme>("artikulate", 1, 0, "Phoneme");
     qmlRegisterType<PhonemeGroup>("artikulate", 1, 0, "PhonemeGroup");
     qmlRegisterType<Player>("artikulate", 1, 0, "Player");
     qmlRegisterType<Recorder>("artikulate", 1, 0, "Recorder");
-    qmlRegisterType<IconItem>("artikulate", 1, 0, "Icon");
-    qmlRegisterType<DrawerTrainingActions>("artikulate", 1, 0, "DrawerTrainingActions");
     qmlRegisterType<TrainingAction>("artikulate", 1, 0, "TrainingAction");
 
     // models
-    qmlRegisterType<CourseModel>("artikulate", 1, 0, "CourseModel");
     qmlRegisterType<CourseFilterModel>("artikulate", 1, 0, "CourseFilterModel");
+    qmlRegisterType<CourseModel>("artikulate", 1, 0, "CourseModel");
     qmlRegisterType<LanguageModel>("artikulate", 1, 0, "LanguageModel");
     qmlRegisterType<LanguageResourceModel>("artikulate", 1, 0, "LanguageResourceModel");
-//     qmlRegisterType<LearningProgressModel>("artikulate", 1, 0, "LearningProgressModel");//TODO must be ported to new trainingsession
-    qmlRegisterType<UnitModel>("artikulate", 1, 0, "UnitModel");
-    qmlRegisterType<UnitFilterModel>("artikulate", 1, 0, "UnitFilterModel");
-    qmlRegisterType<PhraseModel>("artikulate", 1, 0, "PhraseModel");
-    qmlRegisterType<PhraseListModel>("artikulate", 1, 0, "PhraseListModel");
-    qmlRegisterType<PhraseFilterModel>("artikulate", 1, 0, "PhraseFilterModel");
-    qmlRegisterType<PhonemeModel>("artikulate", 1, 0, "PhonemeModel");
+    qmlRegisterType<LearnerProfile::LearningGoalModel>("artikulate", 1, 0, "LearningGoalModel");
     qmlRegisterType<PhonemeGroupModel>("artikulate", 1, 0, "PhonemeGroupModel");
+    qmlRegisterType<PhonemeModel>("artikulate", 1, 0, "PhonemeModel");
     qmlRegisterType<PhonemeUnitModel>("artikulate", 1, 0, "PhonemeUnitModel");
+    qmlRegisterType<PhraseFilterModel>("artikulate", 1, 0, "PhraseFilterModel");
+    qmlRegisterType<PhraseListModel>("artikulate", 1, 0, "PhraseListModel");
+    qmlRegisterType<PhraseModel>("artikulate", 1, 0, "PhraseModel");
     qmlRegisterType<ProfileModel>("artikulate", 1, 0, "ProfileModel");
     qmlRegisterType<SkeletonModel>("artikulate", 1, 0, "SkeletonModel");
-    qmlRegisterType<LearnerProfile::LearningGoalModel>("artikulate", 1, 0, "LearningGoalModel");
+    qmlRegisterType<UnitFilterModel>("artikulate", 1, 0, "UnitFilterModel");
+    qmlRegisterType<UnitModel>("artikulate", 1, 0, "UnitModel");
+//     qmlRegisterType<LearningProgressModel>("artikulate", 1, 0, "LearningProgressModel");//TODO must be ported to new trainingsession
 }

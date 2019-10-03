@@ -29,7 +29,7 @@
 #include "artikulate_debug.h"
 
 TrainingSession::TrainingSession(LearnerProfile::ProfileManager *manager, QObject *parent)
-    : QObject(parent)
+    : ISessionActions(parent)
     , m_profileManager(manager)
     , m_course(nullptr)
 {
