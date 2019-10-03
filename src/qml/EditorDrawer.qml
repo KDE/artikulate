@@ -56,7 +56,7 @@ Kirigami.GlobalDrawer {
             ActionListItem {
                 action: Kirigami.Action {
                     text: i18n("Repository")
-                    iconName: "document-edit"
+                    iconName: "folder-sync"
                     onTriggered: {
                         root.pageStack.clear();
                         root.pageStack.push(repositoryPageComponent);

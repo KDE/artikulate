@@ -133,10 +133,6 @@ Item {
                 }
                 RowLayout {
                     id: controls
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
                     PhraseEditorEditStateComponent {
                         id: phraseEditStateSetter
                         visible: !root.isSkeletonPhrase
@@ -152,6 +148,28 @@ Item {
 
     ColumnLayout {
         id: phraseRow
+
+        Row {
+            Text {
+                text: i18n("Unit Title:")
+            }
+            TextField {
+                width: 300
+                text: g_editorSession.unit.title
+                onEditingFinished: {
+                    g_editorSession.unit.title = text
+                }
+            }
+            Button { // add units only if skeleton
+                id: newUnitButton
+                icon.name: "list-add"
+                text: i18n("Create Phrase")
+                onClicked: phraseModel.course.createPhrase(unit)
+            }
+            Item { //dummy
+                Layout.fillHeight: true
+            }
+        }
 
         Loader {
             id: editLoader

@@ -61,7 +61,8 @@ class ARTIKULATECORE_EXPORT EditorSession : public ISessionActions
     Q_PROPERTY(bool editSkeleton READ isEditSkeleton WRITE setEditSkeleton NOTIFY editSkeletonChanged)
     Q_PROPERTY(IEditableCourse *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
     Q_PROPERTY(IEditableCourse *course READ course WRITE setCourse NOTIFY courseChanged)
-
+    Q_PROPERTY(IUnit *unit READ activeUnit NOTIFY unitChanged)
+    Q_PROPERTY(ILanguage *language READ language NOTIFY languageChanged)
     // editor elements depending on currently selected mode, skeleton and course
     /**
      * @brief the displayed course (skeleton or course) depending on the user selection

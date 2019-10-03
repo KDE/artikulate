@@ -49,13 +49,6 @@ Kirigami.ScrollablePage {
     ColumnLayout {
         id: main
 
-        anchors {
-            fill: parent
-            topMargin: 20
-            rightMargin: 20
-            bottomMargin: 20
-            leftMargin: 20
-        }
         spacing: 10
 
         LanguageModel {
@@ -178,11 +171,6 @@ Kirigami.ScrollablePage {
         }
 
         ColumnLayout {
-            UnitEditor {
-                visible: g_editorSession.unit !== null && g_editorSession.phrase === null
-                unit: g_editorSession.unit
-                editPhrases: g_editorSession.skeletonMode && g_editorSession.editSkeleton
-            }
             PhraseEditor {
                 visible: g_editorSession.phrase !== null
                 phrase: g_editorSession.phrase
