@@ -53,7 +53,6 @@ using namespace LearnerProfile;
 
 MainWindow::MainWindow()
     : m_actionCollection(new KActionCollection(this, QStringLiteral("artikulate")))
-    , m_helpMenu(new KHelpMenu)
     , m_profileManager(new LearnerProfile::ProfileManager(this))
     , m_trainingSession(new TrainingSession(m_profileManager, this))
 {
@@ -69,14 +68,9 @@ MainWindow::MainWindow()
     rootContext()->setContextProperty(QStringLiteral("g_trainingSession"), m_trainingSession);
     rootContext()->setContextProperty(QStringLiteral("g_profileManager"), m_profileManager);
     rootContext()->setContextProperty(QStringLiteral("g_artikulateAboutData"), QVariant::fromValue(KAboutData::applicationData()));
-    rootContext()->setContextProperty(QStringLiteral("kcfg_UseContributorResources"), Settings::useCourseRepository());
-    rootContext()->setContextProperty(QStringLiteral("kcfg_ShowMenuBar"), Settings::showMenuBar());
 
     // set starting screen
     load(QUrl(QStringLiteral("qrc:/artikulate/qml/Main.qml")));
-
-    // settings from kcfg values
-//     updateTrainingPhraseFont(); //FIXME deactivated while porting
 
     // create training profile if none exists:
     if (!m_profileManager->activeProfile()) {
@@ -88,8 +82,6 @@ MainWindow::MainWindow()
             this, SLOT(updateCourseResources()));
     connect(rootObjects().constFirst(), SIGNAL(triggerAction(QString)),
             this, SLOT(triggerAction(QString)));
-    connect(rootObjects().constFirst(), SIGNAL(switchMenuBarVisibility()),
-            this, SLOT(switchMenuBarVisibility()));
 
     // set font for the phrase in trainer to default from kcfg file
     QObject *phraseText = rootObjects().constFirst()->findChild<QObject*>(QStringLiteral("phraseText"));
@@ -122,11 +114,6 @@ void MainWindow::setupActions()
     actionCollection()->addAction(QStringLiteral("config_learner_profile"), configLearnerProfileAction);
     configLearnerProfileAction->setIcon(QIcon::fromTheme(QStringLiteral("user-identity")));
 
-    KStandardAction::helpContents(m_helpMenu, SLOT(appHelpActivated()), actionCollection());
-    KStandardAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());
-    KStandardAction::aboutKDE(m_helpMenu, SLOT(aboutKDE()), actionCollection());
-    KStandardAction::aboutApp(m_helpMenu, SLOT(aboutApplication()), actionCollection());
-
     KStandardAction::quit(qApp, SLOT(quit()), actionCollection());
 }
 
@@ -140,15 +127,12 @@ void MainWindow::showSettingsDialog()
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
     AppearenceDialogPage *appearenceDialog = new AppearenceDialogPage();
 
-//    resourceDialog->loadSettings();
     soundDialog->loadSettings();
     appearenceDialog->loadSettings();
 
     dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), QStringLiteral("audio-headset"), i18nc("@title:tab", "Sound Device Settings"), true);
     dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Fonts"), QStringLiteral("preferences-desktop-font"), i18nc("@title:tab", "Training Phrase Font"), true);
 
-//     connect(dialog, SIGNAL(settingsChanged(const QString&)), resourceDialog, SLOT(loadSettings()));
-//     connect(dialog, SIGNAL(settingsChanged(const QString&)), soundDialog, SLOT(loadSettings()));
     connect(dialog.data(), &QDialog::accepted, soundDialog, &SoundDeviceDialogPage::saveSettings);
     connect(dialog.data(), &QDialog::accepted, appearenceDialog, &AppearenceDialogPage::saveSettings);
     connect(dialog.data(), &QDialog::accepted, this, &MainWindow::updateTrainingPhraseFont);

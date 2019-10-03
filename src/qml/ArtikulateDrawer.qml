@@ -112,23 +112,24 @@ Kirigami.GlobalDrawer {
             Layout.fillWidth: true
         }
 
-        ActionListItem {
-            action: Kirigami.Action {
-                text: i18n("Statistics")
-                iconName: "user-properties"
-                onTriggered: {
-                    root.pageStack.pop();
-                    root.pageStack.push(profileSettingsPageComponent);
-                }
-            }
-        }
-        ActionListItem {
-            action: Kirigami.Action {
-                text: i18n("Settings")
-                iconName: "settings-configure"
-                onTriggered: triggerSettingsDialog()
-            }
-        }
+//TODO currently disabled while contents have to be ported
+//        ActionListItem {
+//            action: Kirigami.Action {
+//                text: i18n("Statistics")
+//                iconName: "user-properties"
+//                onTriggered: {
+//                    root.pageStack.pop();
+//                    root.pageStack.push(profileSettingsPageComponent);
+//                }
+//            }
+//        }
+//        ActionListItem {
+//            action: Kirigami.Action {
+//                text: i18n("Settings")
+//                iconName: "settings-configure"
+//                onTriggered: triggerSettingsDialog()
+//            }
+//        }
         ActionListItem {
             action: Kirigami.Action {
                 text: i18n("Download Training")
