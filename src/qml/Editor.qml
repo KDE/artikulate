@@ -53,9 +53,7 @@ Kirigami.ApplicationWindow {
     }
     Component {
         id: repositoryPageComponent
-        Item {
-            // TODO not implemented yet
-        }
+        RepositoryConfigurationPage { }
     }
     Component {
         id: aboutPageComponent

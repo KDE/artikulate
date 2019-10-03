@@ -62,7 +62,7 @@ public:
 
     ~ResourceRepositoryStub() override;
 
-    QString storageLocation() const override
+    QUrl storageLocation() const override
     {
         return m_storageLocation;
     }
@@ -107,7 +107,7 @@ public:
     }
 
 private:
-    QString m_storageLocation;
+    QUrl m_storageLocation;
     QVector<std::shared_ptr<ILanguage>> m_languages;
     QVector<std::shared_ptr<ICourse>> m_courses;
 };

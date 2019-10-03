@@ -40,15 +40,15 @@ void TestIResourceRepository::init()
 void TestIResourceRepository::resourceRepository()
 {
     ResourceRepository repository(QUrl::fromLocalFile("data/courses/"));
-    QCOMPARE(repository.storageLocation(), "data/courses/");
+    QCOMPARE(repository.storageLocation().toLocalFile(), "data/courses/");
     performInterfaceTests(&repository);
 }
 
 void TestIResourceRepository::contributorRepository()
 {
     ContributorRepository repository;
-    repository.setStorageLocation("data/contributorrepository/"); // contributor repository requires subdirectory "courses"
-    QCOMPARE(repository.storageLocation(), "data/contributorrepository/");
+    repository.setStorageLocation(QUrl::fromLocalFile("data/contributorrepository/")); // contributor repository requires subdirectory "courses"
+    QCOMPARE(repository.storageLocation().toLocalFile(), "data/contributorrepository/");
     performInterfaceTests(&repository);
 }
 

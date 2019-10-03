@@ -40,7 +40,7 @@ void TestResourceRepository::cleanup()
 void TestResourceRepository::createRepository()
 {
     ResourceRepository repository(QUrl::fromLocalFile("data/courses/"));
-    QCOMPARE(repository.storageLocation(), "data/courses/");
+    QCOMPARE(repository.storageLocation().toLocalFile(), "data/courses/");
     repository.reloadCourses();
     QCOMPARE(repository.courses().count(), 2);
 }
@@ -50,7 +50,7 @@ void TestResourceRepository::iResourceRepositoryCompatability()
     ResourceRepository repository(QUrl::fromLocalFile("data/courses/"));
     IResourceRepository *interface = &repository;
 
-    QCOMPARE(interface->storageLocation(), "data/courses/");
+    QCOMPARE(interface->storageLocation().toLocalFile(), "data/courses/");
     QVERIFY(interface->languages().count() > 0);
     QCOMPARE(interface->courses().count(), 0);
 

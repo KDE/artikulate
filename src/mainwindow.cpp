@@ -19,9 +19,7 @@
  */
 
 #include "mainwindow.h"
-#include "ui/resourcesdialogpage.h"
 #include "ui/sounddevicedialogpage.h"
-#include "ui/appearencedialogpage.h"
 #include "core/resourcerepository.h"
 #include "core/trainingsession.h"
 #include "core/editorsession.h"
@@ -125,16 +123,12 @@ void MainWindow::showSettingsDialog()
     QPointer<KConfigDialog> dialog = new KConfigDialog(nullptr, QStringLiteral("settings"), Settings::self());
 
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
-    AppearenceDialogPage *appearenceDialog = new AppearenceDialogPage();
 
     soundDialog->loadSettings();
-    appearenceDialog->loadSettings();
 
     dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), QStringLiteral("audio-headset"), i18nc("@title:tab", "Sound Device Settings"), true);
-    dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Fonts"), QStringLiteral("preferences-desktop-font"), i18nc("@title:tab", "Training Phrase Font"), true);
 
     connect(dialog.data(), &QDialog::accepted, soundDialog, &SoundDeviceDialogPage::saveSettings);
-    connect(dialog.data(), &QDialog::accepted, appearenceDialog, &AppearenceDialogPage::saveSettings);
     connect(dialog.data(), &QDialog::accepted, this, &MainWindow::updateTrainingPhraseFont);
     connect(dialog.data(), &QDialog::accepted, this, &MainWindow::updateKcfgUseContributorResources);
     connect(dialog.data(), &QDialog::finished, soundDialog, &SoundDeviceDialogPage::stopPlaying);

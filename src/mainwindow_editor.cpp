@@ -20,9 +20,7 @@
 
 #include "mainwindow_editor.h"
 #include "application.h"
-#include "ui/resourcesdialogpage.h"
 #include "ui/sounddevicedialogpage.h"
-#include "ui/appearencedialogpage.h"
 #include "ui/exportghnsdialog.h"
 #include "core/editorsession.h"
 #include "core/resources/courseresource.h"
@@ -60,7 +58,7 @@ MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
     rootContext()->setContextProperty(QStringLiteral("g_editorSession"), m_editorSession);
     rootContext()->setContextProperty(QStringLiteral("g_artikulateAboutData"), QVariant::fromValue(KAboutData::applicationData()));
 
-    m_repository->setStorageLocation(Settings::courseRepositoryPath());
+    m_repository->setStorageLocation(QUrl::fromLocalFile(Settings::courseRepositoryPath()));
     m_editorSession->setRepository(m_repository);
 
     // load saved sound settings
@@ -114,21 +112,13 @@ void MainWindowEditor::showSettingsDialog()
     }
     QPointer<KConfigDialog> dialog = new KConfigDialog(nullptr, QStringLiteral("settings"), Settings::self());
 
-    ResourcesDialogPage *resourceDialog = new ResourcesDialogPage(m_repository);
     SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
-    AppearenceDialogPage *appearenceDialog = new AppearenceDialogPage();
 
-    resourceDialog->loadSettings();
     soundDialog->loadSettings();
-    appearenceDialog->loadSettings();
 
     dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), QStringLiteral("audio-headset"), i18nc("@title:tab", "Sound Device Settings"), true);
-    dialog->addPage(appearenceDialog, i18nc("@item:inmenu", "Fonts"), QStringLiteral("preferences-desktop-font"), i18nc("@title:tab", "Training Phrase Font"), true);
-    dialog->addPage(resourceDialog, i18nc("@item:inmenu", "Course Resources"), QStringLiteral("repository"), i18nc("@title:tab", "Resource Repository Settings"), true);
 
-    connect(dialog.data(), &QDialog::accepted, resourceDialog, &ResourcesDialogPage::saveSettings);
     connect(dialog.data(), &QDialog::accepted, soundDialog, &SoundDeviceDialogPage::saveSettings);
-    connect(dialog.data(), &QDialog::accepted, appearenceDialog, &AppearenceDialogPage::saveSettings);
 
     dialog->exec();
 }

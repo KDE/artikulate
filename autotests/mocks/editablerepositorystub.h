@@ -52,9 +52,9 @@ public:
         }
     }
     ~EditableRepositoryStub() override;
-    QString storageLocation() const override
+    QUrl storageLocation() const override
     {
-        return QString();
+        return QUrl();
     }
     QVector<std::shared_ptr<IEditableCourse>> skeletons() const override
     {

@@ -52,7 +52,7 @@ ResourceRepository::ResourceRepository(const QUrl &storageLocation)
 
 ResourceRepository::~ResourceRepository() = default;
 
-QString ResourceRepository::storageLocation() const
+QUrl ResourceRepository::storageLocation() const
 {
     return m_storageLocation;
 }
@@ -112,7 +112,7 @@ void ResourceRepository::reloadCourses()
         }
     };
 
-    QDir rootDirectory = QDir(m_storageLocation);
+    QDir rootDirectory = QDir(m_storageLocation.toLocalFile());
     QDirIterator it(rootDirectory, QDirIterator::Subdirectories);
     qCInfo(ARTIKULATE_CORE()) << "Loading courses from" << rootDirectory.absolutePath();
 

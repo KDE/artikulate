@@ -42,7 +42,7 @@ public:
     /**
      * \return path to working repository, if one is set
      */
-    virtual QString storageLocation() const = 0;
+    virtual QUrl storageLocation() const = 0;
 
     /**
      * @return list of all loaded courses

@@ -29,6 +29,7 @@
 #include <QHash>
 #include <QVector>
 #include <QStringList>
+#include <QUrl>
 
 #include "liblearnerprofile/src/learninggoal.h"
 
@@ -37,7 +38,6 @@ class EditableCourseResource;
 class LanguageResource;
 class Language;
 class ICourse;
-class QUrl;
 
 /**
  * @class ContributorRepository
@@ -49,7 +49,7 @@ class ARTIKULATECORE_EXPORT ContributorRepository : public IEditableRepository
     Q_INTERFACES(IResourceRepository)
     Q_INTERFACES(IEditableRepository)
 
-    Q_PROPERTY(QString repositoryUrl READ storageLocation NOTIFY repositoryChanged)
+    Q_PROPERTY(QUrl repositoryUrl READ storageLocation WRITE setStorageLocation NOTIFY repositoryChanged)
 
 public:
     explicit ContributorRepository();
@@ -68,13 +68,13 @@ public:
     /**
      * \return path to working repository, if one is set
      */
-    QString storageLocation() const override;
+    QUrl storageLocation() const override;
 
     /**
      * Set path to central storage location
      * \param path the path to the storage location directory
      */
-    void setStorageLocation(const QString &path);
+    void setStorageLocation(const QUrl &path);
 
     QVector<std::shared_ptr<ILanguage>> languages() const override;
 
@@ -186,7 +186,7 @@ private:
      * for this application.
      */
     void loadLanguageResources();
-    QString m_storageLocation;
+    QUrl m_storageLocation;
     QVector<std::shared_ptr<ILanguage>> m_languages;
     QMap<QString, QVector<std::shared_ptr<EditableCourseResource>> > m_courses; //!> (language-id, course-resource)
     QVector<std::shared_ptr<IEditableCourse>> m_skeletonResources;

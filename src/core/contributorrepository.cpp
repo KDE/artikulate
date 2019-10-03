@@ -105,14 +105,16 @@ void ContributorRepository::addLanguage(const QUrl &languageFile)
     emit languageResourceAdded();
 }
 
-QString ContributorRepository::storageLocation() const
+QUrl ContributorRepository::storageLocation() const
 {
     return m_storageLocation;
 }
 
-void ContributorRepository::setStorageLocation(const QString &path)
+void ContributorRepository::setStorageLocation(const QUrl &path)
 {
     m_storageLocation = path;
+    emit repositoryChanged();
+    reloadCourses();
 }
 
 QVector<std::shared_ptr<ILanguage>> ContributorRepository::languages() const
@@ -237,7 +239,7 @@ void ContributorRepository::reloadCourseOrSkeleton(std::shared_ptr<ICourse> cour
 void ContributorRepository::reloadCourses()
 {
     // register skeleton resources
-    QDir skeletonDirectory = QDir(storageLocation());
+    QDir skeletonDirectory = QDir(storageLocation().toLocalFile());
 
     skeletonDirectory.setFilter(QDir::Files | QDir::Hidden);
     if (!skeletonDirectory.cd(QStringLiteral("skeletons"))) {
@@ -253,7 +255,7 @@ void ContributorRepository::reloadCourses()
     }
 
     // register contributor course files
-    QDir courseDirectory(storageLocation());
+    QDir courseDirectory(storageLocation().toLocalFile());
     if (!courseDirectory.cd(QStringLiteral("courses"))) {
         qCritical() << "There is no subdirectory \"courses\" in directory " << courseDirectory.path()
             << " cannot load courses.";
@@ -354,7 +356,7 @@ IEditableCourse * ContributorRepository::createCourse(std::shared_ptr<ILanguage>
 {
     // set path
     QString path = QStringLiteral("%1/%2/%3/%4/%4.xml")
-        .arg(storageLocation(),
+        .arg(storageLocation().toLocalFile(),
              QStringLiteral("courses"),
              skeleton->id(),
              language->id());

@@ -28,8 +28,8 @@
 #include <QHash>
 #include <QStringList>
 #include <QVector>
+#include <QUrl>
 
-class QUrl;
 class CourseResource;
 class ICourse;
 class Language;
@@ -60,7 +60,7 @@ public:
     /**
      * @return path to repository location
      */
-    QString storageLocation() const override;
+    QUrl storageLocation() const override;
 
     /**
      * @return list of available courses
@@ -91,7 +91,7 @@ private:
     QVector<std::shared_ptr<ICourse>> m_courses;
     QHash<QString, std::shared_ptr<ILanguage>> m_languages; ///>! (language-identifier, language resource)
     QStringList m_loadedCourses;
-    const QString m_storageLocation;
+    const QUrl m_storageLocation;
 };
 
 #endif // RESOURCEREPOSITORY_H
