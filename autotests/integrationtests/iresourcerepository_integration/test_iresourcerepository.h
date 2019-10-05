@@ -22,6 +22,7 @@
 #define TEST_IRESOURCEREPOSITORY_H
 
 #include <QObject>
+#include <QUrl>
 
 class IResourceRepository;
 
@@ -30,7 +31,7 @@ class TestIResourceRepository : public QObject
     Q_OBJECT
 
 public:
-    TestIResourceRepository() = default;
+    TestIResourceRepository();
 
 private Q_SLOTS:
     /**
@@ -54,6 +55,7 @@ private Q_SLOTS:
 
 private:
     void performInterfaceTests(IResourceRepository *repository);
+    QUrl m_repositoryLocation;
 };
 
 #endif

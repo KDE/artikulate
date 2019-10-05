@@ -53,6 +53,7 @@ class ARTIKULATECORE_EXPORT ContributorRepository : public IEditableRepository
 
 public:
     explicit ContributorRepository();
+    explicit ContributorRepository(QUrl storageLocation);
     ~ContributorRepository() override;
 
     /**

@@ -30,25 +30,29 @@
 #include "core/unit.h"
 #include "../src/settings.h"
 
+TestIResourceRepository::TestIResourceRepository()
+    : m_repositoryLocation(QUrl::fromLocalFile(qApp->applicationDirPath() + "/../autotests/data/"))
+{
+}
+
 void TestIResourceRepository::init()
 {
     // check that test data is deployed at the expected location
-    QVERIFY(QFile::exists("data/courses/de/de.xml"));
-    QVERIFY(QFile::exists("data/courses/fr/fr.xml"));
+    QVERIFY(QFile::exists(m_repositoryLocation.toLocalFile() + "/courses/de/de.xml"));
+    QVERIFY(QFile::exists(m_repositoryLocation.toLocalFile() + "/courses/fr/fr.xml"));
 }
 
 void TestIResourceRepository::resourceRepository()
 {
-    ResourceRepository repository(QUrl::fromLocalFile("data/courses/"));
-    QCOMPARE(repository.storageLocation().toLocalFile(), "data/courses/");
+    ResourceRepository repository(QUrl::fromLocalFile(m_repositoryLocation.toLocalFile() + "/courses/"));
+    QCOMPARE(repository.storageLocation(), QUrl::fromLocalFile(m_repositoryLocation.toLocalFile() + "/courses/"));
     performInterfaceTests(&repository);
 }
 
 void TestIResourceRepository::contributorRepository()
 {
-    ContributorRepository repository;
-    repository.setStorageLocation(QUrl::fromLocalFile("data/contributorrepository/")); // contributor repository requires subdirectory "courses"
-    QCOMPARE(repository.storageLocation().toLocalFile(), "data/contributorrepository/");
+    ContributorRepository repository(QUrl::fromLocalFile(m_repositoryLocation.toLocalFile() + "/contributorrepository/")); // contributor repository requires subdirectory "courses"
+    QCOMPARE(repository.storageLocation(), QUrl::fromLocalFile(m_repositoryLocation.toLocalFile() + "/contributorrepository/"));
     performInterfaceTests(&repository);
 }
 

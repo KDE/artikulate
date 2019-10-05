@@ -34,8 +34,9 @@ ResourceRepository::ResourceRepository()
 
 ResourceRepository::ResourceRepository(const QUrl &storageLocation)
     : IResourceRepository()
-    , m_storageLocation(storageLocation.toLocalFile())
+    , m_storageLocation(storageLocation)
 {
+    qCDebug(ARTIKULATE_CORE()) << "Repository created from with location" << m_storageLocation;
     // load language resources
     // all other resources are only loaded on demand
     QDir dir(":/artikulate/languages/");

@@ -43,6 +43,13 @@ ContributorRepository::ContributorRepository()
     loadLanguageResources();
 }
 
+ContributorRepository::ContributorRepository(QUrl storageLocation)
+    : IEditableRepository()
+    , m_storageLocation(std::move(storageLocation))
+{
+    loadLanguageResources();
+}
+
 ContributorRepository::~ContributorRepository() = default;
 
 void ContributorRepository::loadLanguageResources()

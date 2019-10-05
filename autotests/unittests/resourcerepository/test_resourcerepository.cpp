@@ -25,11 +25,16 @@
 #include "src/core/resourcerepository.h"
 #include "src/core/language.h"
 
+TestResourceRepository::TestResourceRepository()
+    : m_repositoryLocation(QUrl::fromLocalFile(qApp->applicationDirPath() + "/../autotests/data/"))
+{
+}
+
 void TestResourceRepository::init()
 {
     // check that test data is deployed at the expected location
-    QVERIFY(QFile::exists("data/courses/de/de.xml"));
-    QVERIFY(QFile::exists("data/courses/fr/fr.xml"));
+    QVERIFY(QFile::exists(m_repositoryLocation.toLocalFile() + "/courses/de/de.xml"));
+    QVERIFY(QFile::exists(m_repositoryLocation.toLocalFile() + "/courses/fr/fr.xml"));
 }
 
 void TestResourceRepository::cleanup()
@@ -39,18 +44,18 @@ void TestResourceRepository::cleanup()
 
 void TestResourceRepository::createRepository()
 {
-    ResourceRepository repository(QUrl::fromLocalFile("data/courses/"));
-    QCOMPARE(repository.storageLocation().toLocalFile(), "data/courses/");
+    ResourceRepository repository(QUrl::fromLocalFile(m_repositoryLocation.toLocalFile() + "/courses/"));
+    QCOMPARE(repository.storageLocation(), QUrl::fromLocalFile(m_repositoryLocation.toLocalFile() + "/courses/"));
     repository.reloadCourses();
     QCOMPARE(repository.courses().count(), 2);
 }
 
 void TestResourceRepository::iResourceRepositoryCompatability()
 {
-    ResourceRepository repository(QUrl::fromLocalFile("data/courses/"));
+    ResourceRepository repository(QUrl::fromLocalFile(m_repositoryLocation.toLocalFile() + "/courses/"));
     IResourceRepository *interface = &repository;
 
-    QCOMPARE(interface->storageLocation().toLocalFile(), "data/courses/");
+    QCOMPARE(interface->storageLocation(), QUrl::fromLocalFile(m_repositoryLocation.toLocalFile() + "/courses/"));
     QVERIFY(interface->languages().count() > 0);
     QCOMPARE(interface->courses().count(), 0);
 
