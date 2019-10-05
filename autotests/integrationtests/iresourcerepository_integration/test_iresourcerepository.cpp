@@ -33,6 +33,7 @@
 TestIResourceRepository::TestIResourceRepository()
     : m_repositoryLocation(QUrl::fromLocalFile(qApp->applicationDirPath() + "/../autotests/data/"))
 {
+    qDebug() << "Running test with repository root:" << m_repositoryLocation;
 }
 
 void TestIResourceRepository::init()
