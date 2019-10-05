@@ -229,9 +229,6 @@ void EditorSession::updateTrainingActions()
         auto action = new TrainingAction(unit->title(), this);
         const auto phraseList = unit->phrases();
         for (const auto &phrase : qAsConst(phraseList)) {
-            if (phrase->sound().isEmpty()) {
-                continue;
-            }
             action->appendChild(new TrainingAction(phrase, this, unit.get()));
         }
         if (action->hasChildren()) {

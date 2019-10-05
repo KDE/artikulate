@@ -69,7 +69,7 @@ Kirigami.Page {
         Button {
             visible: !g_editorSession.skeletonMode
             Kirigami.FormData.label: i18n("Update from Prototype:")
-            enabled: g_editorSession.isSkeletonMode
+            enabled: g_editorSession.skeletonMode
             Layout.minimumWidth: 200
             text: i18n("Update")
             icon.name: "view-refresh"
