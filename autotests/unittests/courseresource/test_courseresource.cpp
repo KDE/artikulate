@@ -98,7 +98,7 @@ void TestCourseResource::unitAddAndRemoveHandling()
     std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     ResourceRepositoryStub repository({language});
 
-    const QString courseDirectory = qApp->applicationDirPath() + "/../autotests/data/courses/de/";
+    const QString courseDirectory = qApp->applicationDirPath() + "/../autotests/unittests/data/courses/de/";
     const QString courseFile = courseDirectory + "de.xml";
     auto course = CourseResource::create(QUrl::fromLocalFile(courseFile), &repository);
 
@@ -124,7 +124,7 @@ void TestCourseResource::coursePropertyChanges()
     std::shared_ptr<ILanguage> language(new LanguageStub("de"));
     ResourceRepositoryStub repository({language});
 
-    const QString courseDirectory = qApp->applicationDirPath() + "/../autotests/data/courses/de/";
+    const QString courseDirectory = qApp->applicationDirPath() + "/../autotests/unittests/data/courses/de/";
     const QString courseFile = courseDirectory + "de.xml";
     auto course = CourseResource::create(QUrl::fromLocalFile(courseFile), &repository);
 
