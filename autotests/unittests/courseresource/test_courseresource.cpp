@@ -58,7 +58,7 @@ void TestCourseResource::loadCourseResource()
     languages.push_back(language);
     ResourceRepositoryStub repository(languages);
 
-    const QString courseDirectory = qApp->applicationDirPath() + "/../autotests/data/courses/de/";
+    const QString courseDirectory = qApp->applicationDirPath() + "/../autotests/unittests/data/courses/de/";
     const QString courseFile = courseDirectory + "de.xml";
 
     auto course = CourseResource::create(QUrl::fromLocalFile(courseFile), &repository);

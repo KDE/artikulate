@@ -26,7 +26,7 @@
 #include "src/core/language.h"
 
 TestResourceRepository::TestResourceRepository()
-    : m_repositoryLocation(QUrl::fromLocalFile(qApp->applicationDirPath() + "/../autotests/data/"))
+    : m_repositoryLocation(QUrl::fromLocalFile(qApp->applicationDirPath() + "/../unittests/autotests/data/"))
 {
 }
 
