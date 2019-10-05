@@ -26,12 +26,12 @@ import artikulate 1.0
 
 Kirigami.ScrollablePage {
     id: root
-    title: i18n("Welcome to Artikulate Course Editor")
+    title: i18n("Select Skeleton")
 
     Kirigami.CardsListView {
         id: listView
         width: root.width - 40
-        model: CourseModel {
+        model: SkeletonModel {
             id: courseModel
         }
 
@@ -57,7 +57,7 @@ Kirigami.ScrollablePage {
                     ColumnLayout {
                         Kirigami.Heading {
                             level: 2
-                            text: i18nc("@title:window language / course name", "%1 / %2", model.language.title, model.title)
+                            text: i18nc("@title:window skeleton name", "%1", model.title)
                         }
                         Kirigami.Separator {
                             Layout.fillWidth: true
@@ -71,10 +71,10 @@ Kirigami.ScrollablePage {
                     QQC2.Button {
                         Layout.alignment: Qt.AlignRight|Qt.AlignVCenter
                         Layout.columnSpan: 2
-                        text: i18nc("@action:button", "Select Course")
+                        text: i18nc("@action:button", "Edit Skeleton")
                         onClicked: {
-                            showPassiveNotification("Selected course for editor: " + model.title + ".");
-                            g_editorSession.course = model.dataRole
+                            showPassiveNotification("Selected skeleton for editor: " + model.title + ".");
+                            g_editorSession.skeleton = model.dataRole
                         }
                     }
                 }

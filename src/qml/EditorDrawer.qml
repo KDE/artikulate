@@ -49,7 +49,8 @@ Kirigami.GlobalDrawer {
                     iconName: "artikulate"
                     onTriggered: {
                         root.pageStack.clear();
-                        root.pageStack.push(welcomePageComponent);
+                        root.pageStack.push(editorCourseSelectionPage);
+                        root.pageStack.push(editorSkeletonSelectionPage);
                     }
                 }
             }

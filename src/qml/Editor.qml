@@ -20,9 +20,7 @@
 
 import QtQuick 2.5
 import QtQuick.Controls 2.3
-import QtQuick.Controls 1.4 as QQC1
 import QtQuick.Layouts 1.2
-import QtQml.Models 2.2
 import org.kde.kirigami 2.7 as Kirigami
 import artikulate 1.0
 
@@ -32,20 +30,23 @@ Kirigami.ApplicationWindow {
     function changePage(pageItem) {
         root.pageStack.clear();
         root.pageStack.push(pageItem);
-        root.pageStack.push(pageItem);
     }
 
     globalDrawer: EditorDrawer {
         pageStack: root.pageStack
     }
 
-    pageStack.initialPage: welcomePageComponent
-    pageStack.globalToolBar.style: Kirigami.ApplicationHeaderStyle.Titles
+    pageStack.initialPage: [ editorCourseSelectionPage, editorSkeletonSelectionPage ]
+    pageStack.globalToolBar.style: pageStack.depth > 1 ? Kirigami.ApplicationHeaderStyle.TabBar :Kirigami.ApplicationHeaderStyle.Titles
 
     // pages
     Component {
-        id: welcomePageComponent
-        WelcomePageEditor { }
+        id: editorCourseSelectionPage
+        EditorCourseSelectionPage { }
+    }
+    Component {
+        id: editorSkeletonSelectionPage
+        EditorSkeletonSelectionPage { }
     }
     Component {
         id: editCoursePageComponent

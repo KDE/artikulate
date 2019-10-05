@@ -67,32 +67,10 @@ Kirigami.ScrollablePage {
         }
 
         RowLayout {
-            Label {
-                text: i18n("Course Prototype:")
-            }
-            ComboBox {
-                Layout.minimumWidth: 300
-                model: SkeletonModel {
-                    id: skeletonModel
-                }
-                textRole: "title"
-                onCurrentIndexChanged: {
-                    g_editorSession.skeleton = skeletonModel.skeleton(currentIndex)
-                }
-            }
-           Button {
-                id: buttonEditSkeleton
-                Layout.minimumWidth: 200
-                text: i18n("Edit Prototype")
-                icon.name: "code-class"
-                checkable: true
-                enabled: g_editorSession.skeletonMode
-                onClicked: g_editorSession.editSkeleton = checked
-            }
             Item { Layout.fillWidth: true }
             Button {
                 id: buttonSyncFromSkeleton
-                enabled: !buttonEditSkeleton.checked
+                enabled: g_editorSession.isSkeletonMode
                 Layout.minimumWidth: 200
                 text: i18n("Sync Prototype")
                 icon.name: "view-refresh"
@@ -105,31 +83,8 @@ Kirigami.ScrollablePage {
         }
 
         RowLayout {
-            id: languageRow
-            Label {
-                text: i18n("Language:")
-            }
-            ComboBox {
-                id: languageSelectionComboBox
-                Layout.minimumWidth: 200
-                Layout.fillWidth: true
-                enabled: !buttonEditSkeleton.checked
-                model: languageModel
-                textRole: "i18nTitle"
-                onCurrentIndexChanged: {
-                    g_editorSession.setCourseByLanguage(languageModel.language(currentIndex))
-                }
-            }
-        }
-        RowLayout {
             id: createNewCourseRow
-            visible: {
-                if (buttonEditSkeleton.checked || g_editorSession.displayedCourse !== null) {
-                    return false
-                }
-                return true
-            }
-
+            visible: g_editorSession.isSkeletonMode
             Label {
                 text: i18n("There is no course in the selected language.")
             }
