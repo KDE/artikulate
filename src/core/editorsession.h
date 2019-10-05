@@ -34,40 +34,18 @@ class IEditableRepository;
 
 /**
  * \class EditorSession
- *
- * An object of this class is used to set the current state of the editor. By this, we put all logic
- * how language, skeleton and course fit to each other into this class. The main concept is that
- * we have to fundamentally different workflows that both are modeled in this class:
- *
- * 1. Skeleton based workflow
- * - a skeleton is selected
- * - every language is available, since eventually the course should be available in every language
- * - for every language, there is at most one course (there is none only in case it is not created yet)
- * - adding new units or phrases is only possible in the skeleton course
- * - every course can update/sync with the skeleton
- *
- * 2. Course based workflow
- * - there is no skeleton from which the course is derived
- * - the base is a language that is selected first
- * - for a language there can be none to arbitrarily many courses
- *
- * The main switch is \c EditorSession::setSkeletonMode(bool)
  */
 class ARTIKULATECORE_EXPORT EditorSession : public ISessionActions
 {
     Q_OBJECT
     Q_INTERFACES(ISessionActions)
     Q_PROPERTY(bool skeletonMode READ skeletonMode NOTIFY skeletonModeChanged)
-    Q_PROPERTY(bool editSkeleton READ isEditSkeleton WRITE setEditSkeleton NOTIFY editSkeletonChanged)
-    Q_PROPERTY(IEditableCourse *skeleton READ skeleton WRITE setSkeleton NOTIFY skeletonChanged)
+    /**
+     * @brief language of the currently selected course or null if skeleton is selected
+     */
+    Q_PROPERTY(ILanguage *language READ language NOTIFY languageChanged)
     Q_PROPERTY(IEditableCourse *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(IUnit *unit READ activeUnit NOTIFY unitChanged)
-    Q_PROPERTY(ILanguage *language READ language NOTIFY languageChanged)
-    // editor elements depending on currently selected mode, skeleton and course
-    /**
-     * @brief the displayed course (skeleton or course) depending on the user selection
-     */
-    Q_PROPERTY(IEditableCourse *displayedCourse READ displayedCourse NOTIFY displayedCourseChanged)
     Q_PROPERTY(IPhrase *phrase READ activePhrase WRITE setActivePhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasPreviousPhrase READ hasPreviousPhrase NOTIFY phraseChanged)
@@ -77,25 +55,13 @@ public:
 
     void setRepository(IEditableRepository *repository);
     bool skeletonMode() const;
-    void setEditSkeleton(bool enabled=true);
-    bool isEditSkeleton() const;
-    IEditableCourse * skeleton() const;
-    void setSkeleton(IEditableCourse *skeleton);
     ILanguage * language() const;
     IEditableCourse * course() const;
     void setCourse(IEditableCourse *course);
-    /**
-     * @brief Open course resource by specifying the language
-     * @param language the target language
-     */
-    Q_INVOKABLE void setCourseByLanguage(ILanguage *language);
-    IEditableCourse * displayedCourse() const;
     IUnit * activeUnit() const;
     void setActiveUnit(IUnit *unit);
     IPhrase * activePhrase() const;
     void setActivePhrase(IPhrase *phrase) override;
-    IPhrase::Type phraseType() const;
-    void setPhraseType(IPhrase::Type type);
     bool hasPreviousPhrase() const;
     bool hasNextPhrase() const;
     Q_INVOKABLE void switchToPreviousPhrase();
@@ -104,15 +70,9 @@ public:
     TrainingAction * activeAction() const override;
     QVector<TrainingAction *> trainingActions() const override;
 
-private Q_SLOTS:
-    void updateDisplayedUnit();
-
 Q_SIGNALS:
-    void editSkeletonChanged();
     void skeletonModeChanged();
-    void skeletonChanged();
     void languageChanged();
-    void displayedCourseChanged();
     void unitChanged();
 
 private:
@@ -120,8 +80,6 @@ private:
     void updateTrainingActions();
     IEditableRepository * m_repository{ nullptr };
     bool m_editSkeleton{ false };
-    IEditableCourse *m_skeleton{ nullptr };
-    ILanguage *m_language{ nullptr };
     IEditableCourse *m_course{ nullptr };
     QVector<TrainingAction*> m_actions;
     int m_indexUnit{-1};

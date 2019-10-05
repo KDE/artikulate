@@ -47,76 +47,11 @@ Kirigami.ScrollablePage {
     }
 
     ColumnLayout {
-        id: main
-
-        spacing: 10
-
-        LanguageModel {
-            id: languageModel
-            view: LanguageModel.AllLanguages
-            resourceModel: LanguageResourceModel {
-                repository: g_repository
-            }
-        }
-        CourseModel {
-            id: courseModel
-        }
-        UnitModel {
-            id: selectedUnitModel
-            course: g_editorSession.displayedCourse
-        }
-
-        RowLayout {
-            id: createNewCourseRow
-            visible: g_editorSession.isSkeletonMode
-            Label {
-                text: i18n("There is no course in the selected language.")
-            }
-            ComboBox { // course selection only necessary when we do not edit skeleton derived course
-                id: comboCourse
-                visible: !g_editorSession.skeletonMode
-                Layout.fillWidth: true
-                model: CourseFilterModel {
-                    id: courseFilterModel
-                    courseModel: courseModel
-                    language: g_editorSession.language
-                }
-                textRole: "title"
-                onCurrentIndexChanged: {
-                    if (courseFilterModel.course(currentIndex)) {
-                        g_editorSession.course = courseFilterModel.course(languageSelectionComboBox.currentIndex)
-                    }
-                }
-                onVisibleChanged: {
-                    if (visible && courseFilterModel.course(currentIndex)) {
-                        g_editorSession.course = courseFilterModel.course(languageSelectionComboBox.currentIndex)
-                    }
-                }
-            }
-            Button {
-                text: i18n("Create Course")
-                icon.name: "journal-new"
-                onClicked: {
-                    g_editorSession.course = g_repository.createCourse(languageModel.language(languageSelectionComboBox.currentIndex), g_editorSession.skeleton)
-                }
-            }
-            Button { // add units only if skeleton
-                id: newUnitButton
-                visible: !g_editorSession.skeletonMode || g_editorSession.editSkeleton
-                icon.name: "list-add"
-                text: i18n("New Unit")
-                onClicked: phraseModel.course.createUnit()
-            }
-        }
-
-        ColumnLayout {
-            PhraseEditor {
-                visible: g_editorSession.phrase !== null
-                phrase: g_editorSession.phrase
-                isSkeletonPhrase: g_editorSession.editSkeleton
-                Layout.minimumWidth: Math.floor(main.width * 0.6)
-                Layout.fillHeight: true
-            }
+        PhraseEditor {
+            visible: g_editorSession.phrase !== null
+            phrase: g_editorSession.phrase
+            isSkeletonPhrase: g_editorSession.skeletonMode
+            Layout.fillHeight: true
         }
     }
 }

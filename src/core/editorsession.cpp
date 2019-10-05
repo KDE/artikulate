@@ -32,10 +32,6 @@
 EditorSession::EditorSession(QObject *parent)
     : ISessionActions(parent)
 {
-    connect(this, &EditorSession::skeletonChanged, this, &EditorSession::displayedCourseChanged);
-    connect(this, &EditorSession::courseChanged, this, &EditorSession::displayedCourseChanged);
-    connect(this, &EditorSession::editSkeletonChanged, this, &EditorSession::displayedCourseChanged);
-    connect(this, &EditorSession::displayedCourseChanged, this, &EditorSession::updateDisplayedUnit);
     connect(this, &EditorSession::courseChanged, this, &EditorSession::skeletonModeChanged);
 }
 
@@ -46,51 +42,20 @@ void EditorSession::setRepository(IEditableRepository *repository)
 
 bool EditorSession::skeletonMode() const
 {
-    return m_skeleton != nullptr;
-}
-
-void EditorSession::setEditSkeleton(bool enabled)
-{
-    if (m_editSkeleton == enabled) {
-        return;
-    }
-    m_editSkeleton = enabled;
-    emit editSkeletonChanged();
-}
-
-bool EditorSession::isEditSkeleton() const
-{
-    return m_editSkeleton;
-}
-
-IEditableCourse * EditorSession::skeleton() const
-{
-    return m_skeleton;
-}
-
-void EditorSession::setSkeleton(IEditableCourse *skeleton)
-{
-    if (m_skeleton == skeleton) {
-        return;
-    }
-    m_skeleton = skeleton;
-
-    IEditableCourse *newCourse{ nullptr };
-    if (m_skeleton && m_repository) {
-        for (const auto &course : m_repository->editableCourses()) {
-            if (course->foreignId() == m_skeleton->id()) {
-                newCourse = course.get();
-                break;
-            }
+    for (const auto &skeleton : m_repository->skeletons()) {
+        if (skeleton->id() == m_course->id()) {
+            return true;
         }
     }
-    setCourse(newCourse);
-    emit skeletonChanged();
+    return false;
 }
 
 ILanguage * EditorSession::language() const
 {
-    return m_language;
+    if (m_course && m_course->language()) {
+        return m_course->language().get();
+    }
+    return nullptr;
 }
 
 IEditableCourse *EditorSession::course() const
@@ -105,73 +70,9 @@ void EditorSession::setCourse(IEditableCourse *course)
     }
     m_course = course;
 
-    if (m_course != nullptr) {
-        // update skeleton
-        IEditableCourse * newSkeleton{ nullptr };
-        if (m_skeleton == nullptr || m_skeleton->id() != course->foreignId()) {
-            for (const auto &skeleton : m_repository->skeletons()) {
-                if (skeleton->id() == course->foreignId()) {
-                    newSkeleton = skeleton.get();
-                    break;
-                }
-            }
-            m_skeleton = newSkeleton;
-            emit skeletonChanged();
-        }
-        // update language
-        m_language = m_course->language().get();
-    } else {
-        m_language = nullptr;
-    }
     updateTrainingActions();
     emit languageChanged();
     emit courseChanged();
-}
-
-void EditorSession::setCourseByLanguage(ILanguage *language)
-{
-    if (!skeletonMode()) {
-        qDebug() << "Course selection by language is only available in skeleton mode";
-        return;
-    }
-    if (language == nullptr || m_repository == nullptr) {
-        return;
-    }
-    IEditableCourse *newCourse{ nullptr };
-    QString languageId;
-    if (language) {
-        languageId = language->id();
-    }
-    for (auto course : m_repository->editableCourses()) {
-        if (course->foreignId() == m_skeleton->id() && course->language()->id() == language->id()) {
-            newCourse = course.get();
-            break;
-        }
-    }
-    setCourse(newCourse);
-}
-
-IEditableCourse * EditorSession::displayedCourse() const
-{
-    IEditableCourse * course{ nullptr };
-    if (m_editSkeleton) {
-        course = m_skeleton;
-    } else {
-        course = m_course;
-    }
-    return course;
-}
-
-void EditorSession::updateDisplayedUnit()
-{
-    auto course = displayedCourse();
-    if (course != nullptr) {
-        auto units = course->units();
-        if (!units.isEmpty()) {
-            setActiveUnit(units.constFirst().get());
-            return;
-        }
-    }
 }
 
 IUnit * EditorSession::activeUnit() const

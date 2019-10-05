@@ -26,13 +26,12 @@ import org.kde.kirigami 2.7 as Kirigami
 
 Kirigami.Page {
     id: root
-    //TODO adapt to editor session if course or skeleton: requires refactoring of editorsession to only operate on one course
-    title: i18n("Course Configuration")
+    title: g_editorSession.skeletonMode ? i18n("Prototype Configuration") : i18n("Course Configuration")
 
     Kirigami.FormLayout {
         anchors.fill: parent
         Kirigami.Separator {
-            Kirigami.FormData.label: i18n("Course Description")
+            Kirigami.FormData.label: g_editorSession.skeletonMode ? i18n("Prototype Description") : i18n("Course Description")
             Kirigami.FormData.isSection: true
         }
         TextField {
@@ -42,6 +41,7 @@ Kirigami.Page {
             onAccepted: g_editorSession.course.title = text
         }
         TextField {
+            visible: !g_editorSession.skeletonMode
             Kirigami.FormData.label: i18n("Localized Title:")
             text: g_editorSession.course.i18nTitle
             Layout.preferredWidth: .7 * root.width
@@ -54,6 +54,7 @@ Kirigami.Page {
             onAccepted: g_editorSession.course.description = text
         }
         TextField {
+            visible: !g_editorSession.skeletonMode
             Kirigami.FormData.label: i18n("Language:")
             text: g_editorSession.course.languageTitle
             readOnly: true
@@ -61,10 +62,12 @@ Kirigami.Page {
         }
 
         Kirigami.Separator {
+            visible: !g_editorSession.skeletonMode
             Kirigami.FormData.label: i18n("Prototype")
             Kirigami.FormData.isSection: true
         }
         Button {
+            visible: !g_editorSession.skeletonMode
             Kirigami.FormData.label: i18n("Update from Prototype:")
             enabled: g_editorSession.isSkeletonMode
             Layout.minimumWidth: 200

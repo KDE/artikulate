@@ -74,7 +74,7 @@ Kirigami.ScrollablePage {
                         text: i18nc("@action:button", "Edit Prototype")
                         onClicked: {
                             showPassiveNotification("Selected prototype for editor: " + model.title + ".");
-                            g_editorSession.skeleton = model.dataRole
+                            g_editorSession.course = model.dataRole
                         }
                     }
                 }

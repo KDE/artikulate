@@ -60,7 +60,6 @@ void TestEditorSession::createEditorSession()
     session.setRepository(&repository);
     QVERIFY(session.course() == nullptr);
     QVERIFY(session.language() == nullptr);
-    QVERIFY(session.skeleton() == nullptr);
 }
 
 void TestEditorSession::nonSkeletonSwitchingBehavior()
@@ -122,9 +121,6 @@ void TestEditorSession::skeletonSwitchingBehavior()
     EditorSession session;
     session.setRepository(&repository);
 
-    session.setSkeleton(skeletonA.get());
-    Q_ASSERT(session.skeleton() != nullptr);
-    QCOMPARE(session.skeleton()->id(), skeletonA->id());
     Q_ASSERT(session.course() != nullptr);
     QCOMPARE(session.course()->id(), courseGermanA->id());
     session.setCourse(courseEnglishA.get());
@@ -132,8 +128,6 @@ void TestEditorSession::skeletonSwitchingBehavior()
     QCOMPARE(session.course()->id(), courseEnglishA->id());
 
     session.setCourse(courseGermanB.get());
-    QVERIFY(session.skeleton() != nullptr);
-    QCOMPARE(session.skeleton()->id(), skeletonB->id());
     QVERIFY(session.course() != nullptr);
     QCOMPARE(session.course()->id(), courseGermanB->id());
     QVERIFY(session.language() != nullptr);
