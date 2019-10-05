@@ -119,6 +119,11 @@ void EditableCourseResource::setDescription(QString description)
 
 std::shared_ptr<ILanguage> EditableCourseResource::language() const { return m_course->language(); }
 
+QString EditableCourseResource::languageTitle() const
+{
+    return m_course->languageTitle();
+}
+
 void EditableCourseResource::setLanguage(std::shared_ptr<ILanguage> language)
 {
     if (m_course->language() != language) {

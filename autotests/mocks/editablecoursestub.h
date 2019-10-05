@@ -103,6 +103,13 @@ public:
     {
         return m_language;
     }
+    QString languageTitle() const override
+    {
+        if (m_language) {
+            m_language->title();
+        }
+        return QString();
+    }
     void setLanguage(std::shared_ptr<ILanguage> language) override
     {
         m_language = language;

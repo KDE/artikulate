@@ -85,6 +85,8 @@ public:
      */
     std::shared_ptr<ILanguage> language() const override;
 
+    QString languageTitle() const override;
+
     void setLanguage(std::shared_ptr<ILanguage> language);
 
     std::shared_ptr<Unit> addUnit(std::shared_ptr<Unit> unit);

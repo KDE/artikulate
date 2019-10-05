@@ -67,22 +67,6 @@ Kirigami.ScrollablePage {
         }
 
         RowLayout {
-            Item { Layout.fillWidth: true }
-            Button {
-                id: buttonSyncFromSkeleton
-                enabled: g_editorSession.isSkeletonMode
-                Layout.minimumWidth: 200
-                text: i18n("Sync Prototype")
-                icon.name: "view-refresh"
-                ToolTip.visible: hovered
-                ToolTip.delay: 1000
-                ToolTip.timeout: 5000
-                ToolTip.text: i18n("Update the course with elements from prototype.")
-                onClicked: g_editorSession.updateCourseFromSkeleton()
-            }
-        }
-
-        RowLayout {
             id: createNewCourseRow
             visible: g_editorSession.isSkeletonMode
             Label {

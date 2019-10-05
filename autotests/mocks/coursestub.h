@@ -78,6 +78,13 @@ public:
     {
         return m_language;
     }
+    QString languageTitle() const override
+    {
+        if (m_language) {
+            m_language->title();
+        }
+        return QString();
+    }
     QVector<std::shared_ptr<Unit>> units() override
     {
         return m_units;

@@ -254,6 +254,14 @@ std::shared_ptr<ILanguage> CourseResource::language() const
     return d->m_language;
 }
 
+QString CourseResource::languageTitle() const
+{
+    if (d->m_language) {
+        return d->m_language->title();
+    }
+    return QString();
+}
+
 void CourseResource::setLanguage(std::shared_ptr<ILanguage> language)
 {
     if (d->m_language == language) {

@@ -67,6 +67,17 @@ Kirigami.GlobalDrawer {
             Kirigami.Separator {
                 Layout.fillWidth: true
             }
+            ActionListItem {
+                action: Kirigami.Action {
+                    text: i18n("Course Configuration")
+                    iconName: "document-properties"
+                    enabled: g_editorSession.course !== null
+                    onTriggered: {
+                        root.pageStack.clear();
+                        root.pageStack.push(courseConfigurationPageComponent);
+                    }
+                }
+            }
         }
     ]
 

@@ -26,7 +26,7 @@ import artikulate 1.0
 
 Kirigami.ScrollablePage {
     id: root
-    title: i18n("Select Skeleton")
+    title: i18n("Select Prototype")
 
     Kirigami.CardsListView {
         id: listView
@@ -57,7 +57,7 @@ Kirigami.ScrollablePage {
                     ColumnLayout {
                         Kirigami.Heading {
                             level: 2
-                            text: i18nc("@title:window skeleton name", "%1", model.title)
+                            text: i18nc("@title:window prototype name", "%1", model.title)
                         }
                         Kirigami.Separator {
                             Layout.fillWidth: true
@@ -71,9 +71,9 @@ Kirigami.ScrollablePage {
                     QQC2.Button {
                         Layout.alignment: Qt.AlignRight|Qt.AlignVCenter
                         Layout.columnSpan: 2
-                        text: i18nc("@action:button", "Edit Skeleton")
+                        text: i18nc("@action:button", "Edit Prototype")
                         onClicked: {
-                            showPassiveNotification("Selected skeleton for editor: " + model.title + ".");
+                            showPassiveNotification("Selected prototype for editor: " + model.title + ".");
                             g_editorSession.skeleton = model.dataRole
                         }
                     }

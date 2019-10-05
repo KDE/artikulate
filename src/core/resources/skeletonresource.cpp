@@ -353,6 +353,11 @@ std::shared_ptr<ILanguage> SkeletonResource::language() const
     return std::shared_ptr<Language>();
 }
 
+QString SkeletonResource::languageTitle() const
+{
+    return QString();
+}
+
 void SkeletonResource::setLanguage(std::shared_ptr<ILanguage> language)
 {
     Q_UNUSED(language);

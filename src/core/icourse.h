@@ -39,6 +39,7 @@ class ARTIKULATECORE_EXPORT ICourse : public QObject
     Q_PROPERTY(QString title READ title NOTIFY titleChanged)
     Q_PROPERTY(QString i18nTitle READ i18nTitle NOTIFY titleChanged)
     Q_PROPERTY(QString description READ description NOTIFY descriptionChanged)
+    Q_PROPERTY(QString languageTitle READ languageTitle CONSTANT)
 
 public:
     virtual ~ICourse() = default;
@@ -47,6 +48,7 @@ public:
     virtual QString title() const = 0;
     virtual QString i18nTitle() const = 0;
     virtual QString description() const = 0;
+    virtual QString languageTitle() const = 0;
     virtual std::shared_ptr<ILanguage> language() const = 0;
     /**
      * @brief Lazy loading unit list

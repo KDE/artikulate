@@ -53,6 +53,10 @@ Kirigami.ApplicationWindow {
         EditCoursePage { }
     }
     Component {
+        id: courseConfigurationPageComponent
+        CourseConfigurationPage { }
+    }
+    Component {
         id: repositoryPageComponent
         RepositoryConfigurationPage { }
     }

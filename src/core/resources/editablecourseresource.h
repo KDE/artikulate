@@ -90,6 +90,7 @@ public:
      * \return language identifier of this course
      */
     std::shared_ptr<ILanguage> language() const override;
+    QString languageTitle() const override;
     void setLanguage(std::shared_ptr<ILanguage> language) override;
     bool sync() override;
     bool exportToFile(const QUrl &filePath) const override;
