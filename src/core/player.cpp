@@ -21,17 +21,16 @@
 #include "player.h"
 #include "libsound/src/outputdevicecontroller.h"
 
-#include <QList>
 #include "artikulate_debug.h"
-#include <QUrl>
+#include <QList>
 #include <QString>
+#include <QUrl>
 
 Player::Player(QObject *parent)
     : QObject(parent)
     , m_soundFile(QString())
     , m_playbackState(StoppedState)
 {
-
 }
 
 void Player::setSoundFile(const QUrl &fileUrl)
@@ -40,7 +39,7 @@ void Player::setSoundFile(const QUrl &fileUrl)
     emit soundFileChanged();
 }
 
-void Player::setSoundFile(const QString& fileUrl)
+void Player::setSoundFile(const QString &fileUrl)
 {
     OutputDeviceController::self().stop();
     setSoundFile(QUrl::fromLocalFile(fileUrl));
@@ -63,7 +62,7 @@ void Player::playback()
         qCritical() << "Abort playing sound, no file available";
         return;
     }
-    qCDebug(ARTIKULATE_LOG) << this << "Playback sound in file "<< m_soundFile.toLocalFile();
+    qCDebug(ARTIKULATE_LOG) << this << "Playback sound in file " << m_soundFile.toLocalFile();
     OutputDeviceController::self().play(QUrl::fromLocalFile(m_soundFile.toLocalFile()));
     m_playbackState = PlayingState;
     connect(&OutputDeviceController::self(), &OutputDeviceController::started, this, &Player::updateState);
@@ -81,15 +80,11 @@ void Player::stop()
 
 void Player::updateState()
 {
-    if (OutputDeviceController::self().state() == OutputDeviceController::StoppedState
-        && state() == PlayingState
-    ) {
+    if (OutputDeviceController::self().state() == OutputDeviceController::StoppedState && state() == PlayingState) {
         m_playbackState = StoppedState;
         emit stateChanged();
     }
-    if (OutputDeviceController::self().state() == OutputDeviceController::PlayingState
-        && state() != PlayingState
-    ) {
+    if (OutputDeviceController::self().state() == OutputDeviceController::PlayingState && state() != PlayingState) {
         m_playbackState = PlayingState;
         emit stateChanged();
     }

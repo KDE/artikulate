@@ -20,15 +20,15 @@
 
 #include "unitmodel.h"
 #include "core/icourse.h"
-#include "core/unit.h"
-#include "core/phrase.h"
 #include "core/language.h"
+#include "core/phrase.h"
+#include "core/unit.h"
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
 
-#include <KLocalizedString>
 #include "artikulate_debug.h"
+#include <KLocalizedString>
 
 UnitModel::UnitModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -38,7 +38,7 @@ UnitModel::UnitModel(QObject *parent)
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
 }
 
-QHash< int, QByteArray > UnitModel::roleNames() const
+QHash<int, QByteArray> UnitModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
@@ -75,12 +75,12 @@ void UnitModel::setCourse(ICourse *course)
     emit courseChanged();
 }
 
-ICourse * UnitModel::course() const
+ICourse *UnitModel::course() const
 {
     return m_course;
 }
 
-QVariant UnitModel::data(const QModelIndex& index, int role) const
+QVariant UnitModel::data(const QModelIndex &index, int role) const
 {
     Q_ASSERT(m_course);
 
@@ -94,32 +94,30 @@ QVariant UnitModel::data(const QModelIndex& index, int role) const
 
     auto unit = m_course->units().at(index.row());
 
-    switch(role)
-    {
-    case Qt::DisplayRole:
-        return !unit->title().isEmpty()?
-                QVariant(unit->title()): QVariant(i18nc("@item:inlistbox:", "unknown"));
-    case Qt::ToolTipRole:
-        return QVariant(unit->title());
-    case TitleRole:
-        return unit->title();
-    case ContainsTrainingData:
-        for (const auto &phrase : unit->phrases()) {
-//            if (phrase->editState() == Phrase::Completed) { //TODO introduce editablephrase
-//                return true;
-//            }
-        }
-        return false;
-    case IdRole:
-        return unit->id();
-    case DataRole:
-        return QVariant::fromValue<QObject*>(unit.get());
-    default:
-        return QVariant();
+    switch (role) {
+        case Qt::DisplayRole:
+            return !unit->title().isEmpty() ? QVariant(unit->title()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
+        case Qt::ToolTipRole:
+            return QVariant(unit->title());
+        case TitleRole:
+            return unit->title();
+        case ContainsTrainingData:
+            for (const auto &phrase : unit->phrases()) {
+                //            if (phrase->editState() == Phrase::Completed) { //TODO introduce editablephrase
+                //                return true;
+                //            }
+            }
+            return false;
+        case IdRole:
+            return unit->id();
+        case DataRole:
+            return QVariant::fromValue<QObject *>(unit.get());
+        default:
+            return QVariant();
     }
 }
 
-int UnitModel::rowCount(const QModelIndex& parent) const
+int UnitModel::rowCount(const QModelIndex &parent) const
 {
     if (!m_course) {
         return 0;
@@ -135,7 +133,7 @@ int UnitModel::rowCount(const QModelIndex& parent) const
 void UnitModel::onUnitAboutToBeAdded(std::shared_ptr<Unit> unit, int index)
 {
     connect(unit.get(), SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
-    //TODO add missing signals
+    // TODO add missing signals
     beginInsertRows(QModelIndex(), index, index);
 }
 

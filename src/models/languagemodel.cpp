@@ -21,11 +21,11 @@
 #include "languagemodel.h"
 #include "models/languageresourcemodel.h"
 
-#include <QSortFilterProxyModel>
 #include "artikulate_debug.h"
 #include <KLocalizedString>
+#include <QSortFilterProxyModel>
 
-LanguageModel::LanguageModel(QObject* parent)
+LanguageModel::LanguageModel(QObject *parent)
     : QSortFilterProxyModel(parent)
     , m_resourceModel(nullptr)
     , m_view(NonEmptyGhnsOnlyLanguages)
@@ -33,7 +33,7 @@ LanguageModel::LanguageModel(QObject* parent)
     setDynamicSortFilter(true);
 }
 
-LanguageResourceModel * LanguageModel::resourceModel() const
+LanguageResourceModel *LanguageModel::resourceModel() const
 {
     return m_resourceModel;
 }

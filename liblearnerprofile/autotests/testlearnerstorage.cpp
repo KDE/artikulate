@@ -23,15 +23,14 @@
 #include "learninggoal.h"
 #include "storage.h"
 
-#include <QTest>
 #include <QTemporaryFile>
+#include <QTest>
 
 using namespace LearnerProfile;
 
 TestLearnerStorage::TestLearnerStorage()
     : m_storage(nullptr)
 {
-
 }
 
 void TestLearnerStorage::init()
@@ -57,19 +56,18 @@ void TestLearnerStorage::testLearnerStorage()
     QVERIFY(m_storage->storeGoal(&tmpGoal));
     QVERIFY(m_storage->storeProfile(&tmpLearner));
 
-    QList< LearnerProfile::LearningGoal* > loadedGoals = m_storage->loadGoals();
+    QList<LearnerProfile::LearningGoal *> loadedGoals = m_storage->loadGoals();
     QCOMPARE(loadedGoals.size(), 1);
     QCOMPARE(loadedGoals.first()->category(), tmpGoal.category());
     QCOMPARE(loadedGoals.first()->identifier(), tmpGoal.identifier());
     QCOMPARE(loadedGoals.first()->name(), tmpGoal.name());
 
-    QList<LearnerProfile::Learner*> loadedLearner = m_storage->loadProfiles(loadedGoals);
+    QList<LearnerProfile::Learner *> loadedLearner = m_storage->loadProfiles(loadedGoals);
     QCOMPARE(loadedLearner.size(), 1);
     QCOMPARE(loadedLearner.first()->identifier(), tmpLearner.identifier());
     QCOMPARE(loadedLearner.first()->name(), tmpLearner.name());
     QCOMPARE(loadedLearner.first()->goals().size(), 1);
-    QCOMPARE(loadedLearner.first()->goals().first()->identifier(),
-             tmpGoal.identifier());
+    QCOMPARE(loadedLearner.first()->goals().first()->identifier(), tmpGoal.identifier());
 }
 
 void TestLearnerStorage::testProgressLogStorage()
@@ -84,7 +82,7 @@ void TestLearnerStorage::testProgressLogStorage()
     QVERIFY(m_storage->storeGoal(&tmpGoal));
     QVERIFY(m_storage->storeProfile(&tmpLearner));
 
-    const QDateTime time{QDateTime::currentDateTime()};
+    const QDateTime time {QDateTime::currentDateTime()};
     QVERIFY(m_storage->storeProgressLog(&tmpLearner, &tmpGoal, "container", "item", 1, time));
     auto data = m_storage->readProgressLog(&tmpLearner, &tmpGoal, QStringLiteral("container"), QStringLiteral("item"));
     QCOMPARE(data.size(), 1);

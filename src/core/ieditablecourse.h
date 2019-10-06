@@ -23,8 +23,8 @@
 
 #include "artikulatecore_export.h"
 #include "icourse.h"
-#include <memory>
 #include <QObject>
+#include <memory>
 
 class QString;
 class ILanguage;

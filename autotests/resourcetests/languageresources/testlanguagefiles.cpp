@@ -20,15 +20,15 @@
 
 #include "testlanguagefiles.h"
 #include "core/language.h"
-#include "core/unit.h"
-#include "core/phrase.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
+#include "core/phrase.h"
 #include "core/resources/courseparser.h"
+#include "core/unit.h"
 
-#include <QTest>
-#include <QDirIterator>
 #include <QDebug>
+#include <QDirIterator>
+#include <QTest>
 #include <QUrl>
 
 TestLanguageFiles::TestLanguageFiles()

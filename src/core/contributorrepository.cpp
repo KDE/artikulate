@@ -21,21 +21,21 @@
 #include "contributorrepository.h"
 #include "artikulate_debug.h"
 #include "language.h"
-#include "unit.h"
-#include "phrase.h"
+#include "liblearnerprofile/src/learninggoal.h"
+#include "liblearnerprofile/src/profilemanager.h"
 #include "phoneme.h"
 #include "phonemegroup.h"
+#include "phrase.h"
 #include "resources/editablecourseresource.h"
 #include "resources/skeletonresource.h"
-#include "liblearnerprofile/src/profilemanager.h"
-#include "liblearnerprofile/src/learninggoal.h"
+#include "unit.h"
 
-#include <QFile>
-#include <QUuid>
 #include <QDir>
 #include <QDirIterator>
-#include <QUrl>
+#include <QFile>
 #include <QStandardPaths>
+#include <QUrl>
+#include <QUuid>
 
 ContributorRepository::ContributorRepository()
     : IEditableRepository()
@@ -135,7 +135,7 @@ std::shared_ptr<ILanguage> ContributorRepository::language(int index) const
     return m_languages.at(index);
 }
 
-ILanguage * ContributorRepository::language(LearnerProfile::LearningGoal *learningGoal) const
+ILanguage *ContributorRepository::language(LearnerProfile::LearningGoal *learningGoal) const
 {
     if (!learningGoal) {
         return nullptr;
@@ -227,7 +227,7 @@ void ContributorRepository::reloadCourseOrSkeleton(std::shared_ptr<ICourse> cour
 
     // figure out if this is a course or a skeleton
     if (courseOrSkeleton->language()) { // only course files have a language
-        //TODO better add a check if this is contained in the course list
+        // TODO better add a check if this is contained in the course list
         // to catch possible errors
         QUrl file = courseOrSkeleton->file();
         m_loadedResources.removeOne(courseOrSkeleton->file().toLocalFile());
@@ -250,8 +250,7 @@ void ContributorRepository::reloadCourses()
 
     skeletonDirectory.setFilter(QDir::Files | QDir::Hidden);
     if (!skeletonDirectory.cd(QStringLiteral("skeletons"))) {
-        qCritical() << "There is no subdirectory \"skeletons\" in directory " << skeletonDirectory.path()
-            << " cannot load skeletons.";
+        qCritical() << "There is no subdirectory \"skeletons\" in directory " << skeletonDirectory.path() << " cannot load skeletons.";
     } else {
         // read skeletons
         QFileInfoList list = skeletonDirectory.entryInfoList();
@@ -264,8 +263,7 @@ void ContributorRepository::reloadCourses()
     // register contributor course files
     QDir courseDirectory(storageLocation().toLocalFile());
     if (!courseDirectory.cd(QStringLiteral("courses"))) {
-        qCritical() << "There is no subdirectory \"courses\" in directory " << courseDirectory.path()
-            << " cannot load courses.";
+        qCritical() << "There is no subdirectory \"courses\" in directory " << courseDirectory.path() << " cannot load courses.";
     } else {
         // find courses
         courseDirectory.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
@@ -292,15 +290,15 @@ void ContributorRepository::reloadCourses()
             }
         }
     }
-    //TODO this signal should only be emitted when repository was added/removed
+    // TODO this signal should only be emitted when repository was added/removed
     // yet the call to this method is very seldom and emitting it too often is not that harmful
     emit repositoryChanged();
 }
 
 void ContributorRepository::updateCourseFromSkeleton(std::shared_ptr<IEditableCourse> course)
 {
-    //TODO implement status information that are shown at mainwindow
-    if (course->foreignId().isEmpty())  {
+    // TODO implement status information that are shown at mainwindow
+    if (course->foreignId().isEmpty()) {
         qCritical() << "No skeleton ID specified, aborting update.";
         return;
     }
@@ -311,7 +309,7 @@ void ContributorRepository::updateCourseFromSkeleton(std::shared_ptr<IEditableCo
             break;
         }
     }
-    if (!skeleton)  {
+    if (!skeleton) {
         qCritical() << "Could not find skeleton with id " << course->foreignId() << ", aborting update.";
     } else {
         course->updateFrom(skeleton);
@@ -359,14 +357,10 @@ void ContributorRepository::removeCourse(std::shared_ptr<ICourse> course)
     }
 }
 
-IEditableCourse * ContributorRepository::createCourse(std::shared_ptr<ILanguage> language, std::shared_ptr<SkeletonResource> skeleton)
+IEditableCourse *ContributorRepository::createCourse(std::shared_ptr<ILanguage> language, std::shared_ptr<SkeletonResource> skeleton)
 {
     // set path
-    QString path = QStringLiteral("%1/%2/%3/%4/%4.xml")
-        .arg(storageLocation().toLocalFile(),
-             QStringLiteral("courses"),
-             skeleton->id(),
-             language->id());
+    QString path = QStringLiteral("%1/%2/%3/%4/%4.xml").arg(storageLocation().toLocalFile(), QStringLiteral("courses"), skeleton->id(), language->id());
 
     auto course = EditableCourseResource::create(QUrl::fromLocalFile(path), this);
 

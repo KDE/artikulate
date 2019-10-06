@@ -19,22 +19,22 @@
  */
 
 #include "test_skeletonresource.h"
-#include "resourcerepositorystub.h"
+#include "../mocks/languagestub.h"
 #include "core/language.h"
-#include "core/unit.h"
 #include "core/phrase.h"
 #include "core/resources/skeletonresource.h"
-#include "../mocks/languagestub.h"
+#include "core/unit.h"
+#include "resourcerepositorystub.h"
 
-#include <QTest>
 #include <QDebug>
-#include <QTemporaryFile>
-#include <QSignalSpy>
-#include <QIODevice>
+#include <QDomDocument>
 #include <QFile>
+#include <QIODevice>
+#include <QSignalSpy>
+#include <QTemporaryFile>
+#include <QTest>
 #include <QXmlSchema>
 #include <QXmlSchemaValidator>
-#include <QDomDocument>
 
 TestSkeletonResource::TestSkeletonResource()
 {

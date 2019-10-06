@@ -23,8 +23,8 @@
 
 #include "artikulatecore_export.h"
 #include <QObject>
-#include <QUrl>
 #include <QTemporaryFile>
+#include <QUrl>
 
 class ARTIKULATECORE_EXPORT Recorder : public QObject
 {
@@ -34,10 +34,7 @@ class ARTIKULATECORE_EXPORT Recorder : public QObject
 
 public:
     Q_ENUMS(CaptureState)
-    enum CaptureState {
-        StoppedState = 0,
-        RecordingState = 1
-    };
+    enum CaptureState { StoppedState = 0, RecordingState = 1 };
 
     explicit Recorder(QObject *parent = 0);
     ~Recorder();

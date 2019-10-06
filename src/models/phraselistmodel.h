@@ -21,8 +21,8 @@
 #ifndef PHRASELISTMODEL_H
 #define PHRASELISTMODEL_H
 
-#include <QAbstractListModel>
 #include "core/phrase.h"
+#include <QAbstractListModel>
 
 class Unit;
 class QSignalMapper;
@@ -34,22 +34,15 @@ class PhraseListModel : public QAbstractListModel
     Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
-    enum phraseRoles {
-        TextRole = Qt::UserRole + 1,
-        IdRole,
-        TypeRole,
-        SoundFileRole,
-        ExcludedRole,
-        DataRole
-    };
+    enum phraseRoles { TextRole = Qt::UserRole + 1, IdRole, TypeRole, SoundFileRole, ExcludedRole, DataRole };
 
     explicit PhraseListModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
-    virtual QHash<int,QByteArray> roleNames() const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
     void setUnit(Unit *unit);
-    Unit * unit() const;
+    Unit *unit() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;

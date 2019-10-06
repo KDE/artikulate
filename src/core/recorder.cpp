@@ -19,20 +19,19 @@
  */
 
 #include "recorder.h"
-#include "libsound/src/capturedevicecontroller.h"
 #include "artikulate_debug.h"
+#include "libsound/src/capturedevicecontroller.h"
 
-#include <QList>
 #include <QDir>
-#include <QUrl>
+#include <QList>
 #include <QString>
+#include <QUrl>
 
 Recorder::Recorder(QObject *parent)
     : QObject(parent)
     , m_state(StoppedState)
     , m_recordingBufferFile(QDir::tempPath() + QStringLiteral("/XXXXXX.ogg"))
 {
-
 }
 
 Recorder::~Recorder()

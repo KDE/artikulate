@@ -21,8 +21,8 @@
 #ifndef LANGUAGESTUB_H
 #define LANGUAGESTUB_H
 
-#include "src/core/ilanguage.h"
 #include "core/phonemegroup.h"
+#include "src/core/ilanguage.h"
 #include <QObject>
 #include <QVector>
 
@@ -77,12 +77,10 @@ public:
         return phonemeGroup;
     }
 
-
 private:
-    QString m_id{ "UNKNOWN_ID" };
-    QString m_title{ "title" };
+    QString m_id {"UNKNOWN_ID"};
+    QString m_title {"title"};
     QVector<std::shared_ptr<PhonemeGroup>> m_phonemeGroups;
 };
-
 
 #endif

@@ -18,7 +18,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
@@ -51,17 +50,17 @@ public:
      * @brief getter for global resource repository
      * @return the repository
      */
-    IResourceRepository * resourceRepository() const;
+    IResourceRepository *resourceRepository() const;
 
     /**
      * @brief getter for global editable repository
      * @return the repository
      */
-    IEditableRepository * editableRepository() const;
+    IEditableRepository *editableRepository() const;
 
 private:
     void registerQmlTypes();
-    IResourceRepository *m_resourceRepository{ nullptr };
+    IResourceRepository *m_resourceRepository {nullptr};
 };
 
 #endif

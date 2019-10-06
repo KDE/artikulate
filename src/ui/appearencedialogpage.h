@@ -24,8 +24,7 @@
 #include "ui_appearencedialogpage.h"
 #include <QWidget>
 
-class AppearenceDialogPage :
-    public QWidget
+class AppearenceDialogPage : public QWidget
 {
     Q_OBJECT
 

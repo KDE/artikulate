@@ -33,19 +33,15 @@ class PhonemeGroupModel : public QAbstractListModel
     Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
 
 public:
-    enum unitRoles {
-        TitleRole = Qt::UserRole + 1,
-        IdRole,
-        DataRole
-    };
+    enum unitRoles { TitleRole = Qt::UserRole + 1, IdRole, DataRole };
 
     explicit PhonemeGroupModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
-    virtual QHash<int,QByteArray> roleNames() const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
     void setCourse(ICourse *course);
-    ICourse * course() const;
+    ICourse *course() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;

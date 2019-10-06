@@ -30,11 +30,11 @@ class QtGStreamerBackend : public BackendInterface
     Q_OBJECT
 
 public:
-    explicit QtGStreamerBackend(QObject *parent, const QList< QVariant >&);
+    explicit QtGStreamerBackend(QObject *parent, const QList<QVariant> &);
     virtual ~QtGStreamerBackend();
 
-    CaptureBackendInterface * captureBackend() const;
-    OutputBackendInterface * outputBackend() const;
+    CaptureBackendInterface *captureBackend() const;
+    OutputBackendInterface *outputBackend() const;
 
 private:
     mutable QtGStreamerCaptureBackend *m_captureBackend;
@@ -42,5 +42,3 @@ private:
 };
 
 #endif
-
-

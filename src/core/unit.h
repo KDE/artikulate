@@ -23,10 +23,10 @@
 
 #include "artikulatecore_export.h"
 #include "ieditableunit.h"
-#include <memory>
 #include <QObject>
-#include <QVector>
 #include <QStringList>
+#include <QVector>
+#include <memory>
 
 class QString;
 class Phrase;

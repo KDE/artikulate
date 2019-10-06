@@ -36,13 +36,13 @@ class CourseFilterModel : public QSortFilterProxyModel
 
 public:
     explicit CourseFilterModel(QObject *parent = nullptr);
-    CourseModel * courseModel() const;
-    void setCourseModel(CourseModel* courseModel);
+    CourseModel *courseModel() const;
+    void setCourseModel(CourseModel *courseModel);
     int filteredCount() const;
     bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
     void setLanguage(Language *language);
-    Language * language() const;
+    Language *language() const;
     Q_INVOKABLE QVariant course(int row) const;
 
 Q_SIGNALS:
@@ -51,8 +51,8 @@ Q_SIGNALS:
     void languageChanged();
 
 private:
-    CourseModel *m_courseModel{ nullptr };
-    Language *m_language{ nullptr };
+    CourseModel *m_courseModel {nullptr};
+    Language *m_language {nullptr};
 };
 
 #endif

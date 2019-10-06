@@ -25,8 +25,9 @@
 #include <QScopedPointer>
 #include <QTemporaryFile>
 
-namespace LearnerProfile {
-    class Storage;
+namespace LearnerProfile
+{
+class Storage;
 }
 
 class TestLearnerStorage : public QObject

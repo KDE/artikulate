@@ -20,15 +20,15 @@
 
 #include "languageresourcemodel.h"
 #include "application.h"
-#include "core/language.h"
 #include "core/iresourcerepository.h"
+#include "core/language.h"
 
+#include "artikulate_debug.h"
+#include <KLocalizedString>
 #include <QAbstractListModel>
 #include <QSignalMapper>
-#include <KLocalizedString>
-#include "artikulate_debug.h"
 
-LanguageResourceModel::LanguageResourceModel(QObject* parent)
+LanguageResourceModel::LanguageResourceModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_repository(nullptr)
     , m_view(LanguageModel::NonEmptyGhnsOnlyLanguages)
@@ -38,7 +38,7 @@ LanguageResourceModel::LanguageResourceModel(QObject* parent)
     setResourceRepository(artikulateApp->resourceRepository());
 }
 
-QHash< int, QByteArray > LanguageResourceModel::roleNames() const
+QHash<int, QByteArray> LanguageResourceModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
@@ -65,7 +65,7 @@ void LanguageResourceModel::setResourceRepository(IResourceRepository *repositor
     emit resourceRepositoryChanged();
 }
 
-IResourceRepository * LanguageResourceModel::resourceRepository() const
+IResourceRepository *LanguageResourceModel::resourceRepository() const
 {
     return m_repository;
 }
@@ -80,26 +80,24 @@ QVariant LanguageResourceModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    ILanguage * const language = m_languages.at(index.row());
-    switch(role)
-    {
-    case Qt::DisplayRole:
-        return !language->title().isEmpty() ?
-                QVariant(language->title()): QVariant(i18nc("@item:inlistbox:", "unknown"));
-    case Qt::ToolTipRole:
-        return QVariant(language->title());
-    case TitleRole:
-        return language->title();
-    case I18nTitleRole:
-        return language->i18nTitle();
-    case IdRole:
-        return language->id();
-    case DataRole:
-        return QVariant::fromValue<QObject*>(language);
-    case CourseNumberRole:
-        return m_languages.count();
-    default:
-        return QVariant();
+    ILanguage *const language = m_languages.at(index.row());
+    switch (role) {
+        case Qt::DisplayRole:
+            return !language->title().isEmpty() ? QVariant(language->title()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
+        case Qt::ToolTipRole:
+            return QVariant(language->title());
+        case TitleRole:
+            return language->title();
+        case I18nTitleRole:
+            return language->i18nTitle();
+        case IdRole:
+            return language->id();
+        case DataRole:
+            return QVariant::fromValue<QObject *>(language);
+        case CourseNumberRole:
+            return m_languages.count();
+        default:
+            return QVariant();
     }
 }
 
@@ -182,7 +180,7 @@ void LanguageResourceModel::updateDisplayedLanguages()
     m_languages.clear();
     if (m_repository) {
         m_languages.clear();
-        for (auto language: m_repository->languages()) {
+        for (auto language : m_repository->languages()) {
             m_languages.append(language.get());
         }
     }

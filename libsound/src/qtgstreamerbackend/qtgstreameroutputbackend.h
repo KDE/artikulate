@@ -22,10 +22,10 @@
 #define QTGSTREAMEROUTPUTBACKEND_H
 
 #include "outputbackendinterface.h"
-#include <QString>
-#include <QTimer>
 #include <QGst/Global>
 #include <QGst/Pipeline>
+#include <QString>
+#include <QTimer>
 
 class QtGStreamerOutputBackend : public OutputBackendInterface
 {
@@ -35,10 +35,10 @@ public:
     QtGStreamerOutputBackend();
     virtual ~QtGStreamerOutputBackend();
 
-    void setUri(const QString & uri);
+    void setUri(const QString &uri);
 
     QTime position() const;
-    void setPosition(const QTime & pos);
+    void setPosition(const QTime &pos);
     /**
      * volume as cubic value
      */

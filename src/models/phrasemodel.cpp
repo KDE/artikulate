@@ -19,13 +19,13 @@
  */
 
 #include "phrasemodel.h"
+#include "artikulate_debug.h"
 #include "core/icourse.h"
-#include "core/unit.h"
 #include "core/phrase.h"
+#include "core/unit.h"
+#include <KLocalizedString>
 #include <QAbstractItemModel>
 #include <QSignalMapper>
-#include <KLocalizedString>
-#include "artikulate_debug.h"
 
 PhraseModel::PhraseModel(QObject *parent)
     : QAbstractItemModel(parent)
@@ -33,13 +33,11 @@ PhraseModel::PhraseModel(QObject *parent)
     , m_unitSignalMapper(new QSignalMapper)
     , m_phraseSignalMapper(new QSignalMapper)
 {
-    connect(m_unitSignalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped),
-            this, &PhraseModel::onUnitChanged);
-    connect(m_phraseSignalMapper, static_cast<void (QSignalMapper::*)(QObject *)>(&QSignalMapper::mapped),
-            this, &PhraseModel::onPhraseChanged);
+    connect(m_unitSignalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &PhraseModel::onUnitChanged);
+    connect(m_phraseSignalMapper, static_cast<void (QSignalMapper::*)(QObject *)>(&QSignalMapper::mapped), this, &PhraseModel::onPhraseChanged);
 }
 
-QHash< int, QByteArray > PhraseModel::roleNames() const
+QHash<int, QByteArray> PhraseModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TextRole] = "text";
@@ -99,7 +97,7 @@ void PhraseModel::setCourse(ICourse *course)
     emit courseChanged();
 }
 
-ICourse * PhraseModel::course() const
+ICourse *PhraseModel::course() const
 {
     return m_course;
 }
@@ -117,26 +115,23 @@ QVariant PhraseModel::data(const QModelIndex &index, int role) const
             return QVariant();
         }
         auto unit = m_course->units().at(index.row());
-        switch(role)
-        {
-        case TextRole:
-            return unit->title();
-        case DataRole:
-            return QVariant::fromValue<QObject*>(unit.get());
-        default:
-            return QVariant();
+        switch (role) {
+            case TextRole:
+                return unit->title();
+            case DataRole:
+                return QVariant::fromValue<QObject *>(unit.get());
+            default:
+                return QVariant();
         }
-    }
-    else {
-        Unit *unit = static_cast<Unit*>(index.internalPointer());
-        switch(role)
-        {
-        case TextRole:
-            return unit->phrases().at(index.row())->text();
-        case DataRole:
-            return QVariant::fromValue<QObject*>(unit->phrases().at(index.row()).get());
-        default:
-            return QVariant();
+    } else {
+        Unit *unit = static_cast<Unit *>(index.internalPointer());
+        switch (role) {
+            case TextRole:
+                return unit->phrases().at(index.row())->text();
+            case DataRole:
+                return QVariant::fromValue<QObject *>(unit->phrases().at(index.row()).get());
+            default:
+                return QVariant();
         }
     }
 }
@@ -173,7 +168,7 @@ QModelIndex PhraseModel::parent(const QModelIndex &child) const
     if (!child.internalPointer() || !m_course) {
         return QModelIndex();
     }
-    Unit *parent = static_cast<Unit*>(child.internalPointer());
+    Unit *parent = static_cast<Unit *>(child.internalPointer());
     for (int i = 0; i < m_course->units().count(); ++i) {
         if (m_course->units().at(i).get() == parent) {
             return createIndex(i, 0);
@@ -209,7 +204,7 @@ QModelIndex PhraseModel::indexUnit(Unit *unit) const
     if (!unit || !m_course) {
         return QModelIndex();
     }
-    int uIndex{ -1 };
+    int uIndex {-1};
     for (int i = 0; i < m_course->units().size(); ++i) {
         if (m_course->units().at(i)->id() == unit->id()) {
             uIndex = i;
@@ -226,7 +221,7 @@ bool PhraseModel::isUnit(const QModelIndex &index) const
 
 void PhraseModel::onPhraseAboutToBeAdded(std::shared_ptr<IPhrase> phrase, int index)
 {
-    int uIndex{ -1 };
+    int uIndex {-1};
     for (int i = 0; i < m_course->units().size(); ++i) {
         if (m_course->units().at(i)->id() == phrase->unit()->id()) {
             uIndex = i;
@@ -245,8 +240,8 @@ void PhraseModel::onPhraseAdded()
 
 void PhraseModel::onPhrasesAboutToBeRemoved(int first, int last)
 {
-    //TODO better solution requires access to unit
-    //TODO remove connections from m_phraseSignalMapper
+    // TODO better solution requires access to unit
+    // TODO remove connections from m_phraseSignalMapper
     beginResetModel();
 }
 
@@ -257,7 +252,7 @@ void PhraseModel::onPhrasesRemoved()
 
 void PhraseModel::onPhraseChanged(QObject *phrase)
 {
-    Phrase *changedPhrase = qobject_cast<Phrase*>(phrase);
+    Phrase *changedPhrase = qobject_cast<Phrase *>(phrase);
     Q_ASSERT(changedPhrase);
     QModelIndex index = indexPhrase(changedPhrase);
     emit dataChanged(index, index);
@@ -314,7 +309,7 @@ bool PhraseModel::isPhrase(const QModelIndex &index) const
     return false;
 }
 
-IPhrase * PhraseModel::phrase(const QModelIndex &index) const
+IPhrase *PhraseModel::phrase(const QModelIndex &index) const
 {
     if (index.internalPointer()) {
         Unit *unit = static_cast<Unit *>(index.internalPointer());
@@ -326,7 +321,7 @@ IPhrase * PhraseModel::phrase(const QModelIndex &index) const
     return nullptr;
 }
 
-Unit * PhraseModel::unit(const QModelIndex &index) const
+Unit *PhraseModel::unit(const QModelIndex &index) const
 {
     return m_course->units().at(index.row()).get();
 }
@@ -341,7 +336,7 @@ void PhraseModel::updateUnitMappings()
 
 void PhraseModel::updatePhraseMappings()
 {
-    //TODO this might be quite costly for long units
+    // TODO this might be quite costly for long units
     // better, implement access based on index pairs
     for (auto unit : m_course->units()) {
         for (const auto &phrase : unit->phrases()) {

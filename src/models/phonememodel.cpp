@@ -25,8 +25,8 @@
 #include <QAbstractListModel>
 #include <QSignalMapper>
 
-#include <KLocalizedString>
 #include "artikulate_debug.h"
+#include <KLocalizedString>
 
 PhonemeModel::PhonemeModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -36,7 +36,7 @@ PhonemeModel::PhonemeModel(QObject *parent)
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeChanged(int)));
 }
 
-QHash< int, QByteArray > PhonemeModel::roleNames() const
+QHash<int, QByteArray> PhonemeModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
@@ -46,7 +46,7 @@ QHash< int, QByteArray > PhonemeModel::roleNames() const
     return roles;
 }
 
-Language * PhonemeModel::language() const
+Language *PhonemeModel::language() const
 {
     return m_language;
 }
@@ -59,7 +59,7 @@ void PhonemeModel::setLanguage(Language *language)
     endResetModel();
 }
 
-QVariant PhonemeModel::data(const QModelIndex& index, int role) const
+QVariant PhonemeModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
         return QVariant();
@@ -71,25 +71,23 @@ QVariant PhonemeModel::data(const QModelIndex& index, int role) const
 
     auto phoneme = m_language->phonemes().at(index.row());
 
-    switch(role)
-    {
-    case Qt::DisplayRole:
-        return !phoneme->title().isEmpty()?
-                QVariant(phoneme->title()): QVariant(i18nc("@item:inlistbox:", "unknown"));
-    case Qt::ToolTipRole:
-        return QVariant(phoneme->title());
-    case TitleRole:
-        return phoneme->title();
-    case IdRole:
-        return phoneme->id();
-    case DataRole:
-        return QVariant::fromValue<QObject*>(phoneme.get());
-    default:
-        return QVariant();
+    switch (role) {
+        case Qt::DisplayRole:
+            return !phoneme->title().isEmpty() ? QVariant(phoneme->title()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
+        case Qt::ToolTipRole:
+            return QVariant(phoneme->title());
+        case TitleRole:
+            return phoneme->title();
+        case IdRole:
+            return phoneme->id();
+        case DataRole:
+            return QVariant::fromValue<QObject *>(phoneme.get());
+        default:
+            return QVariant();
     }
 }
 
-int PhonemeModel::rowCount(const QModelIndex& parent) const
+int PhonemeModel::rowCount(const QModelIndex &parent) const
 {
     if (!m_language) {
         return 0;

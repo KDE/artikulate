@@ -21,8 +21,8 @@
 #ifndef EDITABLEREPOSITORYSTUB_H
 #define EDITABLEREPOSITORYSTUB_H
 
-#include "core/ieditablerepository.h"
 #include "core/ieditablecourse.h"
+#include "core/ieditablerepository.h"
 #include <QObject>
 #include <QVector>
 
@@ -36,10 +36,7 @@ class EditableRepositoryStub : public IEditableRepository
 {
     Q_OBJECT
 public:
-    EditableRepositoryStub(
-            std::vector<std::shared_ptr<ILanguage>> languages,
-            std::vector<std::shared_ptr<IEditableCourse>> skeletons,
-            std::vector<std::shared_ptr<IEditableCourse>> courses)
+    EditableRepositoryStub(std::vector<std::shared_ptr<ILanguage>> languages, std::vector<std::shared_ptr<IEditableCourse>> skeletons, std::vector<std::shared_ptr<IEditableCourse>> courses)
     {
         for (auto &language : languages) {
             m_languages.append(std::move(language));

@@ -25,9 +25,7 @@
 #include <QTemporaryFile>
 #include <QWidget>
 
-
-class SoundDeviceDialogPage :
-    public QWidget
+class SoundDeviceDialogPage : public QWidget
 {
     Q_OBJECT
 

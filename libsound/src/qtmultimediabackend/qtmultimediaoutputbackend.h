@@ -31,7 +31,7 @@ public:
     explicit QtMultimediaOutputBackend(QObject *parent = nullptr);
     virtual ~QtMultimediaOutputBackend();
 
-    void setUri(const QString & uri) override;
+    void setUri(const QString &uri) override;
     /**
      * volume as cubic value
      */

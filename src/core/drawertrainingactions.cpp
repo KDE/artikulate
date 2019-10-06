@@ -22,12 +22,12 @@
 #include "trainingaction.h"
 
 #include <KLocalizedString>
-#include <QList>
 #include <QDebug>
+#include <QList>
 
-DrawerTrainingActions::DrawerTrainingActions(QObject* parent)
-    : QObject{parent}
-    , m_defaultAction{new TrainingAction(i18n("Please select a course"), this)}
+DrawerTrainingActions::DrawerTrainingActions(QObject *parent)
+    : QObject {parent}
+    , m_defaultAction {new TrainingAction(i18n("Please select a course"), this)}
 {
 }
 
@@ -49,7 +49,7 @@ void DrawerTrainingActions::setSession(ISessionActions *session)
     emit actionsChanged();
 }
 
-ISessionActions * DrawerTrainingActions::session() const
+ISessionActions *DrawerTrainingActions::session() const
 {
     return m_session;
 }
@@ -58,13 +58,13 @@ QList<QObject *> DrawerTrainingActions::actions() const
 {
     if (!m_session || m_session->trainingActions().isEmpty()) {
         QList<QObject *> list;
-        list << qobject_cast<QObject*>(m_defaultAction);
+        list << qobject_cast<QObject *>(m_defaultAction);
         return list;
     }
     QList<QObject *> actions;
     const auto trainingActions = m_session->trainingActions();
     for (const auto &action : qAsConst(trainingActions)) {
-        actions.append(qobject_cast<QObject*>(action));
+        actions.append(qobject_cast<QObject *>(action));
     }
     return actions;
 }

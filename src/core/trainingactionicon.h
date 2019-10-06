@@ -22,8 +22,8 @@
 #define TRAININGACTIONICON_H
 
 #include "artikulatecore_export.h"
-#include <QObject>
 #include <QColor>
+#include <QObject>
 
 class ARTIKULATECORE_EXPORT TrainingActionIcon : public QObject
 {
@@ -38,10 +38,10 @@ public:
     explicit TrainingActionIcon(QObject *parent, const QString &name = QString(), const QString &source = QString(), int width = 60, int height = 60, const QColor &color = QColor(0, 0, 0));
 
 private:
-    QString m_name{QString()};
-    QString m_source{QString()};
-    int m_width{60};
-    int m_height{60};
+    QString m_name {QString()};
+    QString m_source {QString()};
+    int m_width {60};
+    int m_height {60};
     QColor m_color;
 };
 

@@ -22,11 +22,11 @@
 #define TRAININGACTION_H
 
 #include "artikulatecore_export.h"
-#include "trainingactionicon.h"
 #include "iphrase.h"
+#include "trainingactionicon.h"
 #include "trainingsession.h"
-#include <QObject>
 #include <QDebug>
+#include <QObject>
 
 class DrawerTrainingActions;
 
@@ -34,12 +34,12 @@ class ARTIKULATECORE_EXPORT TrainingAction : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString text MEMBER m_text CONSTANT)
-    Q_PROPERTY(QObject* icon READ icon CONSTANT)
+    Q_PROPERTY(QObject *icon READ icon CONSTANT)
     Q_PROPERTY(bool visible MEMBER m_visible CONSTANT)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(bool checked READ checked NOTIFY checkedChanged)
     Q_PROPERTY(QString tooltip MEMBER m_tooltip CONSTANT)
-    Q_PROPERTY(QList<QObject*> children READ actions NOTIFY actionsChanged)
+    Q_PROPERTY(QList<QObject *> children READ actions NOTIFY actionsChanged)
     Q_PROPERTY(bool checkable MEMBER m_checkable CONSTANT)
 
 public:
@@ -53,9 +53,9 @@ public:
     void setEnabled(bool enabled);
     void setChecked(bool checked);
     bool checked() const;
-    QObject * icon() const;
-    IPhrase * phrase() const;
-    QList<QObject*> actions() const;
+    QObject *icon() const;
+    IPhrase *phrase() const;
+    QList<QObject *> actions() const;
 
 Q_SIGNALS:
     void changed();
@@ -65,15 +65,15 @@ Q_SIGNALS:
 
 private:
     QString m_text;
-    TrainingActionIcon *m_icon{nullptr};
-    bool m_visible{true};
-    bool m_enabled{true};
-    bool m_checked{false};
-    bool m_checkable{false};
-    QString m_tooltip{QString()};
-    QList<QObject*> m_actions;
+    TrainingActionIcon *m_icon {nullptr};
+    bool m_visible {true};
+    bool m_enabled {true};
+    bool m_checked {false};
+    bool m_checkable {false};
+    QString m_tooltip {QString()};
+    QList<QObject *> m_actions;
     std::shared_ptr<IPhrase> m_phrase;
-    ISessionActions * m_session{nullptr};
+    ISessionActions *m_session {nullptr};
 };
 
 #endif

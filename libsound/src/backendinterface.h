@@ -34,8 +34,8 @@ public:
     virtual ~BackendInterface();
 
     QString name() const;
-    virtual CaptureBackendInterface * captureBackend() const = 0;
-    virtual OutputBackendInterface * outputBackend() const = 0;
+    virtual CaptureBackendInterface *captureBackend() const = 0;
+    virtual OutputBackendInterface *outputBackend() const = 0;
 
 private:
     const QString m_name;

@@ -22,10 +22,10 @@
 #define PHONEMEGROUP_H
 
 #include "artikulatecore_export.h"
-#include <memory>
-#include <QVector>
-#include <QObject>
 #include <QMap>
+#include <QObject>
+#include <QVector>
+#include <memory>
 
 class QString;
 class Phoneme;
@@ -63,7 +63,7 @@ Q_SIGNALS:
     void idChanged();
     void titleChanged();
     void descriptionChanged();
-    void phonemeAdded(const Phoneme&);
+    void phonemeAdded(const Phoneme &);
 
 private:
     Q_DISABLE_COPY(PhonemeGroup)

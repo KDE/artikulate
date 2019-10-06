@@ -16,15 +16,15 @@
  */
 
 #include "outputdevicecontroller.h"
-#include "outputbackendinterface.h"
 #include "backendinterface.h"
+#include "outputbackendinterface.h"
 
 #include <QCoreApplication>
 #include <QPluginLoader>
 #include <QUrl>
 
-#include <KPluginLoader>
 #include <KPluginFactory>
+#include <KPluginLoader>
 #include <KPluginMetaData>
 
 #include "libsound_debug.h"
@@ -54,11 +54,7 @@ public:
         // load plugins
         QPluginLoader loader;
         foreach (const QString &dir, dirsToCheck) {
-            QVector<KPluginMetaData> metadataList = KPluginLoader::findPlugins(dir,
-                [=](const KPluginMetaData &data)
-            {
-                return data.serviceTypes().contains(QLatin1String("artikulate/libsound/backend"));
-            });
+            QVector<KPluginMetaData> metadataList = KPluginLoader::findPlugins(dir, [=](const KPluginMetaData &data) { return data.serviceTypes().contains(QLatin1String("artikulate/libsound/backend")); });
 
             foreach (const auto &metadata, metadataList) {
                 loader.setFileName(metadata.fileName());
@@ -71,7 +67,7 @@ public:
                     qCCritical(LIBSOUND_LOG) << "Could not load plugin:" << metadata.name();
                     continue;
                 }
-                BackendInterface *plugin = factory->create<BackendInterface>(parent, QList< QVariant >());
+                BackendInterface *plugin = factory->create<BackendInterface>(parent, QList<QVariant>());
                 if (plugin->outputBackend()) {
                     m_backendList.append(plugin->outputBackend());
                 }
@@ -92,13 +88,12 @@ public:
         if (m_initialized) {
             return;
         }
-        m_parent->connect(m_backend, &OutputBackendInterface::stateChanged,
-                          m_parent, &OutputDeviceController::emitChangedState);
+        m_parent->connect(m_backend, &OutputBackendInterface::stateChanged, m_parent, &OutputDeviceController::emitChangedState);
         m_volume = m_backend->volume();
         m_initialized = true;
     }
 
-    OutputBackendInterface * backend() const
+    OutputBackendInterface *backend() const
     {
         Q_ASSERT(m_backend);
         return m_backend;
@@ -114,21 +109,20 @@ public:
 OutputDeviceController::OutputDeviceController()
     : d(new OutputDeviceControllerPrivate(this))
 {
-
 }
 
 OutputDeviceController::~OutputDeviceController()
 {
 }
 
-OutputDeviceController & OutputDeviceController::self()
+OutputDeviceController &OutputDeviceController::self()
 {
     static OutputDeviceController instance;
     instance.d->lazyInit();
     return instance;
 }
 
-void OutputDeviceController::play(const QString& filePath)
+void OutputDeviceController::play(const QString &filePath)
 {
     d->backend()->setUri(filePath);
     d->backend()->setVolume(d->m_volume);

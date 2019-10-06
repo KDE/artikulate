@@ -24,7 +24,6 @@
 #include "core/phrase.h"
 #include "core/unit.h"
 #include "courseparser.h"
-#include <memory>
 #include <KLocalizedString>
 #include <KTar>
 #include <QDir>
@@ -34,6 +33,7 @@
 #include <QObject>
 #include <QQmlEngine>
 #include <QUuid>
+#include <memory>
 
 EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceRepository *repository)
     : IEditableCourse()
@@ -44,18 +44,13 @@ EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceReposi
     connect(m_course.get(), &ICourse::unitAboutToBeAdded, this, &ICourse::unitAboutToBeAdded);
     connect(m_course.get(), &ICourse::unitAdded, this, &ICourse::unitAdded);
     connect(m_course.get(), &CourseResource::idChanged, this, &EditableCourseResource::idChanged);
-    connect(m_course.get(), &CourseResource::foreignIdChanged, this,
-        &EditableCourseResource::foreignIdChanged);
-    connect(
-        m_course.get(), &CourseResource::titleChanged, this, &EditableCourseResource::titleChanged);
-    connect(m_course.get(), &CourseResource::descriptionChanged, this,
-        &EditableCourseResource::descriptionChanged);
-    connect(m_course.get(), &CourseResource::languageChanged, this,
-        &EditableCourseResource::languageChanged);
+    connect(m_course.get(), &CourseResource::foreignIdChanged, this, &EditableCourseResource::foreignIdChanged);
+    connect(m_course.get(), &CourseResource::titleChanged, this, &EditableCourseResource::titleChanged);
+    connect(m_course.get(), &CourseResource::descriptionChanged, this, &EditableCourseResource::descriptionChanged);
+    connect(m_course.get(), &CourseResource::languageChanged, this, &EditableCourseResource::languageChanged);
 }
 
-std::shared_ptr<EditableCourseResource> EditableCourseResource::create(
-    const QUrl &path, IResourceRepository *repository)
+std::shared_ptr<EditableCourseResource> EditableCourseResource::create(const QUrl &path, IResourceRepository *repository)
 {
     std::shared_ptr<EditableCourseResource> course(new EditableCourseResource(path, repository));
     course->setSelf(course);
@@ -80,14 +75,20 @@ void EditableCourseResource::setId(QString id)
     }
 }
 
-QString EditableCourseResource::foreignId() const { return m_course->foreignId(); }
+QString EditableCourseResource::foreignId() const
+{
+    return m_course->foreignId();
+}
 
 void EditableCourseResource::setForeignId(QString foreignId)
 {
     m_course->setForeignId(std::move(foreignId));
 }
 
-QString EditableCourseResource::title() const { return m_course->title(); }
+QString EditableCourseResource::title() const
+{
+    return m_course->title();
+}
 
 void EditableCourseResource::setTitle(QString title)
 {
@@ -97,7 +98,10 @@ void EditableCourseResource::setTitle(QString title)
     }
 }
 
-QString EditableCourseResource::i18nTitle() const { return m_course->i18nTitle(); }
+QString EditableCourseResource::i18nTitle() const
+{
+    return m_course->i18nTitle();
+}
 
 void EditableCourseResource::setI18nTitle(QString i18nTitle)
 {
@@ -107,7 +111,10 @@ void EditableCourseResource::setI18nTitle(QString i18nTitle)
     }
 }
 
-QString EditableCourseResource::description() const { return m_course->description(); }
+QString EditableCourseResource::description() const
+{
+    return m_course->description();
+}
 
 void EditableCourseResource::setDescription(QString description)
 {
@@ -117,7 +124,10 @@ void EditableCourseResource::setDescription(QString description)
     }
 }
 
-std::shared_ptr<ILanguage> EditableCourseResource::language() const { return m_course->language(); }
+std::shared_ptr<ILanguage> EditableCourseResource::language() const
+{
+    return m_course->language();
+}
 
 QString EditableCourseResource::languageTitle() const
 {
@@ -174,8 +184,7 @@ bool EditableCourseResource::exportToFile(const QUrl &filePath) const
     // TODO port to KSaveFile
     QFile file(filePath.toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
-        qCWarning(ARTIKULATE_LOG())
-            << "Unable to open file " << file.fileName() << " in write mode, aborting.";
+        qCWarning(ARTIKULATE_LOG()) << "Unable to open file " << file.fileName() << " in write mode, aborting.";
         return false;
     }
 
@@ -205,13 +214,9 @@ QVector<std::shared_ptr<Unit>> EditableCourseResource::units()
 void EditableCourseResource::updateFrom(std::shared_ptr<ICourse> skeleton)
 {
     for (auto skeletonUnit : skeleton->units()) {
-
         // find matching unit or create one
         std::shared_ptr<Unit> matchingUnit;
-        auto it = std::find_if(m_course->units().cbegin(), m_course->units().cend(),
-            [skeletonUnit](std::shared_ptr<Unit> compareUnit) {
-                return compareUnit->foreignId() == skeletonUnit->id();
-            });
+        auto it = std::find_if(m_course->units().cbegin(), m_course->units().cend(), [skeletonUnit](std::shared_ptr<Unit> compareUnit) { return compareUnit->foreignId() == skeletonUnit->id(); });
         if (it == m_course->units().cend()) {
             // import complete unit
             auto importUnit = Unit::create();
@@ -225,10 +230,7 @@ void EditableCourseResource::updateFrom(std::shared_ptr<ICourse> skeleton)
 
         // import phrases
         for (auto skeletonPhrase : skeletonUnit->phrases()) {
-            auto it = std::find_if(matchingUnit->phrases().cbegin(),
-                matchingUnit->phrases().cend(), [skeletonPhrase](std::shared_ptr<IPhrase> comparePhrase) {
-                    return comparePhrase->foreignId() == skeletonPhrase->id();
-                });
+            auto it = std::find_if(matchingUnit->phrases().cbegin(), matchingUnit->phrases().cend(), [skeletonPhrase](std::shared_ptr<IPhrase> comparePhrase) { return comparePhrase->foreignId() == skeletonPhrase->id(); });
             if (it == matchingUnit->phrases().cend()) {
                 // import complete Phrase
                 std::shared_ptr<Phrase> importPhrase = Phrase::create();
@@ -246,7 +248,10 @@ void EditableCourseResource::updateFrom(std::shared_ptr<ICourse> skeleton)
     qCInfo(ARTIKULATE_LOG()) << "Update performed!";
 }
 
-bool EditableCourseResource::isModified() const { return m_modified; }
+bool EditableCourseResource::isModified() const
+{
+    return m_modified;
+}
 
 Unit *EditableCourseResource::createUnit()
 {

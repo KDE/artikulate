@@ -36,7 +36,7 @@ class ARTIKULATECORE_EXPORT DrawerTrainingActions : public QObject
 public:
     DrawerTrainingActions(QObject *parent = nullptr);
     void setSession(ISessionActions *session);
-    ISessionActions * session() const;
+    ISessionActions *session() const;
     QList<QObject *> actions() const;
 
 Q_SIGNALS:
@@ -48,8 +48,8 @@ Q_SIGNALS:
     void triggerTrainingView();
 
 private:
-    ISessionActions *m_session{nullptr};
-    TrainingAction *m_defaultAction{nullptr};
+    ISessionActions *m_session {nullptr};
+    TrainingAction *m_defaultAction {nullptr};
 };
 
 #endif

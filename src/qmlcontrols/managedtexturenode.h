@@ -40,7 +40,7 @@
 
 class ManagedTextureNode : public QSGSimpleTextureNode
 {
-Q_DISABLE_COPY(ManagedTextureNode)
+    Q_DISABLE_COPY(ManagedTextureNode)
 public:
     ManagedTextureNode();
 

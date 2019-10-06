@@ -19,19 +19,18 @@
  */
 
 #include "learningprogressmodel.h"
-#include "core/trainingsession.h"
-#include <QAbstractTableModel>
-#include <KLocalizedString>
 #include "artikulate_debug.h"
+#include "core/trainingsession.h"
+#include <KLocalizedString>
+#include <QAbstractTableModel>
 
 LearningProgressModel::LearningProgressModel(QObject *parent)
     : QAbstractTableModel(parent)
     , m_session(nullptr)
 {
-
 }
 
-QHash< int, QByteArray > LearningProgressModel::roleNames() const
+QHash<int, QByteArray> LearningProgressModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
@@ -40,7 +39,7 @@ QHash< int, QByteArray > LearningProgressModel::roleNames() const
     return roles;
 }
 
-int LearningProgressModel::rowCount(const QModelIndex& parent) const
+int LearningProgressModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
     if (m_session == 0) {
@@ -57,7 +56,7 @@ int LearningProgressModel::columnCount(const QModelIndex &parent) const
     return 4;
 }
 
-TrainingSession * LearningProgressModel::session() const
+TrainingSession *LearningProgressModel::session() const
 {
     return m_session;
 }
@@ -119,18 +118,17 @@ QVariant LearningProgressModel::data(const QModelIndex &index, int role) const
 
     // normal tries
     int tries = index.row();
-    switch (index.column())
-    {
-    case Phrase::Word:
-        return QVariant(m_session->numberPhrasesGroupedByTries(TrainingSession::Word, tries));
-    case Phrase::Sentence:
-        return QVariant(m_session->numberPhrasesGroupedByTries(TrainingSession::Sentence, tries));
-    case Phrase::Expression:
-        return QVariant(m_session->numberPhrasesGroupedByTries(TrainingSession::Expression, tries));
-    case Phrase::Paragraph:
-        return QVariant(m_session->numberPhrasesGroupedByTries(TrainingSession::Paragraph, tries));
-    default:
-        return QVariant();
+    switch (index.column()) {
+        case Phrase::Word:
+            return QVariant(m_session->numberPhrasesGroupedByTries(TrainingSession::Word, tries));
+        case Phrase::Sentence:
+            return QVariant(m_session->numberPhrasesGroupedByTries(TrainingSession::Sentence, tries));
+        case Phrase::Expression:
+            return QVariant(m_session->numberPhrasesGroupedByTries(TrainingSession::Expression, tries));
+        case Phrase::Paragraph:
+            return QVariant(m_session->numberPhrasesGroupedByTries(TrainingSession::Paragraph, tries));
+        default:
+            return QVariant();
     }
 }
 
@@ -144,24 +142,23 @@ QVariant LearningProgressModel::headerData(int section, Qt::Orientation orientat
         return QAbstractTableModel::headerData(section, orientation, role);
     }
 
-    switch (section)
-    {
-    case Phrase::Word:
-        return QVariant(i18n("Words"));
-    case Phrase::Sentence:
-        return QVariant(i18n("Sentences"));
-    case Phrase::Expression:
-        return QVariant(i18n("Expressions"));
-    case Phrase::Paragraph:
-        return QVariant(i18n("Paragraphs"));
-    default:
-        return QVariant();
+    switch (section) {
+        case Phrase::Word:
+            return QVariant(i18n("Words"));
+        case Phrase::Sentence:
+            return QVariant(i18n("Sentences"));
+        case Phrase::Expression:
+            return QVariant(i18n("Expressions"));
+        case Phrase::Paragraph:
+            return QVariant(i18n("Paragraphs"));
+        default:
+            return QVariant();
     }
 }
 
 void LearningProgressModel::updateResults()
 {
     beginResetModel();
-    //nothing to do
+    // nothing to do
     endResetModel();
 }

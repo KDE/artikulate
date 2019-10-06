@@ -19,11 +19,11 @@
  */
 
 #include "test_resourcerepository.h"
-#include <QTest>
-#include <QSignalSpy>
-#include <QObject>
-#include "src/core/resourcerepository.h"
 #include "src/core/language.h"
+#include "src/core/resourcerepository.h"
+#include <QObject>
+#include <QSignalSpy>
+#include <QTest>
 
 TestResourceRepository::TestResourceRepository()
     : m_repositoryLocation(QUrl::fromLocalFile(qApp->applicationDirPath() + "/../autotests/unittests/data/"))
@@ -81,9 +81,9 @@ void TestResourceRepository::iResourceRepositoryCompatability()
             break;
         }
     }
-    QVERIFY(german != nullptr); // ensure that German language was found
+    QVERIFY(german != nullptr);                            // ensure that German language was found
     QCOMPARE(interface->courses(german->id()).count(), 1); // there is exactly one German course
-    QCOMPARE(interface->courses(nullptr).count(), 2); // all courses in total are 2
+    QCOMPARE(interface->courses(nullptr).count(), 2);      // all courses in total are 2
 }
 
 QTEST_GUILESS_MAIN(TestResourceRepository)

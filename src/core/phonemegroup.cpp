@@ -93,9 +93,8 @@ std::shared_ptr<Phoneme> PhonemeGroup::addPhoneme(std::unique_ptr<Phoneme> phone
     std::shared_ptr<Phoneme> newPhoneme(std::move(phoneme));
     if (!contains(newPhoneme)) {
         m_phonemes.append(newPhoneme);
-    }
-    else {
-        qCWarning(ARTIKULATE_LOG) << "Phoneme identifier already registered in group "<< m_title <<", aborting";
+    } else {
+        qCWarning(ARTIKULATE_LOG) << "Phoneme identifier already registered in group " << m_title << ", aborting";
     }
     return std::shared_ptr<Phoneme>();
 }
@@ -107,8 +106,7 @@ std::shared_ptr<Phoneme> PhonemeGroup::addPhoneme(const QString &identifier, con
     // check that identifier is not used
     for (auto phoneme : m_phonemes) {
         if (QString::compare(phoneme->id(), identifier) == 0) {
-            qCWarning(ARTIKULATE_LOG) << "Phoneme identifier " << identifier <<" already registered in group "
-                << m_title <<", aborting";
+            qCWarning(ARTIKULATE_LOG) << "Phoneme identifier " << identifier << " already registered in group " << m_title << ", aborting";
             return std::shared_ptr<Phoneme>();
         }
     }

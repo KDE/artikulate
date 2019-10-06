@@ -19,40 +19,43 @@
  */
 
 #include "profilemanager.h"
-#include "storage.h"
 #include "learner.h"
+#include "storage.h"
 
-#include <memory>
-#include <QObject>
-#include <QList>
 #include "liblearner_debug.h"
 #include <KConfigCore/KConfig>
 #include <KConfigCore/KConfigGroup>
-#include <QFileDialog>
 #include <KLocalizedString>
+#include <QFileDialog>
+#include <QList>
+#include <QObject>
+#include <memory>
 
 using namespace LearnerProfile;
 
-///BEGIN: ProfileManagerPrivate
-namespace LearnerProfile {
-class ProfileManagerPrivate {
-
+/// BEGIN: ProfileManagerPrivate
+namespace LearnerProfile
+{
+class ProfileManagerPrivate
+{
 public:
     ProfileManagerPrivate();
-    ~ProfileManagerPrivate() {}
+    ~ProfileManagerPrivate()
+    {
+    }
 
     void sync();
 
-    QList<Learner*> m_profiles;
+    QList<Learner *> m_profiles;
     Learner *m_activeProfile;
-    QList<LearningGoal*> m_goals;
+    QList<LearningGoal *> m_goals;
     std::unique_ptr<KConfig> m_config;
     Storage m_storage;
 };
 }
 
 LearnerProfile::ProfileManagerPrivate::ProfileManagerPrivate()
-    : m_profiles(QList<Learner*>())
+    : m_profiles(QList<Learner *>())
     , m_activeProfile(nullptr)
     , m_config(new KConfig(QStringLiteral("learnerprofilerc")))
 {
@@ -71,9 +74,7 @@ LearnerProfile::ProfileManagerPrivate::ProfileManagerPrivate()
             // set active goals
             if (activeGoalsCategories.count() == activeGoalsIdentifiers.count()) {
                 for (int i = 0; i < activeGoalsCategories.count(); ++i) {
-                    m_activeProfile->setActiveGoal(
-                        static_cast<Learner::Category>(activeGoalsCategories.at(i)),
-                        activeGoalsIdentifiers.at(i));
+                    m_activeProfile->setActiveGoal(static_cast<Learner::Category>(activeGoalsCategories.at(i)), activeGoalsIdentifiers.at(i));
                 }
             } else {
                 qCCritical(LIBLEARNER_LOG()) << "Inconsistent goal category / identifier pairs found: aborting.";
@@ -111,26 +112,24 @@ void ProfileManagerPrivate::sync()
         }
         activeProfileGroup.writeEntry("activeGoalsCategories", goalCatogries);
         activeProfileGroup.writeEntry("activeGoalsIdentifiers", goalIdentifiers);
-    }
-    else {
+    } else {
         qCCritical(LIBLEARNER_LOG()) << "No active profile selected, aborting sync.";
     }
     m_config->sync();
 
-    //TODO only sync changed learner
+    // TODO only sync changed learner
     foreach (Learner *learner, m_profiles) {
         m_storage.storeProfile(learner);
     }
 }
-///END: ProfileManagerPrivate
-
+/// END: ProfileManagerPrivate
 
 ProfileManager::ProfileManager(QObject *parent)
     : QObject(parent)
     , d(new ProfileManagerPrivate)
 {
-    connect (this, &ProfileManager::profileAdded, this, &ProfileManager::profileCountChanged);
-    connect (this, &ProfileManager::profileRemoved, this, &ProfileManager::profileCountChanged);
+    connect(this, &ProfileManager::profileAdded, this, &ProfileManager::profileCountChanged);
+    connect(this, &ProfileManager::profileRemoved, this, &ProfileManager::profileCountChanged);
 
     foreach (Learner *learner, d->m_profiles) {
         connect(learner, &Learner::goalRemoved, this, &ProfileManager::removeLearningGoal);
@@ -147,7 +146,7 @@ ProfileManager::~ProfileManager()
     }
 }
 
-QList< Learner* > ProfileManager::profiles() const
+QList<Learner *> ProfileManager::profiles() const
 {
     return d->m_profiles;
 }
@@ -159,15 +158,11 @@ int ProfileManager::profileCount() const
 
 void ProfileManager::openImageFileDialog()
 {
-    const QString imagePath = QFileDialog::getOpenFileName(
-        nullptr,
-        i18n("Open Image"),
-        QLatin1String(""),
-        i18n("Image Files (*.png *.jpg *.bmp)"));
+    const QString imagePath = QFileDialog::getOpenFileName(nullptr, i18n("Open Image"), QLatin1String(""), i18n("Image Files (*.png *.jpg *.bmp)"));
     d->m_activeProfile->importImage(imagePath);
 }
 
-Learner * ProfileManager::addProfile(const QString &name)
+Learner *ProfileManager::addProfile(const QString &name)
 {
     Learner *learner = new Learner(this);
     learner->setName(name);
@@ -189,8 +184,7 @@ Learner * ProfileManager::addProfile(const QString &name)
         setActiveProfile(learner);
     }
 
-    connect (learner, SIGNAL(goalRemoved(Learner*,LearningGoal*)),
-            this, SLOT(removeLearningGoal(Learner*,LearningGoal*)));
+    connect(learner, SIGNAL(goalRemoved(Learner *, LearningGoal *)), this, SLOT(removeLearningGoal(Learner *, LearningGoal *)));
 
     return learner;
 }
@@ -209,20 +203,19 @@ void ProfileManager::removeProfile(Learner *learner)
     if (d->m_activeProfile == learner) {
         if (d->m_profiles.isEmpty()) {
             setActiveProfile(nullptr);
-        }
-        else {
+        } else {
             setActiveProfile(d->m_profiles.at(0));
         }
     }
     emit profileRemoved();
 }
 
-void ProfileManager::removeLearningGoal(Learner* learner, LearningGoal* goal)
+void ProfileManager::removeLearningGoal(Learner *learner, LearningGoal *goal)
 {
     d->m_storage.removeRelation(learner, goal);
 }
 
-Learner * ProfileManager::profile(int index)
+Learner *ProfileManager::profile(int index)
 {
     if (index < 0 || index >= profiles().count()) {
         return nullptr;
@@ -230,14 +223,12 @@ Learner * ProfileManager::profile(int index)
     return profiles().at(index);
 }
 
-QList< LearningGoal* > ProfileManager::goals() const
+QList<LearningGoal *> ProfileManager::goals() const
 {
     return d->m_goals;
 }
 
-LearningGoal * ProfileManager::registerGoal(LearningGoal::Category category,
-                                  const QString &identifier,
-                                  const QString &name)
+LearningGoal *ProfileManager::registerGoal(LearningGoal::Category category, const QString &identifier, const QString &name)
 {
     // test whether goal is already registered
     foreach (LearningGoal *cmpGoal, d->m_goals) {
@@ -252,9 +243,7 @@ LearningGoal * ProfileManager::registerGoal(LearningGoal::Category category,
     return goal;
 }
 
-LearnerProfile::LearningGoal * LearnerProfile::ProfileManager::goal(
-    LearningGoal::Category category,
-    const QString& identifier) const
+LearnerProfile::LearningGoal *LearnerProfile::ProfileManager::goal(LearningGoal::Category category, const QString &identifier) const
 {
     foreach (LearningGoal *goal, d->m_goals) {
         if (goal->category() == category && goal->identifier() == identifier) {
@@ -264,10 +253,7 @@ LearnerProfile::LearningGoal * LearnerProfile::ProfileManager::goal(
     return nullptr;
 }
 
-void ProfileManager::recordProgress(Learner *learner,
-                                    LearningGoal *goal,
-                                    const QString &container, const QString &item,
-                                    int logPayload, int valuePayload)
+void ProfileManager::recordProgress(Learner *learner, LearningGoal *goal, const QString &container, const QString &item, int logPayload, int valuePayload)
 {
     if (!learner) {
         qCDebug(LIBLEARNER_LOG()) << "No learner set, no data stored";
@@ -277,8 +263,7 @@ void ProfileManager::recordProgress(Learner *learner,
     d->m_storage.storeProgressValue(learner, goal, container, item, valuePayload);
 }
 
-QHash<QString, int> ProfileManager::progressValues(Learner *learner, LearningGoal *goal,
-                       const QString &container) const
+QHash<QString, int> ProfileManager::progressValues(Learner *learner, LearningGoal *goal, const QString &container) const
 {
     if (!learner || !goal) {
         return QHash<QString, int>();
@@ -296,12 +281,12 @@ void ProfileManager::sync(Learner *learner)
     d->m_storage.storeProfile(learner);
 }
 
-Learner * ProfileManager::activeProfile() const
+Learner *ProfileManager::activeProfile() const
 {
     return d->m_activeProfile;
 }
 
-void ProfileManager::setActiveProfile(Learner* learner)
+void ProfileManager::setActiveProfile(Learner *learner)
 {
     if (learner == d->m_activeProfile) {
         return;

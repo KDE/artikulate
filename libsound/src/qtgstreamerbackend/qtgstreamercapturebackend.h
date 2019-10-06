@@ -18,8 +18,8 @@
 #ifndef QTGSTREAMERCAPTUREBACKEND_H
 #define QTGSTREAMERCAPTUREBACKEND_H
 
-#include "capturedevicecontroller.h"
 #include "capturebackendinterface.h"
+#include "capturedevicecontroller.h"
 
 #include <QString>
 
@@ -49,6 +49,5 @@ private:
     QString m_device;
     QMap<QString, QString> m_availableDevices; //!> (identifier,human readable name)
 };
-
 
 #endif

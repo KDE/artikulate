@@ -23,9 +23,9 @@
 
 #include "artikulatecore_export.h"
 #include "core/icourse.h"
-#include <memory>
 #include <QObject>
 #include <QVector>
+#include <memory>
 
 class QString;
 class CourseResourcePrivate;

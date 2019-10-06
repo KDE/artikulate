@@ -19,25 +19,25 @@
  */
 
 #include "test_editablecourseresource.h"
-#include "resourcerepositorystub.h"
+#include "../mocks/coursestub.h"
+#include "../mocks/languagestub.h"
 #include "core/language.h"
-#include "core/unit.h"
 #include "core/phrase.h"
 #include "core/resources/courseparser.h"
 #include "core/resources/editablecourseresource.h"
-#include "../mocks/languagestub.h"
-#include "../mocks/coursestub.h"
+#include "core/unit.h"
+#include "resourcerepositorystub.h"
 
-#include <memory>
-#include <QTest>
 #include <QDebug>
-#include <QTemporaryFile>
-#include <QSignalSpy>
-#include <QIODevice>
+#include <QDomDocument>
 #include <QFile>
+#include <QIODevice>
+#include <QSignalSpy>
+#include <QTemporaryFile>
+#include <QTest>
 #include <QXmlSchema>
 #include <QXmlSchemaValidator>
-#include <QDomDocument>
+#include <memory>
 
 TestEditableCourseResource::TestEditableCourseResource()
 {
@@ -204,7 +204,7 @@ void TestEditableCourseResource::fileLoadSaveCompleteness()
     auto compareUnit = loadedCourse->units().constFirst();
     QCOMPARE(compareUnit->id(), testUnit->id());
     QCOMPARE(compareUnit->foreignId(), testUnit->foreignId());
-    QCOMPARE( compareUnit->title(), testUnit->title());
+    QCOMPARE(compareUnit->title(), testUnit->title());
     QCOMPARE(compareUnit->phrases().count(), testUnit->phrases().count());
 
     std::shared_ptr<IPhrase> testPhrase = testUnit->phrases().constFirst();

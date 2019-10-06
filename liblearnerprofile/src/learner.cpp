@@ -21,11 +21,11 @@
 #include "learner.h"
 #include "learner_p.h"
 #include "learninggoal.h"
-#include <QDir>
-#include <QHash>
-#include <QFileInfo>
-#include <QPixmap>
 #include "liblearner_debug.h"
+#include <QDir>
+#include <QFileInfo>
+#include <QHash>
+#include <QPixmap>
 
 using namespace LearnerProfile;
 
@@ -33,15 +33,12 @@ Learner::Learner(QObject *parent)
     : QObject(parent)
     , d(new LearnerPrivate)
 {
-    connect(this, &Learner::goalAdded,
-            this, &Learner::goalCountChanged);
-    connect(this, &Learner::goalRemoved,
-            this, &Learner::goalCountChanged);
+    connect(this, &Learner::goalAdded, this, &Learner::goalCountChanged);
+    connect(this, &Learner::goalRemoved, this, &Learner::goalCountChanged);
 }
 
 Learner::~Learner()
 {
-
 }
 
 QString Learner::name() const
@@ -116,7 +113,7 @@ void Learner::importImage(const QString &path)
     qCDebug(LIBLEARNER_LOG) << "saved scaled image from " << path << " at " << d->imagePath();
 }
 
-QList< LearningGoal* > Learner::goals() const
+QList<LearningGoal *> Learner::goals() const
 {
     return d->m_goals;
 }
@@ -143,7 +140,7 @@ void Learner::removeGoal(LearnerProfile::LearningGoal *goal)
     emit goalRemoved(this, goal);
 }
 
-bool Learner::hasGoal(LearningGoal* goal) const
+bool Learner::hasGoal(LearningGoal *goal) const
 {
     foreach (LearningGoal *cmpGoal, d->m_goals) {
         if (goal->identifier() == cmpGoal->identifier()) {
@@ -179,19 +176,16 @@ void Learner::setActiveGoal(Learner::Category categoryLearner, const QString &id
             return;
         }
     }
-    qCritical() << "Could not select learning goal with ID " << identifier
-        << ": not registered for this learner";
+    qCritical() << "Could not select learning goal with ID " << identifier << ": not registered for this learner";
 }
 
-LearningGoal * Learner::activeGoal(Learner::Category categoryLearner) const
+LearningGoal *Learner::activeGoal(Learner::Category categoryLearner) const
 {
     // TODO:Qt5 change method parameter to LearningGoal::Category
     // workaround for Q_INVOKABLE access of enum
     LearningGoal::Category category = static_cast<LearningGoal::Category>(categoryLearner);
     if (!d->m_activeGoal.contains(category)) {
-        qCWarning(LIBLEARNER_LOG) << "(Learner " << identifier() << ") No current learning goal set for category "
-            << category
-            << " : fall back to first in list";
+        qCWarning(LIBLEARNER_LOG) << "(Learner " << identifier() << ") No current learning goal set for category " << category << " : fall back to first in list";
         foreach (LearningGoal *goal, d->m_goals) {
             if (goal->category() == category) {
                 return goal;

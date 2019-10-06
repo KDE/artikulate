@@ -18,8 +18,8 @@
 #ifndef OUTPUTBACKENDINTERFACE_H
 #define OUTPUTBACKENDINTERFACE_H
 
-#include "outputdevicecontroller.h"
 #include "libsound_export.h"
+#include "outputdevicecontroller.h"
 #include <QObject>
 
 class LIBSOUND_EXPORT OutputBackendInterface : public QObject
@@ -29,7 +29,7 @@ class LIBSOUND_EXPORT OutputBackendInterface : public QObject
 public:
     explicit OutputBackendInterface(QObject *parent = nullptr);
     virtual ~OutputBackendInterface();
-    virtual void setUri(const QString & uri) = 0;
+    virtual void setUri(const QString &uri) = 0;
     /**
      * volume as cubic value
      */
@@ -47,6 +47,4 @@ Q_SIGNALS:
     void stateChanged();
 };
 
-
 #endif
-

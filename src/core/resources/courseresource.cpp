@@ -20,21 +20,21 @@
  */
 
 #include "courseresource.h"
-#include "courseparser.h"
+#include "core/iresourcerepository.h"
 #include "core/language.h"
-#include "core/unit.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
-#include "core/iresourcerepository.h"
+#include "core/unit.h"
+#include "courseparser.h"
 
-#include <memory>
-#include <QQmlEngine>
-#include <QXmlSchema>
-#include <QXmlStreamReader>
+#include <QDir>
 #include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>
-#include <QDir>
+#include <QQmlEngine>
+#include <QXmlSchema>
+#include <QXmlStreamReader>
+#include <memory>
 
 #include "artikulate_debug.h"
 
@@ -47,7 +47,7 @@ public:
     void loadCourse(CourseResource *parent);
 
     std::weak_ptr<ICourse> m_self;
-    IResourceRepository *m_repository{ nullptr };
+    IResourceRepository *m_repository {nullptr};
     QUrl m_file;
     QString m_identifier;
     QString m_foreignId;
@@ -57,7 +57,7 @@ public:
     QString m_i18nTitle;
     QString m_description;
     QVector<std::shared_ptr<Unit>> m_units;
-    bool m_courseLoaded{ false }; ///<! indicates if course was completely parsed
+    bool m_courseLoaded {false}; ///<! indicates if course was completely parsed
 };
 
 CourseResourcePrivate::~CourseResourcePrivate() = default;
@@ -125,7 +125,7 @@ CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository
                 d->m_foreignId = xml.readElementText();
                 continue;
             }
-            //TODO i18nTitle must be implemented, currently missing and hence not parsed
+            // TODO i18nTitle must be implemented, currently missing and hence not parsed
             if (xml.name() == "title") {
                 d->m_title = xml.readElementText();
                 d->m_i18nTitle = d->m_title;
@@ -141,14 +141,7 @@ CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository
             }
 
             // quit reading when basic elements are read
-            if (!d->m_identifier.isEmpty()
-                && !d->m_title.isEmpty()
-                && !d->m_i18nTitle.isEmpty()
-                && !d->m_description.isEmpty()
-                && !d->m_languageId.isEmpty()
-                && !d->m_foreignId.isEmpty()
-            )
-            {
+            if (!d->m_identifier.isEmpty() && !d->m_title.isEmpty() && !d->m_i18nTitle.isEmpty() && !d->m_description.isEmpty() && !d->m_languageId.isEmpty() && !d->m_foreignId.isEmpty()) {
                 break;
             }
         }

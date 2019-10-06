@@ -19,22 +19,21 @@
  */
 
 #include "courseparser.h"
+#include "artikulate_debug.h"
 #include "core/ieditablecourse.h"
 #include "core/language.h"
-#include "core/unit.h"
-#include "core/phrase.h"
 #include "core/phoneme.h"
-#include "artikulate_debug.h"
+#include "core/phrase.h"
+#include "core/unit.h"
 
-#include <QDomDocument>
+#include <KTar>
 #include <QDir>
+#include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>
 #include <QXmlSchema>
-#include <QXmlStreamReader>
 #include <QXmlSchemaValidator>
-#include <KTar>
-
+#include <QXmlStreamReader>
 
 QXmlSchema CourseParser::loadXmlSchema(const QString &schemeName)
 {
@@ -86,7 +85,7 @@ std::vector<std::shared_ptr<Unit>> CourseParser::parseUnits(const QUrl &path, QV
         xml.readNextStartElement();
 
         while (!xml.atEnd() && !xml.hasError()) {
-            bool elementOk{ false };
+            bool elementOk {false};
             QXmlStreamReader::TokenType token = xml.readNext();
 
             if (token == QXmlStreamReader::StartDocument) {
@@ -120,8 +119,7 @@ std::shared_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl 
     std::shared_ptr<Unit> unit = Unit::create();
     ok = true;
 
-    if (xml.tokenType() != QXmlStreamReader::StartElement
-        && xml.name() == "unit") {
+    if (xml.tokenType() != QXmlStreamReader::StartElement && xml.name() == "unit") {
         qCWarning(ARTIKULATE_PARSER()) << "Expected to parse 'unit' element, aborting here";
         return unit;
     }
@@ -129,11 +127,11 @@ std::shared_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl 
     xml.readNext();
     while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "unit")) {
         if (xml.tokenType() == QXmlStreamReader::StartElement) {
-            bool elementOk{ false };
+            bool elementOk {false};
             if (xml.name() == "id") {
                 unit->setId(parseElement(xml, elementOk));
                 ok &= elementOk;
-            }  else if (xml.name() == "foreignId") {
+            } else if (xml.name() == "foreignId") {
                 unit->setForeignId(parseElement(xml, elementOk));
                 ok &= elementOk;
             } else if (xml.name() == "title") {
@@ -141,8 +139,7 @@ std::shared_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl 
                 ok &= elementOk;
             } else if (xml.name() == "phrases") {
                 // nothing to do
-            }
-            else if (xml.name() == "phrase") {
+            } else if (xml.name() == "phrase") {
                 auto phrase = parsePhrase(xml, path, phonemes, elementOk);
                 if (elementOk) {
                     unit->addPhrase(phrase);
@@ -165,8 +162,7 @@ std::shared_ptr<Phrase> CourseParser::parsePhrase(QXmlStreamReader &xml, const Q
     std::shared_ptr<Phrase> phrase = Phrase::create();
     ok = true;
 
-    if (xml.tokenType() != QXmlStreamReader::StartElement
-        && xml.name() == "phrase") {
+    if (xml.tokenType() != QXmlStreamReader::StartElement && xml.name() == "phrase") {
         qCWarning(ARTIKULATE_PARSER()) << "Expected to parse 'phrase' element, aborting here";
         ok = false;
         return phrase;
@@ -175,7 +171,7 @@ std::shared_ptr<Phrase> CourseParser::parsePhrase(QXmlStreamReader &xml, const Q
     xml.readNext();
     while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "phrase")) {
         if (xml.tokenType() == QXmlStreamReader::StartElement) {
-            bool elementOk{ false };
+            bool elementOk {false};
             if (xml.name() == "id") {
                 phrase->setId(parseElement(xml, elementOk));
                 ok &= elementOk;
@@ -189,9 +185,7 @@ std::shared_ptr<Phrase> CourseParser::parsePhrase(QXmlStreamReader &xml, const Q
                 phrase->seti18nText(parseElement(xml, elementOk));
                 ok &= elementOk;
             } else if (xml.name() == "soundFile") {
-                phrase->setSound(QUrl::fromLocalFile(
-                        path.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path()
-                        + '/' + parseElement(xml, elementOk)));
+                phrase->setSound(QUrl::fromLocalFile(path.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash).path() + '/' + parseElement(xml, elementOk)));
                 ok &= elementOk;
             } else if (xml.name() == "phonemes") {
                 auto parsedPhonemeIds = parsePhonemeIds(xml, elementOk);
@@ -240,8 +234,7 @@ QStringList CourseParser::parsePhonemeIds(QXmlStreamReader &xml, bool &ok)
     QStringList ids;
     ok = true;
 
-    if (xml.tokenType() != QXmlStreamReader::StartElement
-        && xml.name() == "phonemes") {
+    if (xml.tokenType() != QXmlStreamReader::StartElement && xml.name() == "phonemes") {
         qCWarning(ARTIKULATE_PARSER()) << "Expected to parse 'phonemes' element, aborting here";
         ok = false;
         return ids;
@@ -252,7 +245,7 @@ QStringList CourseParser::parsePhonemeIds(QXmlStreamReader &xml, bool &ok)
         xml.readNext();
         if (xml.tokenType() == QXmlStreamReader::StartElement) {
             if (xml.name() == "phonemeID") {
-                bool elementOk{ false };
+                bool elementOk {false};
                 ids.append(parseElement(xml, elementOk));
                 ok &= elementOk;
             } else {
@@ -263,7 +256,7 @@ QStringList CourseParser::parsePhonemeIds(QXmlStreamReader &xml, bool &ok)
     return ids;
 }
 
-QString CourseParser::parseElement(QXmlStreamReader& xml, bool &ok)
+QString CourseParser::parseElement(QXmlStreamReader &xml, bool &ok)
 {
     ok = true;
     if (xml.tokenType() != QXmlStreamReader::StartElement) {
@@ -278,7 +271,6 @@ QString CourseParser::parseElement(QXmlStreamReader& xml, bool &ok)
     qCDebug(ARTIKULATE_PARSER()) << "parsed: " << elementName << " / " << xml.text().toString();
     return xml.text().toString();
 }
-
 
 QDomDocument CourseParser::serializedDocument(std::shared_ptr<IEditableCourse> course, bool trainingExport)
 {
@@ -398,9 +390,7 @@ bool CourseParser::exportCourseToGhnsPackage(std::shared_ptr<IEditableCourse> co
     const QString fileName = course->id() + ".tar.bz2";
     KTar tar = KTar(exportPath + '/' + fileName, QStringLiteral("application/x-bzip"));
     if (!tar.open(QIODevice::WriteOnly)) {
-        qCWarning(ARTIKULATE_CORE()) << "Unable to open tar file"
-            << exportPath + '/' + fileName
-            << "in write mode, aborting.";
+        qCWarning(ARTIKULATE_CORE()) << "Unable to open tar file" << exportPath + '/' + fileName << "in write mode, aborting.";
         return false;
     }
 

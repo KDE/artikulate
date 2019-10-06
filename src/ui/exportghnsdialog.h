@@ -22,13 +22,12 @@
 #define EXPORTGHNSDIALOG_H
 
 #include "ui_exportghnsdialog.h"
-#include <QTemporaryFile>
 #include <QDialog>
+#include <QTemporaryFile>
 
 class IResourceRepository;
 
-class ExportGhnsDialog :
-    public QDialog
+class ExportGhnsDialog : public QDialog
 {
     Q_OBJECT
 

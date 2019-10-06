@@ -21,8 +21,8 @@
 #ifndef LEARNINGPROGRESSMODEL_H
 #define LEARNINGPROGRESSMODEL_H
 
-#include <QAbstractTableModel>
 #include <QAbstractItemModel>
+#include <QAbstractTableModel>
 
 class TrainingSession;
 
@@ -34,20 +34,15 @@ class LearningProgressModel : public QAbstractTableModel
     Q_PROPERTY(int maximumPhrasesPerTry READ maximumPhrasesPerTry NOTIFY maximumTriesChanged)
 
 public:
-    enum unitRoles {
-        TitleRole = Qt::UserRole + 1,
-        NumberPhrasesRole,
-        IdRole,
-        DataRole
-    };
+    enum unitRoles { TitleRole = Qt::UserRole + 1, NumberPhrasesRole, IdRole, DataRole };
 
     explicit LearningProgressModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
-    virtual QHash<int,QByteArray> roleNames() const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
     void setSession(TrainingSession *session);
-    TrainingSession * session() const;
+    TrainingSession *session() const;
     int maximumTries() const;
     int maximumPhrasesPerTry() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;

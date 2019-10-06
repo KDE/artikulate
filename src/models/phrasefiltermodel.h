@@ -37,21 +37,18 @@ class PhraseFilterModel : public QSortFilterProxyModel
 
 public:
     Q_ENUMS(SortOption)
-    enum SortOption {
-        Id,
-        Type
-    };
+    enum SortOption { Id, Type };
     explicit PhraseFilterModel(QObject *parent = nullptr);
-    PhraseListModel * phraseModel() const;
-    void setPhraseModel(PhraseListModel* phraseModel);
+    PhraseListModel *phraseModel() const;
+    void setPhraseModel(PhraseListModel *phraseModel);
     void setSortOption(SortOption option = Id);
     SortOption sortOption() const;
     int filteredCount() const;
     virtual bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
     virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
-    void setHideExcluded(bool hide=true);
+    void setHideExcluded(bool hide = true);
     bool isHideExcluded() const;
-    void setHideNotRecorded(bool hide=true);
+    void setHideNotRecorded(bool hide = true);
     bool isHideNotRecorded() const;
 
 Q_SIGNALS:

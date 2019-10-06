@@ -21,26 +21,28 @@
 #ifndef LEARNER_P_H
 #define LEARNER_P_H
 
-#include <QString>
-#include <QList>
-#include <QHash>
-#include <QStandardPaths>
 #include "learninggoal.h"
 #include <QDebug>
+#include <QHash>
+#include <QList>
+#include <QStandardPaths>
+#include <QString>
 
 namespace LearnerProfile
 {
 class LearningGoal;
 
-class LearnerPrivate {
-
+class LearnerPrivate
+{
 public:
     LearnerPrivate()
         : m_name(QString())
         , m_identifier(-1)
     {
     }
-    ~LearnerPrivate() {}
+    ~LearnerPrivate()
+    {
+    }
 
     QString imagePath() const
     {
@@ -49,16 +51,13 @@ public:
     }
     QString imageDirectory() const
     {
-        return QStandardPaths::writableLocation(QStandardPaths::DataLocation)
-            + QLatin1Char('/')
-            + QStringLiteral("images")
-            + QLatin1Char('/');
+        return QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + QStringLiteral("images") + QLatin1Char('/');
     }
 
     QString m_name;
     int m_identifier;
-    QList<LearningGoal*> m_goals;
-    QHash<LearningGoal::Category, LearningGoal*> m_activeGoal;
+    QList<LearningGoal *> m_goals;
+    QHash<LearningGoal::Category, LearningGoal *> m_activeGoal;
 };
 }
 

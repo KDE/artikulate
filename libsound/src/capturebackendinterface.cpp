@@ -20,10 +20,8 @@
 CaptureBackendInterface::CaptureBackendInterface(QObject *parent)
     : QObject(parent)
 {
-
 }
 
 CaptureBackendInterface::~CaptureBackendInterface()
 {
-
 }

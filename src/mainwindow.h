@@ -21,15 +21,16 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QQmlApplicationEngine>
-#include <KActionCollection>
 #include "core/resourcerepository.h"
+#include <KActionCollection>
+#include <QQmlApplicationEngine>
 
 class TrainingSession;
 class KHelpMenu;
 
-namespace LearnerProfile {
-    class ProfileManager;
+namespace LearnerProfile
+{
+class ProfileManager;
 }
 
 class MainWindow : public QQmlApplicationEngine
@@ -47,9 +48,9 @@ public:
      */
     ~MainWindow() override;
 
-    const IResourceRepository * resourceRepository() const;
+    const IResourceRepository *resourceRepository() const;
 
-    KActionCollection * actionCollection();
+    KActionCollection *actionCollection();
     void setupActions();
     bool queryClose();
 

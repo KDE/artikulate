@@ -20,12 +20,12 @@
 
 #include "resourcerepository.h"
 #include "artikulate_debug.h"
-#include "resources/courseresource.h"
 #include "core/language.h"
-#include <QStandardPaths>
-#include <QUrl>
+#include "resources/courseresource.h"
 #include <QDir>
 #include <QDirIterator>
+#include <QStandardPaths>
+#include <QUrl>
 
 ResourceRepository::ResourceRepository()
     : ResourceRepository(QUrl::fromLocalFile(QStandardPaths::standardLocations(QStandardPaths::DataLocation).constFirst() + QStringLiteral("/courses/")))

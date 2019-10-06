@@ -18,12 +18,12 @@
 #ifndef QTMULTIMEDIACAPTUREBACKEND_H
 #define QTMULTIMEDIACAPTUREBACKEND_H
 
-#include "capturedevicecontroller.h"
 #include "capturebackendinterface.h"
+#include "capturedevicecontroller.h"
 
+#include <QAudioRecorder>
 #include <QMap>
 #include <QString>
-#include <QAudioRecorder>
 
 class QAudioRecorder;
 class QMediaRecorder;
@@ -48,6 +48,5 @@ private:
     QAudioRecorder m_recorder;
     QString m_device;
 };
-
 
 #endif

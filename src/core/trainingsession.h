@@ -31,8 +31,9 @@ class ICourse;
 class Unit;
 class TrainingAction;
 
-namespace LearnerProfile {
-    class ProfileManager;
+namespace LearnerProfile
+{
+class ProfileManager;
 }
 
 /**
@@ -50,12 +51,12 @@ class ARTIKULATECORE_EXPORT TrainingSession : public ISessionActions
 public:
     explicit TrainingSession(LearnerProfile::ProfileManager *manager, QObject *parent = nullptr);
 
-    ICourse * course() const;
+    ICourse *course() const;
     void setCourse(ICourse *course);
-    IUnit * activeUnit() const;
+    IUnit *activeUnit() const;
     void setUnit(IUnit *unit);
-    TrainingAction * activeAction() const override;
-    IPhrase * activePhrase() const;
+    TrainingAction *activeAction() const override;
+    IPhrase *activePhrase() const;
     void setActivePhrase(IPhrase *phrase) override;
     bool hasPrevious() const;
     bool hasNext() const;
@@ -85,10 +86,10 @@ private:
     void updateGoal();
     LearnerProfile::ProfileManager *m_profileManager;
     ICourse *m_course;
-    QVector<TrainingAction*> m_actions;
+    QVector<TrainingAction *> m_actions;
 
-    int m_indexUnit{-1};
-    int m_indexPhrase{-1};
+    int m_indexUnit {-1};
+    int m_indexPhrase {-1};
 };
 
 #endif

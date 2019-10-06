@@ -34,12 +34,7 @@ class LIBSOUND_EXPORT CaptureDeviceController : public QObject
     Q_OBJECT
 
 public:
-    enum State
-    {
-        StoppedState,
-        RecordingState,
-        PausedState
-    };
+    enum State { StoppedState, RecordingState, PausedState };
 
     /**
      * Returns self reference to the controller. First call of this method initializes
@@ -47,7 +42,7 @@ public:
      *
      * \return self reference
      */
-    static CaptureDeviceController & self();
+    static CaptureDeviceController &self();
 
     void startCapture(const QString &filePath);
     CaptureDeviceController::State state() const;
@@ -60,7 +55,6 @@ public:
     QList<QString> devices() const;
 
 public Q_SLOTS:
-
 
 Q_SIGNALS:
     void captureStarted();

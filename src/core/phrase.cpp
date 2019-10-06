@@ -19,11 +19,11 @@
  */
 
 #include "phrase.h"
-#include "unit.h"
-#include "icourse.h"
 #include "artikulate_debug.h"
-#include <QTemporaryFile>
+#include "icourse.h"
+#include "unit.h"
 #include <QQmlEngine>
+#include <QTemporaryFile>
 
 Phrase::Phrase()
     : IEditablePhrase()
@@ -121,17 +121,17 @@ Phrase::Type Phrase::type() const
 
 QString Phrase::typeString() const
 {
-    switch(m_type) {
-    case IPhrase::Type::Word:
-        return QStringLiteral("word");
-    case IPhrase::Type::Expression:
-        return QStringLiteral("expression");
-    case IPhrase::Type::Sentence:
-        return QStringLiteral("sentence");
-    case IPhrase::Type::Paragraph:
-        return QStringLiteral("paragraph");
-    default:
-        return QStringLiteral("ERROR_UNKNOWN_TYPE");
+    switch (m_type) {
+        case IPhrase::Type::Word:
+            return QStringLiteral("word");
+        case IPhrase::Type::Expression:
+            return QStringLiteral("expression");
+        case IPhrase::Type::Sentence:
+            return QStringLiteral("sentence");
+        case IPhrase::Type::Paragraph:
+            return QStringLiteral("paragraph");
+        default:
+            return QStringLiteral("ERROR_UNKNOWN_TYPE");
     }
 }
 
@@ -173,13 +173,13 @@ Phrase::EditState Phrase::editState() const
 
 QString Phrase::editStateString() const
 {
-    switch(m_editState) {
-    case IEditablePhrase::EditState::Unknown:
-        return QStringLiteral("unknown");
-    case IEditablePhrase::EditState::Translated:
-        return QStringLiteral("translated");
-    case IEditablePhrase::EditState::Completed:
-        return QStringLiteral("completed");
+    switch (m_editState) {
+        case IEditablePhrase::EditState::Unknown:
+            return QStringLiteral("unknown");
+        case IEditablePhrase::EditState::Translated:
+            return QStringLiteral("translated");
+        case IEditablePhrase::EditState::Completed:
+            return QStringLiteral("completed");
     }
     Q_UNREACHABLE();
 }
@@ -253,7 +253,7 @@ QString Phrase::soundFileOutputPath() const
 {
     if (m_nativeSoundFile.isEmpty()) {
         QString outputDir = m_unit.lock()->course()->file().path() + '/';
-        //TODO take care that this is proper ASCII
+        // TODO take care that this is proper ASCII
         return outputDir + id() + ".ogg";
     } else {
         return soundFileUrl();
@@ -328,7 +328,7 @@ QVector<Phoneme *> Phrase::phonemes() const
     return m_phonemes;
 }
 
-bool Phrase::hasPhoneme(Phoneme* phoneme)
+bool Phrase::hasPhoneme(Phoneme *phoneme)
 {
     return m_phonemes.contains(phoneme);
 }
@@ -338,7 +338,7 @@ void Phrase::addPhoneme(Phoneme *phoneme)
     if (!m_phonemes.contains(phoneme)) {
         m_phonemes.append(phoneme);
         emit phonemesChanged();
-        //FIXME tell Unit to also send corresponding signal!
+        // FIXME tell Unit to also send corresponding signal!
     }
 }
 
@@ -346,6 +346,6 @@ void Phrase::removePhoneme(Phoneme *phoneme)
 {
     if (m_phonemes.removeOne(phoneme)) {
         emit phonemesChanged();
-        //FIXME tell Unit to also send corresponding signal!
+        // FIXME tell Unit to also send corresponding signal!
     }
 }

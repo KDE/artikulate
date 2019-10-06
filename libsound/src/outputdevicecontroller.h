@@ -34,12 +34,7 @@ class LIBSOUND_EXPORT OutputDeviceController : public QObject
     Q_OBJECT
 
 public:
-    enum State
-    {
-        StoppedState,
-        PlayingState,
-        PausedState
-    };
+    enum State { StoppedState, PlayingState, PausedState };
 
     /**
      * Returns self reference to the controller. First call of this method initializes
@@ -47,7 +42,7 @@ public:
      *
      * \return self reference
      */
-    static OutputDeviceController & self();
+    static OutputDeviceController &self();
 
     void play(const QString &filePath);
     void play(const QUrl &filePath);

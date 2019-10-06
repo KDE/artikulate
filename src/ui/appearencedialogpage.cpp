@@ -21,7 +21,6 @@
 #include "appearencedialogpage.h"
 #include "settings.h"
 
-
 AppearenceDialogPage::AppearenceDialogPage()
     : QWidget(nullptr)
 {
@@ -44,4 +43,3 @@ void AppearenceDialogPage::saveSettings()
     Settings::setTrainingPhraseFont(ui->kcfg_TrainingPhraseFont->font());
     Settings::self()->save();
 }
-

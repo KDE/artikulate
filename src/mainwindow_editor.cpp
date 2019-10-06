@@ -20,20 +20,20 @@
 
 #include "mainwindow_editor.h"
 #include "application.h"
-#include "ui/sounddevicedialogpage.h"
-#include "ui/exportghnsdialog.h"
+#include "artikulate_debug.h"
 #include "core/editorsession.h"
 #include "core/resources/courseresource.h"
+#include "libsound/src/outputdevicecontroller.h"
 #include "models/languagemodel.h"
 #include "settings.h"
-#include "libsound/src/outputdevicecontroller.h"
-#include "artikulate_debug.h"
+#include "ui/exportghnsdialog.h"
+#include "ui/sounddevicedialogpage.h"
+#include <KAboutData>
 #include <KActionCollection>
 #include <KConfigDialog>
-#include <KLocalizedString>
 #include <KLocalizedContext>
+#include <KLocalizedString>
 #include <KStandardAction>
-#include <KAboutData>
 #include <QAction>
 #include <QApplication>
 #include <QCloseEvent>
@@ -72,8 +72,8 @@ MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
     // set starting screen
     load(QUrl(QStringLiteral("qrc:/artikulate/qml/Editor.qml")));
 
-//    QAction *newAct = KStandardAction::save(this, SLOT(save()), actionCollection());
-//    actionCollection()->addAction(QStringLiteral("save"), newAct);
+    //    QAction *newAct = KStandardAction::save(this, SLOT(save()), actionCollection());
+    //    actionCollection()->addAction(QStringLiteral("save"), newAct);
 }
 
 MainWindowEditor::~MainWindowEditor()
@@ -82,27 +82,27 @@ MainWindowEditor::~MainWindowEditor()
     Settings::self()->save();
 }
 
-ContributorRepository * MainWindowEditor::resourceRepository() const
+ContributorRepository *MainWindowEditor::resourceRepository() const
 {
     return m_repository;
 }
 
 void MainWindowEditor::setupActions()
 {
-//    QAction *settingsAction = new QAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
-//    connect(settingsAction, &QAction::triggered, this, &MainWindowEditor::showSettingsDialog);
-//    actionCollection()->addAction(QStringLiteral("settings"), settingsAction);
-//    settingsAction->setIcon(QIcon::fromTheme(QStringLiteral("configure")));
+    //    QAction *settingsAction = new QAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
+    //    connect(settingsAction, &QAction::triggered, this, &MainWindowEditor::showSettingsDialog);
+    //    actionCollection()->addAction(QStringLiteral("settings"), settingsAction);
+    //    settingsAction->setIcon(QIcon::fromTheme(QStringLiteral("configure")));
 
-//    QAction *exportAction = new QAction(i18nc("@item:inmenu", "Export GHNS Files"), this);
-//    connect(exportAction, &QAction::triggered, this, [=]() {
-//        QPointer<QDialog> dialog = new ExportGhnsDialog(m_repository);
-//        dialog->exec();
-//    });
-//    actionCollection()->addAction(QStringLiteral("export_ghns"), exportAction);
-//    exportAction->setIcon(QIcon::fromTheme(QStringLiteral("document-export")));
+    //    QAction *exportAction = new QAction(i18nc("@item:inmenu", "Export GHNS Files"), this);
+    //    connect(exportAction, &QAction::triggered, this, [=]() {
+    //        QPointer<QDialog> dialog = new ExportGhnsDialog(m_repository);
+    //        dialog->exec();
+    //    });
+    //    actionCollection()->addAction(QStringLiteral("export_ghns"), exportAction);
+    //    exportAction->setIcon(QIcon::fromTheme(QStringLiteral("document-export")));
 
-//    KStandardAction::quit(this, SLOT(quit()), actionCollection());
+    //    KStandardAction::quit(this, SLOT(quit()), actionCollection());
 }
 
 void MainWindowEditor::showSettingsDialog()
@@ -130,12 +130,12 @@ void MainWindowEditor::save()
 
 void MainWindowEditor::quit()
 {
-//    if (queryClose()) {
-//        qApp->quit();
-//    }
+    //    if (queryClose()) {
+    //        qApp->quit();
+    //    }
 }
 
-//bool MainWindowEditor::queryClose()
+// bool MainWindowEditor::queryClose()
 //{
 //    if (!m_repository->modified()) {
 //        return true;

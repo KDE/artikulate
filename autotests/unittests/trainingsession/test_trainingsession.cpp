@@ -19,16 +19,16 @@
  */
 
 #include "test_trainingsession.h"
-#include "src/core/trainingsession.h"
-#include "src/core/icourse.h"
-#include "src/core/language.h"
-#include "src/core/unit.h"
-#include "src/core/trainingaction.h"
 #include "../mocks/coursestub.h"
 #include "../mocks/languagestub.h"
 #include "liblearnerprofile/src/profilemanager.h"
-#include <QTest>
+#include "src/core/icourse.h"
+#include "src/core/language.h"
+#include "src/core/trainingaction.h"
+#include "src/core/trainingsession.h"
+#include "src/core/unit.h"
 #include <QSignalSpy>
+#include <QTest>
 
 // assumption: during a training session the units and phrases of a course do not change
 //   any change of such a course shall result in a reload of a training session

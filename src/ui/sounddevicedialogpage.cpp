@@ -39,10 +39,10 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
     ui->buttonPlayRecordedTestSound->setEnabled(false);
 
     // set input volume slider
-    //TODO Qt5.x port: reenable, since that we can set audioinput volume
-//     ui->kcfg_AudioInputVolume->setTickInterval(1);
-//     ui->kcfg_AudioInputVolume->setMinimum(1);
-//     ui->kcfg_AudioInputVolume->setMaximum(100);
+    // TODO Qt5.x port: reenable, since that we can set audioinput volume
+    //     ui->kcfg_AudioInputVolume->setTickInterval(1);
+    //     ui->kcfg_AudioInputVolume->setMinimum(1);
+    //     ui->kcfg_AudioInputVolume->setMaximum(100);
 
     // set output volume slider
     ui->kcfg_AudioOutputVolume->setTickInterval(0);
@@ -51,10 +51,10 @@ SoundDeviceDialogPage::SoundDeviceDialogPage()
 
     // devices
     QStringList devices = CaptureDeviceController::self().devices();
-    for (int i=0; i < devices.length(); ++i) {
+    for (int i = 0; i < devices.length(); ++i) {
         ui->kcfg_AudioInputDevice->insertItem(i, devices.at(i), i);
     }
-    //TODO Gst::Device will allow selecting devices again with GStreamer 1.4
+    // TODO Gst::Device will allow selecting devices again with GStreamer 1.4
 
     // temporary file for recording test
     m_recordTestFile.open();
@@ -78,9 +78,8 @@ SoundDeviceDialogPage::~SoundDeviceDialogPage()
 
 void SoundDeviceDialogPage::loadSettings()
 {
-    ui->kcfg_AudioInputDevice->setCurrentIndex(
-        ui->kcfg_AudioInputDevice->findText(Settings::audioInputDevice()));
-//     ui->kcfg_AudioInputVolume->setValue(Settings::audioInputVolume());
+    ui->kcfg_AudioInputDevice->setCurrentIndex(ui->kcfg_AudioInputDevice->findText(Settings::audioInputDevice()));
+    //     ui->kcfg_AudioInputVolume->setValue(Settings::audioInputVolume());
     ui->kcfg_AudioOutputVolume->setValue(Settings::audioOutputVolume());
 }
 
@@ -92,7 +91,7 @@ void SoundDeviceDialogPage::setVolume(int volume)
 void SoundDeviceDialogPage::saveSettings()
 {
     Settings::setAudioInputDevice(ui->kcfg_AudioInputDevice->itemText(ui->kcfg_AudioInputDevice->currentIndex()));
-//     Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
+    //     Settings::setAudioInputVolume(ui->kcfg_AudioInputVolume->value());
     Settings::setAudioOutputVolume(static_cast<int>(ui->kcfg_AudioOutputVolume->value()));
     OutputDeviceController::self().setVolume(ui->kcfg_AudioOutputVolume->value());
     Settings::self()->save();
@@ -126,8 +125,7 @@ void SoundDeviceDialogPage::stopPlaying()
 
 void SoundDeviceDialogPage::recordSound()
 {
-    if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState)
-    {
+    if (CaptureDeviceController::self().state() == CaptureDeviceController::RecordingState) {
         CaptureDeviceController::self().stopCapture();
         ui->buttonRecordTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-record")));
         ui->buttonPlayRecordedTestSound->setEnabled(true);
@@ -152,25 +150,25 @@ void SoundDeviceDialogPage::updatePlayButtonIcons()
 {
     // default sound output test
     switch (OutputDeviceController::self().state()) {
-    case OutputDeviceController::PlayingState:
-        ui->buttonPlayTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-stop")));
-        break;
-    case OutputDeviceController::StoppedState:
-        ui->buttonPlayTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
-        break;
-    default:
-        ui->buttonPlayTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
+        case OutputDeviceController::PlayingState:
+            ui->buttonPlayTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-stop")));
+            break;
+        case OutputDeviceController::StoppedState:
+            ui->buttonPlayTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
+            break;
+        default:
+            ui->buttonPlayTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
     }
 
     // recorded sound output test
     switch (OutputDeviceController::self().state()) {
-    case OutputDeviceController::PlayingState:
-        ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-stop")));
-        break;
-    case OutputDeviceController::StoppedState:
-        ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
-        break;
-    default:
-        ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
+        case OutputDeviceController::PlayingState:
+            ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-stop")));
+            break;
+        case OutputDeviceController::StoppedState:
+            ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
+            break;
+        default:
+            ui->buttonPlayRecordedTestSound->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
     }
 }

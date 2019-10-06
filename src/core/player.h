@@ -33,11 +33,7 @@ class ARTIKULATECORE_EXPORT Player : public QObject
 
 public:
     Q_ENUMS(PlaybackState)
-    enum PlaybackState {
-        StoppedState,
-        PlayingState,
-        PausedState
-    };
+    enum PlaybackState { StoppedState, PlayingState, PausedState };
 
     explicit Player(QObject *parent = nullptr);
     ~Player() = default;

@@ -22,8 +22,8 @@
 #define COURSEPARSER_H
 
 #include "artikulatecore_export.h"
-#include <memory>
 #include <QVector>
+#include <memory>
 
 class IEditableCourse;
 class IEditablePhrase;
@@ -42,7 +42,6 @@ class QUrl;
 
 class ARTIKULATECORE_EXPORT CourseParser
 {
-
 public:
     /**
      * Load XSD file given by its file name (without ".xsd" suffix). The method searches exclusively
@@ -62,7 +61,7 @@ public:
      */
     static QDomDocument loadDomDocument(const QUrl &path, const QXmlSchema &schema);
 
-    static std::vector<std::shared_ptr<Unit> > parseUnits(const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes = QVector<std::shared_ptr<Phoneme>>());
+    static std::vector<std::shared_ptr<Unit>> parseUnits(const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes = QVector<std::shared_ptr<Phoneme>>());
 
     static QDomDocument serializedDocument(std::shared_ptr<IEditableCourse> course, bool trainingExport);
     static QDomElement serializedPhrase(std::shared_ptr<IEditablePhrase> phrase, QDomDocument &document);

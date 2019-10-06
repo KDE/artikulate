@@ -28,7 +28,6 @@ class LearningGoalPrivate;
 
 namespace LearnerProfile
 {
-
 /**
  * \class LearningGoal
  */
@@ -41,15 +40,10 @@ class LIBLEARNERPROFILE_EXPORT LearningGoal : public QObject
 
 public:
     Q_ENUMS(Category)
-    enum Category {
-        Unspecified = 0,
-        Language = 1
-    };
+    enum Category { Unspecified = 0, Language = 1 };
 
     explicit LearningGoal(QObject *parent = nullptr);
-    explicit LearningGoal(LearningGoal::Category category,
-                          const QString &identifier,
-                          QObject *parent = nullptr);
+    explicit LearningGoal(LearningGoal::Category category, const QString &identifier, QObject *parent = nullptr);
     ~LearningGoal();
 
     QString name() const;

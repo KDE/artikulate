@@ -56,29 +56,29 @@
 #include "qmlcontrols/iconitem.h"
 
 #include "liblearnerprofile/src/learner.h"
-#include "liblearnerprofile/src/profilemanager.h"
 #include "liblearnerprofile/src/learninggoal.h"
 #include "liblearnerprofile/src/models/learninggoalmodel.h"
+#include "liblearnerprofile/src/profilemanager.h"
 
 #include <QObject>
 #include <QQmlComponent>
 #include <QQmlContext>
 #include <QQmlEngine>
 
-Application::Application(int& argc, char** argv)
+Application::Application(int &argc, char **argv)
     : QApplication(argc, argv)
 {
     registerQmlTypes();
 }
 
-IResourceRepository * Application::resourceRepository() const
+IResourceRepository *Application::resourceRepository() const
 {
     return m_resourceRepository;
 }
 
-IEditableRepository * Application::editableRepository() const
+IEditableRepository *Application::editableRepository() const
 {
-    return qobject_cast<IEditableRepository*>(m_resourceRepository);
+    return qobject_cast<IEditableRepository *>(m_resourceRepository);
 }
 
 void Application::installResourceRepository(IResourceRepository *resourceRepository)
@@ -88,38 +88,14 @@ void Application::installResourceRepository(IResourceRepository *resourceReposit
 
 void Application::registerQmlTypes()
 {
-    qmlRegisterUncreatableType<TrainingSession>(
-        "artikulate", 1, 0,
-        "TrainingSession",
-        QStringLiteral("TrainingSession is unique object provided by the backend"));
-    qmlRegisterUncreatableType<EditorSession>(
-        "artikulate", 1, 0,
-        "EditorSession",
-        QStringLiteral("EditorSession is unique object provided by the backend"));
-    qmlRegisterUncreatableType<ContributorRepository>(
-        "artikulate", 1, 0,
-        "ContributorRepository",
-        QStringLiteral("ContributorRepository is unique object provided by the backend"));
-    qmlRegisterUncreatableType<LearnerProfile::ProfileManager>(
-        "artikulate", 1, 0,
-        "ProfileManager",
-        QStringLiteral("ProfileManager is unique object provided by the backend"));
-    qmlRegisterUncreatableType<EditableCourseResource>(
-        "artikulate", 1, 0,
-        "EditableCourseResource",
-        QStringLiteral("EditableCourseResource objects are backend objects"));
-    qmlRegisterUncreatableType<SkeletonResource>(
-        "artikulate", 1, 0,
-        "SkeletonResource",
-        QStringLiteral("SkeletonResource objects are backend objects"));
-    qmlRegisterUncreatableType<Phrase>(
-        "artikulate", 1, 0,
-        "Phrase",
-        QStringLiteral("Phrase objects are backend objects"));
-    qmlRegisterUncreatableType<Unit>(
-        "artikulate", 1, 0,
-        "Unit",
-        QStringLiteral("Unit objects are backend objects"));
+    qmlRegisterUncreatableType<TrainingSession>("artikulate", 1, 0, "TrainingSession", QStringLiteral("TrainingSession is unique object provided by the backend"));
+    qmlRegisterUncreatableType<EditorSession>("artikulate", 1, 0, "EditorSession", QStringLiteral("EditorSession is unique object provided by the backend"));
+    qmlRegisterUncreatableType<ContributorRepository>("artikulate", 1, 0, "ContributorRepository", QStringLiteral("ContributorRepository is unique object provided by the backend"));
+    qmlRegisterUncreatableType<LearnerProfile::ProfileManager>("artikulate", 1, 0, "ProfileManager", QStringLiteral("ProfileManager is unique object provided by the backend"));
+    qmlRegisterUncreatableType<EditableCourseResource>("artikulate", 1, 0, "EditableCourseResource", QStringLiteral("EditableCourseResource objects are backend objects"));
+    qmlRegisterUncreatableType<SkeletonResource>("artikulate", 1, 0, "SkeletonResource", QStringLiteral("SkeletonResource objects are backend objects"));
+    qmlRegisterUncreatableType<Phrase>("artikulate", 1, 0, "Phrase", QStringLiteral("Phrase objects are backend objects"));
+    qmlRegisterUncreatableType<Unit>("artikulate", 1, 0, "Unit", QStringLiteral("Unit objects are backend objects"));
 
     // interfaces
     qmlRegisterInterface<ICourse>("ICourse");
@@ -160,5 +136,5 @@ void Application::registerQmlTypes()
     qmlRegisterType<SkeletonModel>("artikulate", 1, 0, "SkeletonModel");
     qmlRegisterType<UnitFilterModel>("artikulate", 1, 0, "UnitFilterModel");
     qmlRegisterType<UnitModel>("artikulate", 1, 0, "UnitModel");
-//     qmlRegisterType<LearningProgressModel>("artikulate", 1, 0, "LearningProgressModel");//TODO must be ported to new trainingsession
+    //     qmlRegisterType<LearningProgressModel>("artikulate", 1, 0, "LearningProgressModel");//TODO must be ported to new trainingsession
 }

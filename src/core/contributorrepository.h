@@ -23,13 +23,13 @@
 
 #include "artikulatecore_export.h"
 #include "ieditablerepository.h"
-#include <memory>
-#include <QObject>
-#include <QMap>
 #include <QHash>
-#include <QVector>
+#include <QMap>
+#include <QObject>
 #include <QStringList>
 #include <QUrl>
+#include <QVector>
+#include <memory>
 
 #include "liblearnerprofile/src/learninggoal.h"
 
@@ -87,7 +87,7 @@ public:
     /**
      * \return language by \p learningGoal
      */
-    Q_INVOKABLE ILanguage * language(LearnerProfile::LearningGoal* learningGoal) const;
+    Q_INVOKABLE ILanguage *language(LearnerProfile::LearningGoal *learningGoal) const;
 
     QVector<std::shared_ptr<ICourse>> courses() const override;
     QVector<std::shared_ptr<ICourse>> courses(const QString &languageId) const override;
@@ -150,7 +150,7 @@ public:
      *
      * \return created course
      */
-    Q_INVOKABLE IEditableCourse * createCourse(std::shared_ptr<ILanguage> language, std::shared_ptr<SkeletonResource> skeleton);
+    Q_INVOKABLE IEditableCourse *createCourse(std::shared_ptr<ILanguage> language, std::shared_ptr<SkeletonResource> skeleton);
 
     /**
      * Adds skeleton resource to resource manager
@@ -171,14 +171,14 @@ public:
 
 Q_SIGNALS:
     void languageResourceAdded();
-    void languageResourceAboutToBeAdded(std::shared_ptr<ILanguage>,int);
+    void languageResourceAboutToBeAdded(std::shared_ptr<ILanguage>, int);
     void languageResourceRemoved();
     void languageResourceAboutToBeRemoved(int);
     void repositoryChanged();
     void skeletonAdded();
-    void skeletonAboutToBeAdded(ICourse*,int);
+    void skeletonAboutToBeAdded(ICourse *, int);
     void skeletonRemoved();
-    void skeletonAboutToBeRemoved(int,int);
+    void skeletonAboutToBeRemoved(int, int);
     void languageCoursesChanged();
 
 private:
@@ -189,7 +189,7 @@ private:
     void loadLanguageResources();
     QUrl m_storageLocation;
     QVector<std::shared_ptr<ILanguage>> m_languages;
-    QMap<QString, QVector<std::shared_ptr<EditableCourseResource>> > m_courses; //!> (language-id, course-resource)
+    QMap<QString, QVector<std::shared_ptr<EditableCourseResource>>> m_courses; //!> (language-id, course-resource)
     QVector<std::shared_ptr<IEditableCourse>> m_skeletonResources;
     QStringList m_loadedResources;
 };

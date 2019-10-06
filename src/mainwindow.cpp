@@ -19,25 +19,25 @@
  */
 
 #include "mainwindow.h"
-#include "ui/sounddevicedialogpage.h"
-#include "core/resourcerepository.h"
-#include "core/trainingsession.h"
-#include "core/editorsession.h"
-#include "core/resources/courseresource.h"
 #include "application.h"
+#include "artikulate_debug.h"
+#include "core/editorsession.h"
+#include "core/resourcerepository.h"
+#include "core/resources/courseresource.h"
+#include "core/trainingsession.h"
+#include "liblearnerprofile/src/learner.h"
+#include "liblearnerprofile/src/profilemanager.h"
+#include "libsound/src/outputdevicecontroller.h"
 #include "models/languagemodel.h"
 #include "settings.h"
-#include "liblearnerprofile/src/profilemanager.h"
-#include "liblearnerprofile/src/learner.h"
-#include "libsound/src/outputdevicecontroller.h"
-#include "artikulate_debug.h"
+#include "ui/sounddevicedialogpage.h"
 
+#include <KAboutData>
 #include <KActionCollection>
 #include <KConfigDialog>
-#include <KAboutData>
 #include <KHelpMenu>
-#include <KLocalizedString>
 #include <KLocalizedContext>
+#include <KLocalizedString>
 #include <KNS3/DownloadDialog>
 #include <KStandardAction>
 
@@ -76,13 +76,11 @@ MainWindow::MainWindow()
     }
 
     // connect to QML signals;
-    connect(rootObjects().constFirst(), SIGNAL(ghnsCourseDataStatusChanged()),
-            this, SLOT(updateCourseResources()));
-    connect(rootObjects().constFirst(), SIGNAL(triggerAction(QString)),
-            this, SLOT(triggerAction(QString)));
+    connect(rootObjects().constFirst(), SIGNAL(ghnsCourseDataStatusChanged()), this, SLOT(updateCourseResources()));
+    connect(rootObjects().constFirst(), SIGNAL(triggerAction(QString)), this, SLOT(triggerAction(QString)));
 
     // set font for the phrase in trainer to default from kcfg file
-    QObject *phraseText = rootObjects().constFirst()->findChild<QObject*>(QStringLiteral("phraseText"));
+    QObject *phraseText = rootObjects().constFirst()->findChild<QObject *>(QStringLiteral("phraseText"));
     if (phraseText) {
         phraseText->setProperty("font", Settings::trainingPhraseFont());
     }
@@ -95,7 +93,7 @@ MainWindow::~MainWindow()
     m_profileManager->sync();
 }
 
-KActionCollection * MainWindow::actionCollection()
+KActionCollection *MainWindow::actionCollection()
 {
     return m_actionCollection;
 }
@@ -144,7 +142,7 @@ void MainWindow::updateCourseResources()
 
 void MainWindow::updateTrainingPhraseFont()
 {
-    QObject *phraseText = rootObjects().constFirst()->findChild<QObject*>(QStringLiteral("phraseText"));
+    QObject *phraseText = rootObjects().constFirst()->findChild<QObject *>(QStringLiteral("phraseText"));
     if (!phraseText) {
         qCDebug(ARTIKULATE_LOG) << "no phraseText context object found, aborting";
         return;
@@ -159,12 +157,12 @@ void MainWindow::updateKcfgUseContributorResources()
 
 void MainWindow::configLearnerProfile()
 {
-    qCritical() << "Not implemented"; //FIXME
+    qCritical() << "Not implemented"; // FIXME
 }
 
 void MainWindow::triggerAction(const QString &actionName)
 {
-    QAction * action = actionCollection()->action(actionName);
+    QAction *action = actionCollection()->action(actionName);
     if (action) {
         action->trigger();
     } else {

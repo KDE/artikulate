@@ -19,15 +19,15 @@
  */
 
 #include "language.h"
+#include "artikulate_debug.h"
 #include "models/languagemodel.h"
 #include "phoneme.h"
 #include "phonemegroup.h"
-#include "artikulate_debug.h"
 #include <KLocalizedString>
-#include <QQmlEngine>
-#include <QXmlStreamReader>
 #include <QFile>
 #include <QIODevice>
+#include <QQmlEngine>
+#include <QXmlStreamReader>
 
 std::shared_ptr<Language> Language::create(QUrl file)
 {

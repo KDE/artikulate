@@ -20,23 +20,22 @@
 
 #include "iconitem.h"
 
-#include <QSGSimpleTextureNode>
-#include <QQuickWindow>
-#include <QIcon>
 #include "imagetexturescache.h"
 #include "managedtexturenode.h"
+#include <QIcon>
+#include <QQuickWindow>
+#include <QSGSimpleTextureNode>
 
 Q_GLOBAL_STATIC(ImageTexturesCache, s_iconImageCache)
 
 IconItem::IconItem(QQuickItem *parent)
-    : QQuickItem(parent),
-      m_smooth(false),
-      m_state(DefaultState),
-      m_changed(false)
+    : QQuickItem(parent)
+    , m_smooth(false)
+    , m_state(DefaultState)
+    , m_changed(false)
 {
     setFlag(ItemHasContents, true);
 }
-
 
 IconItem::~IconItem()
 {
@@ -44,9 +43,9 @@ IconItem::~IconItem()
 
 void IconItem::setIcon(const QVariant &icon)
 {
-    if(icon.canConvert<QIcon>()) {
+    if (icon.canConvert<QIcon>()) {
         m_icon = icon.value<QIcon>();
-    } else if(icon.canConvert<QString>()) {
+    } else if (icon.canConvert<QString>()) {
         m_icon = QIcon::fromTheme(icon.toString());
     } else {
         m_icon = QIcon();
@@ -116,7 +115,7 @@ bool IconItem::smooth() const
     return m_smooth;
 }
 
-QSGNode* IconItem::updatePaintNode(QSGNode* node, QQuickItem::UpdatePaintNodeData* /*data*/)
+QSGNode *IconItem::updatePaintNode(QSGNode *node, QQuickItem::UpdatePaintNodeData * /*data*/)
 {
     if (m_icon.isNull()) {
         delete node;
@@ -126,14 +125,14 @@ QSGNode* IconItem::updatePaintNode(QSGNode* node, QQuickItem::UpdatePaintNodeDat
     if (m_changed || node == nullptr) {
         m_changed = false;
 
-        ManagedTextureNode* mNode = dynamic_cast<ManagedTextureNode*>(node);
-        if(!mNode) {
+        ManagedTextureNode *mNode = dynamic_cast<ManagedTextureNode *>(node);
+        if (!mNode) {
             delete node;
             mNode = new ManagedTextureNode;
         }
 
         QIcon::Mode mode;
-        switch(m_state) {
+        switch (m_state) {
             case DefaultState:
                 mode = QIcon::Normal;
                 break;
@@ -151,7 +150,7 @@ QSGNode* IconItem::updatePaintNode(QSGNode* node, QQuickItem::UpdatePaintNodeDat
             img = m_icon.pixmap(size, mode, QIcon::On).toImage();
         }
         mNode->setTexture(s_iconImageCache->loadTexture(window(), img));
-        mNode->setRect(QRect(QPoint(0,0), size));
+        mNode->setRect(QRect(QPoint(0, 0), size));
         node = mNode;
     }
 

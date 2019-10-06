@@ -20,8 +20,8 @@
 
 #include "testxsdschemes.h"
 
-#include <QTest>
 #include <QDebug>
+#include <QTest>
 #include <QUrl>
 #include <QXmlSchema>
 #include <QXmlSchemaValidator>

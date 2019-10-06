@@ -34,20 +34,13 @@ class ARTIKULATECORE_EXPORT CourseModel : public QAbstractListModel
     Q_OBJECT
 
 public:
-    enum courseRoles {
-        TitleRole = Qt::UserRole + 1,
-        I18nTitleRole,
-        DescriptionRole,
-        IdRole,
-        LanguageRole,
-        DataRole
-    };
+    enum courseRoles { TitleRole = Qt::UserRole + 1, I18nTitleRole, DescriptionRole, IdRole, LanguageRole, DataRole };
 
     explicit CourseModel(QObject *parent = nullptr);
     CourseModel(IResourceRepository *repository, QObject *parent = nullptr);
     ~CourseModel() override = default;
-    QHash<int,QByteArray> roleNames() const override;
-    IResourceRepository * resourceRepository() const;
+    QHash<int, QByteArray> roleNames() const override;
+    IResourceRepository *resourceRepository() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
@@ -62,7 +55,7 @@ private Q_SLOTS:
     void onCourseAboutToBeRemoved(int row);
 
 private:
-    IResourceRepository *m_resourceRepository{ nullptr };
+    IResourceRepository *m_resourceRepository {nullptr};
     QVector<QMetaObject::Connection> m_updateConnections;
 };
 

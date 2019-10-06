@@ -37,23 +37,17 @@ class PhonemeUnitModel : public QAbstractListModel
     Q_PROPERTY(int count READ count NOTIFY countChanged);
 
 public:
-    enum unitRoles {
-        TitleRole = Qt::UserRole + 1,
-        NumberPhrasesRole,
-        IdRole,
-        DataRole,
-        PhonemeGroupRole
-    };
+    enum unitRoles { TitleRole = Qt::UserRole + 1, NumberPhrasesRole, IdRole, DataRole, PhonemeGroupRole };
 
     explicit PhonemeUnitModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
-    virtual QHash<int,QByteArray> roleNames() const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
     void setCourse(ICourse *course);
-    ICourse * course() const;
+    ICourse *course() const;
     void setPhonemeGroup(PhonemeGroup *phonemeGroup);
-    PhonemeGroup * phonemeGroup() const;
+    PhonemeGroup *phonemeGroup() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;

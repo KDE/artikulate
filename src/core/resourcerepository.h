@@ -23,12 +23,12 @@
 
 #include "artikulatecore_export.h"
 #include "iresourcerepository.h"
-#include <QObject>
-#include <QMap>
 #include <QHash>
+#include <QMap>
+#include <QObject>
 #include <QStringList>
-#include <QVector>
 #include <QUrl>
+#include <QVector>
 
 class CourseResource;
 class ICourse;

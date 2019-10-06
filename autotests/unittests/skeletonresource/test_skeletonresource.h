@@ -45,23 +45,23 @@ private slots:
     /**
      * @brief Test simple loading of course resource XML file
      */
-     void loadSkeletonResource();
+    void loadSkeletonResource();
 
     /**
      * @brief Test handling of unit insertions (specifically, the signals)
      */
-     void unitAddAndRemoveHandling();
+    void unitAddAndRemoveHandling();
 
     /**
      * @brief Test of all course property changes except unit handling
      */
-     void coursePropertyChanges();
+    void coursePropertyChanges();
 
     /**
      * Test if serialization of unserialized file gives original file.
      * TODO this is a test by only string equality and should improved to test on a data level
      */
-     void fileLoadSaveCompleteness();
+    void fileLoadSaveCompleteness();
 
 private:
     bool m_systemUseCourseRepositoryValue;

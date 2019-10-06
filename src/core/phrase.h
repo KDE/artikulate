@@ -22,11 +22,11 @@
 #define PHRASE_H
 
 #include "artikulatecore_export.h"
+#include "ieditablephrase.h"
 #include "iphrase.h"
 #include "iunit.h"
-#include "ieditablephrase.h"
-#include <QUrl>
 #include <QList>
+#include <QUrl>
 #include <QVector>
 #include <memory>
 
@@ -47,10 +47,7 @@ class ARTIKULATECORE_EXPORT Phrase : public IEditablePhrase
     Q_PROPERTY(bool excluded READ isExcluded NOTIFY excludedChanged)
     Q_PROPERTY(int progress READ progress NOTIFY progressChanged)
 public:
-    enum class Progress {
-        Skip,
-        Done
-    };
+    enum class Progress { Skip, Done };
     Q_ENUM(Progress)
 
     static std::shared_ptr<Phrase> create();

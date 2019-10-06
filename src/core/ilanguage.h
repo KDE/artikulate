@@ -22,10 +22,10 @@
 #define ILANGUAGE_H
 
 #include "artikulatecore_export.h"
-#include <memory>
 #include <QObject>
-#include <QVector>
 #include <QUrl>
+#include <QVector>
+#include <memory>
 
 class QString;
 class Phoneme;

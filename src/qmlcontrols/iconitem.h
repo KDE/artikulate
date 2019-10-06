@@ -39,11 +39,10 @@ class ARTIKULATECORE_EXPORT IconItem : public QQuickItem
     Q_ENUMS(State)
 
 public:
-
     enum State {
-        DefaultState, ///The default state. 
-        ActiveState, ///Icon is active. 
-        DisabledState ///Icon is disabled.
+        DefaultState, /// The default state.
+        ActiveState,  /// Icon is active.
+        DisabledState /// Icon is disabled.
     };
 
     explicit IconItem(QQuickItem *parent = nullptr);
@@ -64,7 +63,7 @@ public:
     void setEnabled(bool enabled = true);
     bool enabled() const;
 
-    QSGNode* updatePaintNode(QSGNode* node, UpdatePaintNodeData* data) override;
+    QSGNode *updatePaintNode(QSGNode *node, UpdatePaintNodeData *data) override;
 
 Q_SIGNALS:
     void stateChanged(State state);

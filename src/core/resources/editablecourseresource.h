@@ -22,13 +22,13 @@
 #define EDITABLECOURSERESOURCE_H
 
 #include "artikulatecore_export.h"
-#include "courseresource.h"
 #include "core/icourse.h"
 #include "core/ieditablecourse.h"
+#include "courseresource.h"
 
-#include <memory>
 #include <QObject>
 #include <QVector>
+#include <memory>
 
 class IResourceRepository;
 class Course;
@@ -102,7 +102,7 @@ public:
     QUrl file() const override;
     std::shared_ptr<IEditableCourse> self() const override;
 
-    Q_INVOKABLE Unit * createUnit();
+    Q_INVOKABLE Unit *createUnit();
     Q_INVOKABLE std::shared_ptr<Phrase> createPhrase(Unit *unit);
 
 Q_SIGNALS:
@@ -120,8 +120,8 @@ private:
      */
     explicit EditableCourseResource(const QUrl &path, IResourceRepository *repository);
     void setSelf(std::shared_ptr<ICourse> self) override;
-    mutable bool m_unitsLoaded{ false }; ///< parsing of all units is postponed until needed, this variable indicates if they are read
-    bool m_modified{ false };
+    mutable bool m_unitsLoaded {false}; ///< parsing of all units is postponed until needed, this variable indicates if they are read
+    bool m_modified {false};
     const std::unique_ptr<CourseResource> m_course;
 };
 

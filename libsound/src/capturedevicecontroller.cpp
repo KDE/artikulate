@@ -16,16 +16,16 @@
  */
 
 #include "capturedevicecontroller.h"
-#include "capturebackendinterface.h"
 #include "backendinterface.h"
+#include "capturebackendinterface.h"
 #include "libsound_debug.h"
 
 #include <QCoreApplication>
 #include <QPluginLoader>
 #include <QStringList>
 
-#include <KPluginLoader>
 #include <KPluginFactory>
+#include <KPluginLoader>
 #include <KPluginMetaData>
 
 /**
@@ -52,11 +52,7 @@ public:
         // load plugins
         QPluginLoader loader;
         foreach (const QString &dir, dirsToCheck) {
-            QVector<KPluginMetaData> metadataList = KPluginLoader::findPlugins(dir,
-                [=](const KPluginMetaData &data)
-            {
-                return data.serviceTypes().contains(QLatin1String("artikulate/libsound/backend"));
-            });
+            QVector<KPluginMetaData> metadataList = KPluginLoader::findPlugins(dir, [=](const KPluginMetaData &data) { return data.serviceTypes().contains(QLatin1String("artikulate/libsound/backend")); });
 
             foreach (const auto &metadata, metadataList) {
                 loader.setFileName(metadata.fileName());
@@ -69,7 +65,7 @@ public:
                     qCCritical(LIBSOUND_LOG) << "Could not load plugin: " << metadata.name();
                     continue;
                 }
-                BackendInterface *plugin = factory->create<BackendInterface>(parent, QList< QVariant >());
+                BackendInterface *plugin = factory->create<BackendInterface>(parent, QList<QVariant>());
                 if (plugin->captureBackend()) {
                     m_backendList.append(plugin->captureBackend());
                 }
@@ -91,11 +87,11 @@ public:
         if (m_initialized) {
             return;
         }
-        //TODO currently nothing to do
+        // TODO currently nothing to do
         m_initialized = true;
     }
 
-    CaptureBackendInterface * backend() const
+    CaptureBackendInterface *backend() const
     {
         Q_ASSERT(m_backend);
         return m_backend;
@@ -116,7 +112,7 @@ CaptureDeviceController::~CaptureDeviceController()
 {
 }
 
-CaptureDeviceController & CaptureDeviceController::self()
+CaptureDeviceController &CaptureDeviceController::self()
 {
     static CaptureDeviceController instance;
     instance.d->lazyInit();
@@ -140,7 +136,7 @@ void CaptureDeviceController::setDevice(const QString &deviceIdentifier)
     d->backend()->setDevice(deviceIdentifier);
 }
 
-QList< QString > CaptureDeviceController::devices() const
+QList<QString> CaptureDeviceController::devices() const
 {
     return d->backend()->devices();
 }

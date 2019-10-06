@@ -95,11 +95,10 @@ public:
     }
 
 private:
-    QString m_title{ "title" };
+    QString m_title {"title"};
     std::weak_ptr<ICourse> m_self;
     std::shared_ptr<ILanguage> m_language;
     QVector<std::shared_ptr<Unit>> m_units;
 };
-
 
 #endif

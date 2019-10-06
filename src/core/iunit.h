@@ -22,8 +22,8 @@
 #define IUNIT_H
 
 #include "artikulatecore_export.h"
-#include <QObject>
 #include <QMap>
+#include <QObject>
 #include <QUrl>
 #include <memory>
 
@@ -54,9 +54,9 @@ Q_SIGNALS:
     void displayPhraseTypeChanged();
     void modified();
     void phraseAdded(std::shared_ptr<IPhrase>);
-    void phraseAboutToBeAdded(std::shared_ptr<IPhrase>,int);
+    void phraseAboutToBeAdded(std::shared_ptr<IPhrase>, int);
     void phraseRemoved(std::shared_ptr<IPhrase>);
-    void phraseAboutToBeRemoved(int,int);
+    void phraseAboutToBeRemoved(int, int);
 
 protected:
     IUnit(QObject *parent = nullptr)

@@ -23,9 +23,9 @@
 #include "phrase.h"
 
 #include <QMap>
+#include <QQmlEngine>
 #include <QStringList>
 #include <QUuid>
-#include <QQmlEngine>
 
 #include "artikulate_debug.h"
 #include <KLocalizedString>
@@ -53,7 +53,7 @@ void Unit::setSelf(std::shared_ptr<IUnit> self)
 
 std::shared_ptr<IUnit> Unit::self() const
 {
-     return m_self.lock();
+    return m_self.lock();
 }
 
 QString Unit::id() const
@@ -137,35 +137,35 @@ void Unit::addPhrase(std::shared_ptr<IEditablePhrase> phrase)
 QList<IPhrase *> Unit::excludedSkeletonPhraseList() const
 {
     QList<IPhrase *> excludedPhraseList;
-//TODO this should not be handled on unit level
-//    for (auto phrase : m_phrases) {
-//        if (phrase->isExcluded() == true) {
-//            excludedPhraseList.append(phrase);
-//        }
-//    }
+    // TODO this should not be handled on unit level
+    //    for (auto phrase : m_phrases) {
+    //        if (phrase->isExcluded() == true) {
+    //            excludedPhraseList.append(phrase);
+    //        }
+    //    }
     return excludedPhraseList;
 }
 
 void Unit::excludeSkeletonPhrase(const QString &phraseId)
 {
-//    for (auto phrase : m_phrases) {
-//        if (phrase->id() == phraseId) {
-//            phrase->setExcluded(true);
-//            emit modified();
-//            return;
-//        }
-//    }
+    //    for (auto phrase : m_phrases) {
+    //        if (phrase->id() == phraseId) {
+    //            phrase->setExcluded(true);
+    //            emit modified();
+    //            return;
+    //        }
+    //    }
     qCWarning(ARTIKULATE_LOG) << "Could not exclude phrase with ID " << phraseId << ", no phrase with this ID.";
 }
 
 void Unit::includeSkeletonPhrase(const QString &phraseId)
 {
-//    for (auto phrase : m_phrases) {
-//        if (phrase->id() == phraseId) {
-//            phrase->setExcluded(false);
-//            emit modified();
-//            return;
-//        }
-//    }
+    //    for (auto phrase : m_phrases) {
+    //        if (phrase->id() == phraseId) {
+    //            phrase->setExcluded(false);
+    //            emit modified();
+    //            return;
+    //        }
+    //    }
     qCWarning(ARTIKULATE_LOG) << "Could not include phrase with ID " << phraseId << ", no phrase with this ID.";
 }

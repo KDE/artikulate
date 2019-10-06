@@ -20,16 +20,13 @@
 #include "qtgstreameroutputbackend.h"
 #include <KPluginFactory>
 
-K_PLUGIN_FACTORY_WITH_JSON( BackendFactory,
-                            "qtgstreamerbackend.json",
-                            registerPlugin<QtGStreamerBackend>();)
+K_PLUGIN_FACTORY_WITH_JSON(BackendFactory, "qtgstreamerbackend.json", registerPlugin<QtGStreamerBackend>();)
 
-QtGStreamerBackend::QtGStreamerBackend(QObject *parent, const QList< QVariant >&)
+QtGStreamerBackend::QtGStreamerBackend(QObject *parent, const QList<QVariant> &)
     : BackendInterface("qtgstreamer", parent)
     , m_captureBackend(nullptr)
     , m_outputBackend(nullptr)
 {
-
 }
 
 QtGStreamerBackend::~QtGStreamerBackend()
@@ -44,7 +41,7 @@ QtGStreamerBackend::~QtGStreamerBackend()
     }
 }
 
-CaptureBackendInterface * QtGStreamerBackend::captureBackend() const
+CaptureBackendInterface *QtGStreamerBackend::captureBackend() const
 {
     if (!m_captureBackend) {
         m_captureBackend = new QtGStreamerCaptureBackend();
@@ -52,7 +49,7 @@ CaptureBackendInterface * QtGStreamerBackend::captureBackend() const
     return m_captureBackend;
 }
 
-OutputBackendInterface * QtGStreamerBackend::outputBackend() const
+OutputBackendInterface *QtGStreamerBackend::outputBackend() const
 {
     if (!m_outputBackend) {
         m_outputBackend = new QtGStreamerOutputBackend();

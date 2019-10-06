@@ -150,11 +150,11 @@ public:
 
 private:
     std::weak_ptr<ICourse> m_self;
-    QString m_id{ "courseid" };
-    QString m_foreignId{ "foreigncourseid" };
-    QString m_title{ "title" };
-    QString m_i18nTitle{ "i18n title" };
-    QString m_description{ "description of the course" };
+    QString m_id {"courseid"};
+    QString m_foreignId {"foreigncourseid"};
+    QString m_title {"title"};
+    QString m_i18nTitle {"i18n title"};
+    QString m_description {"description of the course"};
     std::shared_ptr<ILanguage> m_language;
     QVector<std::shared_ptr<Unit>> m_units;
 };

@@ -19,16 +19,16 @@
  */
 
 #include "test_iresourcerepository.h"
-#include <QTest>
-#include <QSignalSpy>
 #include <QObject>
+#include <QSignalSpy>
+#include <QTest>
 
-#include "core/resourcerepository.h"
-#include "core/contributorrepository.h"
-#include "core/language.h"
-#include "core/icourse.h"
-#include "core/unit.h"
 #include "../src/settings.h"
+#include "core/contributorrepository.h"
+#include "core/icourse.h"
+#include "core/language.h"
+#include "core/resourcerepository.h"
+#include "core/unit.h"
 
 TestIResourceRepository::TestIResourceRepository()
     : m_repositoryLocation(QUrl::fromLocalFile(qApp->applicationDirPath() + "/../autotests/integrationtests/data/"))
@@ -60,7 +60,7 @@ void TestIResourceRepository::contributorRepository()
 void TestIResourceRepository::performInterfaceTests(IResourceRepository *interface)
 {
     QVERIFY(interface->languages().count() > 0); // automatically load languages
-    QCOMPARE(interface->courses().count(), 0); // load courses only on demand
+    QCOMPARE(interface->courses().count(), 0);   // load courses only on demand
 
     // test adding
     QSignalSpy spyAboutToBeAdded(dynamic_cast<QObject *>(interface), SIGNAL(courseAboutToBeAdded(std::shared_ptr<ICourse>, int)));
@@ -88,9 +88,9 @@ void TestIResourceRepository::performInterfaceTests(IResourceRepository *interfa
             break;
         }
     }
-    QVERIFY(german != nullptr); // ensure that German language was found
+    QVERIFY(german != nullptr);                            // ensure that German language was found
     QCOMPARE(interface->courses(german->id()).count(), 1); // there is exactly one German course
-    QCOMPARE(interface->courses(nullptr).count(), 2); // all courses in total are 2
+    QCOMPARE(interface->courses(nullptr).count(), 2);      // all courses in total are 2
     QVERIFY(interface->courses().first()->units().size() > 0);
 }
 

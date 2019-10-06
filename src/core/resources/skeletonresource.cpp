@@ -19,21 +19,21 @@
  */
 
 #include "skeletonresource.h"
-#include "courseparser.h"
+#include "artikulate_debug.h"
 #include "core/language.h"
-#include "core/unit.h"
-#include "core/phrase.h"
-#include "editablecourseresource.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
+#include "core/phrase.h"
+#include "core/unit.h"
+#include "courseparser.h"
+#include "editablecourseresource.h"
 #include <QDir>
-#include <QQmlEngine>
 #include <QDomDocument>
-#include <QIODevice>
-#include <QXmlStreamReader>
 #include <QFile>
 #include <QFileInfo>
-#include "artikulate_debug.h"
+#include <QIODevice>
+#include <QQmlEngine>
+#include <QXmlStreamReader>
 
 class SkeletonResourcePrivate
 {
@@ -62,11 +62,7 @@ public:
                 }
 
                 // quit reading when basic elements are read
-                if (!m_identifier.isEmpty()
-                    && !m_title.isEmpty()
-                    && !m_description.isEmpty()
-                )
-                {
+                if (!m_identifier.isEmpty() && !m_title.isEmpty() && !m_description.isEmpty()) {
                     break;
                 }
             }
@@ -95,8 +91,8 @@ public:
     QString m_identifier;
     QString m_title;
     QString m_description;
-    bool m_unitsParsed{ false };
-    bool m_modified{ false };
+    bool m_unitsParsed {false};
+    bool m_modified {false};
 
 protected:
     QVector<std::shared_ptr<Unit>> m_units; ///!< the units variable is loaded lazily and shall never be access directly
@@ -203,15 +199,9 @@ SkeletonResource::SkeletonResource(const QUrl &path, IResourceRepository *reposi
     , d(new SkeletonResourcePrivate(path))
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
-    connect(this, &SkeletonResource::idChanged, this, [=]() {
-        d->m_modified = true;
-    });
-    connect(this, &SkeletonResource::titleChanged, this, [=]() {
-        d->m_modified = true;
-    });
-    connect(this, &SkeletonResource::descriptionChanged, this, [=]() {
-        d->m_modified = true;
-    });
+    connect(this, &SkeletonResource::idChanged, this, [=]() { d->m_modified = true; });
+    connect(this, &SkeletonResource::titleChanged, this, [=]() { d->m_modified = true; });
+    connect(this, &SkeletonResource::descriptionChanged, this, [=]() { d->m_modified = true; });
 
     Q_UNUSED(repository);
 }
@@ -297,14 +287,14 @@ bool SkeletonResource::exportToFile(const QUrl &filePath) const
 {
     // write back to file
     // create directories if necessary
-    QFileInfo info(filePath.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
+    QFileInfo info(filePath.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash).path());
     if (!info.exists()) {
         qCDebug(ARTIKULATE_LOG()) << "create xml output file directory, not existing";
         QDir dir;
-        dir.mkpath(filePath.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
+        dir.mkpath(filePath.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash).path());
     }
 
-    //TODO port to atomic file swap
+    // TODO port to atomic file swap
     QFile file(filePath.toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         qCWarning(ARTIKULATE_LOG()) << "Unable to open file " << filePath << " in write mode, aborting.";

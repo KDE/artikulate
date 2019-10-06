@@ -23,8 +23,8 @@
 
 #include "artikulatecore_export.h"
 #include "iphrase.h"
-#include <QObject>
 #include <QMap>
+#include <QObject>
 #include <QUrl>
 #include <memory>
 
@@ -42,11 +42,7 @@ class ARTIKULATECORE_EXPORT IEditablePhrase : public IPhrase
     Q_PROPERTY(IPhrase::Type type READ type NOTIFY typeChanged)
 
 public:
-    enum class EditState {
-        Unknown,
-        Translated,
-        Completed
-    };
+    enum class EditState { Unknown, Translated, Completed };
     Q_ENUM(EditState)
 
     virtual ~IEditablePhrase() = default;
@@ -57,7 +53,7 @@ public:
     virtual void seti18nText(QString text) = 0;
     virtual void setUnit(std::shared_ptr<IUnit> unit) = 0;
     virtual void setType(IPhrase::Type type) = 0;
-    virtual void setSoundFileUrl() = 0; //TODO revisit as a setter should have an argument
+    virtual void setSoundFileUrl() = 0; // TODO revisit as a setter should have an argument
     virtual IEditablePhrase::EditState editState() const = 0;
     virtual QString editStateString() const = 0;
     virtual void setEditState(IEditablePhrase::EditState state) = 0;

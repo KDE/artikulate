@@ -23,22 +23,21 @@
 
 #include <QSortFilterProxyModel>
 
-#include <KLocalizedString>
 #include "artikulate_debug.h"
+#include <KLocalizedString>
 
-UnitFilterModel::UnitFilterModel(QObject* parent)
+UnitFilterModel::UnitFilterModel(QObject *parent)
     : QSortFilterProxyModel(parent)
     , m_unitModel(nullptr)
 {
-
 }
 
-UnitModel * UnitFilterModel::unitModel() const
+UnitModel *UnitFilterModel::unitModel() const
 {
     return m_unitModel;
 }
 
-void UnitFilterModel::setUnitModel(UnitModel* unitModel)
+void UnitFilterModel::setUnitModel(UnitModel *unitModel)
 {
     if (unitModel == m_unitModel) {
         return;

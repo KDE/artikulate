@@ -20,14 +20,14 @@
 
 #include "phonemegroupmodel.h"
 #include "core/icourse.h"
-#include "core/unit.h"
 #include "core/phonemegroup.h"
+#include "core/unit.h"
 
 #include <QAbstractListModel>
 #include <QSignalMapper>
 
-#include <KLocalizedString>
 #include "artikulate_debug.h"
+#include <KLocalizedString>
 
 PhonemeGroupModel::PhonemeGroupModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -37,7 +37,7 @@ PhonemeGroupModel::PhonemeGroupModel(QObject *parent)
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeGroupChanged(int)));
 }
 
-QHash< int, QByteArray > PhonemeGroupModel::roleNames() const
+QHash<int, QByteArray> PhonemeGroupModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
@@ -61,77 +61,77 @@ void PhonemeGroupModel::setCourse(ICourse *course)
 
     m_course = course;
 
-    //TODO reintroduce phonems into icourse
-//    if (m_course) {
-//        connect(m_course, &ICourse::phonemeGroupAboutToBeAdded, this, &PhonemeGroupModel::onPhonemeGroupAboutToBeAdded);
-//        connect(m_course, &ICourse::phonemeGroupAdded, this, &PhonemeGroupModel::onPhonemeGroupAdded);
-//        connect(m_course, &ICourse::phonemeGroupAboutToBeRemoved, this, &PhonemeGroupModel::onPhonemeGroupsAboutToBeRemoved);
-//        connect(m_course, &ICourse::phonemeGroupRemoved, this, &PhonemeGroupModel::onPhonemeGroupsRemoved);
-//    }
+    // TODO reintroduce phonems into icourse
+    //    if (m_course) {
+    //        connect(m_course, &ICourse::phonemeGroupAboutToBeAdded, this, &PhonemeGroupModel::onPhonemeGroupAboutToBeAdded);
+    //        connect(m_course, &ICourse::phonemeGroupAdded, this, &PhonemeGroupModel::onPhonemeGroupAdded);
+    //        connect(m_course, &ICourse::phonemeGroupAboutToBeRemoved, this, &PhonemeGroupModel::onPhonemeGroupsAboutToBeRemoved);
+    //        connect(m_course, &ICourse::phonemeGroupRemoved, this, &PhonemeGroupModel::onPhonemeGroupsRemoved);
+    //    }
 
     endResetModel();
 
     emit courseChanged();
 }
 
-ICourse * PhonemeGroupModel::course() const
+ICourse *PhonemeGroupModel::course() const
 {
     return m_course;
 }
 
-QVariant PhonemeGroupModel::data(const QModelIndex& index, int role) const
+QVariant PhonemeGroupModel::data(const QModelIndex &index, int role) const
 {
     // TODO: currently not phonems supported in icourse
     return QVariant();
-//    Q_ASSERT(m_course);
+    //    Q_ASSERT(m_course);
 
-//    if (!index.isValid()) {
-//        return QVariant();
-//    }
+    //    if (!index.isValid()) {
+    //        return QVariant();
+    //    }
 
-//    if (index.row() >= m_course->phonemeGroupList().count()) {
-//        return QVariant();
-//    }
+    //    if (index.row() >= m_course->phonemeGroupList().count()) {
+    //        return QVariant();
+    //    }
 
-//    PhonemeGroup * const phonemeGroup = m_course->phonemeGroupList().at(index.row());
+    //    PhonemeGroup * const phonemeGroup = m_course->phonemeGroupList().at(index.row());
 
-//    switch(role)
-//    {
-//    case Qt::DisplayRole:
-//        return !phonemeGroup->title().isEmpty()?
-//                QVariant(phonemeGroup->title()): QVariant(i18nc("@item:inlistbox:", "unknown"));
-//    case Qt::ToolTipRole:
-//        return QVariant(phonemeGroup->title());
-//    case TitleRole:
-//        return phonemeGroup->title();
-//    case IdRole:
-//        return phonemeGroup->id();
-//    case DataRole:
-//        return QVariant::fromValue<QObject*>(phonemeGroup);
-//    default:
-//        return QVariant();
-//    }
+    //    switch(role)
+    //    {
+    //    case Qt::DisplayRole:
+    //        return !phonemeGroup->title().isEmpty()?
+    //                QVariant(phonemeGroup->title()): QVariant(i18nc("@item:inlistbox:", "unknown"));
+    //    case Qt::ToolTipRole:
+    //        return QVariant(phonemeGroup->title());
+    //    case TitleRole:
+    //        return phonemeGroup->title();
+    //    case IdRole:
+    //        return phonemeGroup->id();
+    //    case DataRole:
+    //        return QVariant::fromValue<QObject*>(phonemeGroup);
+    //    default:
+    //        return QVariant();
+    //    }
 }
 
-int PhonemeGroupModel::rowCount(const QModelIndex& parent) const
+int PhonemeGroupModel::rowCount(const QModelIndex &parent) const
 {
-    //TODO currently not phonems supported
+    // TODO currently not phonems supported
     return 0;
-//    if (!m_course) {
-//        return 0;
-//    }
+    //    if (!m_course) {
+    //        return 0;
+    //    }
 
-//    if (parent.isValid()) {
-//        return 0;
-//    }
+    //    if (parent.isValid()) {
+    //        return 0;
+    //    }
 
-//    return m_course->phonemeGroupList().count();
+    //    return m_course->phonemeGroupList().count();
 }
 
 void PhonemeGroupModel::onPhonemeGroupAboutToBeAdded(PhonemeGroup *phonemeGroup, int index)
 {
     connect(phonemeGroup, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
-    //TODO add missing signals
+    // TODO add missing signals
     beginInsertRows(QModelIndex(), index, index);
 }
 
@@ -170,8 +170,8 @@ QVariant PhonemeGroupModel::headerData(int section, Qt::Orientation orientation,
 
 void PhonemeGroupModel::updateMappings()
 {
-//    int phonemeGroups = m_course->phonemeGroupList().count();
-//    for (int i = 0; i < phonemeGroups; i++) {
-//        m_signalMapper->setMapping(m_course->phonemeGroupList().at(i), i);
-//    }
+    //    int phonemeGroups = m_course->phonemeGroupList().count();
+    //    for (int i = 0; i < phonemeGroups; i++) {
+    //        m_signalMapper->setMapping(m_course->phonemeGroupList().at(i), i);
+    //    }
 }

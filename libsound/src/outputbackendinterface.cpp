@@ -20,10 +20,8 @@
 OutputBackendInterface::OutputBackendInterface(QObject *parent)
     : QObject(parent)
 {
-
 }
 
 OutputBackendInterface::~OutputBackendInterface()
 {
-
 }

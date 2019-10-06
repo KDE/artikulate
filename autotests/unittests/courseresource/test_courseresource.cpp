@@ -19,22 +19,22 @@
  */
 
 #include "test_courseresource.h"
-#include "resourcerepositorystub.h"
-#include "core/language.h"
-#include "core/unit.h"
-#include "core/phrase.h"
-#include "core/phonemegroup.h"
-#include "core/resources/courseresource.h"
 #include "../mocks/languagestub.h"
-#include <QTest>
+#include "core/language.h"
+#include "core/phonemegroup.h"
+#include "core/phrase.h"
+#include "core/resources/courseresource.h"
+#include "core/unit.h"
+#include "resourcerepositorystub.h"
 #include <QDebug>
-#include <QTemporaryFile>
-#include <QSignalSpy>
-#include <QIODevice>
+#include <QDomDocument>
 #include <QFile>
+#include <QIODevice>
+#include <QSignalSpy>
+#include <QTemporaryFile>
+#include <QTest>
 #include <QXmlSchema>
 #include <QXmlSchemaValidator>
-#include <QDomDocument>
 
 TestCourseResource::TestCourseResource()
 {

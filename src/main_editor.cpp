@@ -18,15 +18,15 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "version.h"
 #include "application.h"
 #include "core/contributorrepository.h"
 #include "mainwindow_editor.h"
+#include "version.h"
 
+#include "artikulate_debug.h"
 #include <KAboutData>
 #include <KCrash>
 #include <KLocalizedString>
-#include "artikulate_debug.h"
 
 int main(int argc, char **argv)
 {
@@ -42,12 +42,9 @@ int main(int argc, char **argv)
                          ki18nc("@title KAboutData: short program description", "Artikulate Course Editor").toString(),
                          KAboutLicense::GPL_V2,
                          ki18nc("@info:credit", "(c) 2013-2019 The Artikulate Developers").toString(),
-                         ki18nc("@title Short program description", "Edit Artikulate course files.").toString()
-                        );
+                         ki18nc("@title Short program description", "Edit Artikulate course files.").toString());
 
-    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Andreas Cord-Landwehr").toString(),
-                        ki18nc("@info:credit Role", "Original Author").toString(),
-                        QStringLiteral("cordlandwehr@kde.org"));
+    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Andreas Cord-Landwehr").toString(), ki18nc("@info:credit Role", "Original Author").toString(), QStringLiteral("cordlandwehr@kde.org"));
 
     KAboutData::setApplicationData(aboutData);
     KCrash::initialize();

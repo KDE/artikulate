@@ -21,11 +21,11 @@
 #include "coursemodel.h"
 #include "application.h"
 #include "artikulate_debug.h"
+#include "core/icourse.h"
 #include "core/ilanguage.h"
 #include "core/iresourcerepository.h"
-#include "core/icourse.h"
-#include <QAbstractListModel>
 #include <KLocalizedString>
+#include <QAbstractListModel>
 
 CourseModel::CourseModel(QObject *parent)
     : CourseModel(artikulateApp->resourceRepository(), parent)
@@ -38,7 +38,7 @@ CourseModel::CourseModel(IResourceRepository *repository, QObject *parent)
     setResourceRepository(repository);
 }
 
-QHash< int, QByteArray > CourseModel::roleNames() const
+QHash<int, QByteArray> CourseModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
@@ -86,7 +86,7 @@ void CourseModel::setResourceRepository(IResourceRepository *resourceRepository)
         for (int i = 0; i < courses.count(); ++i) {
             auto course = courses.at(i);
             // TODO only title changed is connected, change this to a general changed signal
-            auto connection = connect(course.get(), &ICourse::titleChanged, this, [=](){
+            auto connection = connect(course.get(), &ICourse::titleChanged, this, [=]() {
                 const auto row = m_resourceRepository->courses().indexOf(course);
                 emit dataChanged(index(row, 0), index(row, 0));
             });
@@ -96,12 +96,12 @@ void CourseModel::setResourceRepository(IResourceRepository *resourceRepository)
     endResetModel();
 }
 
-IResourceRepository * CourseModel::resourceRepository() const
+IResourceRepository *CourseModel::resourceRepository() const
 {
     return m_resourceRepository;
 }
 
-QVariant CourseModel::data(const QModelIndex& index, int role) const
+QVariant CourseModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid() || !m_resourceRepository) {
         return QVariant();
@@ -112,31 +112,29 @@ QVariant CourseModel::data(const QModelIndex& index, int role) const
 
     auto const course = m_resourceRepository->courses().at(index.row());
 
-    switch(role)
-    {
-    case Qt::DisplayRole:
-        return !course->title().isEmpty()?
-                QVariant(course->title()): QVariant(i18nc("@item:inlistbox:", "unknown"));
-    case Qt::ToolTipRole:
-        return QVariant(course->title());
-    case TitleRole:
-        return course->title();
-    case I18nTitleRole:
-        return course->i18nTitle();
-    case DescriptionRole:
-        return course->description();
-    case IdRole:
-        return course->id();
-    case LanguageRole:
-        return QVariant::fromValue<QObject*>(course->language().get());
-    case DataRole:
-        return QVariant::fromValue<QObject*>(course.get());
-    default:
-        return QVariant();
+    switch (role) {
+        case Qt::DisplayRole:
+            return !course->title().isEmpty() ? QVariant(course->title()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
+        case Qt::ToolTipRole:
+            return QVariant(course->title());
+        case TitleRole:
+            return course->title();
+        case I18nTitleRole:
+            return course->i18nTitle();
+        case DescriptionRole:
+            return course->description();
+        case IdRole:
+            return course->id();
+        case LanguageRole:
+            return QVariant::fromValue<QObject *>(course->language().get());
+        case DataRole:
+            return QVariant::fromValue<QObject *>(course.get());
+        default:
+            return QVariant();
     }
 }
 
-int CourseModel::rowCount(const QModelIndex&) const
+int CourseModel::rowCount(const QModelIndex &) const
 {
     if (!m_resourceRepository) {
         return 0;
@@ -147,7 +145,7 @@ int CourseModel::rowCount(const QModelIndex&) const
 void CourseModel::onCourseAboutToBeAdded(std::shared_ptr<ICourse> course, int row)
 {
     beginInsertRows(QModelIndex(), row, row);
-    auto connection = connect(course.get(), &ICourse::titleChanged, this, [=](){
+    auto connection = connect(course.get(), &ICourse::titleChanged, this, [=]() {
         const auto row = m_resourceRepository->courses().indexOf(course);
         emit dataChanged(index(row, 0), index(row, 0));
     });

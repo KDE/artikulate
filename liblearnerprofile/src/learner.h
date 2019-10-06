@@ -21,8 +21,8 @@
 #ifndef LEARNER_H
 #define LEARNER_H
 
-#include "liblearnerprofile_export.h"
 #include "learninggoal.h"
+#include "liblearnerprofile_export.h"
 #include <QObject>
 
 namespace LearnerProfile
@@ -39,7 +39,7 @@ class LIBLEARNERPROFILE_EXPORT Learner : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(int id READ identifier WRITE setIdentifier NOTIFY identifierChanged)
     Q_PROPERTY(QString imageUrl READ imageUrl NOTIFY imageChanged)
-    Q_PROPERTY(QList<LearnerProfile::LearningGoal*> goals READ goals NOTIFY goalCountChanged)
+    Q_PROPERTY(QList<LearnerProfile::LearningGoal *> goals READ goals NOTIFY goalCountChanged)
 
 public:
     // TODO workaround for QT-BUG-26415, fixed in Qt5.0
@@ -47,10 +47,7 @@ public:
     // as parameter for Q_INVOKABLE method
     // can be removed with Qt 5.0 migration
     Q_ENUMS(Category)
-    enum Category {
-        Unspecified = 0,
-        Language = 1
-    };
+    enum Category { Unspecified = 0, Language = 1 };
 
     explicit Learner(QObject *parent = nullptr);
     ~Learner();
@@ -75,16 +72,16 @@ public:
     Q_INVOKABLE bool hasGoal(LearnerProfile::LearningGoal *goal) const;
     void setActiveGoal(LearnerProfile::LearningGoal *goal);
     Q_INVOKABLE void setActiveGoal(LearnerProfile::Learner::Category category, const QString &identifier);
-    Q_INVOKABLE LearnerProfile::LearningGoal * activeGoal(LearnerProfile::Learner::Category category) const;
+    Q_INVOKABLE LearnerProfile::LearningGoal *activeGoal(LearnerProfile::Learner::Category category) const;
 
 Q_SIGNALS:
     void nameChanged();
     void imageChanged();
     void identifierChanged();
-    void goalAboutToBeAdded(LearningGoal*,int);
+    void goalAboutToBeAdded(LearningGoal *, int);
     void goalAdded();
     void goalAboutToBeRemoved(int);
-    void goalRemoved(Learner*, LearningGoal*);
+    void goalRemoved(Learner *, LearningGoal *);
     void goalCountChanged();
     void activeGoalChanged();
 

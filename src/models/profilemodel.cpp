@@ -19,13 +19,13 @@
  */
 
 #include "profilemodel.h"
-#include "liblearnerprofile/src/profilemanager.h"
 #include "liblearnerprofile/src/learner.h"
+#include "liblearnerprofile/src/profilemanager.h"
 
+#include "artikulate_debug.h"
+#include <KLocalizedString>
 #include <QAbstractListModel>
 #include <QSignalMapper>
-#include <KLocalizedString>
-#include "artikulate_debug.h"
 
 using namespace LearnerProfile;
 
@@ -37,7 +37,7 @@ ProfileModel::ProfileModel(QObject *parent)
     connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitProfileChanged(int)));
 }
 
-QHash< int, QByteArray > ProfileModel::roleNames() const
+QHash<int, QByteArray> ProfileModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[IdRole] = "id";
@@ -78,7 +78,7 @@ void ProfileModel::setProfileManager(ProfileManager *profileManager)
     endResetModel();
 }
 
-ProfileManager * ProfileModel::profileManager() const
+ProfileManager *ProfileModel::profileManager() const
 {
     return m_profileManager;
 }
@@ -95,23 +95,21 @@ QVariant ProfileModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    Learner * const learner = m_profileManager->profiles().at(index.row());
+    Learner *const learner = m_profileManager->profiles().at(index.row());
 
-    switch(role)
-    {
-    case Qt::DisplayRole:
-        return !learner->name().isEmpty()?
-                QVariant(learner->name()): QVariant(i18nc("@item:inlistbox:", "unknown"));
-    case Qt::ToolTipRole:
-        return QVariant(learner->name());
-    case IdRole:
-        return learner->identifier();
-    case NameRole:
-        return learner->name();
-    case DataRole:
-        return QVariant::fromValue<QObject*>(learner);
-    default:
-        return QVariant();
+    switch (role) {
+        case Qt::DisplayRole:
+            return !learner->name().isEmpty() ? QVariant(learner->name()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
+        case Qt::ToolTipRole:
+            return QVariant(learner->name());
+        case IdRole:
+            return learner->identifier();
+        case NameRole:
+            return learner->name();
+        case DataRole:
+            return QVariant::fromValue<QObject *>(learner);
+        default:
+            return QVariant();
     }
 }
 
@@ -146,8 +144,8 @@ void ProfileModel::emitProfileChanged(int row)
 {
     beginResetModel();
     endResetModel();
-        //FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
-        //      to exclude possible new excluded phrases
+    // FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
+    //      to exclude possible new excluded phrases
     emit profileChanged(row);
     emit dataChanged(index(row, 0), index(row, 0));
 }

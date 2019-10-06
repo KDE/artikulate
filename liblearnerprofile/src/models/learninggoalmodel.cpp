@@ -19,20 +19,21 @@
  */
 
 #include "learninggoalmodel.h"
-#include "profilemanager.h"
 #include "learner.h"
+#include "profilemanager.h"
 
 #include <QAbstractItemModel>
 #include <QAbstractListModel>
 #include <QSignalMapper>
 
-#include <KLocalizedString>
 #include "liblearner_debug.h"
+#include <KLocalizedString>
 
 using namespace LearnerProfile;
 
 // private class LearningGoalModelPrivate
-class LearningGoalModelPrivate {
+class LearningGoalModelPrivate
+{
 public:
     LearningGoalModelPrivate()
         : m_profileManager(nullptr)
@@ -51,7 +52,7 @@ public:
 
     ProfileManager *m_profileManager;
     Learner *m_learner;
-    QList<LearningGoal*> m_goals;
+    QList<LearningGoal *> m_goals;
     QSignalMapper *m_signalMapper;
 };
 
@@ -83,16 +84,14 @@ LearningGoalModel::LearningGoalModel(QObject *parent)
     : QAbstractListModel(parent)
     , d(new LearningGoalModelPrivate)
 {
-    connect(d->m_signalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped),
-            this, &LearningGoalModel::emitLearningGoalChanged);
+    connect(d->m_signalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &LearningGoalModel::emitLearningGoalChanged);
 }
 
 LearningGoalModel::~LearningGoalModel()
 {
-
 }
 
-QHash< int, QByteArray > LearningGoalModel::roleNames() const
+QHash<int, QByteArray> LearningGoalModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
@@ -121,12 +120,12 @@ void LearningGoalModel::setProfileManager(ProfileManager *profileManager)
     emit profileManagerChanged();
 }
 
-ProfileManager * LearningGoalModel::profileManager() const
+ProfileManager *LearningGoalModel::profileManager() const
 {
     return d->m_profileManager;
 }
 
-Learner * LearningGoalModel::learner() const
+Learner *LearningGoalModel::learner() const
 {
     return d->m_learner;
 }
@@ -143,12 +142,9 @@ void LearningGoalModel::setLearner(Learner *learner)
     d->m_learner = learner;
     d->updateGoals();
     d->updateMappings();
-    connect(learner, &Learner::goalAboutToBeAdded,
-            this, &LearningGoalModel::onLearningGoalAboutToBeAdded);
-    connect(learner, &Learner::goalAdded,
-            this, &LearningGoalModel::onLearningGoalAdded);
-    connect(learner, &Learner::goalAboutToBeRemoved, this,
-            &LearningGoalModel::onLearningGoalAboutToBeRemoved);
+    connect(learner, &Learner::goalAboutToBeAdded, this, &LearningGoalModel::onLearningGoalAboutToBeAdded);
+    connect(learner, &Learner::goalAdded, this, &LearningGoalModel::onLearningGoalAdded);
+    connect(learner, &Learner::goalAboutToBeRemoved, this, &LearningGoalModel::onLearningGoalAboutToBeRemoved);
     emit learnerChanged();
     endResetModel();
 }
@@ -163,23 +159,21 @@ QVariant LearningGoalModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    LearningGoal * const goal = d->m_goals.at(index.row());
+    LearningGoal *const goal = d->m_goals.at(index.row());
 
-    switch(role)
-    {
-    case Qt::DisplayRole:
-        return !goal->name().isEmpty()?
-                QVariant(goal->name()): QVariant(i18nc("@item:inlistbox unknown learning goal", "unknown"));
-    case Qt::ToolTipRole:
-        return QVariant(goal->name());
-    case TitleRole:
-        return goal->name();
-    case IdRole:
-        return goal->identifier();
-    case DataRole:
-        return QVariant::fromValue<QObject*>(goal);
-    default:
-        return QVariant();
+    switch (role) {
+        case Qt::DisplayRole:
+            return !goal->name().isEmpty() ? QVariant(goal->name()) : QVariant(i18nc("@item:inlistbox unknown learning goal", "unknown"));
+        case Qt::ToolTipRole:
+            return QVariant(goal->name());
+        case TitleRole:
+            return goal->name();
+        case IdRole:
+            return goal->identifier();
+        case DataRole:
+            return QVariant::fromValue<QObject *>(goal);
+        default:
+            return QVariant();
     }
 }
 

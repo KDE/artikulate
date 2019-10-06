@@ -21,9 +21,9 @@
 #ifndef PHRASEMODEL_H
 #define PHRASEMODEL_H
 
-#include <memory>
-#include <QAbstractItemModel>
 #include "core/phrase.h"
+#include <QAbstractItemModel>
+#include <memory>
 
 class ICourse;
 class QSignalMapper;
@@ -34,16 +34,12 @@ class PhraseModel : public QAbstractItemModel
     Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
 
 public:
-    enum phraseRoles {
-        TextRole = Qt::UserRole + 1,
-        IdRole,
-        DataRole
-    };
+    enum phraseRoles { TextRole = Qt::UserRole + 1, IdRole, DataRole };
 
     explicit PhraseModel(QObject *parent = nullptr);
-    virtual QHash<int,QByteArray> roleNames() const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
     void setCourse(ICourse *course);
-    ICourse * course() const;
+    ICourse *course() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -51,11 +47,11 @@ public:
     virtual QModelIndex index(int row, int column, const QModelIndex &parent) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     Q_INVOKABLE bool isPhrase(const QModelIndex &index) const;
-    Q_INVOKABLE IPhrase * phrase(const QModelIndex &index) const;
-    Q_INVOKABLE Unit * unit(const QModelIndex &index) const;
+    Q_INVOKABLE IPhrase *phrase(const QModelIndex &index) const;
+    Q_INVOKABLE Unit *unit(const QModelIndex &index) const;
     Q_INVOKABLE QModelIndex indexPhrase(Phrase *phrase) const;
     Q_INVOKABLE QModelIndex indexUnit(Unit *unit) const;
-    Q_INVOKABLE bool isUnit(const QModelIndex& index) const;
+    Q_INVOKABLE bool isUnit(const QModelIndex &index) const;
 
 Q_SIGNALS:
     void phraseChanged(int index);

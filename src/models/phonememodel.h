@@ -27,26 +27,21 @@ class Phoneme;
 class Language;
 class QSignalMapper;
 
-
 class PhonemeModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
 
 public:
-    enum courseRoles {
-        TitleRole = Qt::UserRole + 1,
-        IdRole,
-        DataRole
-    };
+    enum courseRoles { TitleRole = Qt::UserRole + 1, IdRole, DataRole };
 
     explicit PhonemeModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
-    virtual QHash<int,QByteArray> roleNames() const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
     void setLanguage(Language *language);
-    Language * language() const;
+    Language *language() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;

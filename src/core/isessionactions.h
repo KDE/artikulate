@@ -44,7 +44,7 @@ public:
     {
     }
     virtual ~ISessionActions() = default;
-    virtual TrainingAction * activeAction() const = 0;
+    virtual TrainingAction *activeAction() const = 0;
     virtual void setActivePhrase(IPhrase *phrase) = 0;
     /**
      * \brief Return tree of training actions

@@ -21,9 +21,9 @@
 #ifndef MAINWINDOW_EDITOR_H
 #define MAINWINDOW_EDITOR_H
 
-#include <QQmlApplicationEngine>
 #include "core/contributorrepository.h"
 #include "core/trainingsession.h"
+#include <QQmlApplicationEngine>
 
 class EditorSession;
 class QQuickWidget;
@@ -43,7 +43,7 @@ public:
      */
     virtual ~MainWindowEditor();
 
-    ContributorRepository * resourceRepository() const;
+    ContributorRepository *resourceRepository() const;
 
     void setupActions();
 
@@ -53,7 +53,7 @@ public Q_SLOTS:
     void quit();
 
 Q_SIGNALS:
-     void modeChanged(bool);
+    void modeChanged(bool);
 
 private:
     ContributorRepository *m_repository;

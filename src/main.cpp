@@ -18,14 +18,14 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mainwindow.h"
 #include "application.h"
+#include "mainwindow.h"
 #include "version.h"
 
+#include "artikulate_debug.h"
 #include <KAboutData>
 #include <KCrash>
 #include <KLocalizedString>
-#include "artikulate_debug.h"
 
 int main(int argc, char **argv)
 {
@@ -42,25 +42,16 @@ int main(int argc, char **argv)
                          i18nc("@title KAboutData: short program description", "Artikulate Pronunciation Trainer"),
                          KAboutLicense::GPL_V2,
                          i18nc("@info:credit", "(c) 2013-2019 The Artikulate Developers"),
-                         i18nc("@title Short program description", "Train your pronunciation in a foreign language.")
-                        );
+                         i18nc("@title Short program description", "Train your pronunciation in a foreign language."));
     aboutData.setProgramLogo(app.windowIcon());
 
-    aboutData.addAuthor(i18nc("@info:credit Developer name", "Andreas Cord-Landwehr"),
-                        i18nc("@info:credit Role", "Original Author"),
-                        QStringLiteral("cordlandwehr@kde.org"));
+    aboutData.addAuthor(i18nc("@info:credit Developer name", "Andreas Cord-Landwehr"), i18nc("@info:credit Role", "Original Author"), QStringLiteral("cordlandwehr@kde.org"));
 
-    aboutData.addAuthor(i18nc("@info:credit Developer name", "Samikshan Bairagya"),
-                        i18nc("@info:credit Role", "Developer"),
-                        QStringLiteral("samikshan@gmail.com"));
+    aboutData.addAuthor(i18nc("@info:credit Developer name", "Samikshan Bairagya"), i18nc("@info:credit Role", "Developer"), QStringLiteral("samikshan@gmail.com"));
 
-    aboutData.addAuthor(i18nc("@info:credit Developer name", "Oindrila Gupta"),
-                        i18nc("@info:credit Role", "Developer and Course Data"),
-                        QStringLiteral("edu@kde.org"));
+    aboutData.addAuthor(i18nc("@info:credit Developer name", "Oindrila Gupta"), i18nc("@info:credit Role", "Developer and Course Data"), QStringLiteral("edu@kde.org"));
 
-    aboutData.addAuthor(i18nc("@info:credit Developer name", "Magdalena Konkiewicz"),
-                        i18nc("@info:credit Role", "Developer and Course Data"),
-                        QStringLiteral("edu@kde.org"));
+    aboutData.addAuthor(i18nc("@info:credit Developer name", "Magdalena Konkiewicz"), i18nc("@info:credit Role", "Developer and Course Data"), QStringLiteral("edu@kde.org"));
 
     aboutData.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
 

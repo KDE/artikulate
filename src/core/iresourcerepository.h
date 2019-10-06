@@ -22,8 +22,8 @@
 #define IRESOURCEREPOSITORY_H
 
 #include "artikulatecore_export.h"
-#include <memory>
 #include <QObject>
+#include <memory>
 
 class ICourse;
 class ILanguage;
@@ -68,7 +68,7 @@ public:
     virtual QVector<std::shared_ptr<ILanguage>> languages() const = 0;
 
 Q_SIGNALS:
-    void courseAboutToBeAdded(std::shared_ptr<ICourse>,int);
+    void courseAboutToBeAdded(std::shared_ptr<ICourse>, int);
     void courseAdded();
     void courseAboutToBeRemoved(int);
     void courseRemoved();

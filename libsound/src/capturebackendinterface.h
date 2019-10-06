@@ -38,6 +38,4 @@ public:
     virtual void setDevice(const QString &deviceIdentifier) = 0;
 };
 
-
 #endif
-

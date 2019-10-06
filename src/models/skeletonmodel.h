@@ -34,18 +34,13 @@ class ARTIKULATECORE_EXPORT SkeletonModel : public QAbstractListModel
     Q_OBJECT
 
 public:
-    enum skeletonRoles {
-        TitleRole = Qt::UserRole + 1,
-        DescriptionRole,
-        IdRole,
-        DataRole
-    };
+    enum skeletonRoles { TitleRole = Qt::UserRole + 1, DescriptionRole, IdRole, DataRole };
 
     explicit SkeletonModel(QObject *parent = nullptr);
     SkeletonModel(IEditableRepository *repository, QObject *parent = nullptr);
     ~SkeletonModel() override = default;
-    QHash<int,QByteArray> roleNames() const override;
-    IEditableRepository * resourceRepository() const;
+    QHash<int, QByteArray> roleNames() const override;
+    IEditableRepository *resourceRepository() const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
@@ -61,7 +56,7 @@ private Q_SLOTS:
     void onSkeletonRemoved();
 
 private:
-    IEditableRepository *m_repository{ nullptr };
+    IEditableRepository *m_repository {nullptr};
     QVector<QMetaObject::Connection> m_updateConnections;
 };
 

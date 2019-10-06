@@ -23,9 +23,9 @@
 
 #include "core/iresourcerepository.h"
 #include "core/language.h"
+#include <QDebug>
 #include <QObject>
 #include <QVector>
-#include <QDebug>
 
 class ICourse;
 

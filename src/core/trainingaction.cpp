@@ -19,25 +19,25 @@
  */
 
 #include "trainingaction.h"
-#include "trainingactionicon.h"
 #include "drawertrainingactions.h"
+#include "trainingactionicon.h"
 #include "trainingsession.h"
 
 TrainingAction::TrainingAction(QObject *parent)
     : QObject(parent)
     , m_text(QString())
-    , m_icon(new TrainingActionIcon(this, QString())) //TODO "rating-unrated" vs. "rating"
+    , m_icon(new TrainingActionIcon(this, QString())) // TODO "rating-unrated" vs. "rating"
 {
 }
 
 TrainingAction::TrainingAction(const QString &text, QObject *parent)
     : QObject(parent)
     , m_text(text)
-    , m_icon(new TrainingActionIcon(this, QString())) //TODO "rating-unrated" vs. "rating"
+    , m_icon(new TrainingActionIcon(this, QString())) // TODO "rating-unrated" vs. "rating"
 {
 }
 
-TrainingAction::TrainingAction(std::shared_ptr<IPhrase> phrase, ISessionActions *session, QObject* parent)
+TrainingAction::TrainingAction(std::shared_ptr<IPhrase> phrase, ISessionActions *session, QObject *parent)
     : QObject(parent)
     , m_icon(new TrainingActionIcon(this, QString()))
     , m_phrase(phrase)
@@ -48,7 +48,7 @@ TrainingAction::TrainingAction(std::shared_ptr<IPhrase> phrase, ISessionActions 
     }
 }
 
-void TrainingAction::appendChild(QObject* child)
+void TrainingAction::appendChild(QObject *child)
 {
     m_actions.append(child);
     emit actionsChanged();
@@ -94,12 +94,12 @@ void TrainingAction::setChecked(bool checked)
     emit checkedChanged(m_checked);
 }
 
-QObject * TrainingAction::icon() const
+QObject *TrainingAction::icon() const
 {
     return m_icon;
 }
 
-IPhrase * TrainingAction::phrase() const
+IPhrase *TrainingAction::phrase() const
 {
     return m_phrase.get();
 }

@@ -21,8 +21,8 @@
 #ifndef UNITMODEL_H
 #define UNITMODEL_H
 
-#include <memory>
 #include <QAbstractListModel>
+#include <memory>
 
 class ICourse;
 class Unit;
@@ -35,19 +35,19 @@ class UnitModel : public QAbstractListModel
 
 public:
     enum unitRoles {
-        TitleRole = Qt::UserRole + 1,   //!< title of unit
-        IdRole,                         //!< unique identifier of unit
-        ContainsTrainingData,           //!< boolean value indicating whether unit has phrase with native recordings
-        DataRole                        //!< access to Unit object
+        TitleRole = Qt::UserRole + 1, //!< title of unit
+        IdRole,                       //!< unique identifier of unit
+        ContainsTrainingData,         //!< boolean value indicating whether unit has phrase with native recordings
+        DataRole                      //!< access to Unit object
     };
 
     explicit UnitModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
-    virtual QHash<int,QByteArray> roleNames() const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
     void setCourse(ICourse *course);
-    ICourse * course() const;
+    ICourse *course() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;

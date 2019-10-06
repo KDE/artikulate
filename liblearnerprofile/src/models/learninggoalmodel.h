@@ -40,22 +40,18 @@ class LIBLEARNERPROFILE_EXPORT LearningGoalModel : public QAbstractListModel
     Q_PROPERTY(LearnerProfile::Learner *learner READ learner WRITE setLearner NOTIFY learnerChanged)
 
 public:
-    enum learningGoalRoles {
-        TitleRole = Qt::UserRole + 1,
-        IdRole,
-        DataRole
-    };
+    enum learningGoalRoles { TitleRole = Qt::UserRole + 1, IdRole, DataRole };
 
     explicit LearningGoalModel(QObject *parent = nullptr);
     virtual ~LearningGoalModel();
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
-    virtual QHash<int,QByteArray> roleNames() const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
     void setProfileManager(ProfileManager *profileManager);
-    ProfileManager * profileManager() const;
+    ProfileManager *profileManager() const;
     void setLearner(Learner *learner);
-    Learner * learner() const;
+    Learner *learner() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;

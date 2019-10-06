@@ -19,11 +19,11 @@
  */
 
 #include "phraselistmodel.h"
-#include "core/unit.h"
 #include "core/phrase.h"
+#include "core/unit.h"
+#include <KLocalizedString>
 #include <QAbstractListModel>
 #include <QSignalMapper>
-#include <KLocalizedString>
 
 PhraseListModel::PhraseListModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -37,7 +37,7 @@ PhraseListModel::PhraseListModel(QObject *parent)
     connect(this, &PhraseListModel::unitChanged, this, &PhraseListModel::countChanged);
 }
 
-QHash< int, QByteArray > PhraseListModel::roleNames() const
+QHash<int, QByteArray> PhraseListModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TextRole] = "text";
@@ -88,7 +88,7 @@ void PhraseListModel::setUnit(Unit *unit)
     emit unitChanged();
 }
 
-Unit * PhraseListModel::unit() const
+Unit *PhraseListModel::unit() const
 {
     return m_unit;
 }
@@ -107,27 +107,25 @@ QVariant PhraseListModel::data(const QModelIndex &index, int role) const
 
     std::shared_ptr<IPhrase> const phrase = m_unit->phrases().at(index.row());
 
-    switch(role)
-    {
-    case Qt::DisplayRole:
-        return !phrase->text().isEmpty()?
-                QVariant(phrase->text()): QVariant(i18nc("@item:inlistbox:", "unknown"));
-    case Qt::ToolTipRole:
-        return QVariant(phrase->text());
-    case TextRole:
-        return phrase->text();
-    case SoundFileRole:
-        return phrase->sound();
-    case IdRole:
-        return phrase->id();
-    case TypeRole:
-        return QVariant::fromValue<IPhrase::Type>(phrase->type());
-//    case ExcludedRole: //FIXME
-//        return phrase->isExcluded();
-    case DataRole:
-        return QVariant::fromValue<QObject*>(phrase.get());
-    default:
-        return QVariant();
+    switch (role) {
+        case Qt::DisplayRole:
+            return !phrase->text().isEmpty() ? QVariant(phrase->text()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
+        case Qt::ToolTipRole:
+            return QVariant(phrase->text());
+        case TextRole:
+            return phrase->text();
+        case SoundFileRole:
+            return phrase->sound();
+        case IdRole:
+            return phrase->id();
+        case TypeRole:
+            return QVariant::fromValue<IPhrase::Type>(phrase->type());
+            //    case ExcludedRole: //FIXME
+            //        return phrase->isExcluded();
+        case DataRole:
+            return QVariant::fromValue<QObject *>(phrase.get());
+        default:
+            return QVariant();
     }
 }
 
@@ -173,8 +171,8 @@ void PhraseListModel::emitPhraseChanged(int row)
 {
     beginResetModel();
     endResetModel();
-        //FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
-        //      to exclude possible new excluded phrases
+    // FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
+    //      to exclude possible new excluded phrases
     emit phraseChanged(row);
     emit dataChanged(index(row, 0), index(row, 0));
 }

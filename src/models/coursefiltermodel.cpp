@@ -19,26 +19,25 @@
  */
 
 #include "coursefiltermodel.h"
-#include "models/coursemodel.h"
 #include "../core/language.h"
+#include "artikulate_debug.h"
+#include "models/coursemodel.h"
 #include <KLocalizedString>
 #include <QSortFilterProxyModel>
 #include <QVariant>
-#include "artikulate_debug.h"
 
-CourseFilterModel::CourseFilterModel(QObject* parent)
+CourseFilterModel::CourseFilterModel(QObject *parent)
     : QSortFilterProxyModel(parent)
     , m_courseModel(nullptr)
 {
-
 }
 
-CourseModel * CourseFilterModel::courseModel() const
+CourseModel *CourseFilterModel::courseModel() const
 {
     return m_courseModel;
 }
 
-Language * CourseFilterModel::language() const
+Language *CourseFilterModel::language() const
 {
     return m_language;
 }
@@ -83,8 +82,7 @@ bool CourseFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourc
 
     if (m_language == nullptr) {
         return true;
-    }
-    else if (sourceModel()->data(index, CourseModel::LanguageRole).value<Language*>()->id() == m_language->id()) {
+    } else if (sourceModel()->data(index, CourseModel::LanguageRole).value<Language *>()->id() == m_language->id()) {
         return true;
     }
     return false;

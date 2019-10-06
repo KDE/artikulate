@@ -23,8 +23,8 @@
 using namespace LearnerProfile;
 
 // private class LearningGoalPrivate
-class LearningGoalPrivate {
-
+class LearningGoalPrivate
+{
 public:
     LearningGoalPrivate()
         : m_name(QString())
@@ -32,7 +32,9 @@ public:
         , m_category(LearningGoal::Unspecified)
     {
     }
-    ~LearningGoalPrivate() {}
+    ~LearningGoalPrivate()
+    {
+    }
 
     QString m_name;
     QString m_identifier;
@@ -62,7 +64,6 @@ QString LearningGoal::name() const
 
 LearningGoal::~LearningGoal()
 {
-
 }
 
 void LearningGoal::setName(const QString &name)

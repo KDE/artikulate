@@ -24,8 +24,8 @@
 
 #include <QSortFilterProxyModel>
 
-#include <KLocalizedString>
 #include "artikulate_debug.h"
+#include <KLocalizedString>
 
 PhraseFilterModel::PhraseFilterModel(QObject *parent)
     : QSortFilterProxyModel(parent)
@@ -35,7 +35,7 @@ PhraseFilterModel::PhraseFilterModel(QObject *parent)
     setHideExcluded(true);
 }
 
-PhraseListModel * PhraseFilterModel::phraseModel() const
+PhraseListModel *PhraseFilterModel::phraseModel() const
 {
     return m_phraseModel;
 }
@@ -64,7 +64,7 @@ bool PhraseFilterModel::isHideNotRecorded() const
     return m_hideNotRecorded;
 }
 
-void PhraseFilterModel::setPhraseModel(PhraseListModel* phraseModel)
+void PhraseFilterModel::setPhraseModel(PhraseListModel *phraseModel)
 {
     if (phraseModel == m_phraseModel) {
         return;
@@ -75,7 +75,6 @@ void PhraseFilterModel::setPhraseModel(PhraseListModel* phraseModel)
     sort(0);
 
     emit phraseModelChanged();
-
 }
 
 void PhraseFilterModel::setSortOption(PhraseFilterModel::SortOption option)
@@ -95,7 +94,7 @@ int PhraseFilterModel::filteredCount() const
     return rowCount();
 }
 
-bool PhraseFilterModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
+bool PhraseFilterModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
     if (m_sortOption == Type) {
         return sourceModel()->data(left, PhraseListModel::TypeRole).toInt() < sourceModel()->data(right, PhraseListModel::TypeRole).toInt();

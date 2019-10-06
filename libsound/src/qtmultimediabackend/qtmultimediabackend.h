@@ -30,11 +30,11 @@ class QtMultimediaBackend : public BackendInterface
     Q_OBJECT
 
 public:
-    explicit QtMultimediaBackend(QObject *parent, const QList< QVariant >&);
+    explicit QtMultimediaBackend(QObject *parent, const QList<QVariant> &);
     virtual ~QtMultimediaBackend();
 
-    CaptureBackendInterface * captureBackend() const override;
-    OutputBackendInterface * outputBackend() const override;
+    CaptureBackendInterface *captureBackend() const override;
+    OutputBackendInterface *outputBackend() const override;
 
 private:
     QtMultimediaCaptureBackend *m_captureBackend;
@@ -42,5 +42,3 @@ private:
 };
 
 #endif
-
-

@@ -21,8 +21,8 @@
 #ifndef LANGUAGERESOURCEMODEL_H
 #define LANGUAGERESOURCEMODEL_H
 
-#include <QAbstractListModel>
 #include "languagemodel.h"
+#include <QAbstractListModel>
 
 class IResourceRepository;
 class ILanguage;
@@ -34,21 +34,15 @@ class LanguageResourceModel : public QAbstractListModel
     Q_PROPERTY(IResourceRepository *repository READ resourceRepository WRITE setResourceRepository NOTIFY resourceRepositoryChanged)
 
 public:
-    enum LanguageRoles {
-        TitleRole = Qt::UserRole + 1,
-        I18nTitleRole,
-        IdRole,
-        DataRole,
-        CourseNumberRole
-    };
+    enum LanguageRoles { TitleRole = Qt::UserRole + 1, I18nTitleRole, IdRole, DataRole, CourseNumberRole };
 
     explicit LanguageResourceModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
-    virtual QHash<int,QByteArray> roleNames() const override;
+    virtual QHash<int, QByteArray> roleNames() const override;
     void setResourceRepository(IResourceRepository *repository);
-    IResourceRepository * resourceRepository() const;
+    IResourceRepository *resourceRepository() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;

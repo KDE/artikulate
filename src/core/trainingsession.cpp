@@ -19,14 +19,14 @@
  */
 
 #include "trainingsession.h"
-#include "core/language.h"
-#include "core/icourse.h"
-#include "core/unit.h"
-#include "core/phrase.h"
-#include "profilemanager.h"
-#include "learner.h"
-#include "trainingaction.h"
 #include "artikulate_debug.h"
+#include "core/icourse.h"
+#include "core/language.h"
+#include "core/phrase.h"
+#include "core/unit.h"
+#include "learner.h"
+#include "profilemanager.h"
+#include "trainingaction.h"
 
 TrainingSession::TrainingSession(LearnerProfile::ProfileManager *manager, QObject *parent)
     : ISessionActions(parent)
@@ -36,7 +36,7 @@ TrainingSession::TrainingSession(LearnerProfile::ProfileManager *manager, QObjec
     Q_ASSERT(m_profileManager != nullptr);
 }
 
-ICourse * TrainingSession::course() const
+ICourse *TrainingSession::course() const
 {
     return m_course;
 }
@@ -56,26 +56,18 @@ void TrainingSession::setCourse(ICourse *course)
     }
 
     // lazy loading of training data
-    LearnerProfile::LearningGoal * goal = m_profileManager->goal(
-        LearnerProfile::LearningGoal::Language, m_course->id());
+    LearnerProfile::LearningGoal *goal = m_profileManager->goal(LearnerProfile::LearningGoal::Language, m_course->id());
     if (!goal) {
-        goal = m_profileManager->registerGoal(
-            LearnerProfile::LearningGoal::Language,
-            course->language()->id(),
-            course->language()->i18nTitle()
-        );
+        goal = m_profileManager->registerGoal(LearnerProfile::LearningGoal::Language, course->language()->id(), course->language()->i18nTitle());
     }
-    auto data = m_profileManager->progressValues(m_profileManager->activeProfile(),
-        goal,
-        m_course->id()
-    );
+    auto data = m_profileManager->progressValues(m_profileManager->activeProfile(), goal, m_course->id());
     const auto unitList = m_course->units();
     for (auto unit : qAsConst(unitList)) {
         const auto phrases = unit->phrases();
         for (auto &phrase : phrases) {
             auto iter = data.find(phrase->id());
             if (iter != data.end()) {
-//                phrase->setProgress(iter.value()); //FIXME add a decorator?
+                //                phrase->setProgress(iter.value()); //FIXME add a decorator?
             }
         }
     }
@@ -83,7 +75,7 @@ void TrainingSession::setCourse(ICourse *course)
     emit courseChanged();
 }
 
-IUnit * TrainingSession::activeUnit() const
+IUnit *TrainingSession::activeUnit() const
 {
     if (auto phrase = activePhrase()) {
         return phrase->unit().get();
@@ -96,7 +88,7 @@ void TrainingSession::setUnit(IUnit *unit)
     // checking phrases in increasing order ensures that always the first phrase is selected
     for (int i = 0; i < m_actions.count(); ++i) {
         for (int j = 0; j < m_actions.at(i)->actions().count(); ++j) {
-            const auto testPhrase = qobject_cast<TrainingAction*>(m_actions.at(i)->actions().at(j))->phrase();
+            const auto testPhrase = qobject_cast<TrainingAction *>(m_actions.at(i)->actions().at(j))->phrase();
             if (unit == testPhrase->unit().get()) {
                 if (auto action = activeAction()) {
                     action->setChecked(false);
@@ -113,15 +105,15 @@ void TrainingSession::setUnit(IUnit *unit)
     }
 }
 
-TrainingAction * TrainingSession::activeAction() const
+TrainingAction *TrainingSession::activeAction() const
 {
     if (m_indexUnit < 0 || m_indexPhrase < 0) {
         return nullptr;
     }
-    return qobject_cast<TrainingAction*>(m_actions.at(m_indexUnit)->actions().at(m_indexPhrase));
+    return qobject_cast<TrainingAction *>(m_actions.at(m_indexUnit)->actions().at(m_indexPhrase));
 }
 
-IPhrase * TrainingSession::activePhrase() const
+IPhrase *TrainingSession::activePhrase() const
 {
     if (const auto action = activeAction()) {
         return action->phrase();
@@ -133,7 +125,7 @@ void TrainingSession::setActivePhrase(IPhrase *phrase)
 {
     for (int i = 0; i < m_actions.count(); ++i) {
         for (int j = 0; j < m_actions.at(i)->actions().count(); ++j) {
-            const auto testPhrase = qobject_cast<TrainingAction*>(m_actions.at(i)->actions().at(j))->phrase();
+            const auto testPhrase = qobject_cast<TrainingAction *>(m_actions.at(i)->actions().at(j))->phrase();
             if (phrase == testPhrase) {
                 if (auto action = activeAction()) {
                     action->setChecked(false);
@@ -161,18 +153,17 @@ void TrainingSession::accept()
 
     // possibly update goals of learner
     updateGoal();
-//    phrase->updateProgress(Phrase::Progress::Done); //FIXME
+    //    phrase->updateProgress(Phrase::Progress::Done); //FIXME
 
     // store training activity
-    LearnerProfile::LearningGoal * goal = m_profileManager->goal(
-        LearnerProfile::LearningGoal::Language, m_course->language()->id());
-//    m_profileManager->recordProgress(m_profileManager->activeProfile(), //FIXME
-//        goal,
-//        m_course->id(),
-//        phrase->id(),
-//        static_cast<int>(LearnerProfile::ProfileManager::Skip),
-//        phrase->progress()
-//    );
+    LearnerProfile::LearningGoal *goal = m_profileManager->goal(LearnerProfile::LearningGoal::Language, m_course->language()->id());
+    //    m_profileManager->recordProgress(m_profileManager->activeProfile(), //FIXME
+    //        goal,
+    //        m_course->id(),
+    //        phrase->id(),
+    //        static_cast<int>(LearnerProfile::ProfileManager::Skip),
+    //        phrase->progress()
+    //    );
 
     selectNextPhrase();
 }
@@ -188,18 +179,17 @@ void TrainingSession::skip()
     // possibly update goals of learner
     updateGoal();
     auto phrase = activePhrase();
-//    phrase->updateProgress(Phrase::Progress::Skip); //FIXME
+    //    phrase->updateProgress(Phrase::Progress::Skip); //FIXME
 
     // store training activity
-    LearnerProfile::LearningGoal * goal = m_profileManager->goal(
-        LearnerProfile::LearningGoal::Language, m_course->language()->id());
-//    m_profileManager->recordProgress(m_profileManager->activeProfile(),
-//        goal,
-//        m_course->id(),
-//        phrase->id(),
-//        static_cast<int>(LearnerProfile::ProfileManager::Skip),
-//        phrase->progress()
-//    ); // FIXME
+    LearnerProfile::LearningGoal *goal = m_profileManager->goal(LearnerProfile::LearningGoal::Language, m_course->language()->id());
+    //    m_profileManager->recordProgress(m_profileManager->activeProfile(),
+    //        goal,
+    //        m_course->id(),
+    //        phrase->id(),
+    //        static_cast<int>(LearnerProfile::ProfileManager::Skip),
+    //        phrase->progress()
+    //    ); // FIXME
 
     selectNextPhrase();
 }
@@ -256,8 +246,7 @@ void TrainingSession::updateGoal()
         qCWarning(ARTIKULATE_LOG()) << "No active Learner registered, aborting operation";
         return;
     }
-    LearnerProfile::LearningGoal * goal = m_profileManager->goal(
-        LearnerProfile::LearningGoal::Language, m_course->language()->id());
+    LearnerProfile::LearningGoal *goal = m_profileManager->goal(LearnerProfile::LearningGoal::Language, m_course->language()->id());
     learner->addGoal(goal);
     learner->setActiveGoal(goal);
 }
@@ -307,4 +296,3 @@ void TrainingSession::updateTrainingActions()
         }
     }
 }
-

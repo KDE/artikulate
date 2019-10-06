@@ -19,12 +19,12 @@
  */
 
 #include "exportghnsdialog.h"
-#include "core/iresourcerepository.h"
-#include "core/resources/editablecourseresource.h"
-#include "core/resources/courseparser.h"
-#include "core/language.h"
-#include "core/icourse.h"
 #include "artikulate_debug.h"
+#include "core/icourse.h"
+#include "core/iresourcerepository.h"
+#include "core/language.h"
+#include "core/resources/courseparser.h"
+#include "core/resources/editablecourseresource.h"
 #include <KLocalizedString>
 #include <QFileDialog>
 #include <QPushButton>
@@ -39,21 +39,16 @@ ExportGhnsDialog::ExportGhnsDialog(IResourceRepository *repository)
     // require to set a proper directory
     ui->buttonBox->button(QDialogButtonBox::Apply)->setDisabled(true);
     ui->buttonBox->button(QDialogButtonBox::Apply)->setText(i18n("Export"));
-    connect(ui->exportDirectory, &QLineEdit::textChanged, this, [=](){
+    connect(ui->exportDirectory, &QLineEdit::textChanged, this, [=]() {
         const bool directorySet = !ui->exportDirectory->text().isEmpty();
         ui->buttonBox->button(QDialogButtonBox::Apply)->setEnabled(directorySet);
     });
-    connect(ui->buttonBox->button(QDialogButtonBox::Apply), &QPushButton::clicked,
-        this, &ExportGhnsDialog::onExportCourse);
+    connect(ui->buttonBox->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &ExportGhnsDialog::onExportCourse);
 
     // directory selection dialog
     connect(ui->selectDirectoryButton, &QToolButton::clicked, this, [=]() {
         // TODO save last path in config file
-        const QString dir = QFileDialog::getExistingDirectory(
-            this,
-            i18n("Export Directory"),
-            QString(),
-            QFileDialog::ShowDirsOnly);
+        const QString dir = QFileDialog::getExistingDirectory(this, i18n("Export Directory"), QString(), QFileDialog::ShowDirsOnly);
         ui->exportDirectory->setText(dir);
     });
 
@@ -61,8 +56,7 @@ ExportGhnsDialog::ExportGhnsDialog(IResourceRepository *repository)
     int counter = 0;
     for (auto language : repository->languages()) {
         for (auto course : repository->courses(language->id())) {
-            ui->courseListCombo->insertItem(counter, course->i18nTitle(),
-                                            QVariant::fromValue<QObject*>(course.get()));
+            ui->courseListCombo->insertItem(counter, course->i18nTitle(), QVariant::fromValue<QObject *>(course.get()));
             ++counter;
         }
     }
@@ -78,8 +72,7 @@ ExportGhnsDialog::~ExportGhnsDialog()
 
 void ExportGhnsDialog::onExportCourse()
 {
-    IEditableCourse *res = qobject_cast<IEditableCourse *>(
-        ui->courseListCombo->currentData().value<QObject*>());
+    IEditableCourse *res = qobject_cast<IEditableCourse *>(ui->courseListCombo->currentData().value<QObject *>());
     qCDebug(ARTIKULATE_LOG) << res << "export GHNS file for" << res->i18nTitle();
     CourseParser::exportCourseToGhnsPackage(res->self(), ui->exportDirectory->text());
 }

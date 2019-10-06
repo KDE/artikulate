@@ -47,12 +47,12 @@ QtMultimediaCaptureBackend::QtMultimediaCaptureBackend(QObject *parent)
 CaptureDeviceController::State QtMultimediaCaptureBackend::captureState() const
 {
     switch (m_recorder.state()) {
-    case QMediaRecorder::StoppedState:
-        return CaptureDeviceController::StoppedState;
-    case QMediaRecorder::RecordingState:
-        return CaptureDeviceController::RecordingState;
-    case QMediaRecorder::PausedState:
-        return CaptureDeviceController::PausedState;
+        case QMediaRecorder::StoppedState:
+            return CaptureDeviceController::StoppedState;
+        case QMediaRecorder::RecordingState:
+            return CaptureDeviceController::RecordingState;
+        case QMediaRecorder::PausedState:
+            return CaptureDeviceController::PausedState;
     }
     Q_UNREACHABLE();
     return CaptureDeviceController::StoppedState;

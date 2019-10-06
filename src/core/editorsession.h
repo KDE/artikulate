@@ -22,8 +22,8 @@
 #define EDITORSESSION_H
 
 #include "artikulatecore_export.h"
-#include "phrase.h"
 #include "isessionactions.h"
+#include "phrase.h"
 
 class ILanguage;
 class IEditableCourse;
@@ -55,19 +55,19 @@ public:
 
     void setRepository(IEditableRepository *repository);
     bool skeletonMode() const;
-    ILanguage * language() const;
-    IEditableCourse * course() const;
+    ILanguage *language() const;
+    IEditableCourse *course() const;
     void setCourse(IEditableCourse *course);
-    IUnit * activeUnit() const;
+    IUnit *activeUnit() const;
     void setActiveUnit(IUnit *unit);
-    IPhrase * activePhrase() const;
+    IPhrase *activePhrase() const;
     void setActivePhrase(IPhrase *phrase) override;
     bool hasPreviousPhrase() const;
     bool hasNextPhrase() const;
     Q_INVOKABLE void switchToPreviousPhrase();
     Q_INVOKABLE void switchToNextPhrase();
     Q_INVOKABLE void updateCourseFromSkeleton();
-    TrainingAction * activeAction() const override;
+    TrainingAction *activeAction() const override;
     QVector<TrainingAction *> trainingActions() const override;
 
 Q_SIGNALS:
@@ -78,12 +78,12 @@ Q_SIGNALS:
 private:
     Q_DISABLE_COPY(EditorSession)
     void updateTrainingActions();
-    IEditableRepository * m_repository{ nullptr };
-    bool m_editSkeleton{ false };
-    IEditableCourse *m_course{ nullptr };
-    QVector<TrainingAction*> m_actions;
-    int m_indexUnit{-1};
-    int m_indexPhrase{-1};
+    IEditableRepository *m_repository {nullptr};
+    bool m_editSkeleton {false};
+    IEditableCourse *m_course {nullptr};
+    QVector<TrainingAction *> m_actions;
+    int m_indexUnit {-1};
+    int m_indexPhrase {-1};
 };
 
 #endif

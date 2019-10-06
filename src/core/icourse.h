@@ -22,8 +22,8 @@
 #define ICOURSE_H
 
 #include "artikulatecore_export.h"
-#include <QObject>
 #include <QMap>
+#include <QObject>
 #include <QUrl>
 #include <memory>
 
@@ -70,9 +70,9 @@ Q_SIGNALS:
     void descriptionChanged();
     void languageChanged();
     void unitAdded();
-    void unitAboutToBeAdded(std::shared_ptr<Unit>,int);
+    void unitAboutToBeAdded(std::shared_ptr<Unit>, int);
     void unitsRemoved();
-    void unitsAboutToBeRemoved(int,int);
+    void unitsAboutToBeRemoved(int, int);
 };
 
 Q_DECLARE_INTERFACE(ICourse, "com.kde.artikulate.ICourse/1.0")
