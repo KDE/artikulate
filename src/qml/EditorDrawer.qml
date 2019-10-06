@@ -86,7 +86,7 @@ Kirigami.GlobalDrawer {
     DrawerTrainingActions {
         id: trainingActions
         session: g_editorSession
-        onTriggerTrainingView: {
+        onTriggerPhraseView: {
             root.pageStack.clear();
             root.pageStack.push(editCoursePageComponent);
         }

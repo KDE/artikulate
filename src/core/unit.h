@@ -52,18 +52,10 @@ public:
     QString title() const override;
     void setTitle(const QString &title) override;
     QVector<std::shared_ptr<IPhrase>> phrases() const override;
-    void addPhrase(std::shared_ptr<IEditablePhrase> phrase) override;
-    QList<IPhrase *> excludedSkeletonPhraseList() const;
+    void addPhrase(std::shared_ptr<IEditablePhrase> phrase, int index) override;
+    void removePhrase(std::shared_ptr<IPhrase> phrase) override;
     std::shared_ptr<IUnit> self() const override;
-
-    /**
-     * Removes phrase with ID \p phraseId from unit and adds ID to set
-     * of excluded IDs.
-     *
-     * \param phraseId is the UID of the to be excluded phrase
-     */
-    Q_INVOKABLE void excludeSkeletonPhrase(const QString &phraseId);
-    Q_INVOKABLE void includeSkeletonPhrase(const QString &phraseId);
+    void emitPhrasesChanged(std::shared_ptr<IEditableUnit> unit);
 
 protected:
     explicit Unit(QObject *parent = nullptr);

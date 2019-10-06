@@ -60,7 +60,7 @@ Item {
                     spacing: 10
                     visible: { root.phrase != null && originalPhrase != "" && !root.isSkeletonPhrase}
                     Text {
-                        text: i18n("Original Phrase: <i>%1</i>", originalPhraseInfo.originalPhrase)
+                        text: i18n("Original Phrase:") + " " + originalPhraseInfo.originalPhrase
                         width: root.width - 70
                         wrapMode: Text.WordWrap
                     }
@@ -159,15 +159,6 @@ Item {
                 onEditingFinished: {
                     g_editorSession.unit.title = text
                 }
-            }
-            Button { // add units only if skeleton
-                id: newUnitButton
-                icon.name: "list-add"
-                text: i18n("Create Phrase")
-                onClicked: phraseModel.course.createPhrase(unit)
-            }
-            Item { //dummy
-                Layout.fillHeight: true
             }
         }
 

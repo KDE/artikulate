@@ -57,6 +57,7 @@ public:
 
 Q_SIGNALS:
     void courseChanged();
+    void actionsChanged();
     void phraseChanged();
 };
 Q_DECLARE_INTERFACE(ISessionActions, "ISessionActions")

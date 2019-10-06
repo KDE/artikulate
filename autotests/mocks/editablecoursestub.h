@@ -38,14 +38,14 @@ public:
     }
     ~EditableCourseStub() override;
 
-    static std::shared_ptr<IEditableCourse> create(std::shared_ptr<ILanguage> language, QVector<std::shared_ptr<Unit>> units)
+    static std::shared_ptr<EditableCourseStub> create(std::shared_ptr<ILanguage> language, QVector<std::shared_ptr<Unit>> units)
     {
         auto course = std::make_shared<EditableCourseStub>(language, units);
         course->setSelf(course);
         for (auto &unit : units) {
             unit->setCourse(course);
         }
-        return std::static_pointer_cast<IEditableCourse>(course);
+        return course;
     }
 
     void setSelf(std::shared_ptr<ICourse> self) override
@@ -126,6 +126,18 @@ public:
         unitPtr->setCourse(self());
         return unitPtr;
     }
+    bool createPhraseAfter(IPhrase *previousPhrase) override
+    {
+        Q_UNUSED(previousPhrase)
+        // not implemented
+        return false;
+    }
+    bool deletePhrase(IPhrase *phrase) override
+    {
+        Q_UNUSED(phrase)
+        // not implemented
+        return false;
+    }
     QUrl file() const override
     {
         return QUrl();
@@ -146,6 +158,10 @@ public:
     {
         // do nothing
         return false;
+    }
+    void triggerUnitChanged(std::shared_ptr<IEditableUnit> unit)
+    {
+        emit unitChanged(unit);
     }
 
 private:

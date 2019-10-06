@@ -45,10 +45,15 @@ public:
     virtual void setForeignId(const QString &id) = 0;
     virtual void setCourse(std::shared_ptr<ICourse> course) = 0;
     virtual void setTitle(const QString &title) = 0;
-    virtual void addPhrase(std::shared_ptr<IEditablePhrase> phrase) = 0;
+    virtual void addPhrase(std::shared_ptr<IEditablePhrase> phrase, int index) = 0;
+    virtual void removePhrase(std::shared_ptr<IPhrase> phrase) = 0;
 
 Q_SIGNALS:
     void modified();
+    /**
+     * @brief combines any change (rename, phrases)
+     */
+    void phrasesChanged(std::shared_ptr<IEditableUnit> unit);
 
 protected:
     IEditableUnit(QObject *parent = nullptr)

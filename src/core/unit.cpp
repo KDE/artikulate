@@ -43,6 +43,19 @@ std::shared_ptr<Unit> Unit::create()
 {
     std::shared_ptr<Unit> unit(new Unit);
     unit->setSelf(unit);
+    std::weak_ptr<Unit> unitParameter = unit;
+    connect(unit.get(), &IUnit::phraseAdded, unit.get(), [unitParameter](){
+        if (auto unit = unitParameter.lock()) {
+            qDebug() << "emit due to added" << unit.get();
+            unit->emitPhrasesChanged(unit);
+        }
+    });
+    connect(unit.get(), &IUnit::phraseRemoved, unit.get(), [unitParameter](){
+        if (auto unit = unitParameter.lock()) {
+            qDebug() << "emit due to removed" << unit.get();
+            unit->emitPhrasesChanged(unit);
+        }
+    });
     return unit;
 }
 
@@ -113,7 +126,7 @@ QVector<std::shared_ptr<IPhrase>> Unit::phrases() const
     return m_phrases;
 }
 
-void Unit::addPhrase(std::shared_ptr<IEditablePhrase> phrase)
+void Unit::addPhrase(std::shared_ptr<IEditablePhrase> phrase, int index)
 {
     auto iter = m_phrases.constBegin();
     while (iter != m_phrases.constEnd()) {
@@ -124,48 +137,32 @@ void Unit::addPhrase(std::shared_ptr<IEditablePhrase> phrase)
         ++iter;
     }
     phrase->setUnit(m_self.lock());
-    emit phraseAboutToBeAdded(phrase, m_phrases.length());
-    m_phrases.append(phrase);
-
+    emit phraseAboutToBeAdded(phrase, index);
+    m_phrases.insert(index, phrase);
+    qDebug() << "append phrase to unit" << index << id() << phrase->id();
+    qDebug() << "new count" << m_phrases.count();
     emit phraseAdded(phrase);
 
     connect(phrase.get(), &Phrase::modified, this, &Unit::modified);
-
     emit modified();
 }
 
-QList<IPhrase *> Unit::excludedSkeletonPhraseList() const
+void Unit::removePhrase(std::shared_ptr<IPhrase> phrase)
 {
-    QList<IPhrase *> excludedPhraseList;
-    // TODO this should not be handled on unit level
-    //    for (auto phrase : m_phrases) {
-    //        if (phrase->isExcluded() == true) {
-    //            excludedPhraseList.append(phrase);
-    //        }
-    //    }
-    return excludedPhraseList;
+    int index = -1;
+    for (int i = 0; i < m_phrases.count(); ++i) {
+        if (m_phrases.at(i)->id() == phrase->id()) {
+            index = i;
+            break;
+        }
+    }
+    Q_ASSERT(index >= 0);
+    emit phraseAboutToBeRemoved(index);
+    m_phrases.removeAt(index);
+    emit phraseRemoved();
 }
 
-void Unit::excludeSkeletonPhrase(const QString &phraseId)
+void Unit::emitPhrasesChanged(std::shared_ptr<IEditableUnit> unit)
 {
-    //    for (auto phrase : m_phrases) {
-    //        if (phrase->id() == phraseId) {
-    //            phrase->setExcluded(true);
-    //            emit modified();
-    //            return;
-    //        }
-    //    }
-    qCWarning(ARTIKULATE_LOG) << "Could not exclude phrase with ID " << phraseId << ", no phrase with this ID.";
-}
-
-void Unit::includeSkeletonPhrase(const QString &phraseId)
-{
-    //    for (auto phrase : m_phrases) {
-    //        if (phrase->id() == phraseId) {
-    //            phrase->setExcluded(false);
-    //            emit modified();
-    //            return;
-    //        }
-    //    }
-    qCWarning(ARTIKULATE_LOG) << "Could not include phrase with ID " << phraseId << ", no phrase with this ID.";
+    emit phrasesChanged(unit);
 }

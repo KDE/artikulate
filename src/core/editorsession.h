@@ -24,9 +24,11 @@
 #include "artikulatecore_export.h"
 #include "isessionactions.h"
 #include "phrase.h"
+#include <memory.h>
 
 class ILanguage;
 class IEditableCourse;
+class IEditableUnit;
 class Unit;
 class IPhrase;
 class SkeletonResource;
@@ -78,6 +80,7 @@ Q_SIGNALS:
 private:
     Q_DISABLE_COPY(EditorSession)
     void updateTrainingActions();
+    void updateActions(std::shared_ptr<IEditableUnit> unit);
     IEditableRepository *m_repository {nullptr};
     bool m_editSkeleton {false};
     IEditableCourse *m_course {nullptr};

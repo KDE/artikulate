@@ -53,10 +53,10 @@ Q_SIGNALS:
     void courseChanged();
     void displayPhraseTypeChanged();
     void modified();
-    void phraseAdded(std::shared_ptr<IPhrase>);
     void phraseAboutToBeAdded(std::shared_ptr<IPhrase>, int);
-    void phraseRemoved(std::shared_ptr<IPhrase>);
-    void phraseAboutToBeRemoved(int, int);
+    void phraseAdded(std::shared_ptr<IPhrase>);
+    void phraseAboutToBeRemoved(int);
+    void phraseRemoved();
 
 protected:
     IUnit(QObject *parent = nullptr)

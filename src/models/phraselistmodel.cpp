@@ -70,7 +70,7 @@ void PhraseListModel::setUnit(Unit *unit)
         // initial setting of signal mappings
         connect(m_unit, &Unit::phraseAboutToBeAdded, this, &PhraseListModel::onPhraseAboutToBeAdded);
         connect(m_unit, &Unit::phraseAdded, this, &PhraseListModel::onPhraseAdded);
-        connect(m_unit, &Unit::phraseAboutToBeRemoved, this, &PhraseListModel::onPhrasesAboutToBeRemoved);
+        connect(m_unit, &Unit::phraseAboutToBeRemoved, this, &PhraseListModel::onPhraseAboutToBeRemoved);
         connect(m_unit, &Unit::phraseRemoved, this, &PhraseListModel::onPhrasesRemoved);
 
         // insert and connect all already existing phrases
@@ -156,9 +156,9 @@ void PhraseListModel::onPhraseAdded()
     emit countChanged();
 }
 
-void PhraseListModel::onPhrasesAboutToBeRemoved(int first, int last)
+void PhraseListModel::onPhraseAboutToBeRemoved(int index)
 {
-    beginRemoveRows(QModelIndex(), first, last);
+    beginRemoveRows(QModelIndex(), index, index);
 }
 
 void PhraseListModel::onPhrasesRemoved()

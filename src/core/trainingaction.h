@@ -26,52 +26,70 @@
 #include "trainingactionicon.h"
 #include "trainingsession.h"
 #include <QDebug>
+#include <QAbstractItemModel>
 #include <QObject>
 
 class DrawerTrainingActions;
 
-class ARTIKULATECORE_EXPORT TrainingAction : public QObject
+class ARTIKULATECORE_EXPORT TrainingAction : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(QString text MEMBER m_text CONSTANT)
+    Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
+    Q_PROPERTY(QString title READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(QObject *icon READ icon CONSTANT)
     Q_PROPERTY(bool visible MEMBER m_visible CONSTANT)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(bool checked READ checked NOTIFY checkedChanged)
     Q_PROPERTY(QString tooltip MEMBER m_tooltip CONSTANT)
-    Q_PROPERTY(QList<QObject *> children READ actions NOTIFY actionsChanged)
+    Q_PROPERTY(QAbstractItemModel * children READ actionModel NOTIFY actionsChanged)
     Q_PROPERTY(bool checkable MEMBER m_checkable CONSTANT)
+    Q_PROPERTY(int length READ actionsCount NOTIFY actionsChanged)
 
 public:
+    enum ModelRoles {
+        ModelDataRole = Qt::UserRole + 1
+    };
+
     TrainingAction(QObject *parent = nullptr);
     TrainingAction(const QString &text, QObject *parent = nullptr);
     TrainingAction(std::shared_ptr<IPhrase> phrase, ISessionActions *session, QObject *parent = nullptr);
-    void appendChild(QObject *child);
-    bool hasChildren() const;
     Q_INVOKABLE void trigger();
     bool enabled() const;
     void setEnabled(bool enabled);
+    QString text() const;
+    void setText(QString text);
     void setChecked(bool checked);
     bool checked() const;
-    QObject *icon() const;
+    QObject *icon();
     IPhrase *phrase() const;
-    QList<QObject *> actions() const;
+    QAbstractListModel * actionModel();
+    QVector<TrainingAction*> actions() const;
+    int actionsCount() const;
+    bool hasActions() { return m_actions.count() > 0; }
+    TrainingAction * action(int index) const;
+    void appendAction(TrainingAction *action);
+    void clearActions();
+    QHash<int, QByteArray> roleNames() const override;
+    int columnCount(const QModelIndex &parent) const override;
+    int rowCount(const QModelIndex &parent) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
 Q_SIGNALS:
     void changed();
     void actionsChanged();
     void enabledChanged(bool enabled);
     void checkedChanged(bool checked);
+    void textChanged(QString text);
 
 private:
+    QVector<TrainingAction *> m_actions;
     QString m_text;
-    TrainingActionIcon *m_icon {nullptr};
+    TrainingActionIcon m_icon;
     bool m_visible {true};
     bool m_enabled {true};
     bool m_checked {false};
     bool m_checkable {false};
     QString m_tooltip {QString()};
-    QList<QObject *> m_actions;
     std::shared_ptr<IPhrase> m_phrase;
     ISessionActions *m_session {nullptr};
 };

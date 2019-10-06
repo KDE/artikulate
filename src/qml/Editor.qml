@@ -36,6 +36,10 @@ Kirigami.ApplicationWindow {
         pageStack: root.pageStack
     }
 
+    contextDrawer: Kirigami.ContextDrawer {
+        id: mainFlickable //ID is workaround for Kirigami's assumption that this is the name of the drawer's main flickable
+    }
+
     pageStack.initialPage: [ editorCourseSelectionPage, editorSkeletonSelectionPage ]
     pageStack.globalToolBar.style: pageStack.depth > 1 ? Kirigami.ApplicationHeaderStyle.TabBar :Kirigami.ApplicationHeaderStyle.Titles
 

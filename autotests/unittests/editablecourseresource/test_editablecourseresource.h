@@ -53,6 +53,11 @@ private Q_SLOTS:
     void unitAddAndRemoveHandling();
 
     /**
+     * @brief Test handling of phrase insertions (specifically, the signals)
+     */
+    void phraseAddAndRemoveHandling();
+
+    /**
      * @brief Test of all course property changes except unit handling
      */
     void coursePropertyChanges();

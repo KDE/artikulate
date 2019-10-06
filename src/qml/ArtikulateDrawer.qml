@@ -60,11 +60,11 @@ Kirigami.GlobalDrawer {
     ]
 
     // ordinary Kirigami actions are filled from training units/phrases
-    actions: trainingActions.actions
+    actions: sessionActions.actions
     DrawerTrainingActions {
-        id: trainingActions
+        id: sessionActions
         session: g_trainingSession
-        onTriggerTrainingView: {
+        onTriggerPhraseView: {
             root.pageStack.clear();
             root.pageStack.push(trainingPageComponent);
         }

@@ -57,6 +57,8 @@ public:
     QVector<std::shared_ptr<Unit>> units() override;
     QUrl file() const override;
     bool exportToFile(const QUrl &filePath) const override;
+    Q_INVOKABLE bool createPhraseAfter(IPhrase *previousPhrase) override;
+    Q_INVOKABLE bool deletePhrase(IPhrase *phrase) override;
     std::shared_ptr<Unit> addUnit(std::shared_ptr<Unit> unit) override;
     bool sync() override;
     void updateFrom(std::shared_ptr<ICourse>) override;

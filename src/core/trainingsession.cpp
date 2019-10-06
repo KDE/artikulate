@@ -277,9 +277,9 @@ void TrainingSession::updateTrainingActions()
             if (phrase->sound().isEmpty()) {
                 continue;
             }
-            action->appendChild(new TrainingAction(phrase, this, unit.get()));
+            action->appendAction(new TrainingAction(phrase, this, unit.get()));
         }
-        if (action->hasChildren()) {
+        if (action->actions().count() > 0) {
             m_actions.append(action);
         } else {
             action->deleteLater();

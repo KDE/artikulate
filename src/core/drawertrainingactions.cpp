@@ -37,13 +37,15 @@ void DrawerTrainingActions::setSession(ISessionActions *session)
         return;
     }
     if (m_session) {
-        disconnect(m_session, &TrainingSession::courseChanged, this, &DrawerTrainingActions::actionsChanged);
-        disconnect(m_session, &TrainingSession::phraseChanged, this, &DrawerTrainingActions::triggerTrainingView);
+        disconnect(m_session, &ISessionActions::courseChanged, this, &DrawerTrainingActions::actionsChanged);
+        disconnect(m_session, &ISessionActions::actionsChanged, this, &DrawerTrainingActions::actionsChanged);
+        disconnect(m_session, &ISessionActions::phraseChanged, this, &DrawerTrainingActions::triggerPhraseView);
     }
 
     m_session = session;
-    connect(m_session, &TrainingSession::courseChanged, this, &DrawerTrainingActions::actionsChanged);
-    connect(m_session, &TrainingSession::phraseChanged, this, &DrawerTrainingActions::triggerTrainingView);
+    connect(m_session, &ISessionActions::courseChanged, this, &DrawerTrainingActions::actionsChanged);
+    connect(m_session, &ISessionActions::actionsChanged, this, &DrawerTrainingActions::actionsChanged);
+    connect(m_session, &ISessionActions::phraseChanged, this, &DrawerTrainingActions::triggerPhraseView);
 
     emit sessionChanged();
     emit actionsChanged();

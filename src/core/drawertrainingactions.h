@@ -43,9 +43,9 @@ Q_SIGNALS:
     void actionsChanged();
     void sessionChanged();
     /**
-     * Notify that training view shall be displayed.
+     * Notify that course view shall be displayed.
      */
-    void triggerTrainingView();
+    void triggerPhraseView();
 
 private:
     ISessionActions *m_session {nullptr};

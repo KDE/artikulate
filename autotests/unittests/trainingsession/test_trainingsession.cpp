@@ -68,10 +68,10 @@ void TestTrainingSession::createTrainingSessionWithEmptySounds()
     phraseB1->setId("B1");
     phraseB2->setId("B2");
     phraseA1->setSound(QUrl::fromLocalFile("/tmp/a1.ogg"));
-    unitA->addPhrase(phraseA1);
-    unitA->addPhrase(phraseA2);
-    unitB->addPhrase(phraseB1);
-    unitB->addPhrase(phraseB2);
+    unitA->addPhrase(phraseA1, unitA->phrases().size());
+    unitA->addPhrase(phraseA2, unitA->phrases().size());
+    unitB->addPhrase(phraseB1, unitB->phrases().size());
+    unitB->addPhrase(phraseB2, unitB->phrases().size());
 
     CourseStub course(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
     LearnerProfile::ProfileManager manager;
@@ -102,8 +102,8 @@ void TestTrainingSession::createTrainingSessionWithUnitsAndPhrases()
     auto unit = Unit::create();
     std::shared_ptr<Phrase> firstPhrase = Phrase::create();
     std::shared_ptr<Phrase> secondPhrase = Phrase::create();
-    unit->addPhrase(firstPhrase);
-    unit->addPhrase(secondPhrase);
+    unit->addPhrase(firstPhrase, unit->phrases().size());
+    unit->addPhrase(secondPhrase, unit->phrases().size());
 
     CourseStub course(language, QVector<std::shared_ptr<Unit>>({unit}));
     LearnerProfile::ProfileManager manager;
@@ -130,10 +130,10 @@ void TestTrainingSession::iterateCourse()
     phraseA2->setSound(QUrl::fromLocalFile("/tmp/a1.ogg"));
     phraseB1->setSound(QUrl::fromLocalFile("/tmp/b1.ogg"));
     phraseB2->setSound(QUrl::fromLocalFile("/tmp/b2.ogg"));
-    unitA->addPhrase(phraseA1);
-    unitA->addPhrase(phraseA2);
-    unitB->addPhrase(phraseB1);
-    unitB->addPhrase(phraseB2);
+    unitA->addPhrase(phraseA1, unitA->phrases().size());
+    unitA->addPhrase(phraseA2, unitA->phrases().size());
+    unitB->addPhrase(phraseB1, unitB->phrases().size());
+    unitB->addPhrase(phraseB2, unitB->phrases().size());
 
     CourseStub course(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
     LearnerProfile::ProfileManager manager;

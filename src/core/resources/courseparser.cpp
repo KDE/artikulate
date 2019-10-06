@@ -142,7 +142,7 @@ std::shared_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl 
             } else if (xml.name() == "phrase") {
                 auto phrase = parsePhrase(xml, path, phonemes, elementOk);
                 if (elementOk) {
-                    unit->addPhrase(phrase);
+                    unit->addPhrase(phrase, unit->phrases().size());
                 }
                 ok &= elementOk;
             } else {

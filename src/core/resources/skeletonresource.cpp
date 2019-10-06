@@ -33,6 +33,7 @@
 #include <QFileInfo>
 #include <QIODevice>
 #include <QQmlEngine>
+#include <QUuid>
 #include <QXmlStreamReader>
 
 class SkeletonResourcePrivate
@@ -203,7 +204,7 @@ SkeletonResource::SkeletonResource(const QUrl &path, IResourceRepository *reposi
     connect(this, &SkeletonResource::titleChanged, this, [=]() { d->m_modified = true; });
     connect(this, &SkeletonResource::descriptionChanged, this, [=]() { d->m_modified = true; });
 
-    Q_UNUSED(repository);
+    Q_UNUSED(repository)
 }
 
 SkeletonResource::~SkeletonResource() = default;
@@ -239,7 +240,7 @@ QString SkeletonResource::foreignId() const
 
 void SkeletonResource::setForeignId(QString id)
 {
-    Q_UNUSED(id);
+    Q_UNUSED(id)
     Q_UNREACHABLE();
 }
 
@@ -265,7 +266,7 @@ QString SkeletonResource::i18nTitle() const
 
 void SkeletonResource::setI18nTitle(QString title)
 {
-    Q_UNUSED(title);
+    Q_UNUSED(title)
     Q_UNREACHABLE();
 }
 
@@ -303,6 +304,66 @@ bool SkeletonResource::exportToFile(const QUrl &filePath) const
     file.write(d->serializedSkeleton().toByteArray());
 
     return true;
+}
+
+bool SkeletonResource::createPhraseAfter(IPhrase *previousPhrase)
+{
+    std::shared_ptr<Unit> parentUnit = units().last();
+    if (previousPhrase) {
+        for (const auto &unit : units()) {
+            if (previousPhrase->unit()->id() == unit->id()) {
+                parentUnit = unit;
+                break;
+            }
+        }
+    }
+
+    // find index
+    int index = parentUnit->phrases().size();
+    for (int i = 0; i < parentUnit->phrases().size(); ++i) {
+        if (parentUnit->phrases().at(i)->id() == previousPhrase->id()) {
+            index = i;
+            break;
+        }
+    }
+
+    // find globally unique phrase id inside course
+    QStringList phraseIds;
+    for (auto unit : units()) {
+        for (auto &phrase : unit->phrases()) {
+            phraseIds.append(phrase->id());
+        }
+    }
+    QString id = QUuid::createUuid().toString();
+    while (phraseIds.contains(id)) {
+        id = QUuid::createUuid().toString();
+        qCWarning(ARTIKULATE_LOG) << "Phrase id generator has found a collision, recreating id.";
+    }
+
+    // create unit
+    std::shared_ptr<Phrase> phrase = Phrase::create();
+    phrase->setId(id);
+    phrase->setText(QString());
+    phrase->setType(IPhrase::Type::Word);
+    parentUnit->addPhrase(phrase, index);
+
+    return true;
+}
+
+bool SkeletonResource::deletePhrase(IPhrase *phrase)
+{
+    Q_ASSERT(phrase);
+    if (!phrase) {
+        return false;
+    }
+    auto unitId = phrase->unit()->id();
+    for (auto &unit : d->units()) {
+        if (unit->id() == unitId) {
+            unit->removePhrase(phrase->self());
+            return true;
+        }
+    }
+    return false;
 }
 
 std::shared_ptr<Unit> SkeletonResource::addUnit(std::shared_ptr<Unit> unit)
@@ -350,7 +411,7 @@ QString SkeletonResource::languageTitle() const
 
 void SkeletonResource::setLanguage(std::shared_ptr<ILanguage> language)
 {
-    Q_UNUSED(language);
+    Q_UNUSED(language)
     Q_UNREACHABLE();
 }
 

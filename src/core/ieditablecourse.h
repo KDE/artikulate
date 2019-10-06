@@ -28,6 +28,8 @@
 
 class QString;
 class ILanguage;
+class IEditableUnit;
+class IPhrase;
 
 class ARTIKULATECORE_EXPORT IEditableCourse : public ICourse
 {
@@ -43,6 +45,8 @@ public:
     virtual void setDescription(QString description) = 0;
     virtual void setLanguage(std::shared_ptr<ILanguage> language) = 0;
     virtual std::shared_ptr<Unit> addUnit(std::shared_ptr<Unit> unit) = 0;
+    Q_INVOKABLE virtual bool createPhraseAfter(IPhrase *phrase) = 0;
+    Q_INVOKABLE virtual bool deletePhrase(IPhrase *phrase) = 0;
     /**
      * @brief Export course to specified file.
      * @param filePath the absolute path to the export file
@@ -63,6 +67,9 @@ public:
     virtual void updateFrom(std::shared_ptr<ICourse> skeleton) = 0;
     virtual bool isModified() const = 0;
     virtual std::shared_ptr<IEditableCourse> self() const = 0;
+
+Q_SIGNALS:
+    void unitChanged(std::shared_ptr<IEditableUnit> unit);
 
 protected:
     IEditableCourse()

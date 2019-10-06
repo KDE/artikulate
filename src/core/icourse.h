@@ -29,6 +29,7 @@
 
 class QString;
 class ILanguage;
+class IUnit;
 class Unit;
 class Phoneme;
 
@@ -70,7 +71,7 @@ Q_SIGNALS:
     void descriptionChanged();
     void languageChanged();
     void unitAdded();
-    void unitAboutToBeAdded(std::shared_ptr<Unit>, int);
+    void unitAboutToBeAdded(std::shared_ptr<Unit> unit, int index);
     void unitsRemoved();
     void unitsAboutToBeRemoved(int, int);
 };

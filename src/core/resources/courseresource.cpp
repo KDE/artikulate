@@ -98,7 +98,6 @@ void CourseResource::setSelf(std::shared_ptr<ICourse> self)
 
 std::shared_ptr<ICourse> CourseResource::self() const
 {
-    Q_ASSERT(!d->m_self.expired());
     return d->m_self.lock();
 }
 

@@ -70,7 +70,14 @@ void EditorSession::setCourse(IEditableCourse *course)
     }
     m_course = course;
 
+    connect(course, &IEditableCourse::unitChanged, this, [=](std::shared_ptr<IEditableUnit> unit) {
+        this->updateActions(unit);
+        emit actionsChanged(); //TODO much too global effect
+    });
     updateTrainingActions();
+    if (m_course && m_course->units().count() > 0) {
+        setActiveUnit(m_course->units().first().get());
+    }
     emit languageChanged();
     emit courseChanged();
 }
@@ -214,6 +221,7 @@ TrainingAction *EditorSession::activeAction() const
 void EditorSession::updateTrainingActions()
 {
     for (const auto &action : qAsConst(m_actions)) {
+        action->clearActions();
         action->deleteLater();
     }
     m_actions.clear();
@@ -229,9 +237,9 @@ void EditorSession::updateTrainingActions()
         auto action = new TrainingAction(unit->title(), this);
         const auto phraseList = unit->phrases();
         for (const auto &phrase : qAsConst(phraseList)) {
-            action->appendChild(new TrainingAction(phrase, this, unit.get()));
+            action->appendAction(new TrainingAction(phrase, this, unit.get()));
         }
-        if (action->hasChildren()) {
+        if (action->actions().count() > 0) {
             m_actions.append(action);
         } else {
             action->deleteLater();
@@ -247,6 +255,42 @@ void EditorSession::updateTrainingActions()
             m_indexPhrase = 0;
         }
     }
+    emit actionsChanged();
+}
+
+void EditorSession::updateActions(std::shared_ptr<IEditableUnit> changedUnit)
+{
+    int unitIndex = -1;
+    for (int i = 0; i < m_course->units().size(); ++i) {
+        if (changedUnit == m_course->units().at(i)) {
+            unitIndex = i;
+            break;
+        }
+    }
+    Q_ASSERT(unitIndex >= 0);
+    auto unitAction = m_actions.at(unitIndex);
+
+    // TODO this is a heavy operation if only one phrase was changed
+    qDeleteAll(unitAction->actions());
+    unitAction->actions().clear();
+    for (int i = 0; i < changedUnit->phrases().size(); ++i) {
+        unitAction->appendAction(new TrainingAction(changedUnit->phrases().at(i), this, changedUnit.get()));
+    }
+
+    qDebug() << "unit action changed" << unitAction << unitAction->text();
+    emit unitAction->actionsChanged();
+    emit unitAction->changed();
+
+    // update indices
+    //TODO update indexes according to changed phrase action
+//    m_indexUnit = -1;
+//    m_indexPhrase = -1;
+//    if (m_course->units().count() > 0) {
+//        m_indexUnit = 0;
+//        if (m_course->units().constFirst()->phrases().count() > 0) {
+//            m_indexPhrase = 0;
+//        }
+//    }
 }
 
 QVector<TrainingAction *> EditorSession::trainingActions() const

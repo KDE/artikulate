@@ -41,6 +41,7 @@
 
 TestEditableCourseResource::TestEditableCourseResource()
 {
+    qRegisterMetaType<std::shared_ptr<IEditableUnit>>("std::shared_ptr<IEditableUnit>");
 }
 
 void TestEditableCourseResource::init()
@@ -110,6 +111,39 @@ void TestEditableCourseResource::unitAddAndRemoveHandling()
     QCOMPARE(sharedUnit->course(), course);
 }
 
+void TestEditableCourseResource::phraseAddAndRemoveHandling()
+{
+    //TODO simplify test by using empty course
+
+    // boilerplate
+    std::shared_ptr<ILanguage> language(new LanguageStub("de"));
+    ResourceRepositoryStub repository({language});
+    auto course = EditableCourseResource::create(QUrl::fromLocalFile(":/courses/de.xml"), &repository);
+    auto unit = Unit::create();
+    unit->setId("testunit");
+    course->addUnit(unit);
+
+    auto testPhrase = Phrase::create();
+    testPhrase->setId("testphrase");
+    unit->addPhrase(testPhrase, 0);
+    QCOMPARE(unit->phrases().count(), 1);
+    QCOMPARE(testPhrase->unit()->id(), "testunit");
+
+    // begin of test
+    {
+        QSignalSpy spy(course.get(), &IEditableCourse::unitChanged);
+        QVERIFY(course->createPhraseAfter(testPhrase.get()));
+        QCOMPARE(spy.count(), 1);
+        QCOMPARE(unit->phrases().count(), 2);
+    }
+    {
+        QSignalSpy spy(course.get(), &IEditableCourse::unitChanged);
+        QVERIFY(course->deletePhrase(testPhrase.get()));
+        QCOMPARE(spy.count(), 1);
+        QCOMPARE(unit->phrases().count(), 1);
+    }
+}
+
 void TestEditableCourseResource::coursePropertyChanges()
 {
     // boilerplate
@@ -120,7 +154,7 @@ void TestEditableCourseResource::coursePropertyChanges()
     // id
     {
         const QString value = "newId";
-        QSignalSpy spy(course.get(), SIGNAL(idChanged()));
+        QSignalSpy spy(course.get(), &CourseResource::idChanged);
         QCOMPARE(spy.count(), 0);
         course->setId(value);
         QCOMPARE(course->id(), value);
@@ -329,7 +363,7 @@ void TestEditableCourseResource::skeletonUpdate()
     importPhrase->setType(IPhrase::Type::Sentence);
     auto importUnit = Unit::create();
     importUnit->setId("importId");
-    importUnit->addPhrase(importPhrase);
+    importUnit->addPhrase(importPhrase, importUnit->phrases().size());
     auto skeleton = CourseStub::create(language, {importUnit});
 
     // test import

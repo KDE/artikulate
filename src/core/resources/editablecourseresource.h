@@ -24,8 +24,8 @@
 #include "artikulatecore_export.h"
 #include "core/icourse.h"
 #include "core/ieditablecourse.h"
+#include "core/ieditableunit.h"
 #include "courseresource.h"
-
 #include <QObject>
 #include <QVector>
 #include <memory>
@@ -33,7 +33,7 @@
 class IResourceRepository;
 class Course;
 class Unit;
-class Phrase;
+class IPhrase;
 class QString;
 class QDomDocument;
 
@@ -103,7 +103,8 @@ public:
     std::shared_ptr<IEditableCourse> self() const override;
 
     Q_INVOKABLE Unit *createUnit();
-    Q_INVOKABLE std::shared_ptr<Phrase> createPhrase(Unit *unit);
+    Q_INVOKABLE bool createPhraseAfter(IPhrase *previousPhrase) override;
+    Q_INVOKABLE bool deletePhrase(IPhrase *phrase) override;
 
 Q_SIGNALS:
     void idChanged();

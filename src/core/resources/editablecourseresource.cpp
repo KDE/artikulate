@@ -48,6 +48,10 @@ EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceReposi
     connect(m_course.get(), &CourseResource::titleChanged, this, &EditableCourseResource::titleChanged);
     connect(m_course.get(), &CourseResource::descriptionChanged, this, &EditableCourseResource::descriptionChanged);
     connect(m_course.get(), &CourseResource::languageChanged, this, &EditableCourseResource::languageChanged);
+
+    for (auto &unit : m_course->units()) {
+        connect(unit.get(), &Unit::phrasesChanged, this, &IEditableCourse::unitChanged);
+    }
 }
 
 std::shared_ptr<EditableCourseResource> EditableCourseResource::create(const QUrl &path, IResourceRepository *repository)
@@ -195,9 +199,10 @@ bool EditableCourseResource::exportToFile(const QUrl &filePath) const
 std::shared_ptr<Unit> EditableCourseResource::addUnit(std::shared_ptr<Unit> unit)
 {
     m_modified = true;
-    auto sharedUnit = m_course->addUnit(std::move(unit));
-    sharedUnit->setCourse(self());
-    return sharedUnit;
+    m_course->addUnit(unit);
+    unit->setCourse(self());
+    connect(unit.get(), &Unit::phrasesChanged, this, &IEditableCourse::unitChanged);
+    return unit;
 }
 
 QVector<std::shared_ptr<Unit>> EditableCourseResource::units()
@@ -240,7 +245,7 @@ void EditableCourseResource::updateFrom(std::shared_ptr<ICourse> skeleton)
                 importPhrase->seti18nText(skeletonPhrase->i18nText());
                 importPhrase->setType(skeletonPhrase->type());
                 importPhrase->setUnit(matchingUnit);
-                matchingUnit->addPhrase(importPhrase);
+                matchingUnit->addPhrase(importPhrase, matchingUnit->phrases().size());
             }
         }
     }
@@ -276,8 +281,27 @@ Unit *EditableCourseResource::createUnit()
     return sharedUnit.get();
 }
 
-std::shared_ptr<Phrase> EditableCourseResource::createPhrase(Unit *unit)
+bool EditableCourseResource::createPhraseAfter(IPhrase *previousPhrase)
 {
+    std::shared_ptr<Unit> parentUnit = units().last();
+    if (previousPhrase) {
+        for (const auto &unit : units()) {
+            if (previousPhrase->unit()->id() == unit->id()) {
+                parentUnit = unit;
+                break;
+            }
+        }
+    }
+
+    // find index
+    int index = parentUnit->phrases().size();
+    for (int i = 0; i < parentUnit->phrases().size(); ++i) {
+        if (parentUnit->phrases().at(i)->id() == previousPhrase->id()) {
+            index = i;
+            break;
+        }
+    }
+
     // find globally unique phrase id inside course
     QStringList phraseIds;
     for (auto unit : m_course->units()) {
@@ -296,8 +320,25 @@ std::shared_ptr<Phrase> EditableCourseResource::createPhrase(Unit *unit)
     phrase->setId(id);
     phrase->setText(QLatin1String(""));
     phrase->setType(IPhrase::Type::Word);
+    parentUnit->addPhrase(phrase, index);
 
-    unit->addPhrase(phrase);
+    qCDebug(ARTIKULATE_CORE()) << "Created phrase at index" << index;
 
-    return phrase;
+    return true;
+}
+
+bool EditableCourseResource::deletePhrase(IPhrase *phrase)
+{
+    Q_ASSERT(phrase);
+    if (!phrase) {
+        return false;
+    }
+    auto unitId = phrase->unit()->id();
+    for (auto &unit : units()) {
+        if (unit->id() == unitId) {
+            unit->removePhrase(phrase->self());
+            return true;
+        }
+    }
+    return false;
 }

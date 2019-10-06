@@ -77,7 +77,7 @@ void PhraseModel::setCourse(ICourse *course)
             // connect to phrase changes
             connect(unit.get(), &Unit::phraseAboutToBeAdded, this, &PhraseModel::onPhraseAboutToBeAdded);
             connect(unit.get(), &Unit::phraseAdded, this, &PhraseModel::onPhraseAdded);
-            connect(unit.get(), &Unit::phraseAboutToBeRemoved, this, &PhraseModel::onPhrasesAboutToBeRemoved);
+            connect(unit.get(), &Unit::phraseAboutToBeRemoved, this, &PhraseModel::onPhraseAboutToBeRemoved);
             connect(unit.get(), &Unit::phraseRemoved, this, &PhraseModel::onPhrasesRemoved);
             connect(unit.get(), &Unit::titleChanged, m_unitSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 
@@ -238,8 +238,9 @@ void PhraseModel::onPhraseAdded()
     updatePhraseMappings();
 }
 
-void PhraseModel::onPhrasesAboutToBeRemoved(int first, int last)
+void PhraseModel::onPhraseAboutToBeRemoved(int index)
 {
+    Q_UNUSED(index)
     // TODO better solution requires access to unit
     // TODO remove connections from m_phraseSignalMapper
     beginResetModel();
