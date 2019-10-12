@@ -112,6 +112,20 @@ add_test(NAME test_skeletonresource COMMAND test_skeletonresource)
 ecm_mark_as_test(test_skeletonresource)
 
 
+# test course resource class
+set(TestUnit_SRCS
+    unit/test_unit.cpp
+)
+qt5_add_resources(TestUnit_SRCS ../../data/languages.qrc)
+add_executable(test_unit ${TestUnit_SRCS} )
+target_link_libraries(test_unit
+    artikulatecore
+    Qt5::Test
+)
+add_test(NAME test_unit COMMAND test_unit)
+ecm_mark_as_test(test_unit)
+
+
 # test editable course resource class
 set(TestEditableCourseResource_SRCS
     editablecourseresource/test_editablecourseresource.cpp
