@@ -38,7 +38,7 @@ class ARTIKULATECORE_EXPORT Phoneme : public QObject
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
 
 public:
-    explicit Phoneme(QObject *parent = 0);
+    explicit Phoneme(QObject *parent = nullptr);
     QString id() const;
     void setId(const QString &id);
     QString title() const;
