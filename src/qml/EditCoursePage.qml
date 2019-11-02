@@ -44,24 +44,23 @@ Kirigami.ScrollablePage {
             enabled: g_editorSession.hasNextPhrase
             onTriggered: g_editorSession.switchToNextPhrase()
         }
-//TODO backend behavior is broken
-//        contextualActions: [
-//            Kirigami.Action {
-//                text: i18n("Delete")
-//                tooltip: i18n("Delete this phrase.")
-//                iconName: "edit-delete-remove"
-//                onTriggered: g_editorSession.course.deletePhrase(g_editorSession.phrase)
-//            },
-//            Kirigami.Action {
-//                separator: true
-//            },
-//            Kirigami.Action {
-//                text: i18n("Create Phrase")
-//                tooltip: i18n("Create phrase after current phrase.")
-//                iconName: "list-add"
-//                onTriggered: g_editorSession.course.createPhraseAfter(g_editorSession.phrase)
-//            }
-//        ]
+        contextualActions: [
+            Kirigami.Action {
+                text: i18n("Delete")
+                tooltip: i18n("Delete this phrase.")
+                iconName: "edit-delete-remove"
+                onTriggered: g_editorSession.course.deletePhrase(g_editorSession.phrase)
+            },
+            Kirigami.Action {
+                separator: true
+            },
+            Kirigami.Action {
+                text: i18n("Create Phrase")
+                tooltip: i18n("Create phrase after current phrase.")
+                iconName: "list-add"
+                onTriggered: g_editorSession.course.createPhraseAfter(g_editorSession.phrase)
+            }
+        ]
     }
 
     ColumnLayout {

@@ -183,6 +183,7 @@ void TrainingAction::clearActions()
 {
     beginResetModel();
     m_actions.clear();
+    qDeleteAll(m_actions);
     endResetModel();
     emit actionsChanged();
 }

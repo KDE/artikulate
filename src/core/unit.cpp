@@ -46,13 +46,11 @@ std::shared_ptr<Unit> Unit::create()
     std::weak_ptr<Unit> unitParameter = unit;
     connect(unit.get(), &IUnit::phraseAdded, unit.get(), [unitParameter](){
         if (auto unit = unitParameter.lock()) {
-            qDebug() << "emit due to added" << unit.get();
             unit->emitPhrasesChanged(unit);
         }
     });
     connect(unit.get(), &IUnit::phraseRemoved, unit.get(), [unitParameter](){
         if (auto unit = unitParameter.lock()) {
-            qDebug() << "emit due to removed" << unit.get();
             unit->emitPhrasesChanged(unit);
         }
     });

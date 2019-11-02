@@ -75,7 +75,6 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
 Q_SIGNALS:
-    void changed();
     void actionsChanged();
     void enabledChanged(bool enabled);
     void checkedChanged(bool checked);

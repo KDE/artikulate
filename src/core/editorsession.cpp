@@ -271,26 +271,12 @@ void EditorSession::updateActions(std::shared_ptr<IEditableUnit> changedUnit)
     auto unitAction = m_actions.at(unitIndex);
 
     // TODO this is a heavy operation if only one phrase was changed
-    qDeleteAll(unitAction->actions());
-    unitAction->actions().clear();
+    unitAction->clearActions();
     for (int i = 0; i < changedUnit->phrases().size(); ++i) {
         unitAction->appendAction(new TrainingAction(changedUnit->phrases().at(i), this, changedUnit.get()));
     }
 
-    qDebug() << "unit action changed" << unitAction << unitAction->text();
     emit unitAction->actionsChanged();
-    emit unitAction->changed();
-
-    // update indices
-    //TODO update indexes according to changed phrase action
-//    m_indexUnit = -1;
-//    m_indexPhrase = -1;
-//    if (m_course->units().count() > 0) {
-//        m_indexUnit = 0;
-//        if (m_course->units().constFirst()->phrases().count() > 0) {
-//            m_indexPhrase = 0;
-//        }
-//    }
 }
 
 QVector<TrainingAction *> EditorSession::trainingActions() const

@@ -320,9 +320,9 @@ bool EditableCourseResource::createPhraseAfter(IPhrase *previousPhrase)
     phrase->setId(id);
     phrase->setText(QLatin1String(""));
     phrase->setType(IPhrase::Type::Word);
-    parentUnit->addPhrase(phrase, index);
+    parentUnit->addPhrase(phrase, index + 1);
 
-    qCDebug(ARTIKULATE_CORE()) << "Created phrase at index" << index;
+    qCDebug(ARTIKULATE_CORE()) << "Created phrase at index" << index + 1;
 
     return true;
 }
