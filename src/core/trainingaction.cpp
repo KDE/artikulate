@@ -50,6 +50,10 @@ TrainingAction::TrainingAction(std::shared_ptr<IPhrase> phrase, ISessionActions 
     if (m_phrase) {
         m_text = phrase->text();
     }
+    connect(phrase.get(), &IPhrase::textChanged, this, [=](){
+        m_text = phrase->text();
+        emit textChanged(m_text);
+    });
 }
 
 QHash<int, QByteArray> TrainingAction::roleNames() const
