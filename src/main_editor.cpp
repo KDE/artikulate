@@ -48,8 +48,7 @@ int main(int argc, char **argv)
 
     KAboutData::setApplicationData(aboutData);
     KCrash::initialize();
-
-    MainWindowEditor *mainWindow = new MainWindowEditor(&repository);
+    MainWindowEditor mainWindow(&repository);
 
     return app.exec();
 }
