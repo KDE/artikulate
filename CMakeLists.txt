@@ -69,7 +69,9 @@ option(BUILD_GSTREAMER_PLUGIN "Build GStreamer sound backend" OFF)
 add_definitions(
     -DQT_NO_URL_CAST_FROM_STRING
 )
-add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x060000)
+if (EXISTS "${CMAKE_SOURCE_DIR}/.git")
+   add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x060000)
+endif()
 # subdirectories to build
 ecm_optional_add_subdirectory(data)
 ecm_optional_add_subdirectory(doc)
