@@ -137,8 +137,6 @@ void Unit::addPhrase(std::shared_ptr<IEditablePhrase> phrase, int index)
     phrase->setUnit(m_self.lock());
     emit phraseAboutToBeAdded(phrase, index);
     m_phrases.insert(index, phrase);
-    qDebug() << "append phrase to unit" << index << id() << phrase->id();
-    qDebug() << "new count" << m_phrases.count();
     emit phraseAdded(phrase);
 
     connect(phrase.get(), &Phrase::modified, this, &Unit::modified);
