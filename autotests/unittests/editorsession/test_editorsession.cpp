@@ -273,7 +273,7 @@ void TestEditorSession::updateActionsBehavior()
     QCOMPARE(session.trainingActions().at(0)->actions().count(), 2);
     QCOMPARE(session.trainingActions().at(1)->actions().count(), 2);
 
-    auto phraseA1Object = qobject_cast<TrainingAction*>(session.trainingActions().at(0)->actions().first());
+    auto phraseA1Object = qobject_cast<TrainingAction *>(session.trainingActions().at(0)->actions().first());
     QVERIFY(phraseA1Object != nullptr);
     QCOMPARE(phraseA1Object->text(), phraseA1->text());
 
