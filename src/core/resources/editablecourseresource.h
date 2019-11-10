@@ -114,6 +114,9 @@ Q_SIGNALS:
     void descriptionChanged();
     void languageChanged();
 
+private Q_SLOTS:
+    void markModified();
+
 private:
     Q_DISABLE_COPY(EditableCourseResource)
     /**

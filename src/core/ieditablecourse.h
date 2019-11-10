@@ -35,6 +35,7 @@ class ARTIKULATECORE_EXPORT IEditableCourse : public ICourse
 {
     Q_OBJECT
     Q_INTERFACES(ICourse)
+    Q_PROPERTY(QString modified READ isModified NOTIFY modifiedChanged)
 
 public:
     virtual ~IEditableCourse() = default;
@@ -70,6 +71,7 @@ public:
 
 Q_SIGNALS:
     void unitChanged(std::shared_ptr<IEditableUnit> unit);
+    void modifiedChanged(bool modified);
 
 protected:
     IEditableCourse()

@@ -51,6 +51,7 @@ EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceReposi
 
     for (auto &unit : m_course->units()) {
         connect(unit.get(), &Unit::phrasesChanged, this, &IEditableCourse::unitChanged);
+        connect(unit.get(), &Unit::modified, this, &EditableCourseResource::markModified);
     }
 }
 
@@ -341,4 +342,12 @@ bool EditableCourseResource::deletePhrase(IPhrase *phrase)
         }
     }
     return false;
+}
+
+void EditableCourseResource::markModified()
+{
+    if (!m_modified) {
+        m_modified = true;
+        emit modifiedChanged(true);
+    }
 }
