@@ -270,16 +270,15 @@ void TestEditorSession::updateActionsBehavior()
     QCOMPARE(session.trainingActions().count(), 2); // 2 units
     QCOMPARE(session.trainingActions().at(0)->text(), "titleA");
     QCOMPARE(session.trainingActions().at(1)->text(), "titleB");
-    QCOMPARE(session.trainingActions().at(0)->children().count(), 2);
-    QCOMPARE(session.trainingActions().at(1)->children().count(), 2);
+    QCOMPARE(session.trainingActions().at(0)->actions().count(), 2);
+    QCOMPARE(session.trainingActions().at(1)->actions().count(), 2);
 
-    auto phraseA1Object = qobject_cast<TrainingAction*>(session.trainingActions().at(0)->children().first());
+    auto phraseA1Object = qobject_cast<TrainingAction*>(session.trainingActions().at(0)->actions().first());
     QVERIFY(phraseA1Object != nullptr);
     QCOMPARE(phraseA1Object->text(), phraseA1->text());
 
     // test update of unit
     {
-        qDebug() << "CHECK " << session.trainingActions().last();
         QCOMPARE(session.trainingActions().last()->text(), unitB->title()); // ensure that correct action is selected
         QSignalSpy spy(session.trainingActions().last(), &TrainingAction::actionsChanged);
         unitB->removePhrase(phraseB1->self()); // note: event has to be trigger explicitly
