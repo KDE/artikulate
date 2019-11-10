@@ -131,7 +131,7 @@ bool ResourceRepository::loadCourse(const QString &resourceFile)
         return false;
     }
 
-    auto resource = CourseResource::create(QUrl::fromLocalFile(resourceFile), this);
+    auto resource = CourseResource::create(QUrl::fromLocalFile(resourceFile), this, true);
     if (resource->language() == nullptr) {
         qCCritical(ARTIKULATE_CORE()) << "Could not load course, language unknown:" << resourceFile;
         return false;
