@@ -71,9 +71,6 @@ MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
 
     // set starting screen
     load(QUrl(QStringLiteral("qrc:/artikulate/qml/Editor.qml")));
-
-    //    QAction *newAct = KStandardAction::save(this, SLOT(save()), actionCollection());
-    //    actionCollection()->addAction(QStringLiteral("save"), newAct);
 }
 
 MainWindowEditor::~MainWindowEditor()

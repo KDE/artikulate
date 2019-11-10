@@ -35,6 +35,7 @@ class ARTIKULATECORE_EXPORT IEditableCourse : public ICourse
 {
     Q_OBJECT
     Q_INTERFACES(ICourse)
+    Q_PROPERTY(QString modified READ isModified NOTIFY modifiedChanged)
 
 public:
     virtual ~IEditableCourse() = default;
@@ -57,7 +58,7 @@ public:
      * @brief store editable course in file and set modified to false
      * @return true if no errors occurred
      */
-    virtual bool sync() = 0;
+    Q_INVOKABLE virtual bool sync() = 0;
     /**
      * @brief Update course from skeleton
      * This method imports all units and phrases from the specified skeleton
@@ -70,6 +71,7 @@ public:
 
 Q_SIGNALS:
     void unitChanged(std::shared_ptr<IEditableUnit> unit);
+    void modifiedChanged(bool modified);
 
 protected:
     IEditableCourse()
