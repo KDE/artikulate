@@ -37,7 +37,7 @@
 
 EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceRepository *repository)
     : IEditableCourse()
-    , m_course(new CourseResource(path, repository))
+    , m_course(new CourseResource(path, repository, false))
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 

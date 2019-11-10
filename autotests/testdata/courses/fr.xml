@@ -12,7 +12,7 @@
                 <phrase>
                     <id>1</id>
                     <text>Qu'est-ce que vous avez choisi?</text>
-                    <soundFile></soundFile>
+                    <soundFile>de_01.ogg</soundFile>
                     <type>sentence</type>
                     <phonemes></phonemes>
                 </phrase>

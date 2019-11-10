@@ -68,7 +68,7 @@ QDomDocument CourseParser::loadDomDocument(const QUrl &path, const QXmlSchema &s
     return document;
 }
 
-std::vector<std::shared_ptr<Unit>> CourseParser::parseUnits(const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes)
+std::vector<std::shared_ptr<Unit>> CourseParser::parseUnits(const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool skipIncomplete)
 {
     std::vector<std::shared_ptr<Unit>> units;
 
@@ -95,7 +95,7 @@ std::vector<std::shared_ptr<Unit>> CourseParser::parseUnits(const QUrl &path, QV
                 if (xml.name() == "units") {
                     continue;
                 } else if (xml.name() == "unit") {
-                    auto unit = parseUnit(xml, path, phonemes, elementOk);
+                    auto unit = parseUnit(xml, path, phonemes, skipIncomplete, elementOk);
                     if (elementOk) {
                         units.push_back(std::move(unit));
                     }
@@ -114,7 +114,7 @@ std::vector<std::shared_ptr<Unit>> CourseParser::parseUnits(const QUrl &path, QV
     return units;
 }
 
-std::shared_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool &ok)
+std::shared_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool skipIncomplete, bool &ok)
 {
     std::shared_ptr<Unit> unit = Unit::create();
     ok = true;
@@ -141,7 +141,7 @@ std::shared_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl 
                 // nothing to do
             } else if (xml.name() == "phrase") {
                 auto phrase = parsePhrase(xml, path, phonemes, elementOk);
-                if (elementOk) {
+                if (elementOk && (!skipIncomplete || !phrase->soundFileUrl().isEmpty())) {
                     unit->addPhrase(phrase, unit->phrases().size());
                 }
                 ok &= elementOk;
@@ -185,7 +185,10 @@ std::shared_ptr<Phrase> CourseParser::parsePhrase(QXmlStreamReader &xml, const Q
                 phrase->seti18nText(parseElement(xml, elementOk));
                 ok &= elementOk;
             } else if (xml.name() == "soundFile") {
-                phrase->setSound(QUrl::fromLocalFile(path.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash).path() + '/' + parseElement(xml, elementOk)));
+                QString fileName = parseElement(xml, elementOk);
+                if (!fileName.isEmpty()) {
+                    phrase->setSound(QUrl::fromLocalFile(path.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash).path() + '/' + fileName));
+                }
                 ok &= elementOk;
             } else if (xml.name() == "phonemes") {
                 auto parsedPhonemeIds = parsePhonemeIds(xml, elementOk);
@@ -268,7 +271,7 @@ QString CourseParser::parseElement(QXmlStreamReader &xml, bool &ok)
     QString elementName = xml.name().toString();
     xml.readNext();
 
-    qCDebug(ARTIKULATE_PARSER()) << "parsed: " << elementName << " / " << xml.text().toString();
+    //qCDebug(ARTIKULATE_PARSER()) << "parsed: " << elementName << " / " << xml.text().toString();
     return xml.text().toString();
 }
 
