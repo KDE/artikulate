@@ -57,7 +57,7 @@ public:
      * @brief store editable course in file and set modified to false
      * @return true if no errors occurred
      */
-    virtual bool sync() = 0;
+    Q_INVOKABLE virtual bool sync() = 0;
     /**
      * @brief Update course from skeleton
      * This method imports all units and phrases from the specified skeleton

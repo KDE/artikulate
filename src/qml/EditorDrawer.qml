@@ -130,6 +130,17 @@ Kirigami.GlobalDrawer {
         Layout.leftMargin: -root.leftPadding
         Layout.rightMargin: -root.rightPadding
 
+        ActionListItem {
+            action: Kirigami.Action {
+                text: i18n("Save")
+                iconName: "document-save"
+                enabled: g_editorSession.course !== null
+                onTriggered: {
+                    g_editorSession.course.sync()
+                }
+            }
+        }
+
         Kirigami.Separator {
             Layout.fillWidth: true
         }
