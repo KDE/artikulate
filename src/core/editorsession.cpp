@@ -72,7 +72,7 @@ void EditorSession::setCourse(IEditableCourse *course)
 
     connect(course, &IEditableCourse::unitChanged, this, [=](std::shared_ptr<IEditableUnit> unit) {
         this->updateActions(unit);
-        emit actionsChanged(); //TODO much too global effect
+        emit actionsChanged(); // TODO much too global effect
     });
     updateTrainingActions();
     if (m_course && m_course->units().count() > 0) {

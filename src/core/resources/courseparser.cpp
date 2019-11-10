@@ -271,7 +271,7 @@ QString CourseParser::parseElement(QXmlStreamReader &xml, bool &ok)
     QString elementName = xml.name().toString();
     xml.readNext();
 
-    //qCDebug(ARTIKULATE_PARSER()) << "parsed: " << elementName << " / " << xml.text().toString();
+    // qCDebug(ARTIKULATE_PARSER()) << "parsed: " << elementName << " / " << xml.text().toString();
     return xml.text().toString();
 }
 

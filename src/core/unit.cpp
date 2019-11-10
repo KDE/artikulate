@@ -44,12 +44,12 @@ std::shared_ptr<Unit> Unit::create()
     std::shared_ptr<Unit> unit(new Unit);
     unit->setSelf(unit);
     std::weak_ptr<Unit> unitParameter = unit;
-    connect(unit.get(), &IUnit::phraseAdded, unit.get(), [unitParameter](){
+    connect(unit.get(), &IUnit::phraseAdded, unit.get(), [unitParameter]() {
         if (auto unit = unitParameter.lock()) {
             unit->emitPhrasesChanged(unit);
         }
     });
-    connect(unit.get(), &IUnit::phraseRemoved, unit.get(), [unitParameter](){
+    connect(unit.get(), &IUnit::phraseRemoved, unit.get(), [unitParameter]() {
         if (auto unit = unitParameter.lock()) {
             unit->emitPhrasesChanged(unit);
         }

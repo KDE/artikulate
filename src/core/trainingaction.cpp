@@ -50,7 +50,7 @@ TrainingAction::TrainingAction(std::shared_ptr<IPhrase> phrase, ISessionActions 
     if (m_phrase) {
         m_text = phrase->text();
     }
-    connect(phrase.get(), &IPhrase::textChanged, this, [=](){
+    connect(phrase.get(), &IPhrase::textChanged, this, [=]() {
         m_text = phrase->text();
         emit textChanged(m_text);
     });
@@ -86,9 +86,12 @@ QVariant TrainingAction::data(const QModelIndex &index, int role) const
     }
 
     switch (role) {
-    case ModelDataRole: return QVariant::fromValue<QObject*>(m_actions.at(index.row()));
-    case Qt::DisplayRole: return m_text;
-    default: return QVariant();
+        case ModelDataRole:
+            return QVariant::fromValue<QObject *>(m_actions.at(index.row()));
+        case Qt::DisplayRole:
+            return m_text;
+        default:
+            return QVariant();
     }
 }
 
@@ -141,12 +144,12 @@ void TrainingAction::setChecked(bool checked)
     emit checkedChanged(m_checked);
 }
 
-QObject * TrainingAction::icon()
+QObject *TrainingAction::icon()
 {
-    return qobject_cast<QObject*>(&m_icon);
+    return qobject_cast<QObject *>(&m_icon);
 }
 
-IPhrase * TrainingAction::phrase() const
+IPhrase *TrainingAction::phrase() const
 {
     return m_phrase.get();
 }
@@ -156,7 +159,7 @@ QVector<TrainingAction *> TrainingAction::actions() const
     return m_actions;
 }
 
-QAbstractListModel * TrainingAction::actionModel()
+QAbstractListModel *TrainingAction::actionModel()
 {
     return this;
 }
@@ -166,7 +169,7 @@ int TrainingAction::actionsCount() const
     return m_actions.count();
 }
 
-TrainingAction * TrainingAction::action(int index) const
+TrainingAction *TrainingAction::action(int index) const
 {
     if (index < 0 || index >= m_actions.count()) {
         qWarning() << "index not in range, aborting";

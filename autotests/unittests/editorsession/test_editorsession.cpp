@@ -31,8 +31,8 @@
 #include "src/core/trainingaction.h"
 #include "src/core/unit.h"
 #include <QSignalSpy>
-#include <QVector>
 #include <QTest>
+#include <QVector>
 
 void TestEditorSession::init()
 {
@@ -273,7 +273,7 @@ void TestEditorSession::updateActionsBehavior()
     QCOMPARE(session.trainingActions().at(0)->children().count(), 2);
     QCOMPARE(session.trainingActions().at(1)->children().count(), 2);
 
-    auto phraseA1Object = qobject_cast<TrainingAction*>(session.trainingActions().at(0)->children().first());
+    auto phraseA1Object = qobject_cast<TrainingAction *>(session.trainingActions().at(0)->children().first());
     QVERIFY(phraseA1Object != nullptr);
     QCOMPARE(phraseA1Object->text(), phraseA1->text());
 

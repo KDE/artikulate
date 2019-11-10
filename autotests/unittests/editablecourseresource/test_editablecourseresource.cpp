@@ -113,7 +113,7 @@ void TestEditableCourseResource::unitAddAndRemoveHandling()
 
 void TestEditableCourseResource::phraseAddAndRemoveHandling()
 {
-    //TODO simplify test by using empty course
+    // TODO simplify test by using empty course
 
     // boilerplate
     std::shared_ptr<ILanguage> language(new LanguageStub("de"));

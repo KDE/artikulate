@@ -25,8 +25,8 @@
 #include "iphrase.h"
 #include "trainingactionicon.h"
 #include "trainingsession.h"
-#include <QDebug>
 #include <QAbstractItemModel>
+#include <QDebug>
 #include <QObject>
 
 class DrawerTrainingActions;
@@ -41,14 +41,12 @@ class ARTIKULATECORE_EXPORT TrainingAction : public QAbstractListModel
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(bool checked READ checked NOTIFY checkedChanged)
     Q_PROPERTY(QString tooltip MEMBER m_tooltip CONSTANT)
-    Q_PROPERTY(QAbstractItemModel * children READ actionModel NOTIFY actionsChanged)
+    Q_PROPERTY(QAbstractItemModel *children READ actionModel NOTIFY actionsChanged)
     Q_PROPERTY(bool checkable MEMBER m_checkable CONSTANT)
     Q_PROPERTY(int length READ actionsCount NOTIFY actionsChanged)
 
 public:
-    enum ModelRoles {
-        ModelDataRole = Qt::UserRole + 1
-    };
+    enum ModelRoles { ModelDataRole = Qt::UserRole + 1 };
 
     TrainingAction(QObject *parent = nullptr);
     TrainingAction(const QString &text, QObject *parent = nullptr);
@@ -62,11 +60,14 @@ public:
     bool checked() const;
     QObject *icon();
     IPhrase *phrase() const;
-    QAbstractListModel * actionModel();
-    QVector<TrainingAction*> actions() const;
+    QAbstractListModel *actionModel();
+    QVector<TrainingAction *> actions() const;
     int actionsCount() const;
-    bool hasActions() { return m_actions.count() > 0; }
-    TrainingAction * action(int index) const;
+    bool hasActions()
+    {
+        return m_actions.count() > 0;
+    }
+    TrainingAction *action(int index) const;
     void appendAction(TrainingAction *action);
     void clearActions();
     QHash<int, QByteArray> roleNames() const override;

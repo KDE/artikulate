@@ -47,7 +47,6 @@ private slots:
      */
     void loadCourseResource();
 
-
     /**
      * @brief Test simple loading of course resource XML file and skip all incomplete units/phrases
      */

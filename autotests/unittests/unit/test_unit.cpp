@@ -68,18 +68,17 @@ void TestUnit::unitPropertyChanges()
 void TestUnit::addAndRemovePhrases()
 {
     auto unit = Unit::create();
-    QString unitId{"unitId"};
+    QString unitId {"unitId"};
     unit->setId(unitId);
     QVERIFY(unit);
 
     auto phraseA = Phrase::create();
-    QString phraseIdA{"phraseIdA"};
+    QString phraseIdA {"phraseIdA"};
     phraseA->setId(phraseIdA);
 
     auto phraseB = Phrase::create();
-    QString phraseIdB{"phraseIdB"};
+    QString phraseIdB {"phraseIdB"};
     phraseB->setId(phraseIdB);
-
 
     {
         QSignalSpy aboutSpy(unit.get(), &Unit::phraseAboutToBeAdded);
