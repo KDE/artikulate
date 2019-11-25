@@ -35,7 +35,6 @@ class Course;
 class Unit;
 class IPhrase;
 class QString;
-class QDomDocument;
 
 /**
  * @brief Decorator for CourseResource

@@ -29,7 +29,6 @@
 #include "resourcerepositorystub.h"
 
 #include <QDebug>
-#include <QDomDocument>
 #include <QFile>
 #include <QIODevice>
 #include <QSignalSpy>

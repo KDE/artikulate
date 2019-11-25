@@ -93,7 +93,7 @@ kconfig_add_kcfg_files (artikulateCore_SRCS settings.kcfgc)
 add_library(artikulatecore SHARED ${artikulateCore_SRCS})
 generate_export_header(artikulatecore BASE_NAME artikulatecore)
 target_link_libraries(artikulatecore
-    LINK_PUBLIC
+    PUBLIC
         artikulatelearnerprofile
         artikulatesound
         Qt5::XmlPatterns
@@ -101,6 +101,8 @@ target_link_libraries(artikulatecore
         Qt5::Quick
         KF5::Archive
         KF5::ConfigGui
+    PRIVATE
+        Qt5::Xml
 )
 # internal library without any API or ABI guarantee
 set(GENERIC_LIB_VERSION "0")
