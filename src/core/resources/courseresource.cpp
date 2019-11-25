@@ -28,7 +28,6 @@
 #include "courseparser.h"
 
 #include <QDir>
-#include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>
 #include <QQmlEngine>
