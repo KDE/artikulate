@@ -37,7 +37,7 @@ public:
     enum courseRoles { TitleRole = Qt::UserRole + 1, I18nTitleRole, DescriptionRole, IdRole, LanguageRole, DataRole };
 
     explicit CourseModel(QObject *parent = nullptr);
-    CourseModel(IResourceRepository *repository, QObject *parent = nullptr);
+    explicit CourseModel(IResourceRepository *repository, QObject *parent = nullptr);
     ~CourseModel() override = default;
     QHash<int, QByteArray> roleNames() const override;
     IResourceRepository *resourceRepository() const;

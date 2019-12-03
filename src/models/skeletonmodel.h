@@ -37,7 +37,7 @@ public:
     enum skeletonRoles { TitleRole = Qt::UserRole + 1, DescriptionRole, IdRole, DataRole };
 
     explicit SkeletonModel(QObject *parent = nullptr);
-    SkeletonModel(IEditableRepository *repository, QObject *parent = nullptr);
+    explicit SkeletonModel(IEditableRepository *repository, QObject *parent = nullptr);
     ~SkeletonModel() override = default;
     QHash<int, QByteArray> roleNames() const override;
     IEditableRepository *resourceRepository() const;

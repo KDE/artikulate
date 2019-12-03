@@ -36,7 +36,7 @@ public:
     /**
      * Default Constructor
      */
-    MainWindowEditor(ContributorRepository *repository);
+    explicit MainWindowEditor(ContributorRepository *repository);
 
     /**
      * Default Destructor

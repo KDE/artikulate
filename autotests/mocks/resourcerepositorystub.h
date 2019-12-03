@@ -36,14 +36,14 @@ class ResourceRepositoryStub : public IResourceRepository
 {
     Q_OBJECT
 public:
-    ResourceRepositoryStub(std::vector<std::unique_ptr<ILanguage>> languages)
+    explicit ResourceRepositoryStub(std::vector<std::unique_ptr<ILanguage>> languages)
     {
         for (auto &language : languages) {
             m_languages.append(std::move(language));
         }
     }
 
-    ResourceRepositoryStub(std::vector<std::shared_ptr<ILanguage>> languages)
+    explicit ResourceRepositoryStub(std::vector<std::shared_ptr<ILanguage>> languages)
     {
         for (auto &language : languages) {
             m_languages.append(language);

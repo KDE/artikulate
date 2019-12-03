@@ -39,7 +39,7 @@ class ARTIKULATECORE_EXPORT ISessionActions : public QObject
 {
     Q_OBJECT
 public:
-    ISessionActions(QObject *parent)
+    explicit ISessionActions(QObject *parent)
         : QObject(parent)
     {
     }

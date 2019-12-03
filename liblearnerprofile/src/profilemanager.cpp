@@ -184,7 +184,7 @@ Learner *ProfileManager::addProfile(const QString &name)
         setActiveProfile(learner);
     }
 
-    connect(learner, SIGNAL(goalRemoved(Learner *, LearningGoal *)), this, SLOT(removeLearningGoal(Learner *, LearningGoal *)));
+    connect(learner, &Learner::goalRemoved, this, &ProfileManager::removeLearningGoal);
 
     return learner;
 }

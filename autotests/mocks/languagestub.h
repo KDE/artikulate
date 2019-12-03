@@ -32,7 +32,7 @@ class PhonemeGroup;
 class LanguageStub : public ILanguage
 {
 public:
-    LanguageStub(QString id)
+    explicit LanguageStub(QString id)
         : m_id(id)
     {
     }

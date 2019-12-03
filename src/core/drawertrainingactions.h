@@ -34,7 +34,7 @@ class ARTIKULATECORE_EXPORT DrawerTrainingActions : public QObject
     Q_PROPERTY(QList<QObject *> actions READ actions NOTIFY actionsChanged)
 
 public:
-    DrawerTrainingActions(QObject *parent = nullptr);
+    explicit DrawerTrainingActions(QObject *parent = nullptr);
     void setSession(ISessionActions *session);
     ISessionActions *session() const;
     QList<QObject *> actions() const;

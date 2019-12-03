@@ -48,8 +48,8 @@ class ARTIKULATECORE_EXPORT TrainingAction : public QAbstractListModel
 public:
     enum ModelRoles { ModelDataRole = Qt::UserRole + 1 };
 
-    TrainingAction(QObject *parent = nullptr);
-    TrainingAction(const QString &text, QObject *parent = nullptr);
+    explicit TrainingAction(QObject *parent = nullptr);
+    explicit TrainingAction(const QString &text, QObject *parent = nullptr);
     TrainingAction(std::shared_ptr<IPhrase> phrase, ISessionActions *session, QObject *parent = nullptr);
     Q_INVOKABLE void trigger();
     bool enabled() const;
