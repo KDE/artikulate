@@ -227,7 +227,7 @@ bool TrainingSession::hasNext() const
     if (m_indexUnit < m_actions.count() - 1) {
         return true;
     }
-    if (m_actions.constLast()) {
+    if (!m_actions.isEmpty() && m_actions.constLast()) {
         if (m_indexPhrase < m_actions.constLast()->actions().count() - 1) {
             return true;
         }
