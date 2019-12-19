@@ -89,12 +89,12 @@ Kirigami.Page {
                 QQC2.Button {
                     visible: (model.status == KNS.ItemsModel.UpdateableStatus) ? true : false;
                     text: i18nc("@action:button", "Update")
-                    onClicked: newStuffModel.installItem(model.index)
+                    onClicked: newStuffModel.installItem(model.index, model.PayloadRole)
                 }
                 QQC2.Button {
                     visible: (model.status == KNS.ItemsModel.DownloadableStatus || model.status == KNS.ItemsModel.DeletedStatus) ? true : false;
                     text: i18nc("@action:button", "Install")
-                    onClicked: newStuffModel.installItem(model.index)
+                    onClicked: newStuffModel.installItem(model.index, model.PayloadRole)
                 }
                 QQC2.Button {
                     visible: (model.status == KNS.ItemsModel.InstalledStatus || model.status == KNS.ItemsModel.UpdateableStatus) ? true : false;
@@ -113,7 +113,8 @@ Kirigami.Page {
             delegate: courseDownloadItem
             model: KNS.ItemsModel {
                 id: newStuffModel;
-                engine: newStuffEngine.engine;
+                engine: newStuffEngine;
+
             }
             KNS.Engine {
                 id: newStuffEngine;
