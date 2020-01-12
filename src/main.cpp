@@ -27,6 +27,8 @@
 #include <KCrash>
 #include <KLocalizedString>
 
+#include <QCommandLineParser>
+
 int main(int argc, char **argv)
 {
     Application app(argc, argv);
@@ -56,6 +58,10 @@ int main(int argc, char **argv)
     aboutData.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
 
     KAboutData::setApplicationData(aboutData);
+    QCommandLineParser parser;
+    aboutData.setupCommandLine(&parser);
+    parser.process(app);
+    aboutData.processCommandLine(&parser);
     KCrash::initialize();
     new MainWindow();
 
