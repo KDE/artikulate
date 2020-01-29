@@ -113,7 +113,7 @@ Kirigami.Page {
             delegate: courseDownloadItem
             model: KNS.ItemsModel {
                 id: newStuffModel;
-                engine: newStuffEngine.engine;
+                engine: newStuffEngine;
             }
             KNS.Engine {
                 id: newStuffEngine;
