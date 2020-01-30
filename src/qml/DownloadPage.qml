@@ -20,7 +20,7 @@ Kirigami.Page {
 
     title: i18n("Download Training Material")
     background: Rectangle {
-        color: "#ffffff"
+        color: Kirigami.Theme.viewBackgroundColor
     }
 
     Component {
