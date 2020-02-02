@@ -1,4 +1,9 @@
 <?xml version="1.0"?>
+<!--
+  SPDX-FileCopyrightText: 2013 Oindrila Gupta <oindrila.gupta92@gmail.com>
+  SPDX-FileCopyrightText: 2013 Magdalena Konkiewicz <konkiewicz.m@gmail.com>
+  SPDX-License-Identifier: LGPL-2.1-or-later
+-->
 <language>
     <id>en_BE</id>
     <title>British English</title>

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SPDX-FileCopyrightText: 2013 Oindrila Gupta <oindrila.gupta92@gmail.com>
+  SPDX-FileCopyrightText: 2013 Rohini Lakshane
+  SPDX-License-Identifier: LGPL-2.1-or-later
+-->
 <language>
     <id>mr</id>
     <title>मराठी</title>
