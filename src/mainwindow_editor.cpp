@@ -12,8 +12,6 @@
 #include "libsound/src/outputdevicecontroller.h"
 #include "models/languagemodel.h"
 #include "settings.h"
-#include "ui/exportghnsdialog.h"
-#include "ui/sounddevicedialogpage.h"
 #include <KAboutData>
 #include <KActionCollection>
 #include <KConfigDialog>
@@ -86,24 +84,6 @@ void MainWindowEditor::setupActions()
     //    exportAction->setIcon(QIcon::fromTheme(QStringLiteral("document-export")));
 
     //    KStandardAction::quit(this, SLOT(quit()), actionCollection());
-}
-
-void MainWindowEditor::showSettingsDialog()
-{
-    if (KConfigDialog::showDialog(QStringLiteral("settings"))) {
-        return;
-    }
-    QPointer<KConfigDialog> dialog = new KConfigDialog(nullptr, QStringLiteral("settings"), Settings::self());
-
-    SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
-
-    soundDialog->loadSettings();
-
-    dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), QStringLiteral("audio-headset"), i18nc("@title:tab", "Sound Device Settings"), true);
-
-    connect(dialog.data(), &QDialog::accepted, soundDialog, &SoundDeviceDialogPage::saveSettings);
-
-    dialog->exec();
 }
 
 void MainWindowEditor::save()

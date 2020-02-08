@@ -41,7 +41,6 @@ public:
     bool queryClose();
 
 public Q_SLOTS:
-    void showSettingsDialog();
     void updateCourseResources();
     void updateTrainingPhraseFont();
     void updateKcfgUseContributorResources();

@@ -102,10 +102,6 @@ set(artikulate_SRCS
     main.cpp
     mainwindow.cpp
     artikulate_debug.cpp
-    ui/sounddevicedialogpage.cpp
-)
-ki18n_wrap_ui (artikulate_SRCS
-    ui/sounddevicedialogpage.ui
 )
 qt5_add_resources(artikulate_SRCS resources.qrc)
 qt5_add_resources(artikulate_SRCS ../data/languages.qrc)
@@ -115,12 +111,6 @@ set(artikulate_editor_SRCS
     main_editor.cpp
     mainwindow_editor.cpp
     artikulate_debug.cpp
-    ui/sounddevicedialogpage.cpp
-    ui/exportghnsdialog.cpp
-)
-ki18n_wrap_ui(artikulate_editor_SRCS
-    ui/exportghnsdialog.ui
-    ui/sounddevicedialogpage.ui
 )
 qt5_add_resources(artikulate_editor_SRCS resources.qrc)
 qt5_add_resources(artikulate_editor_SRCS ../data/languages.qrc)

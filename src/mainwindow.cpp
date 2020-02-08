@@ -16,7 +16,6 @@
 #include "libsound/src/outputdevicecontroller.h"
 #include "models/languagemodel.h"
 #include "settings.h"
-#include "ui/sounddevicedialogpage.h"
 
 #include <KAboutData>
 #include <KActionCollection>
@@ -86,39 +85,12 @@ KActionCollection *MainWindow::actionCollection()
 
 void MainWindow::setupActions()
 {
-    QAction *settingsAction = new QAction(i18nc("@item:inmenu", "Configure Artikulate"), this);
-    connect(settingsAction, &QAction::triggered, this, &MainWindow::showSettingsDialog);
-    actionCollection()->addAction(QStringLiteral("settings"), settingsAction);
-    settingsAction->setIcon(QIcon::fromTheme(QStringLiteral("configure")));
-
     QAction *configLearnerProfileAction = new QAction(i18nc("@item:inmenu", "Learner Profile"), this);
     connect(configLearnerProfileAction, &QAction::triggered, this, &MainWindow::configLearnerProfile);
     actionCollection()->addAction(QStringLiteral("config_learner_profile"), configLearnerProfileAction);
     configLearnerProfileAction->setIcon(QIcon::fromTheme(QStringLiteral("user-identity")));
 
     KStandardAction::quit(qApp, SLOT(quit()), actionCollection());
-}
-
-void MainWindow::showSettingsDialog()
-{
-    if (KConfigDialog::showDialog(QStringLiteral("settings"))) {
-        return;
-    }
-    QPointer<KConfigDialog> dialog = new KConfigDialog(nullptr, QStringLiteral("settings"), Settings::self());
-
-    SoundDeviceDialogPage *soundDialog = new SoundDeviceDialogPage();
-
-    soundDialog->loadSettings();
-
-    dialog->addPage(soundDialog, i18nc("@item:inmenu", "Sound Devices"), QStringLiteral("audio-headset"), i18nc("@title:tab", "Sound Device Settings"), true);
-
-    connect(dialog.data(), &QDialog::accepted, soundDialog, &SoundDeviceDialogPage::saveSettings);
-    connect(dialog.data(), &QDialog::accepted, this, &MainWindow::updateTrainingPhraseFont);
-    connect(dialog.data(), &QDialog::accepted, this, &MainWindow::updateKcfgUseContributorResources);
-    connect(dialog.data(), &QDialog::finished, soundDialog, &SoundDeviceDialogPage::stopPlaying);
-    connect(dialog.data(), &QDialog::finished, soundDialog, &SoundDeviceDialogPage::stopRecord);
-
-    dialog->exec();
 }
 
 void MainWindow::updateCourseResources()

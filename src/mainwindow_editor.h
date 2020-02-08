@@ -34,7 +34,6 @@ public:
     void setupActions();
 
 public Q_SLOTS:
-    void showSettingsDialog();
     void save();
     void quit();
 
