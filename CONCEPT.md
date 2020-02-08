@@ -1,3 +1,8 @@
+<!--
+    Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+    SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 Concept for ArtiKulate (Pronunciation Self-Teaching)
 
 Problem Statement and Goal

@@ -1,3 +1,8 @@
+<!--
+    Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+    SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 Artikulate
 ==========
 
@@ -31,7 +36,7 @@ internally inside Artikulate:
 
 # Runtime Dependencies
 
-* Breeze icons 
+* Breeze icons
 
 # Licensing
 
