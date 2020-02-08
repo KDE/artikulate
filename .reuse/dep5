@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Artikulate
+
+Files: icons/*
+Copyright: 2016 Breeze Icon Theme Developers
+License: LGPL-3.0-or-later
+
+Files: autotests/testdata/*
+Copyright: 2016 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+License: GPL-2.0-or-later
+
+Files: doc/*.png
+Copyright: 2016 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+License: CC-BY-SA-4.0

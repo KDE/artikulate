@@ -1,4 +1,9 @@
 <?xml version="1.0" ?>
+<!--
+  SPDX-FileCopyrightText: 2015 Andreas Cord-Lsandwehr <cordlandwehr@kde.org>
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
 
   <!ENTITY artikulate "Artikulate">
