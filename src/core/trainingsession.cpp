@@ -186,14 +186,20 @@ void TrainingSession::selectNextPhrase()
         action->setChecked(false);
     }
     // try to find next phrase, otherwise return completed
+    // 1. case: last phrase in unit
     if (m_indexPhrase >= m_actions.at(m_indexUnit)->actions().count() - 1) {
+        // close current unit
+        emit closeUnit();
         qDebug() << "switching to next unit";
         if (m_indexUnit >= m_actions.count() - 1) {
             emit completed();
         } else {
             ++m_indexUnit;
             m_indexPhrase = 0;
+            // currently there is no way to automatically enter a submenu, at least inform user about new unit
+            m_actions.at(m_indexUnit)->setChecked(true);
         }
+    // 2. case: next phrase inside current unit
     } else {
         ++m_indexPhrase;
     }

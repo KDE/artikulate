@@ -64,6 +64,7 @@ Q_SIGNALS:
      * @brief Emitted when last phrase of session is skipped or marked as completed.
      */
     void completed();
+    void closeUnit();
 
 private:
     Q_DISABLE_COPY(TrainingSession)

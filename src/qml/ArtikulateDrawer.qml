@@ -55,6 +55,12 @@ Kirigami.GlobalDrawer {
             root.pageStack.push(trainingPageComponent);
         }
     }
+    Connections {
+        target: g_trainingSession
+        onCloseUnit: {
+            root.resetMenu()
+        }
+    }
 
 //TODO integrate again
 //     [
