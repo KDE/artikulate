@@ -29,7 +29,7 @@ int main(int argc, char **argv)
                          ARTIKULATE_VERSION_STRING,
                          i18nc("@title KAboutData: short program description", "Artikulate Pronunciation Trainer"),
                          KAboutLicense::GPL_V2,
-                         i18nc("@info:credit", "(c) 2013-2019 The Artikulate Developers"),
+                         i18nc("@info:credit", "(c) 2013-2020 The Artikulate Developers"),
                          i18nc("@title Short program description", "Train your pronunciation in a foreign language."));
     aboutData.setProgramLogo(app.windowIcon());
 
