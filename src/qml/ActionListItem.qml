@@ -5,7 +5,7 @@
  */
 
 import QtQuick 2.5
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.5
 import org.kde.kirigami 2.7 as Kirigami
 
 Kirigami.BasicListItem
@@ -24,6 +24,10 @@ Kirigami.BasicListItem
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.MenuItem
     Kirigami.MnemonicData.label: action.text
     label: Kirigami.MnemonicData.richTextLabel
+
+    readonly property var tooltip: ToolTip {
+        text: action.shortcut ? action.shortcut : p0.nativeText
+    }
 
     readonly property var p0: Shortcut {
         sequence: item.Kirigami.MnemonicData.sequence
