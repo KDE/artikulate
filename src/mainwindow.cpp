@@ -7,24 +7,14 @@
 #include "mainwindow.h"
 #include "application.h"
 #include "artikulate_debug.h"
-#include "core/editorsession.h"
-#include "core/resourcerepository.h"
-#include "core/resources/courseresource.h"
 #include "core/trainingsession.h"
-#include "liblearnerprofile/src/learner.h"
 #include "liblearnerprofile/src/profilemanager.h"
 #include "libsound/src/outputdevicecontroller.h"
-#include "models/languagemodel.h"
 #include "settings.h"
 #include <KAboutData>
-#include <KActionCollection>
-#include <KHelpMenu>
 #include <KLocalizedContext>
 #include <KLocalizedString>
-#include <KStandardAction>
-#include <QAction>
 #include <QIcon>
-#include <QPointer>
 #include <QQmlContext>
 #include <QStandardPaths>
 

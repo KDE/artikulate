@@ -12,7 +12,7 @@
 #include <KAboutData>
 #include <KCrash>
 #include <KLocalizedString>
-
+#include <QIcon>
 #include <QCommandLineParser>
 
 int main(int argc, char **argv)
