@@ -23,7 +23,6 @@ Kirigami.ScrollablePage {
 
         delegate: Kirigami.AbstractCard {
             contentItem: Item {
-                implicitWidth: delegateLayout.implicitWidth
                 implicitHeight: delegateLayout.implicitHeight
                 GridLayout {
                     id: delegateLayout
