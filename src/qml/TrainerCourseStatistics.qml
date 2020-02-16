@@ -32,8 +32,9 @@ Item {
     Rectangle {
         id: backgroundRect
         anchors.fill: parent
+        color: Kirigami.Theme.backgroundColor
+        Kirigami.Theme.colorSet: Kirigami.Theme.View
         z: -1
-        color: "#ffffff"
     }
 
     Text {

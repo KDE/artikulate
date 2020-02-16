@@ -18,7 +18,8 @@ Kirigami.Page {
     readonly property color colorAnswer: "#7e48a5"
 
     background: Rectangle {
-        color: "#ffffff"
+        color: Kirigami.Theme.backgroundColor
+        Kirigami.Theme.colorSet: Kirigami.Theme.View
     }
 
     title: {
