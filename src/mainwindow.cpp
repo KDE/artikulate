@@ -31,8 +31,8 @@
 using namespace LearnerProfile;
 
 MainWindow::MainWindow()
-    : m_profileManager(new LearnerProfile::ProfileManager(this))
-    , m_trainingSession(new TrainingSession(m_profileManager, this))
+    : m_profileManager(this)
+    , m_trainingSession(&m_profileManager, this)
 {
     rootContext()->setContextObject(new KLocalizedContext(this));
 
@@ -40,16 +40,16 @@ MainWindow::MainWindow()
     OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
 
     // set view
-    rootContext()->setContextProperty(QStringLiteral("g_trainingSession"), m_trainingSession);
-    rootContext()->setContextProperty(QStringLiteral("g_profileManager"), m_profileManager);
+    rootContext()->setContextProperty(QStringLiteral("g_trainingSession"), &m_trainingSession);
+    rootContext()->setContextProperty(QStringLiteral("g_profileManager"), &m_profileManager);
     rootContext()->setContextProperty(QStringLiteral("g_artikulateAboutData"), QVariant::fromValue(KAboutData::applicationData()));
 
     // set starting screen
     load(QUrl(QStringLiteral("qrc:/artikulate/qml/Main.qml")));
 
     // create training profile if none exists:
-    if (!m_profileManager->activeProfile()) {
-        m_profileManager->addProfile(i18n("Unnamed Identity"));
+    if (!m_profileManager.activeProfile()) {
+        m_profileManager.addProfile(i18n("Unnamed Identity"));
     }
 
     // connect to QML signals;
@@ -60,7 +60,7 @@ MainWindow::~MainWindow()
 {
     // save current settings for case of closing
     Settings::self()->save();
-    m_profileManager->sync();
+    m_profileManager.sync();
 }
 
 void MainWindow::updateCourseResources()

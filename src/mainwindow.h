@@ -8,16 +8,9 @@
 #define MAINWINDOW_H
 
 #include "core/resourcerepository.h"
-#include <KActionCollection>
+#include "core/trainingsession.h"
+#include "liblearnerprofile/src/profilemanager.h"
 #include <QQmlApplicationEngine>
-
-class TrainingSession;
-class KHelpMenu;
-
-namespace LearnerProfile
-{
-class ProfileManager;
-}
 
 class MainWindow : public QQmlApplicationEngine
 {
@@ -45,8 +38,8 @@ public Q_SLOTS:
     void configLearnerProfile();
 
 private:
-    LearnerProfile::ProfileManager *m_profileManager;
-    TrainingSession *m_trainingSession;
+    LearnerProfile::ProfileManager m_profileManager;
+    TrainingSession m_trainingSession;
 };
 
 #endif
