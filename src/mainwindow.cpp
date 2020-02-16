@@ -16,16 +16,12 @@
 #include "libsound/src/outputdevicecontroller.h"
 #include "models/languagemodel.h"
 #include "settings.h"
-
 #include <KAboutData>
 #include <KActionCollection>
-#include <KConfigDialog>
 #include <KHelpMenu>
 #include <KLocalizedContext>
 #include <KLocalizedString>
-#include <KNS3/DownloadDialog>
 #include <KStandardAction>
-
 #include <QAction>
 #include <QIcon>
 #include <QPointer>
@@ -35,17 +31,13 @@
 using namespace LearnerProfile;
 
 MainWindow::MainWindow()
-    : m_actionCollection(new KActionCollection(this, QStringLiteral("artikulate")))
-    , m_profileManager(new LearnerProfile::ProfileManager(this))
+    : m_profileManager(new LearnerProfile::ProfileManager(this))
     , m_trainingSession(new TrainingSession(m_profileManager, this))
 {
     rootContext()->setContextObject(new KLocalizedContext(this));
 
     // load saved sound settings
     OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
-
-    // create menu
-    setupActions();
 
     // set view
     rootContext()->setContextProperty(QStringLiteral("g_trainingSession"), m_trainingSession);
@@ -62,13 +54,6 @@ MainWindow::MainWindow()
 
     // connect to QML signals;
     connect(rootObjects().constFirst(), SIGNAL(ghnsCourseDataStatusChanged()), this, SLOT(updateCourseResources()));
-    connect(rootObjects().constFirst(), SIGNAL(triggerAction(QString)), this, SLOT(triggerAction(QString)));
-
-    // set font for the phrase in trainer to default from kcfg file
-    QObject *phraseText = rootObjects().constFirst()->findChild<QObject *>(QStringLiteral("phraseText"));
-    if (phraseText) {
-        phraseText->setProperty("font", Settings::trainingPhraseFont());
-    }
 }
 
 MainWindow::~MainWindow()
@@ -78,34 +63,9 @@ MainWindow::~MainWindow()
     m_profileManager->sync();
 }
 
-KActionCollection *MainWindow::actionCollection()
-{
-    return m_actionCollection;
-}
-
-void MainWindow::setupActions()
-{
-    QAction *configLearnerProfileAction = new QAction(i18nc("@item:inmenu", "Learner Profile"), this);
-    connect(configLearnerProfileAction, &QAction::triggered, this, &MainWindow::configLearnerProfile);
-    actionCollection()->addAction(QStringLiteral("config_learner_profile"), configLearnerProfileAction);
-    configLearnerProfileAction->setIcon(QIcon::fromTheme(QStringLiteral("user-identity")));
-
-    KStandardAction::quit(qApp, SLOT(quit()), actionCollection());
-}
-
 void MainWindow::updateCourseResources()
 {
     artikulateApp->resourceRepository()->reloadCourses();
-}
-
-void MainWindow::updateTrainingPhraseFont()
-{
-    QObject *phraseText = rootObjects().constFirst()->findChild<QObject *>(QStringLiteral("phraseText"));
-    if (!phraseText) {
-        qCDebug(ARTIKULATE_LOG) << "no phraseText context object found, aborting";
-        return;
-    }
-    phraseText->setProperty("font", Settings::trainingPhraseFont());
 }
 
 void MainWindow::updateKcfgUseContributorResources()
@@ -116,22 +76,6 @@ void MainWindow::updateKcfgUseContributorResources()
 void MainWindow::configLearnerProfile()
 {
     qCritical() << "Not implemented"; // FIXME
-}
-
-void MainWindow::triggerAction(const QString &actionName)
-{
-    QAction *action = actionCollection()->action(actionName);
-    if (action) {
-        action->trigger();
-    } else {
-        qCritical() << "Action is not registered:" << actionName;
-    }
-}
-
-void MainWindow::switchMenuBarVisibility()
-{
-    Settings::setShowMenuBar(!Settings::showMenuBar());
-    rootContext()->setContextProperty(QStringLiteral("kcfg_ShowMenuBar"), Settings::showMenuBar());
 }
 
 bool MainWindow::queryClose()

@@ -36,21 +36,15 @@ public:
 
     const IResourceRepository *resourceRepository() const;
 
-    KActionCollection *actionCollection();
     void setupActions();
     bool queryClose();
 
 public Q_SLOTS:
     void updateCourseResources();
-    void updateTrainingPhraseFont();
     void updateKcfgUseContributorResources();
     void configLearnerProfile();
-    void switchMenuBarVisibility();
-    void triggerAction(const QString &);
 
 private:
-    KActionCollection *m_actionCollection;
-    KHelpMenu *m_helpMenu;
     LearnerProfile::ProfileManager *m_profileManager;
     TrainingSession *m_trainingSession;
 };
