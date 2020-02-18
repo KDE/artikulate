@@ -70,7 +70,11 @@ LearningGoalModel::LearningGoalModel(QObject *parent)
     : QAbstractListModel(parent)
     , d(new LearningGoalModelPrivate)
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     connect(d->m_signalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &LearningGoalModel::emitLearningGoalChanged);
+#else
+    connect(d->m_signalMapper, &QSignalMapper::mappedInt, this, &LearningGoalModel::emitLearningGoalChanged);
+#endif
 }
 
 LearningGoalModel::~LearningGoalModel()

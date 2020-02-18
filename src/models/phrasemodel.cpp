@@ -19,8 +19,16 @@ PhraseModel::PhraseModel(QObject *parent)
     , m_unitSignalMapper(new QSignalMapper)
     , m_phraseSignalMapper(new QSignalMapper)
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     connect(m_unitSignalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &PhraseModel::onUnitChanged);
+#else
+    connect(m_unitSignalMapper, &QSignalMapper::mappedInt, this, &PhraseModel::onUnitChanged);
+#endif
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     connect(m_phraseSignalMapper, static_cast<void (QSignalMapper::*)(QObject *)>(&QSignalMapper::mapped), this, &PhraseModel::onPhraseChanged);
+#else
+    connect(m_phraseSignalMapper, &QSignalMapper::mappedObject, this, &PhraseModel::onPhraseChanged);
+#endif
 }
 
 QHash<int, QByteArray> PhraseModel::roleNames() const
