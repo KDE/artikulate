@@ -103,9 +103,9 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="x-test">xxArtikulate is a pronunciation trainer that helps improving and perfecting a learner's pronunciation skills for a foreign language. It provides courses with native speaker recordings for several training languages. The learner downloads those courses, selects a category of phrases to train, then starts with recording her/his own voice when speaking the phrases and comparing the results to the native speaker's recordings by listening to both. By adjusting and repeating the own pronunciation, the learner can improve his/her skill.xx</p>
     <p xml:lang="zh-TW">Artikulate 可以協助改進學生學習的外國語發音。它提供以該語言為母語的人的發音錄音課程。學生只要下載這些課程，選擇要練習的類別或片語，然後開始錄自己的發音，並跟母語發音做比較。只要不斷重複並調整自己的發音，就可以進步。</p>
   </description>
-  <url type="homepage">http://edu.kde.org/artikulate/</url>
+  <url type="homepage">https://edu.kde.org/artikulate/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=artikulate</url>
-  <url type="help">http://docs.kde.org/stable/en/kdeedu/artikulate/index.html</url>
+  <url type="help">https://docs.kde.org/?application=artikulate</url>
   <url type="donation">https://www.kde.org/community/donations/?app=artikulate&amp;source=appdata</url>
   <screenshots>
     <screenshot type="default">
