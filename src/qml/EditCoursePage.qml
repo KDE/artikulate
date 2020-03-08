@@ -11,9 +11,14 @@ import QtQml.Models 2.2
 import org.kde.kirigami 2.7 as Kirigami
 import artikulate 1.0
 
-Kirigami.ScrollablePage {
+Kirigami.Page {
     id: root
     title: i18n("Edit Course")
+
+    background: Rectangle {
+        color: Kirigami.Theme.backgroundColor
+        Kirigami.Theme.colorSet: Kirigami.Theme.View
+    }
 
     actions {
         left: Kirigami.Action {

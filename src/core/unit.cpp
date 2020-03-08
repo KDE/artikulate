@@ -105,6 +105,20 @@ void Unit::setTitle(const QString &title)
     }
 }
 
+QString Unit::i18nTitle() const
+{
+    return m_i18nTitle;
+}
+
+void Unit::setI18nTitle(const QString &title)
+{
+    if (QString::compare(title, m_i18nTitle) != 0) {
+        m_i18nTitle = title;
+        emit titleChanged();
+        emit modified();
+    }
+}
+
 QVector<std::shared_ptr<IPhrase>> Unit::phrases() const
 {
     return m_phrases;

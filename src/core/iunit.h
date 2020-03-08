@@ -23,6 +23,7 @@ class ARTIKULATECORE_EXPORT IUnit : public QObject
     Q_OBJECT
     Q_PROPERTY(QString id READ id NOTIFY idChanged)
     Q_PROPERTY(QString title READ title NOTIFY titleChanged)
+    Q_PROPERTY(QString i18nTitle READ i18nTitle NOTIFY titleChanged)
 
 public:
     virtual ~IUnit() = default;
@@ -30,6 +31,7 @@ public:
     virtual QString foreignId() const = 0;
     virtual std::shared_ptr<ICourse> course() const = 0;
     virtual QString title() const = 0;
+    virtual QString i18nTitle() const = 0;
     virtual QVector<std::shared_ptr<IPhrase>> phrases() const = 0;
     virtual std::shared_ptr<IUnit> self() const = 0;
 

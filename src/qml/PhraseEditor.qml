@@ -7,6 +7,7 @@
 import QtQuick 2.10
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.2
+import org.kde.kirigami 2.7 as Kirigami
 import artikulate 1.0
 
 Item {
@@ -34,45 +35,10 @@ Item {
                     textEdit.height + phraseTypeSetter.height;
                 }
             }
-            ColumnLayout {
+            Column {
                 id: textEdit
-                height: inputLine.height + originalPhraseInfo.height
                 width: parent.width
                 spacing: 5
-
-                Row {
-                    id: originalPhraseInfo
-                    property string originalPhrase : (root.phrase != null) ? root.phrase.i18nText : ""
-                    spacing: 10
-                    visible: { root.phrase != null && originalPhrase != "" && !root.isSkeletonPhrase}
-                    Text {
-                        text: i18n("Original Phrase:") + " " + originalPhraseInfo.originalPhrase
-                        width: root.width - 70
-                        wrapMode: Text.WordWrap
-                    }
-                }
-                RowLayout { // controls for setting phrase
-                    id: inputLine
-                    TextArea {
-                        id: phraseInput
-                        property Phrase phrase: root.phrase
-                        Layout.fillWidth: true
-                        Layout.maximumHeight: 100
-                        text: root.phrase.text
-                        onTextChanged: {
-                            if (root.phrase == null) {
-                                return
-                            }
-                            root.phrase.text = text
-                        }
-                        onPhraseChanged: {
-                            if (root.phrase != null)
-                                text = root.phrase.text
-                            else
-                                text = ""
-                        }
-                    }
-                }
 
                 PhraseEditorTypeComponent {
                     id: phraseTypeSetter
@@ -135,15 +101,37 @@ Item {
     ColumnLayout {
         id: phraseRow
 
-        Row {
-            Text {
-                text: i18n("Unit Title:")
+        Kirigami.FormLayout {
+            Kirigami.Separator {
+                Kirigami.FormData.label: g_editorSession.unit.i18nTitle === "" ? "Unit" : i18n("Unit: ") + g_editorSession.unit.i18nTitle
+                Kirigami.FormData.isSection: true
             }
             TextField {
-                width: 300
+                id: i18nUnit
+                Kirigami.FormData.label: i18n("Localized Unit:")
                 text: g_editorSession.unit.title
                 onEditingFinished: {
                     g_editorSession.unit.title = text
+                }
+                Connections {
+                    target: root
+                    onPhraseChanged: i18nUnit.text = Qt.binding(function() { return g_editorSession.unit.title })
+                }
+            }
+            Kirigami.Separator {
+                Kirigami.FormData.label: i18n("Phrase: ") + root.phrase.i18nText
+                Kirigami.FormData.isSection: true
+            }
+            TextField {
+                id: i18nPhrase
+                Kirigami.FormData.label: i18n("Localized Phrase:")
+                text: root.phrase.text
+                onEditingFinished: {
+                    root.phrase.text = text
+                }
+                Connections {
+                    target: root
+                    onPhraseChanged: i18nPhrase.text = Qt.binding(function() { return root.phrase.i18nText })
                 }
             }
         }

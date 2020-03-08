@@ -37,6 +37,8 @@ public:
     void setCourse(std::shared_ptr<ICourse> course) override;
     QString title() const override;
     void setTitle(const QString &title) override;
+    QString i18nTitle() const override;
+    void setI18nTitle(const QString &title) override;
     QVector<std::shared_ptr<IPhrase>> phrases() const override;
     void addPhrase(std::shared_ptr<IEditablePhrase> phrase, int index) override;
     void removePhrase(std::shared_ptr<IPhrase> phrase) override;
@@ -54,6 +56,7 @@ private:
     QString m_foreignId;
     std::weak_ptr<ICourse> m_course;
     QString m_title;
+    QString m_i18nTitle;
     QVector<std::shared_ptr<IPhrase>> m_phrases;
 };
 
