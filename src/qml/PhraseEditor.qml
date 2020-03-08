@@ -103,7 +103,7 @@ Item {
 
         Kirigami.FormLayout {
             Kirigami.Separator {
-                Kirigami.FormData.label: g_editorSession.unit.i18nTitle === "" ? "Unit" : i18n("Unit: ") + g_editorSession.unit.i18nTitle
+                Kirigami.FormData.label: g_editorSession.unit.i18nTitle === "" ? i18n("Unit") : i18n("Unit: ") + g_editorSession.unit.i18nTitle
                 Kirigami.FormData.isSection: true
             }
             TextField {
