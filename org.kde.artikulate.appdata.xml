@@ -24,6 +24,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="fr">Artikulate</name>
   <name xml:lang="gl">Artikulate</name>
   <name xml:lang="hu">Artikulate</name>
+  <name xml:lang="ia">Artikulate</name>
   <name xml:lang="id">Artikulate</name>
   <name xml:lang="it">Artikulate</name>
   <name xml:lang="ko">Artikulate</name>
@@ -58,6 +59,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="fr">Artikulate, entraînement à la prononciation</summary>
   <summary xml:lang="gl">Adestrador de pronuncia Artikulate</summary>
   <summary xml:lang="hu">Artikulate kiejtés oktató</summary>
+  <summary xml:lang="ia">Instructor de pronunciation Artikulate</summary>
   <summary xml:lang="id">Pelatih Pengucapan Artikulasi</summary>
   <summary xml:lang="it">Allenatore di pronuncia Artikulate</summary>
   <summary xml:lang="ko">Artikulate 발음 타이머</summary>
@@ -124,6 +126,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="et">Harjutamine Artikulates</caption>
       <caption xml:lang="fr">Séance d'entraînement sur Artikulate</caption>
       <caption xml:lang="gl">Adestrando en Artikulate</caption>
+      <caption xml:lang="ia">Instruer in Artikulate</caption>
       <caption xml:lang="id">Berlatih di Artikulate</caption>
       <caption xml:lang="nl">Oefening in Artikulate</caption>
       <caption xml:lang="nn">Øving i Artikulate</caption>
