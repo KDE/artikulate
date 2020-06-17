@@ -28,7 +28,6 @@
         "Description[sv]": "Ljudgränssnitt för QtMultimedia.",
         "Description[tr]": "QtMultimedia için ses arka yüzü.",
         "Description[uk]": "Звуковий модуль для QtMultimedia.",
-        "Description[x-test]": "xxSound backend for QtMultimedia.xx",
         "Description[zh_CN]": "QtMultimedia 声音后端",
         "Description[zh_TW]": "QtMultimedia 音效後端介面。",
         "Id": "artikulate_qtmultimedia_backend",
@@ -59,7 +58,6 @@
         "Name[sv]": "QtMultimedia-gränssnitt",
         "Name[tr]": "QtMultimedia Arka Yüzü",
         "Name[uk]": "Модуль QtMultimedia",
-        "Name[x-test]": "xxQtMultimedia Backendxx",
         "Name[zh_CN]": "QtMultimedia 后端",
         "Name[zh_TW]": "QtMultimedia 後端介面",
         "ServiceTypes": [
