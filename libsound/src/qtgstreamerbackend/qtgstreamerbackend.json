@@ -28,6 +28,7 @@
         "Description[sv]": "Ljudgränssnitt för Gstreamer.",
         "Description[tr]": "GStreamer için ses arka yüzü.",
         "Description[uk]": "Звуковий модуль для GStreamer.",
+        "Description[x-test]": "xxSound backend for GStreamer.xx",
         "Description[zh_CN]": "GStreamer 声音后端",
         "Description[zh_TW]": "GStreamer 音效後端介面。",
         "Id": "artikulate_gstreamer_backend",
@@ -58,6 +59,7 @@
         "Name[sv]": "Gstreamer-gränssnitt",
         "Name[tr]": "GStreamer Arka Yüzü",
         "Name[uk]": "Модуль GStreamer",
+        "Name[x-test]": "xxGStreamer Backendxx",
         "Name[zh_CN]": "GStreamer 后端",
         "Name[zh_TW]": "GStreamer 後端介面",
         "ServiceTypes": [
