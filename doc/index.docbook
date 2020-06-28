@@ -476,32 +476,6 @@ This button is deactivated if the course is not derived from a course skeleton.
 
 </chapter>
 
-<appendix id="installation">
-<title>Installation</title>
-
-<sect1 id="getting-artikulate">
-<title>How to obtain &artikulate;</title>
-
-&install.intro.documentation;
-
-</sect1>
-
-<sect1 id="compilation">
-<title>Compilation and installation</title>
-
-&install.compile.documentation;
-
-<sect2 id="compilation-details">
-<title>&artikulate; Specific Instructions</title>
-<para>
-Further guidelines on how to compile &artikulate; are available in
-<ulink url="http://techbase.kde.org/Projects/Edu/Artikulate"><citetitle>&artikulate;'s technical documentation</citetitle></ulink> at the &kde; TechBase.
-</para>
-</sect2>
-
-</sect1>
-</appendix>
-
 &documentation.index;
 </book>
 <!--
