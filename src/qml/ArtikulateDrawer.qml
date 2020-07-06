@@ -134,11 +134,12 @@ Kirigami.GlobalDrawer {
         }
         ActionListItem {
             action: Kirigami.Action {
-                text: i18n("About")
+                text: i18n("About Artikulate")
                 iconName: "help-about"
                 onTriggered: {
-                    root.pageStack.pop();
-                    root.pageStack.push(aboutPageComponent);
+                    if (root.pageStack.layers.depth < 2) {
+                        root.pageStack.layers.push(aboutPageComponent)
+                    }
                 }
             }
         }
