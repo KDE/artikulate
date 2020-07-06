@@ -10,7 +10,7 @@ import QtQuick.Controls 2.1 as QQC2
 import org.kde.kirigami 2.7 as Kirigami
 import org.kde.newstuff 1.0 as KNS
 
-Kirigami.Page {
+Kirigami.ScrollablePage {
     id: root
 
     /**
@@ -19,11 +19,6 @@ Kirigami.Page {
     signal statusChanged();
 
     title: i18n("Download Training Material")
-    background: Rectangle {
-        color: Kirigami.Theme.backgroundColor
-        Kirigami.Theme.colorSet: Kirigami.Theme.View
-//        Kirigami.Theme.inherit: false
-    }
 
     Component {
         id: courseDownloadItem
@@ -93,25 +88,21 @@ Kirigami.Page {
         }
     }
 
-    ColumnLayout {
-        ListView {
-            id: listView
-            width: root.width - 40
-            height: 50 * listView.count
-            delegate: courseDownloadItem
-            model: KNS.ItemsModel {
-                id: newStuffModel;
-                engine: newStuffEngine;
+    ListView {
+        id: listView
+        delegate: courseDownloadItem
+        model: KNS.ItemsModel {
+            id: newStuffModel;
+            engine: newStuffEngine;
 
-            }
-            KNS.Engine {
-                id: newStuffEngine;
-                configFile: ":/artikulate/config/artikulate.knsrc";
-                onMessage: console.log("KNS Message: " + message);
-                onIdleMessage: console.log("KNS Idle: " + message);
-                onBusyMessage: console.log("KNS Busy: " + message);
-                onErrorMessage: console.log("KNS Error: " + message);
-           }
-       }
-   }
+        }
+        KNS.Engine {
+            id: newStuffEngine;
+            configFile: ":/artikulate/config/artikulate.knsrc";
+            onMessage: console.log("KNS Message: " + message);
+            onIdleMessage: console.log("KNS Idle: " + message);
+            onBusyMessage: console.log("KNS Busy: " + message);
+            onErrorMessage: console.log("KNS Error: " + message);
+        }
+    }
 }
