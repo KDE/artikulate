@@ -1,6 +1,6 @@
 /*
- *   Copyright 2011 Marco Martin <mart@kde.org>
- *   Copyright 2014 Aleix Pol Gonzalez <aleixpol@blue-systems.com>
+ *   SPDX-FileCopyrightText: 2011 Marco Martin <mart@kde.org>
+ *   SPDX-FileCopyrightText: 2014 Aleix Pol Gonzalez <aleixpol@blue-systems.com>
  *
  *   SPDX-License-Identifier: LGPL-2.0-or-later
  */

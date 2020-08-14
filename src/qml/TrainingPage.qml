@@ -1,6 +1,6 @@
 /*
- *  Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
- *  Copyright 2013       Magdalena Konkiewicz <konkiewicz.m@gmail.com>
+ *  SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  SPDX-FileCopyrightText: 2013 Magdalena Konkiewicz <konkiewicz.m@gmail.com>
  *
  *  SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
  */

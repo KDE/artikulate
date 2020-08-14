@@ -1,4 +1,4 @@
-# Copyright 2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+# SPDX-FileCopyrightText: 2016 Andreas Cord-Landwehr <cordlandwehr@kde.org>
 # SPDX-License-Identifier: BSD-2-Clause
 
 find_package(Qt5GStreamer 1.2.0 REQUIRED)

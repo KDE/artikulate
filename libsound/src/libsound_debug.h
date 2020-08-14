@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+ *  SPDX-FileCopyrightText: 2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
  *
  *  SPDX-License-Identifier: LGPL-2.1-or-later
  */

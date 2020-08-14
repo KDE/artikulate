@@ -1,4 +1,4 @@
-# Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+# SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
 # SPDX-License-Identifier: BSD-2-Clause
 
 ecm_setup_version(1.0.0
