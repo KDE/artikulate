@@ -95,7 +95,7 @@ install(
     LIBRARY NAMELINK_SKIP
     DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS}
 )
-install(FILES artikulate.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR})
+install(FILES artikulate.knsrc DESTINATION ${KDE_INSTALL_KNSRCDIR})
 
 # set the source code files from which Artikulate is compiled
 set(artikulate_SRCS
