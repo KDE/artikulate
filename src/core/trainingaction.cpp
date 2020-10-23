@@ -6,8 +6,6 @@
 
 #include "trainingaction.h"
 #include "drawertrainingactions.h"
-#include "trainingactionicon.h"
-#include "trainingsession.h"
 #include <QQmlEngine>
 
 TrainingAction::TrainingAction(QObject *parent)

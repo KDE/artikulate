@@ -19,7 +19,6 @@
 #include <QQmlEngine>
 #include <QXmlSchema>
 #include <QXmlStreamReader>
-#include <memory>
 
 #include "artikulate_debug.h"
 

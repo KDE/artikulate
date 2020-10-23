@@ -5,7 +5,6 @@
  */
 
 #include "test_iresourcerepository.h"
-#include <QObject>
 #include <QSignalSpy>
 #include <QTest>
 

@@ -10,7 +10,6 @@
 
 #include <QMap>
 #include <QQmlEngine>
-#include <QStringList>
 #include <QUuid>
 
 #include "artikulate_debug.h"

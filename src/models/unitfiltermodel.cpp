@@ -7,7 +7,6 @@
 #include "unitfiltermodel.h"
 #include "models/unitmodel.h"
 
-#include <QSortFilterProxyModel>
 
 #include "artikulate_debug.h"
 #include <KLocalizedString>

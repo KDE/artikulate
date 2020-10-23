@@ -9,7 +9,6 @@
 
 #include "artikulate_debug.h"
 #include <KLocalizedString>
-#include <QSortFilterProxyModel>
 
 LanguageModel::LanguageModel(QObject *parent)
     : QSortFilterProxyModel(parent)

@@ -11,7 +11,6 @@
 
 #include "artikulate_debug.h"
 #include <KLocalizedString>
-#include <QAbstractListModel>
 #include <QSignalMapper>
 
 LanguageResourceModel::LanguageResourceModel(QObject *parent)

@@ -6,7 +6,6 @@
 
 #include "learner.h"
 #include "learner_p.h"
-#include "learninggoal.h"
 #include "liblearner_debug.h"
 #include <QDir>
 #include <QFileInfo>

@@ -8,7 +8,6 @@
 
 #include "libsound_debug.h"
 
-#include <QAudioRecorder>
 #include <QUrl>
 
 #include <KLocalizedString>

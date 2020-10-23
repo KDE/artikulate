@@ -8,7 +8,6 @@
 #include "artikulate_debug.h"
 #include "core/trainingsession.h"
 #include <KLocalizedString>
-#include <QAbstractTableModel>
 
 LearningProgressModel::LearningProgressModel(QObject *parent)
     : QAbstractTableModel(parent)

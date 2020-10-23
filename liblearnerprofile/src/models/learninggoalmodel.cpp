@@ -9,7 +9,6 @@
 #include "profilemanager.h"
 
 #include <QAbstractItemModel>
-#include <QAbstractListModel>
 #include <QSignalMapper>
 
 #include "liblearner_debug.h"

@@ -10,7 +10,6 @@
 
 #include "artikulate_debug.h"
 #include <KLocalizedString>
-#include <QAbstractListModel>
 #include <QSignalMapper>
 
 using namespace LearnerProfile;

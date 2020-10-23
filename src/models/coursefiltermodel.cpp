@@ -9,7 +9,6 @@
 #include "artikulate_debug.h"
 #include "models/coursemodel.h"
 #include <KLocalizedString>
-#include <QSortFilterProxyModel>
 #include <QVariant>
 
 CourseFilterModel::CourseFilterModel(QObject *parent)

@@ -10,7 +10,6 @@
 #include "artikulate_debug.h"
 #include <QList>
 #include <QString>
-#include <QUrl>
 
 Player::Player(QObject *parent)
     : QObject(parent)

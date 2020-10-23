@@ -7,8 +7,6 @@
 #include "mainwindow.h"
 #include "application.h"
 #include "artikulate_debug.h"
-#include "core/trainingsession.h"
-#include "liblearnerprofile/src/profilemanager.h"
 #include "libsound/src/outputdevicecontroller.h"
 #include "settings.h"
 #include <KAboutData>

@@ -17,7 +17,6 @@
 #include <QGst/Init>
 #include <QGst/Message>
 #include <QGst/Pad>
-#include <QGst/Pipeline>
 
 QtGStreamerCaptureBackend::QtGStreamerCaptureBackend()
 {

@@ -8,7 +8,6 @@
 #include "phrasefiltermodel.h"
 #include "models/phraselistmodel.h"
 
-#include <QSortFilterProxyModel>
 
 #include "artikulate_debug.h"
 #include <KLocalizedString>

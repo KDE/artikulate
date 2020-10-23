@@ -9,7 +9,6 @@
 #include "learninggoal.h"
 #include "storage.h"
 
-#include <QTemporaryFile>
 #include <QTest>
 
 using namespace LearnerProfile;

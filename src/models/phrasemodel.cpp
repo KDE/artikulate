@@ -7,10 +7,8 @@
 #include "phrasemodel.h"
 #include "artikulate_debug.h"
 #include "core/icourse.h"
-#include "core/phrase.h"
 #include "core/unit.h"
 #include <KLocalizedString>
-#include <QAbstractItemModel>
 #include <QSignalMapper>
 
 PhraseModel::PhraseModel(QObject *parent)

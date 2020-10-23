@@ -11,7 +11,6 @@
 #include "core/ilanguage.h"
 #include "core/iresourcerepository.h"
 #include <KLocalizedString>
-#include <QAbstractListModel>
 
 CourseModel::CourseModel(QObject *parent)
     : CourseModel(artikulateApp->resourceRepository(), parent)

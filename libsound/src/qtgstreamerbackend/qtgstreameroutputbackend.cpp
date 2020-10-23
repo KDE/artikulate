@@ -17,7 +17,6 @@
 #include <QGst/Event>
 #include <QGst/Init>
 #include <QGst/Message>
-#include <QGst/Pipeline>
 #include <QGst/Query>
 #include <QGst/StreamVolume>
 #include <QUrl>

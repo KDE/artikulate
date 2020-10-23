@@ -7,7 +7,6 @@
 #include "test_resourcerepository.h"
 #include "src/core/language.h"
 #include "src/core/resourcerepository.h"
-#include <QObject>
 #include <QSignalSpy>
 #include <QTest>
 

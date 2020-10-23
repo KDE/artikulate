@@ -14,7 +14,6 @@
 #include <KLocalizedString>
 #include <QFileDialog>
 #include <QList>
-#include <QObject>
 #include <memory>
 
 using namespace LearnerProfile;

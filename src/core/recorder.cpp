@@ -11,7 +11,6 @@
 #include <QDir>
 #include <QList>
 #include <QString>
-#include <QUrl>
 
 Recorder::Recorder(QObject *parent)
     : QObject(parent)

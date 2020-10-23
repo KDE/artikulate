@@ -7,7 +7,6 @@
 #include "contributorrepository.h"
 #include "artikulate_debug.h"
 #include "language.h"
-#include "liblearnerprofile/src/learninggoal.h"
 #include "liblearnerprofile/src/profilemanager.h"
 #include "phoneme.h"
 #include "phonemegroup.h"
@@ -20,7 +19,6 @@
 #include <QDirIterator>
 #include <QFile>
 #include <QStandardPaths>
-#include <QUrl>
 #include <QUuid>
 
 ContributorRepository::ContributorRepository()

@@ -5,10 +5,8 @@
  */
 
 #include "phraselistmodel.h"
-#include "core/phrase.h"
 #include "core/unit.h"
 #include <KLocalizedString>
-#include <QAbstractListModel>
 #include <QSignalMapper>
 
 PhraseListModel::PhraseListModel(QObject *parent)

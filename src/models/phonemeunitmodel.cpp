@@ -9,7 +9,6 @@
 #include "core/phonemegroup.h"
 #include "core/unit.h"
 
-#include <QAbstractListModel>
 #include <QSignalMapper>
 
 #include "artikulate_debug.h"

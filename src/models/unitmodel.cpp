@@ -10,7 +10,6 @@
 #include "core/phrase.h"
 #include "core/unit.h"
 
-#include <QAbstractListModel>
 #include <QSignalMapper>
 
 #include "artikulate_debug.h"

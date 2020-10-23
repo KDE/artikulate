@@ -8,7 +8,6 @@
 #include "core/language.h"
 #include "core/phoneme.h"
 
-#include <QAbstractListModel>
 #include <QSignalMapper>
 
 #include "artikulate_debug.h"

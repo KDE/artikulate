@@ -16,10 +16,8 @@
 #include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>
-#include <QObject>
 #include <QQmlEngine>
 #include <QUuid>
-#include <memory>
 
 EditableCourseResource::EditableCourseResource(const QUrl &path, IResourceRepository *repository)
     : IEditableCourse()
