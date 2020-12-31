@@ -1,9 +1,9 @@
 /*
- *  SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@gkde.org>
- *  SPDX-FileCopyrightText: 2013 Samikshan Bairagya <samikshan@gmail.com>
- *
- *  SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
- */
+    SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@gkde.org>
+    SPDX-FileCopyrightText: 2013 Samikshan Bairagya <samikshan@gmail.com>
+
+    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+*/
 
 #ifndef PHRASEFILTERMODEL_H
 #define PHRASEFILTERMODEL_H

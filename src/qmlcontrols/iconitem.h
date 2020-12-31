@@ -1,8 +1,8 @@
 /*
- *  SPDX-FileCopyrightText: 2011 Marco Martin <mart@kde.org>
- *
- *  SPDX-License-Identifier: GPL-2.0-or-later
- */
+    SPDX-FileCopyrightText: 2011 Marco Martin <mart@kde.org>
+
+    SPDX-License-Identifier: GPL-2.0-or-later
+*/
 #ifndef ICONITEM_H
 #define ICONITEM_H
 

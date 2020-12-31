@@ -1,8 +1,8 @@
 /*
- *  SPDX-FileCopyrightText: 2013-2014 Andreas Cord-Landwehr <cordlandwehr@kde.org>
- *
- *  SPDX-License-Identifier: LGPL-2.1-or-later
- */
+    SPDX-FileCopyrightText: 2013-2014 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+
+    SPDX-License-Identifier: LGPL-2.1-or-later
+*/
 
 #include "qtgstreamercapturebackend.h"
 

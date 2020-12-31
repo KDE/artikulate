@@ -1,11 +1,11 @@
 /*
- *  SPDX-FileCopyrightText: 2010 Marco Ballesio <gibrovacco@gmail.com>
- *  SPDX-FileCopyrightText: 2011 Collabora Ltd. 
- *  SPDX-FileContributor: George Kiagiadakis <george.kiagiadakis@collabora.co.uk>
- *  SPDX-FileCopyrightText: 2014 Andreas Cord-Landwehr <cordlandwehr@kde.org>
- *
- *  SPDX-License-Identifier: LGPL-2.1-or-later
- */
+    SPDX-FileCopyrightText: 2010 Marco Ballesio <gibrovacco@gmail.com>
+    SPDX-FileCopyrightText: 2011 Collabora Ltd.
+    SPDX-FileContributor: George Kiagiadakis <george.kiagiadakis@collabora.co.uk>
+    SPDX-FileCopyrightText: 2014 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+
+    SPDX-License-Identifier: LGPL-2.1-or-later
+*/
 
 #ifndef QTGSTREAMEROUTPUTBACKEND_H
 #define QTGSTREAMEROUTPUTBACKEND_H

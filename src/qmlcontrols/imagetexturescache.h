@@ -1,8 +1,8 @@
 /*
- *   SPDX-FileCopyrightText: 2014 Aleix Pol Gonzalez <aleixpol@blue-systems.com>
- *
- *   SPDX-License-Identifier: LGPL-2.0-or-later
- */
+    SPDX-FileCopyrightText: 2014 Aleix Pol Gonzalez <aleixpol@blue-systems.com>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
 
 #ifndef IMAGETEXTURESCACHE_H
 #define IMAGETEXTURESCACHE_H

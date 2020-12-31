@@ -1,6 +1,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 <!--
-  SPDX-FileCopyrightText: 2016  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+  SPDX-FileCopyrightText: 2016 Andreas Cord-Landwehr <cordlandwehr@kde.org>
   SPDX-License-Identifier: MIT
 -->
   <xs:element name="course">

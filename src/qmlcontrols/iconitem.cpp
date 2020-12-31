@@ -1,9 +1,9 @@
 /*
- *   SPDX-FileCopyrightText: 2011 Marco Martin <mart@kde.org>
- *   SPDX-FileCopyrightText: 2014 Aleix Pol Gonzalez <aleixpol@blue-systems.com>
- *
- *   SPDX-License-Identifier: LGPL-2.0-or-later
- */
+    SPDX-FileCopyrightText: 2011 Marco Martin <mart@kde.org>
+    SPDX-FileCopyrightText: 2014 Aleix Pol Gonzalez <aleixpol@blue-systems.com>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
 
 #include "iconitem.h"
 
