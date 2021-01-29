@@ -93,7 +93,7 @@ set_target_properties(
 install(
     TARGETS artikulatecore
     LIBRARY NAMELINK_SKIP
-    DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS}
+    DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS}
 )
 install(FILES artikulate.knsrc DESTINATION ${KDE_INSTALL_KNSRCDIR})
 
@@ -143,5 +143,5 @@ target_link_libraries(artikulate_editor
 )
 
 install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})
-install(TARGETS artikulate ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(TARGETS artikulate_editor ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS artikulate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS artikulate_editor ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

@@ -25,4 +25,4 @@ target_link_libraries(
         ${QTGSTREAMER_LIBRARIES}
 )
 
-install(TARGETS qtgstreamerbackend DESTINATION ${PLUGIN_INSTALL_DIR}/artikulate/libsound)
+install(TARGETS qtgstreamerbackend DESTINATION ${KDE_INSTALL_PLUGINDIR}/artikulate/libsound)

@@ -36,5 +36,5 @@ set_target_properties(
 install(
     TARGETS artikulatelearnerprofile
     LIBRARY NAMELINK_SKIP
-    ${INSTALL_TARGETS_DEFAULT_ARGS}
+    ${KDE_INSTALL_TARGETS_DEFAULT_ARGS}
 )

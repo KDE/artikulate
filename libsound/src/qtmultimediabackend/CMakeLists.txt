@@ -20,4 +20,4 @@ target_link_libraries(
         KF5::CoreAddons
 )
 
-install(TARGETS qtmultimediabackend DESTINATION ${PLUGIN_INSTALL_DIR}/artikulate/libsound)
+install(TARGETS qtmultimediabackend DESTINATION ${KDE_INSTALL_PLUGINDIR}/artikulate/libsound)

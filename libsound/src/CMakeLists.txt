@@ -34,7 +34,7 @@ set_target_properties(
 install(
     TARGETS artikulatesound
     LIBRARY NAMELINK_SKIP
-    ${INSTALL_TARGETS_DEFAULT_ARGS}
+    ${KDE_INSTALL_TARGETS_DEFAULT_ARGS}
 )
 
 if (BUILD_GSTREAMER_PLUGIN)
