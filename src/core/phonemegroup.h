@@ -49,7 +49,6 @@ Q_SIGNALS:
     void idChanged();
     void titleChanged();
     void descriptionChanged();
-    void phonemeAdded(const Phoneme &);
 
 private:
     Q_DISABLE_COPY(PhonemeGroup)

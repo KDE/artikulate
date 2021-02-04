@@ -37,9 +37,6 @@ public Q_SLOTS:
     void save();
     void quit();
 
-Q_SIGNALS:
-    void modeChanged(bool);
-
 private:
     ContributorRepository *m_repository;
     EditorSession *m_editorSession;

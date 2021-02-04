@@ -116,14 +116,6 @@ public:
     std::shared_ptr<EditableCourseResource> addCourse(const QUrl &courseFile);
 
     /**
-     * Adds course to resource manager. If the course's language is not registered, the language
-     * is registered by this method.
-     *
-     * \param resource the course resource to add to resource manager
-     */
-    std::shared_ptr<EditableCourseResource> addCourseResource(std::unique_ptr<EditableCourseResource> resource);
-
-    /**
      * Remove course from resource manager. If the course is modified its changes are NOT
      * written. For writing changes, the Course::sync() method must be called directly.
      *
@@ -158,8 +150,6 @@ public:
 Q_SIGNALS:
     void languageResourceAdded();
     void languageResourceAboutToBeAdded(std::shared_ptr<ILanguage>, int);
-    void languageResourceRemoved();
-    void languageResourceAboutToBeRemoved(int);
     void repositoryChanged();
     void skeletonAdded();
     void skeletonAboutToBeAdded(ICourse *, int);

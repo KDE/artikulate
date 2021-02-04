@@ -37,7 +37,6 @@ public:
     void play(const QUrl &filePath);
     OutputDeviceController::State state() const;
     void stop();
-    QString currentSource() const;
     void setVolume(int volume);
     int volume() const;
 
