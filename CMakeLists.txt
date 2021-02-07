@@ -62,7 +62,7 @@ ki18n_install(po)
 if (KF5DocTools_FOUND)
     kdoctools_install(po)
 endif()
-install(PROGRAMS org.kde.artikulate.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(PROGRAMS org.kde.artikulate.desktop  DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES org.kde.artikulate.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

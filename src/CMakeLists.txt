@@ -142,6 +142,6 @@ target_link_libraries(artikulate_editor
         KF5::NewStuff
 )
 
-install(FILES artikulate.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES artikulate.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 install(TARGETS artikulate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS artikulate_editor ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
