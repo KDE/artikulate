@@ -19,7 +19,6 @@
 class QString;
 class Phoneme;
 class IUnit;
-class QUrl;
 
 class ARTIKULATECORE_EXPORT Phrase : public IEditablePhrase
 {

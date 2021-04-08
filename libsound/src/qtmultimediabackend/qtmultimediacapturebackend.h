@@ -14,7 +14,6 @@
 #include <QMap>
 #include <QString>
 
-class QAudioRecorder;
 class QMediaRecorder;
 class QMediaObject;
 
