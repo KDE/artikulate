@@ -53,6 +53,8 @@ void TestLearnerStorage::testLearnerStorage()
     QCOMPARE(loadedLearner.first()->name(), tmpLearner.name());
     QCOMPARE(loadedLearner.first()->goals().size(), 1);
     QCOMPARE(loadedLearner.first()->goals().first()->identifier(), tmpGoal.identifier());
+    qDeleteAll(loadedGoals);
+    qDeleteAll(loadedLearner);
 }
 
 void TestLearnerStorage::testProgressLogStorage()
