@@ -24,3 +24,8 @@ CMakeLists.txt.user*
 # automatically generated
 .clang-format
 .cmake/
+/compile_commands.json
+.clangd
+.cache
+.idea
+/cmake-build*
