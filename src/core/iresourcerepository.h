@@ -54,7 +54,7 @@ public:
     virtual QVector<std::shared_ptr<ILanguage>> languages() const = 0;
 
 Q_SIGNALS:
-    void courseAboutToBeAdded(std::shared_ptr<ICourse>, int);
+    void courseAboutToBeAdded(std::shared_ptr<ICourse>, int index);
     void courseAdded();
     void courseAboutToBeRemoved(int);
     void courseRemoved();
