@@ -68,9 +68,6 @@
         "Name[x-test]": "xxGStreamer Backendxx",
         "Name[zh_CN]": "GStreamer 后端",
         "Name[zh_TW]": "GStreamer 後端介面",
-        "ServiceTypes": [
-            "artikulate/libsound/backend"
-        ],
         "Version": "0.1"
     }
 }

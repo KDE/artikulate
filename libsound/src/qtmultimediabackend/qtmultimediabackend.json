@@ -68,9 +68,6 @@
         "Name[x-test]": "xxQtMultimedia Backendxx",
         "Name[zh_CN]": "QtMultimedia 后端",
         "Name[zh_TW]": "QtMultimedia 後端介面",
-        "ServiceTypes": [
-            "artikulate/libsound/backend"
-        ],
         "Version": "0.1"
     }
 }
