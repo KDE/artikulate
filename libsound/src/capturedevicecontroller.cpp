@@ -34,30 +34,18 @@ public:
         , m_backend(nullptr)
         , m_initialized(false)
     {
-        QStringList dirsToCheck;
-        foreach (const QString &directory, QCoreApplication::libraryPaths()) {
-            dirsToCheck << directory + "/artikulate/libsound";
-        }
         // load plugins
-        QPluginLoader loader;
-        foreach (const QString &dir, dirsToCheck) {
-            QVector<KPluginMetaData> metadataList = KPluginLoader::findPlugins(dir, [=](const KPluginMetaData &data) { return data.serviceTypes().contains(QLatin1String("artikulate/libsound/backend")); });
-
-            foreach (const auto &metadata, metadataList) {
-                loader.setFileName(metadata.fileName());
-                qCDebug(LIBSOUND_LOG) << "Load Plugin: " << metadata.name();
-                if (!loader.load()) {
-                    qCCritical(LIBSOUND_LOG) << "Error while loading plugin: " << metadata.name();
-                }
-                KPluginFactory *factory = KPluginLoader(loader.fileName()).factory();
-                if (!factory) {
-                    qCCritical(LIBSOUND_LOG) << "Could not load plugin: " << metadata.name();
-                    continue;
-                }
-                BackendInterface *plugin = factory->create<BackendInterface>(parent, QList<QVariant>());
-                if (plugin->captureBackend()) {
-                    m_backendList.append(plugin->captureBackend());
-                }
+        const QVector<KPluginMetaData> metadataList = KPluginLoader::findPlugins(QStringLiteral("artikulate/libsound"));
+        for (const auto &metadata : metadataList) {
+            qCDebug(LIBSOUND_LOG) << "Load Plugin: " << metadata.name();
+            KPluginFactory *factory = KPluginLoader(metadata.fileName()).factory();
+            if (!factory) {
+                qCCritical(LIBSOUND_LOG) << "Could not load plugin: " << metadata.name();
+                continue;
+            }
+            BackendInterface *plugin = factory->create<BackendInterface>(parent, QList<QVariant>());
+            if (plugin->captureBackend()) {
+                m_backendList.append(plugin->captureBackend());
             }
         }
         if (!m_backend && !m_backendList.isEmpty()) {
