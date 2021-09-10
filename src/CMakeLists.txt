@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
 # SPDX-License-Identifier: BSD-2-Clause
 
-ecm_setup_version(1.0.0
+ecm_setup_version(${ARTIKULATE_VERSION}
     VARIABLE_PREFIX ARTIKULATE
     VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/version.h"
     PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/ArtikulateConfigVersion.cmake"

@@ -1,11 +1,18 @@
 # SPDX-FileCopyrightText: 2013-2016 Andreas Cord-Landwehr <cordlandwehr@kde.org>
 # SPDX-License-Identifier: BSD-2-Clause
 
-project(artikulate)
-
 cmake_minimum_required(VERSION 3.5.0)
 set(QT_MIN_VERSION "5.11.0")
 set(KF5_MIN_VERSION "5.64.0")
+
+# KDE Application Version, managed by release script
+set (RELEASE_SERVICE_VERSION_MAJOR "21")
+set (RELEASE_SERVICE_VERSION_MINOR "11")
+set (RELEASE_SERVICE_VERSION_MICRO "70")
+set (RELEASE_SERVICE_COMPACT_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}${RELEASE_SERVICE_VERSION_MINOR}${RELEASE_SERVICE_VERSION_MICRO}")
+set (ARTIKULATE_VERSION "1.0.0.${RELEASE_SERVICE_COMPACT_VERSION}")
+
+project(artikulate VERSION ${ARTIKULATE_VERSION})
 
 find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
 find_package(KF5DocTools)
