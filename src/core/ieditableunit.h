@@ -26,7 +26,7 @@ class ARTIKULATECORE_EXPORT IEditableUnit : public IUnit
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
 
 public:
-    virtual ~IEditableUnit() = default;
+    ~IEditableUnit() override = default;
     virtual void setId(const QString &id) = 0;
     virtual void setForeignId(const QString &id) = 0;
     virtual void setCourse(std::shared_ptr<ICourse> course) = 0;

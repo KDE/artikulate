@@ -22,7 +22,7 @@ public:
     enum PlaybackState { StoppedState, PlayingState, PausedState };
 
     explicit Player(QObject *parent = nullptr);
-    ~Player() = default;
+    ~Player() override = default;
 
     Q_INVOKABLE void playback();
     Q_INVOKABLE void stop();

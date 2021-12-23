@@ -58,7 +58,7 @@ private:
     /**
      * Private destructor.
      */
-    ~OutputDeviceController();
+    ~OutputDeviceController() override;
 
     const QScopedPointer<OutputDeviceControllerPrivate> d;
 };

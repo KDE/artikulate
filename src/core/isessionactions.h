@@ -29,7 +29,7 @@ public:
         : QObject(parent)
     {
     }
-    virtual ~ISessionActions() = default;
+    ~ISessionActions() override = default;
     virtual TrainingAction *activeAction() const = 0;
     virtual void setActivePhrase(IPhrase *phrase) = 0;
     /**

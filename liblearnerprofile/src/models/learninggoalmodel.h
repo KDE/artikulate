@@ -29,7 +29,7 @@ public:
     enum learningGoalRoles { TitleRole = Qt::UserRole + 1, IdRole, DataRole };
 
     explicit LearningGoalModel(QObject *parent = nullptr);
-    virtual ~LearningGoalModel();
+    ~LearningGoalModel() override;
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */

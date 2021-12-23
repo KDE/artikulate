@@ -27,7 +27,7 @@ public:
     /**
      * Default Destructor
      */
-    virtual ~MainWindowEditor();
+    ~MainWindowEditor() override;
 
     ContributorRepository *resourceRepository() const;
 

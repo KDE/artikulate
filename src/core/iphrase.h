@@ -30,7 +30,7 @@ public:
     enum class Type { Word, Expression, Sentence, Paragraph, AllTypes };
     Q_ENUM(Type)
 
-    virtual ~IPhrase() = default;
+    ~IPhrase() override = default;
 
     virtual QString id() const = 0;
     virtual QString foreignId() const = 0;

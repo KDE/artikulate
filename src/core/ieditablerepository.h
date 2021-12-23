@@ -23,7 +23,7 @@ class ARTIKULATECORE_EXPORT IEditableRepository : public IResourceRepository
 {
     Q_OBJECT
 public:
-    virtual ~IEditableRepository() = default;
+    ~IEditableRepository() override = default;
     virtual QVector<std::shared_ptr<IEditableCourse>> editableCourses() const = 0;
     virtual std::shared_ptr<IEditableCourse> editableCourse(std::shared_ptr<ILanguage> language, int index) const = 0;
     virtual QVector<std::shared_ptr<IEditableCourse>> skeletons() const = 0;

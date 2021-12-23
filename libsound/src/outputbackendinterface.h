@@ -17,7 +17,7 @@ class LIBSOUND_EXPORT OutputBackendInterface : public QObject
 
 public:
     explicit OutputBackendInterface(QObject *parent = nullptr);
-    virtual ~OutputBackendInterface();
+    ~OutputBackendInterface() override;
     virtual void setUri(const QString &uri) = 0;
     /**
      * volume as cubic value

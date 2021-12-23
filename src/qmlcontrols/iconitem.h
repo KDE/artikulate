@@ -33,7 +33,7 @@ public:
     };
 
     explicit IconItem(QQuickItem *parent = nullptr);
-    ~IconItem();
+    ~IconItem() override;
 
     void setIcon(const QVariant &icon);
     QIcon icon() const;

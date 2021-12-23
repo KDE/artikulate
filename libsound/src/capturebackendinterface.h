@@ -17,7 +17,7 @@ class LIBSOUND_EXPORT CaptureBackendInterface : public QObject
 
 public:
     explicit CaptureBackendInterface(QObject *parent = nullptr);
-    virtual ~CaptureBackendInterface();
+    ~CaptureBackendInterface() override;
 
     virtual void startCapture(const QString &filePath) = 0;
     virtual void stopCapture() = 0;

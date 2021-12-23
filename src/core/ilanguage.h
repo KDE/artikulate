@@ -25,7 +25,7 @@ class ARTIKULATECORE_EXPORT ILanguage : public QObject
     Q_PROPERTY(QString i18nTitle READ i18nTitle NOTIFY i18nTitleChanged)
 
 public:
-    virtual ~ILanguage() = default;
+    ~ILanguage() override = default;
     virtual QString id() const = 0;
     virtual QString title() const = 0;
     virtual QString i18nTitle() const = 0;

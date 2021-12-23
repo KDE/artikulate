@@ -24,7 +24,7 @@ class ARTIKULATECORE_EXPORT IEditableCourse : public ICourse
     Q_PROPERTY(QString modified READ isModified NOTIFY modifiedChanged)
 
 public:
-    virtual ~IEditableCourse() = default;
+    ~IEditableCourse() override = default;
     virtual void setId(QString id) = 0;
     virtual void setForeignId(QString foreignId) = 0;
     virtual void setTitle(QString title) = 0;

@@ -36,7 +36,7 @@ public:
     enum Category { Unspecified = 0, Language = 1 };
 
     explicit Learner(QObject *parent = nullptr);
-    ~Learner();
+    ~Learner() override;
 
     QString name() const;
     void setName(const QString &name);

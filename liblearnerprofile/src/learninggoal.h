@@ -30,7 +30,7 @@ public:
 
     explicit LearningGoal(QObject *parent = nullptr);
     explicit LearningGoal(LearningGoal::Category category, const QString &identifier, QObject *parent = nullptr);
-    ~LearningGoal();
+    ~LearningGoal() override;
 
     QString name() const;
     void setName(const QString &name);

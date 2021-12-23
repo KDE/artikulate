@@ -18,7 +18,7 @@ class QtMultimediaOutputBackend : public OutputBackendInterface
 
 public:
     explicit QtMultimediaOutputBackend(QObject *parent = nullptr);
-    virtual ~QtMultimediaOutputBackend();
+    ~QtMultimediaOutputBackend() override;
 
     void setUri(const QString &uri) override;
     /**

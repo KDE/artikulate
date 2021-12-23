@@ -31,7 +31,7 @@ public:
     enum class EditState { Unknown, Translated, Completed };
     Q_ENUM(EditState)
 
-    virtual ~IEditablePhrase() = default;
+    ~IEditablePhrase() override = default;
 
     virtual void setId(QString id) = 0;
     virtual void setForeignId(QString id) = 0;

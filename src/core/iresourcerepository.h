@@ -23,7 +23,7 @@ class ARTIKULATECORE_EXPORT IResourceRepository : public QObject
 {
     Q_OBJECT
 public:
-    virtual ~IResourceRepository() = default;
+    ~IResourceRepository() override = default;
 
     /**
      * \return path to working repository, if one is set

@@ -60,7 +60,7 @@ private:
     /**
      * Private destructor.
      */
-    ~CaptureDeviceController();
+    ~CaptureDeviceController() override;
 
     const QScopedPointer<CaptureDeviceControllerPrivate> d;
 };

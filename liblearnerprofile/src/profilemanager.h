@@ -30,7 +30,7 @@ public:
     enum Progress { Skip = 0, Next = 1 };
 
     explicit ProfileManager(QObject *parent = nullptr);
-    virtual ~ProfileManager();
+    ~ProfileManager() override;
 
     QList<Learner *> profiles() const;
     int profileCount() const;

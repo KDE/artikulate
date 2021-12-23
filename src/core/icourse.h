@@ -29,7 +29,7 @@ class ARTIKULATECORE_EXPORT ICourse : public QObject
     Q_PROPERTY(QString languageTitle READ languageTitle CONSTANT)
 
 public:
-    virtual ~ICourse() = default;
+    ~ICourse() override = default;
     virtual QString id() const = 0;
     virtual QString foreignId() const = 0;
     virtual QString title() const = 0;

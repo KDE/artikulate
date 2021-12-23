@@ -23,7 +23,7 @@ public:
     enum CaptureState { StoppedState = 0, RecordingState = 1 };
 
     explicit Recorder(QObject *parent = nullptr);
-    ~Recorder();
+    ~Recorder() override;
 
     Q_INVOKABLE void startCapture();
     Q_INVOKABLE void stop();

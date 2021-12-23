@@ -20,7 +20,7 @@ class LIBSOUND_EXPORT BackendInterface : public QObject
 
 public:
     explicit BackendInterface(const QString &name, QObject *parent = nullptr);
-    virtual ~BackendInterface();
+    ~BackendInterface() override;
 
     QString name() const;
     virtual CaptureBackendInterface *captureBackend() const = 0;
