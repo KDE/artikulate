@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 cmake_minimum_required(VERSION 3.5.0)
-set(QT_MIN_VERSION "5.11.0")
-set(KF5_MIN_VERSION "5.64.0")
+set(QT_MIN_VERSION "5.15.0")
+set(KF5_MIN_VERSION "5.82.0")
 
 # KDE Application Version, managed by release script
 set (RELEASE_SERVICE_VERSION_MAJOR "22")
@@ -56,13 +56,12 @@ add_definitions(
 )
 
 # subdirectories to build
-ecm_optional_add_subdirectory(data)
-ecm_optional_add_subdirectory(doc)
-ecm_optional_add_subdirectory(src)
-ecm_optional_add_subdirectory(icons)
-ecm_optional_add_subdirectory(libsound)
-ecm_optional_add_subdirectory(liblearnerprofile)
-ecm_optional_add_subdirectory(autotests)
+add_subdirectory(doc)
+add_subdirectory(src)
+add_subdirectory(icons)
+add_subdirectory(libsound)
+add_subdirectory(liblearnerprofile)
+add_subdirectory(autotests)
 
 # files to install in the artikulate project root directory
 ki18n_install(po)
