@@ -13,7 +13,7 @@
 #include <QStandardPaths>
 
 ResourceRepository::ResourceRepository()
-    : ResourceRepository(QUrl::fromLocalFile(QStandardPaths::standardLocations(QStandardPaths::DataLocation).constFirst() + QStringLiteral("/courses/")))
+    : ResourceRepository(QUrl::fromLocalFile(QStandardPaths::standardLocations(QStandardPaths::AppLocalDataLocation).constFirst() + QStringLiteral("/courses/")))
 {
 }
 

@@ -21,7 +21,7 @@ using namespace LearnerProfile;
 
 Storage::Storage(QObject *parent)
     : QObject(parent)
-    , m_databasePath(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "learnerdata.db")
+    , m_databasePath(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QLatin1Char('/') + "learnerdata.db")
     , m_errorMessage(QString())
 {
 }
@@ -515,9 +515,9 @@ QSqlDatabase Storage::database()
     }
 
     // create data directory if it does not exist
-    QDir dir = QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    QDir dir = QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
     if (!dir.exists()) {
-        dir.mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+        dir.mkpath(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
     }
     qCDebug(LIBLEARNER_LOG) << "Database path: " << m_databasePath;
 

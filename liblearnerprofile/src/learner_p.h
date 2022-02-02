@@ -37,7 +37,7 @@ public:
     }
     QString imageDirectory() const
     {
-        return QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + QStringLiteral("images") + QLatin1Char('/');
+        return QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QLatin1Char('/') + QStringLiteral("images") + QLatin1Char('/');
     }
 
     QString m_name;
