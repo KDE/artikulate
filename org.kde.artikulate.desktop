@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: BSD-2-Clause
 [Desktop Entry]
 Type=Application
-Exec=artikulate -qwindowtitle "%c" %i
+Exec=artikulate -qwindowtitle "%c"
 Icon=artikulate
 X-DocPath=artikulate/index.html
 GenericName=Artikulate Pronunciation Trainer
