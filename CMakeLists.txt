@@ -30,7 +30,7 @@ include(ECMEnableSanitizers)
 include(FeatureSummary)
 include(GenerateExportHeader)
 
-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Widgets
     Sql
     XmlPatterns
