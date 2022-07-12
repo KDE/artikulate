@@ -21,7 +21,7 @@ qt5_add_resources(TestResourceRepository_SRCS ../../data/languages.qrc)
 add_executable(test_resourcerepository ${TestResourceRepository_SRCS})
 target_link_libraries(test_resourcerepository
     artikulatecore
-    Qt5::Test
+    Qt::Test
 )
 add_test(NAME test_resourcerepository COMMAND test_resourcerepository)
 ecm_mark_as_test(test_resourcerepository)
@@ -36,7 +36,7 @@ set(TestTrainingSession_SRCS
 add_executable(test_trainingsession ${TestTrainingSession_SRCS})
 target_link_libraries(test_trainingsession
     artikulatecore
-    Qt5::Test
+    Qt::Test
 )
 add_test(NAME test_trainingsession COMMAND test_trainingsession)
 ecm_mark_as_test(test_trainingsession)
@@ -52,7 +52,7 @@ set(TestEditorSession_SRCS
 add_executable(test_editorsession ${TestEditorSession_SRCS})
 target_link_libraries(test_editorsession
     artikulatecore
-    Qt5::Test
+    Qt::Test
 )
 add_test(NAME test_editorsession COMMAND test_editorsession)
 ecm_mark_as_test(test_editorsession)
@@ -68,7 +68,7 @@ qt5_add_resources(TestCourseResource_SRCS ../../data/languages.qrc)
 add_executable(test_courseresource ${TestCourseResource_SRCS} )
 target_link_libraries(test_courseresource
     artikulatecore
-    Qt5::Test
+    Qt::Test
 )
 add_test(NAME test_courseresource COMMAND test_courseresource)
 ecm_mark_as_test(test_courseresource)
@@ -84,7 +84,7 @@ qt5_add_resources(TestSkeletonResource_SRCS ../../data/languages.qrc)
 add_executable(test_skeletonresource ${TestSkeletonResource_SRCS} )
 target_link_libraries(test_skeletonresource
     artikulatecore
-    Qt5::Test
+    Qt::Test
 )
 add_test(NAME test_skeletonresource COMMAND test_skeletonresource)
 ecm_mark_as_test(test_skeletonresource)
@@ -98,7 +98,7 @@ qt5_add_resources(TestUnit_SRCS ../../data/languages.qrc)
 add_executable(test_unit ${TestUnit_SRCS} )
 target_link_libraries(test_unit
     artikulatecore
-    Qt5::Test
+    Qt::Test
 )
 add_test(NAME test_unit COMMAND test_unit)
 ecm_mark_as_test(test_unit)
@@ -116,7 +116,7 @@ qt5_add_resources(TestEditableCourseResource_SRCS ../testdata/testdata.qrc)
 add_executable(test_editablecourseresource ${TestEditableCourseResource_SRCS} )
 target_link_libraries(test_editablecourseresource
     artikulatecore
-    Qt5::Test
+    Qt::Test
 )
 add_test(NAME test_editablecourseresource COMMAND test_editablecourseresource)
 ecm_mark_as_test(test_editablecourseresource)
@@ -134,7 +134,7 @@ qt5_add_resources(TestCourseModel_SRCS ../testdata/testdata.qrc)
 add_executable(test_coursemodel ${TestCourseModel_SRCS})
 target_link_libraries(test_coursemodel
     artikulatecore
-    Qt5::Test
+    Qt::Test
 )
 add_test(NAME test_coursemodel COMMAND test_coursemodel)
 ecm_mark_as_test(test_coursemodel)
@@ -152,7 +152,7 @@ qt5_add_resources(TestSkeletonModel_SRCS ../testdata/testdata.qrc)
 add_executable(test_skeletonmodel ${TestSkeletonModel_SRCS})
 target_link_libraries(test_skeletonmodel
     artikulatecore
-    Qt5::Test
+    Qt::Test
 )
 add_test(NAME test_skeletonmodel COMMAND test_skeletonmodel)
 ecm_mark_as_test(test_skeletonmodel)

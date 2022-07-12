@@ -16,10 +16,10 @@ generate_export_header(artikulatelearnerprofile BASE_NAME liblearnerprofile)
 target_link_libraries(
     artikulatelearnerprofile
     LINK_PUBLIC
-        Qt5::Core
-        Qt5::Gui
-        Qt5::Sql
-        Qt5::Widgets
+        Qt::Core
+        Qt::Gui
+        Qt::Sql
+        Qt::Widgets
         KF5::ConfigCore
         KF5::I18n
 )

@@ -20,7 +20,7 @@ qt5_add_resources(TestIResourceRepository_SRCS ../../data/languages.qrc)
 add_executable(test_iresourcerepository_integration ${TestIResourceRepository_SRCS})
 target_link_libraries(test_iresourcerepository_integration
     artikulatecore
-    Qt5::Test
+    Qt::Test
 )
 add_test(NAME test_iresourcerepository_integration COMMAND test_iresourcerepository_integration)
 ecm_mark_as_test(test_iresourcerepository_integration)

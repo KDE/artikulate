@@ -74,13 +74,13 @@ target_link_libraries(artikulatecore
     PUBLIC
         artikulatelearnerprofile
         artikulatesound
-        Qt5::XmlPatterns
-        Qt5::Qml
-        Qt5::Quick
+        Qt::XmlPatterns
+        Qt::Qml
+        Qt::Quick
         KF5::Archive
         KF5::ConfigGui
     PRIVATE
-        Qt5::Xml
+        Qt::Xml
 )
 # internal library without any API or ABI guarantee
 set(GENERIC_LIB_VERSION "0")
@@ -123,8 +123,8 @@ target_link_libraries(artikulate
         artikulatelearnerprofile
         artikulatesound
         artikulatecore
-        Qt5::Qml
-        Qt5::Quick
+        Qt::Qml
+        Qt::Quick
         KF5::Crash
         KF5::NewStuff
         KF5::XmlGui
@@ -136,8 +136,8 @@ target_link_libraries(artikulate_editor
     LINK_PUBLIC
         artikulatesound
         artikulatecore
-        Qt5::Qml
-        Qt5::Quick
+        Qt::Qml
+        Qt::Quick
         KF5::Crash
         KF5::NewStuff
 )

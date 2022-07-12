@@ -16,7 +16,7 @@ qt5_add_resources(TestLanguageFiles_SRCS ../../data/languages.qrc)
 add_executable(test_languageresources ${TestLanguageFiles_SRCS} )
 target_link_libraries(test_languageresources
     artikulatecore
-    Qt5::Test
+    Qt::Test
 )
 add_test(NAME test_languageresources COMMAND test_languageresources)
 ecm_mark_as_test(test_languageresources)
@@ -29,9 +29,9 @@ set(TestXsdSchemes_SRCS
 qt5_add_resources(TestXsdSchemes_SRCS ../../data/languages.qrc)
 add_executable(test_xsdschemes ${TestXsdSchemes_SRCS} )
 target_link_libraries(test_xsdschemes
-    Qt5::Test
-    Qt5::XmlPatterns
-    Qt5::Core
+    Qt::Test
+    Qt::XmlPatterns
+    Qt::Core
 )
 add_test(NAME test_xsdschemes COMMAND test_xsdschemes)
 ecm_mark_as_test(test_xsdschemes)

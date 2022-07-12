@@ -16,7 +16,7 @@ set(TestLearnerStorage_SRCS
 add_executable(TestLearnerStorage ${TestLearnerStorage_SRCS} )
 target_link_libraries(TestLearnerStorage
     artikulatelearnerprofile
-    Qt5::Test
+    Qt::Test
 )
 add_test(NAME TestLearnerStorage COMMAND TestLearnerStorage)
 ecm_mark_as_test(TestLearnerStorage)

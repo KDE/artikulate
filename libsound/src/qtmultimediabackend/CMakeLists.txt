@@ -16,7 +16,7 @@ target_link_libraries(
     qtmultimediabackend
     LINK_PUBLIC
         artikulatesound
-        Qt5::Multimedia
+        Qt::Multimedia
         KF5::CoreAddons
 )
 
