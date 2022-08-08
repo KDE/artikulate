@@ -4,6 +4,7 @@
 cmake_minimum_required(VERSION 3.5.0)
 set(QT_MIN_VERSION "5.15.2")
 set(KF5_MIN_VERSION "5.90.0")
+set(KDE_COMPILERSETTINGS_LEVEL "5.84.0")
 
 # KDE Application Version, managed by release script
 set (RELEASE_SERVICE_VERSION_MAJOR "22")
