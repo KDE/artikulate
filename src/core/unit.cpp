@@ -8,13 +8,10 @@
 #include "unit.h"
 #include "phrase.h"
 
-#include <QMap>
 #include <QQmlEngine>
-#include <QUuid>
 
 #include "artikulate_debug.h"
 #include <KLocalizedString>
-#include <QUrl>
 
 Unit::Unit(QObject *parent)
     : IEditableUnit(parent)

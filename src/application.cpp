@@ -46,10 +46,6 @@
 #include "liblearnerprofile/src/models/learninggoalmodel.h"
 #include "liblearnerprofile/src/profilemanager.h"
 
-#include <QObject>
-#include <QQmlComponent>
-#include <QQmlContext>
-#include <QQmlEngine>
 
 Application::Application(int &argc, char **argv)
     : QApplication(argc, argv)

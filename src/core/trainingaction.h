@@ -12,7 +12,6 @@
 #include "trainingactionicon.h"
 #include "trainingsession.h"
 #include <QAbstractItemModel>
-#include <QDebug>
 #include <QObject>
 
 class DrawerTrainingActions;

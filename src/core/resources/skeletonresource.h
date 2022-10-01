@@ -10,7 +10,6 @@
 #include "artikulatecore_export.h"
 #include "core/ieditablecourse.h"
 
-#include <QObject>
 
 class SkeletonResourcePrivate;
 class IResourceRepository;

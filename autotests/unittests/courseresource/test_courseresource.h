@@ -8,7 +8,6 @@
 #define TESTCOURSERESOURCE_H
 
 #include <QObject>
-#include <QVariant>
 
 class TestCourseResource : public QObject
 {

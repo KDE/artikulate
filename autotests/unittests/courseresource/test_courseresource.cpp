@@ -12,11 +12,7 @@
 #include "core/resources/courseresource.h"
 #include "core/unit.h"
 #include "resourcerepositorystub.h"
-#include <QDebug>
-#include <QFile>
-#include <QIODevice>
 #include <QSignalSpy>
-#include <QTemporaryFile>
 #include <QTest>
 #include <QXmlSchema>
 #include <QXmlSchemaValidator>

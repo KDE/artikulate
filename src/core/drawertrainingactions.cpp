@@ -8,7 +8,6 @@
 #include "trainingaction.h"
 
 #include <KLocalizedString>
-#include <QDebug>
 #include <QList>
 
 DrawerTrainingActions::DrawerTrainingActions(QObject *parent)

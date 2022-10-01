@@ -11,7 +11,6 @@
 #include "core/unit.h"
 #include "courseparser.h"
 #include <KLocalizedString>
-#include <KTar>
 #include <QDir>
 #include <QDomDocument>
 #include <QFile>

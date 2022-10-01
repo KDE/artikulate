@@ -9,8 +9,6 @@
 
 #include "artikulatecore_export.h"
 #include "iunit.h"
-#include <QMap>
-#include <QUrl>
 #include <memory>
 
 class QString;

@@ -8,7 +8,6 @@
 #define TESTEDITABLECOURSERESOURCE_H
 
 #include <QObject>
-#include <QVariant>
 
 class TestEditableCourseResource : public QObject
 {

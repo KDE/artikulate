@@ -8,7 +8,6 @@
 #define ICOURSE_H
 
 #include "artikulatecore_export.h"
-#include <QMap>
 #include <QObject>
 #include <QUrl>
 #include <memory>

@@ -14,22 +14,16 @@
 #include "settings.h"
 #include <KAboutData>
 #include <KActionCollection>
-#include <KConfigDialog>
 #include <KLocalizedContext>
 #include <KLocalizedString>
 #include <KStandardAction>
 #include <QAction>
 #include <QApplication>
-#include <QCloseEvent>
 #include <QCoreApplication>
 #include <QIcon>
 #include <QPointer>
 #include <QQmlContext>
-#include <QQmlProperty>
-#include <QQuickItem>
-#include <QQuickView>
 #include <QStandardPaths>
-#include <QStatusBar>
 
 using namespace LearnerProfile;
 

@@ -9,7 +9,6 @@
 
 #include "artikulatecore_export.h"
 #include "core/icourse.h"
-#include <QObject>
 #include <QVector>
 #include <memory>
 

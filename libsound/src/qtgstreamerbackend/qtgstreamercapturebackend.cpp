@@ -8,13 +8,10 @@
 
 #include "libsound_debug.h"
 #include <KLocalizedString>
-#include <QGlib/Connect>
 #include <QGlib/Error>
 #include <QGst/Bus>
-#include <QGst/ChildProxy>
 #include <QGst/ElementFactory>
 #include <QGst/Event>
-#include <QGst/Init>
 #include <QGst/Message>
 #include <QGst/Pad>
 

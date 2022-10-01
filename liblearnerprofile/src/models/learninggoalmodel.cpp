@@ -8,7 +8,6 @@
 #include "learner.h"
 #include "profilemanager.h"
 
-#include <QAbstractItemModel>
 #include <QSignalMapper>
 
 #include "liblearner_debug.h"

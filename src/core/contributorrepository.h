@@ -9,9 +9,7 @@
 
 #include "artikulatecore_export.h"
 #include "ieditablerepository.h"
-#include <QHash>
 #include <QMap>
-#include <QObject>
 #include <QStringList>
 #include <QUrl>
 #include <QVector>

@@ -11,7 +11,6 @@
 #include "ieditablephrase.h"
 #include "iphrase.h"
 #include "iunit.h"
-#include <QList>
 #include <QUrl>
 #include <QVector>
 #include <memory>

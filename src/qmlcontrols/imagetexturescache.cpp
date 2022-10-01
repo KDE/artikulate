@@ -5,7 +5,6 @@
 */
 
 #include "imagetexturescache.h"
-#include <QDebug>
 #include <QSGTexture>
 
 typedef QHash<qint64, QHash<QWindow *, QWeakPointer<QSGTexture>>> TexturesCache;

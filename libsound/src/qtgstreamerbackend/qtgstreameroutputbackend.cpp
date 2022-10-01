@@ -8,14 +8,12 @@
 */
 
 #include "qtgstreameroutputbackend.h"
-#include <QDir>
 #include <QGlib/Connect>
 #include <QGlib/Error>
 #include <QGst/Bus>
 #include <QGst/ClockTime>
 #include <QGst/ElementFactory>
 #include <QGst/Event>
-#include <QGst/Init>
 #include <QGst/Message>
 #include <QGst/Query>
 #include <QGst/StreamVolume>

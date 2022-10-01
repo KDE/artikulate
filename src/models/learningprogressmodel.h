@@ -7,7 +7,6 @@
 #ifndef LEARNINGPROGRESSMODEL_H
 #define LEARNINGPROGRESSMODEL_H
 
-#include <QAbstractItemModel>
 #include <QAbstractTableModel>
 
 class TrainingSession;

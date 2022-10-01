@@ -9,7 +9,6 @@
 
 #include "core/phonemegroup.h"
 #include "src/core/ilanguage.h"
-#include <QObject>
 #include <QVector>
 
 class Phoneme;

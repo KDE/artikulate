@@ -12,7 +12,6 @@
 #include "core/ieditablecourse.h"
 #include "core/ieditableunit.h"
 #include "courseresource.h"
-#include <QObject>
 #include <QVector>
 #include <memory>
 

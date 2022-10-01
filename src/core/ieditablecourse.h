@@ -9,7 +9,6 @@
 
 #include "artikulatecore_export.h"
 #include "icourse.h"
-#include <QObject>
 #include <memory>
 
 class QString;

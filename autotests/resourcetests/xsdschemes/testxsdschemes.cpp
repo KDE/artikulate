@@ -6,7 +6,6 @@
 
 #include "testxsdschemes.h"
 
-#include <QDebug>
 #include <QTest>
 #include <QUrl>
 #include <QXmlSchema>

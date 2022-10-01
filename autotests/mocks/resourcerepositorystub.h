@@ -9,8 +9,6 @@
 
 #include "core/iresourcerepository.h"
 #include "core/language.h"
-#include <QDebug>
-#include <QObject>
 #include <QVector>
 
 class ICourse;

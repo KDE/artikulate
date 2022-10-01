@@ -8,7 +8,6 @@
 #define LEARNER_P_H
 
 #include "learninggoal.h"
-#include <QDebug>
 #include <QHash>
 #include <QList>
 #include <QStandardPaths>

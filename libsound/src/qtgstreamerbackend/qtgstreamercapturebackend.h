@@ -12,7 +12,6 @@
 
 #include <QString>
 
-#include <QGst/Global>
 #include <QGst/Pipeline>
 
 class QtGStreamerCaptureBackend : public CaptureBackendInterface

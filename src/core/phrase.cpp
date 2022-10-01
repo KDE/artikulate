@@ -9,7 +9,6 @@
 #include "icourse.h"
 #include "unit.h"
 #include <QQmlEngine>
-#include <QTemporaryFile>
 
 Phrase::Phrase()
     : IEditablePhrase()

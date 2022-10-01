@@ -11,7 +11,6 @@
 #include "src/core/language.h"
 #include "src/core/unit.h"
 
-#include <QObject>
 
 class CourseStub : public ICourse
 {

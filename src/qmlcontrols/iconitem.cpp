@@ -10,8 +10,6 @@
 #include "imagetexturescache.h"
 #include "managedtexturenode.h"
 #include <QIcon>
-#include <QQuickWindow>
-#include <QSGSimpleTextureNode>
 
 Q_GLOBAL_STATIC(ImageTexturesCache, s_iconImageCache)
 

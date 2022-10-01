@@ -8,8 +8,6 @@
 #include "backendinterface.h"
 #include "outputbackendinterface.h"
 
-#include <QCoreApplication>
-#include <QPluginLoader>
 #include <QUrl>
 
 #include <KPluginFactory>

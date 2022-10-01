@@ -11,7 +11,6 @@
 #include "capturedevicecontroller.h"
 
 #include <QAudioRecorder>
-#include <QMap>
 #include <QString>
 
 class QMediaRecorder;

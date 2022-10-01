@@ -16,7 +16,6 @@
 #include "unit.h"
 
 #include <QDir>
-#include <QDirIterator>
 #include <QFile>
 #include <QStandardPaths>
 #include <QUuid>

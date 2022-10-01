@@ -8,7 +8,6 @@
 #include "libsound/src/outputdevicecontroller.h"
 
 #include "artikulate_debug.h"
-#include <QList>
 #include <QString>
 
 Player::Player(QObject *parent)

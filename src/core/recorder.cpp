@@ -9,7 +9,6 @@
 #include "libsound/src/capturedevicecontroller.h"
 
 #include <QDir>
-#include <QList>
 #include <QString>
 
 Recorder::Recorder(QObject *parent)

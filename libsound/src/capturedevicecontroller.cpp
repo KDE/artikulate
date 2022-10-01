@@ -9,9 +9,6 @@
 #include "capturebackendinterface.h"
 #include "libsound_debug.h"
 
-#include <QCoreApplication>
-#include <QPluginLoader>
-#include <QStringList>
 
 #include <KPluginFactory>
 #include <KPluginLoader>

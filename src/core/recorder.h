@@ -10,7 +10,6 @@
 #include "artikulatecore_export.h"
 #include <QObject>
 #include <QTemporaryFile>
-#include <QUrl>
 
 class ARTIKULATECORE_EXPORT Recorder : public QObject
 {

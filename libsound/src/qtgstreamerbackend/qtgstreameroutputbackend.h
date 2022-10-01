@@ -11,7 +11,6 @@
 #define QTGSTREAMEROUTPUTBACKEND_H
 
 #include "outputbackendinterface.h"
-#include <QGst/Global>
 #include <QGst/Pipeline>
 #include <QString>
 #include <QTimer>

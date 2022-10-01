@@ -8,7 +8,6 @@
 #define TESTSKELETONRESOURCE_H
 
 #include <QObject>
-#include <QVariant>
 
 class TestSkeletonResource : public QObject
 {

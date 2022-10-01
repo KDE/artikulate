@@ -12,7 +12,6 @@
 
 #include "artikulate_debug.h"
 #include <KLocalizedString>
-#include <QSignalMapper>
 
 SkeletonModel::SkeletonModel(QObject *parent)
     : SkeletonModel(artikulateApp->editableRepository(), parent)

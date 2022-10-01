@@ -13,7 +13,6 @@
 #include "core/unit.h"
 #include "courseparser.h"
 
-#include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QQmlEngine>

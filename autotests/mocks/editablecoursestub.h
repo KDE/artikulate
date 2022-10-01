@@ -11,7 +11,6 @@
 #include "src/core/ilanguage.h"
 #include "src/core/unit.h"
 
-#include <QObject>
 
 class EditableCourseStub : public IEditableCourse
 {

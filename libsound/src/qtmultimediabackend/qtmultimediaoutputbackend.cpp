@@ -5,7 +5,6 @@
 */
 
 #include "qtmultimediaoutputbackend.h"
-#include <QDir>
 #include <QMediaPlayer>
 #include <QUrl>
 

@@ -12,7 +12,6 @@
 #include <KAboutData>
 #include <KLocalizedContext>
 #include <KLocalizedString>
-#include <QIcon>
 #include <QQmlContext>
 #include <QStandardPaths>
 

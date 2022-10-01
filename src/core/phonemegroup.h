@@ -8,7 +8,6 @@
 #define PHONEMEGROUP_H
 
 #include "artikulatecore_export.h"
-#include <QMap>
 #include <QObject>
 #include <QVector>
 #include <memory>

@@ -9,8 +9,6 @@
 
 #include "artikulatecore_export.h"
 #include "iphrase.h"
-#include <QMap>
-#include <QObject>
 #include <QUrl>
 #include <memory>
 

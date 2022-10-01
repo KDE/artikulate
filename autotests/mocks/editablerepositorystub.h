@@ -9,7 +9,6 @@
 
 #include "core/ieditablecourse.h"
 #include "core/ieditablerepository.h"
-#include <QObject>
 #include <QVector>
 
 class ILanguage;

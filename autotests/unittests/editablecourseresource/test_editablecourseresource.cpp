@@ -14,9 +14,6 @@
 #include "core/unit.h"
 #include "resourcerepositorystub.h"
 
-#include <QDebug>
-#include <QFile>
-#include <QIODevice>
 #include <QSignalSpy>
 #include <QTemporaryFile>
 #include <QTest>

@@ -13,7 +13,6 @@
 #include "core/unit.h"
 
 #include <KTar>
-#include <QDir>
 #include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>

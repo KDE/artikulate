@@ -8,7 +8,6 @@
 #define PHONEME_H
 
 #include "artikulatecore_export.h"
-#include <QMap>
 #include <QObject>
 
 class QString;

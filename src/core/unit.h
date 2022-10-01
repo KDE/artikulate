@@ -10,7 +10,6 @@
 #include "artikulatecore_export.h"
 #include "ieditableunit.h"
 #include <QObject>
-#include <QStringList>
 #include <QVector>
 #include <memory>
 

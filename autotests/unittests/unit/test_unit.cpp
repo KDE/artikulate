@@ -11,7 +11,6 @@
 #include "core/phrase.h"
 #include "core/unit.h"
 #include "resourcerepositorystub.h"
-#include <QDebug>
 #include <QSignalSpy>
 
 TestUnit::TestUnit() = default;

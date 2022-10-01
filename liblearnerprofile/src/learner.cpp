@@ -9,7 +9,6 @@
 #include "liblearner_debug.h"
 #include <QDir>
 #include <QFileInfo>
-#include <QHash>
 #include <QPixmap>
 
 using namespace LearnerProfile;
