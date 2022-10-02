@@ -1,0 +1,960 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Chetan Khona <chetan@kompkin.com>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:41+0000\n"
+"PO-Revision-Date: 2013-03-18 17:51+0530\n"
+"Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
+"Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
+"Language: mr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr ""
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr ""
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr ""
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr ""
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr ""
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr ""
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr ""
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr ""
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr ""
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr ""
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr ""
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr ""
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr ""
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:154
+#, kde-format
+msgctxt "@item:inlistbox unknown learning goal"
+msgid "unknown"
+msgstr ""
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:219
+#, kde-format
+msgctxt "@title:column"
+msgid "Learning Goal"
+msgstr ""
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Open Image"
+msgstr ""
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Image Files (*.png *.jpg *.bmp)"
+msgstr ""
+
+#: liblearnerprofile/src/storage.cpp:567
+#, kde-format
+msgid "Invalid database version '%1'."
+msgstr ""
+
+#: libsound/src/qtgstreamerbackend/qtgstreamercapturebackend.cpp:31
+#, kde-format
+msgctxt "default sound device"
+msgid "Default"
+msgstr ""
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr ""
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr ""
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr ""
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr ""
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr ""
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr ""
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+
+#: src/core/drawertrainingactions.cpp:15
+#, kde-format
+msgid "Please select a course"
+msgstr ""
+
+#: src/core/resources/editablecourseresource.cpp:262
+#, kde-format
+msgid "New Unit"
+msgstr ""
+
+#: src/main.cpp:28
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate"
+msgstr ""
+
+#: src/main.cpp:30
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Pronunciation Trainer"
+msgstr ""
+
+#: src/main.cpp:32
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2020 The Artikulate Developers"
+msgstr ""
+
+#: src/main.cpp:33
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Train your pronunciation in a foreign language."
+msgstr ""
+
+#: src/main.cpp:36 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Andreas Cord-Landwehr"
+msgstr ""
+
+#: src/main.cpp:36 src/main_editor.cpp:33
+#, fuzzy, kde-format
+#| msgid "Original Author"
+msgctxt "@info:credit Role"
+msgid "Original Author"
+msgstr "मूळ लेखक"
+
+#: src/main.cpp:38
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Samikshan Bairagya"
+msgstr ""
+
+#: src/main.cpp:38
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer"
+msgstr ""
+
+#: src/main.cpp:40
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Oindrila Gupta"
+msgstr ""
+
+#: src/main.cpp:40 src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer and Course Data"
+msgstr ""
+
+#: src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Magdalena Konkiewicz"
+msgstr ""
+
+#: src/main.cpp:44
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "चेतन खोना"
+
+#: src/main.cpp:44
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "chetan@kompkin.com"
+
+#: src/main_editor.cpp:26
+#, fuzzy, kde-format
+#| msgid "Close Editor"
+msgctxt "@title Displayed program name"
+msgid "Artikulate Editor"
+msgstr "संपादक बंद करा"
+
+#: src/main_editor.cpp:28
+#, fuzzy, kde-format
+#| msgid "Close Editor"
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Course Editor"
+msgstr "संपादक बंद करा"
+
+#: src/main_editor.cpp:30
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2019 The Artikulate Developers"
+msgstr ""
+
+#: src/main_editor.cpp:31
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Edit Artikulate course files."
+msgstr ""
+
+#: src/mainwindow.cpp:39 src/qml/ProfileSelector.qml:18
+#, kde-format
+msgid "Unnamed Identity"
+msgstr ""
+
+#: src/models/coursemodel.cpp:102 src/models/languageresourcemodel.cpp:71
+#: src/models/phonememodel.cpp:61 src/models/phraselistmodel.cpp:96
+#: src/models/profilemodel.cpp:87 src/models/skeletonmodel.cpp:96
+#: src/models/unitmodel.cpp:84
+#, kde-format
+msgctxt "@item:inlistbox:"
+msgid "unknown"
+msgstr ""
+
+#: src/models/coursemodel.cpp:161
+#, fuzzy, kde-format
+#| msgid "Close Course"
+msgctxt "@title:column"
+msgid "Course"
+msgstr "कोर्स बंद करा"
+
+#: src/models/languageresourcemodel.cpp:150
+#, fuzzy, kde-format
+#| msgid "Language:"
+msgctxt "@title:column"
+msgid "Language"
+msgstr "भाषा :"
+
+#: src/models/learningprogressmodel.cpp:132
+#, fuzzy, kde-format
+#| msgid "Word"
+msgid "Words"
+msgstr "शब्द"
+
+#: src/models/learningprogressmodel.cpp:134
+#, fuzzy, kde-format
+#| msgid "Sentence"
+msgid "Sentences"
+msgstr "वाक्य"
+
+#: src/models/learningprogressmodel.cpp:136
+#, fuzzy, kde-format
+#| msgid "Expression"
+msgid "Expressions"
+msgstr "अभिव्यक्ति"
+
+#: src/models/learningprogressmodel.cpp:138
+#, fuzzy, kde-format
+#| msgid "Paragraph"
+msgid "Paragraphs"
+msgstr "परिच्छेद"
+
+#: src/models/phonemegroupmodel.cpp:153
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Group"
+msgstr ""
+
+#: src/models/phonememodel.cpp:123
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme"
+msgstr ""
+
+#: src/models/phonemeunitmodel.cpp:182
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Unit"
+msgstr ""
+
+#: src/models/phraselistmodel.cpp:172 src/models/phrasemodel.cpp:294
+#, fuzzy, kde-format
+#| msgid "Add Phrase"
+msgctxt "@title:column"
+msgid "Phrase"
+msgstr "वाक्यांश जोडा"
+
+#: src/models/profilemodel.cpp:146
+#, kde-format
+msgctxt "@title:column"
+msgid "Profile"
+msgstr ""
+
+#: src/models/skeletonmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Skeleton"
+msgstr ""
+
+#: src/models/unitmodel.cpp:155
+#, fuzzy, kde-format
+#| msgid "Units"
+msgctxt "@title:column"
+msgid "Unit"
+msgstr "एकके"
+
+#: src/qml/ArtikulateDrawer.qml:34
+#, kde-format
+msgid "Training"
+msgstr ""
+
+#: src/qml/ArtikulateDrawer.qml:127
+#, fuzzy, kde-format
+#| msgid "Close Course"
+msgid "Download Training"
+msgstr "कोर्स बंद करा"
+
+#: src/qml/ArtikulateDrawer.qml:137
+#, fuzzy, kde-format
+#| msgid "Close Editor"
+msgid "About Artikulate"
+msgstr "संपादक बंद करा"
+
+#: src/qml/CourseConfigurationPage.qml:15 src/qml/EditorDrawer.qml:58
+#, kde-format
+msgid "Course Configuration"
+msgstr ""
+
+#: src/qml/CourseConfigurationPage.qml:15
+#, kde-format
+msgid "Prototype Configuration"
+msgstr ""
+
+#: src/qml/CourseConfigurationPage.qml:20
+#, fuzzy, kde-format
+#| msgid "Description:"
+msgid "Prototype Description"
+msgstr "वर्णन :"
+
+#: src/qml/CourseConfigurationPage.qml:20
+#, fuzzy, kde-format
+#| msgid "Description:"
+msgid "Course Description"
+msgstr "वर्णन :"
+
+#: src/qml/CourseConfigurationPage.qml:24
+#, kde-format
+msgid "Title:"
+msgstr "शिर्षक :"
+
+#: src/qml/CourseConfigurationPage.qml:31
+#, kde-format
+msgid "Localized Title:"
+msgstr ""
+
+#: src/qml/CourseConfigurationPage.qml:37
+#, kde-format
+msgid "Description:"
+msgstr "वर्णन :"
+
+#: src/qml/CourseConfigurationPage.qml:44
+#, kde-format
+msgid "Language:"
+msgstr "भाषा :"
+
+#: src/qml/CourseConfigurationPage.qml:52
+#, fuzzy, kde-format
+#| msgid "No course selected"
+msgid "Prototype"
+msgstr "कोणताही कोर्स निवडला नाही"
+
+#: src/qml/CourseConfigurationPage.qml:57
+#, fuzzy, kde-format
+#| msgid "No course selected"
+msgid "Update from Prototype:"
+msgstr "कोणताही कोर्स निवडला नाही"
+
+#: src/qml/CourseConfigurationPage.qml:60
+#, kde-format
+msgid "Update"
+msgstr ""
+
+#: src/qml/CourseConfigurationPage.qml:65
+#, kde-format
+msgid "Update the course with elements from prototype."
+msgstr ""
+
+#: src/qml/DownloadPage.qml:21
+#, kde-format
+msgid "Download Training Material"
+msgstr ""
+
+#: src/qml/DownloadPage.qml:74
+#, kde-format
+msgctxt "@action:button"
+msgid "Update"
+msgstr ""
+
+#: src/qml/DownloadPage.qml:79
+#, kde-format
+msgctxt "@action:button"
+msgid "Install"
+msgstr ""
+
+#: src/qml/DownloadPage.qml:84
+#, kde-format
+msgctxt "@action:button"
+msgid "Remove"
+msgstr ""
+
+#: src/qml/EditCoursePage.qml:16
+#, fuzzy, kde-format
+#| msgid "Close Course"
+msgid "Edit Course"
+msgstr "कोर्स बंद करा"
+
+#: src/qml/EditCoursePage.qml:25
+#, kde-format
+msgid "Previous"
+msgstr ""
+
+#: src/qml/EditCoursePage.qml:26
+#, kde-format
+msgid "Switch to previous phrase."
+msgstr ""
+
+#: src/qml/EditCoursePage.qml:32 src/qml/TrainingPage.qml:40
+#, kde-format
+msgid "Next"
+msgstr ""
+
+#: src/qml/EditCoursePage.qml:33
+#, kde-format
+msgid "Switch to next phrase."
+msgstr ""
+
+#: src/qml/EditCoursePage.qml:40 src/qml/ProfileUserItem.qml:73
+#: src/qml/ProfileUserItem.qml:170
+#, kde-format
+msgid "Delete"
+msgstr ""
+
+#: src/qml/EditCoursePage.qml:41
+#, fuzzy, kde-format
+#| msgid "Close Editor"
+msgid "Delete this phrase."
+msgstr "संपादक बंद करा"
+
+#: src/qml/EditCoursePage.qml:49
+#, fuzzy, kde-format
+#| msgid "Close Course"
+msgid "Create Phrase"
+msgstr "कोर्स बंद करा"
+
+#: src/qml/EditCoursePage.qml:50
+#, kde-format
+msgid "Create phrase after current phrase."
+msgstr ""
+
+#: src/qml/EditorCourseSelectionPage.qml:15
+#, fuzzy, kde-format
+#| msgid "Close Editor"
+msgid "Welcome to Artikulate Course Editor"
+msgstr "संपादक बंद करा"
+
+#: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:46
+#, kde-format
+msgctxt "@title:window language / course name"
+msgid "%1 / %2"
+msgstr ""
+
+#: src/qml/EditorCourseSelectionPage.qml:60
+#, fuzzy, kde-format
+#| msgid "Close Course"
+msgctxt "@action:button"
+msgid "Edit Course"
+msgstr "कोर्स बंद करा"
+
+#: src/qml/EditorDrawer.qml:34
+#, fuzzy, kde-format
+#| msgid "Close Course"
+msgid "Courses"
+msgstr "कोर्स बंद करा"
+
+#: src/qml/EditorDrawer.qml:45
+#, fuzzy, kde-format
+#| msgid "No course selected"
+msgid "Repository"
+msgstr "कोणताही कोर्स निवडला नाही"
+
+#: src/qml/EditorDrawer.qml:121
+#, kde-format
+msgid "Save"
+msgstr ""
+
+#: src/qml/EditorDrawer.qml:147
+#, fuzzy, kde-format
+#| msgid "Close Editor"
+msgid "About Artikulate Editor"
+msgstr "संपादक बंद करा"
+
+#: src/qml/EditorSkeletonSelectionPage.qml:15
+#, fuzzy, kde-format
+#| msgid "No course selected"
+msgid "Select Prototype"
+msgstr "कोणताही कोर्स निवडला नाही"
+
+#: src/qml/EditorSkeletonSelectionPage.qml:46
+#, kde-format
+msgctxt "@title:window prototype name"
+msgid "%1"
+msgstr ""
+
+#: src/qml/EditorSkeletonSelectionPage.qml:60
+#, fuzzy, kde-format
+#| msgid "No course selected"
+msgctxt "@action:button"
+msgid "Edit Prototype"
+msgstr "कोणताही कोर्स निवडला नाही"
+
+#: src/qml/PhraseEditor.qml:106
+#, fuzzy, kde-format
+#| msgid "Units"
+msgid "Unit"
+msgstr "एकके"
+
+#: src/qml/PhraseEditor.qml:106
+#, fuzzy, kde-format
+#| msgid "Units"
+msgid "Unit: "
+msgstr "एकके"
+
+#: src/qml/PhraseEditor.qml:111
+#, kde-format
+msgid "Localized Unit:"
+msgstr ""
+
+#: src/qml/PhraseEditor.qml:122
+#, fuzzy, kde-format
+#| msgid "Add Phrase"
+msgid "Phrase: "
+msgstr "वाक्यांश जोडा"
+
+#: src/qml/PhraseEditor.qml:127
+#, fuzzy, kde-format
+#| msgid "Original Author"
+msgid "Localized Phrase:"
+msgstr "मूळ लेखक"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:48
+#, kde-format
+msgid "Edit State:"
+msgstr ""
+
+#: src/qml/PhraseEditorEditStateComponent.qml:53
+#, kde-format
+msgctxt "state"
+msgid "Unknown"
+msgstr ""
+
+#: src/qml/PhraseEditorEditStateComponent.qml:62
+#, kde-format
+msgctxt "state"
+msgid "Translated"
+msgstr ""
+
+#: src/qml/PhraseEditorEditStateComponent.qml:71
+#, kde-format
+msgctxt "state"
+msgid "Completed"
+msgstr ""
+
+#: src/qml/PhraseEditorSoundComponent.qml:24
+#, kde-format
+msgid "Native Speaker Recording"
+msgstr ""
+
+#: src/qml/PhraseEditorSoundComponent.qml:34
+#, kde-format
+msgid "Existing Recording:"
+msgstr ""
+
+#: src/qml/PhraseEditorSoundComponent.qml:44
+#, kde-format
+msgid "Create New Recording:"
+msgstr ""
+
+#: src/qml/PhraseEditorSoundComponent.qml:60
+#, kde-format
+msgid "Replace Existing Recording"
+msgstr ""
+
+#: src/qml/PhraseEditorSoundComponent.qml:68
+#, kde-format
+msgid "Dismiss"
+msgstr ""
+
+#: src/qml/PhraseEditorTypeComponent.qml:51
+#, kde-format
+msgid "Difficulty:"
+msgstr ""
+
+#: src/qml/PhraseEditorTypeComponent.qml:57
+#, kde-format
+msgid "Word"
+msgstr "शब्द"
+
+#: src/qml/PhraseEditorTypeComponent.qml:65
+#, kde-format
+msgid "Expression"
+msgstr "अभिव्यक्ति"
+
+#: src/qml/PhraseEditorTypeComponent.qml:73
+#, kde-format
+msgid "Sentence"
+msgstr "वाक्य"
+
+#: src/qml/PhraseEditorTypeComponent.qml:81
+#, kde-format
+msgid "Paragraph"
+msgstr "परिच्छेद"
+
+#: src/qml/ProfileDetailsItem.qml:38
+#, kde-format
+msgid "Learner"
+msgstr ""
+
+#: src/qml/ProfileDetailsItem.qml:51
+#, fuzzy, kde-format
+#| msgid "Language:"
+msgid "Favorite Languages"
+msgstr "भाषा :"
+
+#: src/qml/ProfileSelector.qml:70
+#, kde-format
+msgid "Create New Learner Identity"
+msgstr ""
+
+#: src/qml/ProfileSelector.qml:103
+#, kde-format
+msgid "Use Selected Identity"
+msgstr ""
+
+#: src/qml/ProfileSettingsPage.qml:17
+#, kde-format
+msgid "Configure Profile"
+msgstr ""
+
+#: src/qml/ProfileSettingsPage.qml:29 src/qml/ProfileUserItem.qml:68
+#, fuzzy, kde-format
+#| msgid "Close Editor"
+msgid "Edit"
+msgstr "संपादक बंद करा"
+
+#: src/qml/ProfileSettingsPage.qml:38
+#, kde-format
+msgid "Select Image"
+msgstr ""
+
+#: src/qml/ProfileSettingsPage.qml:45 src/qml/ProfileUserItem.qml:84
+#, kde-format
+msgid "Clear Image"
+msgstr ""
+
+#: src/qml/ProfileSettingsPage.qml:51
+#, fuzzy, kde-format
+#| msgid "Close Editor"
+msgid "Delete User"
+msgstr "संपादक बंद करा"
+
+#: src/qml/ProfileSettingsPage.qml:101 src/qml/ProfileUserItem.qml:117
+#, kde-format
+msgid "Name"
+msgstr ""
+
+#: src/qml/ProfileUserItem.qml:79
+#, kde-format
+msgid "Change Image"
+msgstr ""
+
+#: src/qml/ProfileUserItem.qml:123
+#, kde-format
+msgid "Done"
+msgstr ""
+
+#: src/qml/ProfileUserItem.qml:161
+#, kde-format
+msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
+msgstr ""
+
+#: src/qml/ProfileUserItem.qml:177
+#, kde-format
+msgid "Cancel"
+msgstr "रद्द करा"
+
+#: src/qml/RepositoryConfigurationPage.qml:16
+#, kde-format
+msgid "Repository Configuration"
+msgstr ""
+
+#: src/qml/RepositoryConfigurationPage.qml:21
+#, kde-format
+msgid "Select Repository Folder"
+msgstr ""
+
+#: src/qml/RepositoryConfigurationPage.qml:34
+#, fuzzy, kde-format
+#| msgid "No course selected"
+msgid "Repository:"
+msgstr "कोणताही कोर्स निवडला नाही"
+
+#: src/qml/RepositoryConfigurationPage.qml:39
+#, kde-format
+msgid "Change Folder"
+msgstr ""
+
+#: src/qml/SoundPlayer.qml:19
+#, kde-format
+msgid "Play"
+msgstr ""
+
+#: src/qml/SoundRecorder.qml:19
+#, kde-format
+msgid "Record"
+msgstr ""
+
+#: src/qml/TrainerCourseStatistics.qml:46
+#, kde-format
+msgid "Attempts"
+msgstr ""
+
+#: src/qml/TrainingPage.qml:28
+#, kde-format
+msgid "Category: no category selected"
+msgstr ""
+
+#: src/qml/TrainingPage.qml:31
+#, kde-format
+msgid "Category: %1"
+msgstr ""
+
+#: src/qml/TrainingPage.qml:41
+#, kde-format
+msgid "Mark current phrase as completed and proceed with next one."
+msgstr ""
+
+#: src/qml/TrainingPage.qml:46
+#, kde-format
+msgid "Skip"
+msgstr ""
+
+#: src/qml/TrainingPage.qml:47
+#, kde-format
+msgid "Skip current phrase and proceed with next one."
+msgstr ""
+
+#: src/qml/TrainingPage.qml:102
+#, kde-format
+msgid "Play original"
+msgstr ""
+
+#: src/qml/TrainingPage.qml:143
+#, kde-format
+msgid "Record yourself"
+msgstr ""
+
+#: src/qml/TrainingPage.qml:151
+#, kde-format
+msgid "Play yourself"
+msgstr ""
+
+#: src/qml/WelcomePage.qml:15
+#, kde-format
+msgid "Welcome to Artikulate"
+msgstr ""
+
+#: src/qml/WelcomePage.qml:60
+#, fuzzy, kde-format
+#| msgid "Close Course"
+msgctxt "@action:button"
+msgid "Start Training"
+msgstr "कोर्स बंद करा"
+
+#, fuzzy
+#~| msgid "Title:"
+#~ msgid "Unit Title:"
+#~ msgstr "शिर्षक :"
+
+#, fuzzy
+#~| msgid "Original Author"
+#~ msgctxt "@title:tab"
+#~ msgid "Training Phrase Font"
+#~ msgstr "मूळ लेखक"
+
+#, fuzzy
+#~| msgid "Close Course"
+#~ msgctxt "@item:inmenu"
+#~ msgid "Course Resources"
+#~ msgstr "कोर्स बंद करा"
+
+#, fuzzy
+#~| msgid "Close Course"
+#~ msgid "Create Course"
+#~ msgstr "कोर्स बंद करा"
+
+#, fuzzy
+#~| msgid "Language:"
+#~ msgid "Languages"
+#~ msgstr "भाषा :"
+
+#~ msgid "OK"
+#~ msgstr "ठीक आहे"
+
+#~ msgid "<strong>Skeleton:</strong> %1"
+#~ msgstr "<strong>स्केलेटन :</strong> %1"
+
+#~ msgid "Units"
+#~ msgstr "एकके"
+
+#~ msgid "Add Unit"
+#~ msgstr "एकक जोडा"
+
+#, fuzzy
+#~| msgid "Language:"
+#~ msgid "Language: "
+#~ msgstr "भाषा :"
+
+#~ msgid "unselected"
+#~ msgstr "न निवडलेले"
+
+#~ msgid "Add Phrase"
+#~ msgstr "वाक्यांश जोडा"
+
+#~ msgid "<strong>Language:</strong> %1"
+#~ msgstr "<strong>भाषा :</strong> %1"
+
+#, fuzzy
+#~| msgid "Close Course"
+#~ msgid "Course:"
+#~ msgstr "कोर्स बंद करा"
+
+#~ msgid "No language selected"
+#~ msgstr "कोणतीही भाषा निवडली नाही"
+
+#~ msgid "No course selected"
+#~ msgstr "कोणताही कोर्स निवडला नाही"
+
+#, fuzzy
+#~| msgid "Title"
+#~ msgctxt "@title:column"
+#~ msgid "Title"
+#~ msgstr "शिर्षक"
+
+#~ msgid "Title"
+#~ msgstr "शिर्षक"
+
+#, fuzzy
+#~| msgid "Current Unit:"
+#~ msgid "Currently training: "
+#~ msgstr "वर्तमान एकक :"
+
+#~ msgid "Type:"
+#~ msgstr "प्रकार :"
+
+#~ msgid "<h2>Units</h2>"
+#~ msgstr "<h2>एकके</h2>"
+
+#, fuzzy
+#~| msgid "<h2>Units</h2>"
+#~ msgid "<h2>Phonetic Units</h2>"
+#~ msgstr "<h2>एकके</h2>"
+
+#~ msgid "<h2>Languages</h2>"
+#~ msgstr "<h2>भाषा</h2>"

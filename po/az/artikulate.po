@@ -1,0 +1,837 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the artikulate package.
+#
+# Kheyyam Gojayev <xxmn77@gmail.com>, 2021, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: artikulate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:41+0000\n"
+"PO-Revision-Date: 2022-07-31 23:13+0400\n"
+"Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
+"Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
+"Language: az\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 22.04.3\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Benqal"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Kataloniya"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "Almanca"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Hollandca"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "Britaniya İngiliscəsi"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "İngiliscə"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "Fransızca"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Yunanca"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Hindi"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "İtalyanca"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Maratxi dili"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Polyakca"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "İspanca"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:154
+#, kde-format
+msgctxt "@item:inlistbox unknown learning goal"
+msgid "unknown"
+msgstr "naməlum"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:219
+#, kde-format
+msgctxt "@title:column"
+msgid "Learning Goal"
+msgstr "Öyrənmə məqsədi"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Open Image"
+msgstr "Şəkili açmaq"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Image Files (*.png *.jpg *.bmp)"
+msgstr "Şəkil faylları (*.png *.jpg *.bmp)"
+
+#: liblearnerprofile/src/storage.cpp:567
+#, kde-format
+msgid "Invalid database version '%1'."
+msgstr "Verilənlər bazasının yalnış \"%1\" versiyası"
+
+#: libsound/src/qtgstreamerbackend/qtgstreamercapturebackend.cpp:31
+#, kde-format
+msgctxt "default sound device"
+msgid "Default"
+msgstr "Standart"
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "true olduqda əsas menyu sətri görünür"
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"Aktiv edildikdə, kursa aid fayllar yalnız iştirakçının yerli mənbəyindən "
+"oxunur"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "Yerli iştirakçı mənbələrinə yol"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Daxili səs cihazının adı"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Səs girişi səviyyəsi"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Səs çıxışı səviyyəsi"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Şrift"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"Əgər mövcuddursa, icra olunma vaxtı seçilmiş, ya 'qtmultimediabackend'i, ya "
+"da 'qtgstreamerbackend'i quraşdırın."
+
+#: src/core/drawertrainingactions.cpp:15
+#, kde-format
+msgid "Please select a course"
+msgstr "Lütfən kursu seçin"
+
+#: src/core/resources/editablecourseresource.cpp:262
+#, kde-format
+msgid "New Unit"
+msgstr "Yeni vahid"
+
+#: src/main.cpp:28
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate"
+msgstr "Artikulate"
+
+#: src/main.cpp:30
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Pronunciation Trainer"
+msgstr "Artikulate Tələffüz Təlimi"
+
+#: src/main.cpp:32
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2020 The Artikulate Developers"
+msgstr "(c) 2013-2020 Artikulate Tərtibatçıları"
+
+#: src/main.cpp:33
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Train your pronunciation in a foreign language."
+msgstr "Xarici bir dildə tələfüüzünüzü məşq etdirin."
+
+#: src/main.cpp:36 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Andreas Cord-Landwehr"
+msgstr "Andreas Cord-Landwehr"
+
+#: src/main.cpp:36 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Original Author"
+msgstr "Əsas müəllifi"
+
+#: src/main.cpp:38
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Samikshan Bairagya"
+msgstr "Samikshan Bairagya"
+
+#: src/main.cpp:38
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer"
+msgstr "Tərtibatçı"
+
+#: src/main.cpp:40
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Oindrila Gupta"
+msgstr "Oindrila Gupta"
+
+#: src/main.cpp:40 src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer and Course Data"
+msgstr "Tərtibat və Kurs veriləri"
+
+#: src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Magdalena Konkiewicz"
+msgstr "Magdalena Konkiewicz"
+
+#: src/main.cpp:44
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Xəyyam Qocayev"
+
+#: src/main.cpp:44
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "xxmn77@gmail.com"
+
+#: src/main_editor.cpp:26
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate Editor"
+msgstr "Artikulate Redaktoru"
+
+#: src/main_editor.cpp:28
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Course Editor"
+msgstr "Artikulate Kurs Redaktoru"
+
+#: src/main_editor.cpp:30
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2019 The Artikulate Developers"
+msgstr "(c) 2013-2019 Artikulate Tərtibatçıları"
+
+#: src/main_editor.cpp:31
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Edit Artikulate course files."
+msgstr "Artikulate kurs fayllarına düzəliş etmək"
+
+#: src/mainwindow.cpp:39 src/qml/ProfileSelector.qml:18
+#, kde-format
+msgid "Unnamed Identity"
+msgstr "Adsız Kimlik"
+
+#: src/models/coursemodel.cpp:102 src/models/languageresourcemodel.cpp:71
+#: src/models/phonememodel.cpp:61 src/models/phraselistmodel.cpp:96
+#: src/models/profilemodel.cpp:87 src/models/skeletonmodel.cpp:96
+#: src/models/unitmodel.cpp:84
+#, kde-format
+msgctxt "@item:inlistbox:"
+msgid "unknown"
+msgstr "naməlum"
+
+#: src/models/coursemodel.cpp:161
+#, kde-format
+msgctxt "@title:column"
+msgid "Course"
+msgstr "Kurs"
+
+#: src/models/languageresourcemodel.cpp:150
+#, kde-format
+msgctxt "@title:column"
+msgid "Language"
+msgstr "Dil"
+
+#: src/models/learningprogressmodel.cpp:132
+#, kde-format
+msgid "Words"
+msgstr "Sözlər"
+
+#: src/models/learningprogressmodel.cpp:134
+#, kde-format
+msgid "Sentences"
+msgstr "Cümlələr"
+
+#: src/models/learningprogressmodel.cpp:136
+#, kde-format
+msgid "Expressions"
+msgstr "İfadələr"
+
+#: src/models/learningprogressmodel.cpp:138
+#, kde-format
+msgid "Paragraphs"
+msgstr "Abzaslar"
+
+#: src/models/phonemegroupmodel.cpp:153
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Group"
+msgstr "Fonem qrupu"
+
+#: src/models/phonememodel.cpp:123
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme"
+msgstr "Fonem"
+
+#: src/models/phonemeunitmodel.cpp:182
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Unit"
+msgstr "Fonem vahidi"
+
+#: src/models/phraselistmodel.cpp:172 src/models/phrasemodel.cpp:294
+#, kde-format
+msgctxt "@title:column"
+msgid "Phrase"
+msgstr "İfadə"
+
+#: src/models/profilemodel.cpp:146
+#, kde-format
+msgctxt "@title:column"
+msgid "Profile"
+msgstr "Profil"
+
+#: src/models/skeletonmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Skeleton"
+msgstr "Hazırlıq"
+
+#: src/models/unitmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Unit"
+msgstr "Vahid"
+
+#: src/qml/ArtikulateDrawer.qml:34
+#, kde-format
+msgid "Training"
+msgstr "Təlim"
+
+#: src/qml/ArtikulateDrawer.qml:127
+#, kde-format
+msgid "Download Training"
+msgstr "Təlimin endirilməsi"
+
+#: src/qml/ArtikulateDrawer.qml:137
+#, kde-format
+msgid "About Artikulate"
+msgstr "Artikulate haqqında"
+
+#: src/qml/CourseConfigurationPage.qml:15 src/qml/EditorDrawer.qml:58
+#, kde-format
+msgid "Course Configuration"
+msgstr "Kurs tənzimləmələri"
+
+#: src/qml/CourseConfigurationPage.qml:15
+#, kde-format
+msgid "Prototype Configuration"
+msgstr "Prototip tənzimləməsi"
+
+#: src/qml/CourseConfigurationPage.qml:20
+#, kde-format
+msgid "Prototype Description"
+msgstr "Prototip təsviri"
+
+#: src/qml/CourseConfigurationPage.qml:20
+#, kde-format
+msgid "Course Description"
+msgstr "Kursun təsviri"
+
+#: src/qml/CourseConfigurationPage.qml:24
+#, kde-format
+msgid "Title:"
+msgstr "Başlıq:"
+
+#: src/qml/CourseConfigurationPage.qml:31
+#, kde-format
+msgid "Localized Title:"
+msgstr "Lokallaşdırılmış başlıq:"
+
+#: src/qml/CourseConfigurationPage.qml:37
+#, kde-format
+msgid "Description:"
+msgstr "Təsviri:"
+
+#: src/qml/CourseConfigurationPage.qml:44
+#, kde-format
+msgid "Language:"
+msgstr "Dil:"
+
+#: src/qml/CourseConfigurationPage.qml:52
+#, kde-format
+msgid "Prototype"
+msgstr "Prototip"
+
+#: src/qml/CourseConfigurationPage.qml:57
+#, kde-format
+msgid "Update from Prototype:"
+msgstr "Prototipdən yeniləmək:"
+
+#: src/qml/CourseConfigurationPage.qml:60
+#, kde-format
+msgid "Update"
+msgstr "Yeniləmək"
+
+#: src/qml/CourseConfigurationPage.qml:65
+#, kde-format
+msgid "Update the course with elements from prototype."
+msgstr "Prototipdəki elementlər ilə kursu yeniləmək."
+
+#: src/qml/DownloadPage.qml:21
+#, kde-format
+msgid "Download Training Material"
+msgstr "Təlim materialını endirmək"
+
+#: src/qml/DownloadPage.qml:74
+#, kde-format
+msgctxt "@action:button"
+msgid "Update"
+msgstr "Yeniləmək"
+
+#: src/qml/DownloadPage.qml:79
+#, kde-format
+msgctxt "@action:button"
+msgid "Install"
+msgstr "Quraşdırmaq"
+
+#: src/qml/DownloadPage.qml:84
+#, kde-format
+msgctxt "@action:button"
+msgid "Remove"
+msgstr "Silmək"
+
+#: src/qml/EditCoursePage.qml:16
+#, kde-format
+msgid "Edit Course"
+msgstr "Kursa düzəliş etmək"
+
+#: src/qml/EditCoursePage.qml:25
+#, kde-format
+msgid "Previous"
+msgstr "Əvvəlki"
+
+#: src/qml/EditCoursePage.qml:26
+#, kde-format
+msgid "Switch to previous phrase."
+msgstr "Əvvəlki ifadəyə keçid."
+
+#: src/qml/EditCoursePage.qml:32 src/qml/TrainingPage.qml:40
+#, kde-format
+msgid "Next"
+msgstr "Növbəti"
+
+#: src/qml/EditCoursePage.qml:33
+#, kde-format
+msgid "Switch to next phrase."
+msgstr "Növbəti ifadəyə keçid."
+
+#: src/qml/EditCoursePage.qml:40 src/qml/ProfileUserItem.qml:73
+#: src/qml/ProfileUserItem.qml:170
+#, kde-format
+msgid "Delete"
+msgstr "Silmək"
+
+#: src/qml/EditCoursePage.qml:41
+#, kde-format
+msgid "Delete this phrase."
+msgstr "Bu ifadəni silmək."
+
+#: src/qml/EditCoursePage.qml:49
+#, kde-format
+msgid "Create Phrase"
+msgstr "İfadə yaratmaq"
+
+#: src/qml/EditCoursePage.qml:50
+#, kde-format
+msgid "Create phrase after current phrase."
+msgstr "Cari ifadədən sonra ifadə yaratmaq."
+
+#: src/qml/EditorCourseSelectionPage.qml:15
+#, kde-format
+msgid "Welcome to Artikulate Course Editor"
+msgstr "Artikulate Kurs Redaktoruna Xoş Gəldiniz"
+
+#: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:46
+#, kde-format
+msgctxt "@title:window language / course name"
+msgid "%1 / %2"
+msgstr "%1 / %2"
+
+#: src/qml/EditorCourseSelectionPage.qml:60
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Course"
+msgstr "Kursa düzəliş etmək"
+
+#: src/qml/EditorDrawer.qml:34
+#, kde-format
+msgid "Courses"
+msgstr "Kurslar"
+
+#: src/qml/EditorDrawer.qml:45
+#, kde-format
+msgid "Repository"
+msgstr "Repazitoriya"
+
+#: src/qml/EditorDrawer.qml:121
+#, kde-format
+msgid "Save"
+msgstr "Saxlayın"
+
+#: src/qml/EditorDrawer.qml:147
+#, kde-format
+msgid "About Artikulate Editor"
+msgstr "Artikulate redaktoru haqqında"
+
+#: src/qml/EditorSkeletonSelectionPage.qml:15
+#, kde-format
+msgid "Select Prototype"
+msgstr "Prototipi seçmək"
+
+#: src/qml/EditorSkeletonSelectionPage.qml:46
+#, kde-format
+msgctxt "@title:window prototype name"
+msgid "%1"
+msgstr "%1"
+
+#: src/qml/EditorSkeletonSelectionPage.qml:60
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Prototype"
+msgstr "Prototipə düzəliş etmək"
+
+#: src/qml/PhraseEditor.qml:106
+#, kde-format
+msgid "Unit"
+msgstr "Vahid"
+
+#: src/qml/PhraseEditor.qml:106
+#, kde-format
+msgid "Unit: "
+msgstr "Vahid: "
+
+#: src/qml/PhraseEditor.qml:111
+#, kde-format
+msgid "Localized Unit:"
+msgstr "Lokallaşdırılmış vahid:"
+
+#: src/qml/PhraseEditor.qml:122
+#, kde-format
+msgid "Phrase: "
+msgstr "İfadə: "
+
+#: src/qml/PhraseEditor.qml:127
+#, kde-format
+msgid "Localized Phrase:"
+msgstr "Lokallaşdırılmış ifadə:"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:48
+#, kde-format
+msgid "Edit State:"
+msgstr "Vəziyyətə düzəliş:"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:53
+#, kde-format
+msgctxt "state"
+msgid "Unknown"
+msgstr "Naməlum"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:62
+#, kde-format
+msgctxt "state"
+msgid "Translated"
+msgstr "Tərcümə olundu"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:71
+#, kde-format
+msgctxt "state"
+msgid "Completed"
+msgstr "Tamamlandı"
+
+#: src/qml/PhraseEditorSoundComponent.qml:24
+#, kde-format
+msgid "Native Speaker Recording"
+msgstr "Yerli dinamikdən yazmaq"
+
+#: src/qml/PhraseEditorSoundComponent.qml:34
+#, kde-format
+msgid "Existing Recording:"
+msgstr "Mövcud qeyd:"
+
+#: src/qml/PhraseEditorSoundComponent.qml:44
+#, kde-format
+msgid "Create New Recording:"
+msgstr "Yeni səs yazmaq:"
+
+#: src/qml/PhraseEditorSoundComponent.qml:60
+#, kde-format
+msgid "Replace Existing Recording"
+msgstr "Mövcud yazılmışı əvəzləmək"
+
+#: src/qml/PhraseEditorSoundComponent.qml:68
+#, kde-format
+msgid "Dismiss"
+msgstr "Qəbul etməmək"
+
+#: src/qml/PhraseEditorTypeComponent.qml:51
+#, kde-format
+msgid "Difficulty:"
+msgstr "Çətinlik:"
+
+#: src/qml/PhraseEditorTypeComponent.qml:57
+#, kde-format
+msgid "Word"
+msgstr "Söz"
+
+#: src/qml/PhraseEditorTypeComponent.qml:65
+#, kde-format
+msgid "Expression"
+msgstr "İfadə"
+
+#: src/qml/PhraseEditorTypeComponent.qml:73
+#, kde-format
+msgid "Sentence"
+msgstr "Cümlə"
+
+#: src/qml/PhraseEditorTypeComponent.qml:81
+#, kde-format
+msgid "Paragraph"
+msgstr "Abzas"
+
+#: src/qml/ProfileDetailsItem.qml:38
+#, kde-format
+msgid "Learner"
+msgstr "Öyrənci"
+
+#: src/qml/ProfileDetailsItem.qml:51
+#, kde-format
+msgid "Favorite Languages"
+msgstr "Sevimli dillər"
+
+#: src/qml/ProfileSelector.qml:70
+#, kde-format
+msgid "Create New Learner Identity"
+msgstr "Yeni öyrənci kimliyi yaratmaq"
+
+#: src/qml/ProfileSelector.qml:103
+#, kde-format
+msgid "Use Selected Identity"
+msgstr "Seçilmiş kimlikdən istifadə etmək"
+
+#: src/qml/ProfileSettingsPage.qml:17
+#, kde-format
+msgid "Configure Profile"
+msgstr "Profili tənzimləmək"
+
+#: src/qml/ProfileSettingsPage.qml:29 src/qml/ProfileUserItem.qml:68
+#, kde-format
+msgid "Edit"
+msgstr "Düzəliş etmək"
+
+#: src/qml/ProfileSettingsPage.qml:38
+#, kde-format
+msgid "Select Image"
+msgstr "Şəkili seşmək"
+
+#: src/qml/ProfileSettingsPage.qml:45 src/qml/ProfileUserItem.qml:84
+#, kde-format
+msgid "Clear Image"
+msgstr "Şəkili təmizləmək"
+
+#: src/qml/ProfileSettingsPage.qml:51
+#, kde-format
+msgid "Delete User"
+msgstr "İstifadəçini silmək"
+
+#: src/qml/ProfileSettingsPage.qml:101 src/qml/ProfileUserItem.qml:117
+#, kde-format
+msgid "Name"
+msgstr "Adı"
+
+#: src/qml/ProfileUserItem.qml:79
+#, kde-format
+msgid "Change Image"
+msgstr "Şəkili dəyişmək"
+
+#: src/qml/ProfileUserItem.qml:123
+#, kde-format
+msgid "Done"
+msgstr "Başa çatdı"
+
+#: src/qml/ProfileUserItem.qml:161
+#, kde-format
+msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
+msgstr "\"<b>%1</b>\" kimliyini doğrudan silmək istəyirsiniz?"
+
+#: src/qml/ProfileUserItem.qml:177
+#, kde-format
+msgid "Cancel"
+msgstr "İmtina"
+
+#: src/qml/RepositoryConfigurationPage.qml:16
+#, kde-format
+msgid "Repository Configuration"
+msgstr "Rapazitoriya tənzimləmələri"
+
+#: src/qml/RepositoryConfigurationPage.qml:21
+#, kde-format
+msgid "Select Repository Folder"
+msgstr "Repazitoriya qovluğunu seçmək"
+
+#: src/qml/RepositoryConfigurationPage.qml:34
+#, kde-format
+msgid "Repository:"
+msgstr "Repozitoriya:"
+
+#: src/qml/RepositoryConfigurationPage.qml:39
+#, kde-format
+msgid "Change Folder"
+msgstr "Qovluğu dəyişmək"
+
+#: src/qml/SoundPlayer.qml:19
+#, kde-format
+msgid "Play"
+msgstr "Səsləndirmək"
+
+#: src/qml/SoundRecorder.qml:19
+#, kde-format
+msgid "Record"
+msgstr "Səs qeydi"
+
+#: src/qml/TrainerCourseStatistics.qml:46
+#, kde-format
+msgid "Attempts"
+msgstr "Cəhdlər"
+
+#: src/qml/TrainingPage.qml:28
+#, kde-format
+msgid "Category: no category selected"
+msgstr "Kateqoriya: kateqoriya seçilməyib"
+
+#: src/qml/TrainingPage.qml:31
+#, kde-format
+msgid "Category: %1"
+msgstr "Kateqoriya: %1"
+
+#: src/qml/TrainingPage.qml:41
+#, kde-format
+msgid "Mark current phrase as completed and proceed with next one."
+msgstr ""
+"Cari ifadəni tamamlanmış kimi işarələyin və növbəti ifadə ilə davam edin."
+
+#: src/qml/TrainingPage.qml:46
+#, kde-format
+msgid "Skip"
+msgstr "Ötürmək"
+
+#: src/qml/TrainingPage.qml:47
+#, kde-format
+msgid "Skip current phrase and proceed with next one."
+msgstr "Bu ifadəni ötürün və növbəti ifadə ilə davam edin."
+
+#: src/qml/TrainingPage.qml:102
+#, kde-format
+msgid "Play original"
+msgstr "Orijinalı səsləndirin"
+
+#: src/qml/TrainingPage.qml:143
+#, kde-format
+msgid "Record yourself"
+msgstr "Öz səsinizi yazın"
+
+#: src/qml/TrainingPage.qml:151
+#, kde-format
+msgid "Play yourself"
+msgstr "Öz səsinizi oxudun"
+
+#: src/qml/WelcomePage.qml:15
+#, kde-format
+msgid "Welcome to Artikulate"
+msgstr "Artikulate-yə xoş gəldiniz"
+
+#: src/qml/WelcomePage.qml:60
+#, kde-format
+msgctxt "@action:button"
+msgid "Start Training"
+msgstr "Təlimə başlamaq"

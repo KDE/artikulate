@@ -1,0 +1,837 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the artikulate package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: artikulate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:41+0000\n"
+"PO-Revision-Date: 2022-09-05 21:49+0200\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "ბენგალური"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "კატალანური"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "გერმანული"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "ჰოლანდიური"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "ბრიტანული ინგლისური"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "ინგლისური"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "ფრანგული"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "ბერძნული"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "ინდური"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "იტალიური"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "მარათი"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "პოლონური"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "ესპანური"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:154
+#, kde-format
+msgctxt "@item:inlistbox unknown learning goal"
+msgid "unknown"
+msgstr "უცნობი"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:219
+#, kde-format
+msgctxt "@title:column"
+msgid "Learning Goal"
+msgstr "სწავლის მიზანი"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Open Image"
+msgstr "გამოსახულების გახსნა"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Image Files (*.png *.jpg *.bmp)"
+msgstr "გამოსახულების ფაილები (*.png *.jpg *.bmp)"
+
+#: liblearnerprofile/src/storage.cpp:567
+#, kde-format
+msgid "Invalid database version '%1'."
+msgstr "ბაზის არასწორი ვერსია '%1'."
+
+#: libsound/src/qtgstreamerbackend/qtgstreamercapturebackend.cpp:31
+#, kde-format
+msgctxt "default sound device"
+msgid "Default"
+msgstr "ნაგულისხმები"
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "თუ ჩართულია, მთავარი მენიუ ნაპოვნია."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"თუ ჩართულია, კურსის ფაილები მხოლოდ ლოკალური შემომწირავის რეპოზიტორიიდან "
+"წაიკითხება"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "ბილიკი ლოკალური შემომწირავის რეპოზიტორიამდე"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "აუდიოს შეყვანის მოწყობილობის სახელი"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "აუდიოს შეყვანის ხმა"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "აუდიოს გამოტანის ხმა"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "შრიფტი"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"დააყენეთ ან 'qtmultimediabackend', ან 'qtgstreamerbackend', გააჩნია, რომელს "
+"იყენებთ."
+
+#: src/core/drawertrainingactions.cpp:15
+#, kde-format
+msgid "Please select a course"
+msgstr "აირჩიეთ კურსი"
+
+#: src/core/resources/editablecourseresource.cpp:262
+#, kde-format
+msgid "New Unit"
+msgstr "ახალი ერთეული"
+
+#: src/main.cpp:28
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate"
+msgstr "Artikulate"
+
+#: src/main.cpp:30
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Pronunciation Trainer"
+msgstr "Artikulate - გამოთქმის მასწავლებელი"
+
+#: src/main.cpp:32
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2020 The Artikulate Developers"
+msgstr "(c) 2013-2020 Artikulate -ის პროგრამისტები, ყველა უფლება დაცულია"
+
+#: src/main.cpp:33
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Train your pronunciation in a foreign language."
+msgstr "ივარჯიშეთ უცხო ენებში გამოთქმისთვის."
+
+#: src/main.cpp:36 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Andreas Cord-Landwehr"
+msgstr "ანდრეას კორდ-ლენდვერი"
+
+#: src/main.cpp:36 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Original Author"
+msgstr "საწყისი ავტორი"
+
+#: src/main.cpp:38
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Samikshan Bairagya"
+msgstr "Samikshan Bairagya"
+
+#: src/main.cpp:38
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer"
+msgstr "პროგრამისტი"
+
+#: src/main.cpp:40
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Oindrila Gupta"
+msgstr "Oindrila Gupta"
+
+#: src/main.cpp:40 src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer and Course Data"
+msgstr "პროგრამისტი და კურსის მონაცემები"
+
+#: src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Magdalena Konkiewicz"
+msgstr "Magdalena Konkiewicz"
+
+#: src/main.cpp:44
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Temuri Doghonadze"
+
+#: src/main.cpp:44
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "Temuri.doghonadze@gmail.com"
+
+#: src/main_editor.cpp:26
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate Editor"
+msgstr "Artikulate -ის რედაქტორი"
+
+#: src/main_editor.cpp:28
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Course Editor"
+msgstr "Artikulate -ის კურსის რედაქტორი"
+
+#: src/main_editor.cpp:30
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2019 The Artikulate Developers"
+msgstr "(c) 2013-2020 Artikulate -ის პროგრამისტები"
+
+#: src/main_editor.cpp:31
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Edit Artikulate course files."
+msgstr "Artikulate -ის კურსის ფაილების ჩასწორება."
+
+#: src/mainwindow.cpp:39 src/qml/ProfileSelector.qml:18
+#, kde-format
+msgid "Unnamed Identity"
+msgstr "უსახელო იდენტიფიკაცია"
+
+#: src/models/coursemodel.cpp:102 src/models/languageresourcemodel.cpp:71
+#: src/models/phonememodel.cpp:61 src/models/phraselistmodel.cpp:96
+#: src/models/profilemodel.cpp:87 src/models/skeletonmodel.cpp:96
+#: src/models/unitmodel.cpp:84
+#, kde-format
+msgctxt "@item:inlistbox:"
+msgid "unknown"
+msgstr "უცნობი"
+
+#: src/models/coursemodel.cpp:161
+#, kde-format
+msgctxt "@title:column"
+msgid "Course"
+msgstr "კურსი"
+
+#: src/models/languageresourcemodel.cpp:150
+#, kde-format
+msgctxt "@title:column"
+msgid "Language"
+msgstr "ენა"
+
+#: src/models/learningprogressmodel.cpp:132
+#, kde-format
+msgid "Words"
+msgstr "სიტყვა"
+
+#: src/models/learningprogressmodel.cpp:134
+#, kde-format
+msgid "Sentences"
+msgstr "წინადადებები"
+
+#: src/models/learningprogressmodel.cpp:136
+#, kde-format
+msgid "Expressions"
+msgstr "გამოთქმები"
+
+#: src/models/learningprogressmodel.cpp:138
+#, kde-format
+msgid "Paragraphs"
+msgstr "პარაგრაფები"
+
+#: src/models/phonemegroupmodel.cpp:153
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Group"
+msgstr "ფონემების ჯგუფი"
+
+#: src/models/phonememodel.cpp:123
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme"
+msgstr "ფონემა"
+
+#: src/models/phonemeunitmodel.cpp:182
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Unit"
+msgstr "ფონემის ერთეული"
+
+#: src/models/phraselistmodel.cpp:172 src/models/phrasemodel.cpp:294
+#, kde-format
+msgctxt "@title:column"
+msgid "Phrase"
+msgstr "ფრაზა"
+
+#: src/models/profilemodel.cpp:146
+#, kde-format
+msgctxt "@title:column"
+msgid "Profile"
+msgstr "პროფილი"
+
+#: src/models/skeletonmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Skeleton"
+msgstr "ჩონჩხი"
+
+#: src/models/unitmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Unit"
+msgstr "ერთეული"
+
+#: src/qml/ArtikulateDrawer.qml:34
+#, kde-format
+msgid "Training"
+msgstr "გაკვეთილები"
+
+#: src/qml/ArtikulateDrawer.qml:127
+#, kde-format
+msgid "Download Training"
+msgstr "გაკვეთილების გადმოწერა"
+
+#: src/qml/ArtikulateDrawer.qml:137
+#, kde-format
+msgid "About Artikulate"
+msgstr "Artikulate-ის შესახებ"
+
+#: src/qml/CourseConfigurationPage.qml:15 src/qml/EditorDrawer.qml:58
+#, kde-format
+msgid "Course Configuration"
+msgstr "კურსის მორგება"
+
+#: src/qml/CourseConfigurationPage.qml:15
+#, kde-format
+msgid "Prototype Configuration"
+msgstr "პროტოტიპის მორგება"
+
+#: src/qml/CourseConfigurationPage.qml:20
+#, kde-format
+msgid "Prototype Description"
+msgstr "პროტოტიპის აღწერა"
+
+#: src/qml/CourseConfigurationPage.qml:20
+#, kde-format
+msgid "Course Description"
+msgstr "კურსის აღწერა"
+
+#: src/qml/CourseConfigurationPage.qml:24
+#, kde-format
+msgid "Title:"
+msgstr "სათაური:"
+
+#: src/qml/CourseConfigurationPage.qml:31
+#, kde-format
+msgid "Localized Title:"
+msgstr "ლოკალიზებული სათაური:"
+
+#: src/qml/CourseConfigurationPage.qml:37
+#, kde-format
+msgid "Description:"
+msgstr "აღწერა:"
+
+#: src/qml/CourseConfigurationPage.qml:44
+#, kde-format
+msgid "Language:"
+msgstr "ენა:"
+
+#: src/qml/CourseConfigurationPage.qml:52
+#, kde-format
+msgid "Prototype"
+msgstr "პროტოტიპი"
+
+#: src/qml/CourseConfigurationPage.qml:57
+#, kde-format
+msgid "Update from Prototype:"
+msgstr "პროტოტიპიდან განახლება:"
+
+#: src/qml/CourseConfigurationPage.qml:60
+#, kde-format
+msgid "Update"
+msgstr "განახლება"
+
+#: src/qml/CourseConfigurationPage.qml:65
+#, kde-format
+msgid "Update the course with elements from prototype."
+msgstr "კურსის პროტოტიპის ელემენტებით განახლება."
+
+#: src/qml/DownloadPage.qml:21
+#, kde-format
+msgid "Download Training Material"
+msgstr "გაკვეთილის მასალების გადმოწერა"
+
+#: src/qml/DownloadPage.qml:74
+#, kde-format
+msgctxt "@action:button"
+msgid "Update"
+msgstr "განახლება"
+
+#: src/qml/DownloadPage.qml:79
+#, kde-format
+msgctxt "@action:button"
+msgid "Install"
+msgstr "ჩადგმა"
+
+#: src/qml/DownloadPage.qml:84
+#, kde-format
+msgctxt "@action:button"
+msgid "Remove"
+msgstr "წაშლა"
+
+#: src/qml/EditCoursePage.qml:16
+#, kde-format
+msgid "Edit Course"
+msgstr "კურსის ჩასწორება"
+
+#: src/qml/EditCoursePage.qml:25
+#, kde-format
+msgid "Previous"
+msgstr "წინა"
+
+#: src/qml/EditCoursePage.qml:26
+#, kde-format
+msgid "Switch to previous phrase."
+msgstr "წინა ფრაზაზე გადართვა."
+
+#: src/qml/EditCoursePage.qml:32 src/qml/TrainingPage.qml:40
+#, kde-format
+msgid "Next"
+msgstr "შემდეგი"
+
+#: src/qml/EditCoursePage.qml:33
+#, kde-format
+msgid "Switch to next phrase."
+msgstr "შედეგ ფრაზაზე გადართვა."
+
+#: src/qml/EditCoursePage.qml:40 src/qml/ProfileUserItem.qml:73
+#: src/qml/ProfileUserItem.qml:170
+#, kde-format
+msgid "Delete"
+msgstr "წაშლა"
+
+#: src/qml/EditCoursePage.qml:41
+#, kde-format
+msgid "Delete this phrase."
+msgstr "ამ ფრაზის წაშლა."
+
+#: src/qml/EditCoursePage.qml:49
+#, kde-format
+msgid "Create Phrase"
+msgstr "ფრაზის შექმნა"
+
+#: src/qml/EditCoursePage.qml:50
+#, kde-format
+msgid "Create phrase after current phrase."
+msgstr "ფრაზის მიმდინარე ფრაზის შემდეგ შექმნა."
+
+#: src/qml/EditorCourseSelectionPage.qml:15
+#, kde-format
+msgid "Welcome to Artikulate Course Editor"
+msgstr "მოგესალმებათ Artikulate -ის კურსის რედაქტორი"
+
+#: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:46
+#, kde-format
+msgctxt "@title:window language / course name"
+msgid "%1 / %2"
+msgstr "%1 / %2"
+
+#: src/qml/EditorCourseSelectionPage.qml:60
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Course"
+msgstr "კურსის ჩასწორება"
+
+#: src/qml/EditorDrawer.qml:34
+#, kde-format
+msgid "Courses"
+msgstr "კურსები"
+
+#: src/qml/EditorDrawer.qml:45
+#, kde-format
+msgid "Repository"
+msgstr "საცავი"
+
+#: src/qml/EditorDrawer.qml:121
+#, kde-format
+msgid "Save"
+msgstr "შენახვა"
+
+#: src/qml/EditorDrawer.qml:147
+#, kde-format
+msgid "About Artikulate Editor"
+msgstr "Artikulate -ის რედაქტორის შესახებ"
+
+#: src/qml/EditorSkeletonSelectionPage.qml:15
+#, kde-format
+msgid "Select Prototype"
+msgstr "აირჩიეთ პროტოტიპი"
+
+#: src/qml/EditorSkeletonSelectionPage.qml:46
+#, kde-format
+msgctxt "@title:window prototype name"
+msgid "%1"
+msgstr "%1"
+
+#: src/qml/EditorSkeletonSelectionPage.qml:60
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Prototype"
+msgstr "პროტოტიპის ჩასწორება"
+
+#: src/qml/PhraseEditor.qml:106
+#, kde-format
+msgid "Unit"
+msgstr "ერთეული"
+
+#: src/qml/PhraseEditor.qml:106
+#, kde-format
+msgid "Unit: "
+msgstr "ერთეული: "
+
+#: src/qml/PhraseEditor.qml:111
+#, kde-format
+msgid "Localized Unit:"
+msgstr "ლოკალიზებული ერთეული:"
+
+#: src/qml/PhraseEditor.qml:122
+#, kde-format
+msgid "Phrase: "
+msgstr "ფრაზა: "
+
+#: src/qml/PhraseEditor.qml:127
+#, kde-format
+msgid "Localized Phrase:"
+msgstr "ლოკალიზებული ფრაზა:"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:48
+#, kde-format
+msgid "Edit State:"
+msgstr "მდგომარეობის ჩასწორება:"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:53
+#, kde-format
+msgctxt "state"
+msgid "Unknown"
+msgstr "უცნობი"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:62
+#, kde-format
+msgctxt "state"
+msgid "Translated"
+msgstr "თარგმნილია"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:71
+#, kde-format
+msgctxt "state"
+msgid "Completed"
+msgstr "დასრულებულია"
+
+#: src/qml/PhraseEditorSoundComponent.qml:24
+#, kde-format
+msgid "Native Speaker Recording"
+msgstr "მშობლიურ ენაზე მოსაუბრის ჩანაწერი"
+
+#: src/qml/PhraseEditorSoundComponent.qml:34
+#, kde-format
+msgid "Existing Recording:"
+msgstr "არსებული ჩანაწერი:"
+
+#: src/qml/PhraseEditorSoundComponent.qml:44
+#, kde-format
+msgid "Create New Recording:"
+msgstr "ახალი ჩანაწერის შექმნა:"
+
+#: src/qml/PhraseEditorSoundComponent.qml:60
+#, kde-format
+msgid "Replace Existing Recording"
+msgstr "არსებული ჩანაწერის ჩანაცვლება"
+
+#: src/qml/PhraseEditorSoundComponent.qml:68
+#, kde-format
+msgid "Dismiss"
+msgstr "მოსილება"
+
+#: src/qml/PhraseEditorTypeComponent.qml:51
+#, kde-format
+msgid "Difficulty:"
+msgstr "სირთულე:"
+
+#: src/qml/PhraseEditorTypeComponent.qml:57
+#, kde-format
+msgid "Word"
+msgstr "სიტყვა"
+
+#: src/qml/PhraseEditorTypeComponent.qml:65
+#, kde-format
+msgid "Expression"
+msgstr "გამოსახულება"
+
+#: src/qml/PhraseEditorTypeComponent.qml:73
+#, kde-format
+msgid "Sentence"
+msgstr "წინადადება"
+
+#: src/qml/PhraseEditorTypeComponent.qml:81
+#, kde-format
+msgid "Paragraph"
+msgstr "პარაგრაფი"
+
+#: src/qml/ProfileDetailsItem.qml:38
+#, kde-format
+msgid "Learner"
+msgstr "მოსწავლე"
+
+#: src/qml/ProfileDetailsItem.qml:51
+#, kde-format
+msgid "Favorite Languages"
+msgstr "რჩეული ენები"
+
+#: src/qml/ProfileSelector.qml:70
+#, kde-format
+msgid "Create New Learner Identity"
+msgstr "ახალი მოსწავლის იდენტიფიკატორის შექმნა"
+
+#: src/qml/ProfileSelector.qml:103
+#, kde-format
+msgid "Use Selected Identity"
+msgstr "მონიშნული იდენტიფიკატორის გამოყენება"
+
+#: src/qml/ProfileSettingsPage.qml:17
+#, kde-format
+msgid "Configure Profile"
+msgstr "პროფილის მორგება"
+
+#: src/qml/ProfileSettingsPage.qml:29 src/qml/ProfileUserItem.qml:68
+#, kde-format
+msgid "Edit"
+msgstr "ჩასწორება"
+
+#: src/qml/ProfileSettingsPage.qml:38
+#, kde-format
+msgid "Select Image"
+msgstr "სურათის ამორჩევა"
+
+#: src/qml/ProfileSettingsPage.qml:45 src/qml/ProfileUserItem.qml:84
+#, kde-format
+msgid "Clear Image"
+msgstr "გამოსახულების გასუფთავება"
+
+#: src/qml/ProfileSettingsPage.qml:51
+#, kde-format
+msgid "Delete User"
+msgstr "მომხმარებლის წაშლა"
+
+#: src/qml/ProfileSettingsPage.qml:101 src/qml/ProfileUserItem.qml:117
+#, kde-format
+msgid "Name"
+msgstr "_სახელი"
+
+#: src/qml/ProfileUserItem.qml:79
+#, kde-format
+msgid "Change Image"
+msgstr "გამოსახულების შეცვლა"
+
+#: src/qml/ProfileUserItem.qml:123
+#, kde-format
+msgid "Done"
+msgstr "დასრულებულია"
+
+#: src/qml/ProfileUserItem.qml:161
+#, kde-format
+msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
+msgstr "ნამდვილად გსურთ იდენტიფიკატორის \"<b>%1</b>\" წაშლა?"
+
+#: src/qml/ProfileUserItem.qml:177
+#, kde-format
+msgid "Cancel"
+msgstr "გაუქმება"
+
+#: src/qml/RepositoryConfigurationPage.qml:16
+#, kde-format
+msgid "Repository Configuration"
+msgstr "რეპოზიტორიის მორგება"
+
+#: src/qml/RepositoryConfigurationPage.qml:21
+#, kde-format
+msgid "Select Repository Folder"
+msgstr "აირჩიეთ რეპოზიტორიის საქაღალე"
+
+#: src/qml/RepositoryConfigurationPage.qml:34
+#, kde-format
+msgid "Repository:"
+msgstr "რეპოზიტორია:"
+
+#: src/qml/RepositoryConfigurationPage.qml:39
+#, kde-format
+msgid "Change Folder"
+msgstr "საქაღალდის შეცვლა"
+
+#: src/qml/SoundPlayer.qml:19
+#, kde-format
+msgid "Play"
+msgstr "დაკვრა"
+
+#: src/qml/SoundRecorder.qml:19
+#, kde-format
+msgid "Record"
+msgstr "ჩაწერა"
+
+#: src/qml/TrainerCourseStatistics.qml:46
+#, kde-format
+msgid "Attempts"
+msgstr "ცდები"
+
+#: src/qml/TrainingPage.qml:28
+#, kde-format
+msgid "Category: no category selected"
+msgstr "კატეგორია: არჩეული არაა"
+
+#: src/qml/TrainingPage.qml:31
+#, kde-format
+msgid "Category: %1"
+msgstr "კატეგორია: %1"
+
+#: src/qml/TrainingPage.qml:41
+#, kde-format
+msgid "Mark current phrase as completed and proceed with next one."
+msgstr "მონიშნეთ მიმდინარე ფრაზები, როგორც დასრულებული და შემდეგზე გადადით."
+
+#: src/qml/TrainingPage.qml:46
+#, kde-format
+msgid "Skip"
+msgstr "გამოტოვება"
+
+#: src/qml/TrainingPage.qml:47
+#, kde-format
+msgid "Skip current phrase and proceed with next one."
+msgstr "გამოტოვეთ მიმდინარე ფრაზა და შემდეგზე გადადით."
+
+#: src/qml/TrainingPage.qml:102
+#, kde-format
+msgid "Play original"
+msgstr "საწყისის დაკვრა"
+
+#: src/qml/TrainingPage.qml:143
+#, kde-format
+msgid "Record yourself"
+msgstr "ჩაწერეთ თვითონ"
+
+#: src/qml/TrainingPage.qml:151
+#, kde-format
+msgid "Play yourself"
+msgstr "დაუკარით თვითონ"
+
+#: src/qml/WelcomePage.qml:15
+#, kde-format
+msgid "Welcome to Artikulate"
+msgstr "მოგესალმებათ Artikulate -ში"
+
+#: src/qml/WelcomePage.qml:60
+#, kde-format
+msgctxt "@action:button"
+msgid "Start Training"
+msgstr "გაკვეთილების დაწყება"

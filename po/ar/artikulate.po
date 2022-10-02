@@ -1,0 +1,836 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the artikulate package.
+#
+# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: artikulate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:41+0000\n"
+"PO-Revision-Date: 2022-01-22 18:55+0400\n"
+"Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
+"Language-Team: ar\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 21.07.70\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "البنغالية"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "الكاتالانيّة"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "الألمانية"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "الهولندية"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "الإنجليزية البريطانية"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "الإنجليزية"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "الفرنسيّة"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "اليونانية"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "الهنديّة"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "الإيطالية"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "الماراتية"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "البولنديّة"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "الإسبانيّة"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:154
+#, kde-format
+msgctxt "@item:inlistbox unknown learning goal"
+msgid "unknown"
+msgstr "مجهول"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:219
+#, kde-format
+msgctxt "@title:column"
+msgid "Learning Goal"
+msgstr "هدف التعلم"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Open Image"
+msgstr "افتح صورة"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Image Files (*.png *.jpg *.bmp)"
+msgstr "ملفّات الصّور (*.png *.jpg *.bmp)"
+
+#: liblearnerprofile/src/storage.cpp:567
+#, kde-format
+msgid "Invalid database version '%1'."
+msgstr "إصدار قاعدة بيانات خاطئ '%1'."
+
+#: libsound/src/qtgstreamerbackend/qtgstreamercapturebackend.cpp:31
+#, kde-format
+msgctxt "default sound device"
+msgid "Default"
+msgstr "المبدئيّ"
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "إذا كان هذا صحيحًا، فسيعرض شريط القائمة الرئيسة."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"في حالة التمكين، ستقرأ ملفات الدورة التدريبية من مستودع المساهم المحلي فقط"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "مسار إلى مستودع المساهم المحلي"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "اسم جهاز الصوت الداخل"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "مستوى صوت الداخل"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "مستوى الصوت الخارج"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "الخط"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"عين إما على \"qtmultimediabackend\" أو \"qtgstreamerbackend\" المحدد في وقت "
+"التشغيل إذا كان متاحًا."
+
+#: src/core/drawertrainingactions.cpp:15
+#, kde-format
+msgid "Please select a course"
+msgstr "رجاء حدد دورة"
+
+#: src/core/resources/editablecourseresource.cpp:262
+#, kde-format
+msgid "New Unit"
+msgstr "وحدة جديدة"
+
+#: src/main.cpp:28
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate"
+msgstr "واضح"
+
+#: src/main.cpp:30
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Pronunciation Trainer"
+msgstr "واضح مدرب النطق"
+
+#: src/main.cpp:32
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2020 The Artikulate Developers"
+msgstr "©٢٠١٣-٢٠٢٠ لمطوري واضح"
+
+#: src/main.cpp:33
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Train your pronunciation in a foreign language."
+msgstr "تدرب في نطق لغة أجنبية."
+
+#: src/main.cpp:36 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Andreas Cord-Landwehr"
+msgstr "Andreas Cord-Landwehr"
+
+#: src/main.cpp:36 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Original Author"
+msgstr "المؤلف الأصلي"
+
+#: src/main.cpp:38
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Samikshan Bairagya"
+msgstr "Samikshan Bairagya"
+
+#: src/main.cpp:38
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer"
+msgstr "مطوّر"
+
+#: src/main.cpp:40
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Oindrila Gupta"
+msgstr "Oindrila Gupta"
+
+#: src/main.cpp:40 src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer and Course Data"
+msgstr "مطور وبيانات الدورة"
+
+#: src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Magdalena Konkiewicz"
+msgstr "Magdalena Konkiewicz"
+
+#: src/main.cpp:44
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "زايد السعيدي"
+
+#: src/main.cpp:44
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "zayed.alsaidi@gmail.com"
+
+#: src/main_editor.cpp:26
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate Editor"
+msgstr "محرر واضح"
+
+#: src/main_editor.cpp:28
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Course Editor"
+msgstr "محرر دورات واضح"
+
+#: src/main_editor.cpp:30
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2019 The Artikulate Developers"
+msgstr "©٢٠١٣-٢٠١٩ لمطوري واضح"
+
+#: src/main_editor.cpp:31
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Edit Artikulate course files."
+msgstr "حرر ملفات دورات واضح"
+
+#: src/mainwindow.cpp:39 src/qml/ProfileSelector.qml:18
+#, kde-format
+msgid "Unnamed Identity"
+msgstr "هوية غير مسماة"
+
+#: src/models/coursemodel.cpp:102 src/models/languageresourcemodel.cpp:71
+#: src/models/phonememodel.cpp:61 src/models/phraselistmodel.cpp:96
+#: src/models/profilemodel.cpp:87 src/models/skeletonmodel.cpp:96
+#: src/models/unitmodel.cpp:84
+#, kde-format
+msgctxt "@item:inlistbox:"
+msgid "unknown"
+msgstr "مجهول"
+
+#: src/models/coursemodel.cpp:161
+#, kde-format
+msgctxt "@title:column"
+msgid "Course"
+msgstr "الدورة"
+
+#: src/models/languageresourcemodel.cpp:150
+#, kde-format
+msgctxt "@title:column"
+msgid "Language"
+msgstr "اللغة"
+
+#: src/models/learningprogressmodel.cpp:132
+#, kde-format
+msgid "Words"
+msgstr "الكلمات"
+
+#: src/models/learningprogressmodel.cpp:134
+#, kde-format
+msgid "Sentences"
+msgstr "الجمل"
+
+#: src/models/learningprogressmodel.cpp:136
+#, kde-format
+msgid "Expressions"
+msgstr "التعابير"
+
+#: src/models/learningprogressmodel.cpp:138
+#, kde-format
+msgid "Paragraphs"
+msgstr "الفقرات"
+
+#: src/models/phonemegroupmodel.cpp:153
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Group"
+msgstr "مجموعة الأصوات"
+
+#: src/models/phonememodel.cpp:123
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme"
+msgstr "الصوت اللغوي"
+
+#: src/models/phonemeunitmodel.cpp:182
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Unit"
+msgstr "وحدة الصوت اللغوي"
+
+#: src/models/phraselistmodel.cpp:172 src/models/phrasemodel.cpp:294
+#, kde-format
+msgctxt "@title:column"
+msgid "Phrase"
+msgstr "عبارة"
+
+#: src/models/profilemodel.cpp:146
+#, kde-format
+msgctxt "@title:column"
+msgid "Profile"
+msgstr "تشكيلة "
+
+#: src/models/skeletonmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Skeleton"
+msgstr "هيكل"
+
+#: src/models/unitmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Unit"
+msgstr "الوحدة"
+
+#: src/qml/ArtikulateDrawer.qml:34
+#, kde-format
+msgid "Training"
+msgstr "التدريب"
+
+#: src/qml/ArtikulateDrawer.qml:127
+#, kde-format
+msgid "Download Training"
+msgstr "نزل التدريب"
+
+#: src/qml/ArtikulateDrawer.qml:137
+#, kde-format
+msgid "About Artikulate"
+msgstr "عن واضح"
+
+#: src/qml/CourseConfigurationPage.qml:15 src/qml/EditorDrawer.qml:58
+#, kde-format
+msgid "Course Configuration"
+msgstr "ضبط الدورة"
+
+#: src/qml/CourseConfigurationPage.qml:15
+#, kde-format
+msgid "Prototype Configuration"
+msgstr "ضبط النموذج"
+
+#: src/qml/CourseConfigurationPage.qml:20
+#, kde-format
+msgid "Prototype Description"
+msgstr "وصف النموذج"
+
+#: src/qml/CourseConfigurationPage.qml:20
+#, kde-format
+msgid "Course Description"
+msgstr "وصف الدورة"
+
+#: src/qml/CourseConfigurationPage.qml:24
+#, kde-format
+msgid "Title:"
+msgstr "العنوان:"
+
+#: src/qml/CourseConfigurationPage.qml:31
+#, kde-format
+msgid "Localized Title:"
+msgstr "العنوان المحلي:"
+
+#: src/qml/CourseConfigurationPage.qml:37
+#, kde-format
+msgid "Description:"
+msgstr "الوصف:"
+
+#: src/qml/CourseConfigurationPage.qml:44
+#, kde-format
+msgid "Language:"
+msgstr "اللغة:"
+
+#: src/qml/CourseConfigurationPage.qml:52
+#, kde-format
+msgid "Prototype"
+msgstr "نموذج مبدئي"
+
+#: src/qml/CourseConfigurationPage.qml:57
+#, kde-format
+msgid "Update from Prototype:"
+msgstr "حدث من النموذج:"
+
+#: src/qml/CourseConfigurationPage.qml:60
+#, kde-format
+msgid "Update"
+msgstr "حدّث"
+
+#: src/qml/CourseConfigurationPage.qml:65
+#, kde-format
+msgid "Update the course with elements from prototype."
+msgstr "حدث الدورة بالعناصر من النموذج."
+
+#: src/qml/DownloadPage.qml:21
+#, kde-format
+msgid "Download Training Material"
+msgstr "نزل مواد التدريب"
+
+#: src/qml/DownloadPage.qml:74
+#, kde-format
+msgctxt "@action:button"
+msgid "Update"
+msgstr "حدّث"
+
+#: src/qml/DownloadPage.qml:79
+#, kde-format
+msgctxt "@action:button"
+msgid "Install"
+msgstr "ثبّت"
+
+#: src/qml/DownloadPage.qml:84
+#, kde-format
+msgctxt "@action:button"
+msgid "Remove"
+msgstr "أزل"
+
+#: src/qml/EditCoursePage.qml:16
+#, kde-format
+msgid "Edit Course"
+msgstr "حرر الدورة"
+
+#: src/qml/EditCoursePage.qml:25
+#, kde-format
+msgid "Previous"
+msgstr "السابق"
+
+#: src/qml/EditCoursePage.qml:26
+#, kde-format
+msgid "Switch to previous phrase."
+msgstr "بدل إلى العبارة السابقة"
+
+#: src/qml/EditCoursePage.qml:32 src/qml/TrainingPage.qml:40
+#, kde-format
+msgid "Next"
+msgstr "التالي"
+
+#: src/qml/EditCoursePage.qml:33
+#, kde-format
+msgid "Switch to next phrase."
+msgstr "بدل إلى العبارة التالية"
+
+#: src/qml/EditCoursePage.qml:40 src/qml/ProfileUserItem.qml:73
+#: src/qml/ProfileUserItem.qml:170
+#, kde-format
+msgid "Delete"
+msgstr "احذف"
+
+#: src/qml/EditCoursePage.qml:41
+#, kde-format
+msgid "Delete this phrase."
+msgstr "احذف هذه العبارة."
+
+#: src/qml/EditCoursePage.qml:49
+#, kde-format
+msgid "Create Phrase"
+msgstr "أنشئ عبارة"
+
+#: src/qml/EditCoursePage.qml:50
+#, kde-format
+msgid "Create phrase after current phrase."
+msgstr "أنشئ عبارة بعد العبارة الحالية."
+
+#: src/qml/EditorCourseSelectionPage.qml:15
+#, kde-format
+msgid "Welcome to Artikulate Course Editor"
+msgstr "أهلا وسهلا في محرر واضح"
+
+#: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:46
+#, kde-format
+msgctxt "@title:window language / course name"
+msgid "%1 / %2"
+msgstr "‏%1 / ‏%2"
+
+#: src/qml/EditorCourseSelectionPage.qml:60
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Course"
+msgstr "حرر الدورة"
+
+#: src/qml/EditorDrawer.qml:34
+#, kde-format
+msgid "Courses"
+msgstr "الدورات"
+
+#: src/qml/EditorDrawer.qml:45
+#, kde-format
+msgid "Repository"
+msgstr "المستودع"
+
+#: src/qml/EditorDrawer.qml:121
+#, kde-format
+msgid "Save"
+msgstr "احفظ"
+
+#: src/qml/EditorDrawer.qml:147
+#, kde-format
+msgid "About Artikulate Editor"
+msgstr "عن محرر واضح"
+
+#: src/qml/EditorSkeletonSelectionPage.qml:15
+#, kde-format
+msgid "Select Prototype"
+msgstr "حدد النموذج"
+
+#: src/qml/EditorSkeletonSelectionPage.qml:46
+#, kde-format
+msgctxt "@title:window prototype name"
+msgid "%1"
+msgstr "%1"
+
+#: src/qml/EditorSkeletonSelectionPage.qml:60
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Prototype"
+msgstr "حرر النموذج"
+
+#: src/qml/PhraseEditor.qml:106
+#, kde-format
+msgid "Unit"
+msgstr "الوحدة"
+
+#: src/qml/PhraseEditor.qml:106
+#, kde-format
+msgid "Unit: "
+msgstr "الوحدة:"
+
+#: src/qml/PhraseEditor.qml:111
+#, kde-format
+msgid "Localized Unit:"
+msgstr "الوحدة المحلية:"
+
+#: src/qml/PhraseEditor.qml:122
+#, kde-format
+msgid "Phrase: "
+msgstr "العبارة: "
+
+#: src/qml/PhraseEditor.qml:127
+#, kde-format
+msgid "Localized Phrase:"
+msgstr "العبارة المحلية:"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:48
+#, kde-format
+msgid "Edit State:"
+msgstr "حرر الحالة:"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:53
+#, kde-format
+msgctxt "state"
+msgid "Unknown"
+msgstr "مجهول"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:62
+#, kde-format
+msgctxt "state"
+msgid "Translated"
+msgstr "مترجمة"
+
+#: src/qml/PhraseEditorEditStateComponent.qml:71
+#, kde-format
+msgctxt "state"
+msgid "Completed"
+msgstr "اكتملت"
+
+#: src/qml/PhraseEditorSoundComponent.qml:24
+#, kde-format
+msgid "Native Speaker Recording"
+msgstr "تسجيل المتكلم الأصلي"
+
+#: src/qml/PhraseEditorSoundComponent.qml:34
+#, kde-format
+msgid "Existing Recording:"
+msgstr "التسجيل الموجود:"
+
+#: src/qml/PhraseEditorSoundComponent.qml:44
+#, kde-format
+msgid "Create New Recording:"
+msgstr "أنشئ تسجيل جديد:"
+
+#: src/qml/PhraseEditorSoundComponent.qml:60
+#, kde-format
+msgid "Replace Existing Recording"
+msgstr "بدل التسجيل الموجود"
+
+#: src/qml/PhraseEditorSoundComponent.qml:68
+#, kde-format
+msgid "Dismiss"
+msgstr "تجاهل"
+
+#: src/qml/PhraseEditorTypeComponent.qml:51
+#, kde-format
+msgid "Difficulty:"
+msgstr "الصعوبة:"
+
+#: src/qml/PhraseEditorTypeComponent.qml:57
+#, kde-format
+msgid "Word"
+msgstr "كلمة"
+
+#: src/qml/PhraseEditorTypeComponent.qml:65
+#, kde-format
+msgid "Expression"
+msgstr "عبارة"
+
+#: src/qml/PhraseEditorTypeComponent.qml:73
+#, kde-format
+msgid "Sentence"
+msgstr "جملة"
+
+#: src/qml/PhraseEditorTypeComponent.qml:81
+#, kde-format
+msgid "Paragraph"
+msgstr "فقرة"
+
+#: src/qml/ProfileDetailsItem.qml:38
+#, kde-format
+msgid "Learner"
+msgstr "المتعلم"
+
+#: src/qml/ProfileDetailsItem.qml:51
+#, kde-format
+msgid "Favorite Languages"
+msgstr "اللغات المفضلة"
+
+#: src/qml/ProfileSelector.qml:70
+#, kde-format
+msgid "Create New Learner Identity"
+msgstr "أنشئ هوية متعلم جديدة"
+
+#: src/qml/ProfileSelector.qml:103
+#, kde-format
+msgid "Use Selected Identity"
+msgstr "استخدم الهوية المحددة"
+
+#: src/qml/ProfileSettingsPage.qml:17
+#, kde-format
+msgid "Configure Profile"
+msgstr "اضبط التشكيلة"
+
+#: src/qml/ProfileSettingsPage.qml:29 src/qml/ProfileUserItem.qml:68
+#, kde-format
+msgid "Edit"
+msgstr "حرّر"
+
+#: src/qml/ProfileSettingsPage.qml:38
+#, kde-format
+msgid "Select Image"
+msgstr "حدد صورة"
+
+#: src/qml/ProfileSettingsPage.qml:45 src/qml/ProfileUserItem.qml:84
+#, kde-format
+msgid "Clear Image"
+msgstr "امحُ الصورة"
+
+#: src/qml/ProfileSettingsPage.qml:51
+#, kde-format
+msgid "Delete User"
+msgstr "احذف المستخدم..."
+
+#: src/qml/ProfileSettingsPage.qml:101 src/qml/ProfileUserItem.qml:117
+#, kde-format
+msgid "Name"
+msgstr "الاسم"
+
+#: src/qml/ProfileUserItem.qml:79
+#, kde-format
+msgid "Change Image"
+msgstr "غيّر الصورة"
+
+#: src/qml/ProfileUserItem.qml:123
+#, kde-format
+msgid "Done"
+msgstr "تمّ"
+
+#: src/qml/ProfileUserItem.qml:161
+#, kde-format
+msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
+msgstr "أمتأكّد من حذف هذه  الهوية \"<b>%1</b>\"؟"
+
+#: src/qml/ProfileUserItem.qml:177
+#, kde-format
+msgid "Cancel"
+msgstr "ألغِ"
+
+#: src/qml/RepositoryConfigurationPage.qml:16
+#, kde-format
+msgid "Repository Configuration"
+msgstr "ضبط المستودع"
+
+#: src/qml/RepositoryConfigurationPage.qml:21
+#, kde-format
+msgid "Select Repository Folder"
+msgstr "حدد مجلد المستودع"
+
+#: src/qml/RepositoryConfigurationPage.qml:34
+#, kde-format
+msgid "Repository:"
+msgstr "المستودع:"
+
+#: src/qml/RepositoryConfigurationPage.qml:39
+#, kde-format
+msgid "Change Folder"
+msgstr "غيّر المجلد"
+
+#: src/qml/SoundPlayer.qml:19
+#, kde-format
+msgid "Play"
+msgstr "شغّل"
+
+#: src/qml/SoundRecorder.qml:19
+#, kde-format
+msgid "Record"
+msgstr "سجّل"
+
+#: src/qml/TrainerCourseStatistics.qml:46
+#, kde-format
+msgid "Attempts"
+msgstr "المحاولات"
+
+#: src/qml/TrainingPage.qml:28
+#, kde-format
+msgid "Category: no category selected"
+msgstr "التصنيف: لم يحدد أي تصنيف"
+
+#: src/qml/TrainingPage.qml:31
+#, kde-format
+msgid "Category: %1"
+msgstr "التصنيف: %1"
+
+#: src/qml/TrainingPage.qml:41
+#, kde-format
+msgid "Mark current phrase as completed and proceed with next one."
+msgstr "علم العبارة الحالية كمنتهي وانتقل للتالية."
+
+#: src/qml/TrainingPage.qml:46
+#, kde-format
+msgid "Skip"
+msgstr "تخطّى"
+
+#: src/qml/TrainingPage.qml:47
+#, kde-format
+msgid "Skip current phrase and proceed with next one."
+msgstr "تخطَ العبارة الحالية وانتقل للتالية."
+
+#: src/qml/TrainingPage.qml:102
+#, kde-format
+msgid "Play original"
+msgstr "شغل الأصلي"
+
+#: src/qml/TrainingPage.qml:143
+#, kde-format
+msgid "Record yourself"
+msgstr "سجّل نطقك"
+
+#: src/qml/TrainingPage.qml:151
+#, kde-format
+msgid "Play yourself"
+msgstr "شغّل تسجيلك"
+
+#: src/qml/WelcomePage.qml:15
+#, kde-format
+msgid "Welcome to Artikulate"
+msgstr "أهلا وسهلا في واضح"
+
+#: src/qml/WelcomePage.qml:60
+#, kde-format
+msgctxt "@action:button"
+msgid "Start Training"
+msgstr "ابدأ التدرّب"
