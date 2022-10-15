@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2020-10-24 02:08+0200\n"
+"POT-Creation-Date: 2022-10-02 00:41+0000\n"
 "PO-Revision-Date: 2020-08-28 19:04+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -97,13 +97,13 @@ msgctxt "Language Title"
 msgid "Spanish"
 msgstr "Spansk"
 
-#: liblearnerprofile/src/models/learninggoalmodel.cpp:155
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
 msgctxt "@item:inlistbox unknown learning goal"
 msgid "unknown"
 msgstr "ukjend"
 
-#: liblearnerprofile/src/models/learninggoalmodel.cpp:220
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:219
 #, kde-format
 msgctxt "@title:column"
 msgid "Learning Goal"
@@ -124,7 +124,7 @@ msgstr "Biletfiler (*.png *.jpg *.bmp)"
 msgid "Invalid database version '%1'."
 msgstr "Ugyldig databaseversjon «%1»."
 
-#: libsound/src/qtgstreamerbackend/qtgstreamercapturebackend.cpp:34
+#: libsound/src/qtgstreamerbackend/qtgstreamercapturebackend.cpp:31
 #, kde-format
 msgctxt "default sound device"
 msgid "Default"
@@ -185,12 +185,12 @@ msgstr ""
 "Bruk anten «qtmultimediabackend» eller «qtgstreamerbackend». Vert valt ved "
 "køyring, om tilgjengeleg."
 
-#: src/core/drawertrainingactions.cpp:16
+#: src/core/drawertrainingactions.cpp:15
 #, kde-format
 msgid "Please select a course"
 msgstr "Vel eit kurs"
 
-#: src/core/resources/editablecourseresource.cpp:263
+#: src/core/resources/editablecourseresource.cpp:262
 #, kde-format
 msgid "New Unit"
 msgstr "Ny eining"
@@ -297,14 +297,14 @@ msgctxt "@title Short program description"
 msgid "Edit Artikulate course files."
 msgstr "Rediger Artikulate-kursfiler."
 
-#: src/mainwindow.cpp:40 src/qml/ProfileSelector.qml:18
+#: src/mainwindow.cpp:39 src/qml/ProfileSelector.qml:18
 #, kde-format
 msgid "Unnamed Identity"
 msgstr "Namnlaus identitet"
 
 #: src/models/coursemodel.cpp:102 src/models/languageresourcemodel.cpp:71
 #: src/models/phonememodel.cpp:61 src/models/phraselistmodel.cpp:96
-#: src/models/profilemodel.cpp:87 src/models/skeletonmodel.cpp:97
+#: src/models/profilemodel.cpp:87 src/models/skeletonmodel.cpp:96
 #: src/models/unitmodel.cpp:84
 #, kde-format
 msgctxt "@item:inlistbox:"
@@ -373,7 +373,7 @@ msgctxt "@title:column"
 msgid "Profile"
 msgstr "Profil"
 
-#: src/models/skeletonmodel.cpp:156
+#: src/models/skeletonmodel.cpp:155
 #, kde-format
 msgctxt "@title:column"
 msgid "Skeleton"
