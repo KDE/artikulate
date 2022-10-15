@@ -31,6 +31,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="ia">Artikulate</name>
   <name xml:lang="id">Artikulate</name>
   <name xml:lang="it">Artikulate</name>
+  <name xml:lang="ka">Artikulate</name>
   <name xml:lang="ko">Artikulate</name>
   <name xml:lang="nds">Artikulate</name>
   <name xml:lang="nl">Artikulate</name>
@@ -70,6 +71,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="ia">Instructor de pronunciation Artikulate</summary>
   <summary xml:lang="id">Pelatih Pengucapan Artikulasi</summary>
   <summary xml:lang="it">Allenatore di pronuncia Artikulate</summary>
+  <summary xml:lang="ka">Artikulate - გამოთქმის მასწავლებელი</summary>
   <summary xml:lang="ko">Artikulate 발음 타이머</summary>
   <summary xml:lang="nds">Utspraak-Lehrer Artikulate</summary>
   <summary xml:lang="nl">Artikulate Trainingsprogramma voor uitspraak</summary>
@@ -152,6 +154,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="ia">Instruer in Artikulate</caption>
       <caption xml:lang="id">Berlatih di Artikulate</caption>
       <caption xml:lang="it">Allenamento in Artikulate</caption>
+      <caption xml:lang="ka">ვარჯიში Artikulate-ში</caption>
       <caption xml:lang="ko">Artikulate로 연습하기</caption>
       <caption xml:lang="nl">Oefening in Artikulate</caption>
       <caption xml:lang="nn">Øving i Artikulate</caption>
