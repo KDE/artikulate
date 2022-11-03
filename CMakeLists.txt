@@ -51,6 +51,7 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
 
 add_definitions(
     -DQT_NO_URL_CAST_FROM_STRING
+    -DQT_DISABLE_DEPRECATED_BEFORE=0x050F00
 )
 
 # subdirectories to build
