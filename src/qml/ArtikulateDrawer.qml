@@ -57,7 +57,7 @@ Kirigami.GlobalDrawer {
     }
     Connections {
         target: g_trainingSession
-        onCloseUnit: {
+        function onCloseUnit() {
             root.resetMenu()
         }
     }
