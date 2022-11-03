@@ -5,7 +5,6 @@
 */
 
 #include "application.h"
-
 #include "core/contributorrepository.h"
 #include "core/drawertrainingactions.h"
 #include "core/editorsession.h"
@@ -24,6 +23,10 @@
 #include "core/trainingaction.h"
 #include "core/trainingsession.h"
 #include "core/unit.h"
+#include "liblearnerprofile/src/learner.h"
+#include "liblearnerprofile/src/learninggoal.h"
+#include "liblearnerprofile/src/models/learninggoalmodel.h"
+#include "liblearnerprofile/src/profilemanager.h"
 #include "models/coursefiltermodel.h"
 #include "models/coursemodel.h"
 #include "models/languagemodel.h"
@@ -40,12 +43,7 @@
 #include "models/unitfiltermodel.h"
 #include "models/unitmodel.h"
 #include "qmlcontrols/iconitem.h"
-
-#include "liblearnerprofile/src/learner.h"
-#include "liblearnerprofile/src/learninggoal.h"
-#include "liblearnerprofile/src/models/learninggoalmodel.h"
-#include "liblearnerprofile/src/profilemanager.h"
-
+#include <QString>
 
 Application::Application(int &argc, char **argv)
     : QApplication(argc, argv)
@@ -70,53 +68,70 @@ void Application::installResourceRepository(IResourceRepository *resourceReposit
 
 void Application::registerQmlTypes()
 {
-    qmlRegisterUncreatableType<TrainingSession>("artikulate", 1, 0, "TrainingSession", QStringLiteral("TrainingSession is unique object provided by the backend"));
-    qmlRegisterUncreatableType<EditorSession>("artikulate", 1, 0, "EditorSession", QStringLiteral("EditorSession is unique object provided by the backend"));
-    qmlRegisterUncreatableType<ContributorRepository>("artikulate", 1, 0, "ContributorRepository", QStringLiteral("ContributorRepository is unique object provided by the backend"));
-    qmlRegisterUncreatableType<LearnerProfile::ProfileManager>("artikulate", 1, 0, "ProfileManager", QStringLiteral("ProfileManager is unique object provided by the backend"));
-    qmlRegisterUncreatableType<EditableCourseResource>("artikulate", 1, 0, "EditableCourseResource", QStringLiteral("EditableCourseResource objects are backend objects"));
-    qmlRegisterUncreatableType<SkeletonResource>("artikulate", 1, 0, "SkeletonResource", QStringLiteral("SkeletonResource objects are backend objects"));
-    qmlRegisterUncreatableType<Phrase>("artikulate", 1, 0, "Phrase", QStringLiteral("Phrase objects are backend objects"));
-    qmlRegisterUncreatableType<Unit>("artikulate", 1, 0, "Unit", QStringLiteral("Unit objects are backend objects"));
+    QLatin1String uri{"artikulate"};
+    qmlRegisterUncreatableType<TrainingSession>(uri.data(),
+                                                1,
+                                                0,
+                                                "TrainingSession",
+                                                QStringLiteral("TrainingSession is unique object provided by the backend"));
+    qmlRegisterUncreatableType<EditorSession>(uri.data(), 1, 0, "EditorSession", QStringLiteral("EditorSession is unique object provided by the backend"));
+    qmlRegisterUncreatableType<ContributorRepository>(uri.data(),
+                                                      1,
+                                                      0,
+                                                      "ContributorRepository",
+                                                      QStringLiteral("ContributorRepository is unique object provided by the backend"));
+    qmlRegisterUncreatableType<LearnerProfile::ProfileManager>(uri.data(),
+                                                               1,
+                                                               0,
+                                                               "ProfileManager",
+                                                               QStringLiteral("ProfileManager is unique object provided by the backend"));
+    qmlRegisterUncreatableType<EditableCourseResource>(uri.data(),
+                                                       1,
+                                                       0,
+                                                       "EditableCourseResource",
+                                                       QStringLiteral("EditableCourseResource objects are backend objects"));
+    qmlRegisterUncreatableType<SkeletonResource>(uri.data(), 1, 0, "SkeletonResource", QStringLiteral("SkeletonResource objects are backend objects"));
+    qmlRegisterUncreatableType<Phrase>(uri.data(), 1, 0, "Phrase", QStringLiteral("Phrase objects are backend objects"));
+    qmlRegisterUncreatableType<Unit>(uri.data(), 1, 0, "Unit", QStringLiteral("Unit objects are backend objects"));
 
     // interfaces
-    qmlRegisterInterface<ICourse>("ICourse");
-    qmlRegisterInterface<IEditableCourse>("IEditableCourse");
-    qmlRegisterInterface<IEditablePhrase>("IEditablePhrase");
-    qmlRegisterInterface<ILanguage>("ILanguage");
-    qmlRegisterInterface<IPhrase>("IPhrase");
-    qmlRegisterInterface<IResourceRepository>("IEditableRepository");
-    qmlRegisterInterface<IResourceRepository>("IResourceRepository");
-    qmlRegisterInterface<ISessionActions>("ISessionActions");
-    qmlRegisterInterface<IUnit>("IUnit");
+    qmlRegisterInterface<ICourse>("ICourse", 1);
+    qmlRegisterInterface<IEditableCourse>("IEditableCourse", 1);
+    qmlRegisterInterface<IEditablePhrase>("IEditablePhrase", 1);
+    qmlRegisterInterface<ILanguage>("ILanguage", 1);
+    qmlRegisterInterface<IPhrase>("IPhrase", 1);
+    qmlRegisterInterface<IResourceRepository>("IEditableRepository", 1);
+    qmlRegisterInterface<IResourceRepository>("IResourceRepository", 1);
+    qmlRegisterInterface<ISessionActions>("ISessionActions", 1);
+    qmlRegisterInterface<IUnit>("IUnit", 1);
 
     // concrete instantiable types
-    qmlRegisterType<DrawerTrainingActions>("artikulate", 1, 0, "DrawerTrainingActions");
-    qmlRegisterType<IconItem>("artikulate", 1, 0, "Icon");
-    qmlRegisterType<Language>("artikulate", 1, 0, "Language");
-    qmlRegisterType<LearnerProfile::Learner>("artikulate", 1, 0, "Learner");
-    qmlRegisterType<LearnerProfile::LearningGoal>("artikulate", 1, 0, "LearningGoal");
-    qmlRegisterType<Phoneme>("artikulate", 1, 0, "Phoneme");
-    qmlRegisterType<PhonemeGroup>("artikulate", 1, 0, "PhonemeGroup");
-    qmlRegisterType<Player>("artikulate", 1, 0, "Player");
-    qmlRegisterType<Recorder>("artikulate", 1, 0, "Recorder");
-    qmlRegisterType<TrainingAction>("artikulate", 1, 0, "TrainingAction");
+    qmlRegisterType<DrawerTrainingActions>(uri.data(), 1, 0, "DrawerTrainingActions");
+    qmlRegisterType<IconItem>(uri.data(), 1, 0, "Icon");
+    qmlRegisterType<Language>(uri.data(), 1, 0, "Language");
+    qmlRegisterType<LearnerProfile::Learner>(uri.data(), 1, 0, "Learner");
+    qmlRegisterType<LearnerProfile::LearningGoal>(uri.data(), 1, 0, "LearningGoal");
+    qmlRegisterType<Phoneme>(uri.data(), 1, 0, "Phoneme");
+    qmlRegisterType<PhonemeGroup>(uri.data(), 1, 0, "PhonemeGroup");
+    qmlRegisterType<Player>(uri.data(), 1, 0, "Player");
+    qmlRegisterType<Recorder>(uri.data(), 1, 0, "Recorder");
+    qmlRegisterType<TrainingAction>(uri.data(), 1, 0, "TrainingAction");
 
     // models
-    qmlRegisterType<CourseFilterModel>("artikulate", 1, 0, "CourseFilterModel");
-    qmlRegisterType<CourseModel>("artikulate", 1, 0, "CourseModel");
-    qmlRegisterType<LanguageModel>("artikulate", 1, 0, "LanguageModel");
-    qmlRegisterType<LanguageResourceModel>("artikulate", 1, 0, "LanguageResourceModel");
-    qmlRegisterType<LearnerProfile::LearningGoalModel>("artikulate", 1, 0, "LearningGoalModel");
-    qmlRegisterType<PhonemeGroupModel>("artikulate", 1, 0, "PhonemeGroupModel");
-    qmlRegisterType<PhonemeModel>("artikulate", 1, 0, "PhonemeModel");
-    qmlRegisterType<PhonemeUnitModel>("artikulate", 1, 0, "PhonemeUnitModel");
-    qmlRegisterType<PhraseFilterModel>("artikulate", 1, 0, "PhraseFilterModel");
-    qmlRegisterType<PhraseListModel>("artikulate", 1, 0, "PhraseListModel");
-    qmlRegisterType<PhraseModel>("artikulate", 1, 0, "PhraseModel");
-    qmlRegisterType<ProfileModel>("artikulate", 1, 0, "ProfileModel");
-    qmlRegisterType<SkeletonModel>("artikulate", 1, 0, "SkeletonModel");
-    qmlRegisterType<UnitFilterModel>("artikulate", 1, 0, "UnitFilterModel");
-    qmlRegisterType<UnitModel>("artikulate", 1, 0, "UnitModel");
+    qmlRegisterType<CourseFilterModel>(uri.data(), 1, 0, "CourseFilterModel");
+    qmlRegisterType<CourseModel>(uri.data(), 1, 0, "CourseModel");
+    qmlRegisterType<LanguageModel>(uri.data(), 1, 0, "LanguageModel");
+    qmlRegisterType<LanguageResourceModel>(uri.data(), 1, 0, "LanguageResourceModel");
+    qmlRegisterType<LearnerProfile::LearningGoalModel>(uri.data(), 1, 0, "LearningGoalModel");
+    qmlRegisterType<PhonemeGroupModel>(uri.data(), 1, 0, "PhonemeGroupModel");
+    qmlRegisterType<PhonemeModel>(uri.data(), 1, 0, "PhonemeModel");
+    qmlRegisterType<PhonemeUnitModel>(uri.data(), 1, 0, "PhonemeUnitModel");
+    qmlRegisterType<PhraseFilterModel>(uri.data(), 1, 0, "PhraseFilterModel");
+    qmlRegisterType<PhraseListModel>(uri.data(), 1, 0, "PhraseListModel");
+    qmlRegisterType<PhraseModel>(uri.data(), 1, 0, "PhraseModel");
+    qmlRegisterType<ProfileModel>(uri.data(), 1, 0, "ProfileModel");
+    qmlRegisterType<SkeletonModel>(uri.data(), 1, 0, "SkeletonModel");
+    qmlRegisterType<UnitFilterModel>(uri.data(), 1, 0, "UnitFilterModel");
+    qmlRegisterType<UnitModel>(uri.data(), 1, 0, "UnitModel");
     //     qmlRegisterType<LearningProgressModel>("artikulate", 1, 0, "LearningProgressModel");//TODO must be ported to new trainingsession
 }
