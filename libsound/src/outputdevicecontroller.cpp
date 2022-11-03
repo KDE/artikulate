@@ -5,16 +5,10 @@
 */
 
 #include "outputdevicecontroller.h"
-#include "backendinterface.h"
-#include "outputbackendinterface.h"
-
-#include <QUrl>
-
-#include <KPluginFactory>
-#include <KPluginLoader>
-#include <KPluginMetaData>
-
 #include "libsound_debug.h"
+#include "outputbackendinterface.h"
+#include "qtmultimediabackend/qtmultimediaoutputbackend.h"
+#include <QUrl>
 
 /**
  * \class OutputDeviceControllerPrivate
@@ -29,55 +23,20 @@ class OutputDeviceControllerPrivate
 {
 public:
     OutputDeviceControllerPrivate(OutputDeviceController *parent)
-        : m_parent(parent)
-        , m_backend(nullptr)
-        , m_volume(0)
-        , m_initialized(false)
+        : m_backend(new QtMultimediaOutputBackend(parent))
+        , m_volume(m_backend->volume())
     {
-        const QVector<KPluginMetaData> metadataList = KPluginLoader::findPlugins(QStringLiteral("artikulate/libsound"));
-        for (const auto &metadata : metadataList) {
-            qCDebug(LIBSOUND_LOG) << "Load Plugin: " << metadata.name();
-            KPluginFactory *factory = KPluginLoader(metadata.fileName()).factory();
-            if (!factory) {
-                qCCritical(LIBSOUND_LOG) << "Could not load plugin:" << metadata.name();
-                continue;
-            }
-            BackendInterface *plugin = factory->create<BackendInterface>(parent, QList<QVariant>());
-            if (plugin->outputBackend()) {
-                m_backendList.append(plugin->outputBackend());
-            }
-        }
-        if (!m_backend && !m_backendList.isEmpty()) {
-            m_backend = m_backendList.first();
-        }
-    }
-
-    ~OutputDeviceControllerPrivate()
-    {
-        delete m_backend;
-    }
-
-    void lazyInit()
-    {
-        if (m_initialized) {
-            return;
-        }
-        m_parent->connect(m_backend, &OutputBackendInterface::stateChanged, m_parent, &OutputDeviceController::emitChangedState);
-        m_volume = m_backend->volume();
-        m_initialized = true;
+        parent->connect(m_backend.get(), &OutputBackendInterface::stateChanged, parent, &OutputDeviceController::emitChangedState);
     }
 
     OutputBackendInterface *backend() const
     {
         Q_ASSERT(m_backend);
-        return m_backend;
+        return m_backend.get();
     }
 
-    OutputDeviceController *m_parent;
-    OutputBackendInterface *m_backend;
-    QList<OutputBackendInterface *> m_backendList;
-    int m_volume; // volume as cubic value
-    bool m_initialized;
+    std::unique_ptr<OutputBackendInterface> m_backend;
+    int m_volume{0}; // volume as cubic value
 };
 
 OutputDeviceController::OutputDeviceController()
@@ -92,7 +51,6 @@ OutputDeviceController::~OutputDeviceController()
 OutputDeviceController &OutputDeviceController::self()
 {
     static OutputDeviceController instance;
-    instance.d->lazyInit();
     return instance;
 }
 

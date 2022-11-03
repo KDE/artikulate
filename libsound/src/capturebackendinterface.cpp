@@ -11,6 +11,4 @@ CaptureBackendInterface::CaptureBackendInterface(QObject *parent)
 {
 }
 
-CaptureBackendInterface::~CaptureBackendInterface()
-{
-}
+CaptureBackendInterface::~CaptureBackendInterface() = default;

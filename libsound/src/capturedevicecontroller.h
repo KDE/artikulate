@@ -8,8 +8,8 @@
 #define CAPTUREDEVICECONTROLLER_H
 
 #include "libsound_export.h"
-
 #include <QObject>
+#include <memory>
 
 class CaptureDeviceControllerPrivate;
 
@@ -62,7 +62,7 @@ private:
      */
     ~CaptureDeviceController() override;
 
-    const QScopedPointer<CaptureDeviceControllerPrivate> d;
+    const std::unique_ptr<CaptureDeviceControllerPrivate> d;
 };
 
 #endif

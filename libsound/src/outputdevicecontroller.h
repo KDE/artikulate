@@ -9,6 +9,7 @@
 
 #include "libsound_export.h"
 #include <QObject>
+#include <memory>
 
 class OutputDeviceControllerPrivate;
 class QUrl;
@@ -23,7 +24,11 @@ class LIBSOUND_EXPORT OutputDeviceController : public QObject
     Q_OBJECT
 
 public:
-    enum State { StoppedState, PlayingState, PausedState };
+    enum State {
+        StoppedState,
+        PlayingState,
+        PausedState,
+    };
 
     /**
      * Returns self reference to the controller. First call of this method initializes
@@ -60,7 +65,7 @@ private:
      */
     ~OutputDeviceController() override;
 
-    const QScopedPointer<OutputDeviceControllerPrivate> d;
+    const std::unique_ptr<OutputDeviceControllerPrivate> d;
 };
 
 #endif

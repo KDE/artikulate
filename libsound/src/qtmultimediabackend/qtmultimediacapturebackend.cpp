@@ -5,12 +5,9 @@
 */
 
 #include "qtmultimediacapturebackend.h"
-
 #include "libsound_debug.h"
-
-#include <QUrl>
-
 #include <KLocalizedString>
+#include <QUrl>
 
 QtMultimediaCaptureBackend::QtMultimediaCaptureBackend(QObject *parent)
     : CaptureBackendInterface(parent)
@@ -35,12 +32,12 @@ QtMultimediaCaptureBackend::QtMultimediaCaptureBackend(QObject *parent)
 CaptureDeviceController::State QtMultimediaCaptureBackend::captureState() const
 {
     switch (m_recorder.state()) {
-        case QMediaRecorder::StoppedState:
-            return CaptureDeviceController::StoppedState;
-        case QMediaRecorder::RecordingState:
-            return CaptureDeviceController::RecordingState;
-        case QMediaRecorder::PausedState:
-            return CaptureDeviceController::PausedState;
+    case QMediaRecorder::StoppedState:
+        return CaptureDeviceController::StoppedState;
+    case QMediaRecorder::RecordingState:
+        return CaptureDeviceController::RecordingState;
+    case QMediaRecorder::PausedState:
+        return CaptureDeviceController::PausedState;
     }
     Q_UNREACHABLE();
     return CaptureDeviceController::StoppedState;

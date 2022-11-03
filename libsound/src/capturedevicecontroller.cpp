@@ -5,14 +5,10 @@
 */
 
 #include "capturedevicecontroller.h"
-#include "backendinterface.h"
 #include "capturebackendinterface.h"
 #include "libsound_debug.h"
-
-
-#include <KPluginFactory>
-#include <KPluginLoader>
-#include <KPluginMetaData>
+#include "qtmultimediabackend/qtmultimediacapturebackend.h"
+#include <memory>
 
 /**
  * \class CaptureDeviceControllerPrivate
@@ -27,54 +23,17 @@ class CaptureDeviceControllerPrivate
 {
 public:
     CaptureDeviceControllerPrivate(QObject *parent)
-        : m_parent(parent)
-        , m_backend(nullptr)
-        , m_initialized(false)
+        : m_backend(new QtMultimediaCaptureBackend(parent))
     {
-        // load plugins
-        const QVector<KPluginMetaData> metadataList = KPluginLoader::findPlugins(QStringLiteral("artikulate/libsound"));
-        for (const auto &metadata : metadataList) {
-            qCDebug(LIBSOUND_LOG) << "Load Plugin: " << metadata.name();
-            KPluginFactory *factory = KPluginLoader(metadata.fileName()).factory();
-            if (!factory) {
-                qCCritical(LIBSOUND_LOG) << "Could not load plugin: " << metadata.name();
-                continue;
-            }
-            BackendInterface *plugin = factory->create<BackendInterface>(parent, QList<QVariant>());
-            if (plugin->captureBackend()) {
-                m_backendList.append(plugin->captureBackend());
-            }
-        }
-        if (!m_backend && !m_backendList.isEmpty()) {
-            m_backend = m_backendList.first();
-        }
-    }
-
-    ~CaptureDeviceControllerPrivate()
-    {
-        delete m_backend;
-        m_backend = nullptr;
-    }
-
-    void lazyInit()
-    {
-        if (m_initialized) {
-            return;
-        }
-        // TODO currently nothing to do
-        m_initialized = true;
     }
 
     CaptureBackendInterface *backend() const
     {
         Q_ASSERT(m_backend);
-        return m_backend;
+        return m_backend.get();
     }
 
-    QObject *m_parent;
-    CaptureBackendInterface *m_backend;
-    QList<CaptureBackendInterface *> m_backendList;
-    bool m_initialized;
+    std::unique_ptr<CaptureBackendInterface> m_backend;
 };
 
 CaptureDeviceController::CaptureDeviceController()
@@ -82,14 +41,11 @@ CaptureDeviceController::CaptureDeviceController()
 {
 }
 
-CaptureDeviceController::~CaptureDeviceController()
-{
-}
+CaptureDeviceController::~CaptureDeviceController() = default;
 
 CaptureDeviceController &CaptureDeviceController::self()
 {
     static CaptureDeviceController instance;
-    instance.d->lazyInit();
     return instance;
 }
 

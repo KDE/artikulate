@@ -34,6 +34,7 @@ include(GenerateExportHeader)
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Widgets
     Sql
+    Multimedia
     XmlPatterns
     Qml
     Quick
@@ -47,10 +48,6 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     NewStuff
     Kirigami2
 )
-
-# options
-option(BUILD_QTMULTIMEDIA_PLUGIN "Build QtMultimedia sound backend" ON)
-option(BUILD_GSTREAMER_PLUGIN "Build GStreamer sound backend" OFF)
 
 add_definitions(
     -DQT_NO_URL_CAST_FROM_STRING

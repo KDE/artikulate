@@ -5,12 +5,13 @@
 kde_enable_exceptions()
 
 set(sound_LIB_SRCS
-    backendinterface.cpp
     capturedevicecontroller.cpp
     outputdevicecontroller.cpp
     capturebackendinterface.cpp
     outputbackendinterface.cpp
     libsound_debug.cpp
+    qtmultimediabackend/qtmultimediacapturebackend.cpp
+    qtmultimediabackend/qtmultimediaoutputbackend.cpp
 )
 
 add_library(artikulatesound SHARED ${sound_LIB_SRCS})
@@ -21,6 +22,7 @@ target_link_libraries(
     LINK_PUBLIC
         KF5::CoreAddons
         KF5::I18n
+        Qt::Multimedia
 )
 # internal library without any API or ABI guarantee
 set(GENERIC_LIB_VERSION "0")
@@ -36,10 +38,3 @@ install(
     LIBRARY NAMELINK_SKIP
     ${KDE_INSTALL_TARGETS_DEFAULT_ARGS}
 )
-
-if (BUILD_GSTREAMER_PLUGIN)
-    ecm_optional_add_subdirectory(qtgstreamerbackend)
-endif()
-if (BUILD_QTMULTIMEDIA_PLUGIN)
-    ecm_optional_add_subdirectory(qtmultimediabackend)
-endif()

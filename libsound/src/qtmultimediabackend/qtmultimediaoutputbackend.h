@@ -35,7 +35,7 @@ public Q_SLOTS:
     void setVolume(int volume) override;
 
 private:
-    QMediaPlayer *m_player;
+    QMediaPlayer *m_player = nullptr;
 };
 
 #endif

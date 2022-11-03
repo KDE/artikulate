@@ -11,6 +11,4 @@ OutputBackendInterface::OutputBackendInterface(QObject *parent)
 {
 }
 
-OutputBackendInterface::~OutputBackendInterface()
-{
-}
+OutputBackendInterface::~OutputBackendInterface() = default;

@@ -9,7 +9,6 @@
 
 #include "capturebackendinterface.h"
 #include "capturedevicecontroller.h"
-
 #include <QAudioRecorder>
 #include <QString>
 
