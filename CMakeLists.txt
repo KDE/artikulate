@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2013-2016 Andreas Cord-Landwehr <cordlandwehr@kde.org>
 # SPDX-License-Identifier: BSD-2-Clause
 
-cmake_minimum_required(VERSION 3.5.0)
+cmake_minimum_required(VERSION 3.16.0)
 set(QT_MIN_VERSION "5.15.2")
 set(KF5_MIN_VERSION "5.90.0")
 set(KDE_COMPILERSETTINGS_LEVEL "5.84.0")
