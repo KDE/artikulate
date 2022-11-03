@@ -116,17 +116,17 @@ QSGNode *IconItem::updatePaintNode(QSGNode *node, QQuickItem::UpdatePaintNodeDat
             mNode = new ManagedTextureNode;
         }
 
-        QIcon::Mode mode;
+        QIcon::Mode mode{QIcon::Normal};
         switch (m_state) {
-            case DefaultState:
-                mode = QIcon::Normal;
-                break;
-            case ActiveState:
-                mode = QIcon::Active;
-                break;
-            case DisabledState:
-                mode = QIcon::Disabled;
-                break;
+        case DefaultState:
+            mode = QIcon::Normal;
+            break;
+        case ActiveState:
+            mode = QIcon::Active;
+            break;
+        case DisabledState:
+            mode = QIcon::Disabled;
+            break;
         }
 
         QImage img;
