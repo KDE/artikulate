@@ -57,7 +57,6 @@ OutputDeviceController &OutputDeviceController::self()
 void OutputDeviceController::play(const QString &filePath)
 {
     d->backend()->setUri(filePath);
-    d->backend()->setVolume(d->m_volume);
     d->backend()->play();
     emit started();
 }

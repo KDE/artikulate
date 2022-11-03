@@ -39,9 +39,6 @@ MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
     m_repository->setStorageLocation(QUrl::fromLocalFile(Settings::courseRepositoryPath()));
     m_editorSession->setRepository(m_repository);
 
-    // load saved sound settings
-    OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
-
     m_repository->reloadCourses();
 
     // create menu

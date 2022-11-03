@@ -23,9 +23,6 @@ MainWindow::MainWindow()
 {
     rootContext()->setContextObject(new KLocalizedContext(this));
 
-    // load saved sound settings
-    OutputDeviceController::self().setVolume(Settings::audioOutputVolume());
-
     // set view
     rootContext()->setContextProperty(QStringLiteral("g_trainingSession"), &m_trainingSession);
     rootContext()->setContextProperty(QStringLiteral("g_profileManager"), &m_profileManager);
