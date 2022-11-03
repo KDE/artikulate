@@ -27,10 +27,12 @@ int main(int argc, char **argv)
                          ARTIKULATE_VERSION_STRING,
                          ki18nc("@title KAboutData: short program description", "Artikulate Course Editor").toString(),
                          KAboutLicense::GPL_V2,
-                         ki18nc("@info:credit", "(c) 2013-2019 The Artikulate Developers").toString(),
+                         ki18nc("@info:credit", "(c) 2013-2022 The Artikulate Developers").toString(),
                          ki18nc("@title Short program description", "Edit Artikulate course files.").toString());
 
-    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Andreas Cord-Landwehr").toString(), ki18nc("@info:credit Role", "Original Author").toString(), QStringLiteral("cordlandwehr@kde.org"));
+    aboutData.addAuthor(ki18nc("@info:credit Developer name", "Andreas Cord-Landwehr").toString(),
+                        ki18nc("@info:credit Role", "Original Author").toString(),
+                        QStringLiteral("cordlandwehr@kde.org"));
 
     KAboutData::setApplicationData(aboutData);
     KCrash::initialize();
