@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:41+0000\n"
+"POT-Creation-Date: 2022-11-04 00:41+0000\n"
 "PO-Revision-Date: 2019-09-22 19:06+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -124,12 +124,6 @@ msgstr "影像檔 (*.png *.jpg *.bmp)"
 msgid "Invalid database version '%1'."
 msgstr "不合法的資料庫版本 '%1'。"
 
-#: libsound/src/qtgstreamerbackend/qtgstreamercapturebackend.cpp:31
-#, kde-format
-msgctxt "default sound device"
-msgid "Default"
-msgstr "預設"
-
 #. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
 #: src/artikulate.kcfg:13
 #, kde-format
@@ -193,27 +187,27 @@ msgstr "請選擇課程"
 msgid "New Unit"
 msgstr "新單位"
 
-#: src/main.cpp:28
+#: src/main.cpp:27
 #, kde-format
 msgctxt "@title Displayed program name"
 msgid "Artikulate"
 msgstr "Artikulate"
 
-#: src/main.cpp:30
+#: src/main.cpp:29
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate 發音訓練師"
 
-#: src/main.cpp:32
+#: src/main.cpp:31 src/main_editor.cpp:30
 #, fuzzy, kde-format
 #| msgctxt "@info:credit"
 #| msgid "(c) 2013-2019 The Artikulate Developers"
 msgctxt "@info:credit"
-msgid "(c) 2013-2020 The Artikulate Developers"
+msgid "(c) 2013-2022 The Artikulate Developers"
 msgstr "(c) 2013-2019 Artikulate 開發團隊"
 
-#: src/main.cpp:33
+#: src/main.cpp:32
 #, fuzzy, kde-format
 #| msgctxt "@title Short program description"
 #| msgid "Training your pronunciation in a foreign language."
@@ -221,55 +215,55 @@ msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
 msgstr "訓練外語發音。"
 
-#: src/main.cpp:36 src/main_editor.cpp:33
+#: src/main.cpp:35 src/main_editor.cpp:33
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Andreas Cord-Landwehr"
 msgstr "Andreas Cord-Landwehr"
 
-#: src/main.cpp:36 src/main_editor.cpp:33
+#: src/main.cpp:36 src/main_editor.cpp:34
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Original Author"
 msgstr "原始作者"
 
-#: src/main.cpp:38
+#: src/main.cpp:39
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Samikshan Bairagya"
 msgstr "Samikshan Bairagya"
 
-#: src/main.cpp:38
+#: src/main.cpp:40
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer"
 msgstr "開發者"
 
-#: src/main.cpp:40
+#: src/main.cpp:43
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Oindrila Gupta"
 msgstr "Oindrila Gupta"
 
-#: src/main.cpp:40 src/main.cpp:42
+#: src/main.cpp:44 src/main.cpp:48
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer and Course Data"
 msgstr "開發者和維護者"
 
-#: src/main.cpp:42
+#: src/main.cpp:47
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Magdalena Konkiewicz"
 msgstr "Magdalena Konkiewicz"
 
-#: src/main.cpp:44
+#: src/main.cpp:51
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Franklin Weng"
 
-#: src/main.cpp:44
+#: src/main.cpp:51
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
@@ -287,19 +281,13 @@ msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Course Editor"
 msgstr "Artikulate 課程編輯器"
 
-#: src/main_editor.cpp:30
-#, kde-format
-msgctxt "@info:credit"
-msgid "(c) 2013-2019 The Artikulate Developers"
-msgstr "(c) 2013-2019 Artikulate 開發團隊"
-
 #: src/main_editor.cpp:31
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Edit Artikulate course files."
 msgstr "編輯 Artikulate 課程檔。"
 
-#: src/mainwindow.cpp:39 src/qml/ProfileSelector.qml:18
+#: src/mainwindow.cpp:36 src/qml/ProfileSelector.qml:18
 #, kde-format
 msgid "Unnamed Identity"
 msgstr "未命名的身份"
@@ -874,6 +862,14 @@ msgstr "歡迎使用 Artikulate"
 msgctxt "@action:button"
 msgid "Start Training"
 msgstr "下載課程"
+
+#~ msgctxt "default sound device"
+#~ msgid "Default"
+#~ msgstr "預設"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2019 The Artikulate Developers"
+#~ msgstr "(c) 2013-2019 Artikulate 開發團隊"
 
 #~ msgid "About"
 #~ msgstr "關於"

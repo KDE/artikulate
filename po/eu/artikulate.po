@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:41+0000\n"
+"POT-Creation-Date: 2022-11-04 00:41+0000\n"
 "PO-Revision-Date: 2021-01-26 18:59+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -125,12 +125,6 @@ msgstr "Irudi fitxategiak (*.png *.jpg *.bmp)"
 msgid "Invalid database version '%1'."
 msgstr "Datu-base bertsio baliogabea «%1»."
 
-#: libsound/src/qtgstreamerbackend/qtgstreamercapturebackend.cpp:31
-#, kde-format
-msgctxt "default sound device"
-msgid "Default"
-msgstr "Lehenetsia"
-
 #. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
 #: src/artikulate.kcfg:13
 #, kde-format
@@ -196,79 +190,81 @@ msgstr "Hautatu ikastaro bat"
 msgid "New Unit"
 msgstr "Unitate berria"
 
-#: src/main.cpp:28
+#: src/main.cpp:27
 #, kde-format
 msgctxt "@title Displayed program name"
 msgid "Artikulate"
 msgstr "Artikulate"
 
-#: src/main.cpp:30
+#: src/main.cpp:29
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate ahoskatze entrenatzailea"
 
-#: src/main.cpp:32
-#, kde-format
+#: src/main.cpp:31 src/main_editor.cpp:30
+#, fuzzy, kde-format
+#| msgctxt "@info:credit"
+#| msgid "(c) 2013-2020 The Artikulate Developers"
 msgctxt "@info:credit"
-msgid "(c) 2013-2020 The Artikulate Developers"
+msgid "(c) 2013-2022 The Artikulate Developers"
 msgstr "(c) 2013-2020 Artikulate garatzaileak"
 
-#: src/main.cpp:33
+#: src/main.cpp:32
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
 msgstr "Trebatu zure ahoskera atzerriko hizkuntza batean."
 
-#: src/main.cpp:36 src/main_editor.cpp:33
+#: src/main.cpp:35 src/main_editor.cpp:33
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Andreas Cord-Landwehr"
 msgstr "Andreas Cord-Landwehr"
 
-#: src/main.cpp:36 src/main_editor.cpp:33
+#: src/main.cpp:36 src/main_editor.cpp:34
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Original Author"
 msgstr "Jatorrizko egilea"
 
-#: src/main.cpp:38
+#: src/main.cpp:39
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Samikshan Bairagya"
 msgstr "Samikshan Bairagya"
 
-#: src/main.cpp:38
+#: src/main.cpp:40
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer"
 msgstr "Garatzailea"
 
-#: src/main.cpp:40
+#: src/main.cpp:43
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Oindrila Gupta"
 msgstr "Oindrila Gupta"
 
-#: src/main.cpp:40 src/main.cpp:42
+#: src/main.cpp:44 src/main.cpp:48
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer and Course Data"
 msgstr "Garatzailea eta ikastaroetako datuak"
 
-#: src/main.cpp:42
+#: src/main.cpp:47
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Magdalena Konkiewicz"
 msgstr "Magdalena Konkiewicz"
 
-#: src/main.cpp:44
+#: src/main.cpp:51
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Iñigo Salvador Azurmendi"
 
-#: src/main.cpp:44
+#: src/main.cpp:51
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
@@ -286,19 +282,13 @@ msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Course Editor"
 msgstr "Artikulate ikastaro editorea"
 
-#: src/main_editor.cpp:30
-#, kde-format
-msgctxt "@info:credit"
-msgid "(c) 2013-2019 The Artikulate Developers"
-msgstr "(c) 2013-2019 Artikulate garatzaileak"
-
 #: src/main_editor.cpp:31
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Edit Artikulate course files."
 msgstr "Editatu Artikulate ikastaroko fitxategiak."
 
-#: src/mainwindow.cpp:39 src/qml/ProfileSelector.qml:18
+#: src/mainwindow.cpp:36 src/qml/ProfileSelector.qml:18
 #, kde-format
 msgid "Unnamed Identity"
 msgstr "Izenik gabeko nortasuna"
@@ -837,3 +827,11 @@ msgstr "Ongi etorri Artikulate-ra"
 msgctxt "@action:button"
 msgid "Start Training"
 msgstr "Hasi trebatzen"
+
+#~ msgctxt "default sound device"
+#~ msgid "Default"
+#~ msgstr "Lehenetsia"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2019 The Artikulate Developers"
+#~ msgstr "(c) 2013-2019 Artikulate garatzaileak"

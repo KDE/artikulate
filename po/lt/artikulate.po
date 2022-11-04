@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: l 10n\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:41+0000\n"
+"POT-Creation-Date: 2022-11-04 00:41+0000\n"
 "PO-Revision-Date: 2014-01-27 01:35+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: lt\n"
@@ -123,12 +123,6 @@ msgstr ""
 msgid "Invalid database version '%1'."
 msgstr ""
 
-#: libsound/src/qtgstreamerbackend/qtgstreamercapturebackend.cpp:31
-#, kde-format
-msgctxt "default sound device"
-msgid "Default"
-msgstr ""
-
 #. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
 #: src/artikulate.kcfg:13
 #, kde-format
@@ -190,79 +184,79 @@ msgstr ""
 msgid "New Unit"
 msgstr ""
 
-#: src/main.cpp:28
+#: src/main.cpp:27
 #, kde-format
 msgctxt "@title Displayed program name"
 msgid "Artikulate"
 msgstr ""
 
-#: src/main.cpp:30
+#: src/main.cpp:29
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
 msgstr ""
 
-#: src/main.cpp:32
+#: src/main.cpp:31 src/main_editor.cpp:30
 #, kde-format
 msgctxt "@info:credit"
-msgid "(c) 2013-2020 The Artikulate Developers"
+msgid "(c) 2013-2022 The Artikulate Developers"
 msgstr ""
 
-#: src/main.cpp:33
+#: src/main.cpp:32
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
 msgstr ""
 
-#: src/main.cpp:36 src/main_editor.cpp:33
+#: src/main.cpp:35 src/main_editor.cpp:33
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Andreas Cord-Landwehr"
 msgstr ""
 
-#: src/main.cpp:36 src/main_editor.cpp:33
+#: src/main.cpp:36 src/main_editor.cpp:34
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Original Author"
 msgstr ""
 
-#: src/main.cpp:38
+#: src/main.cpp:39
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Samikshan Bairagya"
 msgstr ""
 
-#: src/main.cpp:38
+#: src/main.cpp:40
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer"
 msgstr ""
 
-#: src/main.cpp:40
+#: src/main.cpp:43
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Oindrila Gupta"
 msgstr ""
 
-#: src/main.cpp:40 src/main.cpp:42
+#: src/main.cpp:44 src/main.cpp:48
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer and Course Data"
 msgstr ""
 
-#: src/main.cpp:42
+#: src/main.cpp:47
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Magdalena Konkiewicz"
 msgstr ""
 
-#: src/main.cpp:44
+#: src/main.cpp:51
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: src/main.cpp:44
+#: src/main.cpp:51
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
@@ -280,19 +274,13 @@ msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Course Editor"
 msgstr ""
 
-#: src/main_editor.cpp:30
-#, kde-format
-msgctxt "@info:credit"
-msgid "(c) 2013-2019 The Artikulate Developers"
-msgstr ""
-
 #: src/main_editor.cpp:31
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Edit Artikulate course files."
 msgstr ""
 
-#: src/mainwindow.cpp:39 src/qml/ProfileSelector.qml:18
+#: src/mainwindow.cpp:36 src/qml/ProfileSelector.qml:18
 #, kde-format
 msgid "Unnamed Identity"
 msgstr ""

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:41+0000\n"
+"POT-Creation-Date: 2022-11-04 00:41+0000\n"
 "PO-Revision-Date: 2022-04-07 18:00+0200\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -121,12 +121,6 @@ msgstr "Súbory obrázkov (*.png *.jpg *.bmp)"
 msgid "Invalid database version '%1'."
 msgstr "Neplatná verzia databázy '%1'."
 
-#: libsound/src/qtgstreamerbackend/qtgstreamercapturebackend.cpp:31
-#, kde-format
-msgctxt "default sound device"
-msgid "Default"
-msgstr "Predvolené"
-
 #. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
 #: src/artikulate.kcfg:13
 #, kde-format
@@ -192,79 +186,81 @@ msgstr "Prosím vyberte kurz"
 msgid "New Unit"
 msgstr "Nová jednotka"
 
-#: src/main.cpp:28
+#: src/main.cpp:27
 #, kde-format
 msgctxt "@title Displayed program name"
 msgid "Artikulate"
 msgstr "Artikulate"
 
-#: src/main.cpp:30
+#: src/main.cpp:29
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
 msgstr "Tréner výslovnosti Artikulate"
 
-#: src/main.cpp:32
-#, kde-format
+#: src/main.cpp:31 src/main_editor.cpp:30
+#, fuzzy, kde-format
+#| msgctxt "@info:credit"
+#| msgid "(c) 2013-2020 The Artikulate Developers"
 msgctxt "@info:credit"
-msgid "(c) 2013-2020 The Artikulate Developers"
+msgid "(c) 2013-2022 The Artikulate Developers"
 msgstr "(c) 2013-2020 Vývojári Artikulate"
 
-#: src/main.cpp:33
+#: src/main.cpp:32
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
 msgstr "Tréning výslovnosti v cudzom jazyku."
 
-#: src/main.cpp:36 src/main_editor.cpp:33
+#: src/main.cpp:35 src/main_editor.cpp:33
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Andreas Cord-Landwehr"
 msgstr "Andreas Cord-Landwehr"
 
-#: src/main.cpp:36 src/main_editor.cpp:33
+#: src/main.cpp:36 src/main_editor.cpp:34
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Original Author"
 msgstr "Pôvodný autor"
 
-#: src/main.cpp:38
+#: src/main.cpp:39
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Samikshan Bairagya"
 msgstr "Samikshan Bairagya"
 
-#: src/main.cpp:38
+#: src/main.cpp:40
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer"
 msgstr "Vývojár"
 
-#: src/main.cpp:40
+#: src/main.cpp:43
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Oindrila Gupta"
 msgstr "Oindrila Gupta"
 
-#: src/main.cpp:40 src/main.cpp:42
+#: src/main.cpp:44 src/main.cpp:48
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer and Course Data"
 msgstr "Vývojár a údaje kurzu"
 
-#: src/main.cpp:42
+#: src/main.cpp:47
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Magdalena Konkiewicz"
 msgstr "Magdalena Konkiewicz"
 
-#: src/main.cpp:44
+#: src/main.cpp:51
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Roman Paholík"
 
-#: src/main.cpp:44
+#: src/main.cpp:51
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
@@ -282,19 +278,13 @@ msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Course Editor"
 msgstr "Editor kurzov Artikulate"
 
-#: src/main_editor.cpp:30
-#, kde-format
-msgctxt "@info:credit"
-msgid "(c) 2013-2019 The Artikulate Developers"
-msgstr "(c) 2013-2019 Vývojári Artikulate"
-
 #: src/main_editor.cpp:31
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Edit Artikulate course files."
 msgstr "Upraviť súbory kurzov Artikulate."
 
-#: src/mainwindow.cpp:39 src/qml/ProfileSelector.qml:18
+#: src/mainwindow.cpp:36 src/qml/ProfileSelector.qml:18
 #, kde-format
 msgid "Unnamed Identity"
 msgstr "Nepomenovaná identita"
@@ -833,6 +823,14 @@ msgstr "Vitajte v Artikulate!"
 msgctxt "@action:button"
 msgid "Start Training"
 msgstr "Spustiť tréning"
+
+#~ msgctxt "default sound device"
+#~ msgid "Default"
+#~ msgstr "Predvolené"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2019 The Artikulate Developers"
+#~ msgstr "(c) 2013-2019 Vývojári Artikulate"
 
 #~ msgid "About"
 #~ msgstr "O programe"

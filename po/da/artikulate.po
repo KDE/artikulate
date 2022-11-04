@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:41+0000\n"
+"POT-Creation-Date: 2022-11-04 00:41+0000\n"
 "PO-Revision-Date: 2015-12-08 19:50+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -124,12 +124,6 @@ msgstr ""
 msgid "Invalid database version '%1'."
 msgstr "Ugyldig databaseversion \"%1\"."
 
-#: libsound/src/qtgstreamerbackend/qtgstreamercapturebackend.cpp:31
-#, kde-format
-msgctxt "default sound device"
-msgid "Default"
-msgstr "Standard"
-
 #. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
 #: src/artikulate.kcfg:13
 #, kde-format
@@ -196,86 +190,86 @@ msgstr "Vælg et sprog."
 msgid "New Unit"
 msgstr "Ny enhed"
 
-#: src/main.cpp:28
+#: src/main.cpp:27
 #, kde-format
 msgctxt "@title Displayed program name"
 msgid "Artikulate"
 msgstr "Artikulate"
 
-#: src/main.cpp:30
+#: src/main.cpp:29
 #, fuzzy, kde-format
 #| msgid "Artikulate Pronunciation Trainer"
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate udtaletræning"
 
-#: src/main.cpp:32
+#: src/main.cpp:31 src/main_editor.cpp:30
 #, fuzzy, kde-format
 #| msgid "Copyright (C) 2013-2014, The Artikulate Developers"
 msgctxt "@info:credit"
-msgid "(c) 2013-2020 The Artikulate Developers"
+msgid "(c) 2013-2022 The Artikulate Developers"
 msgstr "Ophavsret (C) 2013-2014, Artikulate-udviklerne"
 
-#: src/main.cpp:33
+#: src/main.cpp:32
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
 msgstr ""
 
-#: src/main.cpp:36 src/main_editor.cpp:33
+#: src/main.cpp:35 src/main_editor.cpp:33
 #, fuzzy, kde-format
 #| msgid "Andreas Cord-Landwehr"
 msgctxt "@info:credit Developer name"
 msgid "Andreas Cord-Landwehr"
 msgstr "Andreas Cord-Landwehr"
 
-#: src/main.cpp:36 src/main_editor.cpp:33
+#: src/main.cpp:36 src/main_editor.cpp:34
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Original Author"
 msgstr "Oprindelig udvikler"
 
-#: src/main.cpp:38
+#: src/main.cpp:39
 #, fuzzy, kde-format
 #| msgid "Samikshan Bairagya"
 msgctxt "@info:credit Developer name"
 msgid "Samikshan Bairagya"
 msgstr "Samikshan Bairagya"
 
-#: src/main.cpp:38
+#: src/main.cpp:40
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer"
 msgstr "Udvikler"
 
-#: src/main.cpp:40
+#: src/main.cpp:43
 #, fuzzy, kde-format
 #| msgid "Oindrila Gupta"
 msgctxt "@info:credit Developer name"
 msgid "Oindrila Gupta"
 msgstr "Oindrila Gupta"
 
-#: src/main.cpp:40 src/main.cpp:42
+#: src/main.cpp:44 src/main.cpp:48
 #, fuzzy, kde-format
 #| msgid "Developer and Course Data"
 msgctxt "@info:credit Role"
 msgid "Developer and Course Data"
 msgstr "Udvikler og kursusdata"
 
-#: src/main.cpp:42
+#: src/main.cpp:47
 #, fuzzy, kde-format
 #| msgid "Magdalena Konkiewicz"
 msgctxt "@info:credit Developer name"
 msgid "Magdalena Konkiewicz"
 msgstr "Magdalena Konkiewicz"
 
-#: src/main.cpp:44
+#: src/main.cpp:51
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Martin Schlander"
 
-#: src/main.cpp:44
+#: src/main.cpp:51
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
@@ -296,20 +290,13 @@ msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Course Editor"
 msgstr "Kursuseditor-tilstand"
 
-#: src/main_editor.cpp:30
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2013-2014, The Artikulate Developers"
-msgctxt "@info:credit"
-msgid "(c) 2013-2019 The Artikulate Developers"
-msgstr "Ophavsret (C) 2013-2014, Artikulate-udviklerne"
-
 #: src/main_editor.cpp:31
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Edit Artikulate course files."
 msgstr ""
 
-#: src/mainwindow.cpp:39 src/qml/ProfileSelector.qml:18
+#: src/mainwindow.cpp:36 src/qml/ProfileSelector.qml:18
 #, kde-format
 msgid "Unnamed Identity"
 msgstr "Unavngiven identitet"
@@ -888,6 +875,16 @@ msgstr "Artikulate!"
 msgctxt "@action:button"
 msgid "Start Training"
 msgstr "Start træning"
+
+#~ msgctxt "default sound device"
+#~ msgid "Default"
+#~ msgstr "Standard"
+
+#, fuzzy
+#~| msgid "Copyright (C) 2013-2014, The Artikulate Developers"
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2019 The Artikulate Developers"
+#~ msgstr "Ophavsret (C) 2013-2014, Artikulate-udviklerne"
 
 #, fuzzy
 #~| msgid "About KDE"
