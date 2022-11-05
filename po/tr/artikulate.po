@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2022-05-04 11:25+0300\n"
+"PO-Revision-Date: 2022-11-04 10:02+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.04.0\n"
+"X-Generator: Lokalize 22.08.2\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -200,12 +200,10 @@ msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate Telaffuz Eğitici"
 
 #: src/main.cpp:31 src/main_editor.cpp:30
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2020 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
-msgstr "(c) 2013-2020 Artikulate Geliştiricileri"
+msgstr "(c) 2013-2022 Artikulate Geliştiricileri"
 
 #: src/main.cpp:32
 #, kde-format

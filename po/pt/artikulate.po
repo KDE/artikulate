@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2020-07-21 18:38+0100\n"
+"PO-Revision-Date: 2022-11-04 10:42+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -204,12 +204,10 @@ msgid "Artikulate Pronunciation Trainer"
 msgstr "Treino de Pronúncia Artikulate"
 
 #: src/main.cpp:31 src/main_editor.cpp:30
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2020 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
-msgstr "(C) 2013-2020 dos Programadores do Artikulate"
+msgstr "(C) 2013-2022 dos Programadores do Artikulate"
 
 #: src/main.cpp:32
 #, kde-format
@@ -828,11 +826,3 @@ msgstr "Bem-vindo ao Artikulate"
 msgctxt "@action:button"
 msgid "Start Training"
 msgstr "Iniciar o Treino"
-
-#~ msgctxt "default sound device"
-#~ msgid "Default"
-#~ msgstr "Predefinição"
-
-#~ msgctxt "@info:credit"
-#~ msgid "(c) 2013-2019 The Artikulate Developers"
-#~ msgstr "(C) 2013-2019 dos Programadores do Artikulate"

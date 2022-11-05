@@ -1,17 +1,17 @@
 # Translation of artikulate.po to Catalan
-# Copyright (C) 2014-2021 This_file_is_part_of_KDE
+# Copyright (C) 2014-2022 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2014, 2016, 2017, 2020.
 # Orestes Mas <orestes@tsc.upc.edu>, 2014.
-# Josep M. Ferrer <txemaq@gmail.com>, 2014, 2015, 2016, 2017, 2019, 2020, 2021.
+# Josep M. Ferrer <txemaq@gmail.com>, 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2021-10-25 19:09+0200\n"
+"PO-Revision-Date: 2022-11-04 13:36+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -205,12 +205,10 @@ msgid "Artikulate Pronunciation Trainer"
 msgstr "Entrenador de la pronunciació Artikulate"
 
 #: src/main.cpp:31 src/main_editor.cpp:30
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2020 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
-msgstr "(c) 2013-2020 Els desenvolupadors de l'Artikulate"
+msgstr "(c) 2013-2022 Els desenvolupadors de l'Artikulate"
 
 #: src/main.cpp:32
 #, kde-format
@@ -829,14 +827,3 @@ msgstr "Us donem la benvinguda a l'Artikulate"
 msgctxt "@action:button"
 msgid "Start Training"
 msgstr "Inicia l'entrenament"
-
-#~ msgctxt "default sound device"
-#~ msgid "Default"
-#~ msgstr "Per omissió"
-
-#~ msgctxt "@info:credit"
-#~ msgid "(c) 2013-2019 The Artikulate Developers"
-#~ msgstr "(c) 2013-2019 Els desenvolupadors de l'Artikulate"
-
-#~ msgid "About"
-#~ msgstr "Quant a"
