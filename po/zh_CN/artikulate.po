@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2022-10-30 07:47\n"
+"PO-Revision-Date: 2022-11-06 01:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -198,12 +198,10 @@ msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate 读音训练器"
 
 #: src/main.cpp:31 src/main_editor.cpp:30
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2020 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
-msgstr "(c) 2013-2020 The Artikulate Developers"
+msgstr ""
 
 #: src/main.cpp:32
 #, kde-format
@@ -822,11 +820,3 @@ msgstr "欢迎使用 Artikulate"
 msgctxt "@action:button"
 msgid "Start Training"
 msgstr "开始训练"
-
-#~ msgctxt "default sound device"
-#~ msgid "Default"
-#~ msgstr "默认"
-
-#~ msgctxt "@info:credit"
-#~ msgid "(c) 2013-2019 The Artikulate Developers"
-#~ msgstr "(c) 2013-2019 The Artikulate Developers"
