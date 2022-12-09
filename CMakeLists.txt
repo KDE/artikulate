@@ -30,6 +30,7 @@ include(ECMSetupVersion)
 include(ECMEnableSanitizers)
 include(FeatureSummary)
 include(GenerateExportHeader)
+include(ECMDeprecationSettings)
 
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Sql
@@ -48,9 +49,12 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Kirigami2
 )
 
+ecm_set_disabled_deprecation_versions(QT 5.15.2
+     KF 5.101.0
+    )
+
 add_definitions(
     -DQT_NO_URL_CAST_FROM_STRING
-    -DQT_DISABLE_DEPRECATED_BEFORE=0x050F00
 )
 
 # subdirectories to build
