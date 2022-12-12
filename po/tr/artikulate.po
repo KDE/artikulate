@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2022-11-04 10:02+0300\n"
+"PO-Revision-Date: 2022-12-11 20:32+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -47,7 +47,7 @@ msgstr "Hollandaca"
 #, kde-format
 msgctxt "Language Title"
 msgid "British English"
-msgstr "İngiliz İngilizcesi"
+msgstr "Britanya İngilizcesi"
 
 #: data/languages/en_US.xml:9
 #, kde-format
@@ -83,7 +83,7 @@ msgstr "İtalyanca"
 #, kde-format
 msgctxt "Language Title"
 msgid "Marathi"
-msgstr "Marati"
+msgstr "Marati Dili"
 
 #: data/languages/pl.xml:9
 #, kde-format
@@ -312,7 +312,7 @@ msgstr "Dil"
 #: src/models/learningprogressmodel.cpp:132
 #, kde-format
 msgid "Words"
-msgstr "Kelimeler"
+msgstr "Sözcükler"
 
 #: src/models/learningprogressmodel.cpp:134
 #, kde-format
@@ -650,7 +650,7 @@ msgstr "Zorluk:"
 #: src/qml/PhraseEditorTypeComponent.qml:57
 #, kde-format
 msgid "Word"
-msgstr "Kelime"
+msgstr "Sözcük"
 
 #: src/qml/PhraseEditorTypeComponent.qml:65
 #, kde-format
