@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2022-12-11 20:32+0300\n"
+"PO-Revision-Date: 2022-12-13 19:52+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -174,7 +174,7 @@ msgid ""
 "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
 "runtime if available."
 msgstr ""
-"Kullanılabilir durumdaysa, çalışma zamanında seçilen 'qtmultimediabackend' "
+"Kullanılabilir durumdaysa çalışma zamanında seçilen 'qtmultimediabackend' "
 "veya 'qtgstreamerbackend' olarak ayarlanır."
 
 #: src/core/drawertrainingactions.cpp:15
@@ -221,13 +221,13 @@ msgstr "Andreas Cord-Landwehr"
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Original Author"
-msgstr "Asıl Yazar"
+msgstr "Özgün Yazar"
 
 #: src/main.cpp:39
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Samikshan Bairagya"
-msgstr "Samikshan Bairagya"
+msgstr "Samikşan Bairagya"
 
 #: src/main.cpp:40
 #, kde-format
@@ -295,7 +295,7 @@ msgstr "Adsız Kimlik"
 #, kde-format
 msgctxt "@item:inlistbox:"
 msgid "unknown"
-msgstr "bilinmeyen"
+msgstr "bilinmiyor"
 
 #: src/models/coursemodel.cpp:161
 #, kde-format
@@ -333,7 +333,7 @@ msgstr "Paragraflar"
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme Group"
-msgstr "Ses Birim Grubu"
+msgstr "Ses Birimi Grubu"
 
 #: src/models/phonememodel.cpp:123
 #, kde-format
@@ -345,7 +345,7 @@ msgstr "Ses Birimi"
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme Unit"
-msgstr "Ses Birim Ünitesi"
+msgstr "Ses Birimi Ünitesi"
 
 #: src/models/phraselistmodel.cpp:172 src/models/phrasemodel.cpp:294
 #, kde-format
@@ -379,7 +379,7 @@ msgstr "Eğitim"
 #: src/qml/ArtikulateDrawer.qml:127
 #, kde-format
 msgid "Download Training"
-msgstr "Eğitim İndir"
+msgstr "Eğitimi İndir"
 
 #: src/qml/ArtikulateDrawer.qml:137
 #, kde-format
@@ -444,7 +444,7 @@ msgstr "Güncelle"
 #: src/qml/CourseConfigurationPage.qml:65
 #, kde-format
 msgid "Update the course with elements from prototype."
-msgstr "Kursu, prototim ögeleriyle güncelle."
+msgstr "Kursu, prototip ögeleriyle güncelle."
 
 #: src/qml/DownloadPage.qml:21
 #, kde-format
@@ -513,7 +513,7 @@ msgstr "Deyiş Oluştur"
 #: src/qml/EditCoursePage.qml:50
 #, kde-format
 msgid "Create phrase after current phrase."
-msgstr "Şimdiki deyişten sonra deyiş oluştur."
+msgstr "Geçerli deyişten sonra deyiş oluştur."
 
 #: src/qml/EditorCourseSelectionPage.qml:15
 #, kde-format
@@ -524,7 +524,7 @@ msgstr "Artikulate Kurs Düzenleyiciye Hoş Geldiniz"
 #, kde-format
 msgctxt "@title:window language / course name"
 msgid "%1 / %2"
-msgstr "%1 / %2"
+msgstr "%1/%2"
 
 #: src/qml/EditorCourseSelectionPage.qml:60
 #, kde-format
@@ -775,7 +775,7 @@ msgstr "Girişimler"
 #: src/qml/TrainingPage.qml:28
 #, kde-format
 msgid "Category: no category selected"
-msgstr "Kategori: Kategori seçili değil"
+msgstr "Kategori: Seçili kategori yok"
 
 #: src/qml/TrainingPage.qml:31
 #, kde-format
@@ -800,17 +800,17 @@ msgstr "Geçerli deyişi atla ve sonrakine geç."
 #: src/qml/TrainingPage.qml:102
 #, kde-format
 msgid "Play original"
-msgstr "Özgünü çal"
+msgstr "Özgünü Çal"
 
 #: src/qml/TrainingPage.qml:143
 #, kde-format
 msgid "Record yourself"
-msgstr "Özünüzü kaydedin"
+msgstr "Kendinizi Kaydedin"
 
 #: src/qml/TrainingPage.qml:151
 #, kde-format
 msgid "Play yourself"
-msgstr "Özünüzle oynayın"
+msgstr "Kendinizle Oynayın"
 
 #: src/qml/WelcomePage.qml:15
 #, kde-format
@@ -821,7 +821,7 @@ msgstr "Artikulate'e Hoş Geldiniz"
 #, kde-format
 msgctxt "@action:button"
 msgid "Start Training"
-msgstr "Eğitim Başlat"
+msgstr "Eğitimi Başlat"
 
 #~ msgctxt "default sound device"
 #~ msgid "Default"
