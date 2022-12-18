@@ -635,7 +635,7 @@ msgstr "Gravació existent:"
 #: src/qml/PhraseEditorSoundComponent.qml:44
 #, kde-format
 msgid "Create New Recording:"
-msgstr "Crea un gravació nou:"
+msgstr "Crea una gravació nova:"
 
 #: src/qml/PhraseEditorSoundComponent.qml:60
 #, kde-format
@@ -685,7 +685,7 @@ msgstr "Idiomes preferits"
 #: src/qml/ProfileSelector.qml:70
 #, kde-format
 msgid "Create New Learner Identity"
-msgstr "Crea una nova identitat d'aprenentatge"
+msgstr "Crea una identitat nova d'aprenentatge"
 
 #: src/qml/ProfileSelector.qml:103
 #, kde-format
