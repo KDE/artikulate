@@ -386,7 +386,8 @@ msgid "Download Training"
 msgstr "Descargar o adestramento"
 
 #: src/qml/ArtikulateDrawer.qml:137
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "About Artikulate"
 msgid "About Artikulate"
 msgstr "Sobre Artikulate"
 
