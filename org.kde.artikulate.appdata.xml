@@ -180,9 +180,9 @@ SPDX-License-Identifier: CC0-1.0
   </provides>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="22.12.1" date="2023-01-05"/>
     <release version="22.12.0" date="2022-12-08"/>
     <release version="1.0.0.22083" date="2022-11-03"/>
     <release version="1.0.0.22082" date="2022-10-13"/>
-    <release version="1.0.0.22081" date="2022-09-08"/>
   </releases>
 </component>
