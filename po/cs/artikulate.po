@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Vit Pelcak <vit@pelcak.org>, 2013, 2014, 2015, 2016, 2017, 2019, 2020.
+# Vit Pelcak <vit@pelcak.org>, 2013, 2014, 2015, 2016, 2017, 2019, 2020, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2020-09-01 16:38+0200\n"
+"PO-Revision-Date: 2023-01-03 16:14+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.08.0\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -198,12 +198,10 @@ msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate - učitel výslovnosti"
 
 #: src/main.cpp:31 src/main_editor.cpp:30
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2020 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
-msgstr "(c) 2013-2020 Vývojáři Artikulate"
+msgstr "(c) 2013-2022 Vývojáři Artikulate"
 
 #: src/main.cpp:32
 #, kde-format
@@ -822,11 +820,3 @@ msgstr ""
 msgctxt "@action:button"
 msgid "Start Training"
 msgstr "Spustit procvičování"
-
-#~ msgctxt "default sound device"
-#~ msgid "Default"
-#~ msgstr "Výchozí"
-
-#~ msgctxt "@info:credit"
-#~ msgid "(c) 2013-2019 The Artikulate Developers"
-#~ msgstr "(c) 2013-2019 Vývojáři Artikulate"
