@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Dimitris Kardarakos <dimkard@gmail.com>, 2013, 2014.
-# Stelios <sstavra@gmail.com>, 2017, 2020.
+# Stelios <sstavra@gmail.com>, 2017, 2020, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2020-08-05 14:00+0300\n"
+"PO-Revision-Date: 2023-01-04 10:06+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -201,12 +201,10 @@ msgid "Artikulate Pronunciation Trainer"
 msgstr "Εκπαιδευτής προφοράς Artikulate"
 
 #: src/main.cpp:31 src/main_editor.cpp:30
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2020 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
-msgstr "(c) 2013-2020, Οι προγραμματιστές του Artikulate"
+msgstr "(c) 2013-2022, Οι προγραμματιστές του Artikulate"
 
 #: src/main.cpp:32
 #, kde-format
@@ -447,7 +445,7 @@ msgstr "Ενημέρωση"
 #: src/qml/CourseConfigurationPage.qml:65
 #, kde-format
 msgid "Update the course with elements from prototype."
-msgstr "Ενημέρωση μαθήματος με αντιεκίμενα από το πρωτότυπο."
+msgstr "Ενημέρωση μαθήματος με αντικείμενα από το πρωτότυπο."
 
 #: src/qml/DownloadPage.qml:21
 #, kde-format
