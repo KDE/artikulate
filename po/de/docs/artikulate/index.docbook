@@ -10,306 +10,221 @@
   <!ENTITY kappname "&artikulate;">
   <!ENTITY package "artikulate">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % German "INCLUDE">
+  <!ENTITY % English "INCLUDE">
 ]>
 <book id="artikulate" lang="&language;">
 
 <bookinfo>
-<title
->Das Handbuch zu &artikulate;</title>
+<title>The &artikulate; Handbook</title>
 <authorgroup>
-<author
-><personname
-> <firstname
->Andreas</firstname
-> <surname
->Cord-Landwehr</surname
-> </personname
-> <email
->cordlandwehr@kde.org</email
-> </author>
+<author>
+<personname>
+<firstname>Andreas</firstname>
+<surname>Cord-Landwehr</surname>
+</personname>
+<email>cordlandwehr@kde.org</email>
+</author>
 
-<author
-><personname
-> <firstname
->Ondrila</firstname
-> <surname
->Gupta</surname
-> </personname
-> <email
->oindrila.gupta92@gmail.com</email
-> </author>
+<author>
+<personname>
+<firstname>Ondrila</firstname>
+<surname>Gupta</surname>
+</personname>
+<email>oindrila.gupta92@gmail.com</email>
+</author>
 
-<othercredit role="translator"
-><firstname
->Burkhard</firstname
-><surname
->Lück</surname
-><affiliation
-><address
-><email
->lueck@hube-lueck.de</email
-></address
-></affiliation
-><contrib
->Übersetzung</contrib
-></othercredit
-> 
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
-<copyright
-><year
->2014-2015</year
-><holder
->Die &artikulate;-Entwickler</holder
-></copyright>
+<copyright><year>2014-2015</year><holder>The &artikulate; Developers</holder></copyright>
 
-<date
->2015-09-27</date>
-<releaseinfo
->&artikulate; 0.6.0 (Anwendungen 15.12)</releaseinfo>
+<date>2015-09-27</date>
+<releaseinfo>&artikulate; 0.6.0 (Applications 15.12)</releaseinfo>
 
-<legalnotice
->&FDLNotice;</legalnotice>
+<legalnotice>&FDLNotice;</legalnotice>
 
 <abstract>
-<para
->&artikulate; ist eine Anwendung zum Üben der Aussprache und hilft beim Verbessern und Perfektionieren Ihrer Aussprachefähigkeiten. Zum Üben wird die Aussprache des Benutzers aufgenommen und mit den Aufnahmen von Muttersprachlern verglichen. &artikulate; ist Teil des &kde;-Edu-Projekts.  </para>
+<para>
+&artikulate; is a pronunciation trainer, designed to help in improving and perfecting pronunciation skills.
+Learners train their pronunciation skills by recording their own voices and comparing those recording to native speaker recordings.
+&artikulate; is part of the &kde; Education project.
+</para>
 </abstract>
 
 <keywordset>
-<keyword
->KDE</keyword>
-<keyword
->kdeedu</keyword>
-<keyword
->Sprache</keyword>
-<keyword
->Übung</keyword>
-<keyword
->Einheit</keyword>
-<keyword
->Redewendung</keyword>
+<keyword>KDE</keyword>
+<keyword>kdeedu</keyword>
+<keyword>language</keyword>
+<keyword>course</keyword>
+<keyword>unit</keyword>
+<keyword>phrase</keyword>
 </keywordset>
 
 </bookinfo>
 
 <chapter id="introduction">
-<title
->Einleitung</title>
-<para
->&artikulate; ist eine Anwendung zum Üben der Aussprache und hilft beim Verbessern und Perfektionieren Ihrer Aussprachefähigkeiten für eine fremde Sprache. Dazu können Übungen mit Aufnahmen von Muttersprachlern aus der Zielsprache als Vergleichsmaterial heruntergeladen werden. Dann wird eine Gruppe von Redewendungen ausgewählt, die eigene Stimme beim Aussprechen der Redewendungen aufgenommen und mit den Aufnahmen von Muttersprachlern verglichen. </para>
+<title>Introduction</title>
+<para>
+&artikulate; is a pronunciation trainer for improving and perfecting pronunciation skills for a non-native language.
+For this, &artikulate; provides courses created by native speakers, who recorded their own voices as comparison material.
+A student can download these recordings in form of courses from the Internet.
+The training then consists of iterative playing of a native speaker's recording of some phrase, recording the own voice, and comparing both until the result is good enough to proceed with the next phrase.
+</para>
 
 <sect1 id="introduction-concept">
-<title
->Das Lernkonzept</title>
-<para
->Das Lernkonzept von &artikulate; basiert auf einer ehrlichen Selbsteinschätzung des Lernenden. Er übt mehrere Sätze in einer Trainingseinheit. Dazu wird zuerst die Aufnahme des Muttersprachlers für die Redewendung abgespielt. Dann wird die eigene Aussprache dieser Redewendung aufgenommen, beide Aufnahmen miteinander verglichen und entschieden, ob die Aussprache der Redewendung gut genug ist oder wiederholt werden muss. Die angebotenen Kurse bieten Übungen zu bestimmten Szenarien wie zum Beispiel die Bestellung von Speisen in einem Restaurant, können aber auch darauf beschränkt werden, die Aussprache schwieriger Silben und Wörter einer bestimmten Sprache zu lernen. </para>
+<title>The Learning Concept</title>
+<para>
+The study concept of &artikulate; is based on honest self-assessment of the student.
+A student trains several phrases in one training session.
+For each such phase, first he/she plays the native speaker recording for the phrase and listens to it.
+Then, by recording his/her own voice when attempting to repeat this phrase, we get a second recording.
+The student then can compare both recordings and either decides that the phrase is mastered or that another attempt is needed.
+The provided courses provide trainings for special scenarios (like ordering food in a restaurant) but can also focus on learning how to pronounce difficult syllables and words of a particular language correctly.
+</para>
 </sect1>
 
 <sect1 id="introduction-first-steps">
-<title
->Erste Schritte mit &artikulate;</title>
-<para
->Dies Kapitel erläutert die ersten Schritte in &artikulate;. </para>
+<title>First Steps in &artikulate;</title>
+<para>
+This chapter explains how to make the first steps in &artikulate;.
+</para>
 
 <sect2>
-<title
->1. Neue Sprachübung herunterladen</title>
-<para
->Ausspracheübungen können Sie mit <menuchoice
-><guimenu
->Einstellungen</guimenu
-><guimenuitem
->Übungen herunterladen</guimenuitem
-></menuchoice
-> aus dem Internet laden. Wird die Menüleiste nicht angezeigt, klicken Sie auf das Symbol rechts oben und wählen Sie aus dem Untermenü <guimenuitem
->Übungen herunterladen</guimenuitem
->. Es wird ein Dialog geöffnet, in dem alle von der &kde;-Gemeinschaft zur Verfügung gestellten Sprachen angezeigt werden. Die Liste können Sie mit den Knöpfen rechts sortieren. Laden Sie die Übung für Polnisch herunter, indem Sie auf <guilabel
->Installieren</guilabel
-> klicken. </para>
+<title>1. Download a New Course</title>
+<para>
+You can download courses through <menuchoice><guimenu>File</guimenu> <guimenuitem>Download Courses</guimenuitem></menuchoice>.
+If the menubar is not activated, you can open the <menuchoice><guimenu>File</guimenu></menuchoice> menu by clicking at the top-right button.
+A download window will appear, listing the available languages provided by the &kde; Community.
+You can sort through them using the order by functions at the right.
+We download the Polish course by clicking on <guilabel>Install</guilabel>.
+</para>
 <screenshot>
-<screeninfo
->Übung herunterladen.</screeninfo>
+<screeninfo>Download course.</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="first-steps-3-download-course.png" format="PNG"/>
+<imagedata fileref="first-steps-3-download-course.png" format="PNG" />
 </imageobject>
 </mediaobject>
 </screenshot>
 </sect2>
 
 <sect2>
-<title
->2. Übung starten</title>
-<para
->Übungen bestehen aus mehreren Einheiten, die jeweils eine Gruppe von Redewendungen für eine Szenario enthalten. Sie können mit den Kombinationsfeldern oben im Fenster Sprache und Kurs wechseln. </para>
+<title>2. Start Training</title>
+<para>
+Courses consist of multiple training units, each usually grouping a set of phrases according to a scenario.
+They can be switched by using the combo boxes for language and course at the top boarder of the screen.
+</para>
 <screenshot>
-<screeninfo
->Einheit wählen und Übung starten.</screeninfo>
+<screeninfo>Select unit and start training.</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="first-steps-4-start-training.png" format="PNG"/>
+<imagedata fileref="first-steps-4-start-training.png" format="PNG" />
 </imageobject>
 </mediaobject>
 </screenshot>
 </sect2>
 
 <sect2>
-<title
->Übung beenden</title>
-<para
->Die Übung kann jederzeit durch Schließen des Programms beendet werden. </para>
+<title>Finish Training</title>
+<para>
+The training can be finished at any point by just closing the program.
+</para>
 </sect2>
 </sect1>
 </chapter>
 
 <!--
 <chapter id="screens">
-<title
->Screens</title>
+<title>Screens</title>
 <sect1 id="screens-training">
-<title
->The Training Screen</title>
+<title>The Training Screen</title>
 <para>
 The training view is the most important view in &artikulate;.
 Whenever starting a training, this view is opened and will be presented until the training of the selected training unit is finished or the student stops the training.
 In the center of this screen, there are controls for playing a native speaker recording, the text of the corresponding phrase, and controls to record and playback the student's own voice.
-When a student judges to be done with training the pronunciation of the current phrase, by clicking <guilabel
->OK</guilabel
-> the current phrase is marked as done and a next phrase is selected.
-Otherwise, when clicking on <guilabel
->Retry Later</guilabel
->, a next phrase is selected but the current phrase will be displayed later again.
+When a student judges to be done with training the pronunciation of the current phrase, by clicking <guilabel>OK</guilabel> the current phrase is marked as done and a next phrase is selected.
+Otherwise, when clicking on <guilabel>Retry Later</guilabel>, a next phrase is selected but the current phrase will be displayed later again.
 </para>
 
 <para>
-For training the pronunciation of a current phrase, the student shall first play the native speaker's recording by pressing at the <guilabel
->Playback</guilabel
-> button at the left.
-The next step is to press on the <guilabel
->Record</guilabel
-> button and read the presented phrase aloud.
-A further press on the <guilabel
->Record</guilabel
-> button stops the recording and the recording can then be played with the corresponding <guilabel
->Playback</guilabel
-> button.
+For training the pronunciation of a current phrase, the student shall first play the native speaker's recording by pressing at the <guilabel>Playback</guilabel> button at the left.
+The next step is to press on the <guilabel>Record</guilabel> button and read the presented phrase aloud.
+A further press on the <guilabel>Record</guilabel> button stops the recording and the recording can then be played with the corresponding <guilabel>Playback</guilabel> button.
 By listening to both recordings, the student shall judge if the phrase was pronounced correctly or not.
-If it was pronounced correctly, clicking on <guilabel
->OK</guilabel
-> marks the phrase as learned and proceeds with the next phrase.
-Otherwise, if not yet satisfied with the recording, the student either can retry recording by again clicking on <guilabel
->Record</guilabel
-> or schedule the phrase for later training by clicking on <guilabel
->Retry Later</guilabel
->.
+If it was pronounced correctly, clicking on <guilabel>OK</guilabel> marks the phrase as learned and proceeds with the next phrase.
+Otherwise, if not yet satisfied with the recording, the student either can retry recording by again clicking on <guilabel>Record</guilabel> or schedule the phrase for later training by clicking on <guilabel>Retry Later</guilabel>.
 </para>
 
 <para>
 &artikulate;'s units are composed of a list of phrases of different lengths (words, expressions, sentences, and paragraphs).
-A student can see the current learning progress at the bottom when looking at <link linkend="screens-training-progressbar"
->the progress bar</link
->.
+A student can see the current learning progress at the bottom when looking at <link linkend="screens-training-progressbar">the progress bar</link>.
 The progress bar also allows switching between phrases.
 </para>
 
 <para>
-At any time, the student can choose to stop training by clicking at the <guilabel
->Finish</guilabel
-> button.
+At any time, the student can choose to stop training by clicking at the <guilabel>Finish</guilabel> button.
 </para>
 
 <screenshot>
-<screeninfo
->The Training Screen.</screeninfo>
+<screeninfo>The Training Screen.</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="screen-training-overview.png" format="PNG"/>
+<imagedata fileref="screen-training-overview.png" format="PNG" />
 </imageobject>
 <textobject>
-<phrase
->Screenshot of the Training Screen.</phrase>
+<phrase>Screenshot of the Training Screen.</phrase>
 </textobject>
 </mediaobject>
 </screenshot>
 
 <sect2 id="screens-training-sound-controls">
-<title
->Sound Controls</title>
+<title>Sound Controls</title>
 <itemizedlist>
-<listitem
-><para>
-<inlinemediaobject
-><imageobject>
+<listitem><para>
+<inlinemediaobject><imageobject>
 <imagedata fileref="hi32-action-artikulate-media-record.png" format="PNG"/></imageobject>
 </inlinemediaobject>
-<guilabel
->Record</guilabel
->: Record your pronunciation through your microphone. Click again to stop recording.
-</para
-></listitem>
+<guilabel>Record</guilabel>: Record your pronunciation through your microphone. Click again to stop recording.
+</para></listitem>
 
-<listitem
-><para>
-<inlinemediaobject
-><imageobject>
+<listitem><para>
+<inlinemediaobject><imageobject>
 <imagedata fileref="hi32-action-artikulate-media-playback-start.png" format="PNG"/></imageobject>
 </inlinemediaobject>
-<guilabel
->Playback</guilabel
->: Play a sound file. If active, click again to stop.
-</para
-></listitem>
+<guilabel>Playback</guilabel>: Play a sound file. If active, click again to stop.
+</para></listitem>
 
 </itemizedlist>
 </sect2>
 
 <sect2 id="screens-training-learning-controls">
-<title
->Learning Controls</title>
+<title>Learning Controls</title>
 <itemizedlist>
-<listitem
-><para>
-<inlinemediaobject
-><imageobject>
+<listitem><para>
+<inlinemediaobject><imageobject>
 <imagedata fileref="training-ok.png" format="PNG"/></imageobject>
 </inlinemediaobject>
-<guilabel
->OK</guilabel
->: Mark current phrase as learned and continue with next phrase.
-</para
-></listitem>
+<guilabel>OK</guilabel>: Mark current phrase as learned and continue with next phrase.
+</para></listitem>
 
-<listitem
-><para>
-<inlinemediaobject
-><imageobject>
+<listitem><para>
+<inlinemediaobject><imageobject>
 <imagedata fileref="training-retry.png" format="PNG"/></imageobject>
 </inlinemediaobject>
-<guilabel
->Retry Later</guilabel
->: Continue with training next phrase, but try this phrase later again.
-</para
-></listitem>
+<guilabel>Retry Later</guilabel>: Continue with training next phrase, but try this phrase later again.
+</para></listitem>
 
-<listitem
-><para>
-<inlinemediaobject
-><imageobject>
+<listitem><para>
+<inlinemediaobject><imageobject>
 <imagedata fileref="training-finish.png" format="PNG"/></imageobject>
 </inlinemediaobject>
-<guilabel
->Stop</guilabel
->: Stops the training and proceeds to the statistics view. Current training results are saved to training statistics.
-</para
-></listitem>
+<guilabel>Stop</guilabel>: Stops the training and proceeds to the statistics view. Current training results are saved to training statistics.
+</para></listitem>
 </itemizedlist>
 </sect2>
 
 <sect2 id="screens-training-progressbar">
-<title
->Progress Bar</title>
+<title>Progress Bar</title>
 <para>
 The progress bar displays the learning progress for the current unit.
 It consists of blocks representing the phrases in the current unit, whereas the color of a block explains the length of the phrase.
@@ -317,15 +232,13 @@ You can hover over these blocks to see the phrases and click on them to switch t
 Dark elements are already trained, light ones are untrained.
 </para>
 <screenshot>
-<screeninfo
->Progress Bar</screeninfo>
+<screeninfo>Progress Bar</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="screen-training-progressbar.png" format="PNG"/>
+<imagedata fileref="screen-training-progressbar.png" format="PNG" />
 </imageobject>
 <textobject>
-<phrase
->The progress bar for the current unit.</phrase>
+<phrase>The progress bar for the current unit.</phrase>
 </textobject>
 </mediaobject>
 </screenshot>
@@ -333,22 +246,10 @@ Dark elements are already trained, light ones are untrained.
 On top of the progress bar you can see which type of phrases you are currently learning.
 The available types are:
 <itemizedlist>
-    <listitem
-><para
->word: a single word, letter, or number</para
-></listitem>
-    <listitem
-><para
->expression: an expression of several words that does not form a complete sentence</para
-></listitem>
-    <listitem
-><para
->sentence: a complete sentence</para
-></listitem>
-    <listitem
-><para
->paragraph: several sentences (usually 2-3) </para
-></listitem>
+    <listitem><para>word: a single word, letter, or number</para></listitem>
+    <listitem><para>expression: an expression of several words that does not form a complete sentence</para></listitem>
+    <listitem><para>sentence: a complete sentence</para></listitem>
+    <listitem><para>paragraph: several sentences (usually 2-3) </para></listitem>
 </itemizedlist>
 </para>
 </sect2>
@@ -356,315 +257,224 @@ The available types are:
 </chapter>
 -->
 <chapter>
-<title
->Editor</title>
-<para
->Der integrierte Übungseditor erlaubt das Erstellen und gemeinsame Bearbeiten von Sprachübungen für &artikulate;. Einerseits können Sprachübungen erstellt und die Klangdateien von Muttersprachlern aufgenommen werden. Andererseits ist es möglich, sogenannte <emphasis
->Vorlagen</emphasis
-> die Prototypen für Sprachübungen zu erstellen. Mit Hilfe dieser Vorlagen können schnell und einfach neue von einer Vorlage generierte Übungen erstellt werden. Mit dem Editor werden nur eigene Dateien bearbeitet, nicht die die Übungen für &artikulate; heruntergeladenen Dateien. </para>
+<title>Editor</title>
+<para>
+The integrated course editor is an advanced tool for language course contributors that allows the creation and collaborative work on language courses for &artikulate;.
+On the one hand it allows the creation of language courses and recording of the native speaker sound files.
+On the hand, it enables work on so called <emphasis>skeletons</emphasis>, which are language course prototypes that allow easy and fast creation of new courses derived from a prototype.
+The editor only edits files outside of the training course set, i.e., the set of courses downloaded in &artikulate;.
+</para>
 
 <sect1>
-<title
->Überblick</title>
+<title>Overview</title>
 
 <sect2>
-<title
->Editor-Begriffe</title>
-<para
->Beim Übungseditor werden bestimmte Begriffe verwendet, die auch in den folgenden Erläuterungen angewendet werden. </para>
+<title>Editor Notions</title>
+<para>
+For the course editor we use a specific set of terms, which is also used for the following descriptions.
+</para>
 <variablelist>
 <varlistentry>
-    <term
->Sprache:</term>
+    <term>Language:</term>
     <listitem>
-    <para
->Sprachen sind in &artikulate; nur verfügbar, wenn dafür Sprachdefinitionen angegeben sind. </para>
+    <para>
+        Languages are only available in &artikulate; if they are given by language specifications.
+    </para>
     </listitem>
 </varlistentry>
 <varlistentry>
-    <term
->Übung:</term>
+    <term>Course:</term>
     <listitem>
-    <para
->Eine Übung ist einer Sprache zugeordnet und enthält eine Liste von Einheiten. </para>
+    <para>
+        A course is associated to one language and contains a list of units.
+    </para>
     </listitem>
 </varlistentry>
 <varlistentry>
-    <term
->Einheit:</term>
+    <term>Unit:</term>
     <listitem>
-    <para
->Eine Einheit besteht aus Redewendungen aus einem bestimmten Themenbereich, z. B. aus Redewendungen, die im Restaurant benutzt werden, oder Redewendung aus einer Unterhaltung auf der Straße, in der ein Tourist nach dem Weg fragt. </para>
+    <para>
+        A unit consists of phrases that are "somehow" homogeneous.
+        E.g. those can be phrases spoken in a restaurant or phrases spoken at a conversation at the street by a tourist searching for the way.
+    </para>
     </listitem>
 </varlistentry>
 <varlistentry>
-    <term
->Übungsvorlagen:</term>
+    <term>Course Skeletons:</term>
     <listitem>
-    <para
->Eine Übungsvorlage ist der Prototyp für eine Übung. Mit den Vorlagen ist ein einfach, neue Übungen in mehreren Sprachen zu erstellen, da diese Vorlagen eine Gruppe von Einheiten und Redewendungen in Englisch enthalten, mit denen eine Übung in neuen Sprachen generiert werden kann. Aktualisierungen von Vorlagen können auch in Übungen importiert werden, die von einer Vorlage generiert wurden. </para>
+    <para>
+        A course skeleton forms the prototype of a course.
+        This is, skeletons help to ease creation of courses in several languages as they state a set of units and phrases (in English) that then can be used as a blueprint to create a course in a new language.
+        Updates of course skeletons can also be imported into courses that are created from a skeleton.
+    </para>
     </listitem>
 </varlistentry>
 <varlistentry>
-    <term
->Redewendungen:</term>
+    <term>Phrases:</term>
     <listitem>
-    <para
->Redewendungen bestehen aus einem Text und und der Aufnahme der Aussprache durch einen Muttersprachler. Redewendungen werden anhand ihre Länge unterschiedlichen. Es gibt folgende Längen von Redewendungen: <itemizedlist>
+    <para>
+        Phrases are given by a text string and a recording by a native speaker. We differ phrases by their lengths. The following phrase lengths exists
+        <itemizedlist>
         <listitem>
-        <para
-><inlinemediaobject
-><imageobject>
-        <imagedata fileref="hi32-action-artikulate-word.png" format="PNG"/></imageobject
-></inlinemediaobject
-> Wort: einzelnes Wort, Buchstabe oder Zahl</para>
+        <para><inlinemediaobject><imageobject>
+        <imagedata fileref="hi32-action-artikulate-word.png" format="PNG"/></imageobject>
+        </inlinemediaobject>
+        word: a single word, letter, or number</para>
         </listitem>
         <listitem>
-        <para
-><inlinemediaobject
-><imageobject>
-        <imagedata fileref="hi32-action-artikulate-expression.png" format="PNG"/></imageobject
-></inlinemediaobject
-> Ausdruck: ein Ausdruck bestehend aus mehreren Wörtern, die aber keinen vollständigen Satz bilden</para>
+        <para><inlinemediaobject><imageobject>
+        <imagedata fileref="hi32-action-artikulate-expression.png" format="PNG"/></imageobject>
+        </inlinemediaobject>
+        expression: an expression of several words that does not form a complete sentence</para>
         </listitem>
         <listitem>
-        <para
-><inlinemediaobject
-><imageobject>
-        <imagedata fileref="hi32-action-artikulate-sentence.png" format="PNG"/></imageobject
-></inlinemediaobject
-> Satz: ein vollständiger Satz</para>
+        <para><inlinemediaobject><imageobject>
+        <imagedata fileref="hi32-action-artikulate-sentence.png" format="PNG"/></imageobject>
+        </inlinemediaobject>
+        sentence: a complete sentence</para>
         </listitem>
         <listitem>
-        <para
-><inlinemediaobject
-><imageobject>
-        <imagedata fileref="hi32-action-artikulate-paragraph.png" format="PNG"/></imageobject
-></inlinemediaobject
-> Absatz: mehrere Sätze, normalerweise 2 bis 3</para>
+        <para><inlinemediaobject><imageobject>
+        <imagedata fileref="hi32-action-artikulate-paragraph.png" format="PNG"/></imageobject>
+        </inlinemediaobject>
+        paragraph: several sentences (usually 2-3)</para>
         </listitem>
         </itemizedlist>
     </para>
     </listitem>
 </varlistentry>
 </variablelist>
-<para
->Eine Übung ist einer bestimmten Sprache zugeordnet und besteht aus mehreren Einheiten. Jede Einheit wiederum enthält eine Gruppe von Redewendungen in verschiedenen Längen. </para>
+<para>
+A course is associated with a specific language, consists of different units and each unit is given by a sequence of phrases in different lengths.
+</para>
 </sect2>
 
 <sect2>
-<title
->Speicherordner/Übungsarchiv einstellen</title>
-<para
->Der Editor arbeitet mit einem eigenen Ordner, der im folgenden <emphasis
->Archiv</emphasis
-> genannt wird, da er sich in einem Versionverwaltungssystem befinden sollte. In diesem Ordner sucht der Editor nach Übungen und Vorlagendateien zur Bearbeitung und speichert hier auch neue Dateien. </para>
-<para
->Das Übungsarchiv kann im Einrichtungsdialog festgelegt werden. Öffnen Sie diesen Einrichtungsdialog mit <menuchoice
-><guimenu
->Einstellungen</guimenu
-> <guimenuitem
->&artikulate; einrichten</guimenuitem
-></menuchoice
-> und passen Sie den Ordner auf der Seite <guilabel
->Übungs-Ressourcen</guilabel
-> an. </para>
+<title>Set Storage Folder/Course Repository</title>
+<para>
+The editor operates within a separate folder (in the following called <emphasis>repository</emphasis>, as it is recommended to be under some version control system).
+In that folder, the editor searches for editable courses and skeleton files and also stores new files.
+</para>
+<para>
+The course repository can be set in the configuration dialog.
+It can be found at <menuchoice><guimenu>Settings</guimenu> <guimenuitem>Configure &artikulate;</guimenuitem></menuchoice> and the course settings are at the menu option <guilabel>Course Resources</guilabel>.
+</para>
 <screenshot>
-<screeninfo
->Übungsarchiv für den Editor einstellen</screeninfo>
+<screeninfo>Set course repository for editor.</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="editor-set-repository.png" format="PNG"/>
+<imagedata fileref="editor-set-repository.png" format="PNG" />
 </imageobject>
-<caption
-><para
->Übungsarchiv für den Editor einstellen</para
-></caption>
+<caption><para>Set course repository for editor.</para></caption>
 </mediaobject>
 </screenshot>
 </sect2>
 </sect1>
 
-<!--<sect1
->TODO needs complete rewrite
-<title
->Edit a Course</title>
+<!--<sect1>TODO needs complete rewrite
+<title>Edit a Course</title>
 <para>
-The editor can be started from the main menu with <menuchoice
-><guimenu
->Mode</guimenu
-> <guimenuitem
->Course Editor mode</guimenuitem
-></menuchoice
->.
+The editor can be started from the main menu with <menuchoice><guimenu>Mode</guimenu> <guimenuitem>Course Editor mode</guimenuitem></menuchoice>.
 There you have the options to work on existing skeleton files or to create new courses or edit existing ones.
-After selecting a language, you can open an existing course to edit it, or otherwise use <guilabel
->New Course</guilabel
-> to create a new course for this language.
+After selecting a language, you can open an existing course to edit it, or otherwise use <guilabel>New Course</guilabel> to create a new course for this language.
 In either case, you will be presented the list of units of the course, where you can create new units or open existing ones for edit.
 </para>
 
 <sect2>
-<title
->Edit a Unit</title>
+<title>Edit a Unit</title>
 <para>
 When opening a unit for editing, you will see the list of its phrases (see below).
 One line of this list contains the following information:
 <orderedlist>
-    <listitem
-><para
->edit button: open this phrase for edit</para
-></listitem>
-    <listitem
-><para
->phrase type: icon that denotes the type of this phrase (e.g., word, expression)</para
-></listitem>
-    <listitem
-><para
->edit state: a colored block that denotes the edit state of this phrase (red: unknown/no state set; orange: translated state; green: completed state)</para
-></listitem>
-    <listitem
-><para
->the phrase</para
-></listitem>
-    <listitem
-><para
->exclude button: if course derives from a course skeleton, this button allows excluding the phrase from the unit</para
-></listitem>
+    <listitem><para>edit button: open this phrase for edit</para></listitem>
+    <listitem><para>phrase type: icon that denotes the type of this phrase (e.g., word, expression)</para></listitem>
+    <listitem><para>edit state: a colored block that denotes the edit state of this phrase (red: unknown/no state set; orange: translated state; green: completed state)</para></listitem>
+    <listitem><para>the phrase</para></listitem>
+    <listitem><para>exclude button: if course derives from a course skeleton, this button allows excluding the phrase from the unit</para></listitem>
 </orderedlist>
 </para>
 <screenshot>
-<screeninfo
->Editor View: list of phrases within a unit.</screeninfo>
+<screeninfo>Editor View: list of phrases within a unit.</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="editor-screenshot-unit.png" format="PNG"/>
+<imagedata fileref="editor-screenshot-unit.png" format="PNG" />
 </imageobject>
-<caption
-><para
->Editor View: list of phrases within a unit.</para
-></caption>
+<caption><para>Editor View: list of phrases within a unit.</para></caption>
 </mediaobject>
 </screenshot>
 </sect2>
 
 <sect2>
-<title
->Edit a Phrase</title>
+<title>Edit a Phrase</title>
 <para>
 When opening a phrase for editing, you will see the phrase editor as shown below.
 This edit interface contains the following elements:
 </para>
 <itemizedlist>
-    <listitem
-><para
->the phrase text as it will be shown in the trainer</para
-></listitem>
-    <listitem
-><para
->the original phrase, if using a course skeleton</para
-></listitem>
-    <listitem
-><para
->the edit state of the phrase</para
-></listitem>
-    <listitem
-><para
->the type/length of the phrase</para
-></listitem>
-    <listitem
-><para
->recording buttons for the native speaker recordings</para
-></listitem>
-    <listitem
-><para
->buttons to denote interesting phonemes of the phrase (currently not used in training mode)</para
-></listitem>
+    <listitem><para>the phrase text as it will be shown in the trainer</para></listitem>
+    <listitem><para>the original phrase, if using a course skeleton</para></listitem>
+    <listitem><para>the edit state of the phrase</para></listitem>
+    <listitem><para>the type/length of the phrase</para></listitem>
+    <listitem><para>recording buttons for the native speaker recordings</para></listitem>
+    <listitem><para>buttons to denote interesting phonemes of the phrase (currently not used in training mode)</para></listitem>
 </itemizedlist>
 <para>
 You can close the phrase editing interface with
-<inlinemediaobject
-><imageobject>
+<inlinemediaobject><imageobject>
 <imagedata fileref="editor-apply.png" format="PNG"/></imageobject>
 </inlinemediaobject>
 to accept the changes you did, or with
-<inlinemediaobject
-><imageobject>
+<inlinemediaobject><imageobject>
 <imagedata fileref="editor-cancel.png" format="PNG"/></imageobject>
 </inlinemediaobject>
 to discard your changes.
 </para>
 <screenshot>
-<screeninfo
->Editor View: editing view for a phrase.</screeninfo>
+<screeninfo>Editor View: editing view for a phrase.</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="editor-screenshot-editing-phrase.png" format="PNG"/>
+<imagedata fileref="editor-screenshot-editing-phrase.png" format="PNG" />
 </imageobject>
-<caption
-><para
->Editor View: editing view for a phrase.</para
-></caption>
+<caption><para>Editor View: editing view for a phrase.</para></caption>
 </mediaobject>
 </screenshot>
 </sect2>
 
 <sect2>
-<title
->Update from Course Prototype</title>
+<title>Update from Course Prototype</title>
 <para>
-If the currently edited course derives from a skeleton, then the course can be updated from the latest version of the skeleton by using the button <guilabel
->Update from Course Prototype</guilabel
-> at the top left of the screen.
+If the currently edited course derives from a skeleton, then the course can be updated from the latest version of the skeleton by using the button <guilabel>Update from Course Prototype</guilabel> at the top left of the screen.
 This button is deactivated if the course is not derived from a course skeleton.
 </para>
 </sect2>
-</sect1
->-->
+</sect1>-->
 </chapter>
 
 
 <chapter id="credits">
-<title
->Danksagungen und Lizenz</title>
+<title>Credits and License</title>
 
-<para
->&artikulate; </para>
-<para
->Copyright für das Programm:</para>
+<para>
+&artikulate;
+</para>
+<para>Program Copyright:</para>
 <itemizedlist>
-    <listitem
-><para
->Copyright 2013-2015 Andreas Cord-Landwehr</para
-></listitem>
-    <listitem
-><para
->Copyright 2013 Oindrila Gupta</para
-></listitem>
-    <listitem
-><para
->Copyright 2013 Magdalena Konkiewitz</para
-></listitem>
-    <listitem
-><para
->Copyright 2013-2014 Samikshan Bairagya</para
-></listitem>
+    <listitem><para>Copyright 2013-2015  Andreas Cord-Landwehr</para></listitem>
+    <listitem><para>Copyright 2013       Oindrila Gupta</para></listitem>
+    <listitem><para>Copyright 2013       Magdalena Konkiewitz</para></listitem>
+    <listitem><para>Copyright 2013-2014  Samikshan Bairagya</para></listitem>
 </itemizedlist>
 
-<para
->Copyright der Dokumentation:</para>
+<para>Documentation Copyright:</para>
 <itemizedlist>
-    <listitem
-><para
->Copyright 2014-2015 Andreas Cord-Landwehr</para
-></listitem>
+    <listitem><para>Copyright 2014-2015 Andreas Cord-Landwehr</para></listitem>
 </itemizedlist>
 
-<para
->Übersetzung Burkhard Lück<email
->lueck@hube-lueck.de</email
-></para
-> &underFDL; &underGPL; </chapter>
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+&underFDL;               <!-- FDL: do not remove -->
+&underGPL;               <!-- GPL License -->
+
+</chapter>
 
 &documentation.index;
 </book>
