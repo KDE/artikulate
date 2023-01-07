@@ -7,20 +7,21 @@
 # Simon Depiets <sdepiets@gmail.com>, 2019, 2020.
 # Xavier Besnard <xavier.besnard@neuf.fr>, 2020, 2022.
 #
+# Xavier BESNARD <xavier.besnard]neuf.fr>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2022-11-04 21:42+0100\n"
-"Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
-"Language-Team: French <kde-francophone@kde.org>\n"
+"PO-Revision-Date: 2023-01-06 13:33+0100\n"
+"Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
+"Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.0\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -211,7 +212,7 @@ msgstr "Entraînement à la prononciation avec Artikulate"
 #, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
-msgstr "(c) 2013-2022 Les développeurs d'Artikulate"
+msgstr "(c) 2013-2022 L'équipe de développement de Artikulate"
 
 #: src/main.cpp:32
 #, kde-format
@@ -392,7 +393,7 @@ msgstr "Télécharger une formation"
 #: src/qml/ArtikulateDrawer.qml:137
 #, kde-format
 msgid "About Artikulate"
-msgstr "À propos d'Artikulate"
+msgstr "À propos de Artikulate"
 
 #: src/qml/CourseConfigurationPage.qml:15 src/qml/EditorDrawer.qml:58
 #, kde-format
