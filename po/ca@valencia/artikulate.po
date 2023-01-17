@@ -394,12 +394,12 @@ msgstr "Quant a Artikulate"
 #: src/qml/CourseConfigurationPage.qml:15 src/qml/EditorDrawer.qml:58
 #, kde-format
 msgid "Course Configuration"
-msgstr "Configuració del curs"
+msgstr "Configureu el curs"
 
 #: src/qml/CourseConfigurationPage.qml:15
 #, kde-format
 msgid "Prototype Configuration"
-msgstr "Configuració del prototip"
+msgstr "Configureu el prototip"
 
 #: src/qml/CourseConfigurationPage.qml:20
 #, kde-format
@@ -705,7 +705,7 @@ msgstr "Edita"
 #: src/qml/ProfileSettingsPage.qml:38
 #, kde-format
 msgid "Select Image"
-msgstr "Selecció d'imatge"
+msgstr "Seleccioneu una imatge"
 
 #: src/qml/ProfileSettingsPage.qml:45 src/qml/ProfileUserItem.qml:84
 #, kde-format
@@ -745,7 +745,7 @@ msgstr "Cancel·la"
 #: src/qml/RepositoryConfigurationPage.qml:16
 #, kde-format
 msgid "Repository Configuration"
-msgstr "Configuració del repositori"
+msgstr "Configureu el repositori"
 
 #: src/qml/RepositoryConfigurationPage.qml:21
 #, kde-format
