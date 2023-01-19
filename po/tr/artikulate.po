@@ -3,13 +3,13 @@
 #
 # Translators:
 # Volkan Gezer <volkangezer@gmail.com>, 2014, 2017.
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2022-12-13 19:52+0300\n"
+"PO-Revision-Date: 2023-01-18 22:31+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -135,7 +135,8 @@ msgstr "Etkinse ana menü çubuğu gösterilir."
 #, kde-format
 msgid ""
 "If enabled, course files are only read from the local contributor repository"
-msgstr "Etkin olduğunda, kurs dosyaları sadece yerel katkıcı deposundan okunur"
+msgstr ""
+"Etkin olduğunda, kurs dosyaları yalnızca yerel katkıcı deposundan okunur"
 
 #. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
 #: src/artikulate.kcfg:21
