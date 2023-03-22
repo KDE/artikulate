@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2023-01-18 22:31+0300\n"
+"PO-Revision-Date: 2023-03-21 15:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -154,7 +154,7 @@ msgstr "Ses giriş aygıt adı"
 #: src/artikulate.kcfg:27
 #, kde-format
 msgid "Audio input volume"
-msgstr "Ses girişi düzeyi"
+msgstr "Ses giriş düzeyi"
 
 #. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
 #: src/artikulate.kcfg:31
