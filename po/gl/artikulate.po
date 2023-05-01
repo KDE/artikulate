@@ -1,15 +1,15 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Marce Villarino <mvillarino@kde-espana.org>, 2013.
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015, 2016.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2019.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2019, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2019-10-07 11:00+0200\n"
+"PO-Revision-Date: 2023-04-30 12:12+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.07.70\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -83,7 +83,7 @@ msgstr "Italiano"
 #, kde-format
 msgctxt "Language Title"
 msgid "Marathi"
-msgstr "Marata"
+msgstr "Marathi"
 
 #: data/languages/pl.xml:9
 #, kde-format
@@ -137,7 +137,7 @@ msgid ""
 "If enabled, course files are only read from the local contributor repository"
 msgstr ""
 "Active esta opción para que os ficheiros de cursos só se lean do repositorio "
-"de colaboradors local."
+"de colaboración local."
 
 #. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
 #: src/artikulate.kcfg:21
@@ -202,12 +202,10 @@ msgid "Artikulate Pronunciation Trainer"
 msgstr "Adestrador de pronuncia Artikulate"
 
 #: src/main.cpp:31 src/main_editor.cpp:30
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2019 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
-msgstr "© 2013-2019 Desenvolvedores de Artikulate"
+msgstr "© 2013-2022 Xente desenvolvedora de Artikulate"
 
 #: src/main.cpp:32
 #, kde-format
@@ -386,8 +384,7 @@ msgid "Download Training"
 msgstr "Descargar o adestramento"
 
 #: src/qml/ArtikulateDrawer.qml:137
-#, fuzzy, kde-format
-#| msgid "About Artikulate"
+#, kde-format
 msgid "About Artikulate"
 msgstr "Sobre Artikulate"
 
@@ -506,10 +503,9 @@ msgid "Delete"
 msgstr "Eliminar"
 
 #: src/qml/EditCoursePage.qml:41
-#, fuzzy, kde-format
-#| msgid "Delete User"
+#, kde-format
 msgid "Delete this phrase."
-msgstr "Eliminar o usuario"
+msgstr "Eliminar esta frase."
 
 #: src/qml/EditCoursePage.qml:49
 #, kde-format
@@ -519,7 +515,7 @@ msgstr "Crear unha frase"
 #: src/qml/EditCoursePage.qml:50
 #, kde-format
 msgid "Create phrase after current phrase."
-msgstr ""
+msgstr "Crear a frase despois da actual."
 
 #: src/qml/EditorCourseSelectionPage.qml:15
 #, kde-format
@@ -551,14 +547,12 @@ msgstr "Repositorio"
 #: src/qml/EditorDrawer.qml:121
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Gardar"
 
 #: src/qml/EditorDrawer.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@title Displayed program name"
-#| msgid "Artikulate Editor"
+#, kde-format
 msgid "About Artikulate Editor"
-msgstr "Editor de Artikulate"
+msgstr "Sobre o editor de Artikulate"
 
 #: src/qml/EditorSkeletonSelectionPage.qml:15
 #, kde-format
@@ -578,35 +572,29 @@ msgid "Edit Prototype"
 msgstr "Editar o prototipo"
 
 #: src/qml/PhraseEditor.qml:106
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Unit"
+#, kde-format
 msgid "Unit"
-msgstr "Unidades"
+msgstr "Unidade"
 
 #: src/qml/PhraseEditor.qml:106
-#, fuzzy, kde-format
+#, kde-format
 msgid "Unit: "
 msgstr "Unidade: "
 
 #: src/qml/PhraseEditor.qml:111
-#, fuzzy, kde-format
-#| msgid "Localized Title:"
+#, kde-format
 msgid "Localized Unit:"
-msgstr "Título localizado:"
+msgstr "Unidade localizada:"
 
 #: src/qml/PhraseEditor.qml:122
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Phrase"
+#, kde-format
 msgid "Phrase: "
-msgstr "Frase"
+msgstr "Frase: "
 
 #: src/qml/PhraseEditor.qml:127
-#, fuzzy, kde-format
-#| msgid "Localized Title:"
+#, kde-format
 msgid "Localized Phrase:"
-msgstr "Título localizado:"
+msgstr "Frase localizada:"
 
 #: src/qml/PhraseEditorEditStateComponent.qml:48
 #, kde-format
