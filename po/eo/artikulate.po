@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2023-02-25 20:19+0100\n"
+"PO-Revision-Date: 2023-05-03 06:40+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -775,7 +775,7 @@ msgstr "Ludi"
 #: src/qml/SoundRecorder.qml:19
 #, kde-format
 msgid "Record"
-msgstr "Rekordo"
+msgstr "Registri"
 
 #: src/qml/TrainerCourseStatistics.qml:46
 #, kde-format
