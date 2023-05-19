@@ -20,7 +20,7 @@ class PhonemeUnitModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
     Q_PROPERTY(PhonemeGroup *phonemeGroup READ phonemeGroup WRITE setPhonemeGroup NOTIFY phonemeGroupChanged)
-    Q_PROPERTY(int count READ count NOTIFY countChanged);
+    Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
     enum unitRoles { TitleRole = Qt::UserRole + 1, NumberPhrasesRole, IdRole, DataRole, PhonemeGroupRole };
