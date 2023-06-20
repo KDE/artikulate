@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2023-04-30 12:12+0200\n"
+"PO-Revision-Date: 2023-06-19 12:54+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -128,7 +128,7 @@ msgstr "A versión da base de datos, «%1», é incorrecta."
 #: src/artikulate.kcfg:13
 #, kde-format
 msgid "If true, the main menu bar is shown."
-msgstr "Se verdadeiro, móstrase a barra do menú principal."
+msgstr "Se verdadeiro, amósase a barra do menú principal."
 
 #. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
 #: src/artikulate.kcfg:17
@@ -199,7 +199,7 @@ msgstr "Artikulate"
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
-msgstr "Adestrador de pronuncia Artikulate"
+msgstr "Adestrador de pronuncia Artikulate."
 
 #: src/main.cpp:31 src/main_editor.cpp:30
 #, kde-format
@@ -277,7 +277,7 @@ msgstr "Editor de Artikulate"
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Course Editor"
-msgstr "Editor de cursor de Artikulate"
+msgstr "Editor de cursor de Artikulate."
 
 #: src/main_editor.cpp:31
 #, kde-format
