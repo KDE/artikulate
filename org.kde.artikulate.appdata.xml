@@ -65,7 +65,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="eu">Artikulate ahoskatze entrenatzailea</summary>
   <summary xml:lang="fi">Artikulate ääntämisen harjoitteluohjelma</summary>
   <summary xml:lang="fr">Artikulate, entraînement à la prononciation</summary>
-  <summary xml:lang="gl">Adestrador de pronuncia Artikulate</summary>
+  <summary xml:lang="gl">Adestrador de pronuncia Artikulate.</summary>
   <summary xml:lang="hi">आर्टिकुलेट उच्चारण प्रशिक्षक</summary>
   <summary xml:lang="hu">Artikulate kiejtés oktató</summary>
   <summary xml:lang="ia">Instructor de pronunciation Artikulate</summary>
@@ -150,7 +150,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="eu">Artikulate-rekin trebatzea</caption>
       <caption xml:lang="fi">Harjoittelu Artikulatessa</caption>
       <caption xml:lang="fr">Séance d'entraînement sur Artikulate</caption>
-      <caption xml:lang="gl">Adestrando en Artikulate</caption>
+      <caption xml:lang="gl">Adestrando en Artikulate.</caption>
       <caption xml:lang="hi">आर्टिकुलेट में प्रशिक्षण</caption>
       <caption xml:lang="hu">Gyakorlás az Artikulate-ben</caption>
       <caption xml:lang="ia">Instruer in Artikulate</caption>
