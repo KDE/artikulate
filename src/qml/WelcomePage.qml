@@ -1,13 +1,15 @@
 /*
     SPDX-FileCopyrightText: 2015-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+    SPDX-FileCopyrightText: 2023 Carl Schwan <carl@carlschwan.eu>
 
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-import QtQuick 2.1
-import QtQuick.Controls 2.1 as QQC2
-import QtQuick.Layouts 1.3
-import org.kde.kirigami 2.7 as Kirigami
+import QtQuick 2.15
+import QtQuick.Controls 2.15 as QQC2
+import QtQuick.Layouts 1.15
+import org.kde.kirigami 2.20 as Kirigami
+import org.kde.newstuff 1.91 as KNS
 import artikulate 1.0
 
 Kirigami.ScrollablePage {
@@ -62,6 +64,23 @@ Kirigami.ScrollablePage {
                             showPassiveNotification("Starting training session for course " + model.title + ".");
                             g_trainingSession.course = model.dataRole
                         }
+                    }
+                }
+            }
+        }
+
+        Kirigami.PlaceholderMessage {
+            anchors.centerIn: parent
+            visible: listView.count === 0
+            width: parent.width - Kirigami.Units.gridUnit * 4
+            text: i18n("No trainings found")
+            helpfulAction: KNS.Action {
+                configFile: ":/artikulate/config/artikulate.knsrc"
+                viewMode: KNS.Page.ViewMode.Preview
+                text: i18n("Download Training")
+                onEntryEvent: function(entry, event) {
+                    if (event === KNS.Entry.StatusChangedEvent) {
+                        applicationWindow().ghnsCourseDataStatusChanged();
                     }
                 }
             }

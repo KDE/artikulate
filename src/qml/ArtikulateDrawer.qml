@@ -4,10 +4,11 @@
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-import QtQuick 2.5
-import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.0 as QQC2
-import org.kde.kirigami 2.7 as Kirigami
+import QtQuick 2.15
+import QtQuick.Controls 2.15 as QQC2
+import QtQuick.Layouts 1.15
+import org.kde.kirigami 2.20 as Kirigami
+import org.kde.newstuff 1.91 as KNS
 import artikulate 1.0
 
 Kirigami.GlobalDrawer {
@@ -123,12 +124,14 @@ Kirigami.GlobalDrawer {
 //            }
 //        }
         ActionListItem {
-            action: Kirigami.Action {
+            action: KNS.Action {
                 text: i18n("Download Training")
-                iconName: "get-hot-new-stuff"
-                onTriggered: {
-                    root.pageStack.pop();
-                    root.pageStack.push(downloadPageComponent);
+                configFile: ":/artikulate/config/artikulate.knsrc"
+                viewMode: KNS.Page.ViewMode.Preview
+                onEntryEvent: function(entry, event) {
+                    if (event === KNS.Entry.StatusChangedEvent) {
+                        applicationWindow().ghnsCourseDataStatusChanged();
+                    }
                 }
             }
         }

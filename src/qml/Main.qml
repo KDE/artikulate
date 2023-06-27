@@ -59,11 +59,4 @@ ApplicationWindow {
             aboutData: g_artikulateAboutData
         }
     }
-
-    Component {
-        id: downloadPageComponent
-        DownloadPage {
-            onStatusChanged: root.ghnsCourseDataStatusChanged()
-        }
-    }
 }

@@ -8,7 +8,6 @@ SPDX-License-Identifier: BSD-2-Clause
         <file>qml/ActionListItem.qml</file>
         <file>qml/ArtikulateDrawer.qml</file>
         <file>qml/CourseConfigurationPage.qml</file>
-        <file>qml/DownloadPage.qml</file>
         <file>qml/EditCoursePage.qml</file>
         <file>qml/Editor.qml</file>
         <file>qml/EditorDrawer.qml</file>
