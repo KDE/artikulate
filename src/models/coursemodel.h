@@ -20,7 +20,7 @@ class ARTIKULATECORE_EXPORT CourseModel : public QAbstractListModel
     Q_OBJECT
 
 public:
-    enum courseRoles { TitleRole = Qt::UserRole + 1, I18nTitleRole, DescriptionRole, IdRole, LanguageRole, DataRole };
+    enum courseRoles { TitleRole = Qt::UserRole + 1, I18nTitleRole, DescriptionRole, IdRole, LanguageRole, DataRole, };
 
     explicit CourseModel(QObject *parent = nullptr);
     explicit CourseModel(IResourceRepository *repository, QObject *parent = nullptr);

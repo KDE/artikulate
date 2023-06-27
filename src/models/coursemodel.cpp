@@ -25,15 +25,14 @@ CourseModel::CourseModel(IResourceRepository *repository, QObject *parent)
 
 QHash<int, QByteArray> CourseModel::roleNames() const
 {
-    QHash<int, QByteArray> roles;
-    roles[TitleRole] = "title";
-    roles[I18nTitleRole] = "i18nTitle";
-    roles[DescriptionRole] = "description";
-    roles[IdRole] = "id";
-    roles[LanguageRole] = "language";
-    roles[DataRole] = "dataRole";
-
-    return roles;
+    return {
+        { TitleRole, "title" },
+        { I18nTitleRole, "i18nTitle" },
+        { DescriptionRole, "description" },
+        { IdRole, "id" },
+        { LanguageRole, "language" },
+        { DataRole, "dataRole" },
+    };
 }
 
 void CourseModel::setResourceRepository(IResourceRepository *resourceRepository)
@@ -88,12 +87,10 @@ IResourceRepository *CourseModel::resourceRepository() const
 
 QVariant CourseModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() || !m_resourceRepository) {
+    if (!m_resourceRepository) {
         return QVariant();
     }
-    if (index.row() >= rowCount()) {
-        return QVariant();
-    }
+    Q_ASSERT(checkIndex(index, QAbstractItemModel::CheckIndexOption::IndexIsValid));
 
     auto const course = m_resourceRepository->courses().at(index.row());
 
@@ -115,7 +112,7 @@ QVariant CourseModel::data(const QModelIndex &index, int role) const
         case DataRole:
             return QVariant::fromValue<QObject *>(course.get());
         default:
-            return QVariant();
+            return {};
     }
 }
 
