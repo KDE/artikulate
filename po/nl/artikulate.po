@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-04 00:41+0000\n"
+"POT-Creation-Date: 2023-06-28 00:43+0000\n"
 "PO-Revision-Date: 2022-11-04 09:30+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -288,7 +288,7 @@ msgstr "Lesbestanden van Artikulate bewerken."
 msgid "Unnamed Identity"
 msgstr "Identiteit zonder naam"
 
-#: src/models/coursemodel.cpp:102 src/models/languageresourcemodel.cpp:71
+#: src/models/coursemodel.cpp:99 src/models/languageresourcemodel.cpp:71
 #: src/models/phonememodel.cpp:61 src/models/phraselistmodel.cpp:96
 #: src/models/profilemodel.cpp:87 src/models/skeletonmodel.cpp:96
 #: src/models/unitmodel.cpp:84
@@ -297,7 +297,7 @@ msgctxt "@item:inlistbox:"
 msgid "unknown"
 msgstr "onbekend"
 
-#: src/models/coursemodel.cpp:161
+#: src/models/coursemodel.cpp:158
 #, kde-format
 msgctxt "@title:column"
 msgid "Course"
@@ -371,17 +371,17 @@ msgctxt "@title:column"
 msgid "Unit"
 msgstr "Eenheid"
 
-#: src/qml/ArtikulateDrawer.qml:34
+#: src/qml/ArtikulateDrawer.qml:35
 #, kde-format
 msgid "Training"
 msgstr "Oefening"
 
-#: src/qml/ArtikulateDrawer.qml:127
+#: src/qml/ArtikulateDrawer.qml:128 src/qml/WelcomePage.qml:80
 #, kde-format
 msgid "Download Training"
 msgstr "Oefening downloaden"
 
-#: src/qml/ArtikulateDrawer.qml:137
+#: src/qml/ArtikulateDrawer.qml:140
 #, kde-format
 msgid "About Artikulate"
 msgstr "Info over Artikulate"
@@ -446,29 +446,6 @@ msgstr "Bijwerken"
 msgid "Update the course with elements from prototype."
 msgstr "De les bijwerken met elementen uit het prototype."
 
-#: src/qml/DownloadPage.qml:21
-#, kde-format
-msgid "Download Training Material"
-msgstr "Oefeningsmateriaal downloaden"
-
-#: src/qml/DownloadPage.qml:74
-#, kde-format
-msgctxt "@action:button"
-msgid "Update"
-msgstr "Bijwerken"
-
-#: src/qml/DownloadPage.qml:79
-#, kde-format
-msgctxt "@action:button"
-msgid "Install"
-msgstr "Installeren"
-
-#: src/qml/DownloadPage.qml:84
-#, kde-format
-msgctxt "@action:button"
-msgid "Remove"
-msgstr "Verwijderen"
-
 #: src/qml/EditCoursePage.qml:16
 #, kde-format
 msgid "Edit Course"
@@ -520,7 +497,7 @@ msgstr "Uitdrukking aanmaken na huidige uitdrukking."
 msgid "Welcome to Artikulate Course Editor"
 msgstr "Welkom bij Artikulate lessenbewerker"
 
-#: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:46
+#: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:48
 #, kde-format
 msgctxt "@title:window language / course name"
 msgid "%1 / %2"
@@ -812,16 +789,36 @@ msgstr "Uzelf opnemen"
 msgid "Play yourself"
 msgstr "Uzelf afspelen"
 
-#: src/qml/WelcomePage.qml:15
+#: src/qml/WelcomePage.qml:17
 #, kde-format
 msgid "Welcome to Artikulate"
 msgstr "Welkom bij Artikulate"
 
-#: src/qml/WelcomePage.qml:60
+#: src/qml/WelcomePage.qml:62
 #, kde-format
 msgctxt "@action:button"
 msgid "Start Training"
 msgstr "Oefening starten"
+
+#: src/qml/WelcomePage.qml:76
+#, kde-format
+msgid "No trainings found"
+msgstr ""
+
+#~ msgid "Download Training Material"
+#~ msgstr "Oefeningsmateriaal downloaden"
+
+#~ msgctxt "@action:button"
+#~ msgid "Update"
+#~ msgstr "Bijwerken"
+
+#~ msgctxt "@action:button"
+#~ msgid "Install"
+#~ msgstr "Installeren"
+
+#~ msgctxt "@action:button"
+#~ msgid "Remove"
+#~ msgstr "Verwijderen"
 
 #~ msgctxt "default sound device"
 #~ msgid "Default"

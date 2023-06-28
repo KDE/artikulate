@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-04 00:41+0000\n"
+"POT-Creation-Date: 2023-06-28 00:43+0000\n"
 "PO-Revision-Date: 2023-01-12 10:28+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -295,7 +295,7 @@ msgstr "Редактирование файлов курсов Artikulate."
 msgid "Unnamed Identity"
 msgstr "Безымянный идентификатор"
 
-#: src/models/coursemodel.cpp:102 src/models/languageresourcemodel.cpp:71
+#: src/models/coursemodel.cpp:99 src/models/languageresourcemodel.cpp:71
 #: src/models/phonememodel.cpp:61 src/models/phraselistmodel.cpp:96
 #: src/models/profilemodel.cpp:87 src/models/skeletonmodel.cpp:96
 #: src/models/unitmodel.cpp:84
@@ -304,7 +304,7 @@ msgctxt "@item:inlistbox:"
 msgid "unknown"
 msgstr "неизвестный"
 
-#: src/models/coursemodel.cpp:161
+#: src/models/coursemodel.cpp:158
 #, kde-format
 msgctxt "@title:column"
 msgid "Course"
@@ -378,17 +378,17 @@ msgctxt "@title:column"
 msgid "Unit"
 msgstr "Модуль"
 
-#: src/qml/ArtikulateDrawer.qml:34
+#: src/qml/ArtikulateDrawer.qml:35
 #, kde-format
 msgid "Training"
 msgstr "Тренировка"
 
-#: src/qml/ArtikulateDrawer.qml:127
+#: src/qml/ArtikulateDrawer.qml:128 src/qml/WelcomePage.qml:80
 #, kde-format
 msgid "Download Training"
 msgstr "Загрузить тренировку"
 
-#: src/qml/ArtikulateDrawer.qml:137
+#: src/qml/ArtikulateDrawer.qml:140
 #, kde-format
 msgid "About Artikulate"
 msgstr "О программе Artikulate"
@@ -453,29 +453,6 @@ msgstr "Обновить"
 msgid "Update the course with elements from prototype."
 msgstr "Обновить курс элементами из прототипа."
 
-#: src/qml/DownloadPage.qml:21
-#, kde-format
-msgid "Download Training Material"
-msgstr "Загрузить материалы для тренировки"
-
-#: src/qml/DownloadPage.qml:74
-#, kde-format
-msgctxt "@action:button"
-msgid "Update"
-msgstr "Обновить"
-
-#: src/qml/DownloadPage.qml:79
-#, kde-format
-msgctxt "@action:button"
-msgid "Install"
-msgstr "Установить"
-
-#: src/qml/DownloadPage.qml:84
-#, kde-format
-msgctxt "@action:button"
-msgid "Remove"
-msgstr "Удалить"
-
 #: src/qml/EditCoursePage.qml:16
 #, kde-format
 msgid "Edit Course"
@@ -527,7 +504,7 @@ msgstr "Создать фразу после текущей фразы."
 msgid "Welcome to Artikulate Course Editor"
 msgstr "Добро пожаловать в редактор курса Artikulate"
 
-#: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:46
+#: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:48
 #, kde-format
 msgctxt "@title:window language / course name"
 msgid "%1 / %2"
@@ -819,16 +796,36 @@ msgstr "Записать своё произношение"
 msgid "Play yourself"
 msgstr "Воспроизвести своё произношение"
 
-#: src/qml/WelcomePage.qml:15
+#: src/qml/WelcomePage.qml:17
 #, kde-format
 msgid "Welcome to Artikulate"
 msgstr "Добро пожаловать в Artikulate"
 
-#: src/qml/WelcomePage.qml:60
+#: src/qml/WelcomePage.qml:62
 #, kde-format
 msgctxt "@action:button"
 msgid "Start Training"
 msgstr "Начать тренировку"
+
+#: src/qml/WelcomePage.qml:76
+#, kde-format
+msgid "No trainings found"
+msgstr ""
+
+#~ msgid "Download Training Material"
+#~ msgstr "Загрузить материалы для тренировки"
+
+#~ msgctxt "@action:button"
+#~ msgid "Update"
+#~ msgstr "Обновить"
+
+#~ msgctxt "@action:button"
+#~ msgid "Install"
+#~ msgstr "Установить"
+
+#~ msgctxt "@action:button"
+#~ msgid "Remove"
+#~ msgstr "Удалить"
 
 #~ msgctxt "default sound device"
 #~ msgid "Default"

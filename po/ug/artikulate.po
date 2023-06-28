@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-04 00:41+0000\n"
+"POT-Creation-Date: 2023-06-28 00:43+0000\n"
 "PO-Revision-Date: 2013-09-08 07:05+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
@@ -286,7 +286,7 @@ msgstr ""
 msgid "Unnamed Identity"
 msgstr ""
 
-#: src/models/coursemodel.cpp:102 src/models/languageresourcemodel.cpp:71
+#: src/models/coursemodel.cpp:99 src/models/languageresourcemodel.cpp:71
 #: src/models/phonememodel.cpp:61 src/models/phraselistmodel.cpp:96
 #: src/models/profilemodel.cpp:87 src/models/skeletonmodel.cpp:96
 #: src/models/unitmodel.cpp:84
@@ -296,7 +296,7 @@ msgctxt "@item:inlistbox:"
 msgid "unknown"
 msgstr "نامەلۇم"
 
-#: src/models/coursemodel.cpp:161
+#: src/models/coursemodel.cpp:158
 #, kde-format
 msgctxt "@title:column"
 msgid "Course"
@@ -377,17 +377,17 @@ msgctxt "@title:column"
 msgid "Unit"
 msgstr "بىرلىكى"
 
-#: src/qml/ArtikulateDrawer.qml:34
+#: src/qml/ArtikulateDrawer.qml:35
 #, kde-format
 msgid "Training"
 msgstr ""
 
-#: src/qml/ArtikulateDrawer.qml:127
+#: src/qml/ArtikulateDrawer.qml:128 src/qml/WelcomePage.qml:80
 #, kde-format
 msgid "Download Training"
 msgstr ""
 
-#: src/qml/ArtikulateDrawer.qml:137
+#: src/qml/ArtikulateDrawer.qml:140
 #, kde-format
 msgid "About Artikulate"
 msgstr ""
@@ -454,29 +454,6 @@ msgstr ""
 msgid "Update the course with elements from prototype."
 msgstr ""
 
-#: src/qml/DownloadPage.qml:21
-#, kde-format
-msgid "Download Training Material"
-msgstr ""
-
-#: src/qml/DownloadPage.qml:74
-#, kde-format
-msgctxt "@action:button"
-msgid "Update"
-msgstr ""
-
-#: src/qml/DownloadPage.qml:79
-#, kde-format
-msgctxt "@action:button"
-msgid "Install"
-msgstr ""
-
-#: src/qml/DownloadPage.qml:84
-#, kde-format
-msgctxt "@action:button"
-msgid "Remove"
-msgstr ""
-
 #: src/qml/EditCoursePage.qml:16
 #, kde-format
 msgid "Edit Course"
@@ -528,7 +505,7 @@ msgstr ""
 msgid "Welcome to Artikulate Course Editor"
 msgstr ""
 
-#: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:46
+#: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:48
 #, kde-format
 msgctxt "@title:window language / course name"
 msgid "%1 / %2"
@@ -826,15 +803,20 @@ msgstr ""
 msgid "Play yourself"
 msgstr ""
 
-#: src/qml/WelcomePage.qml:15
+#: src/qml/WelcomePage.qml:17
 #, kde-format
 msgid "Welcome to Artikulate"
 msgstr ""
 
-#: src/qml/WelcomePage.qml:60
+#: src/qml/WelcomePage.qml:62
 #, kde-format
 msgctxt "@action:button"
 msgid "Start Training"
+msgstr ""
+
+#: src/qml/WelcomePage.qml:76
+#, kde-format
+msgid "No trainings found"
 msgstr ""
 
 #, fuzzy

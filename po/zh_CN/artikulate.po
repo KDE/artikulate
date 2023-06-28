@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-04 00:41+0000\n"
+"POT-Creation-Date: 2023-06-28 00:43+0000\n"
 "PO-Revision-Date: 2023-06-17 04:11\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -286,7 +286,7 @@ msgstr "编辑 Artikulate 课程文件。"
 msgid "Unnamed Identity"
 msgstr "未命名标识"
 
-#: src/models/coursemodel.cpp:102 src/models/languageresourcemodel.cpp:71
+#: src/models/coursemodel.cpp:99 src/models/languageresourcemodel.cpp:71
 #: src/models/phonememodel.cpp:61 src/models/phraselistmodel.cpp:96
 #: src/models/profilemodel.cpp:87 src/models/skeletonmodel.cpp:96
 #: src/models/unitmodel.cpp:84
@@ -295,7 +295,7 @@ msgctxt "@item:inlistbox:"
 msgid "unknown"
 msgstr "未知"
 
-#: src/models/coursemodel.cpp:161
+#: src/models/coursemodel.cpp:158
 #, kde-format
 msgctxt "@title:column"
 msgid "Course"
@@ -369,17 +369,17 @@ msgctxt "@title:column"
 msgid "Unit"
 msgstr "单元"
 
-#: src/qml/ArtikulateDrawer.qml:34
+#: src/qml/ArtikulateDrawer.qml:35
 #, kde-format
 msgid "Training"
 msgstr "训练"
 
-#: src/qml/ArtikulateDrawer.qml:127
+#: src/qml/ArtikulateDrawer.qml:128 src/qml/WelcomePage.qml:80
 #, kde-format
 msgid "Download Training"
 msgstr "下载训练"
 
-#: src/qml/ArtikulateDrawer.qml:137
+#: src/qml/ArtikulateDrawer.qml:140
 #, kde-format
 msgid "About Artikulate"
 msgstr "关于 Artikulate"
@@ -444,29 +444,6 @@ msgstr "更新"
 msgid "Update the course with elements from prototype."
 msgstr "用模板中的元素更新课程"
 
-#: src/qml/DownloadPage.qml:21
-#, kde-format
-msgid "Download Training Material"
-msgstr "下载训练材料"
-
-#: src/qml/DownloadPage.qml:74
-#, kde-format
-msgctxt "@action:button"
-msgid "Update"
-msgstr "更新"
-
-#: src/qml/DownloadPage.qml:79
-#, kde-format
-msgctxt "@action:button"
-msgid "Install"
-msgstr "安装"
-
-#: src/qml/DownloadPage.qml:84
-#, kde-format
-msgctxt "@action:button"
-msgid "Remove"
-msgstr "删除"
-
 #: src/qml/EditCoursePage.qml:16
 #, kde-format
 msgid "Edit Course"
@@ -518,7 +495,7 @@ msgstr "在当前词组后创建词组。"
 msgid "Welcome to Artikulate Course Editor"
 msgstr "欢迎使用 Artikulate 课程编辑器"
 
-#: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:46
+#: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:48
 #, kde-format
 msgctxt "@title:window language / course name"
 msgid "%1 / %2"
@@ -810,13 +787,33 @@ msgstr "记录自身发音"
 msgid "Play yourself"
 msgstr "播放自身发音"
 
-#: src/qml/WelcomePage.qml:15
+#: src/qml/WelcomePage.qml:17
 #, kde-format
 msgid "Welcome to Artikulate"
 msgstr "欢迎使用 Artikulate"
 
-#: src/qml/WelcomePage.qml:60
+#: src/qml/WelcomePage.qml:62
 #, kde-format
 msgctxt "@action:button"
 msgid "Start Training"
 msgstr "开始训练"
+
+#: src/qml/WelcomePage.qml:76
+#, kde-format
+msgid "No trainings found"
+msgstr ""
+
+#~ msgid "Download Training Material"
+#~ msgstr "下载训练材料"
+
+#~ msgctxt "@action:button"
+#~ msgid "Update"
+#~ msgstr "更新"
+
+#~ msgctxt "@action:button"
+#~ msgid "Install"
+#~ msgstr "安装"
+
+#~ msgctxt "@action:button"
+#~ msgid "Remove"
+#~ msgstr "删除"
