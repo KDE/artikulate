@@ -9,17 +9,17 @@ msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:43+0000\n"
-"PO-Revision-Date: 2022-11-05 09:08+0100\n"
+"PO-Revision-Date: 2023-06-28 09:38+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Lokalize 22.08.1\n"
+"Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -568,7 +568,7 @@ msgstr "Prirejena enota:"
 #: src/qml/PhraseEditor.qml:122
 #, kde-format
 msgid "Phrase: "
-msgstr "Fraza:"
+msgstr "Fraza: "
 
 #: src/qml/PhraseEditor.qml:127
 #, kde-format
@@ -807,7 +807,7 @@ msgstr "Začni vadbo"
 #: src/qml/WelcomePage.qml:76
 #, kde-format
 msgid "No trainings found"
-msgstr ""
+msgstr "Ni najdenih treningov"
 
 #~ msgid "Download Training Material"
 #~ msgstr "Naloži učne materiale"

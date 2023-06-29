@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Freek de Kruijf <freek@opensuse.org>, 2014, 2015, 2016, 2017, 2019, 2020, 2022.
+# Freek de Kruijf <freek@opensuse.org>, 2014, 2015, 2016, 2017, 2019, 2020, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:43+0000\n"
-"PO-Revision-Date: 2022-11-04 09:30+0100\n"
+"PO-Revision-Date: 2023-06-28 10:15+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -803,7 +803,7 @@ msgstr "Oefening starten"
 #: src/qml/WelcomePage.qml:76
 #, kde-format
 msgid "No trainings found"
-msgstr ""
+msgstr "Geen trainingen gevonden"
 
 #~ msgid "Download Training Material"
 #~ msgstr "Oefeningsmateriaal downloaden"

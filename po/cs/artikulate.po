@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:43+0000\n"
-"PO-Revision-Date: 2023-06-23 11:45+0200\n"
+"PO-Revision-Date: 2023-06-28 14:12+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -801,16 +801,4 @@ msgstr "Spustit procvičování"
 #: src/qml/WelcomePage.qml:76
 #, kde-format
 msgid "No trainings found"
-msgstr ""
-
-#~ msgctxt "@action:button"
-#~ msgid "Update"
-#~ msgstr "Aktualizovat"
-
-#~ msgctxt "@action:button"
-#~ msgid "Install"
-#~ msgstr "Instalovat"
-
-#~ msgctxt "@action:button"
-#~ msgid "Remove"
-#~ msgstr "Odstranit"
+msgstr "Nebyla nalezena žádná cvičení"
