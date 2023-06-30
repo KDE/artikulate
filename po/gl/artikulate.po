@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-04 00:41+0000\n"
-"PO-Revision-Date: 2023-06-19 12:54+0200\n"
+"PO-Revision-Date: 2023-06-29 08:18+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -223,7 +223,7 @@ msgstr "Andreas Cord-Landwehr"
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Original Author"
-msgstr "Autor orixinal"
+msgstr "Autoría orixinal."
 
 #: src/main.cpp:39
 #, kde-format
@@ -235,7 +235,7 @@ msgstr "Samikshan Bairagya"
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer"
-msgstr "Desenvolvedor"
+msgstr "Desenvolvemento."
 
 #: src/main.cpp:43
 #, kde-format
@@ -247,7 +247,7 @@ msgstr "Oindrila Gupta"
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer and Course Data"
-msgstr "Desenvolvedor e datos do curso."
+msgstr "Desenvolvemento e datos de cursos."
 
 #: src/main.cpp:47
 #, kde-format
@@ -712,7 +712,7 @@ msgstr "Limpar a imaxe"
 #: src/qml/ProfileSettingsPage.qml:51
 #, kde-format
 msgid "Delete User"
-msgstr "Eliminar o usuario"
+msgstr "Eliminar a persoa usuaria"
 
 #: src/qml/ProfileSettingsPage.qml:101 src/qml/ProfileUserItem.qml:117
 #, kde-format
