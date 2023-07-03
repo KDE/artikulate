@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:43+0000\n"
-"PO-Revision-Date: 2022-11-04 10:42+0000\n"
+"PO-Revision-Date: 2023-07-02 02:24+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -807,19 +807,4 @@ msgstr "Iniciar o Treino"
 #: src/qml/WelcomePage.qml:76
 #, kde-format
 msgid "No trainings found"
-msgstr ""
-
-#~ msgid "Download Training Material"
-#~ msgstr "Obter o Material de Treino"
-
-#~ msgctxt "@action:button"
-#~ msgid "Update"
-#~ msgstr "Actualizar"
-
-#~ msgctxt "@action:button"
-#~ msgid "Install"
-#~ msgstr "Instalar"
-
-#~ msgctxt "@action:button"
-#~ msgid "Remove"
-#~ msgstr "Remover"
+msgstr "Sem treinos encontrados"
