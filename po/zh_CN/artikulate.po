@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:43+0000\n"
-"PO-Revision-Date: 2023-06-17 04:11\n"
+"PO-Revision-Date: 2023-07-03 11:38\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -802,18 +802,3 @@ msgstr "开始训练"
 #, kde-format
 msgid "No trainings found"
 msgstr ""
-
-#~ msgid "Download Training Material"
-#~ msgstr "下载训练材料"
-
-#~ msgctxt "@action:button"
-#~ msgid "Update"
-#~ msgstr "更新"
-
-#~ msgctxt "@action:button"
-#~ msgid "Install"
-#~ msgstr "安装"
-
-#~ msgctxt "@action:button"
-#~ msgid "Remove"
-#~ msgstr "删除"
