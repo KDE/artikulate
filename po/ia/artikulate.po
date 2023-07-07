@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the artikulate package.
 #
-# Giovanni Sora <g.sora@tiscali.it>, 2020, 2022.
+# Giovanni Sora <g.sora@tiscali.it>, 2020, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:43+0000\n"
-"PO-Revision-Date: 2022-11-28 15:42+0100\n"
+"PO-Revision-Date: 2023-07-06 11:57+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -803,7 +803,7 @@ msgstr "Initia exercitation"
 #: src/qml/WelcomePage.qml:76
 #, kde-format
 msgid "No trainings found"
-msgstr ""
+msgstr "On trovava nulle exercitation"
 
 #~ msgid "Download Training Material"
 #~ msgstr "Discarga material de exercitation"
