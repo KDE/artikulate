@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:43+0000\n"
-"PO-Revision-Date: 2023-02-18 19:51+0400\n"
+"PO-Revision-Date: 2023-06-30 11:46+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -804,7 +804,7 @@ msgstr "Təlimə başlamaq"
 #: src/qml/WelcomePage.qml:76
 #, kde-format
 msgid "No trainings found"
-msgstr ""
+msgstr "Heç bir məşq tapılmadı"
 
 #~ msgid "Download Training Material"
 #~ msgstr "Təlim materialını endirmək"
