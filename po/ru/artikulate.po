@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:43+0000\n"
-"PO-Revision-Date: 2023-01-12 10:28+0300\n"
+"PO-Revision-Date: 2023-07-22 14:39+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -810,7 +810,7 @@ msgstr "Начать тренировку"
 #: src/qml/WelcomePage.qml:76
 #, kde-format
 msgid "No trainings found"
-msgstr ""
+msgstr "Не найдено ни одной тренировки"
 
 #~ msgid "Download Training Material"
 #~ msgstr "Загрузить материалы для тренировки"
