@@ -3,20 +3,21 @@
 #
 # Dimitris Kardarakos <dimkard@gmail.com>, 2013, 2014.
 # Stelios <sstavra@gmail.com>, 2017, 2020, 2023.
+# George Stefanakis <george.stefanakis@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:43+0000\n"
-"PO-Revision-Date: 2023-01-04 10:06+0200\n"
-"Last-Translator: Stelios <sstavra@gmail.com>\n"
-"Language-Team: Greek <kde-i18n-el@kde.org>\n"
+"PO-Revision-Date: 2023-07-25 00:13+0300\n"
+"Last-Translator: George Stefanakis <george.stefanakis@gmail.com>\n"
+"Language-Team: Greek <kde-i18n-doc@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -805,7 +806,7 @@ msgstr "Έναρξη εκπαίδευσης"
 #: src/qml/WelcomePage.qml:76
 #, kde-format
 msgid "No trainings found"
-msgstr ""
+msgstr "Δεν βρέθηκαν εκπαιδεύσεις"
 
 #~ msgid "Download Training Material"
 #~ msgstr "Λήψη εκπαιδευτικού υλικού"
