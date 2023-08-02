@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:43+0000\n"
-"PO-Revision-Date: 2023-06-28 11:55+0300\n"
+"PO-Revision-Date: 2023-08-02 00:35+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.07.70\n"
+"X-Generator: Lokalize 23.11.70\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -276,7 +276,7 @@ msgstr "Artikulate Düzenleyicisi"
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Course Editor"
-msgstr "Artikulate Kurs Düzenleyici"
+msgstr "Artikulate Kurs Düzenleyicisi"
 
 #: src/main_editor.cpp:31
 #, kde-format
