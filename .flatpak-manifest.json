@@ -1,0 +1,28 @@
+{
+    "id": "org.kde.artikulate",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "5.15-22.08",
+    "sdk": "org.kde.Sdk",
+    "command": "artikulate",
+    "rename-icon": "artikulate",
+    "finish-args": [
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--socket=pulseaudio",
+        "--device=dri"
+    ],
+    "modules": [
+        {
+            "name": "artikulate",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
+                }
+            ]
+        }
+    ]
+}
