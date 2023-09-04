@@ -128,7 +128,7 @@ msgstr "A versión da base de datos, «%1», é incorrecta."
 #: src/artikulate.kcfg:13
 #, kde-format
 msgid "If true, the main menu bar is shown."
-msgstr "Se verdadeiro, amósase a barra do menú principal."
+msgstr "Se verdadeiro, amósase a barra de menú principal."
 
 #. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
 #: src/artikulate.kcfg:17
