@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2013, 2014, 2015, 2016.
-# Tommi Nieminen <translator@legisign.org>, 2018, 2020, 2021.
+# Tommi Nieminen <translator@legisign.org>, 2018, 2020, 2021, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-28 00:43+0000\n"
-"PO-Revision-Date: 2021-01-10 20:39+0200\n"
+"PO-Revision-Date: 2023-08-28 19:40+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -203,12 +203,10 @@ msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate ääntämisen harjoitteluohjelma"
 
 #: src/main.cpp:31 src/main_editor.cpp:30
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2020 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
-msgstr "© 2013–2020 Artikulaten kehittäjät"
+msgstr "© 2013–2022 Artikulaten kehittäjät"
 
 #: src/main.cpp:32
 #, kde-format
@@ -808,7 +806,7 @@ msgstr "Aloita harjoitus"
 #: src/qml/WelcomePage.qml:76
 #, kde-format
 msgid "No trainings found"
-msgstr ""
+msgstr "Harjoituksia ei löytynyt"
 
 #~ msgid "Download Training Material"
 #~ msgstr "Lataa harjoitusaineisto"
