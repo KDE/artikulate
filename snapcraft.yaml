@@ -154,7 +154,7 @@ parts:
     artikulate-data:
         after:
         - artikulate
-        plugin: null
+        plugin: nil
         source: https://invent.kde.org/education/artikulate-data.git
         prime:
         - ".*"
