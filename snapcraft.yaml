@@ -161,7 +161,7 @@ parts:
         prime:
         - ".*"
         organize:
-        - ".*": $SNAP_USER_DATA/artikulate/courses/
+        ".*": $SNAP_USER_DATA/artikulate/courses/
     cleanup:
         after:
         - artikulate
