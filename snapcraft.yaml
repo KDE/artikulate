@@ -160,8 +160,11 @@ parts:
         source: https://invent.kde.org/education/artikulate-data.git
         prime:
         - ".*"
-        organize:
-        ".*": $SNAP_USER_DATA/artikulate/courses/
+        override-prime: |
+            craftctl default
+
+            mkdir -p $SNAP_USER_DATA/artikulate/courses
+            cp -rv ${CRAFT_PART_INSTALL}/* $SNAP_USER_DATA/artikulate/courses/
     cleanup:
         after:
         - artikulate
