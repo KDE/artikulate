@@ -22,6 +22,7 @@ apps:
         - network
         - network-bind
         command-chain:
+        - bin/artikulate-launch
         - snap/command-chain/desktop-launch
 assumes:
 - snapd2.55.3
@@ -37,17 +38,19 @@ plugs:
         interface: content
         target: $SNAP/data-dir/sounds
         default-provider: gtk-common-themes
-    kf5-5-108-qt-5-15-10-core22:
-        content: kf5-5-108-qt-5-15-10-core22-all
+    kf5-5-110-qt-5-15-10-core22:
+        content: kf5-5-110-qt-5-15-10-core22-all
         interface: content
-        default-provider: kf5-5-108-qt-5-15-10-core22
+        default-provider: kf5-5-110-qt-5-15-10-core22
         target: $SNAP/kf5
 environment:
     SNAP_DESKTOP_RUNTIME: $SNAP/kf5
-    GST_PLUGIN_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0"
-    GST_PLUGIN_SYSTEM_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0"
-    GST_PLUGIN_SCANNER: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner"
+    GST_PLUGIN_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gstreamer-1.0"
+    GST_PLUGIN_SYSTEM_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gstreamer-1.0"
+    GST_PLUGIN_SCANNER: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner"
     QT_QUICK_CONTROLS_STYLE: org.kde.desktop
+    XDG_DATA_DIRS: $XDG_DATA_DIRS:$SNAP/usr/share:$SNAP/kf5/usr/share
+
 hooks:
     configure:
         plugs:
@@ -55,8 +58,8 @@ hooks:
         command-chain:
         - snap/command-chain/hooks-configure-desktop
 layout:
-    "/usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib":
-        symlink: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib"
+    "/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib":
+        symlink: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib"
     "/usr/share/alsa":
         symlink: "$SNAP/usr/share/alsa"
     /usr/share/X11:
@@ -81,18 +84,23 @@ parts:
         source-type: local
         plugin: make
         make-parameters:
-        - PLATFORM_PLUG=kf5-5-108-qt-5-15-10-core22
+        - PLATFORM_PLUG=kf5-5-110-qt-5-15-10-core22
         build-snaps:
-        - kf5-5-108-qt-5-15-10-core22-sdk
+        - kf5-5-110-qt-5-15-10-core22-sdk
         build-environment:
         - &id001
-            PATH: /snap/kf5-5-108-qt-5-15-10-core22-sdk/current/usr/bin${PATH:+:$PATH}
+            PATH: /snap/kf5-5-110-qt-5-15-10-core22-sdk/current/usr/bin${PATH:+:$PATH}
         - &id002
-            XDG_DATA_DIRS: $CRAFT_STAGE/usr/share:/snap/kf5-5-108-qt-5-15-10-core22-sdk/current/usr/share:/usr/share${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}
+            XDG_DATA_DIRS: $CRAFT_STAGE/usr/share:/snap/kf5-5-110-qt-5-15-10-core22-sdk/current/usr/share:/usr/share${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}
         - &id003
-            XDG_CONFIG_HOME: $CRAFT_STAGE/etc/xdg:/snap/kf5-5-108-qt-5-15-10-core22-sdk/current/etc/xdg:/etc/xdg${XDG_CONFIG_HOME:+:$XDG_CONFIG_HOME}
+            XDG_CONFIG_HOME: $CRAFT_STAGE/etc/xdg:/snap/kf5-5-110-qt-5-15-10-core22-sdk/current/etc/xdg:/etc/xdg${XDG_CONFIG_HOME:+:$XDG_CONFIG_HOME}
         - &id004
-            CRAFT_CMAKE_ARGS: -DCMAKE_FIND_ROOT_PATH=/snap/kf5-5-108-qt-5-15-10-core22-sdk/current${CRAFT_CMAKE_ARGS:+:$CRAFT_CMAKE_ARGS}
+            CRAFT_CMAKE_ARGS: -DCMAKE_FIND_ROOT_PATH=/snap/kf5-5-110-qt-5-15-10-core22-sdk/current${CRAFT_CMAKE_ARGS:+:$CRAFT_CMAKE_ARGS}
+    launchers:
+        source: snap/local/launchers
+        plugin: dump
+        organize:
+            '*': bin/
     artikulate:
         after:
         - kde-neon
@@ -102,26 +110,12 @@ parts:
         build-packages:
         - cmake
         - libkf5doctools-dev
-        - libqt5gstreamer-dev
         - kirigami2-dev
         stage-packages:
         - libasound2
         - libasound2-data
         - libasound2-plugins
-        - phonon4qt5
-        - libgstreamer1.0-0
-        - gstreamer1.0-alsa
-        - gstreamer1.0-pulseaudio
-        - gstreamer1.0-plugins-good
-        - gstreamer1.0-plugins-bad
-        - gstreamer1.0-plugins-ugly
-        - phonon4qt5-backend-gstreamer
         - oxygen-sounds
-        - libqt5gstreamer-1.0-0
-        - libqt5gstreamerquick-1.0-0
-        - libqt5gstreamerui-1.0-0
-        - libqt5gstreamerutils-1.0-0
-        - libslang2
         - libkf5kirigami2-5
         - qml-module-qtquick-shapes
         - qml-module-org-kde-kirigami2
@@ -135,8 +129,8 @@ parts:
         - "-DCMAKE_BUILD_TYPE=Release"
         - "-DENABLE_TESTING=OFF"
         - "-DBUILD_TESTING=OFF"
-        - "-DCMAKE_FIND_ROOT_PATH=/usr\\;$CRAFT_STAGE\\;/snap/kf5-5-108-qt-5-15-10-core22-sdk/current"
-        - "-DKDE_INSTALL_PLUGINDIR=/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/plugins/"
+        - "-DCMAKE_FIND_ROOT_PATH=/usr\\;$CRAFT_STAGE\\;/snap/kf5-5-110-qt-5-15-10-core22-sdk/current"
+        - "-DKDE_INSTALL_PLUGINDIR=/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/qt5/plugins/"
         prime:
         - "-usr/lib/*/cmake/*"
         - "-usr/include/*"
@@ -145,7 +139,7 @@ parts:
         - "-usr/share/man/*"
         - "-usr/share/icons/breeze-dark*"
         - "-usr/bin/X11"
-        - "-usr/lib/gcc/$CRAFT_ARCH_TRIPLET/6.0.0"
+        - "-usr/lib/gcc/$CRAFT_ARCH_TRIPLET_BUILD_FOR/6.0.0"
         - "-usr/lib/aspell/*"
         - "-usr/share/lintian"
         build-environment: &id005
@@ -156,15 +150,10 @@ parts:
     artikulate-data:
         after:
         - artikulate
-        plugin: nil
         source: https://invent.kde.org/education/artikulate-data.git
-        stage:
-        - ".*"
-        override-prime: |
-            craftctl default
-
-            mkdir -p $SNAP_USER_DATA/artikulate/courses
-            cp -rv ${CRAFT_PART_INSTALL}/* $SNAP_USER_DATA/artikulate/courses/
+        plugin: dump
+        organize:
+            'courses': usr/share/artikulate/
     cleanup:
         after:
         - artikulate
@@ -172,3 +161,29 @@ parts:
         override-prime: |
             set -eux
             #unused lib in linters
+            find -type f -name "libEGL_mesa.so.0.0.0" -delete
+            find -type f -name "libFLAC.so.8.3.0" -delete
+            find -type f -name "libGLX_mesa.so.0.0.0" -delete
+            find -type f -name "libasyncns.so.0.3.1" -delete
+            find -type f -name "libgamin-1.so.0.1.10" -delete
+            find -type f -name "libicuio.so.70.1" -delete
+            find -type f -name "libicutest.so.70.1" -delete
+            find -type f -name "libjacknet.so.0.1.0" -delete
+            find -type f -name "libjackserver.so.0.1.0" -delete
+            find -type f -name "libogg.so.0.8.5" -delete
+            find -type f -name "libopus.so.0.8.0" -delete
+            find -type f -name "libpolkit-qt5-agent-1.so.1.114.0" -delete
+            find -type f -name "libpolkit-qt5-gui-1.so.1.114.0" -delete
+            find -type f -name "libpulse-simple.so.0.1.1" -delete
+            find -type f -name "libpulse.so.0.24.1" -delete
+            find -type f -name "libslang.so.2.3.2" -delete
+            find -type f -name "libsndfile.so.1.0.31" -delete
+            find -type f -name "libvorbis.so.0.4.9" -delete
+            find -type f -name "libvorbisenc.so.2.0.12" -delete
+            find -type f -name "libXxf86vm.so.1.0.0" -delete
+            find -type f -name "libicutu.so.70.1" -delete
+            find -type f -name "libpolkit-agent-1.so.0.0.0" -delete
+            find -type f -name "libxcb-dri2.so.0.0.0" -delete
+            find -type f -name "libxcb-present.so.0.0.0" -delete
+            find -type f -name "libxshmfence.so.1.0.0" -delete
+            find -type f -name "libXext.so.6.4.0" -delete

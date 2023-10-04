@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# This is the maintainence launcher for the snap, make necessary runtime
+# environment changes to make the snap work here.  You may also insert
+# security confinement/deprecation/obsoletion notice of the snap here.
+#
+# Copyright 2019 林博仁(Buo-ren, Lin) <Buo.Ren.Lin@gmail.com>
+# SPDX-License-Identifier: MIT
+
+set \
+    -o errexit \
+    -o errtrace \
+    -o nounset \
+    -o pipefail
+
+mkdir -p $SNAP_USER_DATA/.local/share/artikulate/courses
+cp -r $SNAP/usr/share/artikulate $SNAP_USER_DATA/.local/share/artikulate/courses
+
+# Finally run the next part of the command chain
+exec "${@}"
