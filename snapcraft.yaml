@@ -158,7 +158,7 @@ parts:
         - artikulate
         plugin: nil
         source: https://invent.kde.org/education/artikulate-data.git
-        prime:
+        stage:
         - ".*"
         override-prime: |
             craftctl default
