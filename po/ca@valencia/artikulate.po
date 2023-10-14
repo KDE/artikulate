@@ -146,7 +146,7 @@ msgstr ""
 #: src/artikulate.kcfg:21
 #, kde-format
 msgid "Path to local contributor repository"
-msgstr "Camí al repositori de col·laboració local"
+msgstr "Camí cap al repositori de col·laboració local"
 
 #. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
 #: src/artikulate.kcfg:24
