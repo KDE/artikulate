@@ -4,20 +4,21 @@
 # Franklin Weng <franklin at goodhorse dot idv dot tw>, 2014, 2017.
 # Jeff Huang <s8321414@gmail.com>, 2016.
 # pan93412 <pan93412@gmail.com>, 2019.
+# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:22+0000\n"
-"PO-Revision-Date: 2019-09-22 19:06+0800\n"
-"Last-Translator: pan93412 <pan93412@gmail.com>\n"
-"Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
+"PO-Revision-Date: 2023-12-26 22:05+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 19.08.1\n"
+"X-Generator: Lokalize 24.01.85\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -122,7 +123,7 @@ msgstr "影像檔 (*.png *.jpg *.bmp)"
 #: liblearnerprofile/src/storage.cpp:567
 #, kde-format
 msgid "Invalid database version '%1'."
-msgstr "不合法的資料庫版本 '%1'。"
+msgstr "無效的資料庫版本 '%1'。"
 
 #. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
 #: src/artikulate.kcfg:13
@@ -135,13 +136,13 @@ msgstr "若開啟此選項則會顯示主選單列。"
 #, kde-format
 msgid ""
 "If enabled, course files are only read from the local contributor repository"
-msgstr "若開啟此選項，課程檔案只會從本地端貢獻者的主目錄讀取。"
+msgstr "若開啟此選項，課程檔案只會從本地端貢獻者的儲存庫讀取。"
 
 #. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
 #: src/artikulate.kcfg:21
 #, kde-format
 msgid "Path to local contributor repository"
-msgstr "本地端貢獻者主目錄的路徑"
+msgstr "本地端貢獻者儲存庫的路徑"
 
 #. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
 #: src/artikulate.kcfg:24
@@ -200,20 +201,16 @@ msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate 發音訓練師"
 
 #: src/main.cpp:31 src/main_editor.cpp:30
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2019 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
-msgstr "(c) 2013-2019 Artikulate 開發團隊"
+msgstr "(c) 2013-2022 Artikulate 開發團隊"
 
 #: src/main.cpp:32
-#, fuzzy, kde-format
-#| msgctxt "@title Short program description"
-#| msgid "Training your pronunciation in a foreign language."
+#, kde-format
 msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
-msgstr "訓練外語發音。"
+msgstr "訓練您的外語發音。"
 
 #: src/main.cpp:35 src/main_editor.cpp:33
 #, kde-format
@@ -378,58 +375,52 @@ msgstr "單位"
 #: src/qml/ArtikulateDrawer.qml:35
 #, kde-format
 msgid "Training"
-msgstr ""
+msgstr "訓練"
 
 #: src/qml/ArtikulateDrawer.qml:128 src/qml/WelcomePage.qml:80
-#, fuzzy, kde-format
-#| msgid "Download Courses"
+#, kde-format
 msgid "Download Training"
-msgstr "下載課程"
+msgstr "下載訓練課程"
 
 #: src/qml/ArtikulateDrawer.qml:140
-#, fuzzy, kde-format
-#| msgctxt "@title Displayed program name"
-#| msgid "Artikulate"
+#, kde-format
 msgid "About Artikulate"
-msgstr "Artikulate"
+msgstr "關於 Artikulate"
 
 #: src/qml/CourseConfigurationPage.qml:15 src/qml/EditorDrawer.qml:58
-#, fuzzy, kde-format
-#| msgid "Course Contributor Repository:"
+#, kde-format
 msgid "Course Configuration"
-msgstr "課程貢獻者主目錄："
+msgstr "課程設定"
 
 #: src/qml/CourseConfigurationPage.qml:15
 #, kde-format
 msgid "Prototype Configuration"
-msgstr ""
+msgstr "原型設定"
 
 #: src/qml/CourseConfigurationPage.qml:20
 #, kde-format
 msgid "Prototype Description"
-msgstr ""
+msgstr "原型描述"
 
 #: src/qml/CourseConfigurationPage.qml:20
-#, fuzzy, kde-format
-#| msgid "Course Repository: %1"
+#, kde-format
 msgid "Course Description"
-msgstr "課程主目錄：%1"
+msgstr "課程描述"
 
 #: src/qml/CourseConfigurationPage.qml:24
-#, fuzzy, kde-format
-#| msgid "Unit Title:"
+#, kde-format
 msgid "Title:"
-msgstr "單位標題："
+msgstr "標題："
 
 #: src/qml/CourseConfigurationPage.qml:31
 #, kde-format
 msgid "Localized Title:"
-msgstr ""
+msgstr "翻譯後標題："
 
 #: src/qml/CourseConfigurationPage.qml:37
 #, kde-format
 msgid "Description:"
-msgstr ""
+msgstr "描述："
 
 #: src/qml/CourseConfigurationPage.qml:44
 #, kde-format
@@ -437,21 +428,17 @@ msgid "Language:"
 msgstr "語言："
 
 #: src/qml/CourseConfigurationPage.qml:52
-#, fuzzy, kde-format
-#| msgid "Edit Prototype"
+#, kde-format
 msgid "Prototype"
-msgstr "編輯原型："
+msgstr "原型："
 
 #: src/qml/CourseConfigurationPage.qml:57
-#, fuzzy, kde-format
-#| msgid "Edit Prototype"
+#, kde-format
 msgid "Update from Prototype:"
-msgstr "編輯原型："
+msgstr "從原型更新"
 
 #: src/qml/CourseConfigurationPage.qml:60
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Update"
+#, kde-format
 msgid "Update"
 msgstr "更新"
 
@@ -461,21 +448,19 @@ msgid "Update the course with elements from prototype."
 msgstr "從原型的元素更新課程。"
 
 #: src/qml/EditCoursePage.qml:16
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Course"
+#, kde-format
 msgid "Edit Course"
-msgstr "課程"
+msgstr "編輯課程"
 
 #: src/qml/EditCoursePage.qml:25
 #, kde-format
 msgid "Previous"
-msgstr ""
+msgstr "上一個"
 
 #: src/qml/EditCoursePage.qml:26
 #, kde-format
 msgid "Switch to previous phrase."
-msgstr ""
+msgstr "切換到上一個片語。"
 
 #: src/qml/EditCoursePage.qml:32 src/qml/TrainingPage.qml:40
 #, kde-format
@@ -485,7 +470,7 @@ msgstr "下一個"
 #: src/qml/EditCoursePage.qml:33
 #, kde-format
 msgid "Switch to next phrase."
-msgstr ""
+msgstr "切換到下一個片語。"
 
 #: src/qml/EditCoursePage.qml:40 src/qml/ProfileUserItem.qml:73
 #: src/qml/ProfileUserItem.qml:170
@@ -494,10 +479,9 @@ msgid "Delete"
 msgstr "刪除"
 
 #: src/qml/EditCoursePage.qml:41
-#, fuzzy, kde-format
-#| msgid "Delete User"
+#, kde-format
 msgid "Delete this phrase."
-msgstr "刪除使用者"
+msgstr "刪除此片語。"
 
 #: src/qml/EditCoursePage.qml:49
 #, kde-format
@@ -507,14 +491,12 @@ msgstr "建立片語"
 #: src/qml/EditCoursePage.qml:50
 #, kde-format
 msgid "Create phrase after current phrase."
-msgstr ""
+msgstr "在目前片語後方建立新片語。"
 
 #: src/qml/EditorCourseSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgctxt "@title KAboutData: short program description"
-#| msgid "Artikulate Course Editor"
+#, kde-format
 msgid "Welcome to Artikulate Course Editor"
-msgstr "Artikulate 課程編輯器"
+msgstr "歡迎來到 Artikulate 課程編輯器"
 
 #: src/qml/EditorCourseSelectionPage.qml:46 src/qml/WelcomePage.qml:48
 #, kde-format
@@ -523,88 +505,72 @@ msgid "%1 / %2"
 msgstr "%1/%2"
 
 #: src/qml/EditorCourseSelectionPage.qml:60
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Course"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Course"
-msgstr "課程"
+msgstr "編輯課程"
 
 #: src/qml/EditorDrawer.qml:34
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Course"
+#, kde-format
 msgid "Courses"
 msgstr "課程"
 
 #: src/qml/EditorDrawer.qml:45
-#, fuzzy, kde-format
-#| msgid "Course Repository: %1"
+#, kde-format
 msgid "Repository"
-msgstr "課程主目錄：%1"
+msgstr "儲存庫"
 
 #: src/qml/EditorDrawer.qml:121
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 #: src/qml/EditorDrawer.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@title Displayed program name"
-#| msgid "Artikulate Editor"
+#, kde-format
 msgid "About Artikulate Editor"
-msgstr "Artikulate 編輯器"
+msgstr "關於 Artikulate 編輯器"
 
 #: src/qml/EditorSkeletonSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Sync Prototype"
+#, kde-format
 msgid "Select Prototype"
-msgstr "同步原型："
+msgstr "選擇原型"
 
 #: src/qml/EditorSkeletonSelectionPage.qml:46
 #, kde-format
 msgctxt "@title:window prototype name"
 msgid "%1"
-msgstr ""
+msgstr "%1"
 
 #: src/qml/EditorSkeletonSelectionPage.qml:60
-#, fuzzy, kde-format
-#| msgid "Edit Prototype"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Prototype"
-msgstr "編輯原型："
+msgstr "編輯原型"
 
 #: src/qml/PhraseEditor.qml:106
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Unit"
+#, kde-format
 msgid "Unit"
-msgstr "單位"
+msgstr "單元"
 
 #: src/qml/PhraseEditor.qml:106
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Unit"
+#, kde-format
 msgid "Unit: "
-msgstr "單位"
+msgstr "單元："
 
 #: src/qml/PhraseEditor.qml:111
 #, kde-format
 msgid "Localized Unit:"
-msgstr ""
+msgstr "翻譯後單元："
 
 #: src/qml/PhraseEditor.qml:122
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Phrase"
+#, kde-format
 msgid "Phrase: "
-msgstr "片語"
+msgstr "片語："
 
 #: src/qml/PhraseEditor.qml:127
-#, fuzzy, kde-format
-#| msgid "Original Phrase: <i>%1</i>"
+#, kde-format
 msgid "Localized Phrase:"
-msgstr "原始片語：<i>%1</i>"
+msgstr "翻譯後片語："
 
 #: src/qml/PhraseEditorEditStateComponent.qml:48
 #, kde-format
@@ -750,28 +716,24 @@ msgid "Cancel"
 msgstr "取消"
 
 #: src/qml/RepositoryConfigurationPage.qml:16
-#, fuzzy, kde-format
-#| msgid "Open Repository Directory"
+#, kde-format
 msgid "Repository Configuration"
-msgstr "開啟主目錄"
+msgstr "儲存庫設定"
 
 #: src/qml/RepositoryConfigurationPage.qml:21
-#, fuzzy, kde-format
-#| msgid "Open Repository Directory"
+#, kde-format
 msgid "Select Repository Folder"
-msgstr "開啟主目錄"
+msgstr "選擇儲存庫資料夾"
 
 #: src/qml/RepositoryConfigurationPage.qml:34
-#, fuzzy, kde-format
-#| msgid "Course Repository: %1"
+#, kde-format
 msgid "Repository:"
-msgstr "課程主目錄：%1"
+msgstr "儲存庫："
 
 #: src/qml/RepositoryConfigurationPage.qml:39
-#, fuzzy, kde-format
-#| msgid "Change Image"
+#, kde-format
 msgid "Change Folder"
-msgstr "變更影像"
+msgstr "變更資料夾"
 
 #: src/qml/SoundPlayer.qml:19
 #, kde-format
@@ -801,7 +763,7 @@ msgstr "類別：%1"
 #: src/qml/TrainingPage.qml:41
 #, kde-format
 msgid "Mark current phrase as completed and proceed with next one."
-msgstr ""
+msgstr "將目前片語標記為已完成，並繼續進行下一個。"
 
 #: src/qml/TrainingPage.qml:46
 #, kde-format
@@ -809,9 +771,9 @@ msgid "Skip"
 msgstr "略過"
 
 #: src/qml/TrainingPage.qml:47
-#, fuzzy, kde-format
+#, kde-format
 msgid "Skip current phrase and proceed with next one."
-msgstr "跳過目前片語，跳至下一個。"
+msgstr "跳過目前片語，繼續進行下一個。"
 
 #: src/qml/TrainingPage.qml:102
 #, kde-format
@@ -834,16 +796,15 @@ msgid "Welcome to Artikulate"
 msgstr "歡迎使用 Artikulate"
 
 #: src/qml/WelcomePage.qml:62
-#, fuzzy, kde-format
-#| msgid "Download Courses"
+#, kde-format
 msgctxt "@action:button"
 msgid "Start Training"
-msgstr "下載課程"
+msgstr "開始訓練"
 
 #: src/qml/WelcomePage.qml:76
 #, kde-format
 msgid "No trainings found"
-msgstr ""
+msgstr "找不到訓練課程"
 
 #~ msgctxt "@action:button"
 #~ msgid "Update"
