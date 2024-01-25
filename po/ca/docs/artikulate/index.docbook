@@ -60,7 +60,7 @@
 
 <abstract>
 <para
->L'&artikulate; és un entrenador de la pronunciació, dissenyat per ajudar en la millora i el perfeccionament de les habilitats de pronunciació. Els estudiants entrenen la seva pronunciació mitjançant la gravació de la seva pròpia veu i comparant-la amb enregistraments de parlants nadius. L'&artikulate; forma part del projecte d'educació del &kde;. </para>
+>L'&artikulate; és un entrenador de la pronunciació, dissenyat per a ajudar en la millora i el perfeccionament de les habilitats de pronunciació. Els estudiants entrenen la seva pronunciació mitjançant la gravació de la seva pròpia veu i comparant-la amb enregistraments de parlants nadius. L'&artikulate; forma part del projecte d'educació del &kde;. </para>
 </abstract>
 
 <keywordset>
@@ -84,13 +84,13 @@
 <title
 >Introducció</title>
 <para
->L'&artikulate; és un entrenador de la pronunciació per a millorar i perfeccionar les habilitats de la pronunciació en un idioma estranger. Per a fer-ho, proporciona cursos per baixar amb enregistraments de parlants nadius en l'idioma objectiu. Els cursos d'aprenentatge es baixen per a l'idioma seleccionat, seleccioneu un grup de frases, comenceu a enregistrar la vostra pròpia veu parlant les frases, i compareu els resultats amb els enregistraments del parlant nadiu -escoltant-les totes dues-. </para>
+>L'&artikulate; és un entrenador de la pronunciació per a millorar i perfeccionar les habilitats de la pronunciació en un idioma estranger. Per a fer-ho, proporciona cursos per a baixar amb enregistraments de parlants nadius en l'idioma objectiu. Els cursos d'aprenentatge es baixen per a l'idioma seleccionat, seleccioneu un grup de frases, comenceu a enregistrar la vostra pròpia veu parlant les frases, i compareu els resultats amb els enregistraments del parlant nadiu -escoltant-les totes dues-. </para>
 
 <sect1 id="introduction-concept">
 <title
 >El concepte de l'aprenentatge</title>
 <para
->El concepte d'estudi amb l'&artikulate; es basa en l'autoavaluació honesta de l'estudiant. Un estudiant entrena diverses frases en una sessió d'entrenament. Per a cadascuna d'aquestes fases, primer ell/a reprodueix l'enregistrament del parlant natiu i l'escolta. Després, mitjançant l'enregistrament de la seva pròpia veu, mirarà de repetir aquesta frase. Llavors, l'estudiant podrà comparar ambdós enregistraments, i decidir si la frase va bé o necessita un nou intent. Els cursos impartits proporcionen capacitació per a situacions especials (com demanar menjar en un restaurant), però també poden centrar-se a aprendre a pronunciar correctament síl·labes difícils i paraules d'un idioma determinat. </para>
+>El concepte d'estudi amb l'&artikulate; es basa en l'autoavaluació honesta de l'estudiant. Un estudiant entrena diverses frases en una sessió d'entrenament. Per a cadascuna d'aquestes fases, primer ell/a reprodueix l'enregistrament del parlant natiu i l'escolta. Després, mitjançant l'enregistrament de la seva pròpia veu, mirarà de repetir aquesta frase. Llavors, l'estudiant podrà comparar ambdós enregistraments, i decidir si la frase va bé o necessita un intent nou. Els cursos impartits proporcionen capacitació per a situacions especials (com demanar menjar en un restaurant), però també poden centrar-se a aprendre a pronunciar correctament síl·labes difícils i paraules d'un idioma determinat. </para>
 </sect1>
 
 <sect1 id="introduction-first-steps">
@@ -349,7 +349,7 @@ The available types are:
 <para
 >L'editor de cursos integrat és una eina avançada per als col·laboradors de cursos d'idiomes que permet la creació i el treball col·laboratiu en els cursos d'idiomes per a l'&artikulate;. D'una banda, permet la creació de cursos d'idiomes i l'enregistrament dels fitxers de so al parlador nadiu. Per l'altra, permet el treball en els anomenats <emphasis
 >esquelets</emphasis
->, els quals són prototips de cursos d'idiomes que permeten la creació ràpida i senzilla de nous cursos derivats d'un prototip. L'editor només edita fitxers fora del conjunt de cursos d'entrenament, &ead;, el conjunt de cursos baixat a l'&artikulate;. </para>
+>, els quals són prototips de cursos d'idiomes que permeten la creació ràpida i senzilla de cursos nous derivats d'un prototip. L'editor només edita fitxers fora del conjunt de cursos d'entrenament, &ead;, el conjunt de cursos baixat a l'&artikulate;. </para>
 
 <sect1>
 <title
@@ -359,7 +359,7 @@ The available types are:
 <title
 >Nocions de l'editor</title>
 <para
->Per l'editor de cursos s'utilitza un conjunt específic de termes, els quals també s'utilitzen per a les següents descripcions. </para>
+>Per l'editor de cursos s'utilitza un conjunt específic de termes, els quals també s'utilitzen per a les descripcions següents. </para>
 <variablelist>
 <varlistentry>
     <term
@@ -390,7 +390,7 @@ The available types are:
 >Esquelets del curs:</term>
     <listitem>
     <para
->Un esquelet del curs forma el prototip d'un curs. És a dir, els esquelets ajuden a alleugerar la creació de cursos en diversos idiomes, ja que declaren un conjunt d'unitats i frases (en anglès) que es poden utilitzar com a model per crear un curs en un nou idioma. Les actualitzacions dels esquelets del curs també es poden importar als cursos que es creen a partir d'un esquelet. </para>
+>Un esquelet del curs forma el prototip d'un curs. És a dir, els esquelets ajuden a alleugerar la creació de cursos en diversos idiomes, ja que declaren un conjunt d'unitats i frases (en anglès) que es poden utilitzar com a model per a crear un curs en un idioma nou. Les actualitzacions dels esquelets del curs també es poden importar als cursos que es creen a partir d'un esquelet. </para>
     </listitem>
 </varlistentry>
 <varlistentry>
