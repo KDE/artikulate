@@ -12,7 +12,7 @@ include_directories(
 set(TestLanguageFiles_SRCS
     languageresources/testlanguagefiles.cpp
 )
-qt5_add_resources(TestLanguageFiles_SRCS ../../data/languages.qrc)
+qt6_add_resources(TestLanguageFiles_SRCS ../../data/languages.qrc)
 add_executable(test_languageresources ${TestLanguageFiles_SRCS} )
 target_link_libraries(test_languageresources
     artikulatecore
@@ -26,11 +26,10 @@ ecm_mark_as_test(test_languageresources)
 set(TestXsdSchemes_SRCS
     xsdschemes/testxsdschemes.cpp
 )
-qt5_add_resources(TestXsdSchemes_SRCS ../../data/languages.qrc)
+qt6_add_resources(TestXsdSchemes_SRCS ../../data/languages.qrc)
 add_executable(test_xsdschemes ${TestXsdSchemes_SRCS} )
 target_link_libraries(test_xsdschemes
     Qt::Test
-    Qt::XmlPatterns
     Qt::Core
 )
 add_test(NAME test_xsdschemes COMMAND test_xsdschemes)

@@ -17,7 +17,7 @@ target_link_libraries(
     LINK_PUBLIC
         artikulatesound
         Qt::Multimedia
-        KF5::CoreAddons
+        KF6::CoreAddons
 )
 
 install(TARGETS qtmultimediabackend DESTINATION ${KDE_INSTALL_PLUGINDIR}/artikulate/libsound)
