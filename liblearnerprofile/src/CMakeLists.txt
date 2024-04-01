@@ -20,8 +20,8 @@ target_link_libraries(
         Qt::Gui
         Qt::Sql
         Qt::Widgets
-        KF5::ConfigCore
-        KF5::I18n
+        KF6::ConfigCore
+        KF6::I18n
 )
 # internal library without any API or ABI guarantee
 set(GENERIC_LIB_VERSION "0")

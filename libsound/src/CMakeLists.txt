@@ -20,8 +20,8 @@ generate_export_header(artikulatesound BASE_NAME libsound)
 target_link_libraries(
     artikulatesound
     LINK_PUBLIC
-        KF5::CoreAddons
-        KF5::I18n
+        KF6::CoreAddons
+        KF6::I18n
         Qt::Multimedia
 )
 # internal library without any API or ABI guarantee

@@ -74,11 +74,10 @@ target_link_libraries(artikulatecore
     PUBLIC
         artikulatelearnerprofile
         artikulatesound
-        Qt::XmlPatterns
         Qt::Qml
         Qt::Quick
-        KF5::Archive
-        KF5::ConfigGui
+        KF6::Archive
+        KF6::ConfigGui
     PRIVATE
         Qt::Xml
 )
@@ -103,8 +102,8 @@ set(artikulate_SRCS
     mainwindow.cpp
     artikulate_debug.cpp
 )
-qt5_add_resources(artikulate_SRCS resources.qrc)
-qt5_add_resources(artikulate_SRCS ../data/languages.qrc)
+qt6_add_resources(artikulate_SRCS resources.qrc)
+qt6_add_resources(artikulate_SRCS ../data/languages.qrc)
 kconfig_add_kcfg_files (artikulate_SRCS settings.kcfgc)
 
 set(artikulate_editor_SRCS
@@ -112,8 +111,8 @@ set(artikulate_editor_SRCS
     mainwindow_editor.cpp
     artikulate_debug.cpp
 )
-qt5_add_resources(artikulate_editor_SRCS resources.qrc)
-qt5_add_resources(artikulate_editor_SRCS ../data/languages.qrc)
+qt6_add_resources(artikulate_editor_SRCS resources.qrc)
+qt6_add_resources(artikulate_editor_SRCS ../data/languages.qrc)
 kconfig_add_kcfg_files (artikulate_editor_SRCS settings.kcfgc)
 
 # executables
@@ -125,12 +124,12 @@ target_link_libraries(artikulate
         artikulatecore
         Qt::Qml
         Qt::Quick
-        KF5::Crash
-        KF5::NewStuff
-        KF5::XmlGui
+        KF6::Crash
+        KF6::NewStuffCore
+        KF6::XmlGui
 )
 
-qt5_add_resources(artikulate_editor_SRCS editor.qrc)
+qt6_add_resources(artikulate_editor_SRCS editor.qrc)
 add_executable(artikulate_editor ${artikulate_editor_SRCS})
 target_link_libraries(artikulate_editor
     LINK_PUBLIC
@@ -138,8 +137,8 @@ target_link_libraries(artikulate_editor
         artikulatecore
         Qt::Qml
         Qt::Quick
-        KF5::Crash
-        KF5::NewStuff
+        KF6::Crash
+        KF6::NewStuffCore
 )
 
 install(FILES artikulate.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})

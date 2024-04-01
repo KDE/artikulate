@@ -17,7 +17,7 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
 # repository tests
 set(TestResourceRepository_SRCS resourcerepository/test_resourcerepository.cpp)
-qt5_add_resources(TestResourceRepository_SRCS ../../data/languages.qrc)
+qt6_add_resources(TestResourceRepository_SRCS ../../data/languages.qrc)
 add_executable(test_resourcerepository ${TestResourceRepository_SRCS})
 target_link_libraries(test_resourcerepository
     artikulatecore
@@ -64,7 +64,7 @@ set(TestCourseResource_SRCS
     ../mocks/resourcerepositorystub.cpp
     ../mocks/languagestub.cpp
 )
-qt5_add_resources(TestCourseResource_SRCS ../../data/languages.qrc)
+qt6_add_resources(TestCourseResource_SRCS ../../data/languages.qrc)
 add_executable(test_courseresource ${TestCourseResource_SRCS} )
 target_link_libraries(test_courseresource
     artikulatecore
@@ -80,7 +80,7 @@ set(TestSkeletonResource_SRCS
     ../mocks/resourcerepositorystub.cpp
     ../mocks/languagestub.cpp
 )
-qt5_add_resources(TestSkeletonResource_SRCS ../../data/languages.qrc)
+qt6_add_resources(TestSkeletonResource_SRCS ../../data/languages.qrc)
 add_executable(test_skeletonresource ${TestSkeletonResource_SRCS} )
 target_link_libraries(test_skeletonresource
     artikulatecore
@@ -94,7 +94,7 @@ ecm_mark_as_test(test_skeletonresource)
 set(TestUnit_SRCS
     unit/test_unit.cpp
 )
-qt5_add_resources(TestUnit_SRCS ../../data/languages.qrc)
+qt6_add_resources(TestUnit_SRCS ../../data/languages.qrc)
 add_executable(test_unit ${TestUnit_SRCS} )
 target_link_libraries(test_unit
     artikulatecore
@@ -111,8 +111,8 @@ set(TestEditableCourseResource_SRCS
     ../mocks/coursestub.cpp
     ../mocks/languagestub.cpp
 )
-qt5_add_resources(TestEditableCourseResource_SRCS ../../data/languages.qrc)
-qt5_add_resources(TestEditableCourseResource_SRCS ../testdata/testdata.qrc)
+qt6_add_resources(TestEditableCourseResource_SRCS ../../data/languages.qrc)
+qt6_add_resources(TestEditableCourseResource_SRCS ../testdata/testdata.qrc)
 add_executable(test_editablecourseresource ${TestEditableCourseResource_SRCS} )
 target_link_libraries(test_editablecourseresource
     artikulatecore
@@ -129,8 +129,8 @@ set(TestCourseModel_SRCS
     ../mocks/coursestub.cpp
     ../mocks/languagestub.cpp
 )
-qt5_add_resources(TestCourseModel_SRCS ../../data/languages.qrc)
-qt5_add_resources(TestCourseModel_SRCS ../testdata/testdata.qrc)
+qt6_add_resources(TestCourseModel_SRCS ../../data/languages.qrc)
+qt6_add_resources(TestCourseModel_SRCS ../testdata/testdata.qrc)
 add_executable(test_coursemodel ${TestCourseModel_SRCS})
 target_link_libraries(test_coursemodel
     artikulatecore
@@ -147,8 +147,8 @@ set(TestSkeletonModel_SRCS
     ../mocks/editablecoursestub.cpp
     ../mocks/languagestub.cpp
 )
-qt5_add_resources(TestSkeletonModel_SRCS ../../data/languages.qrc)
-qt5_add_resources(TestSkeletonModel_SRCS ../testdata/testdata.qrc)
+qt6_add_resources(TestSkeletonModel_SRCS ../../data/languages.qrc)
+qt6_add_resources(TestSkeletonModel_SRCS ../testdata/testdata.qrc)
 add_executable(test_skeletonmodel ${TestSkeletonModel_SRCS})
 target_link_libraries(test_skeletonmodel
     artikulatecore
