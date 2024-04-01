@@ -16,7 +16,7 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
 # integration tests for iresource repository interface derived classes
 set(TestIResourceRepository_SRCS iresourcerepository_integration/test_iresourcerepository.cpp)
-qt5_add_resources(TestIResourceRepository_SRCS ../../data/languages.qrc)
+qt6_add_resources(TestIResourceRepository_SRCS ../../data/languages.qrc)
 add_executable(test_iresourcerepository_integration ${TestIResourceRepository_SRCS})
 target_link_libraries(test_iresourcerepository_integration
     artikulatecore
