@@ -9,6 +9,8 @@
 
 #include <QAbstractListModel>
 #include <memory>
+#include "../core/icourse.h"
+#include "../core/unit.h"
 
 class ICourse;
 class Unit;

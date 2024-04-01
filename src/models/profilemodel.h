@@ -8,6 +8,7 @@
 #define PROFILEMODEL_H
 
 #include <QAbstractListModel>
+#include "../../liblearnerprofile/src/profilemanager.h"
 
 namespace LearnerProfile
 {

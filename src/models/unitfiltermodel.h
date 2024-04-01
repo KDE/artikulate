@@ -8,6 +8,7 @@
 #define UNITFILTERMODEL_H
 
 #include <QSortFilterProxyModel>
+#include "unitmodel.h"
 
 class UnitModel;
 
