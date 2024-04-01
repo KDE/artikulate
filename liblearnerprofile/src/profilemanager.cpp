@@ -9,8 +9,8 @@
 #include "storage.h"
 
 #include "liblearner_debug.h"
-#include <KConfigCore/KConfig>
-#include <KConfigCore/KConfigGroup>
+#include <KConfig>
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <QFileDialog>
 #include <QList>
