@@ -9,6 +9,7 @@
 #define PHRASEFILTERMODEL_H
 
 #include <QSortFilterProxyModel>
+#include "phraselistmodel.h"
 
 class PhraseListModel;
 

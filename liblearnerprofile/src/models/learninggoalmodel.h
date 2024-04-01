@@ -11,6 +11,7 @@
 #include <QAbstractListModel>
 #include <QObject>
 
+#include "../profilemanager.h"
 class LearningGoalModelPrivate;
 
 namespace LearnerProfile

@@ -8,6 +8,9 @@
 #define COURSEFILTERMODEL_H
 
 #include <QSortFilterProxyModel>
+#include "../core/resources/editablecourseresource.h"
+#include "../models/coursemodel.h"
+#include "../core/language.h"
 
 class Course;
 class CourseModel;

@@ -11,6 +11,13 @@
 #include "isessionactions.h"
 #include "phrase.h"
 #include <memory.h>
+#include "ilanguage.h"
+#include "ieditablecourse.h"
+#include "ieditableunit.h"
+#include "unit.h"
+#include "iphrase.h"
+#include "resources/skeletonresource.h"
+#include "ieditablerepository.h"
 
 class ILanguage;
 class IEditableCourse;

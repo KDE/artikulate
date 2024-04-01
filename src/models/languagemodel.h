@@ -12,6 +12,11 @@
 class LanguageResourceModel;
 class Language;
 
+#ifndef OPAQUE_PTR_LanguageResourceModel
+#define OPAQUE_PTR_LanguageResourceModel
+  Q_DECLARE_OPAQUE_POINTER(LanguageResourceModel*)
+#endif // OPAQUE_PTR_LanguageResourceModel
+
 class LanguageModel : public QSortFilterProxyModel
 {
     Q_OBJECT

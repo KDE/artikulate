@@ -11,6 +11,8 @@
 #include <QObject>
 #include <QVector>
 #include <memory>
+#include "phoneme.h"
+#include "phonemegroup.h"
 
 class QString;
 class Phoneme;
