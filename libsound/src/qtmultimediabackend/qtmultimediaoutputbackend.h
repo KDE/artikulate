@@ -11,6 +11,7 @@
 #include <QString>
 
 class QMediaPlayer;
+class QAudioOutput;
 
 class QtMultimediaOutputBackend : public OutputBackendInterface
 {
@@ -36,6 +37,7 @@ public Q_SLOTS:
 
 private:
     QMediaPlayer *m_player = nullptr;
+    QAudioOutput *m_audioOut = nullptr;
 };
 
 #endif
