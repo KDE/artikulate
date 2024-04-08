@@ -61,12 +61,12 @@ void CaptureDeviceController::stopCapture()
     emit captureStopped();
 }
 
-void CaptureDeviceController::setDevice(const QString &deviceIdentifier)
+void CaptureDeviceController::setDevice(QAudioInput &deviceIdentifier)
 {
     d->backend()->setDevice(deviceIdentifier);
 }
 
-QList<QString> CaptureDeviceController::devices() const
+QList<QAudioDevice> CaptureDeviceController::devices() const
 {
     return d->backend()->devices();
 }

@@ -10,6 +10,8 @@
 #include "libsound_export.h"
 #include <QObject>
 #include <memory>
+#include <QAudioInput>
+#include <QAudioDevice>
 
 class CaptureDeviceControllerPrivate;
 
@@ -36,12 +38,12 @@ public:
     void startCapture(const QString &filePath);
     CaptureDeviceController::State state() const;
     void stopCapture();
-    void setDevice(const QString &deviceIdentifier);
+    void setDevice(QAudioInput &deviceIdentifier);
 
     /**
      * \return list of available capture devices
      */
-    QList<QString> devices() const;
+    QList<QAudioDevice> devices() const;
 
 public Q_SLOTS:
 

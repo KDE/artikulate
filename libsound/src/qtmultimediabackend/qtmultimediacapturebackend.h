@@ -9,11 +9,14 @@
 
 #include "capturebackendinterface.h"
 #include "capturedevicecontroller.h"
-#include <QAudioRecorder>
-#include <QString>
+#include <QMediaRecorder>
+#include <QMediaCaptureSession>
+#include <QList>
+#include <QAudioDevice>
 
 class QMediaRecorder;
 class QMediaObject;
+class QAudioInput;
 
 class QtMultimediaCaptureBackend : public CaptureBackendInterface
 {
@@ -27,11 +30,12 @@ public:
     void stopCapture() override;
     CaptureDeviceController::State captureState() const override;
 
-    QStringList devices() const override;
-    void setDevice(const QString &deviceIdentifier) override;
+    QList<QAudioDevice> devices() const override;
+    void setDevice(QAudioInput &deviceIdentifier) override;
 
 private:
-    QAudioRecorder m_recorder;
+    QMediaRecorder m_recorder;
+    QMediaCaptureSession m_session;
     QString m_device;
 };
 

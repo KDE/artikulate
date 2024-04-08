@@ -6,13 +6,16 @@
 
 #include "qtmultimediaoutputbackend.h"
 #include <QMediaPlayer>
+#include <QAudioOutput>
 #include <QUrl>
 
 QtMultimediaOutputBackend::QtMultimediaOutputBackend(QObject *parent)
     : OutputBackendInterface(parent)
     , m_player(new QMediaPlayer)
+    , m_audioOut(new QAudioOutput)
 {
-    connect(m_player, &QMediaPlayer::stateChanged, this, &QtMultimediaOutputBackend::stateChanged);
+    connect(m_player, &QMediaPlayer::playbackStateChanged, this, &QtMultimediaOutputBackend::stateChanged);
+    m_player->setAudioOutput(m_audioOut);
 }
 
 QtMultimediaOutputBackend::~QtMultimediaOutputBackend()
@@ -22,22 +25,22 @@ QtMultimediaOutputBackend::~QtMultimediaOutputBackend()
 
 void QtMultimediaOutputBackend::setUri(const QString &uri)
 {
-    m_player->setMedia(QUrl::fromLocalFile(uri));
+    m_player->setSource(QUrl::fromLocalFile(uri));
 }
 
 int QtMultimediaOutputBackend::volume() const
 {
-    return m_player->volume(); // TODO check if this is really a cubic value
+    return m_audioOut->volume(); // TODO check if this is really a cubic value
 }
 
 void QtMultimediaOutputBackend::setVolume(int volume)
 {
-    m_player->setVolume(volume); // TODO check if value is cubic
+    m_audioOut->setVolume(volume); // TODO check if value is cubic
 }
 
 OutputDeviceController::State QtMultimediaOutputBackend::state() const
 {
-    switch (m_player->state()) {
+    switch (m_player->playbackState()) {
         case QMediaPlayer::StoppedState:
             return OutputDeviceController::StoppedState;
         case QMediaPlayer::PlayingState:

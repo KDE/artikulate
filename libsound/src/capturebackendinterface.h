@@ -10,6 +10,9 @@
 #include "capturedevicecontroller.h"
 #include "libsound_export.h"
 #include <QObject>
+#include <QList>
+#include <QAudioDevice>
+#include <QAudioInput>
 
 class LIBSOUND_EXPORT CaptureBackendInterface : public QObject
 {
@@ -23,8 +26,8 @@ public:
     virtual void stopCapture() = 0;
     virtual CaptureDeviceController::State captureState() const = 0;
 
-    virtual QStringList devices() const = 0;
-    virtual void setDevice(const QString &deviceIdentifier) = 0;
+    virtual QList<QAudioDevice> devices() const = 0;
+    virtual void setDevice(QAudioInput &deviceIdentifier) = 0;
 };
 
 #endif
