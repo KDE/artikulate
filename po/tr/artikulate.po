@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:22+0000\n"
-"PO-Revision-Date: 2024-02-09 18:00+0300\n"
+"PO-Revision-Date: 2024-05-20 00:16+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 24.07.70\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -198,7 +198,7 @@ msgstr "Artikulate"
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
-msgstr "Artikulate Telaffuz Eğitici"
+msgstr "Artikulate Sesletim Eğiticisi"
 
 #: src/main.cpp:31 src/main_editor.cpp:30
 #, kde-format
@@ -210,7 +210,7 @@ msgstr "(c) 2013-2022 Artikulate Geliştiricileri"
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
-msgstr "Yabancı dil telaffuzunuzu geliştirin."
+msgstr "Yabancı dil sesletiminizi geliştirin."
 
 #: src/main.cpp:35 src/main_editor.cpp:33
 #, kde-format
