@@ -12,11 +12,9 @@
 #include "core/phonemegroup.h"
 #include "core/unit.h"
 #include "courseparser.h"
-
 #include <QFile>
 #include <QFileInfo>
 #include <QQmlEngine>
-#include <QXmlSchema>
 #include <QXmlStreamReader>
 
 #include "artikulate_debug.h"
@@ -103,25 +101,25 @@ CourseResource::CourseResource(const QUrl &path, IResourceRepository *repository
         xml.setDevice(&file);
         xml.readNextStartElement();
         while (xml.readNext() && !xml.atEnd()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 d->m_identifier = xml.readElementText();
                 continue;
             }
-            if (xml.name() == "foreignId") {
+            if (xml.name() == QLatin1String("foreignId")) {
                 d->m_foreignId = xml.readElementText();
                 continue;
             }
             // TODO i18nTitle must be implemented, currently missing and hence not parsed
-            if (xml.name() == "title") {
+            if (xml.name() == QLatin1String("title")) {
                 d->m_title = xml.readElementText();
                 d->m_i18nTitle = d->m_title;
                 continue;
             }
-            if (xml.name() == "description") {
+            if (xml.name() == QLatin1String("description")) {
                 d->m_description = xml.readElementText();
                 continue;
             }
-            if (xml.name() == "language") {
+            if (xml.name() == QLatin1String("language")) {
                 d->m_languageId = xml.readElementText();
                 continue;
             }

@@ -77,9 +77,9 @@ std::vector<std::shared_ptr<Unit>> CourseParser::parseUnits(const QUrl &path, QV
                 continue;
             }
             if (token == QXmlStreamReader::StartElement) {
-                if (xml.name() == "units") {
+                if (xml.name() == QLatin1String("units")) {
                     continue;
-                } else if (xml.name() == "unit") {
+                } else if (xml.name() == QLatin1String("unit")) {
                     auto unit = parseUnit(xml, path, phonemes, skipIncomplete, elementOk);
                     if (elementOk) {
                         units.push_back(std::move(unit));
@@ -104,27 +104,27 @@ std::shared_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl 
     std::shared_ptr<Unit> unit = Unit::create();
     ok = true;
 
-    if (xml.tokenType() != QXmlStreamReader::StartElement && xml.name() == "unit") {
+    if (xml.tokenType() != QXmlStreamReader::StartElement && xml.name() == QLatin1String("unit")) {
         qCWarning(ARTIKULATE_PARSER()) << "Expected to parse 'unit' element, aborting here";
         return unit;
     }
 
     xml.readNext();
-    while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "unit")) {
+    while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == QLatin1String("unit"))) {
         if (xml.tokenType() == QXmlStreamReader::StartElement) {
             bool elementOk {false};
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 unit->setId(parseElement(xml, elementOk));
                 ok &= elementOk;
-            } else if (xml.name() == "foreignId") {
+            } else if (xml.name() == QLatin1String("foreignId")) {
                 unit->setForeignId(parseElement(xml, elementOk));
                 ok &= elementOk;
-            } else if (xml.name() == "title") {
+            } else if (xml.name() == QLatin1String("title")) {
                 unit->setTitle(parseElement(xml, elementOk));
                 ok &= elementOk;
-            } else if (xml.name() == "phrases") {
+            } else if (xml.name() == QLatin1String("phrases")) {
                 // nothing to do
-            } else if (xml.name() == "phrase") {
+            } else if (xml.name() == QLatin1String("phrase")) {
                 auto phrase = parsePhrase(xml, path, phonemes, elementOk);
                 if (elementOk && (!skipIncomplete || !phrase->soundFileUrl().isEmpty())) {
                     unit->addPhrase(phrase, unit->phrases().size());
@@ -147,35 +147,35 @@ std::shared_ptr<Phrase> CourseParser::parsePhrase(QXmlStreamReader &xml, const Q
     std::shared_ptr<Phrase> phrase = Phrase::create();
     ok = true;
 
-    if (xml.tokenType() != QXmlStreamReader::StartElement && xml.name() == "phrase") {
+    if (xml.tokenType() != QXmlStreamReader::StartElement && xml.name() == QLatin1String("phrase")) {
         qCWarning(ARTIKULATE_PARSER()) << "Expected to parse 'phrase' element, aborting here";
         ok = false;
         return phrase;
     }
 
     xml.readNext();
-    while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "phrase")) {
+    while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == QLatin1String("phrase"))) {
         if (xml.tokenType() == QXmlStreamReader::StartElement) {
             bool elementOk {false};
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 phrase->setId(parseElement(xml, elementOk));
                 ok &= elementOk;
-            } else if (xml.name() == "foreignId") {
+            } else if (xml.name() == QLatin1String("foreignId")) {
                 phrase->setForeignId(parseElement(xml, elementOk));
                 ok &= elementOk;
-            } else if (xml.name() == "text") {
+            } else if (xml.name() == QLatin1String("text")) {
                 phrase->setText(parseElement(xml, elementOk));
                 ok &= elementOk;
-            } else if (xml.name() == "i18nText") {
+            } else if (xml.name() == QLatin1String("i18nText")) {
                 phrase->seti18nText(parseElement(xml, elementOk));
                 ok &= elementOk;
-            } else if (xml.name() == "soundFile") {
+            } else if (xml.name() == QLatin1String("soundFile")) {
                 QString fileName = parseElement(xml, elementOk);
                 if (!fileName.isEmpty()) {
                     phrase->setSound(QUrl::fromLocalFile(path.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash).path() + '/' + fileName));
                 }
                 ok &= elementOk;
-            } else if (xml.name() == "phonemes") {
+            } else if (xml.name() == QLatin1String("phonemes")) {
                 auto parsedPhonemeIds = parsePhonemeIds(xml, elementOk);
                 for (auto phoneme : phonemes) {
                     if (parsedPhonemeIds.contains(phoneme->id())) {
@@ -183,7 +183,7 @@ std::shared_ptr<Phrase> CourseParser::parsePhrase(QXmlStreamReader &xml, const Q
                     }
                 }
                 ok &= elementOk;
-            } else if (xml.name() == "type") {
+            } else if (xml.name() == QLatin1String("type")) {
                 const QString type = parseElement(xml, elementOk);
                 if (type == "word") {
                     phrase->setType(IPhrase::Type::Word);
@@ -195,7 +195,7 @@ std::shared_ptr<Phrase> CourseParser::parsePhrase(QXmlStreamReader &xml, const Q
                     phrase->setType(IPhrase::Type::Paragraph);
                 }
                 ok &= elementOk;
-            } else if (xml.name() == "editState") {
+            } else if (xml.name() == QLatin1String("editState")) {
                 const QString type = parseElement(xml, elementOk);
                 if (type == "translated") {
                     phrase->setEditState(Phrase::EditState::Translated);
@@ -222,17 +222,17 @@ QStringList CourseParser::parsePhonemeIds(QXmlStreamReader &xml, bool &ok)
     QStringList ids;
     ok = true;
 
-    if (xml.tokenType() != QXmlStreamReader::StartElement && xml.name() == "phonemes") {
+    if (xml.tokenType() != QXmlStreamReader::StartElement && xml.name() == QLatin1String("phonemes")) {
         qCWarning(ARTIKULATE_PARSER()) << "Expected to parse 'phonemes' element, aborting here";
         ok = false;
         return ids;
     }
 
     xml.readNext();
-    while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "phonemes")) {
+    while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == QLatin1String("phonemes"))) {
         xml.readNext();
         if (xml.tokenType() == QXmlStreamReader::StartElement) {
-            if (xml.name() == "phonemeID") {
+            if (xml.name() == QLatin1String("phonemeID")) {
                 bool elementOk {false};
                 ids.append(parseElement(xml, elementOk));
                 ok &= elementOk;

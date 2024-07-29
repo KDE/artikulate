@@ -25,34 +25,34 @@ std::shared_ptr<Language> Language::create(QUrl file)
         xml.setDevice(&handle);
         xml.readNextStartElement();
         while (xml.readNext() && !xml.atEnd()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 language->setId(xml.readElementText());
             }
-            if (xml.name() == "title") {
+            if (xml.name() == QLatin1String("title")) {
                 language->setTitle(xml.readElementText());
             }
-            if (xml.name() == "i18nTitle") {
+            if (xml.name() == QLatin1String("i18nTitle")) {
                 language->seti18nTitle(xml.readElementText());
             }
-            if (xml.name() == "phonemeGroup") {
+            if (xml.name() == QLatin1String("phonemeGroup")) {
                 std::shared_ptr<PhonemeGroup> group = std::shared_ptr<PhonemeGroup>(new PhonemeGroup);
-                while (xml.readNext() && !xml.atEnd() && xml.name() != "phonemeGroup") {
-                    if (xml.name() == "id") {
+                while (xml.readNext() && !xml.atEnd() && xml.name() != QLatin1String("phonemeGroup")) {
+                    if (xml.name() == QLatin1String("id")) {
                         group->setId(xml.readElementText());
                     }
-                    if (xml.name() == "title") {
+                    if (xml.name() == QLatin1String("title")) {
                         group->setTitle(xml.readElementText());
                     }
-                    if (xml.name() == "description") {
+                    if (xml.name() == QLatin1String("description")) {
                         group->setDescription(xml.readElementText());
                     }
-                    if (xml.name() == "phoneme") {
+                    if (xml.name() == QLatin1String("phoneme")) {
                         std::unique_ptr<Phoneme> phoneme = std::unique_ptr<Phoneme>(new Phoneme);
-                        while (xml.readNext() && !xml.atEnd() && xml.name() != "phoneme") {
-                            if (xml.name() == "id") {
+                        while (xml.readNext() && !xml.atEnd() && xml.name() != QLatin1String("phoneme")) {
+                            if (xml.name() == QLatin1String("id")) {
                                 phoneme->setId(xml.readElementText());
                             }
-                            if (xml.name() == "title") {
+                            if (xml.name() == QLatin1String("title")) {
                                 phoneme->setTitle(xml.readElementText());
                             }
                         }
