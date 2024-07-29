@@ -56,7 +56,7 @@ Q_SIGNALS:
     void stateChanged(State state);
 
 protected:
-    void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry) override;
+    void geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry) override;
 
 private:
     QIcon m_icon;
