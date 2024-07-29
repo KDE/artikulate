@@ -20,7 +20,7 @@ class ARTIKULATECORE_EXPORT IEditableCourse : public ICourse
 {
     Q_OBJECT
     Q_INTERFACES(ICourse)
-    Q_PROPERTY(QString modified READ isModified NOTIFY modifiedChanged)
+    Q_PROPERTY(bool modified READ isModified NOTIFY modifiedChanged)
 
 public:
     ~IEditableCourse() override = default;
