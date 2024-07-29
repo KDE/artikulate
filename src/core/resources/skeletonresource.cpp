@@ -35,15 +35,15 @@ public:
             xml.setDevice(&file);
             xml.readNextStartElement();
             while (xml.readNext() && !xml.atEnd()) {
-                if (xml.name() == "id") {
+                if (xml.name() == QLatin1String("id")) {
                     m_identifier = xml.readElementText();
                     continue;
                 }
-                if (xml.name() == "title") {
+                if (xml.name() == QLatin1String("title")) {
                     m_title = xml.readElementText();
                     continue;
                 }
-                if (xml.name() == "description") {
+                if (xml.name() == QLatin1String("description")) {
                     m_description = xml.readElementText();
                     continue;
                 }
