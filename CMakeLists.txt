@@ -18,6 +18,7 @@ project(artikulate VERSION ${ARTIKULATE_VERSION})
 find_package(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
 find_package(KF6DocTools)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} )
+find_package(LibXml2 REQUIRED)
 
 include(KDEInstallDirs)
 include(KDEClangFormat)

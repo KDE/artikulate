@@ -19,6 +19,10 @@ include_directories(
 set(artikulateCore_SRCS
     application.cpp
     artikulate_debug.cpp
+    core/xmlschema.cpp
+    core/xmlschema.h
+    core/xmlschemavalidator.cpp
+    core/xmlschemavalidator.h
     core/icourse.h
     core/ieditablecourse.h
     core/ieditablephrase.h
