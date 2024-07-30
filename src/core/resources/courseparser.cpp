@@ -11,31 +11,30 @@
 #include "core/phoneme.h"
 #include "core/phrase.h"
 #include "core/unit.h"
-
+#include "core/xmlschema.h"
+#include "core/xmlschemavalidator.h"
 #include <KTar>
 #include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>
-#include <QXmlSchema>
-#include <QXmlSchemaValidator>
 #include <QXmlStreamReader>
 
-QXmlSchema CourseParser::loadXmlSchema(const QString &schemeName)
+XmlSchema CourseParser::loadXmlSchema(const QString &schemeName)
 {
     QString relPath = QStringLiteral(":/artikulate/schemes/%1.xsd").arg(schemeName);
     QUrl file = QUrl::fromLocalFile(relPath);
 
-    QXmlSchema schema;
+    XmlSchema schema;
     if (file.isEmpty() || schema.load(file) == false) {
         qCWarning(ARTIKULATE_PARSER()) << "Schema at file " << file.toLocalFile() << " is invalid.";
     }
     return schema;
 }
 
-QDomDocument CourseParser::loadDomDocument(const QUrl &path, const QXmlSchema &schema)
+QDomDocument CourseParser::loadDomDocument(const QUrl &path, const XmlSchema &schema)
 {
     QDomDocument document;
-    QXmlSchemaValidator validator(schema);
+    XmlSchemaValidator validator(schema);
     if (!validator.validate(path)) {
         qCWarning(ARTIKULATE_PARSER()) << "Schema is not valid, aborting loading of XML document:" << path.toLocalFile();
         return document;

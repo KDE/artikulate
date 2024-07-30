@@ -8,8 +8,7 @@
 
 #include <QTest>
 #include <QUrl>
-#include <QXmlSchema>
-#include <QXmlSchemaValidator>
+#include "core/xmlschema.h"
 
 TestXsdSchemes::TestXsdSchemes()
 {
@@ -28,7 +27,7 @@ void TestXsdSchemes::cleanup()
 void TestXsdSchemes::languageSchemeValidationTest()
 {
     QUrl languageFile = QUrl::fromLocalFile(":/artikulate/schemes/language.xsd");
-    QXmlSchema languageSchema;
+    XmlSchema languageSchema;
     QVERIFY(languageSchema.load(languageFile));
     QVERIFY(languageSchema.isValid());
 }
@@ -36,7 +35,7 @@ void TestXsdSchemes::languageSchemeValidationTest()
 void TestXsdSchemes::courseSchemeValidationTest()
 {
     QUrl schemeFile = QUrl::fromLocalFile(":/artikulate/schemes/course.xsd");
-    QXmlSchema courseSchema;
+    XmlSchema courseSchema;
     QVERIFY(courseSchema.load(schemeFile));
     QVERIFY(courseSchema.isValid());
 }
@@ -44,7 +43,7 @@ void TestXsdSchemes::courseSchemeValidationTest()
 void TestXsdSchemes::schemeValidationTest()
 {
     QUrl skeletonFile = QUrl::fromLocalFile(":/artikulate/schemes/skeleton.xsd");
-    QXmlSchema skeletonScheme;
+    XmlSchema skeletonScheme;
     QVERIFY(skeletonScheme.load(skeletonFile));
     QVERIFY(skeletonScheme.isValid());
 }

@@ -17,8 +17,6 @@
 #include <QSignalSpy>
 #include <QTemporaryFile>
 #include <QTest>
-#include <QXmlSchema>
-#include <QXmlSchemaValidator>
 #include <memory>
 
 TestEditableCourseResource::TestEditableCourseResource()
