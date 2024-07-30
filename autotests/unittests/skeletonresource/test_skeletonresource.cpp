@@ -15,8 +15,6 @@
 #include <QSignalSpy>
 #include <QTemporaryFile>
 #include <QTest>
-#include <QXmlSchema>
-#include <QXmlSchemaValidator>
 
 TestSkeletonResource::TestSkeletonResource()
 {
