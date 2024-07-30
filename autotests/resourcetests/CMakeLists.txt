@@ -6,6 +6,7 @@ include_directories(
     ../../
     ../mocks/
     ${CMAKE_CURRENT_BINARY_DIR}
+    ${CMAKE_BINARY_DIR}/src/
 )
 
 # basic tests language resource conformance with XSD
@@ -29,6 +30,7 @@ set(TestXsdSchemes_SRCS
 qt6_add_resources(TestXsdSchemes_SRCS ../../data/languages.qrc)
 add_executable(test_xsdschemes ${TestXsdSchemes_SRCS} )
 target_link_libraries(test_xsdschemes
+    artikulatecore
     Qt::Test
     Qt::Core
 )

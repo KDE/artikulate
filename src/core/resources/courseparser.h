@@ -18,7 +18,7 @@ class Unit;
 class Phrase;
 class Phoneme;
 class IResourceRepository;
-class QXmlSchema;
+class XmlSchema;
 class QJSonDocument;
 class QDomDocument;
 class QDomElement;
@@ -36,7 +36,7 @@ public:
      * \param schemeName name of the Xml schema without suffix
      * \return loaded XML Schema
      */
-    static QXmlSchema loadXmlSchema(const QString &schemeName);
+    static XmlSchema loadXmlSchema(const QString &schemeName);
 
     /**
      * Load XML file given by \p file that confirms with XML schema \p scheme.
@@ -45,7 +45,7 @@ public:
      * \param scheme is the XML schema describing the DOM
      * \return the loaded DOM document
      */
-    static QDomDocument loadDomDocument(const QUrl &path, const QXmlSchema &schema);
+    static QDomDocument loadDomDocument(const QUrl &path, const XmlSchema &schema);
 
     /**
      * @brief Parse unit from XML file

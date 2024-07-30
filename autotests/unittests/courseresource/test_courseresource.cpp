@@ -14,8 +14,6 @@
 #include "resourcerepositorystub.h"
 #include <QSignalSpy>
 #include <QTest>
-#include <QXmlSchema>
-#include <QXmlSchemaValidator>
 
 TestCourseResource::TestCourseResource()
 {
