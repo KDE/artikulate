@@ -5,18 +5,12 @@
 */
 
 #include "mainwindow_editor.h"
-#include "application.h"
-#include "artikulate_debug.h"
 #include "core/editorsession.h"
-#include "core/resources/courseresource.h"
 #include "libsound/src/outputdevicecontroller.h"
-#include "models/languagemodel.h"
 #include "settings.h"
 #include <KAboutData>
-#include <KActionCollection>
 #include <KLocalizedContext>
 #include <KLocalizedString>
-#include <KStandardAction>
 #include <QAction>
 #include <QApplication>
 #include <QCoreApplication>
