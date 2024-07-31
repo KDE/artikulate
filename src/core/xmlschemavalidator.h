@@ -15,6 +15,9 @@ class ARTIKULATECORE_EXPORT XmlSchemaValidator
 public:
     XmlSchemaValidator(const XmlSchema &scheme);
     bool validate(const QUrl &path);
+
+private:
+    const XmlSchema &mSchema;
 };
 
 #endif // XMLSCHEMAVALIDATOR_H

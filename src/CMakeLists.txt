@@ -82,6 +82,7 @@ target_link_libraries(artikulatecore
         Qt::Quick
         KF6::Archive
         KF6::ConfigGui
+        LibXml2::LibXml2
     PRIVATE
         Qt::Xml
 )
