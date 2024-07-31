@@ -8,13 +8,19 @@
 
 #include "artikulatecore_export.h"
 #include <QUrl>
+#include <libxml/xmlschemastypes.h>
 
 class ARTIKULATECORE_EXPORT XmlSchema
 {
 public:
     XmlSchema();
+    ~XmlSchema();
     bool load(const QUrl &path);
     bool isValid() const;
+    xmlSchemaPtr data() const;
+
+private:
+    xmlSchemaPtr mSchema{nullptr};
 };
 
 #endif // XMLSCHEMA_H
