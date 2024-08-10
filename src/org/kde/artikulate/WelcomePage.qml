@@ -1,18 +1,17 @@
-/*
-    SPDX-FileCopyrightText: 2015-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-FileCopyrightText: 2015-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-FileCopyrightText: 2023 Carl Schwan <carl@carlschwan.eu>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
-
-import QtQuick 2.1
-import QtQuick.Controls 2.1 as QQC2
-import QtQuick.Layouts 1.3
-import org.kde.kirigami 2.7 as Kirigami
-import artikulate 1.0
+import QtQuick
+import QtQuick.Controls as QQC2
+import QtQuick.Layouts
+import org.kde.kirigami as Kirigami
+import org.kde.newstuff as KNS
+import org.kde.artikulate
 
 Kirigami.ScrollablePage {
     id: root
-    title: i18n("Welcome to Artikulate Course Editor")
+    title: i18n("Welcome to Artikulate")
 
     Kirigami.CardsListView {
         id: listView
@@ -57,11 +56,28 @@ Kirigami.ScrollablePage {
                     QQC2.Button {
                         Layout.alignment: Qt.AlignRight|Qt.AlignVCenter
                         Layout.columnSpan: 2
-                        text: i18nc("@action:button", "Edit Course")
+                        text: i18nc("@action:button", "Start Training")
                         onClicked: {
-                            showPassiveNotification("Selected course for editor: " + model.title + ".");
-                            g_editorSession.course = model.dataRole
+                            showPassiveNotification("Starting training session for course " + model.title + ".");
+                            g_trainingSession.course = model.dataRole
                         }
+                    }
+                }
+            }
+        }
+
+        Kirigami.PlaceholderMessage {
+            anchors.centerIn: parent
+            visible: listView.count === 0
+            width: parent.width - Kirigami.Units.gridUnit * 4
+            text: i18n("No trainings found")
+            helpfulAction: KNS.Action {
+                configFile: ":/artikulate/config/artikulate.knsrc"
+                viewMode: KNS.Page.ViewMode.Preview
+                text: i18n("Download Training")
+                onEntryEvent: function(entry, event) {
+                    if (event === KNS.Entry.StatusChangedEvent) {
+                        applicationWindow().ghnsCourseDataStatusChanged();
                     }
                 }
             }

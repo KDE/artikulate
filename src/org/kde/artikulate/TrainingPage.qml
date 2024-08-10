@@ -1,15 +1,12 @@
-/*
-    SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-    SPDX-FileCopyrightText: 2013 Magdalena Konkiewicz <konkiewicz.m@gmail.com>
+// SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-FileCopyrightText: 2013 Magdalena Konkiewicz <konkiewicz.m@gmail.com>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
-
-import QtQuick 2.5
-import QtQuick.Shapes 1.10
-import QtQuick.Controls 2.3 as QQC2
-import org.kde.kirigami 2.7 as Kirigami
-import artikulate 1.0
+import QtQuick
+import QtQuick.Shapes
+import QtQuick.Controls as QQC2
+import org.kde.kirigami as Kirigami
+import org.kde.artikulate
 
 Kirigami.Page {
     id: root
@@ -35,21 +32,23 @@ Kirigami.Page {
         }
         return titleString
     }
-    actions {
-        main: Kirigami.Action {
+    actions: [
+        // main
+        Kirigami.Action {
             text: i18n("Next")
             tooltip: i18n("Mark current phrase as completed and proceed with next one.")
-            iconName: "dialog-ok"
+            icon.name: "dialog-ok"
             onTriggered: g_trainingSession.accept()
-        }
-        right: Kirigami.Action {
+        },
+        // right
+        Kirigami.Action {
             text: i18n("Skip")
             tooltip: i18n("Skip current phrase and proceed with next one.")
-            iconName: "go-next"
+            icon.name: "go-next"
             enabled: g_trainingSession.hasNext
             onTriggered: g_trainingSession.skip()
         }
-    }
+    ]
     Rectangle {
         id: trainingTextRect
         width: Math.min(0.7 * parent.width, parent.width - 80)

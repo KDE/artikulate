@@ -1,15 +1,12 @@
-/*
-    SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
-
-import QtQuick 2.5
-import QtQuick.Controls 2.3
-import QtQuick.Layouts 1.2
-import org.kde.kirigami 2.7 as Kirigami
-import org.kde.kirigamiaddons.formcard 1.0 as FormCard
-import artikulate 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import org.kde.kirigami as Kirigami
+import org.kde.kirigamiaddons.formcard as FormCard
+import org.kde.artikulate
 
 Kirigami.ApplicationWindow {
     id: root

@@ -7,8 +7,6 @@ ecm_setup_version(${ARTIKULATE_VERSION}
     PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/ArtikulateConfigVersion.cmake"
 )
 
-ecm_optional_add_subdirectory(qml)
-
 # set include directories
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
@@ -101,14 +99,16 @@ install(
 )
 install(FILES artikulate.knsrc DESTINATION ${KDE_INSTALL_KNSRCDIR})
 
+add_subdirectory(org/kde/artikulate)
+
 # set the source code files from which Artikulate is compiled
 set(artikulate_SRCS
     main.cpp
     mainwindow.cpp
     artikulate_debug.cpp
 )
-qt6_add_resources(artikulate_SRCS resources.qrc)
-qt6_add_resources(artikulate_SRCS ../data/languages.qrc)
+qt_add_resources(artikulate_SRCS resources.qrc)
+qt_add_resources(artikulate_SRCS ../data/languages.qrc)
 kconfig_add_kcfg_files (artikulate_SRCS settings.kcfgc)
 
 set(artikulate_editor_SRCS
@@ -116,8 +116,8 @@ set(artikulate_editor_SRCS
     mainwindow_editor.cpp
     artikulate_debug.cpp
 )
-qt6_add_resources(artikulate_editor_SRCS resources.qrc)
-qt6_add_resources(artikulate_editor_SRCS ../data/languages.qrc)
+qt_add_resources(artikulate_editor_SRCS resources.qrc)
+qt_add_resources(artikulate_editor_SRCS ../data/languages.qrc)
 kconfig_add_kcfg_files (artikulate_editor_SRCS settings.kcfgc)
 
 # executables
@@ -132,6 +132,9 @@ target_link_libraries(artikulate
         KF6::Crash
         KF6::NewStuffCore
         KF6::XmlGui
+    LINK_PRIVATE
+        artikluate_backing
+        artikluate_backingplugin
 )
 
 qt6_add_resources(artikulate_editor_SRCS editor.qrc)
@@ -144,6 +147,9 @@ target_link_libraries(artikulate_editor
         Qt::Quick
         KF6::Crash
         KF6::NewStuffCore
+    LINK_PRIVATE
+        artikluate_backing
+        artikluate_backingplugin
 )
 
 install(FILES artikulate.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})

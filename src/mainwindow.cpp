@@ -29,7 +29,7 @@ MainWindow::MainWindow()
     rootContext()->setContextProperty(QStringLiteral("g_artikulateAboutData"), QVariant::fromValue(KAboutData::applicationData()));
 
     // set starting screen
-    load(QUrl(QStringLiteral("qrc:/artikulate/qml/Main.qml")));
+    load(":/qt/qml/org/kde/artikulate/Main.qml");
 
     // create training profile if none exists:
     if (!m_profileManager.activeProfile()) {
