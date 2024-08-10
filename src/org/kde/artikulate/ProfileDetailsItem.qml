@@ -1,14 +1,11 @@
-/*
-    SPDX-FileCopyrightText: 2012 Sebastian Gottfried <sebastiangottfried@web.de>
-    SPDX-FileCopyrightText: 2013-2014 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-FileCopyrightText: 2012 Sebastian Gottfried <sebastiangottfried@web.de>
+// SPDX-FileCopyrightText: 2013-2014 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
-
-import QtQuick 2.1
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Styles 1.2
-import artikulate 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Styles
+import org.kde.artikulate
 
 Item {
     id: root

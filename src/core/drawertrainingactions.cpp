@@ -1,12 +1,8 @@
-/*
-    SPDX-FileCopyrightText: 2018-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2018-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "drawertrainingactions.h"
 #include "trainingaction.h"
-
 #include <KLocalizedString>
 #include <QList>
 
@@ -24,16 +20,18 @@ void DrawerTrainingActions::setSession(ISessionActions *session)
     if (m_session) {
         disconnect(m_session, &ISessionActions::courseChanged, this, &DrawerTrainingActions::actionsChanged);
         disconnect(m_session, &ISessionActions::actionsChanged, this, &DrawerTrainingActions::actionsChanged);
+        disconnect(m_session, &ISessionActions::courseChanged, this, &DrawerTrainingActions::triggerPhraseView);
         disconnect(m_session, &ISessionActions::phraseChanged, this, &DrawerTrainingActions::triggerPhraseView);
     }
 
     m_session = session;
     connect(m_session, &ISessionActions::courseChanged, this, &DrawerTrainingActions::actionsChanged);
     connect(m_session, &ISessionActions::actionsChanged, this, &DrawerTrainingActions::actionsChanged);
+    connect(m_session, &ISessionActions::courseChanged, this, &DrawerTrainingActions::triggerPhraseView);
     connect(m_session, &ISessionActions::phraseChanged, this, &DrawerTrainingActions::triggerPhraseView);
 
-    emit sessionChanged();
-    emit actionsChanged();
+    Q_EMIT sessionChanged();
+    Q_EMIT actionsChanged();
 }
 
 ISessionActions *DrawerTrainingActions::session() const
