@@ -1,34 +1,4 @@
-<!DOCTYPE RCC>
-<!--
-SPDX-FileCopyrightText: 2016 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-SPDX-License-Identifier: BSD-2-Clause
--->
 <RCC>
-    <qresource prefix="/artikulate">
-        <file>qml/ActionListItem.qml</file>
-        <file>qml/ArtikulateDrawer.qml</file>
-        <file>qml/CourseConfigurationPage.qml</file>
-        <file>qml/EditCoursePage.qml</file>
-        <file>qml/Editor.qml</file>
-        <file>qml/EditorDrawer.qml</file>
-        <file>qml/EditorSkeletonSelectionPage.qml</file>
-        <file>qml/EditorCourseSelectionPage.qml</file>
-        <file>qml/Main.qml</file>
-        <file>qml/PhonemeUnitSelector.qml</file>
-        <file>qml/PhraseEditor.qml</file>
-        <file>qml/PhraseEditorEditStateComponent.qml</file>
-        <file>qml/PhraseEditorSoundComponent.qml</file>
-        <file>qml/PhraseEditorTypeComponent.qml</file>
-        <file>qml/ProfileSelector.qml</file>
-        <file>qml/ProfileSettingsPage.qml</file>
-        <file>qml/ProfileUserImageItem.qml</file>
-        <file>qml/RepositoryConfigurationPage.qml</file>
-        <file>qml/SoundPlayer.qml</file>
-        <file>qml/SoundRecorder.qml</file>
-        <file>qml/TrainerCourseStatistics.qml</file>
-        <file>qml/TrainingPage.qml</file>
-        <file>qml/WelcomePage.qml</file>
-    </qresource>
     <qresource prefix="/artikulate/config">
         <file>artikulate.knsrc</file>
     </qresource>

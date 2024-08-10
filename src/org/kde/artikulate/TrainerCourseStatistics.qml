@@ -1,15 +1,12 @@
-/*
-    SPDX-FileCopyrightText: 2013 Oindrila Gupta <oindrila.gupta92@gmail.com>
-    SPDX-FileCopyrightText: 2013-2014 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-FileCopyrightText: 2013 Oindrila Gupta <oindrila.gupta92@gmail.com>
+// SPDX-FileCopyrightText: 2013-2014 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
-
-import QtQuick 2.1
+import QtQuick
 // import org.kde.plasma.core 0.1 as PlasmaCore
 // import org.kde.plasma.components 0.1 as PlasmaComponents
 // import org.kde.charts 0.1 as Charts
-import artikulate 1.0
+import org.kde.artikulate
 
 Item {
     id: root

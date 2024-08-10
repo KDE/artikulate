@@ -1,15 +1,12 @@
-/*
-    SPDX-FileCopyrightText: 2013-2017 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-FileCopyrightText: 2013-2017 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+import QtQuick
+import QtQuick.Controls as QQC2
+import org.kde.kirigami as Kirigami
+import org.kde.artikulate
 
-import QtQuick 2.5
-import QtQuick.Controls 2.0 as QQC2
-import org.kde.kirigami 2.7
-import artikulate 1.0
-
-ApplicationWindow {
+Kirigami.ApplicationWindow {
     id: root
 
     function changePage(pageItem) {
@@ -19,11 +16,14 @@ ApplicationWindow {
     }
 
     globalDrawer: ArtikulateDrawer {
+        width: 300
         pageStack: root.pageStack
     }
 
-    contextDrawer: OverlayDrawer {
+    contextDrawer: Kirigami.ContextDrawer {
         id: contextDrawer
+        enabled: true
+        handleVisible: false
     }
 
     signal ghnsCourseDataStatusChanged();
@@ -37,7 +37,7 @@ ApplicationWindow {
         id: availableCourseModel
     }
 
-    pageStack.initialPage: welcomePageComponent
+    pageStack.initialPage:[ welcomePageComponent ]
     pageStack.globalToolBar.style: ApplicationHeaderStyle.Titles
 
     // pages
@@ -55,7 +55,7 @@ ApplicationWindow {
     }
     Component {
         id: aboutPageComponent
-        AboutPage {
+        Kirigami.AboutPage {
             aboutData: g_artikulateAboutData
         }
     }

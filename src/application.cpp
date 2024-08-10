@@ -68,7 +68,7 @@ void Application::installResourceRepository(IResourceRepository *resourceReposit
 
 void Application::registerQmlTypes()
 {
-    QLatin1String uri{"artikulate"};
+    QLatin1String uri{"org.kde.artikulate"};
     qmlRegisterUncreatableType<TrainingSession>(uri.data(),
                                                 1,
                                                 0,

@@ -6,6 +6,7 @@
 
 #include "application.h"
 #include "artikulate_debug.h"
+#include "core/resourcerepository.h"
 #include "mainwindow.h"
 #include "version.h"
 #include <KAboutData>

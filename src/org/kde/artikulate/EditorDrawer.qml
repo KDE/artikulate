@@ -1,20 +1,16 @@
-/*
-    SPDX-FileCopyrightText: 2018 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2018 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 import QtQuick
-import QtQuick.Controls as QQC2
 import QtQuick.Layouts
+import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
-import org.kde.newstuff as KNS
-import artikulate
+import org.kde.artikulate
 
 Kirigami.GlobalDrawer {
     id: root
 
-    title: "Artikulate"
+    title: "Editor"
     titleIcon: "artikulate"
     resetMenuOnTriggered: false
     bottomPadding: 0
@@ -32,34 +28,50 @@ Kirigami.GlobalDrawer {
             Layout.rightMargin: -root.rightPadding
             ActionListItem {
                 action: Kirigami.Action {
-                    text: i18n("Training")
-                    icon.name: "artikulate"
+                    text: i18n("Courses")
+                    iconName: "artikulate"
                     onTriggered: {
                         root.pageStack.clear();
-                        root.pageStack.push(welcomePageComponent);
+                        root.pageStack.push(editorCourseSelectionPage);
+                        root.pageStack.push(editorSkeletonSelectionPage);
+                    }
+                }
+            }
+            ActionListItem {
+                action: Kirigami.Action {
+                    text: i18n("Repository")
+                    iconName: "folder-sync"
+                    onTriggered: {
+                        root.pageStack.clear();
+                        root.pageStack.push(repositoryPageComponent);
                     }
                 }
             }
             Kirigami.Separator {
                 Layout.fillWidth: true
             }
+            ActionListItem {
+                action: Kirigami.Action {
+                    text: i18n("Course Configuration")
+                    iconName: "document-properties"
+                    enabled: g_editorSession.course !== null
+                    onTriggered: {
+                        root.pageStack.clear();
+                        root.pageStack.push(courseConfigurationPageComponent);
+                    }
+                }
+            }
         }
     ]
 
     // ordinary Kirigami actions are filled from training units/phrases
-    actions: sessionActions.actions
+    actions: trainingActions.actions
     DrawerTrainingActions {
-        id: sessionActions
-        session: g_trainingSession
+        id: trainingActions
+        session: g_editorSession
         onTriggerPhraseView: {
             root.pageStack.clear();
-            root.pageStack.push(trainingPageComponent);
-        }
-    }
-    Connections {
-        target: g_trainingSession
-        function onCloseUnit() {
-            root.resetMenu()
+            root.pageStack.push(editCoursePageComponent);
         }
     }
 
@@ -86,7 +98,7 @@ Kirigami.GlobalDrawer {
 //             }
 //             Kirigami.Action {
 //                 text: i18n("About KDE")
-//                 icon.name: "help-about"
+//                 iconName: "help-about"
 //                 onTriggered: {
 //                     triggerAction("help_about_kde")
 //                     globalDrawer.resetMenu();
@@ -101,44 +113,36 @@ Kirigami.GlobalDrawer {
         Layout.leftMargin: -root.leftPadding
         Layout.rightMargin: -root.rightPadding
 
+        ActionListItem {
+            action: Kirigami.Action {
+                text: i18n("Save")
+                iconName: "document-save"
+                enabled: g_editorSession.course !== null
+                onTriggered: {
+                    g_editorSession.course.sync()
+                }
+            }
+        }
+
         Kirigami.Separator {
             Layout.fillWidth: true
         }
 
-//TODO currently disabled while contents have to be ported
+//TODO planned but not implemented
 //        ActionListItem {
 //            action: Kirigami.Action {
-//                text: i18n("Statistics")
-//                iconName: "user-properties"
+//                text: i18n("Upload Training")
+//                iconName: "get-hot-new-stuff"
 //                onTriggered: {
 //                    root.pageStack.pop();
-//                    root.pageStack.push(profileSettingsPageComponent);
+//                    root.pageStack.push(downloadPageComponent);
 //                }
 //            }
 //        }
-//        ActionListItem {
-//            action: Kirigami.Action {
-//                text: i18n("Settings")
-//                iconName: "settings-configure"
-//                onTriggered: triggerSettingsDialog()
-//            }
-//        }
-        ActionListItem {
-            action: KNS.Action {
-                text: i18n("Download Training")
-                configFile: ":/artikulate/config/artikulate.knsrc"
-                viewMode: KNS.Page.ViewMode.Preview
-                onEntryEvent: function(entry, event) {
-                    if (event === KNS.Entry.StatusChangedEvent) {
-                        applicationWindow().ghnsCourseDataStatusChanged();
-                    }
-                }
-            }
-        }
         ActionListItem {
             action: Kirigami.Action {
-                text: i18n("About Artikulate")
-                icon.name: "help-about"
+                text: i18n("About Artikulate Editor")
+                iconName: "help-about"
                 onTriggered: {
                     if (root.pageStack.layers.depth < 2) {
                         root.pageStack.layers.push(aboutPageComponent)

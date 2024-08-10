@@ -1,13 +1,10 @@
-/*
-    SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "core/resourcerepository.h"
+#include "core/iresourcerepository.h"
 #include "core/trainingsession.h"
 #include "liblearnerprofile/src/profilemanager.h"
 #include <QQmlApplicationEngine>

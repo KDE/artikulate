@@ -18,7 +18,7 @@ class TrainingAction;
 /**
  * \class ISessionActions
  *
- * Interface for both training and editor sessions that exposes simple iterator functionalities for a selecte course.
+ * Interface for both training and editor sessions that exposes simple iterator functionalities for a selected course.
  * The interface provides all properties that are needed to create a navigatible menu.
  */
 class ARTIKULATECORE_EXPORT ISessionActions : public QObject
