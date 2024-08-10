@@ -5,7 +5,6 @@
 */
 
 #include "trainingaction.h"
-#include "drawertrainingactions.h"
 #include <QQmlEngine>
 
 TrainingAction::TrainingAction(QObject *parent)

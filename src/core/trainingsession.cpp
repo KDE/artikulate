@@ -48,7 +48,7 @@ void TrainingSession::setCourse(ICourse *course)
     }
     auto data = m_profileManager->progressValues(m_profileManager->activeProfile(), goal, m_course->id());
     const auto unitList = m_course->units();
-    for (auto unit : qAsConst(unitList)) {
+    for (const auto &unit : qAsConst(unitList)) {
         const auto phrases = unit->phrases();
         for (auto &phrase : phrases) {
             auto iter = data.find(phrase->id());
@@ -58,7 +58,7 @@ void TrainingSession::setCourse(ICourse *course)
         }
     }
     updateTrainingActions();
-    emit courseChanged();
+    Q_EMIT courseChanged();
 }
 
 IUnit *TrainingSession::activeUnit() const
@@ -190,7 +190,6 @@ void TrainingSession::selectNextPhrase()
     if (m_indexPhrase >= m_actions.at(m_indexUnit)->actions().count() - 1) {
         // close current unit
         emit closeUnit();
-        qDebug() << "switching to next unit";
         if (m_indexUnit >= m_actions.count() - 1) {
             emit completed();
         } else {
@@ -287,4 +286,5 @@ void TrainingSession::updateTrainingActions()
             m_indexPhrase = 0;
         }
     }
+    emit
 }

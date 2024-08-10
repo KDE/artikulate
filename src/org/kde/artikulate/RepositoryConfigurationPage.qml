@@ -1,14 +1,11 @@
-/*
-    SPDX-FileCopyrightText: 2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-FileCopyrightText: 2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
-
-import QtQuick 2.1
-import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.4
-import QtQuick.Dialogs 1.2
-import org.kde.kirigami 2.7 as Kirigami
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Dialogs
+import org.kde.kirigami as Kirigami
 
 Kirigami.Page {
     id: root

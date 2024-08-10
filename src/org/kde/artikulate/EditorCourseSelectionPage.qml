@@ -1,23 +1,20 @@
-/*
-    SPDX-FileCopyrightText: 2015-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-FileCopyrightText: 2015-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
-
-import QtQuick 2.1
-import QtQuick.Controls 2.1 as QQC2
-import QtQuick.Layouts 1.3
-import org.kde.kirigami 2.7 as Kirigami
-import artikulate 1.0
+import QtQuick
+import QtQuick.Controls as QQC2
+import QtQuick.Layouts
+import org.kde.kirigami as Kirigami
+import org.kde.artikulate
 
 Kirigami.ScrollablePage {
     id: root
-    title: i18n("Select Prototype")
+    title: i18n("Welcome to Artikulate Course Editor")
 
     Kirigami.CardsListView {
         id: listView
         width: root.width - 40
-        model: SkeletonModel {
+        model: CourseModel {
             id: courseModel
         }
 
@@ -43,7 +40,7 @@ Kirigami.ScrollablePage {
                     ColumnLayout {
                         Kirigami.Heading {
                             level: 2
-                            text: i18nc("@title:window prototype name", "%1", model.title)
+                            text: i18nc("@title:window language / course name", "%1 / %2", model.language.title, model.title)
                         }
                         Kirigami.Separator {
                             Layout.fillWidth: true
@@ -57,9 +54,9 @@ Kirigami.ScrollablePage {
                     QQC2.Button {
                         Layout.alignment: Qt.AlignRight|Qt.AlignVCenter
                         Layout.columnSpan: 2
-                        text: i18nc("@action:button", "Edit Prototype")
+                        text: i18nc("@action:button", "Edit Course")
                         onClicked: {
-                            showPassiveNotification("Selected prototype for editor: " + model.title + ".");
+                            showPassiveNotification("Selected course for editor: " + model.title + ".");
                             g_editorSession.course = model.dataRole
                         }
                     }
