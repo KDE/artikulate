@@ -13,6 +13,7 @@ Kirigami.OverlayDrawer {
 
     bottomPadding: 0
     property QtObject pageStack
+    property QtObject parentWindow
 
     // enforce drawer always to be open
     modal: false
@@ -181,6 +182,7 @@ Kirigami.OverlayDrawer {
             action: KNS.Action {
                 text: i18n("Download Training")
                 configFile: ":/artikulate/config/artikulate.knsrc"
+                transientParent: root.parentWindow
                 viewMode: KNS.Page.ViewMode.Preview
                 onEntryEvent: function(entry, event) {
                     if (event === KNS.Entry.StatusChangedEvent) {

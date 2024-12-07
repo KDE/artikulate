@@ -8,7 +8,7 @@ import QtQml.Models
 import org.kde.kirigami as Kirigami
 import org.kde.artikulate
 
-Kirigami.Page {
+Kirigami.ScrollablePage {
     id: root
     title: i18n("Edit Course")
 
@@ -17,39 +17,37 @@ Kirigami.Page {
         Kirigami.Theme.colorSet: Kirigami.Theme.View
     }
 
-    actions {
-        left: Kirigami.Action {
+    actions: [
+        Kirigami.Action {
             text: i18n("Previous")
             tooltip: i18n("Switch to previous phrase.")
-            iconName: "go-previous"
+            icon.name: "go-previous"
             enabled: g_editorSession.hasPreviousPhrase
             onTriggered: g_editorSession.switchToPreviousPhrase()
-        }
-        main: Kirigami.Action {
+        },
+        Kirigami.Action {
             text: i18n("Next")
             tooltip: i18n("Switch to next phrase.")
-            iconName: "go-next"
+            icon.name: "go-next"
             enabled: g_editorSession.hasNextPhrase
             onTriggered: g_editorSession.switchToNextPhrase()
+        },
+        Kirigami.Action {
+            separator: true
+        },
+        Kirigami.Action {
+            text: i18n("Delete")
+            tooltip: i18n("Delete this phrase.")
+            icon.name: "edit-delete-remove"
+            onTriggered: g_editorSession.course.deletePhrase(g_editorSession.phrase)
+        },
+        Kirigami.Action {
+            text: i18n("Create Phrase")
+            tooltip: i18n("Create phrase after current phrase.")
+            icon.name: "list-add"
+            onTriggered: g_editorSession.course.createPhraseAfter(g_editorSession.phrase)
         }
-        contextualActions: [
-            Kirigami.Action {
-                text: i18n("Delete")
-                tooltip: i18n("Delete this phrase.")
-                iconName: "edit-delete-remove"
-                onTriggered: g_editorSession.course.deletePhrase(g_editorSession.phrase)
-            },
-            Kirigami.Action {
-                separator: true
-            },
-            Kirigami.Action {
-                text: i18n("Create Phrase")
-                tooltip: i18n("Create phrase after current phrase.")
-                iconName: "list-add"
-                onTriggered: g_editorSession.course.createPhraseAfter(g_editorSession.phrase)
-            }
-        ]
-    }
+    ]
 
     ColumnLayout {
         PhraseEditor {

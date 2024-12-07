@@ -47,15 +47,18 @@ Item {
         id: typeController
         title: i18n("Difficulty:")
 
+        ButtonGroup {
+            buttons: editTypesList.children
+        }
+
         RowLayout {
-            ExclusiveGroup { id: editTypeGroup }
+            id: editTypesList
             RadioButton {
                 id: buttonWord
                 text: i18n("Word")
                 onClicked: {
                     root.phrase.type = Phrase.Word
                 }
-                exclusiveGroup: editTypeGroup
             }
             RadioButton {
                 id: buttonExpression
@@ -63,7 +66,6 @@ Item {
                 onClicked: {
                     root.phrase.type = Phrase.Expression
                 }
-                exclusiveGroup: editTypeGroup
             }
             RadioButton {
                 id: buttonSentence
@@ -71,7 +73,6 @@ Item {
                 onClicked: {
                     root.phrase.type = Phrase.Sentence
                 }
-                exclusiveGroup: editTypeGroup
             }
             RadioButton {
                 id: buttonParagraph
@@ -79,7 +80,6 @@ Item {
                 onClicked: {
                     root.phrase.type = Phrase.Paragraph
                 }
-                exclusiveGroup: editTypeGroup
             }
         }
     }

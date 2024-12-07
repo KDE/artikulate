@@ -39,7 +39,7 @@ MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
     setupActions();
 
     // set starting screen
-    load(QUrl(QStringLiteral("qrc:/artikulate/qml/Editor.qml")));
+    load(":/qt/qml/org/kde/artikulate/Editor.qml");
 }
 
 MainWindowEditor::~MainWindowEditor()

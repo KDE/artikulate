@@ -43,8 +43,13 @@ Item {
     GroupBox {
         id: buttons
         title: i18n("Edit State:")
+
+        ButtonGroup {
+            buttons: editTypesList.children
+        }
+
         RowLayout {
-            ExclusiveGroup { id: editStateGroup }
+            id: editTypesList
             RadioButton {
                 id: buttonUnknown
                 text: i18nc("state", "Unknown")
@@ -52,7 +57,6 @@ Item {
                     if (!checked) return
                     root.phrase.editState = Phrase.Unknown
                 }
-                exclusiveGroup: editStateGroup
             }
             RadioButton {
                 id: buttonTranslated
@@ -61,7 +65,6 @@ Item {
                     if (!checked) return
                     root.phrase.editState = Phrase.Translated
                 }
-                exclusiveGroup: editStateGroup
             }
             RadioButton {
                 id: buttonCompleted
@@ -70,7 +73,6 @@ Item {
                     if (!checked) return
                     root.phrase.editState = Phrase.Completed
                 }
-                exclusiveGroup: editStateGroup
             }
         }
     }
