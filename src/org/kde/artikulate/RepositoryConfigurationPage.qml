@@ -12,16 +12,14 @@ Kirigami.Page {
 
     title: i18n("Repository Configuration")
 
-    FileDialog {
-        id: fileDialog
+    FolderDialog {
+        id: repositorySelectionDialog
         modality: Qt.WindowModal
         title: i18n("Select Repository Folder")
-        selectFolder: true
-        folder: g_repository.repositoryUrl
-        sidebarVisible: true
+        currentFolder: g_repository.repositoryUrl
         onAccepted: {
-            console.log("Accepted: " + fileUrl)
-            g_repository.repositoryUrl = fileUrl
+            console.log("Accepted: " + repositorySelectionDialog.selectedFolder)
+            g_repository.repositoryUrl = repositorySelectionDialog.selectedFolder
         }
     }
 
@@ -35,7 +33,7 @@ Kirigami.Page {
         Button {
             text: i18n("Change Folder")
             icon.name: "document-open-folder"
-            onClicked: fileDialog.open()
+            onClicked: repositorySelectionDialog.open()
         }
     }
 }
