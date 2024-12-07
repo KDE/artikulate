@@ -27,9 +27,9 @@ Kirigami.GlobalDrawer {
             Layout.leftMargin: -root.leftPadding
             Layout.rightMargin: -root.rightPadding
             ActionListItem {
-                action: Kirigami.Action {
+                action: QQC2.Action {
                     text: i18n("Courses")
-                    iconName: "artikulate"
+                    icon.name: "artikulate"
                     onTriggered: {
                         root.pageStack.clear();
                         root.pageStack.push(editorCourseSelectionPage);
@@ -38,9 +38,9 @@ Kirigami.GlobalDrawer {
                 }
             }
             ActionListItem {
-                action: Kirigami.Action {
+                action: QQC2.Action {
                     text: i18n("Repository")
-                    iconName: "folder-sync"
+                    icon.name: "folder-sync"
                     onTriggered: {
                         root.pageStack.clear();
                         root.pageStack.push(repositoryPageComponent);
@@ -51,9 +51,9 @@ Kirigami.GlobalDrawer {
                 Layout.fillWidth: true
             }
             ActionListItem {
-                action: Kirigami.Action {
+                action: QQC2.Action {
                     text: i18n("Course Configuration")
-                    iconName: "document-properties"
+                    icon.name: "document-properties"
                     enabled: g_editorSession.course !== null
                     onTriggered: {
                         root.pageStack.clear();
@@ -114,9 +114,9 @@ Kirigami.GlobalDrawer {
         Layout.rightMargin: -root.rightPadding
 
         ActionListItem {
-            action: Kirigami.Action {
+            action: QQC2.Action {
                 text: i18n("Save")
-                iconName: "document-save"
+                icon.name: "document-save"
                 enabled: g_editorSession.course !== null
                 onTriggered: {
                     g_editorSession.course.sync()
@@ -140,9 +140,9 @@ Kirigami.GlobalDrawer {
 //            }
 //        }
         ActionListItem {
-            action: Kirigami.Action {
+            action: QQC2.Action {
                 text: i18n("About Artikulate Editor")
-                iconName: "help-about"
+                icon.name: "help-about"
                 onTriggered: {
                     if (root.pageStack.layers.depth < 2) {
                         root.pageStack.layers.push(aboutPageComponent)
