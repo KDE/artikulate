@@ -1,16 +1,15 @@
 /*
-    SPDX-FileCopyrightText: 2014-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
+    SPDX-FileCopyrightText: 2014-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #ifndef COURSEFILTERMODEL_H
 #define COURSEFILTERMODEL_H
 
+#include "coursemodel.h"
+#include "src/core/language.h"
+#include <QQmlEngine>
 #include <QSortFilterProxyModel>
-#include "../core/resources/editablecourseresource.h"
-#include "../models/coursemodel.h"
-#include "../core/language.h"
 
 class Course;
 class CourseModel;
@@ -22,6 +21,8 @@ class CourseFilterModel : public QSortFilterProxyModel
     Q_PROPERTY(CourseModel *courseModel READ courseModel WRITE setCourseModel NOTIFY courseModelChanged)
     Q_PROPERTY(int filteredCount READ filteredCount NOTIFY filteredCountChanged)
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
+
+    QML_ELEMENT
 
 public:
     explicit CourseFilterModel(QObject *parent = nullptr);
@@ -40,8 +41,8 @@ Q_SIGNALS:
     void languageChanged();
 
 private:
-    CourseModel *m_courseModel {nullptr};
-    Language *m_language {nullptr};
+    CourseModel *m_courseModel{nullptr};
+    Language *m_language{nullptr};
 };
 
 #endif

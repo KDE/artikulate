@@ -1,14 +1,14 @@
 /*
-    SPDX-FileCopyrightText: 2014-2015 Andreas Cord-Landwehr <cordlandwehr@gkde.org>
-
+    SPDX-FileCopyrightText: 2014-2024 Andreas Cord-Landwehr <cordlandwehr@gkde.org>
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #ifndef UNITFILTERMODEL_H
 #define UNITFILTERMODEL_H
 
-#include <QSortFilterProxyModel>
 #include "unitmodel.h"
+#include <QQmlEngine>
+#include <QSortFilterProxyModel>
 
 class UnitModel;
 
@@ -17,6 +17,8 @@ class UnitFilterModel : public QSortFilterProxyModel
     Q_OBJECT
     Q_PROPERTY(UnitModel *unitModel READ unitModel WRITE setUnitModel NOTIFY unitModelChanged)
     Q_PROPERTY(int filteredCount READ filteredCount NOTIFY filteredCountChanged)
+
+    QML_ELEMENT
 
 public:
     explicit UnitFilterModel(QObject *parent = nullptr);

@@ -1,12 +1,9 @@
 /*
     SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "language.h"
-#include "artikulate_debug.h"
-#include "models/languagemodel.h"
 #include "phoneme.h"
 #include "phonemegroup.h"
 #include <KLocalizedString>

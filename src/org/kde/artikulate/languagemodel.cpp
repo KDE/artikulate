@@ -1,13 +1,10 @@
 /*
     SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "languagemodel.h"
-#include "models/languageresourcemodel.h"
-
-#include "artikulate_debug.h"
+#include "languageresourcemodel.h"
 #include <KLocalizedString>
 
 LanguageModel::LanguageModel(QObject *parent)

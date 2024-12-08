@@ -20,21 +20,6 @@
 #include "liblearnerprofile/src/learninggoal.h"
 #include "liblearnerprofile/src/models/learninggoalmodel.h"
 #include "liblearnerprofile/src/profilemanager.h"
-#include "models/coursefiltermodel.h"
-#include "models/coursemodel.h"
-#include "models/languagemodel.h"
-#include "models/languageresourcemodel.h"
-#include "models/learningprogressmodel.h"
-#include "models/phonemegroupmodel.h"
-#include "models/phonememodel.h"
-#include "models/phonemeunitmodel.h"
-#include "models/phrasefiltermodel.h"
-#include "models/phraselistmodel.h"
-#include "models/phrasemodel.h"
-#include "models/profilemodel.h"
-#include "models/skeletonmodel.h"
-#include "models/unitfiltermodel.h"
-#include "models/unitmodel.h"
 #include <QQmlEngine>
 #include <QString>
 
@@ -97,22 +82,4 @@ void Application::registerQmlTypes()
     qmlRegisterType<LearnerProfile::LearningGoal>(uri.data(), 1, 0, "LearningGoal");
     qmlRegisterType<Phoneme>(uri.data(), 1, 0, "Phoneme");
     qmlRegisterType<PhonemeGroup>(uri.data(), 1, 0, "PhonemeGroup");
-
-    // models
-    qmlRegisterType<CourseFilterModel>(uri.data(), 1, 0, "CourseFilterModel");
-    qmlRegisterType<CourseModel>(uri.data(), 1, 0, "CourseModel");
-    qmlRegisterType<LanguageModel>(uri.data(), 1, 0, "LanguageModel");
-    qmlRegisterType<LanguageResourceModel>(uri.data(), 1, 0, "LanguageResourceModel");
-    qmlRegisterType<LearnerProfile::LearningGoalModel>(uri.data(), 1, 0, "LearningGoalModel");
-    qmlRegisterType<PhonemeGroupModel>(uri.data(), 1, 0, "PhonemeGroupModel");
-    qmlRegisterType<PhonemeModel>(uri.data(), 1, 0, "PhonemeModel");
-    qmlRegisterType<PhonemeUnitModel>(uri.data(), 1, 0, "PhonemeUnitModel");
-    qmlRegisterType<PhraseFilterModel>(uri.data(), 1, 0, "PhraseFilterModel");
-    qmlRegisterType<PhraseListModel>(uri.data(), 1, 0, "PhraseListModel");
-    qmlRegisterType<PhraseModel>(uri.data(), 1, 0, "PhraseModel");
-    qmlRegisterType<ProfileModel>(uri.data(), 1, 0, "ProfileModel");
-    qmlRegisterType<SkeletonModel>(uri.data(), 1, 0, "SkeletonModel");
-    qmlRegisterType<UnitFilterModel>(uri.data(), 1, 0, "UnitFilterModel");
-    qmlRegisterType<UnitModel>(uri.data(), 1, 0, "UnitModel");
-    //     qmlRegisterType<LearningProgressModel>("artikulate", 1, 0, "LearningProgressModel");//TODO must be ported to new trainingsession
 }

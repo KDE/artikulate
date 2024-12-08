@@ -1,10 +1,10 @@
 /*
     SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "phraselistmodel.h"
+#include "core/phrase.h"
 #include "core/unit.h"
 #include <KLocalizedString>
 #include <QSignalMapper>
@@ -92,24 +92,24 @@ QVariant PhraseListModel::data(const QModelIndex &index, int role) const
     std::shared_ptr<IPhrase> const phrase = m_unit->phrases().at(index.row());
 
     switch (role) {
-        case Qt::DisplayRole:
-            return !phrase->text().isEmpty() ? QVariant(phrase->text()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
-        case Qt::ToolTipRole:
-            return QVariant(phrase->text());
-        case TextRole:
-            return phrase->text();
-        case SoundFileRole:
-            return phrase->sound();
-        case IdRole:
-            return phrase->id();
-        case TypeRole:
-            return QVariant::fromValue<IPhrase::Type>(phrase->type());
-            //    case ExcludedRole: //FIXME
-            //        return phrase->isExcluded();
-        case DataRole:
-            return QVariant::fromValue<QObject *>(phrase.get());
-        default:
-            return QVariant();
+    case Qt::DisplayRole:
+        return !phrase->text().isEmpty() ? QVariant(phrase->text()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
+    case Qt::ToolTipRole:
+        return QVariant(phrase->text());
+    case TextRole:
+        return phrase->text();
+    case SoundFileRole:
+        return phrase->sound();
+    case IdRole:
+        return phrase->id();
+    case TypeRole:
+        return QVariant::fromValue<IPhrase::Type>(phrase->type());
+        //    case ExcludedRole: //FIXME
+        //        return phrase->isExcluded();
+    case DataRole:
+        return QVariant::fromValue<QObject *>(phrase.get());
+    default:
+        return QVariant();
     }
 }
 

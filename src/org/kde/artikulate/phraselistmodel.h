@@ -1,14 +1,14 @@
 /*
-    SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
+    SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #ifndef PHRASELISTMODEL_H
 #define PHRASELISTMODEL_H
 
-#include "core/phrase.h"
+#include "core/unit.h"
 #include <QAbstractListModel>
+#include <QQmlEngine>
 
 class Unit;
 class QSignalMapper;
@@ -19,8 +19,17 @@ class PhraseListModel : public QAbstractListModel
     Q_PROPERTY(Unit *unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
 
+    QML_ELEMENT
+
 public:
-    enum phraseRoles { TextRole = Qt::UserRole + 1, IdRole, TypeRole, SoundFileRole, ExcludedRole, DataRole };
+    enum phraseRoles {
+        TextRole = Qt::UserRole + 1,
+        IdRole,
+        TypeRole,
+        SoundFileRole,
+        ExcludedRole,
+        DataRole
+    };
 
     explicit PhraseListModel(QObject *parent = nullptr);
     /**

@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -10,8 +9,7 @@
 #include "../mocks/languagestub.h"
 #include "src/core/icourse.h"
 #include "src/core/language.h"
-#include "src/models/skeletonmodel.h"
-
+#include "src/org/kde/artikulate/skeletonmodel.h"
 #include <QSignalSpy>
 #include <QTest>
 

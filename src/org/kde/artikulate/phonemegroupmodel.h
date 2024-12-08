@@ -1,6 +1,5 @@
 /*
-    SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
+    SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -8,6 +7,7 @@
 #define PHONEMEGROUPMODEL_H
 
 #include <QAbstractListModel>
+#include <QQmlEngine>
 
 class ICourse;
 class PhonemeGroup;
@@ -18,8 +18,14 @@ class PhonemeGroupModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
 
+    QML_ELEMENT
+
 public:
-    enum unitRoles { TitleRole = Qt::UserRole + 1, IdRole, DataRole };
+    enum unitRoles {
+        TitleRole = Qt::UserRole + 1,
+        IdRole,
+        DataRole
+    };
 
     explicit PhonemeGroupModel(QObject *parent = nullptr);
     /**

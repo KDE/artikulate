@@ -137,6 +137,8 @@ ecm_mark_as_test(test_editablecourseresource)
 # test course model class
 set(TestCourseModel_SRCS
     coursemodel/test_coursemodel.cpp
+    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/coursemodel.cpp
+    ${CMAKE_SOURCE_DIR}/src/artikulate_debug.cpp
     ../mocks/resourcerepositorystub.cpp
     ../mocks/coursestub.cpp
     ../mocks/languagestub.cpp
@@ -155,6 +157,7 @@ ecm_mark_as_test(test_coursemodel)
 # test skeleton model class
 set(TestSkeletonModel_SRCS
     skeletonmodel/test_skeletonmodel.cpp
+    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/skeletonmodel.cpp
     ../mocks/editablerepositorystub.cpp
     ../mocks/editablecoursestub.cpp
     ../mocks/languagestub.cpp

@@ -1,15 +1,15 @@
 /*
-    SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@gkde.org>
+    SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@gkde.org>
     SPDX-FileCopyrightText: 2013 Samikshan Bairagya <samikshan@gmail.com>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #ifndef PHRASEFILTERMODEL_H
 #define PHRASEFILTERMODEL_H
 
-#include <QSortFilterProxyModel>
 #include "phraselistmodel.h"
+#include <QQmlEngine>
+#include <QSortFilterProxyModel>
 
 class PhraseListModel;
 
@@ -22,9 +22,14 @@ class PhraseFilterModel : public QSortFilterProxyModel
     Q_PROPERTY(SortOption sortOption READ sortOption WRITE setSortOption NOTIFY sortOptionChanged)
     Q_PROPERTY(int filteredCount READ filteredCount NOTIFY filteredCountChanged)
 
+    QML_ELEMENT
+
 public:
     Q_ENUMS(SortOption)
-    enum SortOption { Id, Type };
+    enum SortOption {
+        Id,
+        Type
+    };
     explicit PhraseFilterModel(QObject *parent = nullptr);
     PhraseListModel *phraseModel() const;
     void setPhraseModel(PhraseListModel *phraseModel);
