@@ -12,7 +12,7 @@ Kirigami.OverlayDrawer {
     id: root
 
     bottomPadding: 0
-    property QtObject pageStack
+    property Kirigami.PageRow pageStack
     property QtObject parentWindow
 
     // enforce drawer always to be open
@@ -87,24 +87,25 @@ Kirigami.OverlayDrawer {
                             buttons: submenu.children
                         }
                         Repeater {
-                            id: submodel
+                            id: phrasemenu
                             model: menu.checked ? menu.subActions : undefined
-                            ActionListItem {
-                                id: action
+                            delegate: ActionListItem {
+                                id: phraseAction
+                                required property TrainingAction modelData
                                 width: parent.width
                                 leftPadding: 20
-                                text: model.modelData.text
+                                text: phraseAction.modelData.text
                                 action: QQC2.Action {
                                     checkable: true
-                                    icon.name: model.modelData.icon.name
+                                    icon.name: phraseAction.modelData.icon.name
                                     onTriggered: {
-                                        model.modelData.trigger()
+                                        phraseAction.modelData.trigger()
                                     }
                                 }
                                 Connections {
-                                    target: model.modelData
+                                    target: phraseAction.modelData
                                     function onCheckedChanged(checked) {
-                                        action.checked = checked
+                                        phraseAction.checked = checked
                                     }
                                 }
                             }
