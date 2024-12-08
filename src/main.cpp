@@ -1,11 +1,9 @@
 /*
     SPDX-FileCopyrightText: 2013-2017 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "application.h"
-#include "artikulate_debug.h"
 #include "core/resourcerepository.h"
 #include "mainwindow.h"
 #include "version.h"
@@ -14,6 +12,9 @@
 #include <KLocalizedString>
 #include <QCommandLineParser>
 #include <QIcon>
+#include <QtQml/QQmlExtensionPlugin>
+
+Q_IMPORT_QML_PLUGIN(org_kde_artikulatePlugin)
 
 int main(int argc, char **argv)
 {
