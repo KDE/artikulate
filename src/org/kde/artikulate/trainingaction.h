@@ -20,7 +20,7 @@ class TrainingAction : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(QString title READ text WRITE setText NOTIFY textChanged)
-    Q_PROPERTY(QObject *icon READ icon CONSTANT)
+    Q_PROPERTY(TrainingActionIcon *icon READ icon CONSTANT)
     Q_PROPERTY(QObject *parent READ parent WRITE setParent CONSTANT)
     Q_PROPERTY(bool visible MEMBER m_visible CONSTANT)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
