@@ -57,7 +57,7 @@ Kirigami.ScrollablePage {
                         text: i18nc("@action:button", "Edit Course")
                         onClicked: {
                             showPassiveNotification("Selected course for editor: " + model.title + ".");
-                            g_editorSession.course = model.dataRole
+                            EditorSession.course = model.dataRole
                         }
                     }
                 }

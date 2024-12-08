@@ -1,25 +1,30 @@
 /*
     SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "artikulatecore_export.h"
 #include <QObject>
+#include <QQmlEngine>
 #include <QUrl>
 
-class ARTIKULATECORE_EXPORT Player : public QObject
+class Player : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString soundFileUrl READ soundFile WRITE setSoundFile NOTIFY soundFileChanged)
     Q_PROPERTY(PlaybackState state READ state NOTIFY stateChanged)
 
+    QML_ELEMENT
+
 public:
     Q_ENUMS(PlaybackState)
-    enum PlaybackState { StoppedState, PlayingState, PausedState };
+    enum PlaybackState {
+        StoppedState,
+        PlayingState,
+        PausedState
+    };
 
     explicit Player(QObject *parent = nullptr);
     ~Player() override = default;

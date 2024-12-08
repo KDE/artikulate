@@ -54,4 +54,6 @@ Kirigami.ApplicationWindow {
             aboutData: g_artikulateAboutData
         }
     }
+
+    Component.onCompleted: EditorSession.repository = g_repository
 }

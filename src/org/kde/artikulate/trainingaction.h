@@ -1,22 +1,21 @@
 /*
     SPDX-FileCopyrightText: 2018-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #ifndef TRAININGACTION_H
 #define TRAININGACTION_H
 
-#include "artikulatecore_export.h"
-#include "iphrase.h"
 #include "trainingactionicon.h"
 #include "trainingsession.h"
 #include <QAbstractItemModel>
 #include <QObject>
+#include <QQmlEngine>
+#include <core/iphrase.h>
 
 class DrawerTrainingActions;
 
-class ARTIKULATECORE_EXPORT TrainingAction : public QAbstractListModel
+class TrainingAction : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
@@ -31,8 +30,13 @@ class ARTIKULATECORE_EXPORT TrainingAction : public QAbstractListModel
     Q_PROPERTY(bool checkable MEMBER m_checkable CONSTANT)
     Q_PROPERTY(int length READ actionsCount NOTIFY actionsChanged)
 
+    QML_ELEMENT
+    QML_UNCREATABLE("typed model element")
+
 public:
-    enum ModelRoles { ModelDataRole = Qt::UserRole + 1 };
+    enum ModelRoles {
+        ModelDataRole = Qt::UserRole + 1
+    };
 
     explicit TrainingAction(QObject *parent = nullptr);
     explicit TrainingAction(const QString &text, QObject *parent = nullptr);
@@ -44,7 +48,7 @@ public:
     void setText(QString text);
     void setChecked(bool checked);
     bool checked() const;
-    QObject *icon();
+    TrainingActionIcon *icon();
     IPhrase *phrase() const;
     QAbstractListModel *actionModel();
     QVector<TrainingAction *> actions() const;
@@ -71,13 +75,13 @@ private:
     QVector<TrainingAction *> m_actions;
     QString m_text;
     TrainingActionIcon m_icon;
-    bool m_visible {true};
-    bool m_enabled {true};
-    bool m_checked {false};
-    bool m_checkable {false};
-    QString m_tooltip {QString()};
+    bool m_visible{true};
+    bool m_enabled{true};
+    bool m_checked{false};
+    bool m_checkable{false};
+    QString m_tooltip{QString()};
     std::shared_ptr<IPhrase> m_phrase;
-    ISessionActions *m_session {nullptr};
+    ISessionActions *m_session{nullptr};
 };
 
 #endif

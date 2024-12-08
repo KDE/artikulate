@@ -6,13 +6,21 @@
 
 #include "trainingsession.h"
 #include "artikulate_debug.h"
-#include "core/icourse.h"
-#include "core/language.h"
-#include "core/phrase.h"
-#include "core/unit.h"
 #include "learner.h"
 #include "profilemanager.h"
 #include "trainingaction.h"
+#include <core/icourse.h>
+#include <core/language.h>
+#include <core/phrase.h>
+#include <core/unit.h>
+
+TrainingSession::TrainingSession(QObject *parent)
+    : ISessionActions(parent)
+    , m_profileManager(new LearnerProfile::ProfileManager(this))
+    , m_course(nullptr)
+{
+    Q_ASSERT(m_profileManager != nullptr);
+}
 
 TrainingSession::TrainingSession(LearnerProfile::ProfileManager *manager, QObject *parent)
     : ISessionActions(parent)
@@ -198,7 +206,7 @@ void TrainingSession::selectNextPhrase()
             // currently there is no way to automatically enter a submenu, at least inform user about new unit
             m_actions.at(m_indexUnit)->setChecked(true);
         }
-    // 2. case: next phrase inside current unit
+        // 2. case: next phrase inside current unit
     } else {
         ++m_indexPhrase;
     }
@@ -242,7 +250,7 @@ void TrainingSession::updateGoal()
     learner->setActiveGoal(goal);
 }
 
-QVector<TrainingAction *> TrainingSession::trainingActions() const
+QList<TrainingAction *> TrainingSession::trainingActions() const
 {
     return m_actions;
 }

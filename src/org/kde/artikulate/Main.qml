@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 import QtQuick
-import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import org.kde.artikulate
 
@@ -18,6 +17,7 @@ Kirigami.ApplicationWindow {
     globalDrawer: ArtikulateDrawer {
         width: 300
         pageStack: root.pageStack
+        parentWindow: root
     }
 
     contextDrawer: Kirigami.ContextDrawer {
@@ -49,10 +49,10 @@ Kirigami.ApplicationWindow {
         id: trainingPageComponent
         TrainingPage { }
     }
-    Component {
-        id: profileSettingsPageComponent
-        ProfileSettingsPage { }
-    }
+    // Component {
+    //     id: profileSettingsPageComponent
+    //     ProfileSettingsPage { }
+    // }
     Component {
         id: aboutPageComponent
         Kirigami.AboutPage {

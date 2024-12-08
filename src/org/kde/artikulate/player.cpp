@@ -1,13 +1,11 @@
 /*
     SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "player.h"
-#include "libsound/src/outputdevicecontroller.h"
-
 #include "artikulate_debug.h"
+#include "libsound/src/outputdevicecontroller.h"
 #include <QString>
 
 Player::Player(QObject *parent)

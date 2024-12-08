@@ -6,8 +6,6 @@
 
 #include "mainwindow.h"
 #include "application.h"
-#include "artikulate_debug.h"
-#include "libsound/src/outputdevicecontroller.h"
 #include "settings.h"
 #include <KAboutData>
 #include <KLocalizedContext>
@@ -19,12 +17,10 @@ using namespace LearnerProfile;
 
 MainWindow::MainWindow()
     : m_profileManager(this)
-    , m_trainingSession(&m_profileManager, this)
 {
     rootContext()->setContextObject(new KLocalizedContext(this));
 
     // set view
-    rootContext()->setContextProperty(QStringLiteral("g_trainingSession"), &m_trainingSession);
     rootContext()->setContextProperty(QStringLiteral("g_profileManager"), &m_profileManager);
     rootContext()->setContextProperty(QStringLiteral("g_artikulateAboutData"), QVariant::fromValue(KAboutData::applicationData()));
 

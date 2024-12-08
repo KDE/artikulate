@@ -9,50 +9,50 @@ import org.kde.kirigami as Kirigami
 
 Kirigami.Page {
     id: root
-    title: g_editorSession.skeletonMode ? i18n("Prototype Configuration") : i18n("Course Configuration")
+    title: EditorSession.skeletonMode ? i18n("Prototype Configuration") : i18n("Course Configuration")
 
     Kirigami.FormLayout {
         anchors.fill: parent
         Kirigami.Separator {
-            Kirigami.FormData.label: g_editorSession.skeletonMode ? i18n("Prototype Description") : i18n("Course Description")
+            Kirigami.FormData.label: EditorSession.skeletonMode ? i18n("Prototype Description") : i18n("Course Description")
             Kirigami.FormData.isSection: true
         }
         TextField {
             Kirigami.FormData.label: i18n("Title:")
-            text: g_editorSession.course.title
+            text: EditorSession.course.title
             Layout.preferredWidth: .7 * root.width
-            onAccepted: g_editorSession.course.title = text
+            onAccepted: EditorSession.course.title = text
         }
         TextField {
-            visible: !g_editorSession.skeletonMode
+            visible: !EditorSession.skeletonMode
             Kirigami.FormData.label: i18n("Localized Title:")
-            text: g_editorSession.course.i18nTitle
+            text: EditorSession.course.i18nTitle
             Layout.preferredWidth: .7 * root.width
-            onAccepted: g_editorSession.course.i18nTitle = text
+            onAccepted: EditorSession.course.i18nTitle = text
         }
         TextField {
             Kirigami.FormData.label: i18n("Description:")
-            text: g_editorSession.course.description
+            text: EditorSession.course.description
             Layout.preferredWidth: .7 * root.width
-            onAccepted: g_editorSession.course.description = text
+            onAccepted: EditorSession.course.description = text
         }
         TextField {
-            visible: !g_editorSession.skeletonMode
+            visible: !EditorSession.skeletonMode
             Kirigami.FormData.label: i18n("Language:")
-            text: g_editorSession.course.languageTitle
+            text: EditorSession.course.languageTitle
             readOnly: true
             Layout.preferredWidth: .7 * root.width
         }
 
         Kirigami.Separator {
-            visible: !g_editorSession.skeletonMode
+            visible: !EditorSession.skeletonMode
             Kirigami.FormData.label: i18n("Prototype")
             Kirigami.FormData.isSection: true
         }
         Button {
-            visible: !g_editorSession.skeletonMode
+            visible: !EditorSession.skeletonMode
             Kirigami.FormData.label: i18n("Update from Prototype:")
-            enabled: g_editorSession.skeletonMode
+            enabled: EditorSession.skeletonMode
             Layout.minimumWidth: 200
             text: i18n("Update")
             icon.name: "view-refresh"
@@ -60,7 +60,7 @@ Kirigami.Page {
             ToolTip.delay: 1000
             ToolTip.timeout: 5000
             ToolTip.text: i18n("Update the course with elements from prototype.")
-            onClicked: g_editorSession.updateCourseFromSkeleton()
+            onClicked: EditorSession.updateCourseFromSkeleton()
         }
 
 // TODO add export functionalities
