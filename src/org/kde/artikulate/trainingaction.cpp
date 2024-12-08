@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2018-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -10,26 +9,23 @@
 TrainingAction::TrainingAction(QObject *parent)
     : QAbstractListModel(parent)
     , m_text(QString())
-    , m_icon(nullptr, QString()) // TODO "rating-unrated" vs. "rating"
+    , m_icon(this, QString()) // TODO "rating-unrated" vs. "rating"
 {
-    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 }
 
 TrainingAction::TrainingAction(const QString &text, QObject *parent)
     : QAbstractListModel(parent)
     , m_text(text)
-    , m_icon(nullptr, QString()) // TODO "rating-unrated" vs. "rating"
+    , m_icon(this, QString()) // TODO "rating-unrated" vs. "rating"
 {
-    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 }
 
 TrainingAction::TrainingAction(std::shared_ptr<IPhrase> phrase, ISessionActions *session, QObject *parent)
     : QAbstractListModel(parent)
-    , m_icon(nullptr, QString())
+    , m_icon(this, QString())
     , m_phrase(phrase)
     , m_session(session)
 {
-    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
     if (m_phrase) {
         m_text = phrase->text();
     }
@@ -69,12 +65,12 @@ QVariant TrainingAction::data(const QModelIndex &index, int role) const
     }
 
     switch (role) {
-        case ModelDataRole:
-            return QVariant::fromValue<QObject *>(m_actions.at(index.row()));
-        case Qt::DisplayRole:
-            return m_text;
-        default:
-            return QVariant();
+    case ModelDataRole:
+        return QVariant::fromValue<TrainingAction *>(m_actions.at(index.row()));
+    case Qt::DisplayRole:
+        return m_text;
+    default:
+        return QVariant();
     }
 }
 
@@ -127,9 +123,9 @@ void TrainingAction::setChecked(bool checked)
     emit checkedChanged(m_checked);
 }
 
-QObject *TrainingAction::icon()
+TrainingActionIcon *TrainingAction::icon()
 {
-    return qobject_cast<QObject *>(&m_icon);
+    return &m_icon;
 }
 
 IPhrase *TrainingAction::phrase() const
@@ -137,7 +133,7 @@ IPhrase *TrainingAction::phrase() const
     return m_phrase.get();
 }
 
-QVector<TrainingAction *> TrainingAction::actions() const
+QList<TrainingAction *> TrainingAction::actions() const
 {
     return m_actions;
 }

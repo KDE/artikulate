@@ -1,23 +1,20 @@
 /*
     SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #ifndef EDITORSESSION_H
 #define EDITORSESSION_H
 
-#include "artikulatecore_export.h"
+#include "core/ieditablerepository.h"
+#include "core/ieditableunit.h"
+#include "core/iphrase.h"
+#include "core/unit.h"
 #include "isessionactions.h"
-#include "phrase.h"
+#include <core/ieditablecourse.h>
+#include <core/ilanguage.h>
+#include <core/iphrase.h>
 #include <memory.h>
-#include "ilanguage.h"
-#include "ieditablecourse.h"
-#include "ieditableunit.h"
-#include "unit.h"
-#include "iphrase.h"
-#include "resources/skeletonresource.h"
-#include "ieditablerepository.h"
 
 class ILanguage;
 class IEditableCourse;
@@ -30,7 +27,7 @@ class IEditableRepository;
 /**
  * \class EditorSession
  */
-class ARTIKULATECORE_EXPORT EditorSession : public ISessionActions
+class EditorSession : public ISessionActions
 {
     Q_OBJECT
     Q_INTERFACES(ISessionActions)
@@ -44,10 +41,15 @@ class ARTIKULATECORE_EXPORT EditorSession : public ISessionActions
     Q_PROPERTY(IPhrase *phrase READ activePhrase WRITE setActivePhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNextPhrase READ hasNextPhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasPreviousPhrase READ hasPreviousPhrase NOTIFY phraseChanged)
+    Q_PROPERTY(IEditableRepository *repository READ repository WRITE setRepository NOTIFY repositoryChanged)
+
+    QML_ELEMENT
+    QML_SINGLETON
 
 public:
     explicit EditorSession(QObject *parent = nullptr);
 
+    IEditableRepository *repository() const;
     void setRepository(IEditableRepository *repository);
     bool skeletonMode() const;
     ILanguage *language() const;
@@ -69,17 +71,18 @@ Q_SIGNALS:
     void skeletonModeChanged();
     void languageChanged();
     void unitChanged();
+    void repositoryChanged();
 
 private:
     Q_DISABLE_COPY(EditorSession)
     void updateTrainingActions();
     void updateActions(std::shared_ptr<IEditableUnit> unit);
-    IEditableRepository *m_repository {nullptr};
-    bool m_editSkeleton {false};
-    IEditableCourse *m_course {nullptr};
+    IEditableRepository *m_repository{nullptr};
+    bool m_editSkeleton{false};
+    IEditableCourse *m_course{nullptr};
     QVector<TrainingAction *> m_actions;
-    int m_indexUnit {-1};
-    int m_indexPhrase {-1};
+    int m_indexUnit{-1};
+    int m_indexPhrase{-1};
 };
 
 #endif

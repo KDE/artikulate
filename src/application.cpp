@@ -6,22 +6,15 @@
 
 #include "application.h"
 #include "core/contributorrepository.h"
-#include "core/drawertrainingactions.h"
-#include "core/editorsession.h"
 #include "core/ieditablerepository.h"
 #include "core/ilanguage.h"
 #include "core/iresourcerepository.h"
-#include "core/isessionactions.h"
 #include "core/language.h"
 #include "core/phoneme.h"
 #include "core/phonemegroup.h"
 #include "core/phrase.h"
-#include "core/player.h"
-#include "core/recorder.h"
 #include "core/resources/editablecourseresource.h"
 #include "core/resources/skeletonresource.h"
-#include "core/trainingaction.h"
-#include "core/trainingsession.h"
 #include "core/unit.h"
 #include "liblearnerprofile/src/learner.h"
 #include "liblearnerprofile/src/learninggoal.h"
@@ -42,7 +35,7 @@
 #include "models/skeletonmodel.h"
 #include "models/unitfiltermodel.h"
 #include "models/unitmodel.h"
-#include "qmlcontrols/iconitem.h"
+#include <QQmlEngine>
 #include <QString>
 
 Application::Application(int &argc, char **argv)
@@ -68,13 +61,7 @@ void Application::installResourceRepository(IResourceRepository *resourceReposit
 
 void Application::registerQmlTypes()
 {
-    QLatin1String uri{"org.kde.artikulate"};
-    qmlRegisterUncreatableType<TrainingSession>(uri.data(),
-                                                1,
-                                                0,
-                                                "TrainingSession",
-                                                QStringLiteral("TrainingSession is unique object provided by the backend"));
-    qmlRegisterUncreatableType<EditorSession>(uri.data(), 1, 0, "EditorSession", QStringLiteral("EditorSession is unique object provided by the backend"));
+    constexpr QLatin1String uri{"org.kde.artikulate"};
     qmlRegisterUncreatableType<ContributorRepository>(uri.data(),
                                                       1,
                                                       0,
@@ -102,20 +89,14 @@ void Application::registerQmlTypes()
     qmlRegisterInterface<IPhrase>("IPhrase", 1);
     qmlRegisterInterface<IResourceRepository>("IEditableRepository", 1);
     qmlRegisterInterface<IResourceRepository>("IResourceRepository", 1);
-    qmlRegisterInterface<ISessionActions>("ISessionActions", 1);
     qmlRegisterInterface<IUnit>("IUnit", 1);
 
     // concrete instantiable types
-    qmlRegisterType<DrawerTrainingActions>(uri.data(), 1, 0, "DrawerTrainingActions");
-    qmlRegisterType<IconItem>(uri.data(), 1, 0, "Icon");
     qmlRegisterType<Language>(uri.data(), 1, 0, "Language");
     qmlRegisterType<LearnerProfile::Learner>(uri.data(), 1, 0, "Learner");
     qmlRegisterType<LearnerProfile::LearningGoal>(uri.data(), 1, 0, "LearningGoal");
     qmlRegisterType<Phoneme>(uri.data(), 1, 0, "Phoneme");
     qmlRegisterType<PhonemeGroup>(uri.data(), 1, 0, "PhonemeGroup");
-    qmlRegisterType<Player>(uri.data(), 1, 0, "Player");
-    qmlRegisterType<Recorder>(uri.data(), 1, 0, "Recorder");
-    qmlRegisterType<TrainingAction>(uri.data(), 1, 0, "TrainingAction");
 
     // models
     qmlRegisterType<CourseFilterModel>(uri.data(), 1, 0, "CourseFilterModel");

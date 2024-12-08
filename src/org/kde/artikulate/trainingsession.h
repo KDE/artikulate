@@ -1,16 +1,15 @@
 /*
     SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #ifndef TRAININGSESSION_H
 #define TRAININGSESSION_H
 
-#include "artikulatecore_export.h"
 #include "isessionactions.h"
-#include "phrase.h"
-#include <QVector>
+#include <QList>
+#include <QQmlEngine>
+#include <core/phrase.h>
 
 class Language;
 class ICourse;
@@ -25,7 +24,7 @@ class ProfileManager;
 /**
  * \class TrainingSession
  */
-class ARTIKULATECORE_EXPORT TrainingSession : public ISessionActions
+class TrainingSession : public ISessionActions
 {
     Q_OBJECT
     Q_INTERFACES(ISessionActions)
@@ -34,7 +33,11 @@ class ARTIKULATECORE_EXPORT TrainingSession : public ISessionActions
     Q_PROPERTY(IPhrase *phrase READ activePhrase WRITE setActivePhrase NOTIFY phraseChanged)
     Q_PROPERTY(bool hasNext READ hasNext NOTIFY phraseChanged)
 
+    QML_ELEMENT
+    QML_SINGLETON
+
 public:
+    explicit TrainingSession(QObject *parent = nullptr);
     explicit TrainingSession(LearnerProfile::ProfileManager *manager, QObject *parent = nullptr);
 
     ICourse *course() const;
@@ -57,7 +60,7 @@ public:
      *
      * @note phrases without sound file paths are skipped when generating actions
      */
-    QVector<TrainingAction *> trainingActions() const override;
+    QList<TrainingAction *> trainingActions() const override;
 
 Q_SIGNALS:
     /**
@@ -73,10 +76,10 @@ private:
     void updateGoal();
     LearnerProfile::ProfileManager *m_profileManager;
     ICourse *m_course;
-    QVector<TrainingAction *> m_actions;
+    QList<TrainingAction *> m_actions;
 
-    int m_indexUnit {-1};
-    int m_indexPhrase {-1};
+    int m_indexUnit{-1};
+    int m_indexPhrase{-1};
 };
 
 #endif

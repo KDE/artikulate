@@ -54,7 +54,7 @@ Kirigami.GlobalDrawer {
                 action: QQC2.Action {
                     text: i18n("Course Configuration")
                     icon.name: "document-properties"
-                    enabled: g_editorSession.course !== null
+                    enabled: EditorSession.course !== null
                     onTriggered: {
                         root.pageStack.clear();
                         root.pageStack.push(courseConfigurationPageComponent);
@@ -68,7 +68,7 @@ Kirigami.GlobalDrawer {
     actions: trainingActions.actions
     DrawerTrainingActions {
         id: trainingActions
-        session: g_editorSession
+        session: EditorSession
         onTriggerPhraseView: {
             root.pageStack.clear();
             root.pageStack.push(editCoursePageComponent);
@@ -117,9 +117,9 @@ Kirigami.GlobalDrawer {
             action: QQC2.Action {
                 text: i18n("Save")
                 icon.name: "document-save"
-                enabled: g_editorSession.course !== null
+                enabled: EditorSession.course !== null
                 onTriggered: {
-                    g_editorSession.course.sync()
+                    EditorSession.course.sync()
                 }
             }
         }
