@@ -22,6 +22,36 @@ qt_add_qml_module(
         trainingactionicon.h
         trainingsession.cpp
         trainingsession.h
+        # models
+        coursemodel.cpp
+        coursemodel.h
+        coursefiltermodel.cpp
+        coursefiltermodel.h
+        languagemodel.cpp
+        languagemodel.h
+        languageresourcemodel.cpp
+        languageresourcemodel.h
+    #     learningprogressmodel.cpp //TODO must be adapted to new trainingsession
+        unitmodel.cpp
+        unitmodel.h
+        unitfiltermodel.cpp
+        unitfiltermodel.h
+        phrasemodel.cpp
+        phrasemodel.h
+        phraselistmodel.cpp
+        phraselistmodel.h
+        phrasefiltermodel.cpp
+        phrasefiltermodel.h
+        phonememodel.cpp
+        phonememodel.h
+        phonemegroupmodel.cpp
+        phonemegroupmodel.h
+        phonemeunitmodel.cpp
+        phonemeunitmodel.h
+        profilemodel.cpp
+        profilemodel.h
+        skeletonmodel.cpp
+        skeletonmodel.h
     QML_FILES
         ActionListItem.qml
         ArtikulateDrawer.qml
