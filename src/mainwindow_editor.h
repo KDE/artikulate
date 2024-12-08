@@ -8,7 +8,6 @@
 #define MAINWINDOW_EDITOR_H
 
 #include "core/contributorrepository.h"
-#include "core/trainingsession.h"
 #include <QQmlApplicationEngine>
 
 class EditorSession;
@@ -39,7 +38,6 @@ public Q_SLOTS:
 
 private:
     ContributorRepository *m_repository;
-    EditorSession *m_editorSession;
 };
 
 #endif

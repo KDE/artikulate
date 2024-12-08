@@ -28,10 +28,8 @@ set(artikulateCore_SRCS
     core/ieditableunit.h
     core/ilanguage.h
     core/iphrase.h
-    core/isessionactions.h
     core/iunit.h
     core/iresourcerepository.h
-    core/drawertrainingactions.cpp
     core/resourcerepository.cpp
     core/contributorrepository.cpp
     core/language.cpp
@@ -39,16 +37,10 @@ set(artikulateCore_SRCS
     core/phoneme.cpp
     core/phonemegroup.cpp
     core/unit.cpp
-    core/editorsession.cpp
-    core/trainingaction.cpp
-    core/trainingactionicon.cpp
-    core/trainingsession.cpp
     core/resources/courseparser.cpp
     core/resources/courseresource.cpp
     core/resources/editablecourseresource.cpp
     core/resources/skeletonresource.cpp
-    core/player.cpp
-    core/recorder.cpp
     models/coursemodel.cpp
     models/coursefiltermodel.cpp
     models/languagemodel.cpp
@@ -91,6 +83,9 @@ set_target_properties(
     artikulatecore PROPERTIES
     VERSION ${GENERIC_LIB_VERSION}
     SOVERSION ${GENERIC_LIB_SOVERSION}
+)
+target_include_directories(artikulatecore PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 install(
     TARGETS artikulatecore

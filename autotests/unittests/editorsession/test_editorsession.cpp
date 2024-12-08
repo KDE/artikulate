@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -8,13 +7,13 @@
 #include "../mocks/editablecoursestub.h"
 #include "../mocks/languagestub.h"
 #include "editablerepositorystub.h"
-#include "src/core/editorsession.h"
+#include "org/kde/artikulate/editorsession.h"
+#include "org/kde/artikulate/trainingaction.h"
 #include "src/core/icourse.h"
 #include "src/core/ieditablecourse.h"
 #include "src/core/ieditablerepository.h"
 #include "src/core/language.h"
 #include "src/core/resources/skeletonresource.h"
-#include "src/core/trainingaction.h"
 #include "src/core/unit.h"
 #include <QSignalSpy>
 #include <QTest>
@@ -39,10 +38,10 @@ void TestEditorSession::createEditorSession()
     course->setLanguage(languageGerman);
     auto skeleton = SkeletonResource::create(QUrl(), nullptr);
 
-    EditableRepositoryStub repository {
+    EditableRepositoryStub repository{
         {languageGerman, languageEnglish}, // languages
-        {skeleton},                        // skeletons
-        {course}                           // courses
+        {skeleton}, // skeletons
+        {course} // courses
     };
     EditorSession session;
     session.setRepository(&repository);
@@ -59,10 +58,10 @@ void TestEditorSession::nonSkeletonSwitchingBehavior()
     std::shared_ptr<IEditableCourse> courseEnglish = EditableCourseStub::create(languageEnglish, QVector<std::shared_ptr<Unit>>());
     courseEnglish->setId("course-english");
 
-    EditableRepositoryStub repository {
+    EditableRepositoryStub repository{
         {languageGerman, languageEnglish}, // languages
-        {},                                // skeletons
-        {courseGerman, courseEnglish}      // courses
+        {}, // skeletons
+        {courseGerman, courseEnglish} // courses
     };
     EditorSession session;
     session.setRepository(&repository);
@@ -100,9 +99,9 @@ void TestEditorSession::skeletonSwitchingBehavior()
     auto skeletonB = SkeletonResource::create(QUrl(), nullptr);
     skeletonB->setId("testskeletonB");
 
-    EditableRepositoryStub repository {
-        {languageGerman, languageEnglish},             // languages
-        {skeletonA, skeletonB},                        // skeletons
+    EditableRepositoryStub repository{
+        {languageGerman, languageEnglish}, // languages
+        {skeletonA, skeletonB}, // skeletons
         {courseGermanA, courseEnglishA, courseGermanB} // courses
     };
     EditorSession session;
@@ -149,10 +148,10 @@ void TestEditorSession::iterateCourse()
     unitB->addPhrase(phraseB2, unitB->phrases().size());
     auto course = EditableCourseStub::create(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
 
-    EditableRepositoryStub repository {
+    EditableRepositoryStub repository{
         {language}, // languages
-        {},         // skeletons
-        {course}    // courses
+        {}, // skeletons
+        {course} // courses
     };
     EditorSession session;
     session.setRepository(&repository);
@@ -236,10 +235,10 @@ void TestEditorSession::updateActionsBehavior()
     unitB->addPhrase(phraseB2, unitB->phrases().size());
     auto course = EditableCourseStub::create(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
 
-    EditableRepositoryStub repository {
+    EditableRepositoryStub repository{
         {language}, // languages
-        {},         // skeletons
-        {course}    // courses
+        {}, // skeletons
+        {course} // courses
     };
     EditorSession session;
     session.setRepository(&repository);

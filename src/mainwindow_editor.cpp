@@ -1,11 +1,9 @@
 /*
     SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "mainwindow_editor.h"
-#include "core/editorsession.h"
 #include "libsound/src/outputdevicecontroller.h"
 #include "settings.h"
 #include <KAboutData>
@@ -23,15 +21,12 @@ using namespace LearnerProfile;
 
 MainWindowEditor::MainWindowEditor(ContributorRepository *repository)
     : m_repository(repository)
-    , m_editorSession(new EditorSession())
 {
     rootContext()->setContextObject(new KLocalizedContext(this));
     rootContext()->setContextProperty(QStringLiteral("g_repository"), m_repository);
-    rootContext()->setContextProperty(QStringLiteral("g_editorSession"), m_editorSession);
     rootContext()->setContextProperty(QStringLiteral("g_artikulateAboutData"), QVariant::fromValue(KAboutData::applicationData()));
 
     m_repository->setStorageLocation(QUrl::fromLocalFile(Settings::courseRepositoryPath()));
-    m_editorSession->setRepository(m_repository);
 
     m_repository->reloadCourses();
 

@@ -7,9 +7,9 @@
 #ifndef ISESSIONACTIONS_H
 #define ISESSIONACTIONS_H
 
-#include "artikulatecore_export.h"
+#include <QList>
 #include <QObject>
-#include <QVector>
+#include <QQmlEngine>
 
 class ICourse;
 class IPhrase;
@@ -21,9 +21,12 @@ class TrainingAction;
  * Interface for both training and editor sessions that exposes simple iterator functionalities for a selected course.
  * The interface provides all properties that are needed to create a navigatible menu.
  */
-class ARTIKULATECORE_EXPORT ISessionActions : public QObject
+class ISessionActions : public QObject
 {
     Q_OBJECT
+
+    QML_INTERFACE
+
 public:
     explicit ISessionActions(QObject *parent)
         : QObject(parent)
@@ -39,7 +42,7 @@ public:
      * - the first level are all units
      * - the unit actions may contain sub-actions, which are the phrases
      */
-    virtual QVector<TrainingAction *> trainingActions() const = 0;
+    virtual QList<TrainingAction *> trainingActions() const = 0;
 
 Q_SIGNALS:
     void courseChanged();

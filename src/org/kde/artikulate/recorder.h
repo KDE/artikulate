@@ -1,25 +1,29 @@
 /*
     SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #ifndef RECORDER_H
 #define RECORDER_H
 
-#include "artikulatecore_export.h"
 #include <QObject>
+#include <QQmlEngine>
 #include <QTemporaryFile>
 
-class ARTIKULATECORE_EXPORT Recorder : public QObject
+class Recorder : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString recordingFile READ recordingFile NOTIFY recordingFileChanged)
     Q_PROPERTY(CaptureState state READ state NOTIFY stateChanged)
 
+    QML_ELEMENT
+
 public:
     Q_ENUMS(CaptureState)
-    enum CaptureState { StoppedState = 0, RecordingState = 1 };
+    enum CaptureState {
+        StoppedState = 0,
+        RecordingState = 1
+    };
 
     explicit Recorder(QObject *parent = nullptr);
     ~Recorder() override;

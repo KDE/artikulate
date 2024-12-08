@@ -76,7 +76,7 @@ Item {
                     cellHeight: 30
                     model:
                         PhonemeModel {
-                            language: g_editorSession.language
+                            language: EditorSession.language
                         }
                     delegate: phonemeItem
                 }
@@ -100,19 +100,19 @@ Item {
 
         Kirigami.FormLayout {
             Kirigami.Separator {
-                Kirigami.FormData.label: g_editorSession.unit.i18nTitle === "" ? i18n("Unit") : i18n("Unit: ") + g_editorSession.unit.i18nTitle
+                Kirigami.FormData.label: EditorSession.unit.i18nTitle === "" ? i18n("Unit") : i18n("Unit: ") + EditorSession.unit.i18nTitle
                 Kirigami.FormData.isSection: true
             }
             TextField {
                 id: i18nUnit
                 Kirigami.FormData.label: i18n("Localized Unit:")
-                text: g_editorSession.unit.title
+                text: EditorSession.unit.title
                 onEditingFinished: {
-                    g_editorSession.unit.title = text
+                    EditorSession.unit.title = text
                 }
                 Connections {
                     target: root
-                    onPhraseChanged: i18nUnit.text = Qt.binding(function() { return g_editorSession.unit.title })
+                    onPhraseChanged: i18nUnit.text = Qt.binding(function() { return EditorSession.unit.title })
                 }
             }
             Kirigami.Separator {

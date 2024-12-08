@@ -59,7 +59,7 @@ Kirigami.ScrollablePage {
                         text: i18nc("@action:button", "Start Training")
                         onClicked: {
                             showPassiveNotification("Starting training session for course " + model.title + ".");
-                            g_trainingSession.course = model.dataRole
+                            TrainingSession.course = model.dataRole
                         }
                     }
                 }

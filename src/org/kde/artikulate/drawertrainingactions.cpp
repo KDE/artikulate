@@ -7,8 +7,8 @@
 #include <QList>
 
 DrawerTrainingActions::DrawerTrainingActions(QObject *parent)
-    : QObject {parent}
-    , m_defaultAction {new TrainingAction(i18n("Please select a course"), this)}
+    : QObject{parent}
+    , m_defaultAction{new TrainingAction(i18n("Please select a course"), this)}
 {
 }
 
@@ -39,17 +39,17 @@ ISessionActions *DrawerTrainingActions::session() const
     return m_session;
 }
 
-QList<QObject *> DrawerTrainingActions::actions() const
+QList<TrainingAction *> DrawerTrainingActions::actions() const
 {
     if (!m_session || m_session->trainingActions().isEmpty()) {
-        QList<QObject *> list;
-        list << qobject_cast<QObject *>(m_defaultAction);
+        QList<TrainingAction *> list;
+        list << m_defaultAction;
         return list;
     }
-    QList<QObject *> actions;
+    QList<TrainingAction *> actions;
     const auto trainingActions = m_session->trainingActions();
     for (const auto &action : qAsConst(trainingActions)) {
-        actions.append(qobject_cast<QObject *>(action));
+        actions.append(action);
     }
     return actions;
 }

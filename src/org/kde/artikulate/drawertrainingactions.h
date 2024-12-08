@@ -4,23 +4,24 @@
 #ifndef DRAWERTRAININGACTIONS_H
 #define DRAWERTRAININGACTIONS_H
 
-#include "artikulatecore_export.h"
 #include "isessionactions.h"
+#include "trainingaction.h"
 #include <QObject>
+#include <QQmlEngine>
 
-class Course;
-
-class ARTIKULATECORE_EXPORT DrawerTrainingActions : public QObject
+class DrawerTrainingActions : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(ISessionActions *session READ session WRITE setSession NOTIFY sessionChanged)
-    Q_PROPERTY(QList<QObject *> actions READ actions NOTIFY actionsChanged)
+    Q_PROPERTY(QList<TrainingAction *> actions READ actions NOTIFY actionsChanged)
+
+    QML_ELEMENT
 
 public:
     explicit DrawerTrainingActions(QObject *parent = nullptr);
     void setSession(ISessionActions *session);
     ISessionActions *session() const;
-    QList<QObject *> actions() const;
+    QList<TrainingAction *> actions() const;
 
 Q_SIGNALS:
     void actionsChanged();
@@ -31,8 +32,8 @@ Q_SIGNALS:
     void triggerPhraseView();
 
 private:
-    ISessionActions *m_session {nullptr};
-    TrainingAction *m_defaultAction {nullptr};
+    ISessionActions *m_session{nullptr};
+    TrainingAction *m_defaultAction{nullptr};
 };
 
 #endif

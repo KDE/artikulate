@@ -8,10 +8,10 @@
 #include "../mocks/coursestub.h"
 #include "../mocks/languagestub.h"
 #include "liblearnerprofile/src/profilemanager.h"
+#include "org/kde/artikulate/trainingaction.h"
+#include "org/kde/artikulate/trainingsession.h"
 #include "src/core/icourse.h"
 #include "src/core/language.h"
-#include "src/core/trainingaction.h"
-#include "src/core/trainingsession.h"
 #include "src/core/unit.h"
 #include <QSignalSpy>
 #include <QTest>
