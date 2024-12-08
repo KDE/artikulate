@@ -1,6 +1,5 @@
 /*
-    SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
+    SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -9,6 +8,7 @@
 
 #include "languagemodel.h"
 #include <QAbstractListModel>
+#include <QQmlEngine>
 
 class IResourceRepository;
 class ILanguage;
@@ -19,8 +19,16 @@ class LanguageResourceModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(IResourceRepository *repository READ resourceRepository WRITE setResourceRepository NOTIFY resourceRepositoryChanged)
 
+    QML_ELEMENT
+
 public:
-    enum LanguageRoles { TitleRole = Qt::UserRole + 1, I18nTitleRole, IdRole, DataRole, CourseNumberRole };
+    enum LanguageRoles {
+        TitleRole = Qt::UserRole + 1,
+        I18nTitleRole,
+        IdRole,
+        DataRole,
+        CourseNumberRole
+    };
 
     explicit LanguageResourceModel(QObject *parent = nullptr);
     /**

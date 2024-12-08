@@ -1,14 +1,12 @@
 /*
     SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "profilemodel.h"
+#include "artikulate_debug.h"
 #include "liblearnerprofile/src/learner.h"
 #include "liblearnerprofile/src/profilemanager.h"
-
-#include "artikulate_debug.h"
 #include <KLocalizedString>
 #include <QSignalMapper>
 
@@ -83,18 +81,18 @@ QVariant ProfileModel::data(const QModelIndex &index, int role) const
     Learner *const learner = m_profileManager->profiles().at(index.row());
 
     switch (role) {
-        case Qt::DisplayRole:
-            return !learner->name().isEmpty() ? QVariant(learner->name()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
-        case Qt::ToolTipRole:
-            return QVariant(learner->name());
-        case IdRole:
-            return learner->identifier();
-        case NameRole:
-            return learner->name();
-        case DataRole:
-            return QVariant::fromValue<QObject *>(learner);
-        default:
-            return QVariant();
+    case Qt::DisplayRole:
+        return !learner->name().isEmpty() ? QVariant(learner->name()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
+    case Qt::ToolTipRole:
+        return QVariant(learner->name());
+    case IdRole:
+        return learner->identifier();
+    case NameRole:
+        return learner->name();
+    case DataRole:
+        return QVariant::fromValue<QObject *>(learner);
+    default:
+        return QVariant();
     }
 }
 

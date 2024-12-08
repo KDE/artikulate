@@ -1,51 +1,60 @@
 /*
-    SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
+    SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-#ifndef UNITMODEL_H
-#define UNITMODEL_H
+#ifndef PHONEMEUNITMODEL_H
+#define PHONEMEUNITMODEL_H
 
 #include <QAbstractListModel>
-#include <memory>
-#include "../core/icourse.h"
-#include "../core/unit.h"
+#include <QQmlEngine>
 
+class PhonemeGroup;
 class ICourse;
 class Unit;
+class PhonemeGroup;
 class QSignalMapper;
 
-class UnitModel : public QAbstractListModel
+class PhonemeUnitModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
+    Q_PROPERTY(PhonemeGroup *phonemeGroup READ phonemeGroup WRITE setPhonemeGroup NOTIFY phonemeGroupChanged)
+    Q_PROPERTY(int count READ count NOTIFY countChanged)
+
+    QML_ELEMENT
 
 public:
     enum unitRoles {
-        TitleRole = Qt::UserRole + 1, //!< title of unit
-        IdRole,                       //!< unique identifier of unit
-        ContainsTrainingData,         //!< boolean value indicating whether unit has phrase with native recordings
-        DataRole                      //!< access to Unit object
+        TitleRole = Qt::UserRole + 1,
+        NumberPhrasesRole,
+        IdRole,
+        DataRole,
+        PhonemeGroupRole
     };
 
-    explicit UnitModel(QObject *parent = nullptr);
+    explicit PhonemeUnitModel(QObject *parent = nullptr);
     /**
      * Reimplemented from QAbstractListModel::roleNames()
      */
     virtual QHash<int, QByteArray> roleNames() const override;
     void setCourse(ICourse *course);
     ICourse *course() const;
+    void setPhonemeGroup(PhonemeGroup *phonemeGroup);
+    PhonemeGroup *phonemeGroup() const;
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+    int count() const;
 
 Q_SIGNALS:
     void unitChanged(int index);
     void courseChanged();
+    void phonemeGroupChanged();
+    void countChanged();
 
 private Q_SLOTS:
-    void onUnitAboutToBeAdded(std::shared_ptr<Unit> unit, int index);
+    void onUnitAboutToBeAdded(PhonemeGroup *phonemeGroup, int index);
     void onUnitAdded();
     void onUnitsAboutToBeRemoved(int first, int last);
     void onUnitsRemoved();
@@ -54,7 +63,8 @@ private Q_SLOTS:
 private:
     void updateMappings();
     ICourse *m_course;
+    PhonemeGroup *m_phonemeGroup;
     QSignalMapper *m_signalMapper;
 };
 
-#endif // UNITMODEL_H
+#endif // PHONEMEUNITMODEL_H

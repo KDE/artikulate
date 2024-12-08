@@ -20,9 +20,6 @@ QQC2.ItemDelegate {
 
     function trigger() {
         if (enabled) {
-            if (typeof drawer !== "undefined") {
-                drawer.resetMenu()
-            }
             action.trigger()
         }
     }

@@ -1,6 +1,5 @@
 /*
-    SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
+    SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -8,6 +7,7 @@
 #define PHONEMEMODEL_H
 
 #include <QAbstractListModel>
+#include <QQmlEngine>
 
 class Phoneme;
 class Language;
@@ -18,8 +18,14 @@ class PhonemeModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(Language *language READ language WRITE setLanguage NOTIFY languageChanged)
 
+    QML_ELEMENT
+
 public:
-    enum courseRoles { TitleRole = Qt::UserRole + 1, IdRole, DataRole };
+    enum courseRoles {
+        TitleRole = Qt::UserRole + 1,
+        IdRole,
+        DataRole
+    };
 
     explicit PhonemeModel(QObject *parent = nullptr);
     /**

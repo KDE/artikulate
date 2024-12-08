@@ -1,6 +1,5 @@
 /*
-    SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
+    SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -9,6 +8,7 @@
 
 #include "core/phrase.h"
 #include <QAbstractItemModel>
+#include <QQmlEngine>
 #include <memory>
 
 class ICourse;
@@ -19,8 +19,14 @@ class PhraseModel : public QAbstractItemModel
     Q_OBJECT
     Q_PROPERTY(ICourse *course READ course WRITE setCourse NOTIFY courseChanged)
 
+    QML_ELEMENT
+
 public:
-    enum phraseRoles { TextRole = Qt::UserRole + 1, IdRole, DataRole };
+    enum phraseRoles {
+        TextRole = Qt::UserRole + 1,
+        IdRole,
+        DataRole
+    };
 
     explicit PhraseModel(QObject *parent = nullptr);
     virtual QHash<int, QByteArray> roleNames() const override;

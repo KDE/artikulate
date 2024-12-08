@@ -41,21 +41,6 @@ set(artikulateCore_SRCS
     core/resources/courseresource.cpp
     core/resources/editablecourseresource.cpp
     core/resources/skeletonresource.cpp
-    models/coursemodel.cpp
-    models/coursefiltermodel.cpp
-    models/languagemodel.cpp
-    models/languageresourcemodel.cpp
-#     models/learningprogressmodel.cpp //TODO must be adapted to new trainingsession
-    models/unitmodel.cpp
-    models/unitfiltermodel.cpp
-    models/phrasemodel.cpp
-    models/phraselistmodel.cpp
-    models/phrasefiltermodel.cpp
-    models/phonememodel.cpp
-    models/phonemegroupmodel.cpp
-    models/phonemeunitmodel.cpp
-    models/profilemodel.cpp
-    models/skeletonmodel.cpp
     qmlcontrols/iconitem.cpp
     qmlcontrols/imagetexturescache.cpp
     qmlcontrols/managedtexturenode.cpp
