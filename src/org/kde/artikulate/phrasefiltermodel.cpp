@@ -1,15 +1,11 @@
 /*
     SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
     SPDX-FileCopyrightText: 2013 Samikshan Bairagya <samikshan@gmail.com>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "phrasefiltermodel.h"
-#include "models/phraselistmodel.h"
-
-
-#include "artikulate_debug.h"
+#include "phraselistmodel.h"
 #include <KLocalizedString>
 
 PhraseFilterModel::PhraseFilterModel(QObject *parent)

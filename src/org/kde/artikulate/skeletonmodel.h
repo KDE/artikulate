@@ -1,26 +1,32 @@
 /*
-    SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
+    SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #ifndef SKELETONMODEL_H
 #define SKELETONMODEL_H
 
-#include "artikulatecore_export.h"
 #include <QAbstractListModel>
+#include <QQmlEngine>
 #include <memory>
 
 class IEditableRepository;
 class IEditableCourse;
 class ICourse;
 
-class ARTIKULATECORE_EXPORT SkeletonModel : public QAbstractListModel
+class SkeletonModel : public QAbstractListModel
 {
     Q_OBJECT
 
+    QML_ELEMENT
+
 public:
-    enum skeletonRoles { TitleRole = Qt::UserRole + 1, DescriptionRole, IdRole, DataRole };
+    enum skeletonRoles {
+        TitleRole = Qt::UserRole + 1,
+        DescriptionRole,
+        IdRole,
+        DataRole
+    };
 
     explicit SkeletonModel(QObject *parent = nullptr);
     explicit SkeletonModel(IEditableRepository *repository, QObject *parent = nullptr);
@@ -42,7 +48,7 @@ private Q_SLOTS:
     void onSkeletonRemoved();
 
 private:
-    IEditableRepository *m_repository {nullptr};
+    IEditableRepository *m_repository{nullptr};
     QVector<QMetaObject::Connection> m_updateConnections;
 };
 

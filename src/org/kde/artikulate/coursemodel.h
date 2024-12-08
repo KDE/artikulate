@@ -1,26 +1,34 @@
 /*
-    SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
+    SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #ifndef COURSEMODEL_H
 #define COURSEMODEL_H
 
-#include "artikulatecore_export.h"
 #include <QAbstractListModel>
+#include <QQmlEngine>
 #include <memory>
 
 class IResourceRepository;
 class ICourse;
 class Language;
 
-class ARTIKULATECORE_EXPORT CourseModel : public QAbstractListModel
+class CourseModel : public QAbstractListModel
 {
     Q_OBJECT
 
+    QML_ELEMENT
+
 public:
-    enum courseRoles { TitleRole = Qt::UserRole + 1, I18nTitleRole, DescriptionRole, IdRole, LanguageRole, DataRole, };
+    enum courseRoles {
+        TitleRole = Qt::UserRole + 1,
+        I18nTitleRole,
+        DescriptionRole,
+        IdRole,
+        LanguageRole,
+        DataRole,
+    };
 
     explicit CourseModel(QObject *parent = nullptr);
     explicit CourseModel(IResourceRepository *repository, QObject *parent = nullptr);
@@ -41,7 +49,7 @@ private Q_SLOTS:
     void onCourseAboutToBeRemoved(int row);
 
 private:
-    IResourceRepository *m_resourceRepository {nullptr};
+    IResourceRepository *m_resourceRepository{nullptr};
     QVector<QMetaObject::Connection> m_updateConnections;
 };
 
