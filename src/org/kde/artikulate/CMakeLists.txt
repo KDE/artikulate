@@ -2,7 +2,10 @@ add_library(artikluate_backing STATIC)
 
 qt_add_qml_module(
     artikluate_backing
-    URI org.kde.artikulate
+    URI "org.kde.artikulate"
+    IMPORTS
+        org.kde.kirigami
+        org.kde.kirigamiaddons.formcard
     SOURCES
         drawertrainingactions.cpp
         drawertrainingactions.h

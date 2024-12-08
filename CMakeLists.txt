@@ -2,9 +2,12 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 cmake_minimum_required(VERSION 3.16.0)
-set(QT_MIN_VERSION "6.5.0")
+set(QT_MIN_VERSION "6.8.0")
 set(KF_MIN_VERSION "5.115.0")
 set(KDE_COMPILERSETTINGS_LEVEL "5.84.0")
+
+# generate QML LS integration
+set(QT_QML_GENERATE_QMLLS_INI ON)
 
 # KDE Application Version, managed by release script
 set (RELEASE_SERVICE_VERSION_MAJOR "25")
@@ -41,6 +44,8 @@ find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Test
 )
 qt_policy(SET QTP0001 NEW)
+qt_policy(SET QTP0004 NEW)
+qt_policy(SET QTP0005 NEW)
 find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     Archive
     Config
