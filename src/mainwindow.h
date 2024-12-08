@@ -5,7 +5,6 @@
 #define MAINWINDOW_H
 
 #include "core/iresourcerepository.h"
-#include "core/trainingsession.h"
 #include "liblearnerprofile/src/profilemanager.h"
 #include <QQmlApplicationEngine>
 
@@ -36,7 +35,6 @@ public Q_SLOTS:
 
 private:
     LearnerProfile::ProfileManager m_profileManager;
-    TrainingSession m_trainingSession;
 };
 
 #endif

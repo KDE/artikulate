@@ -1,19 +1,15 @@
 /*
     SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "editorsession.h"
 #include "artikulate_debug.h"
-#include "core/contributorrepository.h"
 #include "core/iunit.h"
-#include "core/language.h"
 #include "core/phrase.h"
 #include "core/resources/editablecourseresource.h"
-#include "core/resources/skeletonresource.h"
-#include "core/trainingaction.h"
 #include "core/unit.h"
+#include "trainingaction.h"
 
 EditorSession::EditorSession(QObject *parent)
     : ISessionActions(parent)
@@ -21,9 +17,18 @@ EditorSession::EditorSession(QObject *parent)
     connect(this, &EditorSession::courseChanged, this, &EditorSession::skeletonModeChanged);
 }
 
+IEditableRepository *EditorSession::repository() const
+{
+    return m_repository;
+}
+
 void EditorSession::setRepository(IEditableRepository *repository)
 {
+    if (m_repository == repository) {
+        return;
+    }
     m_repository = repository;
+    Q_EMIT repositoryChanged();
 }
 
 bool EditorSession::skeletonMode() const
@@ -265,7 +270,7 @@ void EditorSession::updateActions(std::shared_ptr<IEditableUnit> changedUnit)
     emit unitAction->actionsChanged();
 }
 
-QVector<TrainingAction *> EditorSession::trainingActions() const
+QList<TrainingAction *> EditorSession::trainingActions() const
 {
     return m_actions;
 }

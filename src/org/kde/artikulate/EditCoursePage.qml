@@ -22,15 +22,15 @@ Kirigami.ScrollablePage {
             text: i18n("Previous")
             tooltip: i18n("Switch to previous phrase.")
             icon.name: "go-previous"
-            enabled: g_editorSession.hasPreviousPhrase
-            onTriggered: g_editorSession.switchToPreviousPhrase()
+            enabled: EditorSession.hasPreviousPhrase
+            onTriggered: EditorSession.switchToPreviousPhrase()
         },
         Kirigami.Action {
             text: i18n("Next")
             tooltip: i18n("Switch to next phrase.")
             icon.name: "go-next"
-            enabled: g_editorSession.hasNextPhrase
-            onTriggered: g_editorSession.switchToNextPhrase()
+            enabled: EditorSession.hasNextPhrase
+            onTriggered: EditorSession.switchToNextPhrase()
         },
         Kirigami.Action {
             separator: true
@@ -39,21 +39,21 @@ Kirigami.ScrollablePage {
             text: i18n("Delete")
             tooltip: i18n("Delete this phrase.")
             icon.name: "edit-delete-remove"
-            onTriggered: g_editorSession.course.deletePhrase(g_editorSession.phrase)
+            onTriggered: EditorSession.course.deletePhrase(EditorSession.phrase)
         },
         Kirigami.Action {
             text: i18n("Create Phrase")
             tooltip: i18n("Create phrase after current phrase.")
             icon.name: "list-add"
-            onTriggered: g_editorSession.course.createPhraseAfter(g_editorSession.phrase)
+            onTriggered: EditorSession.course.createPhraseAfter(EditorSession.phrase)
         }
     ]
 
     ColumnLayout {
         PhraseEditor {
-            visible: g_editorSession.phrase !== null
-            phrase: g_editorSession.phrase
-            isSkeletonPhrase: g_editorSession.skeletonMode
+            visible: EditorSession.phrase !== null
+            phrase: EditorSession.phrase
+            isSkeletonPhrase: EditorSession.skeletonMode
             Layout.fillHeight: true
         }
     }

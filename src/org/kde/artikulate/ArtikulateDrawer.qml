@@ -22,14 +22,14 @@ Kirigami.OverlayDrawer {
     // ordinary Kirigami actions are filled from training units/phrases
     DrawerTrainingActions {
         id: sessionActions
-        session: g_trainingSession
+        session: TrainingSession
         onTriggerPhraseView: {
             root.pageStack.clear();
             root.pageStack.push(trainingPageComponent);
         }
     }
     Connections {
-        target: g_trainingSession
+        target: TrainingSession
         function onCloseUnit() {
             root.resetMenu()
         }
@@ -62,7 +62,10 @@ Kirigami.OverlayDrawer {
                 model: sessionActions.actions
                 delegate: Column {
                     id: menu
-                    property var subActions: model.modelData.children
+                    required property TrainingAction modelData
+                    readonly property string text: modelData.text
+                    readonly property string iconName: modelData.icon.name
+                    property var subActions: modelData.children
                     property bool checked: menuEntry.checked
                     width: parent.width
                     ActionListItem {
@@ -70,10 +73,10 @@ Kirigami.OverlayDrawer {
                         action: QQC2.Action {
                             id: menuEntry
                             checkable: true
-                            text: model.text
-                            icon.name: model.icon.name
+                            text: menu.text
+                            icon.name: menu.iconName
                             onTriggered: {
-                                model.modelData.trigger()
+                                menu.modelData.trigger()
                             }
                         }
                     }
@@ -85,7 +88,7 @@ Kirigami.OverlayDrawer {
                         }
                         Repeater {
                             id: submodel
-                            model: menu.checked ? subActions : undefined
+                            model: menu.checked ? menu.subActions : undefined
                             ActionListItem {
                                 id: action
                                 width: parent.width

@@ -21,14 +21,14 @@ Kirigami.Page {
 
     title: {
         var titleString = "";
-        if (g_trainingSession.unit === null) {
+        if (TrainingSession.unit === null) {
             titleString += i18n("Category: no category selected");
         }
         else {
-            titleString += i18n("Category: %1", g_trainingSession.unit.title)
+            titleString += i18n("Category: %1", TrainingSession.unit.title)
         }
-        if (g_trainingSession.unit !== null && g_trainingSession.course !== null) {
-            titleString += " / " + g_trainingSession.course.i18nTitle
+        if (TrainingSession.unit !== null && TrainingSession.course !== null) {
+            titleString += " / " + TrainingSession.course.i18nTitle
         }
         return titleString
     }
@@ -38,15 +38,15 @@ Kirigami.Page {
             text: i18n("Next")
             tooltip: i18n("Mark current phrase as completed and proceed with next one.")
             icon.name: "dialog-ok"
-            onTriggered: g_trainingSession.accept()
+            onTriggered: TrainingSession.accept()
         },
         // right
         Kirigami.Action {
             text: i18n("Skip")
             tooltip: i18n("Skip current phrase and proceed with next one.")
             icon.name: "go-next"
-            enabled: g_trainingSession.hasNext
-            onTriggered: g_trainingSession.skip()
+            enabled: TrainingSession.hasNext
+            onTriggered: TrainingSession.skip()
         }
     ]
     Rectangle {
@@ -83,7 +83,7 @@ Kirigami.Page {
             id: phraseText
             anchors.fill: parent
             objectName: "phraseText"
-            text: (g_trainingSession.phrase !== null) ? g_trainingSession.phrase.text : ""
+            text: (TrainingSession.phrase !== null) ? TrainingSession.phrase.text : ""
             font.pointSize: 24
             wrapMode: Text.WordWrap
             readOnly: true
@@ -99,7 +99,7 @@ Kirigami.Page {
                 horizontalCenter: taskTriangle.right
             }
             text: i18n("Play original")
-            fileUrl: g_trainingSession.phrase === null ? "" : g_trainingSession.phrase.soundFileUrl
+            fileUrl: TrainingSession.phrase === null ? "" : TrainingSession.phrase.soundFileUrl
         }
     }
 

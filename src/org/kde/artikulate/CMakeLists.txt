@@ -3,6 +3,22 @@ add_library(artikluate_backing STATIC)
 qt_add_qml_module(
     artikluate_backing
     URI org.kde.artikulate
+    SOURCES
+        drawertrainingactions.cpp
+        drawertrainingactions.h
+        editorsession.cpp
+        editorsession.h
+        isessionactions.h
+        player.cpp
+        player.h
+        recorder.cpp
+        recorder.h
+        trainingaction.cpp
+        trainingaction.h
+        trainingactionicon.cpp
+        trainingactionicon.h
+        trainingsession.cpp
+        trainingsession.h
     QML_FILES
         ActionListItem.qml
         ArtikulateDrawer.qml
@@ -31,4 +47,6 @@ qt_add_qml_module(
         WelcomePage.qml
 )
 
-target_link_libraries(artikluate_backing)
+target_link_libraries(artikluate_backing
+    PUBLIC Qt::Gui artikulatecore
+)
