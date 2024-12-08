@@ -38,7 +38,7 @@ Kirigami.ApplicationWindow {
     }
 
     pageStack.initialPage:[ welcomePageComponent ]
-    pageStack.globalToolBar.style: ApplicationHeaderStyle.Titles
+    pageStack.globalToolBar.style: Kirigami.ApplicationHeaderStyle.Titles
 
     // pages
     Component {
