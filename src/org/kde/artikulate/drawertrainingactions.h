@@ -4,36 +4,38 @@
 #ifndef DRAWERTRAININGACTIONS_H
 #define DRAWERTRAININGACTIONS_H
 
-#include "isessionactions.h"
-#include "trainingaction.h"
+#include <KDescendantsProxyModel>
 #include <QObject>
 #include <QQmlEngine>
 
-class DrawerTrainingActions : public QObject
+class DrawerTrainingActions : public KDescendantsProxyModel
 {
     Q_OBJECT
-    Q_PROPERTY(ISessionActions *session READ session WRITE setSession NOTIFY sessionChanged)
-    Q_PROPERTY(QList<TrainingAction *> actions READ actions NOTIFY actionsChanged)
-
     QML_ELEMENT
 
 public:
+    enum Roles {
+        Action = Qt::UserRole + 1,
+    };
+    Q_ENUM(Roles)
+
     explicit DrawerTrainingActions(QObject *parent = nullptr);
-    void setSession(ISessionActions *session);
-    ISessionActions *session() const;
-    QList<TrainingAction *> actions() const;
+    /**
+     * @copydoc QAbstractItemModel::rolesNames()
+     */
+    QHash<int, QByteArray> roleNames() const override;
+
+    void setSourceModel(QAbstractItemModel *model) override;
 
 Q_SIGNALS:
-    void actionsChanged();
-    void sessionChanged();
     /**
      * Notify that course view shall be displayed.
      */
     void triggerPhraseView();
+    void currentIndexChanged(int row);
 
-private:
-    ISessionActions *m_session{nullptr};
-    TrainingAction *m_defaultAction{nullptr};
+public Q_SLOTS:
+    void trigger(int index);
 };
 
 #endif

@@ -45,7 +45,7 @@ public:
     IUnit *activeUnit() const;
     void setUnit(IUnit *unit);
     TrainingAction *activeAction() const override;
-    IPhrase *activePhrase() const;
+    IPhrase *activePhrase() const override;
     void setActivePhrase(IPhrase *phrase) override;
     bool hasPrevious() const;
     bool hasNext() const;

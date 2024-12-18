@@ -2,54 +2,60 @@
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "drawertrainingactions.h"
+#include "drawercoursetreemodel.h"
 #include "trainingaction.h"
 #include <KLocalizedString>
+#include <QAction>
 #include <QList>
 
 DrawerTrainingActions::DrawerTrainingActions(QObject *parent)
-    : QObject{parent}
-    , m_defaultAction{new TrainingAction(i18n("Please select a course"), this)}
+    : KDescendantsProxyModel{parent}
 {
+    setExpandsByDefault(false);
 }
 
-void DrawerTrainingActions::setSession(ISessionActions *session)
+void DrawerTrainingActions::setSourceModel(QAbstractItemModel *model)
 {
-    if (session == m_session) {
-        return;
+    KDescendantsProxyModel::setSourceModel(model);
+    DrawerCourseTreeModel *treeModel = qobject_cast<DrawerCourseTreeModel *>(sourceModel());
+    if (treeModel) {
+        connect(treeModel, &DrawerCourseTreeModel::currentIndexChanged, this, [this](const QModelIndex &currentIndex) {
+            if (!currentIndex.parent().isValid()) {
+                qCritical() << "handling model index that does not belong to phrase, aborting";
+                return;
+            }
+            expandSourceIndex(currentIndex.parent());
+            Q_EMIT currentIndexChanged(mapFromSource(currentIndex).row());
+        });
     }
-    if (m_session) {
-        disconnect(m_session, &ISessionActions::courseChanged, this, &DrawerTrainingActions::actionsChanged);
-        disconnect(m_session, &ISessionActions::actionsChanged, this, &DrawerTrainingActions::actionsChanged);
-        disconnect(m_session, &ISessionActions::courseChanged, this, &DrawerTrainingActions::triggerPhraseView);
-        disconnect(m_session, &ISessionActions::phraseChanged, this, &DrawerTrainingActions::triggerPhraseView);
-    }
-
-    m_session = session;
-    connect(m_session, &ISessionActions::courseChanged, this, &DrawerTrainingActions::actionsChanged);
-    connect(m_session, &ISessionActions::actionsChanged, this, &DrawerTrainingActions::actionsChanged);
-    connect(m_session, &ISessionActions::courseChanged, this, &DrawerTrainingActions::triggerPhraseView);
-    connect(m_session, &ISessionActions::phraseChanged, this, &DrawerTrainingActions::triggerPhraseView);
-
-    Q_EMIT sessionChanged();
-    Q_EMIT actionsChanged();
 }
 
-ISessionActions *DrawerTrainingActions::session() const
+void DrawerTrainingActions::trigger(int index)
 {
-    return m_session;
+    const auto sourceIndex = mapToSource(createIndex(index, 0));
+    if (isSourceIndexExpanded(sourceIndex)) {
+        collapseSourceIndex(sourceIndex);
+    } else {
+        expandSourceIndex(sourceIndex);
+    }
+    QVariant data = sourceModel()->data(sourceIndex, DrawerCourseTreeModel::Action);
+    auto action = data.value<QAction *>();
+    if (action) {
+        action->trigger();
+    } else {
+        qCritical() << "invalid cast" << data;
+    }
+
+    // TODO actually respect sessioncontroller info
+    Q_EMIT triggerPhraseView();
 }
 
-QList<TrainingAction *> DrawerTrainingActions::actions() const
+QHash<int, QByteArray> DrawerTrainingActions::roleNames() const
 {
-    if (!m_session || m_session->trainingActions().isEmpty()) {
-        QList<TrainingAction *> list;
-        list << m_defaultAction;
-        return list;
-    }
-    QList<TrainingAction *> actions;
-    const auto trainingActions = m_session->trainingActions();
-    for (const auto &action : qAsConst(trainingActions)) {
-        actions.append(action);
-    }
-    return actions;
+    auto roles = KDescendantsProxyModel::roleNames();
+    roles[Qt::ItemDataRole::DisplayRole] = "actionText";
+    roles[Qt::ItemDataRole::ToolTipRole] = "tooltip";
+    roles[Qt::ItemDataRole::CheckStateRole] = "selected";
+    roles[DrawerTrainingActions::Action] = "drawerAction";
+    return roles;
 }
