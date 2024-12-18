@@ -27,6 +27,9 @@ qt_add_qml_module(
         coursemodel.h
         coursefiltermodel.cpp
         coursefiltermodel.h
+
+        drawercoursetreemodel.cpp
+        drawercoursetreemodel.h
         languagemodel.cpp
         languagemodel.h
         languageresourcemodel.cpp
@@ -81,5 +84,5 @@ qt_add_qml_module(
 )
 
 target_link_libraries(artikluate_backing
-    PUBLIC Qt::Gui artikulatecore
+    PUBLIC Qt::Gui KF6::ItemModels artikulatecore
 )

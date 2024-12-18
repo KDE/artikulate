@@ -57,7 +57,7 @@ public:
     void setCourse(IEditableCourse *course);
     IUnit *activeUnit() const;
     void setActiveUnit(IUnit *unit);
-    IPhrase *activePhrase() const;
+    IPhrase *activePhrase() const override;
     void setActivePhrase(IPhrase *phrase) override;
     bool hasPreviousPhrase() const;
     bool hasNextPhrase() const;

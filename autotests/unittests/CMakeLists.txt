@@ -171,3 +171,25 @@ target_link_libraries(test_skeletonmodel
 )
 add_test(NAME test_skeletonmodel COMMAND test_skeletonmodel)
 ecm_mark_as_test(test_skeletonmodel)
+
+# test drawer course tree model class
+add_executable(test_drawercoursetreemodel)
+target_sources(test_drawercoursetreemodel PUBLIC
+    drawercoursetreemodel/test_drawercoursetreemodel.cpp
+    drawercoursetreemodel/test_drawercoursetreemodel.h
+    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/drawercoursetreemodel.cpp
+    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/editorsession.cpp
+    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/isessionactions.h
+    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingsession.cpp
+    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingaction.cpp
+    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingactionicon.cpp
+    ${CMAKE_SOURCE_DIR}/src/artikulate_debug.cpp
+    ../mocks/coursestub.cpp
+    ../mocks/languagestub.cpp
+)
+target_link_libraries(test_drawercoursetreemodel
+    artikulatecore
+    Qt::Test
+)
+add_test(NAME test_drawercoursetreemodel COMMAND test_drawercoursetreemodel)
+ecm_mark_as_test(test_drawercoursetreemodel)

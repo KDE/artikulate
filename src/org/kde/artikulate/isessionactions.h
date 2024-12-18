@@ -24,7 +24,6 @@ class TrainingAction;
 class ISessionActions : public QObject
 {
     Q_OBJECT
-
     QML_INTERFACE
 
 public:
@@ -35,6 +34,7 @@ public:
     ~ISessionActions() override = default;
     virtual TrainingAction *activeAction() const = 0;
     virtual void setActivePhrase(IPhrase *phrase) = 0;
+    virtual IPhrase *activePhrase() const = 0;
     /**
      * \brief Return tree of training actions
      *

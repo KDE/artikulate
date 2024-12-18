@@ -51,13 +51,14 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     Config
     Crash
     I18n
+    ItemModels
     NewStuff
     Kirigami
     XmlGui
 )
 
-ecm_set_disabled_deprecation_versions(QT 5.15.2
-     KF 5.101.0
+ecm_set_disabled_deprecation_versions(QT 6.5.0
+     KF 6.0.0
     )
 
 add_definitions(

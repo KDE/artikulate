@@ -56,7 +56,7 @@ void TrainingSession::setCourse(ICourse *course)
     }
     auto data = m_profileManager->progressValues(m_profileManager->activeProfile(), goal, m_course->id());
     const auto unitList = m_course->units();
-    for (const auto &unit : qAsConst(unitList)) {
+    for (const auto &unit : unitList) {
         const auto phrases = unit->phrases();
         for (auto &phrase : phrases) {
             auto iter = data.find(phrase->id());
@@ -92,7 +92,7 @@ void TrainingSession::setUnit(IUnit *unit)
                 if (auto action = activeAction()) {
                     action->setChecked(true);
                 }
-                emit phraseChanged();
+                Q_EMIT phraseChanged();
                 return;
             }
         }
@@ -257,7 +257,7 @@ QList<TrainingAction *> TrainingSession::trainingActions() const
 
 void TrainingSession::updateTrainingActions()
 {
-    for (const auto &action : qAsConst(m_actions)) {
+    for (const auto &action : std::as_const(m_actions)) {
         action->deleteLater();
     }
     m_actions.clear();
@@ -269,10 +269,10 @@ void TrainingSession::updateTrainingActions()
     }
 
     const auto unitList = m_course->units();
-    for (const auto &unit : qAsConst(unitList)) {
+    for (const auto &unit : unitList) {
         auto action = new TrainingAction(unit->title(), this);
         const auto phraseList = unit->phrases();
-        for (const auto &phrase : qAsConst(phraseList)) {
+        for (const auto &phrase : phraseList) {
             if (phrase->sound().isEmpty()) {
                 continue;
             }
@@ -294,5 +294,4 @@ void TrainingSession::updateTrainingActions()
             m_indexPhrase = 0;
         }
     }
-    emit
 }
