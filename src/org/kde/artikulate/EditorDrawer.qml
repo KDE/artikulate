@@ -7,12 +7,8 @@ import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import org.kde.artikulate
 
-Kirigami.GlobalDrawer {
+Kirigami.OverlayDrawer {
     id: root
-
-    title: "Editor"
-    titleIcon: "artikulate"
-    resetMenuOnTriggered: false
     bottomPadding: 0
     property QtObject pageStack
 
@@ -20,132 +16,127 @@ Kirigami.GlobalDrawer {
     modal: false
     handleVisible: false
 
-    topContent: [
-        ColumnLayout {
-            spacing: 0
-            Layout.fillWidth: true
-            Layout.leftMargin: -root.leftPadding
-            Layout.rightMargin: -root.rightPadding
-            ActionListItem {
-                action: QQC2.Action {
-                    text: i18n("Courses")
-                    icon.name: "artikulate"
-                    onTriggered: {
-                        root.pageStack.clear();
-                        root.pageStack.push(editorCourseSelectionPage);
-                        root.pageStack.push(editorSkeletonSelectionPage);
-                    }
-                }
-            }
-            ActionListItem {
-                action: QQC2.Action {
-                    text: i18n("Repository")
-                    icon.name: "folder-sync"
-                    onTriggered: {
-                        root.pageStack.clear();
-                        root.pageStack.push(repositoryPageComponent);
-                    }
-                }
-            }
-            Kirigami.Separator {
-                Layout.fillWidth: true
-            }
-            ActionListItem {
-                action: QQC2.Action {
-                    text: i18n("Course Configuration")
-                    icon.name: "document-properties"
-                    enabled: EditorSession.course !== null
-                    onTriggered: {
-                        root.pageStack.clear();
-                        root.pageStack.push(courseConfigurationPageComponent);
-                    }
-                }
-            }
-        }
-    ]
-
-    // ordinary Kirigami actions are filled from training units/phrases
-    actions: trainingActions.actions
-    DrawerTrainingActions {
-        id: trainingActions
+    DrawerCourseTreeModel {
+        id: drawerCourseTreeModel
+        course: EditorSession.course
         session: EditorSession
+        trainingFilter: false
+    }
+
+    DrawerTrainingActions {
+        id: sessionActions
+        model: drawerCourseTreeModel
         onTriggerPhraseView: {
             root.pageStack.clear();
             root.pageStack.push(editCoursePageComponent);
         }
+        onCurrentIndexChanged: (index) => {
+            phraseActionListView.currentIndex = index
+        }
     }
 
-//TODO integrate again
-//     [
-//         Kirigami.Action {
-//             text: i18n("Help")
-//             iconName: "help-about"
-//             Kirigami.Action {
-//                 text: i18n("Artikulate Handbook")
-//                 iconName: "help-contents"
-//                 onTriggered: {
-//                     triggerAction("help_contents");
-//                     globalDrawer.resetMenu();
-//                 }
-//             }
-//             Kirigami.Action {
-//                 text: i18n("Report Bug")
-//                 iconName: "tools-report-bug"
-//                 onTriggered: {
-//                     triggerAction("help_report_bug");
-//                     globalDrawer.resetMenu();
-//                 }
-//             }
-//             Kirigami.Action {
-//                 text: i18n("About KDE")
-//                 iconName: "help-about"
-//                 onTriggered: {
-//                     triggerAction("help_about_kde")
-//                     globalDrawer.resetMenu();
-//                 }
-//             }
-//         }
-//     ]
+    contentItem: Item {
+        Column {
+            Column {
+                id: topContent
 
-    ColumnLayout {
-        spacing: 0
-        Layout.fillWidth: true
-        Layout.leftMargin: -root.leftPadding
-        Layout.rightMargin: -root.rightPadding
-
-        ActionListItem {
-            action: QQC2.Action {
-                text: i18n("Save")
-                icon.name: "document-save"
-                enabled: EditorSession.course !== null
-                onTriggered: {
-                    EditorSession.course.sync()
+                ActionListItem {
+                    width: root.contentItem.width
+                    action: QQC2.Action {
+                        text: i18n("Courses")
+                        icon.name: "artikulate"
+                        onTriggered: {
+                            root.pageStack.clear();
+                            root.pageStack.push(editorCourseSelectionPage);
+                            root.pageStack.push(editorSkeletonSelectionPage);
+                        }
+                    }
+                }
+                ActionListItem {
+                    width: root.contentItem.width
+                    action: QQC2.Action {
+                        text: i18n("Repository")
+                        icon.name: "folder-sync"
+                        onTriggered: {
+                            root.pageStack.clear();
+                            root.pageStack.push(repositoryPageComponent);
+                        }
+                    }
+                }
+                Kirigami.Separator {
+                    width: root.contentItem.width
+                }
+                ActionListItem {
+                    width: root.contentItem.width
+                    action: QQC2.Action {
+                        text: i18n("Course Configuration")
+                        icon.name: "document-properties"
+                        enabled: EditorSession.course !== null
+                        onTriggered: {
+                            root.pageStack.clear();
+                            root.pageStack.push(courseConfigurationPageComponent);
+                        }
+                    }
                 }
             }
-        }
 
-        Kirigami.Separator {
-            Layout.fillWidth: true
-        }
+            QQC2.ScrollView {
+                id: courseActionScrollView
+                width: parent.width
+                height: root.height - topContent.height - bottomContent.height
+                ListView {
+                    id: phraseActionListView
+                    model: sessionActions
+                    //highlightRangeMode: ListView.ApplyRange
+                    highlightFollowsCurrentItem: true
+                    delegate: ActionListItem {
+                        id: phraseAction
+                        required property string actionText
+                        required property int kDescendantLevel
+                        required property bool kDescendantExpanded
+                        required property var drawerAction
+                        required property int index
+                        width: courseActionScrollView.availableWidth
+                        text: actionText
+                        leftPadding: kDescendantLevel * 20
+                        highlighted: phraseAction.index === phraseActionListView.currentIndex
+                        action: QQC2.Action {
+                            checkable: false
+                            onTriggered: {
+                                sessionActions.trigger(phraseAction.index)
+                                phraseActionListView.currentIndex = phraseAction.index
+                            }
+                        }
+                    }
+                }
+            }
 
-//TODO planned but not implemented
-//        ActionListItem {
-//            action: Kirigami.Action {
-//                text: i18n("Upload Training")
-//                iconName: "get-hot-new-stuff"
-//                onTriggered: {
-//                    root.pageStack.pop();
-//                    root.pageStack.push(downloadPageComponent);
-//                }
-//            }
-//        }
-        ActionListItem {
-            action: QQC2.Action {
-                text: i18n("About Artikulate Editor")
-                icon.name: "help-about"
-                onTriggered: {
-                    if (root.pageStack.layers.depth < 2) {
-                        root.pageStack.layers.push(aboutPageComponent)
+            Column {
+                id: bottomContent
+                Kirigami.Separator {
+                    width: root.contentItem.width
+                }
+                ActionListItem {
+                    width: root.contentItem.width
+                    action: QQC2.Action {
+                        text: i18n("Save")
+                        icon.name: "document-save"
+                        enabled: EditorSession.course !== null
+                        onTriggered: {
+                            EditorSession.course.sync()
+                        }
+                    }
+                }
+                ActionListItem {
+                    width: root.contentItem.width
+                    action: Kirigami.Action {
+                        text: i18n("About Artikulate")
+                        icon.name: "help-about"
+                        onTriggered: {
+                            if (root.pageStack.layers.depth < 2) {
+                                root.pageStack.layers.push(aboutPageComponent)
+                            }
+                        }
                     }
                 }
             }
