@@ -81,9 +81,6 @@ Kirigami.OverlayDrawer {
                             onTriggered: {
                                 sessionActions.trigger(phraseAction.index)
                                 phraseActionListView.currentIndex = phraseAction.index
-                                // if (phraseAction.kDescendantLevel === 1) {
-                                //     phraseAction.kDescendantExpanded = !phraseAction.kDescendantExpanded
-                                // }
                             }
                         }
                     }
