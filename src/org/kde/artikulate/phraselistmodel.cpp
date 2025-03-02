@@ -14,7 +14,7 @@ PhraseListModel::PhraseListModel(QObject *parent)
     , m_unit(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhraseChanged(int)));
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITPhraseChanged(int)));
 
     // connect all phrase number operations to single signal
     connect(this, &PhraseListModel::typeChanged, this, &PhraseListModel::countChanged);
@@ -62,14 +62,14 @@ void PhraseListModel::setUnit(Unit *unit)
         for (int i = 0; i < phrases; ++i) {
             onPhraseAboutToBeAdded(m_unit->phrases().at(i), i);
             endInsertRows();
-            emit countChanged();
+            Q_EMIT countChanged();
         }
         updateMappings();
     }
 
-    // emit done
+    // Q_EMIT done
     endResetModel();
-    emit unitChanged();
+    Q_EMIT unitChanged();
 }
 
 Unit *PhraseListModel::unit() const
@@ -137,7 +137,7 @@ void PhraseListModel::onPhraseAdded()
 {
     updateMappings();
     endInsertRows();
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 void PhraseListModel::onPhraseAboutToBeRemoved(int index)
@@ -148,17 +148,17 @@ void PhraseListModel::onPhraseAboutToBeRemoved(int index)
 void PhraseListModel::onPhrasesRemoved()
 {
     endRemoveRows();
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
-void PhraseListModel::emitPhraseChanged(int row)
+void PhraseListModel::Q_EMITPhraseChanged(int row)
 {
     beginResetModel();
     endResetModel();
     // FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
     //      to exclude possible new excluded phrases
-    emit phraseChanged(row);
-    emit dataChanged(index(row, 0), index(row, 0));
+    Q_EMIT phraseChanged(row);
+    Q_EMIT dataChanged(index(row, 0), index(row, 0));
 }
 
 QVariant PhraseListModel::headerData(int section, Qt::Orientation orientation, int role) const

@@ -57,7 +57,7 @@ void IconItem::setState(IconItem::State state)
 
     m_state = state;
     m_changed = true;
-    emit stateChanged(state);
+    Q_EMIT stateChanged(state);
     update();
 }
 

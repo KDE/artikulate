@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -34,11 +33,11 @@ public:
     void setTitle(QString title)
     {
         m_title = title;
-        emit titleChanged();
+        Q_EMIT titleChanged();
     }
     QString i18nTitle() const override
     {
-        return "i18n title";
+        return QStringLiteral("i18n title");
     }
     QVector<std::shared_ptr<Phoneme>> phonemes() const override
     {
@@ -63,8 +62,8 @@ public:
     }
 
 private:
-    QString m_id {"UNKNOWN_ID"};
-    QString m_title {"title"};
+    QString m_id {QStringLiteral("UNKNOWN_ID")};
+    QString m_title {QStringLiteral("title")};
     QVector<std::shared_ptr<PhonemeGroup>> m_phonemeGroups;
 };
 

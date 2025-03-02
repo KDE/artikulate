@@ -51,7 +51,7 @@ private Q_SLOTS:
     void onUnitAdded();
     void onUnitsAboutToBeRemoved(int first, int last);
     void onUnitsRemoved();
-    void emitUnitChanged(int row);
+    void Q_EMITUnitChanged(int row);
 
 private:
     void updateMappings();

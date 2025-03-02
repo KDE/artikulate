@@ -17,7 +17,7 @@ class TestLanguageFiles : public QObject
 public:
     TestLanguageFiles();
 
-private slots:
+private Q_SLOTS:
     /**
      * Called before every test case.
      */

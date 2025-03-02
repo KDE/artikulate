@@ -31,7 +31,7 @@ void PhonemeGroup::setId(const QString &id)
 {
     if (id != m_id) {
         m_id = id;
-        emit idChanged();
+        Q_EMIT idChanged();
     }
 }
 
@@ -44,7 +44,7 @@ void PhonemeGroup::setTitle(const QString &title)
 {
     if (QString::compare(title, m_title) != 0) {
         m_title = title;
-        emit titleChanged();
+        Q_EMIT titleChanged();
     }
 }
 
@@ -56,7 +56,7 @@ QString PhonemeGroup::description() const
 void PhonemeGroup::setDescription(const QString &description)
 {
     m_description = description;
-    emit descriptionChanged();
+    Q_EMIT descriptionChanged();
 }
 
 QVector<std::shared_ptr<Phoneme>> PhonemeGroup::phonemes() const

@@ -21,7 +21,7 @@ using namespace LearnerProfile;
 
 Storage::Storage(QObject *parent)
     : QObject(parent)
-    , m_databasePath(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QLatin1Char('/') + "learnerdata.db")
+    , m_databasePath(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QStringLiteral("/learnerdata.db"))
     , m_errorMessage(QString())
 {
 }
@@ -42,7 +42,7 @@ QString Storage::errorMessage() const
 void Storage::raiseError(const QSqlError &error)
 {
     m_errorMessage = QStringLiteral("%1 : %2").arg(error.driverText(), error.databaseText());
-    emit errorMessageChanged();
+    Q_EMIT errorMessageChanged();
 }
 
 bool Storage::storeProfile(Learner *learner)
@@ -90,13 +90,13 @@ bool Storage::storeProfile(Learner *learner)
     }
 
     // store existing learning goal relations
-    foreach (LearningGoal *goal, learner->goals()) {
+    for (LearningGoal *goal : learner->goals()) {
         QSqlQuery relationExistsQuery(db);
         relationExistsQuery.prepare(
-            "SELECT COUNT(*) FROM learner_goals "
-            "WHERE goal_category = :goalCategory "
-            "AND goal_identifier = :goalIdentifier "
-            "AND profile_id = :profileId ");
+            QLatin1String("SELECT COUNT(*) FROM learner_goals "
+                          "WHERE goal_category = :goalCategory "
+                          "AND goal_identifier = :goalIdentifier "
+                          "AND profile_id = :profileId "));
         relationExistsQuery.bindValue(QStringLiteral(":goalCategory"), goal->category());
         relationExistsQuery.bindValue(QStringLiteral(":goalIdentifier"), goal->identifier());
         relationExistsQuery.bindValue(QStringLiteral(":profileId"), learner->identifier());
@@ -163,10 +163,10 @@ bool Storage::removeRelation(Learner *learner, LearningGoal *goal)
     QSqlDatabase db = database();
     QSqlQuery removeGoalRelationQuery(db);
     removeGoalRelationQuery.prepare(
-        "DELETE FROM learner_goals "
-        "WHERE goal_category = :goalCategory "
-        "AND goal_identifier = :goalIdentifier "
-        "AND profile_id = :profileId ");
+        QLatin1String("DELETE FROM learner_goals "
+                      "WHERE goal_category = :goalCategory "
+                      "AND goal_identifier = :goalIdentifier "
+                      "AND profile_id = :profileId "));
     removeGoalRelationQuery.bindValue(QStringLiteral(":goalCategory"), goal->category());
     removeGoalRelationQuery.bindValue(QStringLiteral(":goalIdentifier"), goal->identifier());
     removeGoalRelationQuery.bindValue(QStringLiteral(":profileId"), learner->identifier());
@@ -212,7 +212,7 @@ QList<Learner *> Storage::loadProfiles(QList<LearningGoal *> goals)
         Learner *learner = nullptr;
         LearningGoal *goal = nullptr;
 
-        foreach (Learner *cmpProfile, profiles) {
+        for (Learner *cmpProfile : std::as_const(profiles)) {
             if (cmpProfile->identifier() == goalRelationQuery.value(2).toInt()) {
                 learner = cmpProfile;
                 break;
@@ -222,7 +222,7 @@ QList<Learner *> Storage::loadProfiles(QList<LearningGoal *> goals)
             qCCritical(LIBLEARNER_LOG) << "Could not retrieve learner from database.";
             return QList<Learner *>();
         }
-        foreach (LearningGoal *cmpGoal, goals) {
+        for (LearningGoal *cmpGoal : std::as_const(goals)) {
             if (cmpGoal->category() == goalRelationQuery.value(0).toInt() && cmpGoal->identifier() == goalRelationQuery.value(1).toString()) {
                 goal = cmpGoal;
                 break;
@@ -318,9 +318,9 @@ bool Storage::storeProgressLog(Learner *learner, LearningGoal *goal, const QStri
     QSqlDatabase db = database();
     QSqlQuery insertQuery(db);
     insertQuery.prepare(
-        "INSERT INTO learner_progress_log "
-        "(goal_category, goal_identifier, profile_id, item_container, item, payload, date) "
-        "VALUES (:gcategory, :gidentifier, :pid, :container, :item, :payload, :date)");
+        QLatin1String("INSERT INTO learner_progress_log "
+                      "(goal_category, goal_identifier, profile_id, item_container, item, payload, date) "
+                      "VALUES (:gcategory, :gidentifier, :pid, :container, :item, :payload, :date)"));
     insertQuery.bindValue(QStringLiteral(":gcategory"), static_cast<int>(goal->category()));
     insertQuery.bindValue(QStringLiteral(":gidentifier"), goal->identifier());
     insertQuery.bindValue(QStringLiteral(":pid"), learner->identifier());
@@ -344,12 +344,12 @@ QList<QPair<QDateTime, int>> Storage::readProgressLog(Learner *learner, Learning
     QSqlDatabase db = database();
     QSqlQuery logQuery(db);
     logQuery.prepare(
-        "SELECT date, payload FROM learner_progress_log "
-        "WHERE goal_category = :goalcategory "
-        "AND goal_identifier = :goalid "
-        "AND profile_id = :profileid "
-        "AND item_container = :container "
-        "AND item = :item");
+        QLatin1String("SELECT date, payload FROM learner_progress_log "
+                      "WHERE goal_category = :goalcategory "
+                      "AND goal_identifier = :goalid "
+                      "AND profile_id = :profileid "
+                      "AND item_container = :container "
+                      "AND item = :item"));
     logQuery.bindValue(QStringLiteral(":goalcategory"), static_cast<int>(goal->category()));
     logQuery.bindValue(QStringLiteral(":goalid"), goal->identifier());
     logQuery.bindValue(QStringLiteral(":profileid"), learner->identifier());
@@ -364,8 +364,8 @@ QList<QPair<QDateTime, int>> Storage::readProgressLog(Learner *learner, Learning
 
     QList<QPair<QDateTime, int>> log;
     while (logQuery.next()) {
-        const QDateTime date {logQuery.value(0).toDateTime()};
-        int payload {logQuery.value(1).toInt()};
+        const QDateTime date{logQuery.value(0).toDateTime()};
+        int payload{logQuery.value(1).toInt()};
         log.append(qMakePair(date, payload));
     }
     return log;
@@ -378,12 +378,12 @@ bool Storage::storeProgressValue(Learner *learner, LearningGoal *goal, const QSt
 
     // test if already payload stored
     query.prepare(
-        "SELECT payload FROM learner_progress_value "
-        "WHERE goal_category = :gcategory "
-        "AND goal_identifier = :gidentifier "
-        "AND profile_id = :pid "
-        "AND item_container = :container "
-        "AND item = :item");
+        QLatin1String("SELECT payload FROM learner_progress_value "
+                      "WHERE goal_category = :gcategory "
+                      "AND goal_identifier = :gidentifier "
+                      "AND profile_id = :pid "
+                      "AND item_container = :container "
+                      "AND item = :item"));
     query.bindValue(QStringLiteral(":gcategory"), static_cast<int>(goal->category()));
     query.bindValue(QStringLiteral(":gidentifier"), goal->identifier());
     query.bindValue(QStringLiteral(":pid"), learner->identifier());
@@ -399,13 +399,13 @@ bool Storage::storeProgressValue(Learner *learner, LearningGoal *goal, const QSt
     if (query.next()) {
         query.finish(); // release resources from previous query
         query.prepare(
-            "UPDATE learner_progress_value "
-            "SET payload = :payload "
-            "WHERE goal_category = :gcategory "
-            "AND goal_identifier = :gidentifier "
-            "AND profile_id = :pid "
-            "AND item_container = :container "
-            "AND item = :item");
+            QLatin1String("UPDATE learner_progress_value "
+                          "SET payload = :payload "
+                          "WHERE goal_category = :gcategory "
+                          "AND goal_identifier = :gidentifier "
+                          "AND profile_id = :pid "
+                          "AND item_container = :container "
+                          "AND item = :item"));
         query.bindValue(QStringLiteral(":payload"), static_cast<int>(payload));
         query.bindValue(QStringLiteral(":gcategory"), static_cast<int>(goal->category()));
         query.bindValue(QStringLiteral(":gidentifier"), goal->identifier());
@@ -426,9 +426,9 @@ bool Storage::storeProgressValue(Learner *learner, LearningGoal *goal, const QSt
     else {
         query.finish(); // release resources from previous query
         query.prepare(
-            "INSERT INTO learner_progress_value "
-            "(goal_category, goal_identifier, profile_id, item_container, item, payload) "
-            "VALUES (:gcategory, :gidentifier, :pid, :container, :item, :payload)");
+            QLatin1String("INSERT INTO learner_progress_value "
+                          "(goal_category, goal_identifier, profile_id, item_container, item, payload) "
+                          "VALUES (:gcategory, :gidentifier, :pid, :container, :item, :payload)"));
         query.bindValue(QStringLiteral(":gcategory"), static_cast<int>(goal->category()));
         query.bindValue(QStringLiteral(":gidentifier"), goal->identifier());
         query.bindValue(QStringLiteral(":pid"), learner->identifier());
@@ -454,11 +454,11 @@ QHash<QString, int> Storage::readProgressValues(Learner *learner, LearningGoal *
     QSqlDatabase db = database();
     QSqlQuery query(db);
     query.prepare(
-        "SELECT item, payload FROM learner_progress_value "
-        "WHERE goal_category = :goalcategory "
-        "AND goal_identifier = :goalid "
-        "AND profile_id = :profileid "
-        "AND item_container = :container");
+        QLatin1String("SELECT item, payload FROM learner_progress_value "
+                      "WHERE goal_category = :goalcategory "
+                      "AND goal_identifier = :goalid "
+                      "AND profile_id = :profileid "
+                      "AND item_container = :container"));
     query.bindValue(QStringLiteral(":goalcategory"), static_cast<int>(goal->category()));
     query.bindValue(QStringLiteral(":goalid"), goal->identifier());
     query.bindValue(QStringLiteral(":profileid"), learner->identifier());
@@ -472,8 +472,8 @@ QHash<QString, int> Storage::readProgressValues(Learner *learner, LearningGoal *
 
     QHash<QString, int> values;
     while (query.next()) {
-        const QString item {query.value(0).toString()};
-        const int payload {query.value(1).toInt()};
+        const QString item{query.value(0).toString()};
+        const int payload{query.value(1).toInt()};
         values.insert(item, payload);
     }
     return values;
@@ -484,12 +484,12 @@ int Storage::readProgressValue(Learner *learner, LearningGoal *goal, const QStri
     QSqlDatabase db = database();
     QSqlQuery query(db);
     query.prepare(
-        "SELECT payload FROM learner_progress_value "
-        "WHERE goal_category = :goalcategory "
-        "AND goal_identifier = :goalid "
-        "AND profile_id = :profileid "
-        "AND item_container = :container "
-        "AND item = :item");
+        QLatin1String("SELECT payload FROM learner_progress_value "
+                      "WHERE goal_category = :goalcategory "
+                      "AND goal_identifier = :goalid "
+                      "AND profile_id = :profileid "
+                      "AND item_container = :container "
+                      "AND item = :item"));
     query.bindValue(QStringLiteral(":goalcategory"), static_cast<int>(goal->category()));
     query.bindValue(QStringLiteral(":goalid"), goal->identifier());
     query.bindValue(QStringLiteral(":profileid"), learner->identifier());
@@ -510,8 +510,8 @@ int Storage::readProgressValue(Learner *learner, LearningGoal *goal, const QStri
 
 QSqlDatabase Storage::database()
 {
-    if (QSqlDatabase::contains(QSqlDatabase::defaultConnection)) {
-        return QSqlDatabase::database(QSqlDatabase::defaultConnection);
+    if (QSqlDatabase::contains(QLatin1String(QSqlDatabase::defaultConnection))) {
+        return QSqlDatabase::database(QLatin1String(QSqlDatabase::defaultConnection));
     }
 
     // create data directory if it does not exist
@@ -544,10 +544,10 @@ bool Storage::updateSchema()
 
     // check database version format
     db.exec(
-        "CREATE TABLE IF NOT EXISTS metadata ("
-        "key TEXT PRIMARY KEY, "
-        "value TEXT"
-        ")");
+        QLatin1String("CREATE TABLE IF NOT EXISTS metadata ("
+                      "key TEXT PRIMARY KEY, "
+                      "value TEXT"
+                      ")"));
     if (db.lastError().isValid()) {
         qCritical() << db.lastError().text();
         raiseError(db.lastError());
@@ -565,7 +565,7 @@ bool Storage::updateSchema()
         QString version = versionQuery.value(0).toString();
         if (version != QLatin1String("1")) {
             m_errorMessage = i18n("Invalid database version '%1'.", version);
-            emit errorMessageChanged();
+            Q_EMIT errorMessageChanged();
             return false;
         }
     } else {
@@ -589,10 +589,10 @@ bool Storage::updateSchema()
 
     // table for learner profiles
     db.exec(
-        "CREATE TABLE IF NOT EXISTS profiles ("
-        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "name TEXT"
-        ")");
+        QLatin1String("CREATE TABLE IF NOT EXISTS profiles ("
+                      "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                      "name TEXT"
+                      ")"));
     if (db.lastError().isValid()) {
         qCritical() << db.lastError().text();
         raiseError(db.lastError());
@@ -601,12 +601,12 @@ bool Storage::updateSchema()
 
     // table for registered learning goals
     db.exec(
-        "CREATE TABLE IF NOT EXISTS goals ("
-        "category INTEGER, " // LearningGoal::Category
-        "identifier TEXT, "  // identifier, unique per Category
-        "name TEXT, "        // name
-        "PRIMARY KEY ( category, identifier )"
-        ")");
+        QLatin1String("CREATE TABLE IF NOT EXISTS goals ("
+                      "category INTEGER, " // LearningGoal::Category
+                      "identifier TEXT, " // identifier, unique per Category
+                      "name TEXT, " // name
+                      "PRIMARY KEY ( category, identifier )"
+                      ")"));
     if (db.lastError().isValid()) {
         qCritical() << db.lastError().text();
         raiseError(db.lastError());
@@ -615,12 +615,12 @@ bool Storage::updateSchema()
 
     // table for learner - learningGoal relations
     db.exec(
-        "CREATE TABLE IF NOT EXISTS learner_goals ("
-        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "goal_category INTEGER, " // LearningGoal::Category
-        "goal_identifier TEXT, "  // LearningGoal::Identifier
-        "profile_id INTEGER "     // Learner::Identifier
-        ")");
+        QLatin1String("CREATE TABLE IF NOT EXISTS learner_goals ("
+                      "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                      "goal_category INTEGER, " // LearningGoal::Category
+                      "goal_identifier TEXT, " // LearningGoal::Identifier
+                      "profile_id INTEGER " // Learner::Identifier
+                      ")"));
     if (db.lastError().isValid()) {
         qCritical() << db.lastError().text();
         raiseError(db.lastError());
@@ -629,16 +629,16 @@ bool Storage::updateSchema()
 
     // table for full progress data log
     db.exec(
-        "CREATE TABLE IF NOT EXISTS learner_progress_log ("
-        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "goal_category INTEGER, " // LearningGoal::Category
-        "goal_identifier TEXT, "  // LearningGoal::Identifier
-        "profile_id INTEGER, "    // Learner::Identifier
-        "item_container TEXT, "
-        "item TEXT, "
-        "payload INTEGER, "
-        "date TEXT"
-        ")");
+        QLatin1String("CREATE TABLE IF NOT EXISTS learner_progress_log ("
+                      "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                      "goal_category INTEGER, " // LearningGoal::Category
+                      "goal_identifier TEXT, " // LearningGoal::Identifier
+                      "profile_id INTEGER, " // Learner::Identifier
+                      "item_container TEXT, "
+                      "item TEXT, "
+                      "payload INTEGER, "
+                      "date TEXT"
+                      ")"));
     if (db.lastError().isValid()) {
         qCritical() << db.lastError().text();
         raiseError(db.lastError());
@@ -647,15 +647,15 @@ bool Storage::updateSchema()
 
     // table for progress data quick access
     db.exec(
-        "CREATE TABLE IF NOT EXISTS learner_progress_value ("
-        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "goal_category INTEGER, " // LearningGoal::Category
-        "goal_identifier TEXT, "  // LearningGoal::Identifier
-        "profile_id INTEGER, "    // Learner::Identifier
-        "item_container TEXT, "
-        "item TEXT, "
-        "payload INTEGER"
-        ")");
+        QLatin1String("CREATE TABLE IF NOT EXISTS learner_progress_value ("
+                      "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                      "goal_category INTEGER, " // LearningGoal::Category
+                      "goal_identifier TEXT, " // LearningGoal::Identifier
+                      "profile_id INTEGER, " // Learner::Identifier
+                      "item_container TEXT, "
+                      "item TEXT, "
+                      "payload INTEGER"
+                      ")"));
     if (db.lastError().isValid()) {
         qCritical() << db.lastError().text();
         raiseError(db.lastError());

@@ -74,9 +74,9 @@ public:
 
     void appendCourse(std::shared_ptr<ICourse> course)
     {
-        emit courseAboutToBeAdded(course, m_courses.count());
+        Q_EMIT courseAboutToBeAdded(course, m_courses.count());
         m_courses.append(course);
-        emit courseAdded();
+        Q_EMIT courseAdded();
     }
 
     void removeCourse(std::shared_ptr<ICourse> course)
@@ -84,9 +84,9 @@ public:
         auto index = m_courses.indexOf(course);
         Q_ASSERT(index >= 0);
         if (index >= 0) {
-            emit courseAboutToBeRemoved(index);
+            Q_EMIT courseAboutToBeRemoved(index);
             m_courses.remove(index);
-            emit courseRemoved();
+            Q_EMIT courseRemoved();
         }
     }
 

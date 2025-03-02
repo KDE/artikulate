@@ -27,7 +27,7 @@ void UnitFilterModel::setUnitModel(UnitModel *unitModel)
     m_unitModel = unitModel;
     setSourceModel(m_unitModel);
     sort(0);
-    emit unitModelChanged();
+    Q_EMIT unitModelChanged();
 }
 
 int UnitFilterModel::filteredCount() const

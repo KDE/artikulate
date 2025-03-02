@@ -18,7 +18,7 @@ class TestUnit : public QObject
 public:
     TestUnit();
 
-private slots:
+private Q_SLOTS:
     /**
      * @brief Called before every test case.
      */

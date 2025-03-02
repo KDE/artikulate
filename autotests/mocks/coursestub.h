@@ -49,7 +49,7 @@ public:
     void setTitle(QString title)
     {
         m_title = title;
-        emit titleChanged();
+        Q_EMIT titleChanged();
     }
     QString i18nTitle() const override
     {
@@ -80,7 +80,7 @@ public:
     }
 
 private:
-    QString m_title {"title"};
+    QString m_title {QStringLiteral("title")};
     std::weak_ptr<ICourse> m_self;
     std::shared_ptr<ILanguage> m_language;
     QVector<std::shared_ptr<Unit>> m_units;
