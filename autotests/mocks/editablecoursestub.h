@@ -48,7 +48,7 @@ public:
     void setId(QString id) override
     {
         m_id = id;
-        emit idChanged();
+        Q_EMIT idChanged();
     }
     QString foreignId() const override
     {
@@ -65,7 +65,7 @@ public:
     void setTitle(QString title) override
     {
         m_title = title;
-        emit titleChanged();
+        Q_EMIT titleChanged();
     }
     QString i18nTitle() const override
     {
@@ -82,7 +82,7 @@ public:
     void setDescription(QString description) override
     {
         m_description = description;
-        emit descriptionChanged();
+        Q_EMIT descriptionChanged();
     }
     std::shared_ptr<ILanguage> language() const override
     {
@@ -98,7 +98,7 @@ public:
     void setLanguage(std::shared_ptr<ILanguage> language) override
     {
         m_language = language;
-        emit languageChanged();
+        Q_EMIT languageChanged();
     }
     QVector<std::shared_ptr<Unit>> units() override
     {
@@ -146,7 +146,7 @@ public:
     }
     void triggerUnitChanged(std::shared_ptr<IEditableUnit> unit)
     {
-        emit unitChanged(unit);
+        Q_EMIT unitChanged(unit);
     }
 
 private:

@@ -29,7 +29,7 @@ public:
     QString title() const;
     void setTitle(const QString &title);
 
-signals:
+Q_SIGNALS:
     void idChanged();
     void titleChanged();
 

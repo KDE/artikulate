@@ -36,7 +36,7 @@ void Learner::setName(const QString &name)
         return;
     }
     d->m_name = name;
-    emit nameChanged();
+    Q_EMIT nameChanged();
 }
 
 int Learner::identifier() const
@@ -50,7 +50,7 @@ void Learner::setIdentifier(int identifier)
         return;
     }
     d->m_identifier = identifier;
-    emit identifierChanged();
+    Q_EMIT identifierChanged();
 }
 
 QString Learner::imageUrl() const
@@ -59,12 +59,12 @@ QString Learner::imageUrl() const
     if (!QFileInfo::exists(path)) {
         return QString();
     }
-    return "file://" + path;
+    return QStringLiteral("file://") + path;
 }
 
 void Learner::clearImage()
 {
-    const QString path {d->imagePath()};
+    const QString path{d->imagePath()};
     if (!QFileInfo::exists(path)) {
         return;
     }
@@ -72,7 +72,7 @@ void Learner::clearImage()
     if (!file.remove(path)) {
         qCCritical(LIBLEARNER_LOG) << "could not remove image:" << path;
     }
-    emit imageChanged();
+    Q_EMIT imageChanged();
 }
 
 void Learner::importImage(const QString &path)
@@ -93,7 +93,7 @@ void Learner::importImage(const QString &path)
     if (!image.save(d->imagePath(), "PNG")) {
         qCCritical(LIBLEARNER_LOG()) << "could not save scaled image to" << d->imagePath();
     }
-    emit imageChanged();
+    Q_EMIT imageChanged();
     qCDebug(LIBLEARNER_LOG) << "saved scaled image from " << path << " at " << d->imagePath();
 }
 
@@ -107,9 +107,9 @@ void Learner::addGoal(LearnerProfile::LearningGoal *goal)
     if (d->m_goals.contains(goal)) {
         return;
     }
-    emit goalAboutToBeAdded(goal, d->m_goals.count());
+    Q_EMIT goalAboutToBeAdded(goal, d->m_goals.count());
     d->m_goals.append(goal);
-    emit goalAdded();
+    Q_EMIT goalAdded();
 }
 
 void Learner::removeGoal(LearnerProfile::LearningGoal *goal)
@@ -119,14 +119,14 @@ void Learner::removeGoal(LearnerProfile::LearningGoal *goal)
         qCritical() << "Cannot remove goal, not found: aborting";
         return;
     }
-    emit goalAboutToBeRemoved(index);
+    Q_EMIT goalAboutToBeRemoved(index);
     d->m_goals.removeAt(index);
-    emit goalRemoved(this, goal);
+    Q_EMIT goalRemoved(this, goal);
 }
 
 bool Learner::hasGoal(LearningGoal *goal) const
 {
-    foreach (LearningGoal *cmpGoal, d->m_goals) {
+    for (LearningGoal *cmpGoal : std::as_const(d->m_goals)) {
         if (goal->identifier() == cmpGoal->identifier()) {
             return true;
         }
@@ -141,7 +141,7 @@ void Learner::setActiveGoal(LearningGoal *goal)
     }
 
     d->m_activeGoal.insert(goal->category(), goal);
-    emit activeGoalChanged();
+    Q_EMIT activeGoalChanged();
 }
 
 void Learner::setActiveGoal(Learner::Category categoryLearner, const QString &identifier)
@@ -154,7 +154,7 @@ void Learner::setActiveGoal(Learner::Category categoryLearner, const QString &id
         return;
     }
 
-    foreach (LearningGoal *goal, d->m_goals) {
+    for (LearningGoal *goal : std::as_const(d->m_goals)) {
         if (goal->category() == category && goal->identifier() == identifier) {
             setActiveGoal(goal);
             return;
@@ -169,8 +169,9 @@ LearningGoal *Learner::activeGoal(Learner::Category categoryLearner) const
     // workaround for Q_INVOKABLE access of enum
     LearningGoal::Category category = static_cast<LearningGoal::Category>(categoryLearner);
     if (!d->m_activeGoal.contains(category)) {
-        qCWarning(LIBLEARNER_LOG) << "(Learner " << identifier() << ") No current learning goal set for category " << category << " : fall back to first in list";
-        foreach (LearningGoal *goal, d->m_goals) {
+        qCWarning(LIBLEARNER_LOG) << "(Learner " << identifier() << ") No current learning goal set for category " << category
+                                  << " : fall back to first in list";
+        for (LearningGoal *goal : std::as_const(d->m_goals)) {
             if (goal->category() == category) {
                 return goal;
             }

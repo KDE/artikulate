@@ -16,7 +16,7 @@ class TestSkeletonResource : public QObject
 public:
     TestSkeletonResource();
 
-private slots:
+private Q_SLOTS:
     /**
      * @brief Called before every test case.
      */

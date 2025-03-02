@@ -20,7 +20,7 @@ UnitModel::UnitModel(QObject *parent)
     , m_course(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITUnitChanged(int)));
 }
 
 QHash<int, QByteArray> UnitModel::roleNames() const
@@ -57,7 +57,7 @@ void UnitModel::setCourse(ICourse *course)
 
     endResetModel();
 
-    emit courseChanged();
+    Q_EMIT courseChanged();
 }
 
 ICourse *UnitModel::course() const
@@ -138,10 +138,10 @@ void UnitModel::onUnitsRemoved()
     endRemoveRows();
 }
 
-void UnitModel::emitUnitChanged(int row)
+void UnitModel::Q_EMITUnitChanged(int row)
 {
-    emit unitChanged(row);
-    emit dataChanged(index(row, 0), index(row, 0));
+    Q_EMIT unitChanged(row);
+    Q_EMIT dataChanged(index(row, 0), index(row, 0));
 }
 
 QVariant UnitModel::headerData(int section, Qt::Orientation orientation, int role) const

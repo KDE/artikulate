@@ -69,7 +69,7 @@ std::vector<std::shared_ptr<Unit>> CourseParser::parseUnits(const QUrl &path, QV
         xml.readNextStartElement();
 
         while (!xml.atEnd() && !xml.hasError()) {
-            bool elementOk {false};
+            bool elementOk{false};
             QXmlStreamReader::TokenType token = xml.readNext();
 
             if (token == QXmlStreamReader::StartDocument) {
@@ -98,7 +98,8 @@ std::vector<std::shared_ptr<Unit>> CourseParser::parseUnits(const QUrl &path, QV
     return units;
 }
 
-std::shared_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool skipIncomplete, bool &ok)
+std::shared_ptr<Unit>
+CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::shared_ptr<Phoneme>> phonemes, bool skipIncomplete, bool &ok)
 {
     std::shared_ptr<Unit> unit = Unit::create();
     ok = true;
@@ -111,7 +112,7 @@ std::shared_ptr<Unit> CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl 
     xml.readNext();
     while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == QLatin1String("unit"))) {
         if (xml.tokenType() == QXmlStreamReader::StartElement) {
-            bool elementOk {false};
+            bool elementOk{false};
             if (xml.name() == QLatin1String("id")) {
                 unit->setId(parseElement(xml, elementOk));
                 ok &= elementOk;
@@ -155,7 +156,7 @@ std::shared_ptr<Phrase> CourseParser::parsePhrase(QXmlStreamReader &xml, const Q
     xml.readNext();
     while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == QLatin1String("phrase"))) {
         if (xml.tokenType() == QXmlStreamReader::StartElement) {
-            bool elementOk {false};
+            bool elementOk{false};
             if (xml.name() == QLatin1String("id")) {
                 phrase->setId(parseElement(xml, elementOk));
                 ok &= elementOk;
@@ -171,7 +172,7 @@ std::shared_ptr<Phrase> CourseParser::parsePhrase(QXmlStreamReader &xml, const Q
             } else if (xml.name() == QLatin1String("soundFile")) {
                 QString fileName = parseElement(xml, elementOk);
                 if (!fileName.isEmpty()) {
-                    phrase->setSound(QUrl::fromLocalFile(path.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash).path() + '/' + fileName));
+                    phrase->setSound(QUrl::fromLocalFile(path.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash).path() + QLatin1Char('/') + fileName));
                 }
                 ok &= elementOk;
             } else if (xml.name() == QLatin1String("phonemes")) {
@@ -184,23 +185,23 @@ std::shared_ptr<Phrase> CourseParser::parsePhrase(QXmlStreamReader &xml, const Q
                 ok &= elementOk;
             } else if (xml.name() == QLatin1String("type")) {
                 const QString type = parseElement(xml, elementOk);
-                if (type == "word") {
+                if (type == QStringLiteral("word")) {
                     phrase->setType(IPhrase::Type::Word);
-                } else if (type == "expression") {
+                } else if (type == QStringLiteral("expression")) {
                     phrase->setType(IPhrase::Type::Expression);
-                } else if (type == "sentence") {
+                } else if (type == QStringLiteral("sentence")) {
                     phrase->setType(IPhrase::Type::Sentence);
-                } else if (type == "paragraph") {
+                } else if (type == QStringLiteral("paragraph")) {
                     phrase->setType(IPhrase::Type::Paragraph);
                 }
                 ok &= elementOk;
             } else if (xml.name() == QLatin1String("editState")) {
                 const QString type = parseElement(xml, elementOk);
-                if (type == "translated") {
+                if (type == QStringLiteral("translated")) {
                     phrase->setEditState(Phrase::EditState::Translated);
-                } else if (type == "completed") {
+                } else if (type == QStringLiteral("completed")) {
                     phrase->setEditState(Phrase::EditState::Completed);
-                } else if (type == "unknown") {
+                } else if (type == QStringLiteral("unknown")) {
                     phrase->setEditState(Phrase::EditState::Completed);
                 }
                 ok &= elementOk;
@@ -232,7 +233,7 @@ QStringList CourseParser::parsePhonemeIds(QXmlStreamReader &xml, bool &ok)
         xml.readNext();
         if (xml.tokenType() == QXmlStreamReader::StartElement) {
             if (xml.name() == QLatin1String("phonemeID")) {
-                bool elementOk {false};
+                bool elementOk{false};
                 ids.append(parseElement(xml, elementOk));
                 ok &= elementOk;
             } else {
@@ -374,22 +375,22 @@ QDomElement CourseParser::serializedPhrase(std::shared_ptr<IEditablePhrase> phra
 bool CourseParser::exportCourseToGhnsPackage(std::shared_ptr<IEditableCourse> course, const QString &exportPath)
 {
     // filename
-    const QString fileName = course->id() + ".tar.bz2";
-    KTar tar = KTar(exportPath + '/' + fileName, QStringLiteral("application/x-bzip"));
+    const QString fileName = course->id() + QStringLiteral(".tar.bz2");
+    KTar tar = KTar(exportPath + QLatin1Char('/') + fileName, QStringLiteral("application/x-bzip"));
     if (!tar.open(QIODevice::WriteOnly)) {
-        qCWarning(ARTIKULATE_CORE()) << "Unable to open tar file" << exportPath + '/' + fileName << "in write mode, aborting.";
+        qCWarning(ARTIKULATE_CORE()) << "Unable to open tar file" << exportPath + QLatin1Char('/') + fileName << "in write mode, aborting.";
         return false;
     }
 
     for (auto &unit : course->units()) {
         for (auto &phrase : unit->phrases()) {
             if (QFile::exists(phrase->soundFileUrl())) {
-                tar.addLocalFile(phrase->soundFileUrl(), phrase->id() + ".ogg");
+                tar.addLocalFile(phrase->soundFileUrl(), phrase->id() + QStringLiteral(".ogg"));
             }
         }
     }
 
-    tar.writeFile(course->id() + ".xml", CourseParser::serializedDocument(course, true).toByteArray());
+    tar.writeFile(course->id() + QStringLiteral(".xml"), CourseParser::serializedDocument(course, true).toByteArray());
 
     tar.close();
     return true;

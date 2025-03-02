@@ -18,7 +18,7 @@ PhonemeModel::PhonemeModel(QObject *parent)
     , m_language(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeChanged(int)));
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITPhonemeChanged(int)));
 }
 
 QHash<int, QByteArray> PhonemeModel::roleNames() const
@@ -40,7 +40,7 @@ void PhonemeModel::setLanguage(Language *language)
 {
     beginResetModel();
     m_language = language;
-    emit languageChanged();
+    Q_EMIT languageChanged();
     endResetModel();
 }
 
@@ -106,10 +106,10 @@ void PhonemeModel::onPhonemesRemoved()
     endRemoveRows();
 }
 
-void PhonemeModel::emitPhonemeChanged(int row)
+void PhonemeModel::Q_EMITPhonemeChanged(int row)
 {
-    emit phonemeChanged(row);
-    emit dataChanged(index(row, 0), index(row, 0));
+    Q_EMIT phonemeChanged(row);
+    Q_EMIT dataChanged(index(row, 0), index(row, 0));
 }
 
 QVariant PhonemeModel::headerData(int section, Qt::Orientation orientation, int role) const

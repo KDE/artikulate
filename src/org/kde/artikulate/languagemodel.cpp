@@ -33,7 +33,7 @@ void LanguageModel::setView(LanguageResourceView view)
         return;
     }
     m_view = view;
-    emit viewChanged();
+    Q_EMIT viewChanged();
 }
 
 LanguageModel::LanguageResourceView LanguageModel::view() const
@@ -48,7 +48,7 @@ void LanguageModel::setResourceModel(LanguageResourceModel *resourceModel)
         m_resourceModel->setView(m_view);
         setSourceModel(m_resourceModel);
         sort(0);
-        emit resourceModelChanged();
+        Q_EMIT resourceModelChanged();
     }
 }
 

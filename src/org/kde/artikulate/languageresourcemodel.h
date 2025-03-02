@@ -52,7 +52,7 @@ private Q_SLOTS:
     void onLanguageAdded();
     void onLanguageAboutToBeRemoved(int index);
     void onLanguageRemoved();
-    void emitLanguageChanged(int row);
+    void Q_EMITLanguageChanged(int row);
     void updateDisplayedLanguages();
 
 private:

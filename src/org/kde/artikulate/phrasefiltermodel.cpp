@@ -25,7 +25,7 @@ void PhraseFilterModel::setHideExcluded(bool hide)
 {
     m_hideExcluded = hide;
     invalidateFilter();
-    emit hideExcludedChanged();
+    Q_EMIT hideExcludedChanged();
 }
 
 bool PhraseFilterModel::isHideExcluded() const
@@ -37,7 +37,7 @@ void PhraseFilterModel::setHideNotRecorded(bool hide)
 {
     m_hideNotRecorded = hide;
     invalidateFilter();
-    emit hideNotRecordedChanged();
+    Q_EMIT hideNotRecordedChanged();
 }
 
 bool PhraseFilterModel::isHideNotRecorded() const
@@ -55,14 +55,14 @@ void PhraseFilterModel::setPhraseModel(PhraseListModel *phraseModel)
     setSourceModel(m_phraseModel);
     sort(0);
 
-    emit phraseModelChanged();
+    Q_EMIT phraseModelChanged();
 }
 
 void PhraseFilterModel::setSortOption(PhraseFilterModel::SortOption option)
 {
     m_sortOption = option;
     invalidateFilter();
-    emit sortOptionChanged();
+    Q_EMIT sortOptionChanged();
 }
 
 PhraseFilterModel::SortOption PhraseFilterModel::sortOption() const

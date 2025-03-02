@@ -49,11 +49,11 @@ LearnerProfile::ProfileManagerPrivate::ProfileManagerPrivate()
     m_profiles.append(m_storage.loadProfiles(m_goals));
 
     // set last used profile
-    KConfigGroup activeProfileGroup(m_config.get(), "ActiveProfile");
+    KConfigGroup activeProfileGroup(m_config.get(), QStringLiteral("ActiveProfile"));
     int lastProfileId = activeProfileGroup.readEntry("profileId", "0").toInt();
     QList<int> activeGoalsCategories = activeProfileGroup.readEntry("activeGoalsCategories", QList<int>());
     QList<QString> activeGoalsIdentifiers = activeProfileGroup.readEntry("activeGoalsIdentifiers", QList<QString>());
-    foreach (Learner *learner, m_profiles) {
+    for (Learner *learner : std::as_const(m_profiles)) {
         if (learner->identifier() == lastProfileId) {
             m_activeProfile = learner;
             // set active goals
@@ -79,20 +79,20 @@ void ProfileManagerPrivate::sync()
 {
     // sync last used profile data
     if (m_activeProfile) {
-        KConfigGroup activeProfileGroup(m_config.get(), "ActiveProfile");
+        KConfigGroup activeProfileGroup(m_config.get(), QStringLiteral("ActiveProfile"));
         activeProfileGroup.writeEntry("profileId", m_activeProfile->identifier());
 
         // compute activer learning goals by category
         QList<int> goalCatogries;
         QList<QString> goalIdentifiers;
         // compute used goals
-        foreach (LearningGoal *goal, m_activeProfile->goals()) {
+        for (LearningGoal *goal : m_activeProfile->goals()) {
             if (!goalCatogries.contains(static_cast<int>(goal->category()))) {
                 goalCatogries.append(static_cast<int>(goal->category()));
             }
         }
         // compute active goals
-        foreach (int category, goalCatogries) {
+        for (int category : std::as_const(goalCatogries)) {
             goalIdentifiers.append(m_activeProfile->activeGoal(static_cast<Learner::Category>(category))->identifier());
         }
         activeProfileGroup.writeEntry("activeGoalsCategories", goalCatogries);
@@ -103,7 +103,7 @@ void ProfileManagerPrivate::sync()
     m_config->sync();
 
     // TODO only sync changed learner
-    foreach (Learner *learner, m_profiles) {
+    for (Learner *learner : std::as_const(m_profiles)) {
         m_storage.storeProfile(learner);
     }
 }
@@ -116,7 +116,7 @@ ProfileManager::ProfileManager(QObject *parent)
     connect(this, &ProfileManager::profileAdded, this, &ProfileManager::profileCountChanged);
     connect(this, &ProfileManager::profileRemoved, this, &ProfileManager::profileCountChanged);
 
-    foreach (Learner *learner, d->m_profiles) {
+    for (Learner *learner : std::as_const(d->m_profiles)) {
         connect(learner, &Learner::goalRemoved, this, &ProfileManager::removeLearningGoal);
     }
 }
@@ -154,7 +154,7 @@ Learner *ProfileManager::addProfile(const QString &name)
 
     // set id
     int maxUsedId = 0;
-    foreach (Learner *cpLearner, d->m_profiles) {
+    for (Learner *cpLearner : std::as_const(d->m_profiles)) {
         if (cpLearner->identifier() >= maxUsedId) {
             maxUsedId = cpLearner->identifier();
         }
@@ -163,7 +163,7 @@ Learner *ProfileManager::addProfile(const QString &name)
 
     d->m_profiles.append(learner);
     d->m_storage.storeProfile(learner);
-    emit profileAdded(learner, d->m_profiles.count() - 1);
+    Q_EMIT profileAdded(learner, d->m_profiles.count() - 1);
 
     if (activeProfile() == nullptr) {
         setActiveProfile(learner);
@@ -181,7 +181,7 @@ void ProfileManager::removeProfile(Learner *learner)
         qCWarning(LIBLEARNER_LOG()) << "Profile was not found, aborting";
         return;
     }
-    emit profileAboutToBeRemoved(index);
+    Q_EMIT profileAboutToBeRemoved(index);
     d->m_profiles.removeAt(index);
     d->m_storage.removeProfile(learner);
 
@@ -192,7 +192,7 @@ void ProfileManager::removeProfile(Learner *learner)
             setActiveProfile(d->m_profiles.at(0));
         }
     }
-    emit profileRemoved();
+    Q_EMIT profileRemoved();
 }
 
 void ProfileManager::removeLearningGoal(Learner *learner, LearningGoal *goal)
@@ -216,7 +216,7 @@ QList<LearningGoal *> ProfileManager::goals() const
 LearningGoal *ProfileManager::registerGoal(LearningGoal::Category category, const QString &identifier, const QString &name)
 {
     // test whether goal is already registered
-    foreach (LearningGoal *cmpGoal, d->m_goals) {
+    for (LearningGoal *cmpGoal : std::as_const(d->m_goals)) {
         if (cmpGoal->category() == category && cmpGoal->identifier() == identifier) {
             return cmpGoal;
         }
@@ -230,7 +230,7 @@ LearningGoal *ProfileManager::registerGoal(LearningGoal::Category category, cons
 
 LearnerProfile::LearningGoal *LearnerProfile::ProfileManager::goal(LearningGoal::Category category, const QString &identifier) const
 {
-    foreach (LearningGoal *goal, d->m_goals) {
+    for (LearningGoal *goal : std::as_const(d->m_goals)) {
         if (goal->category() == category && goal->identifier() == identifier) {
             return goal;
         }
@@ -241,7 +241,7 @@ LearnerProfile::LearningGoal *LearnerProfile::ProfileManager::goal(LearningGoal:
 void ProfileManager::recordProgress(Learner *learner, LearningGoal *goal, const QString &container, const QString &item, int logPayload, int valuePayload)
 {
     if (!learner) {
-        qCDebug(LIBLEARNER_LOG()) << "No learner set, no data stored";
+        qCDebug(LIBLEARNER_LOG) << "No learner set, no data stored";
         return;
     }
     d->m_storage.storeProgressLog(learner, goal, container, item, logPayload, QDateTime::currentDateTime());
@@ -277,5 +277,5 @@ void ProfileManager::setActiveProfile(Learner *learner)
         return;
     }
     d->m_activeProfile = learner;
-    emit activeProfileChanged();
+    Q_EMIT activeProfileChanged();
 }
