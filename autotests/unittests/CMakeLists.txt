@@ -34,8 +34,6 @@ target_sources(test_trainingsession PUBLIC
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/editorsession.cpp
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/isessionactions.h
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingsession.cpp
-    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingaction.cpp
-    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingactionicon.cpp
     ${CMAKE_SOURCE_DIR}/src/artikulate_debug.cpp
     ../mocks/coursestub.cpp
     ../mocks/languagestub.cpp
@@ -54,8 +52,6 @@ target_sources(test_editorsession PUBLIC
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/editorsession.cpp
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/isessionactions.h
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingsession.cpp
-    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingaction.cpp
-    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingactionicon.cpp
     ${CMAKE_SOURCE_DIR}/src/artikulate_debug.cpp
     editorsession/test_editorsession.cpp
     ../mocks/editablerepositorystub.cpp
@@ -181,8 +177,6 @@ target_sources(test_drawercoursetreemodel PUBLIC
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/editorsession.cpp
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/isessionactions.h
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingsession.cpp
-    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingaction.cpp
-    ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingactionicon.cpp
     ${CMAKE_SOURCE_DIR}/src/artikulate_debug.cpp
     ../mocks/coursestub.cpp
     ../mocks/languagestub.cpp

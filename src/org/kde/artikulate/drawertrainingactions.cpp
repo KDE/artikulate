@@ -3,7 +3,6 @@
 
 #include "drawertrainingactions.h"
 #include "drawercoursetreemodel.h"
-#include "trainingaction.h"
 #include <KLocalizedString>
 #include <QAction>
 #include <QList>

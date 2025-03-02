@@ -26,7 +26,13 @@ class ARTIKULATECORE_EXPORT IPhrase : public QObject
     Q_PROPERTY(IPhrase::Type type READ type NOTIFY typeChanged)
 
 public:
-    enum class Type { Word, Expression, Sentence, Paragraph, AllTypes };
+    enum class Type {
+        Word,
+        Expression,
+        Sentence,
+        Paragraph,
+        AllTypes
+    };
     Q_ENUM(Type)
 
     ~IPhrase() override = default;
@@ -42,6 +48,8 @@ public:
     virtual QUrl sound() const = 0;
     virtual QVector<Phoneme *> phonemes() const = 0;
     virtual std::shared_ptr<IPhrase> self() const = 0;
+    virtual std::shared_ptr<IPhrase> previous() const = 0;
+    virtual std::shared_ptr<IPhrase> next() const = 0;
 
 protected:
     IPhrase()

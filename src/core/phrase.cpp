@@ -107,16 +107,16 @@ Phrase::Type Phrase::type() const
 QString Phrase::typeString() const
 {
     switch (m_type) {
-        case IPhrase::Type::Word:
-            return QStringLiteral("word");
-        case IPhrase::Type::Expression:
-            return QStringLiteral("expression");
-        case IPhrase::Type::Sentence:
-            return QStringLiteral("sentence");
-        case IPhrase::Type::Paragraph:
-            return QStringLiteral("paragraph");
-        default:
-            return QStringLiteral("ERROR_UNKNOWN_TYPE");
+    case IPhrase::Type::Word:
+        return QStringLiteral("word");
+    case IPhrase::Type::Expression:
+        return QStringLiteral("expression");
+    case IPhrase::Type::Sentence:
+        return QStringLiteral("sentence");
+    case IPhrase::Type::Paragraph:
+        return QStringLiteral("paragraph");
+    default:
+        return QStringLiteral("ERROR_UNKNOWN_TYPE");
     }
 }
 
@@ -159,12 +159,12 @@ Phrase::EditState Phrase::editState() const
 QString Phrase::editStateString() const
 {
     switch (m_editState) {
-        case IEditablePhrase::EditState::Unknown:
-            return QStringLiteral("unknown");
-        case IEditablePhrase::EditState::Translated:
-            return QStringLiteral("translated");
-        case IEditablePhrase::EditState::Completed:
-            return QStringLiteral("completed");
+    case IEditablePhrase::EditState::Unknown:
+        return QStringLiteral("unknown");
+    case IEditablePhrase::EditState::Translated:
+        return QStringLiteral("translated");
+    case IEditablePhrase::EditState::Completed:
+        return QStringLiteral("completed");
     }
     Q_UNREACHABLE();
 }
@@ -211,7 +211,71 @@ void Phrase::setUnit(std::shared_ptr<IUnit> unit)
         return;
     }
     m_unit = unit;
-    emit unitChanged();
+    Q_EMIT unitChanged();
+}
+
+std::shared_ptr<IPhrase> Phrase::next() const
+{
+    if (m_unit.lock() == nullptr) {
+        qCritical() << "Phrase has no unit parent, abort previous computation";
+        return std::shared_ptr<IPhrase>();
+    }
+    qsizetype phraseIndex{0};
+    auto unitPhrases = m_unit.lock()->phrases();
+    for (qsizetype i = 0; i < unitPhrases.size(); ++i) {
+        if (unitPhrases.at(i).get() == this) {
+            phraseIndex = i;
+            break;
+        }
+    }
+    if (phraseIndex < unitPhrases.size() - 1) {
+        return unitPhrases.at(phraseIndex + 1);
+    } else {
+        qsizetype unitIndex{0};
+        auto units = m_unit.lock()->course()->units();
+        for (qsizetype i = 0; i < units.size(); ++i) {
+            if (units.at(i).get() == m_unit.lock().get()) {
+                unitIndex = i;
+                break;
+            }
+        }
+        if (unitIndex < units.size() - 1 && !units.at(unitIndex + 1)->phrases().isEmpty()) {
+            return units.at(unitIndex + 1)->phrases().first();
+        }
+    }
+    return std::shared_ptr<IPhrase>();
+}
+
+std::shared_ptr<IPhrase> Phrase::previous() const
+{
+    if (m_unit.lock() == nullptr) {
+        qCritical() << "Phrase has no unit parent, abort previous computation";
+        return std::shared_ptr<IPhrase>();
+    }
+    qsizetype phraseIndex{0};
+    auto unitPhrases = m_unit.lock()->phrases();
+    for (qsizetype i = 0; i < unitPhrases.size(); ++i) {
+        if (unitPhrases.at(i).get() == this) {
+            phraseIndex = i;
+            break;
+        }
+    }
+    if (phraseIndex > 0) {
+        return unitPhrases.at(phraseIndex - 1);
+    } else {
+        qsizetype unitIndex{0};
+        auto units = m_unit.lock()->course()->units();
+        for (qsizetype i = 0; i < units.size(); ++i) {
+            if (units.at(i).get() == m_unit.lock().get()) {
+                unitIndex = i;
+                break;
+            }
+        }
+        if (unitIndex > 1 && !units.at(unitIndex - 1)->phrases().isEmpty()) {
+            return units.at(unitIndex - 1)->phrases().last();
+        }
+    }
+    return std::shared_ptr<IPhrase>();
 }
 
 QUrl Phrase::sound() const

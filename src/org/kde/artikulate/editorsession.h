@@ -64,8 +64,6 @@ public:
     Q_INVOKABLE void switchToPreviousPhrase();
     Q_INVOKABLE void switchToNextPhrase();
     Q_INVOKABLE void updateCourseFromSkeleton();
-    TrainingAction *activeAction() const override;
-    QVector<TrainingAction *> trainingActions() const override;
 
 Q_SIGNALS:
     void skeletonModeChanged();
@@ -80,9 +78,7 @@ private:
     IEditableRepository *m_repository{nullptr};
     bool m_editSkeleton{false};
     IEditableCourse *m_course{nullptr};
-    QVector<TrainingAction *> m_actions;
-    int m_indexUnit{-1};
-    int m_indexPhrase{-1};
+    IPhrase *m_phrase{nullptr};
 };
 
 #endif
