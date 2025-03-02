@@ -46,11 +46,6 @@ private Q_SLOTS:
      * @brief Test for all iterator functionality
      */
     void iterateCourse();
-
-    /**
-     * @brief Test that the actions are correctly updated when course changes;
-     */
-    void updateActionsBehavior();
 };
 
 #endif

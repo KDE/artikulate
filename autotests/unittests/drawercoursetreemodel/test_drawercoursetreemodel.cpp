@@ -7,10 +7,9 @@
 #include "../mocks/coursestub.h"
 #include "../mocks/languagestub.h"
 #include "org/kde/artikulate/drawercoursetreemodel.h"
-#include "org/kde/artikulate/trainingaction.h"
-#include "org/kde/artikulate/trainingsession.h"
 #include "src/core/icourse.h"
 #include "src/core/language.h"
+#include "src/core/phrase.h"
 #include "src/core/unit.h"
 #include <QAbstractItemModelTester>
 #include <QSignalSpy>

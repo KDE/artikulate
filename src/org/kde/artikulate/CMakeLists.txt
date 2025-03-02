@@ -16,10 +16,6 @@ qt_add_qml_module(
         player.h
         recorder.cpp
         recorder.h
-        trainingaction.cpp
-        trainingaction.h
-        trainingactionicon.cpp
-        trainingactionicon.h
         trainingsession.cpp
         trainingsession.h
         # models

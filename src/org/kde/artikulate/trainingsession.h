@@ -14,7 +14,6 @@
 class Language;
 class ICourse;
 class Unit;
-class TrainingAction;
 
 namespace LearnerProfile
 {
@@ -44,23 +43,12 @@ public:
     void setCourse(ICourse *course);
     IUnit *activeUnit() const;
     void setUnit(IUnit *unit);
-    TrainingAction *activeAction() const override;
     IPhrase *activePhrase() const override;
     void setActivePhrase(IPhrase *phrase) override;
     bool hasPrevious() const;
     bool hasNext() const;
     Q_INVOKABLE void accept();
     Q_INVOKABLE void skip();
-    /**
-     * @brief Return tree of training actions
-     *
-     * The return actions form a 2-level hierarchy:
-     * - the first level are all units
-     * - the unit actions may contain sub-actions, which are the phrases
-     *
-     * @note phrases without sound file paths are skipped when generating actions
-     */
-    QList<TrainingAction *> trainingActions() const override;
 
 Q_SIGNALS:
     /**
@@ -71,15 +59,11 @@ Q_SIGNALS:
 
 private:
     Q_DISABLE_COPY(TrainingSession)
-    void updateTrainingActions();
     void selectNextPhrase();
     void updateGoal();
-    LearnerProfile::ProfileManager *m_profileManager;
-    ICourse *m_course;
-    QList<TrainingAction *> m_actions;
-
-    int m_indexUnit{-1};
-    int m_indexPhrase{-1};
+    LearnerProfile::ProfileManager *m_profileManager{nullptr};
+    ICourse *m_course{nullptr};
+    IPhrase *m_phrase{nullptr};
 };
 
 #endif

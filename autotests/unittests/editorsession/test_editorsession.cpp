@@ -8,11 +8,11 @@
 #include "../mocks/languagestub.h"
 #include "editablerepositorystub.h"
 #include "org/kde/artikulate/editorsession.h"
-#include "org/kde/artikulate/trainingaction.h"
 #include "src/core/icourse.h"
 #include "src/core/ieditablecourse.h"
 #include "src/core/ieditablerepository.h"
 #include "src/core/language.h"
+#include "src/core/phrase.h"
 #include "src/core/resources/skeletonresource.h"
 #include "src/core/unit.h"
 #include <QSignalSpy>
@@ -207,69 +207,6 @@ void TestEditorSession::iterateCourse()
     // at the end, do not iterate further
     session.switchToPreviousPhrase();
     QCOMPARE(session.activePhrase()->id(), phraseA1->id());
-}
-
-void TestEditorSession::updateActionsBehavior()
-{
-    // test preparation
-    auto language = std::make_shared<LanguageStub>("de");
-    auto unitA = Unit::create();
-    auto unitB = Unit::create();
-    unitA->setTitle("titleA");
-    unitB->setTitle("titleB");
-    std::shared_ptr<Phrase> phraseA1 = Phrase::create();
-    std::shared_ptr<Phrase> phraseA2 = Phrase::create();
-    std::shared_ptr<Phrase> phraseB1 = Phrase::create();
-    std::shared_ptr<Phrase> phraseB2 = Phrase::create();
-    phraseA1->setId("A1");
-    phraseA2->setId("A2");
-    phraseB1->setId("B1");
-    phraseB2->setId("B2");
-    phraseA1->setText("A1");
-    phraseA2->setText("A2");
-    phraseB1->setText("B1");
-    phraseB2->setText("B2");
-    unitA->addPhrase(phraseA1, unitA->phrases().size());
-    unitA->addPhrase(phraseA2, unitA->phrases().size());
-    unitB->addPhrase(phraseB1, unitB->phrases().size());
-    unitB->addPhrase(phraseB2, unitB->phrases().size());
-    auto course = EditableCourseStub::create(language, QVector<std::shared_ptr<Unit>>({unitA, unitB}));
-
-    EditableRepositoryStub repository{
-        {language}, // languages
-        {}, // skeletons
-        {course} // courses
-    };
-    EditorSession session;
-    session.setRepository(&repository);
-    QVERIFY(session.activeAction() == nullptr);
-    QCOMPARE(session.trainingActions().count(), 0);
-
-    {
-        QSignalSpy spy(&session, &EditorSession::actionsChanged);
-        session.setCourse(course.get()); // setting the course shall trigger the action update
-        QVERIFY(spy.count() > 0);
-    }
-    QVERIFY(session.activeAction() != nullptr);
-
-    QCOMPARE(session.trainingActions().count(), 2); // 2 units
-    QCOMPARE(session.trainingActions().at(0)->text(), "titleA");
-    QCOMPARE(session.trainingActions().at(1)->text(), "titleB");
-    QCOMPARE(session.trainingActions().at(0)->actions().count(), 2);
-    QCOMPARE(session.trainingActions().at(1)->actions().count(), 2);
-
-    auto phraseA1Object = qobject_cast<TrainingAction *>(session.trainingActions().at(0)->actions().first());
-    QVERIFY(phraseA1Object != nullptr);
-    QCOMPARE(phraseA1Object->text(), phraseA1->text());
-
-    // test update of unit
-    {
-        QCOMPARE(session.trainingActions().last()->text(), unitB->title()); // ensure that correct action is selected
-        QSignalSpy spy(session.trainingActions().last(), &TrainingAction::actionsChanged);
-        unitB->removePhrase(phraseB1->self()); // note: event has to be trigger explicitly
-        course->triggerUnitChanged(unitB);
-        QVERIFY(spy.count() > 0);
-    }
 }
 
 QTEST_GUILESS_MAIN(TestEditorSession)
