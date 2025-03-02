@@ -271,7 +271,7 @@ std::shared_ptr<IPhrase> Phrase::previous() const
                 break;
             }
         }
-        if (unitIndex > 1 && !units.at(unitIndex - 1)->phrases().isEmpty()) {
+        if (unitIndex > 0 && !units.at(unitIndex - 1)->phrases().isEmpty()) {
             return units.at(unitIndex - 1)->phrases().last();
         }
     }
