@@ -15,18 +15,17 @@
 class CourseStub : public ICourse
 {
 public:
-    CourseStub(std::shared_ptr<ILanguage> language, QVector<std::shared_ptr<Unit>> units)
-        : m_language(language)
-        , m_units(units)
-    {
-    }
     ~CourseStub() override;
 
     static std::shared_ptr<ICourse> create(std::shared_ptr<ILanguage> language, QVector<std::shared_ptr<Unit>> units)
     {
         auto course = std::make_shared<CourseStub>(language, units);
         course->setSelf(course);
-        return std::static_pointer_cast<ICourse>(course);
+        auto self = std::static_pointer_cast<ICourse>(course);
+        for (const auto & unit : units ) {
+            unit->setCourse(self);
+        }
+        return self;
     }
 
     void setSelf(std::shared_ptr<ICourse> self) override
@@ -77,6 +76,12 @@ public:
     QUrl file() const override
     {
         return QUrl();
+    }
+
+    CourseStub(std::shared_ptr<ILanguage> language, QVector<std::shared_ptr<Unit>> units)
+        : m_language(language)
+        , m_units(units)
+    {
     }
 
 private:

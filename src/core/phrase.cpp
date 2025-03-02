@@ -232,9 +232,14 @@ std::shared_ptr<IPhrase> Phrase::next() const
         return unitPhrases.at(phraseIndex + 1);
     } else {
         qsizetype unitIndex{0};
-        auto units = m_unit.lock()->course()->units();
+        auto unit = m_unit.lock();
+        if (!unit || !unit->course()) {
+            qCritical() << "could not obtain unit or parent course, aborting" << unit->course().get();
+            return std::shared_ptr<IPhrase>();
+        }
+        auto units = unit->course()->units();
         for (qsizetype i = 0; i < units.size(); ++i) {
-            if (units.at(i).get() == m_unit.lock().get()) {
+            if (units.at(i).get() == unit.get()) {
                 unitIndex = i;
                 break;
             }
@@ -264,9 +269,14 @@ std::shared_ptr<IPhrase> Phrase::previous() const
         return unitPhrases.at(phraseIndex - 1);
     } else {
         qsizetype unitIndex{0};
-        auto units = m_unit.lock()->course()->units();
+        auto unit = m_unit.lock();
+        if (!unit || !unit->course()) {
+            qCritical() << "could not obtain unit or parent course, aborting";
+            return std::shared_ptr<IPhrase>();
+        }
+        auto units = unit->course()->units();
         for (qsizetype i = 0; i < units.size(); ++i) {
-            if (units.at(i).get() == m_unit.lock().get()) {
+            if (units.at(i).get() == unit.get()) {
                 unitIndex = i;
                 break;
             }
