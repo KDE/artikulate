@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -8,7 +7,6 @@
 #include "artikulate_debug.h"
 #include "learner.h"
 #include "profilemanager.h"
-#include "trainingaction.h"
 #include <core/icourse.h>
 #include <core/language.h>
 #include <core/phrase.h>
@@ -17,7 +15,6 @@
 TrainingSession::TrainingSession(QObject *parent)
     : ISessionActions(parent)
     , m_profileManager(new LearnerProfile::ProfileManager(this))
-    , m_course(nullptr)
 {
     Q_ASSERT(m_profileManager != nullptr);
 }
@@ -25,7 +22,6 @@ TrainingSession::TrainingSession(QObject *parent)
 TrainingSession::TrainingSession(LearnerProfile::ProfileManager *manager, QObject *parent)
     : ISessionActions(parent)
     , m_profileManager(manager)
-    , m_course(nullptr)
 {
     Q_ASSERT(m_profileManager != nullptr);
 }
@@ -37,10 +33,6 @@ ICourse *TrainingSession::course() const
 
 void TrainingSession::setCourse(ICourse *course)
 {
-    if (!course) {
-        updateTrainingActions();
-        return;
-    }
     if (m_course == course) {
         return;
     }
@@ -65,7 +57,6 @@ void TrainingSession::setCourse(ICourse *course)
             }
         }
     }
-    updateTrainingActions();
     Q_EMIT courseChanged();
 }
 
@@ -79,70 +70,33 @@ IUnit *TrainingSession::activeUnit() const
 
 void TrainingSession::setUnit(IUnit *unit)
 {
-    // checking phrases in increasing order ensures that always the first phrase is selected
-    for (int i = 0; i < m_actions.count(); ++i) {
-        for (int j = 0; j < m_actions.at(i)->actions().count(); ++j) {
-            const auto testPhrase = qobject_cast<TrainingAction *>(m_actions.at(i)->actions().at(j))->phrase();
-            if (unit == testPhrase->unit().get()) {
-                if (auto action = activeAction()) {
-                    action->setChecked(false);
-                }
-                m_indexUnit = i;
-                m_indexPhrase = j;
-                if (auto action = activeAction()) {
-                    action->setChecked(true);
-                }
-                Q_EMIT phraseChanged();
-                return;
-            }
+    if (!unit) {
+        return;
+    }
+    for (const auto &phrase : unit->phrases()) {
+        if (!phrase->sound().isEmpty()) {
+            setActivePhrase(phrase.get());
+            return;
         }
     }
-}
-
-TrainingAction *TrainingSession::activeAction() const
-{
-    if (m_indexUnit < 0 || m_indexPhrase < 0) {
-        return nullptr;
-    }
-    return qobject_cast<TrainingAction *>(m_actions.at(m_indexUnit)->actions().at(m_indexPhrase));
 }
 
 IPhrase *TrainingSession::activePhrase() const
 {
-    if (const auto action = activeAction()) {
-        return action->phrase();
-    }
-    return nullptr;
+    return m_phrase;
 }
 
 void TrainingSession::setActivePhrase(IPhrase *phrase)
 {
-    for (int i = 0; i < m_actions.count(); ++i) {
-        for (int j = 0; j < m_actions.at(i)->actions().count(); ++j) {
-            const auto testPhrase = qobject_cast<TrainingAction *>(m_actions.at(i)->actions().at(j))->phrase();
-            if (phrase == testPhrase) {
-                if (auto action = activeAction()) {
-                    action->setChecked(false);
-                }
-                m_indexUnit = i;
-                m_indexPhrase = j;
-                if (auto action = activeAction()) {
-                    action->setChecked(true);
-                }
-                emit phraseChanged();
-                return;
-            }
-        }
+    if (phrase == m_phrase) {
+        return;
     }
+    m_phrase = phrase;
+    Q_EMIT phraseChanged();
 }
 
 void TrainingSession::accept()
 {
-    Q_ASSERT(m_indexUnit >= 0);
-    Q_ASSERT(m_indexPhrase >= 0);
-    if (m_indexUnit < 0 || m_indexPhrase < 0) {
-        return;
-    }
     auto phrase = activePhrase();
 
     // possibly update goals of learner
@@ -164,12 +118,6 @@ void TrainingSession::accept()
 
 void TrainingSession::skip()
 {
-    Q_ASSERT(m_indexUnit >= 0);
-    Q_ASSERT(m_indexPhrase >= 0);
-    if (m_indexUnit < 0 || m_indexPhrase < 0) {
-        return;
-    }
-
     // possibly update goals of learner
     updateGoal();
     auto phrase = activePhrase();
@@ -190,48 +138,22 @@ void TrainingSession::skip()
 
 void TrainingSession::selectNextPhrase()
 {
-    if (auto action = activeAction()) {
-        action->setChecked(false);
+    if (!m_phrase) {
+        qWarning() << "Cannot select next phrase, no current phrase set";
+        return;
     }
-    // try to find next phrase, otherwise return completed
-    // 1. case: last phrase in unit
-    if (m_indexPhrase >= m_actions.at(m_indexUnit)->actions().count() - 1) {
-        // close current unit
-        emit closeUnit();
-        if (m_indexUnit >= m_actions.count() - 1) {
-            emit completed();
-        } else {
-            ++m_indexUnit;
-            m_indexPhrase = 0;
-            // currently there is no way to automatically enter a submenu, at least inform user about new unit
-            m_actions.at(m_indexUnit)->setChecked(true);
-        }
-        // 2. case: next phrase inside current unit
-    } else {
-        ++m_indexPhrase;
-    }
-    if (auto action = activeAction()) {
-        action->setChecked(true);
-    }
-    emit phraseChanged();
+    m_phrase = m_phrase->next().get();
+    Q_EMIT phraseChanged();
 }
 
 bool TrainingSession::hasPrevious() const
 {
-    return m_indexUnit > 0 || m_indexPhrase > 0;
+    return m_phrase != nullptr && m_phrase->previous() != nullptr;
 }
 
 bool TrainingSession::hasNext() const
 {
-    if (m_indexUnit < m_actions.count() - 1) {
-        return true;
-    }
-    if (!m_actions.isEmpty() && m_actions.constLast()) {
-        if (m_indexPhrase < m_actions.constLast()->actions().count() - 1) {
-            return true;
-        }
-    }
-    return false;
+    return m_phrase != nullptr && m_phrase->next() != nullptr;
 }
 
 void TrainingSession::updateGoal()
@@ -248,50 +170,4 @@ void TrainingSession::updateGoal()
     LearnerProfile::LearningGoal *goal = m_profileManager->goal(LearnerProfile::LearningGoal::Language, m_course->language()->id());
     learner->addGoal(goal);
     learner->setActiveGoal(goal);
-}
-
-QList<TrainingAction *> TrainingSession::trainingActions() const
-{
-    return m_actions;
-}
-
-void TrainingSession::updateTrainingActions()
-{
-    for (const auto &action : std::as_const(m_actions)) {
-        action->deleteLater();
-    }
-    m_actions.clear();
-
-    if (!m_course) {
-        m_indexUnit = -1;
-        m_indexPhrase = -1;
-        return;
-    }
-
-    const auto unitList = m_course->units();
-    for (const auto &unit : unitList) {
-        auto action = new TrainingAction(unit->title(), this);
-        const auto phraseList = unit->phrases();
-        for (const auto &phrase : phraseList) {
-            if (phrase->sound().isEmpty()) {
-                continue;
-            }
-            action->appendAction(new TrainingAction(phrase, this, unit.get()));
-        }
-        if (action->actions().count() > 0) {
-            m_actions.append(action);
-        } else {
-            action->deleteLater();
-        }
-    }
-
-    // update indices
-    m_indexUnit = -1;
-    m_indexPhrase = -1;
-    if (m_course->units().count() > 0) {
-        m_indexUnit = 0;
-        if (m_course->units().constFirst()->phrases().count() > 0) {
-            m_indexPhrase = 0;
-        }
-    }
 }

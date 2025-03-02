@@ -9,7 +9,6 @@
 #include "core/phrase.h"
 #include "core/resources/editablecourseresource.h"
 #include "core/unit.h"
-#include "trainingaction.h"
 
 EditorSession::EditorSession(QObject *parent)
     : ISessionActions(parent)
@@ -61,16 +60,11 @@ void EditorSession::setCourse(IEditableCourse *course)
     }
     m_course = course;
 
-    connect(course, &IEditableCourse::unitChanged, this, [=](std::shared_ptr<IEditableUnit> unit) {
-        this->updateActions(unit);
-        emit actionsChanged(); // TODO much too global effect
-    });
-    updateTrainingActions();
     if (m_course && m_course->units().count() > 0) {
         setActiveUnit(m_course->units().first().get());
     }
-    emit languageChanged();
-    emit courseChanged();
+    Q_EMIT languageChanged();
+    Q_EMIT courseChanged();
 }
 
 IUnit *EditorSession::activeUnit() const
@@ -83,113 +77,62 @@ IUnit *EditorSession::activeUnit() const
 
 void EditorSession::setActiveUnit(IUnit *unit)
 {
-    // checking phrases in increasing order ensures that always the first phrase is selected
-    for (int i = 0; i < m_actions.count(); ++i) {
-        for (int j = 0; j < m_actions.at(i)->actions().count(); ++j) {
-            const auto testPhrase = qobject_cast<TrainingAction *>(m_actions.at(i)->actions().at(j))->phrase();
-            if (unit == testPhrase->unit().get()) {
-                if (auto action = activeAction()) {
-                    action->setChecked(false);
-                }
-                m_indexUnit = i;
-                m_indexPhrase = j;
-                if (auto action = activeAction()) {
-                    action->setChecked(true);
-                }
-                emit phraseChanged();
-                return;
-            }
+    // TODO also set unit without phrases
+    if (!unit) {
+        return;
+    }
+    for (const auto &phrase : unit->phrases()) {
+        if (!phrase->sound().isEmpty()) {
+            setActivePhrase(phrase.get());
+            return;
         }
     }
 }
 
 void EditorSession::setActivePhrase(IPhrase *phrase)
 {
-    for (int i = 0; i < m_actions.count(); ++i) {
-        for (int j = 0; j < m_actions.at(i)->actions().count(); ++j) {
-            const auto testPhrase = qobject_cast<TrainingAction *>(m_actions.at(i)->actions().at(j))->phrase();
-            if (phrase == testPhrase) {
-                if (auto action = activeAction()) {
-                    action->setChecked(false);
-                }
-                m_indexUnit = i;
-                m_indexPhrase = j;
-                if (auto action = activeAction()) {
-                    action->setChecked(true);
-                }
-                emit phraseChanged();
-                return;
-            }
-        }
+    if (phrase == m_phrase) {
+        return;
     }
+    m_phrase = phrase;
+    Q_EMIT phraseChanged();
 }
 
 IPhrase *EditorSession::activePhrase() const
 {
-    if (const auto action = activeAction()) {
-        return action->phrase();
-    }
-    return nullptr;
+    return m_phrase;
 }
 
 void EditorSession::switchToPreviousPhrase()
 {
-    if (hasPreviousPhrase()) {
-        if (m_indexPhrase == 0) {
-            qCDebug(ARTIKULATE_CORE()) << "switching to previous unit";
-            if (m_indexUnit > 0) {
-                --m_indexUnit;
-                m_indexPhrase = m_actions.at(m_indexUnit)->actions().count() - 1;
-            }
-        } else {
-            --m_indexPhrase;
-        }
-        if (auto action = activeAction()) {
-            action->setChecked(true);
-        }
-        emit phraseChanged();
-    } else {
-        qCWarning(ARTIKULATE_CORE()) << "The is no previous phrase, aborting";
+    if (!m_phrase) {
+        return;
+    }
+    auto previous = m_phrase->previous();
+    if (previous) {
+        setActivePhrase(previous.get());
     }
 }
 
 void EditorSession::switchToNextPhrase()
 {
-    if (hasNextPhrase()) {
-        if (m_indexPhrase >= m_actions.at(m_indexUnit)->actions().count() - 1) {
-            qCDebug(ARTIKULATE_CORE()) << "switching to next unit";
-            if (m_indexUnit < m_actions.count() - 1) {
-                ++m_indexUnit;
-                m_indexPhrase = 0;
-            }
-        } else {
-            ++m_indexPhrase;
-        }
-        if (auto action = activeAction()) {
-            action->setChecked(true);
-        }
-        emit phraseChanged();
-    } else {
-        qCWarning(ARTIKULATE_CORE()) << "The is no next phrase, aborting";
+    if (!m_phrase) {
+        return;
+    }
+    auto next = m_phrase->next();
+    if (next) {
+        setActivePhrase(next.get());
     }
 }
 
 bool EditorSession::hasPreviousPhrase() const
 {
-    return m_indexUnit > 0 || m_indexPhrase > 0;
+    return m_phrase && m_phrase->previous() != nullptr;
 }
 
 bool EditorSession::hasNextPhrase() const
 {
-    if (m_indexUnit < m_actions.count() - 1) {
-        return true;
-    }
-    if (m_actions.constLast()) {
-        if (m_indexPhrase < m_actions.constLast()->actions().count() - 1) {
-            return true;
-        }
-    }
-    return false;
+    return m_phrase && m_phrase->next() != nullptr;
 }
 
 void EditorSession::updateCourseFromSkeleton()
@@ -199,78 +142,4 @@ void EditorSession::updateCourseFromSkeleton()
         return;
     }
     m_repository->updateCourseFromSkeleton(m_course->self());
-}
-
-TrainingAction *EditorSession::activeAction() const
-{
-    if (m_indexUnit < 0 || m_indexPhrase < 0) {
-        return nullptr;
-    }
-    return qobject_cast<TrainingAction *>(m_actions.at(m_indexUnit)->actions().at(m_indexPhrase));
-}
-
-void EditorSession::updateTrainingActions()
-{
-    for (const auto &action : qAsConst(m_actions)) {
-        action->clearActions();
-        action->deleteLater();
-    }
-    m_actions.clear();
-
-    if (!m_course) {
-        m_indexUnit = -1;
-        m_indexPhrase = -1;
-        return;
-    }
-
-    const auto unitList = m_course->units();
-    for (const auto &unit : qAsConst(unitList)) {
-        auto action = new TrainingAction(unit->title(), this);
-        const auto phraseList = unit->phrases();
-        for (const auto &phrase : qAsConst(phraseList)) {
-            action->appendAction(new TrainingAction(phrase, this, unit.get()));
-        }
-        if (action->actions().count() > 0) {
-            m_actions.append(action);
-        } else {
-            action->deleteLater();
-        }
-    }
-
-    // update indices
-    m_indexUnit = -1;
-    m_indexPhrase = -1;
-    if (m_course->units().count() > 0) {
-        m_indexUnit = 0;
-        if (m_course->units().constFirst()->phrases().count() > 0) {
-            m_indexPhrase = 0;
-        }
-    }
-    emit actionsChanged();
-}
-
-void EditorSession::updateActions(std::shared_ptr<IEditableUnit> changedUnit)
-{
-    int unitIndex = -1;
-    for (int i = 0; i < m_course->units().size(); ++i) {
-        if (changedUnit == m_course->units().at(i)) {
-            unitIndex = i;
-            break;
-        }
-    }
-    Q_ASSERT(unitIndex >= 0);
-    auto unitAction = m_actions.at(unitIndex);
-
-    // TODO this is a heavy operation if only one phrase was changed
-    unitAction->clearActions();
-    for (int i = 0; i < changedUnit->phrases().size(); ++i) {
-        unitAction->appendAction(new TrainingAction(changedUnit->phrases().at(i), this, changedUnit.get()));
-    }
-
-    emit unitAction->actionsChanged();
-}
-
-QList<TrainingAction *> EditorSession::trainingActions() const
-{
-    return m_actions;
 }

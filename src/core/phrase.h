@@ -63,6 +63,8 @@ public:
     QUrl sound() const override;
     void setSound(QUrl soundFile) override;
     QVector<Phoneme *> phonemes() const override;
+    std::shared_ptr<IPhrase> previous() const override;
+    std::shared_ptr<IPhrase> next() const override;
     bool isExcluded() const;
     void setExcluded(bool excluded = false);
     int progress() const;
