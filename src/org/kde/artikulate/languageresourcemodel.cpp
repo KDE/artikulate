@@ -19,7 +19,7 @@ LanguageResourceModel::LanguageResourceModel(QObject *parent)
     , m_view(LanguageModel::NonEmptyGhnsOnlyLanguages)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitLanguageChanged(int)));
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITLanguageChanged(int)));
     setResourceRepository(artikulateApp->resourceRepository());
 }
 
@@ -47,7 +47,7 @@ void LanguageResourceModel::setResourceRepository(IResourceRepository *repositor
     m_repository = repository;
     updateDisplayedLanguages();
 
-    emit resourceRepositoryChanged();
+    Q_EMIT resourceRepositoryChanged();
 }
 
 IResourceRepository *LanguageResourceModel::resourceRepository() const
@@ -133,10 +133,10 @@ void LanguageResourceModel::onLanguageRemoved()
     endRemoveRows();
 }
 
-void LanguageResourceModel::emitLanguageChanged(int row)
+void LanguageResourceModel::Q_EMITLanguageChanged(int row)
 {
-    emit languageChanged(row);
-    emit dataChanged(index(row, 0), index(row, 0));
+    Q_EMIT languageChanged(row);
+    Q_EMIT dataChanged(index(row, 0), index(row, 0));
 }
 
 QVariant LanguageResourceModel::headerData(int section, Qt::Orientation orientation, int role) const

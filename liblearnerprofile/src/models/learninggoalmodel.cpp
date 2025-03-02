@@ -45,7 +45,7 @@ void LearningGoalModelPrivate::updateGoals()
     m_goals.clear();
     // set all registered goals from profile manager
     if (m_profileManager) {
-        foreach (LearningGoal *goal, m_profileManager->goals()) {
+        for (LearningGoal *goal : m_profileManager->goals()) {
             m_goals.append(goal);
         }
     }
@@ -69,7 +69,7 @@ LearningGoalModel::LearningGoalModel(QObject *parent)
     , d(new LearningGoalModelPrivate)
 {
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    connect(d->m_signalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &LearningGoalModel::emitLearningGoalChanged);
+    connect(d->m_signalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &LearningGoalModel::Q_EMITLearningGoalChanged);
 #else
     connect(d->m_signalMapper, &QSignalMapper::mappedInt, this, &LearningGoalModel::emitLearningGoalChanged);
 #endif
@@ -105,7 +105,7 @@ void LearningGoalModel::setProfileManager(ProfileManager *profileManager)
     d->updateMappings();
     endResetModel();
 
-    emit profileManagerChanged();
+    Q_EMIT profileManagerChanged();
 }
 
 ProfileManager *LearningGoalModel::profileManager() const
@@ -133,7 +133,7 @@ void LearningGoalModel::setLearner(Learner *learner)
     connect(learner, &Learner::goalAboutToBeAdded, this, &LearningGoalModel::onLearningGoalAboutToBeAdded);
     connect(learner, &Learner::goalAdded, this, &LearningGoalModel::onLearningGoalAdded);
     connect(learner, &Learner::goalAboutToBeRemoved, this, &LearningGoalModel::onLearningGoalAboutToBeRemoved);
-    emit learnerChanged();
+    Q_EMIT learnerChanged();
     endResetModel();
 }
 
@@ -150,18 +150,18 @@ QVariant LearningGoalModel::data(const QModelIndex &index, int role) const
     LearningGoal *const goal = d->m_goals.at(index.row());
 
     switch (role) {
-        case Qt::DisplayRole:
-            return !goal->name().isEmpty() ? QVariant(goal->name()) : QVariant(i18nc("@item:inlistbox unknown learning goal", "unknown"));
-        case Qt::ToolTipRole:
-            return QVariant(goal->name());
-        case TitleRole:
-            return goal->name();
-        case IdRole:
-            return goal->identifier();
-        case DataRole:
-            return QVariant::fromValue<QObject *>(goal);
-        default:
-            return QVariant();
+    case Qt::DisplayRole:
+        return !goal->name().isEmpty() ? QVariant(goal->name()) : QVariant(i18nc("@item:inlistbox unknown learning goal", "unknown"));
+    case Qt::ToolTipRole:
+        return QVariant(goal->name());
+    case TitleRole:
+        return goal->name();
+    case IdRole:
+        return goal->identifier();
+    case DataRole:
+        return QVariant::fromValue<QObject *>(goal);
+    default:
+        return QVariant();
     }
 }
 
@@ -204,8 +204,8 @@ void LearningGoalModel::onLearningGoalAboutToBeRemoved(int index)
 
 void LearningGoalModel::emitLearningGoalChanged(int row)
 {
-    emit learningGoalChanged(row);
-    emit dataChanged(index(row, 0), index(row, 0));
+    Q_EMIT learningGoalChanged(row);
+    Q_EMIT dataChanged(index(row, 0), index(row, 0));
 }
 
 QVariant LearningGoalModel::headerData(int section, Qt::Orientation orientation, int role) const

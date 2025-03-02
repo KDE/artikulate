@@ -19,7 +19,7 @@ PhonemeGroupModel::PhonemeGroupModel(QObject *parent)
     , m_course(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitPhonemeGroupChanged(int)));
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITPhonemeGroupChanged(int)));
 }
 
 QHash<int, QByteArray> PhonemeGroupModel::roleNames() const
@@ -56,7 +56,7 @@ void PhonemeGroupModel::setCourse(ICourse *course)
 
     endResetModel();
 
-    emit courseChanged();
+    Q_EMIT courseChanged();
 }
 
 ICourse *PhonemeGroupModel::course() const
@@ -136,10 +136,10 @@ void PhonemeGroupModel::onPhonemeGroupsRemoved()
     endRemoveRows();
 }
 
-void PhonemeGroupModel::emitPhonemeGroupChanged(int row)
+void PhonemeGroupModel::Q_EMITPhonemeGroupChanged(int row)
 {
-    emit phonemeGroupChanged(row);
-    emit dataChanged(index(row, 0), index(row, 0));
+    Q_EMIT phonemeGroupChanged(row);
+    Q_EMIT dataChanged(index(row, 0), index(row, 0));
 }
 
 QVariant PhonemeGroupModel::headerData(int section, Qt::Orientation orientation, int role) const

@@ -58,7 +58,7 @@ void LearningGoal::setName(const QString &name)
         return;
     }
     d->m_name = name;
-    emit nameChanged();
+    Q_EMIT nameChanged();
 }
 
 QString LearningGoal::identifier() const
@@ -72,7 +72,7 @@ void LearningGoal::setIdentifier(const QString &identifier)
         return;
     }
     d->m_identifier = identifier;
-    emit identifierChanged();
+    Q_EMIT identifierChanged();
 }
 
 LearningGoal::Category LearningGoal::category() const

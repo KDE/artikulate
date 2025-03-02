@@ -58,7 +58,7 @@ void Phrase::setId(QString id)
 {
     if (id != m_id) {
         m_id = std::move(id);
-        emit idChanged();
+        Q_EMIT idChanged();
     }
 }
 
@@ -81,7 +81,7 @@ void Phrase::setText(QString text)
 {
     if (QString::compare(text, m_text) != 0) {
         m_text = text.trimmed();
-        emit textChanged();
+        Q_EMIT textChanged();
     }
 }
 
@@ -95,7 +95,7 @@ void Phrase::seti18nText(QString text)
     if (QString::compare(text, m_i18nText) != 0) {
         // copy unmodified original text string
         m_i18nText = std::move(text);
-        emit i18nTextChanged();
+        Q_EMIT i18nTextChanged();
     }
 }
 
@@ -126,7 +126,7 @@ void Phrase::setType(Phrase::Type type)
         return;
     }
     m_type = type;
-    emit typeChanged();
+    Q_EMIT typeChanged();
 }
 
 void Phrase::setType(const QString &typeString)
@@ -175,7 +175,7 @@ void Phrase::setEditState(Phrase::EditState state)
         return;
     }
     m_editState = state;
-    emit editStateChanged();
+    Q_EMIT editStateChanged();
 }
 
 void Phrase::setEditState(const QString &stateString)
@@ -290,7 +290,7 @@ void Phrase::setSound(QUrl soundFile)
         return;
     }
     m_nativeSoundFile = std::move(soundFile);
-    emit soundChanged();
+    Q_EMIT soundChanged();
 }
 
 QString Phrase::soundFileUrl() const
@@ -301,9 +301,9 @@ QString Phrase::soundFileUrl() const
 QString Phrase::soundFileOutputPath() const
 {
     if (m_nativeSoundFile.isEmpty()) {
-        QString outputDir = m_unit.lock()->course()->file().path() + '/';
+        QString outputDir = m_unit.lock()->course()->file().path() + QLatin1Char('/');
         // TODO take care that this is proper ASCII
-        return outputDir + id() + ".ogg";
+        return outputDir + id() + QStringLiteral(".ogg");
     } else {
         return soundFileUrl();
     }
@@ -313,8 +313,8 @@ void Phrase::setSoundFileUrl()
 {
     if (soundFileOutputPath() != m_nativeSoundFile.toLocalFile()) {
         m_nativeSoundFile = QUrl::fromLocalFile(soundFileOutputPath());
-        emit soundChanged();
-        emit modified();
+        Q_EMIT soundChanged();
+        Q_EMIT modified();
     }
 }
 
@@ -329,7 +329,7 @@ void Phrase::setExcluded(bool excluded)
         return;
     }
     m_excludedFromUnit = excluded;
-    emit excludedChanged();
+    Q_EMIT excludedChanged();
 }
 
 int Phrase::progress() const
@@ -347,7 +347,7 @@ void Phrase::setProgress(int value)
         return;
     }
     m_trainingProgress = static_cast<uint>(value);
-    emit progressChanged();
+    Q_EMIT progressChanged();
 }
 void Phrase::updateProgress(Phrase::Progress progress)
 {
@@ -358,7 +358,7 @@ void Phrase::updateProgress(Phrase::Progress progress)
         m_skipCounter = 0;
         if (m_trainingProgress < 3) {
             ++m_trainingProgress;
-            emit progressChanged();
+            Q_EMIT progressChanged();
         }
         return;
     }
@@ -366,7 +366,7 @@ void Phrase::updateProgress(Phrase::Progress progress)
         ++m_skipCounter;
         if (m_skipCounter > 2 && m_trainingProgress > 0) {
             --m_trainingProgress;
-            emit progressChanged();
+            Q_EMIT progressChanged();
         }
         return;
     }
@@ -386,7 +386,7 @@ void Phrase::addPhoneme(Phoneme *phoneme)
 {
     if (!m_phonemes.contains(phoneme)) {
         m_phonemes.append(phoneme);
-        emit phonemesChanged();
+        Q_EMIT phonemesChanged();
         // FIXME tell Unit to also send corresponding signal!
     }
 }
@@ -394,7 +394,7 @@ void Phrase::addPhoneme(Phoneme *phoneme)
 void Phrase::removePhoneme(Phoneme *phoneme)
 {
     if (m_phonemes.removeOne(phoneme)) {
-        emit phonemesChanged();
+        Q_EMIT phonemesChanged();
         // FIXME tell Unit to also send corresponding signal!
     }
 }

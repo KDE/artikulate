@@ -72,7 +72,7 @@ void CourseModel::setResourceRepository(IResourceRepository *resourceRepository)
             // TODO only title changed is connected, change this to a general changed signal
             auto connection = connect(course.get(), &ICourse::titleChanged, this, [=]() {
                 const auto row = m_resourceRepository->courses().indexOf(course);
-                emit dataChanged(index(row, 0), index(row, 0));
+                Q_EMIT dataChanged(index(row, 0), index(row, 0));
             });
             m_updateConnections.insert(i, connection);
         }
@@ -129,7 +129,7 @@ void CourseModel::onCourseAboutToBeAdded(std::shared_ptr<ICourse> course, int ro
     beginInsertRows(QModelIndex(), row, row);
     auto connection = connect(course.get(), &ICourse::titleChanged, this, [=]() {
         const auto row = m_resourceRepository->courses().indexOf(course);
-        emit dataChanged(index(row, 0), index(row, 0));
+        Q_EMIT dataChanged(index(row, 0), index(row, 0));
     });
     m_updateConnections.insert(row, connection);
 }

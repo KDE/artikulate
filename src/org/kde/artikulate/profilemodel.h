@@ -53,7 +53,7 @@ Q_SIGNALS:
 private Q_SLOTS:
     void onProfileAdded(LearnerProfile::Learner *learner, int index);
     void onProfileAboutToBeRemoved(int index);
-    void emitProfileChanged(int row);
+    void Q_EMITProfileChanged(int row);
 
 private:
     void updateMappings();

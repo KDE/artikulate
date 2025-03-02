@@ -52,13 +52,13 @@ CaptureDeviceController &CaptureDeviceController::self()
 void CaptureDeviceController::startCapture(const QString &filePath)
 {
     d->backend()->startCapture(filePath);
-    emit captureStarted();
+    Q_EMIT captureStarted();
 }
 
 void CaptureDeviceController::stopCapture()
 {
     d->backend()->stopCapture();
-    emit captureStopped();
+    Q_EMIT captureStopped();
 }
 
 void CaptureDeviceController::setDevice(QAudioInput &deviceIdentifier)

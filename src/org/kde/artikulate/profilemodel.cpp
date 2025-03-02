@@ -17,7 +17,7 @@ ProfileModel::ProfileModel(QObject *parent)
     , m_profileManager(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitProfileChanged(int)));
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITProfileChanged(int)));
 }
 
 QHash<int, QByteArray> ProfileModel::roleNames() const
@@ -40,7 +40,7 @@ void ProfileModel::setProfileManager(ProfileManager *profileManager)
 
     if (m_profileManager) {
         m_profileManager->disconnect(this);
-        foreach (Learner *learner, m_profileManager->profiles()) {
+        for (Learner *learner : m_profileManager->profiles()) {
             learner->disconnect(this);
         }
     }
@@ -123,14 +123,14 @@ void ProfileModel::onProfileAboutToBeRemoved(int index)
     endRemoveRows();
 }
 
-void ProfileModel::emitProfileChanged(int row)
+void ProfileModel::Q_EMITProfileChanged(int row)
 {
     beginResetModel();
     endResetModel();
     // FIXME very inefficient, but workaround to force new filtering in phrasefiltermodel
     //      to exclude possible new excluded phrases
-    emit profileChanged(row);
-    emit dataChanged(index(row, 0), index(row, 0));
+    Q_EMIT profileChanged(row);
+    Q_EMIT dataChanged(index(row, 0), index(row, 0));
 }
 
 QVariant ProfileModel::headerData(int section, Qt::Orientation orientation, int role) const

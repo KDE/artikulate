@@ -21,7 +21,7 @@ void Phoneme::setId(const QString &id)
 {
     if (id != m_id) {
         m_id = id;
-        emit idChanged();
+        Q_EMIT idChanged();
     }
 }
 
@@ -34,6 +34,6 @@ void Phoneme::setTitle(const QString &title)
 {
     if (QString::compare(title, m_title) != 0) {
         m_title = title;
-        emit titleChanged();
+        Q_EMIT titleChanged();
     }
 }

@@ -13,7 +13,8 @@
 #include <QStandardPaths>
 
 ResourceRepository::ResourceRepository()
-    : ResourceRepository(QUrl::fromLocalFile(QStandardPaths::standardLocations(QStandardPaths::AppLocalDataLocation).constFirst() + QStringLiteral("/courses/")))
+    : ResourceRepository(
+          QUrl::fromLocalFile(QStandardPaths::standardLocations(QStandardPaths::AppLocalDataLocation).constFirst() + QStringLiteral("/courses/")))
 {
 }
 
@@ -24,12 +25,12 @@ ResourceRepository::ResourceRepository(const QUrl &storageLocation)
     qCDebug(ARTIKULATE_CORE()) << "Repository created from with location" << m_storageLocation;
     // load language resources
     // all other resources are only loaded on demand
-    QDir dir(":/artikulate/languages/");
+    QDir dir(QStringLiteral(":/artikulate/languages/"));
     dir.setFilter(QDir::Files | QDir::NoSymLinks);
     QFileInfoList list = dir.entryInfoList();
     for (int i = 0; i < list.size(); ++i) {
         QFileInfo fileInfo = list.at(i);
-        if (fileInfo.completeSuffix() != QLatin1String("xml")) {
+        if (fileInfo.completeSuffix() != QStringLiteral("xml")) {
             continue;
         }
         loadLanguage(fileInfo.absoluteFilePath());
@@ -122,9 +123,9 @@ bool ResourceRepository::loadCourse(const QString &resourceFile)
         return false;
     }
 
-    emit courseAboutToBeAdded(resource, m_courses.count());
+    Q_EMIT courseAboutToBeAdded(resource, m_courses.count());
     m_courses.append(resource);
-    emit courseAdded();
+    Q_EMIT courseAdded();
     m_loadedCourses.append(resourceFile);
     return true;
 }

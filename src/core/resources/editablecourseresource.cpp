@@ -331,6 +331,6 @@ void EditableCourseResource::markModified()
 {
     if (!m_modified) {
         m_modified = true;
-        emit modifiedChanged(true);
+        Q_EMIT modifiedChanged(true);
     }
 }

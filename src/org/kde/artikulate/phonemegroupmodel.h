@@ -38,16 +38,16 @@ public:
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
-signals:
+Q_SIGNALS:
     void phonemeGroupChanged(int index);
     void courseChanged();
 
-private slots:
+private Q_SLOTS:
     void onPhonemeGroupAboutToBeAdded(PhonemeGroup *phonemeGroup, int index);
     void onPhonemeGroupAdded();
     void onPhonemeGroupsAboutToBeRemoved(int first, int last);
     void onPhonemeGroupsRemoved();
-    void emitPhonemeGroupChanged(int row);
+    void Q_EMITPhonemeGroupChanged(int row);
 
 private:
     void updateMappings();

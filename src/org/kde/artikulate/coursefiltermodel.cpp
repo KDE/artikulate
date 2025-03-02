@@ -31,9 +31,9 @@ void CourseFilterModel::setLanguage(Language *language)
         return;
     }
     m_language = language;
-    emit languageChanged();
+    Q_EMIT languageChanged();
     invalidateFilter();
-    emit filteredCountChanged();
+    Q_EMIT filteredCountChanged();
 }
 
 void CourseFilterModel::setCourseModel(CourseModel *courseModel)
@@ -45,8 +45,8 @@ void CourseFilterModel::setCourseModel(CourseModel *courseModel)
 
     setSourceModel(m_courseModel);
     sort(0);
-    emit courseModelChanged();
-    emit filteredCountChanged();
+    Q_EMIT courseModelChanged();
+    Q_EMIT filteredCountChanged();
 }
 
 int CourseFilterModel::filteredCount() const

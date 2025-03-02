@@ -84,9 +84,9 @@ void PhraseModel::setCourse(ICourse *course)
         updatePhraseMappings();
     }
 
-    // emit done
+    // Q_EMIT done
     endResetModel();
-    emit courseChanged();
+    Q_EMIT courseChanged();
 }
 
 ICourse *PhraseModel::course() const
@@ -248,7 +248,7 @@ void PhraseModel::onPhraseChanged(QObject *phrase)
     Phrase *changedPhrase = qobject_cast<Phrase *>(phrase);
     Q_ASSERT(changedPhrase);
     QModelIndex index = indexPhrase(changedPhrase);
-    emit dataChanged(index, index);
+    Q_EMIT dataChanged(index, index);
 }
 
 void PhraseModel::onUnitAboutToBeAdded(std::shared_ptr<Unit> unit, int index)
@@ -280,7 +280,7 @@ void PhraseModel::onUnitsRemoved()
 
 void PhraseModel::onUnitChanged(int index)
 {
-    emit dataChanged(createIndex(index, 0), createIndex(index, 0));
+    Q_EMIT dataChanged(createIndex(index, 0), createIndex(index, 0));
 }
 
 QVariant PhraseModel::headerData(int section, Qt::Orientation orientation, int role) const

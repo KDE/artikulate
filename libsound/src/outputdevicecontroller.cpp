@@ -58,7 +58,7 @@ void OutputDeviceController::play(const QString &filePath)
 {
     d->backend()->setUri(filePath);
     d->backend()->play();
-    emit started();
+    Q_EMIT started();
 }
 
 void OutputDeviceController::play(const QUrl &filePath)
@@ -69,7 +69,7 @@ void OutputDeviceController::play(const QUrl &filePath)
 void OutputDeviceController::stop()
 {
     d->backend()->stop();
-    emit stopped();
+    Q_EMIT stopped();
 }
 
 OutputDeviceController::State OutputDeviceController::state() const
@@ -93,11 +93,11 @@ int OutputDeviceController::volume() const
 void OutputDeviceController::emitChangedState()
 {
     if (state() == OutputDeviceController::StoppedState) {
-        emit stopped();
+        Q_EMIT stopped();
         return;
     }
     if (state() == OutputDeviceController::PlayingState) {
-        emit started();
+        Q_EMIT started();
         return;
     }
 }

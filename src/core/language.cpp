@@ -86,7 +86,7 @@ void Language::setId(const QString &id)
 {
     if (id != m_id) {
         m_id = id;
-        emit idChanged();
+        Q_EMIT idChanged();
     }
 }
 
@@ -99,13 +99,13 @@ void Language::setTitle(const QString &title)
 {
     if (QString::compare(title, m_title) != 0) {
         m_title = title;
-        emit titleChanged();
+        Q_EMIT titleChanged();
     }
 }
 
 QString Language::i18nTitle() const
 {
-    return i18n(m_i18nTitle.toUtf8());
+    return i18n(m_i18nTitle.toUtf8().data());
 }
 
 void Language::seti18nTitle(const QString &title)
@@ -114,7 +114,7 @@ void Language::seti18nTitle(const QString &title)
         return;
     }
     m_i18nTitle = title;
-    emit i18nTitleChanged();
+    Q_EMIT i18nTitleChanged();
 }
 
 QUrl Language::file() const

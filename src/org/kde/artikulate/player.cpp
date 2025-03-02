@@ -18,7 +18,7 @@ Player::Player(QObject *parent)
 void Player::setSoundFile(const QUrl &fileUrl)
 {
     m_soundFile = fileUrl;
-    emit soundFileChanged();
+    Q_EMIT soundFileChanged();
 }
 
 void Player::setSoundFile(const QString &fileUrl)
@@ -49,7 +49,7 @@ void Player::playback()
     m_playbackState = PlayingState;
     connect(&OutputDeviceController::self(), &OutputDeviceController::started, this, &Player::updateState);
     connect(&OutputDeviceController::self(), &OutputDeviceController::stopped, this, &Player::updateState);
-    emit stateChanged();
+    Q_EMIT stateChanged();
 }
 
 void Player::stop()
@@ -57,17 +57,17 @@ void Player::stop()
     OutputDeviceController::self().stop();
     OutputDeviceController::self().disconnect();
     m_playbackState = StoppedState;
-    emit stateChanged();
+    Q_EMIT stateChanged();
 }
 
 void Player::updateState()
 {
     if (OutputDeviceController::self().state() == OutputDeviceController::StoppedState && state() == PlayingState) {
         m_playbackState = StoppedState;
-        emit stateChanged();
+        Q_EMIT stateChanged();
     }
     if (OutputDeviceController::self().state() == OutputDeviceController::PlayingState && state() != PlayingState) {
         m_playbackState = PlayingState;
-        emit stateChanged();
+        Q_EMIT stateChanged();
     }
 }

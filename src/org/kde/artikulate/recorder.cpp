@@ -37,15 +37,15 @@ void Recorder::startCapture()
     qCDebug(ARTIKULATE_LOG) << "Start recording to temporary file " << m_recordingBufferFile.fileName();
     CaptureDeviceController::self().startCapture(m_recordingBufferFile.fileName());
     m_state = RecordingState;
-    emit stateChanged();
+    Q_EMIT stateChanged();
 }
 
 void Recorder::stop()
 {
     CaptureDeviceController::self().stopCapture();
     m_state = StoppedState;
-    emit stateChanged();
-    emit recordingFileChanged();
+    Q_EMIT stateChanged();
+    Q_EMIT recordingFileChanged();
 }
 
 QString Recorder::recordingFile() const
@@ -64,7 +64,7 @@ void Recorder::storeToFile(const QString &path)
         if (!targetFile.exists() || targetFile.remove()) {
             m_recordingBufferFile.copy(path);
             m_recordingBufferFile.close();
-            emit recordingFileChanged();
+            Q_EMIT recordingFileChanged();
         } else {
             qCritical() << "Could not save buffered sound data to file, aborting.";
         }
@@ -77,6 +77,6 @@ void Recorder::clearBuffer()
 {
     if (m_recordingBufferFile.isOpen()) {
         m_recordingBufferFile.close();
-        emit recordingFileChanged();
+        Q_EMIT recordingFileChanged();
     }
 }

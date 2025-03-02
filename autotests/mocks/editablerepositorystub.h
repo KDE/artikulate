@@ -75,9 +75,9 @@ public:
     }
     void appendCourse(std::shared_ptr<IEditableCourse> course)
     {
-        emit courseAboutToBeAdded(course, m_courses.count());
+        Q_EMIT courseAboutToBeAdded(course, m_courses.count());
         m_courses.append(course);
-        emit courseAdded();
+        Q_EMIT courseAdded();
     }
 
     void removeCourse(std::shared_ptr<IEditableCourse> course)
@@ -85,16 +85,16 @@ public:
         auto index = m_courses.indexOf(course);
         Q_ASSERT(index >= 0);
         if (index >= 0) {
-            emit courseAboutToBeRemoved(index);
+            Q_EMIT courseAboutToBeRemoved(index);
             m_courses.remove(index);
-            emit courseRemoved();
+            Q_EMIT courseRemoved();
         }
     }
     void appendSkeleton(std::shared_ptr<IEditableCourse> skeleton)
     {
-        emit skeletonAboutToBeAdded(skeleton, m_skeletons.count());
+        Q_EMIT skeletonAboutToBeAdded(skeleton, m_skeletons.count());
         m_skeletons.append(skeleton);
-        emit skeletonAdded();
+        Q_EMIT skeletonAdded();
     }
 
     void removeSkeleton(std::shared_ptr<IEditableCourse> skeleton)
@@ -102,9 +102,9 @@ public:
         auto index = m_skeletons.indexOf(skeleton);
         Q_ASSERT(index >= 0);
         if (index >= 0) {
-            emit skeletonAboutToBeRemoved(index);
+            Q_EMIT skeletonAboutToBeRemoved(index);
             m_skeletons.remove(index);
-            emit skeletonRemoved();
+            Q_EMIT skeletonRemoved();
         }
     }
     void updateCourseFromSkeleton(std::shared_ptr<IEditableCourse> course) override

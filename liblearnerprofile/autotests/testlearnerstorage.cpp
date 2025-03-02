@@ -69,8 +69,8 @@ void TestLearnerStorage::testProgressLogStorage()
     QVERIFY(m_storage->storeGoal(&tmpGoal));
     QVERIFY(m_storage->storeProfile(&tmpLearner));
 
-    const QDateTime time {QDateTime::currentDateTime()};
-    QVERIFY(m_storage->storeProgressLog(&tmpLearner, &tmpGoal, "container", "item", 1, time));
+    const QDateTime time{QDateTime::currentDateTime()};
+    QVERIFY(m_storage->storeProgressLog(&tmpLearner, &tmpGoal, QStringLiteral("container"), QStringLiteral("item"), 1, time));
     auto data = m_storage->readProgressLog(&tmpLearner, &tmpGoal, QStringLiteral("container"), QStringLiteral("item"));
     QCOMPARE(data.size(), 1);
     QCOMPARE(data.first().first.toString(Qt::ISODate), time.toString(Qt::ISODate));
@@ -89,17 +89,17 @@ void TestLearnerStorage::testProgressValueStorage()
     QVERIFY(m_storage->storeProfile(&tmpLearner));
 
     // insert
-    QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, "container", "itemA", 1));
-    QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, "container", "itemB", 1));
+    QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, QStringLiteral("container"), QStringLiteral("itemA"), 1));
+    QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, QStringLiteral("container"), QStringLiteral("itemB"), 1));
 
     auto data = m_storage->readProgressValues(&tmpLearner, &tmpGoal, QStringLiteral("container"));
     QCOMPARE(data.size(), 2);
 
     // update
-    QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, "container", "itemA", 2));
+    QVERIFY(m_storage->storeProgressValue(&tmpLearner, &tmpGoal, QStringLiteral("container"), QStringLiteral("itemA"), 2));
     data = m_storage->readProgressValues(&tmpLearner, &tmpGoal, QStringLiteral("container"));
-    QCOMPARE(data.find("itemA").value(), 2);
-    QCOMPARE(data.find("itemB").value(), 1);
+    QCOMPARE(data.find(QStringLiteral("itemA")).value(), 2);
+    QCOMPARE(data.find(QStringLiteral("itemB")).value(), 1);
 }
 
 QTEST_GUILESS_MAIN(TestLearnerStorage)

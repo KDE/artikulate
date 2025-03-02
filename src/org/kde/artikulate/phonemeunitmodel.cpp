@@ -20,7 +20,7 @@ PhonemeUnitModel::PhonemeUnitModel(QObject *parent)
     , m_phonemeGroup(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(emitUnitChanged(int)));
+    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITUnitChanged(int)));
     connect(this, &PhonemeUnitModel::phonemeGroupChanged, this, &PhonemeUnitModel::countChanged);
     connect(this, &PhonemeUnitModel::courseChanged, this, &PhonemeUnitModel::countChanged);
 }
@@ -61,7 +61,7 @@ void PhonemeUnitModel::setCourse(ICourse *course)
 
     endResetModel();
 
-    emit courseChanged();
+    Q_EMIT courseChanged();
 }
 
 void PhonemeUnitModel::setPhonemeGroup(PhonemeGroup *phonemeGroup)
@@ -73,7 +73,7 @@ void PhonemeUnitModel::setPhonemeGroup(PhonemeGroup *phonemeGroup)
     m_phonemeGroup = phonemeGroup;
     endResetModel();
 
-    emit phonemeGroupChanged();
+    Q_EMIT phonemeGroupChanged();
 }
 
 PhonemeGroup *PhonemeUnitModel::phonemeGroup() const
@@ -151,7 +151,7 @@ void PhonemeUnitModel::onUnitAdded()
 {
     updateMappings();
     endInsertRows();
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 void PhonemeUnitModel::onUnitsAboutToBeRemoved(int first, int last)
@@ -162,13 +162,13 @@ void PhonemeUnitModel::onUnitsAboutToBeRemoved(int first, int last)
 void PhonemeUnitModel::onUnitsRemoved()
 {
     endRemoveRows();
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
-void PhonemeUnitModel::emitUnitChanged(int row)
+void PhonemeUnitModel::Q_EMITUnitChanged(int row)
 {
-    emit unitChanged(row);
-    emit dataChanged(index(row, 0), index(row, 0));
+    Q_EMIT unitChanged(row);
+    Q_EMIT dataChanged(index(row, 0), index(row, 0));
 }
 
 QVariant PhonemeUnitModel::headerData(int section, Qt::Orientation orientation, int role) const

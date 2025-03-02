@@ -65,7 +65,7 @@ void SkeletonModel::setResourceRepository(IEditableRepository *repository)
             // TODO only title changed is connected, change this to a general changed signal
             auto connection = connect(skeleton.get(), &IEditableCourse::titleChanged, this, [=]() {
                 const auto row = m_repository->skeletons().indexOf(skeleton);
-                emit dataChanged(index(row, 0), index(row, 0));
+                Q_EMIT dataChanged(index(row, 0), index(row, 0));
             });
             m_updateConnections.insert(i, connection);
         }
@@ -122,7 +122,7 @@ void SkeletonModel::onSkeletonAboutToBeAdded(std::shared_ptr<IEditableCourse> sk
     beginInsertRows(QModelIndex(), row, row);
     auto connection = connect(skeleton.get(), &IEditableCourse::titleChanged, this, [=]() {
         const auto row = m_repository->courses().indexOf(skeleton);
-        emit dataChanged(index(row, 0), index(row, 0));
+        Q_EMIT dataChanged(index(row, 0), index(row, 0));
     });
     m_updateConnections.insert(row, connection);
 }

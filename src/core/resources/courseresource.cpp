@@ -167,7 +167,7 @@ void CourseResource::setId(const QString &id)
         return;
     }
     d->m_identifier = id;
-    emit idChanged();
+    Q_EMIT idChanged();
 }
 
 QString CourseResource::foreignId() const
@@ -181,7 +181,7 @@ void CourseResource::setForeignId(const QString &foreignId)
         return;
     }
     d->m_foreignId = foreignId;
-    emit foreignIdChanged();
+    Q_EMIT foreignIdChanged();
 }
 
 QString CourseResource::title() const
@@ -195,7 +195,7 @@ void CourseResource::setTitle(const QString &title)
         return;
     }
     d->m_title = title;
-    emit titleChanged();
+    Q_EMIT titleChanged();
 }
 
 QString CourseResource::i18nTitle() const
@@ -209,7 +209,7 @@ void CourseResource::setI18nTitle(const QString &i18nTitle)
         return;
     }
     d->m_i18nTitle = i18nTitle;
-    emit i18nTitleChanged();
+    Q_EMIT i18nTitleChanged();
 }
 
 QString CourseResource::description() const
@@ -223,7 +223,7 @@ void CourseResource::setDescription(const QString &description)
         return;
     }
     d->m_description = description;
-    emit descriptionChanged();
+    Q_EMIT descriptionChanged();
 }
 
 std::shared_ptr<ILanguage> CourseResource::language() const
@@ -245,16 +245,16 @@ void CourseResource::setLanguage(std::shared_ptr<ILanguage> language)
         return;
     }
     d->m_language = language;
-    emit languageChanged();
+    Q_EMIT languageChanged();
 }
 
 std::shared_ptr<Unit> CourseResource::addUnit(std::shared_ptr<Unit> unit)
 {
     std::shared_ptr<Unit> storedUnit(std::move(unit));
     storedUnit->setCourse(self());
-    emit unitAboutToBeAdded(storedUnit, d->m_units.count() - 1);
+    Q_EMIT unitAboutToBeAdded(storedUnit, d->m_units.count() - 1);
     d->m_units.append(storedUnit);
-    emit unitAdded();
+    Q_EMIT unitAdded();
     return storedUnit;
 }
 

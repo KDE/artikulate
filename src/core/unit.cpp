@@ -58,8 +58,8 @@ void Unit::setId(const QString &id)
 {
     if (id != m_id) {
         m_id = id;
-        emit idChanged();
-        emit modified();
+        Q_EMIT idChanged();
+        Q_EMIT modified();
     }
 }
 
@@ -84,7 +84,7 @@ void Unit::setCourse(std::shared_ptr<ICourse> course)
         return;
     }
     m_course = course;
-    emit courseChanged();
+    Q_EMIT courseChanged();
 }
 
 QString Unit::title() const
@@ -96,8 +96,8 @@ void Unit::setTitle(const QString &title)
 {
     if (QString::compare(title, m_title) != 0) {
         m_title = title;
-        emit titleChanged();
-        emit modified();
+        Q_EMIT titleChanged();
+        Q_EMIT modified();
     }
 }
 
@@ -110,8 +110,8 @@ void Unit::setI18nTitle(const QString &title)
 {
     if (QString::compare(title, m_i18nTitle) != 0) {
         m_i18nTitle = title;
-        emit titleChanged();
-        emit modified();
+        Q_EMIT titleChanged();
+        Q_EMIT modified();
     }
 }
 
@@ -131,12 +131,12 @@ void Unit::addPhrase(std::shared_ptr<IEditablePhrase> phrase, int index)
         ++iter;
     }
     phrase->setUnit(m_self.lock());
-    emit phraseAboutToBeAdded(phrase, index);
+    Q_EMIT phraseAboutToBeAdded(phrase, index);
     m_phrases.insert(index, phrase);
-    emit phraseAdded(phrase);
+    Q_EMIT phraseAdded(phrase);
 
     connect(phrase.get(), &Phrase::modified, this, &Unit::modified);
-    emit modified();
+    Q_EMIT modified();
 }
 
 void Unit::removePhrase(std::shared_ptr<IPhrase> phrase)
@@ -149,12 +149,12 @@ void Unit::removePhrase(std::shared_ptr<IPhrase> phrase)
         }
     }
     Q_ASSERT(index >= 0);
-    emit phraseAboutToBeRemoved(index);
+    Q_EMIT phraseAboutToBeRemoved(index);
     m_phrases.removeAt(index);
-    emit phraseRemoved();
+    Q_EMIT phraseRemoved();
 }
 
 void Unit::emitPhrasesChanged(std::shared_ptr<IEditableUnit> unit)
 {
-    emit phrasesChanged(unit);
+    Q_EMIT phrasesChanged(unit);
 }

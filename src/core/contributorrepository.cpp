@@ -39,7 +39,7 @@ void ContributorRepository::loadLanguageResources()
 {
     // load language resources
     // all other resources are only loaded on demand
-    QDir dir(":/artikulate/languages/");
+    QDir dir(QStringLiteral(":/artikulate/languages/"));
     dir.setFilter(QDir::Files | QDir::NoSymLinks);
     QFileInfoList list = dir.entryInfoList();
     for (int i = 0; i < list.size(); ++i) {
@@ -88,11 +88,11 @@ void ContributorRepository::addLanguage(const QUrl &languageFile)
 
     auto language = Language::create(languageFile);
 
-    emit languageResourceAboutToBeAdded(language, m_languages.count());
+    Q_EMIT languageResourceAboutToBeAdded(language, m_languages.count());
     m_languages.append(language);
     m_loadedResources.append(languageFile.toLocalFile());
     m_courses.insert(language->id(), QVector<std::shared_ptr<EditableCourseResource>>());
-    emit languageResourceAdded();
+    Q_EMIT languageResourceAdded();
 }
 
 QUrl ContributorRepository::storageLocation() const
@@ -103,7 +103,7 @@ QUrl ContributorRepository::storageLocation() const
 void ContributorRepository::setStorageLocation(const QUrl &path)
 {
     m_storageLocation = path;
-    emit repositoryChanged();
+    Q_EMIT repositoryChanged();
     reloadCourses();
 }
 
@@ -273,9 +273,9 @@ void ContributorRepository::reloadCourses()
             }
         }
     }
-    // TODO this signal should only be emitted when repository was added/removed
-    // yet the call to this method is very seldom and emitting it too often is not that harmful
-    emit repositoryChanged();
+    // TODO this signal should only be Q_EMITted when repository was added/removed
+    // yet the call to this method is very seldom and Q_EMITting it too often is not that harmful
+    Q_EMIT repositoryChanged();
 }
 
 void ContributorRepository::updateCourseFromSkeleton(std::shared_ptr<IEditableCourse> course)
@@ -319,10 +319,10 @@ std::shared_ptr<EditableCourseResource> ContributorRepository::addCourse(const Q
             if (!m_courses.contains(languageId)) {
                 m_courses.insert(languageId, QVector<std::shared_ptr<EditableCourseResource>>());
             }
-            emit courseAboutToBeAdded(course, m_courses[course->language()->id()].count());
+            Q_EMIT courseAboutToBeAdded(course, m_courses[course->language()->id()].count());
             m_courses[languageId].append(course);
-            emit courseAdded();
-            emit languageCoursesChanged();
+            Q_EMIT courseAdded();
+            Q_EMIT languageCoursesChanged();
         }
     }
     return course;
@@ -332,9 +332,9 @@ void ContributorRepository::removeCourse(std::shared_ptr<ICourse> course)
 {
     for (int index = 0; index < m_courses[course->language()->id()].length(); ++index) {
         if (m_courses[course->language()->id()].at(index) == course) {
-            emit courseAboutToBeRemoved(index);
+            Q_EMIT courseAboutToBeRemoved(index);
             m_courses[course->language()->id()].removeAt(index);
-            emit courseRemoved();
+            Q_EMIT courseRemoved();
             return;
         }
     }
@@ -373,9 +373,9 @@ std::shared_ptr<IEditableCourse> ContributorRepository::addSkeleton(const QUrl &
     } else {
         resource = SkeletonResource::create(file, this);
         m_loadedResources.append(resource->file().toLocalFile());
-        emit skeletonAboutToBeAdded(resource.get(), m_skeletonResources.count());
+        Q_EMIT skeletonAboutToBeAdded(resource.get(), m_skeletonResources.count());
         m_skeletonResources.append(resource);
-        emit skeletonAdded();
+        Q_EMIT skeletonAdded();
     }
     return resource;
 }
@@ -384,9 +384,9 @@ void ContributorRepository::removeSkeleton(SkeletonResource *skeleton)
 {
     for (int index = 0; index < m_skeletonResources.length(); ++index) {
         if (m_skeletonResources.at(index)->id() == skeleton->id()) {
-            emit skeletonAboutToBeRemoved(index, index);
+            Q_EMIT skeletonAboutToBeRemoved(index, index);
             m_skeletonResources.removeAt(index);
-            emit skeletonRemoved();
+            Q_EMIT skeletonRemoved();
             return;
         }
     }

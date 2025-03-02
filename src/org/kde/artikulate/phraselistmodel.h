@@ -44,7 +44,7 @@ public:
 
     /**
      * Count phrases in current model view. If this number is changed, signal
-     * countChanged() is emitted.
+     * countChanged() is Q_EMITted.
      *
      * \return number of phrases
      */
@@ -61,7 +61,7 @@ private Q_SLOTS:
     void onPhraseAdded();
     void onPhraseAboutToBeRemoved(int index);
     void onPhrasesRemoved();
-    void emitPhraseChanged(int row);
+    void Q_EMITPhraseChanged(int row);
 
 private:
     void updateMappings();

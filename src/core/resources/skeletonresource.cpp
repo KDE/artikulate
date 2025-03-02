@@ -216,7 +216,7 @@ void SkeletonResource::setId(QString id)
         return;
     }
     d->m_identifier = id;
-    emit idChanged();
+    Q_EMIT idChanged();
 }
 
 QString SkeletonResource::foreignId() const
@@ -241,7 +241,7 @@ void SkeletonResource::setTitle(QString title)
         return;
     }
     d->m_title = title;
-    emit titleChanged();
+    Q_EMIT titleChanged();
 }
 
 QString SkeletonResource::i18nTitle() const
@@ -267,7 +267,7 @@ void SkeletonResource::setDescription(QString description)
         return;
     }
     d->m_description = description;
-    emit descriptionChanged();
+    Q_EMIT descriptionChanged();
 }
 
 bool SkeletonResource::exportToFile(const QUrl &filePath) const
@@ -355,9 +355,9 @@ bool SkeletonResource::deletePhrase(IPhrase *phrase)
 std::shared_ptr<Unit> SkeletonResource::addUnit(std::shared_ptr<Unit> unit)
 {
     std::shared_ptr<Unit> storedUnit(std::move(unit));
-    emit unitAboutToBeAdded(storedUnit, d->units().count() - 1);
+    Q_EMIT unitAboutToBeAdded(storedUnit, d->units().count() - 1);
     d->appendUnit(storedUnit);
-    emit unitAdded();
+    Q_EMIT unitAdded();
     return storedUnit;
 }
 

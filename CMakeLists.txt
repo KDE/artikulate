@@ -3,7 +3,7 @@
 
 cmake_minimum_required(VERSION 3.16.0)
 set(QT_MIN_VERSION "6.8.0")
-set(KF_MIN_VERSION "5.115.0")
+set(KF_MIN_VERSION "6.0.0")
 set(KDE_COMPILERSETTINGS_LEVEL "5.84.0")
 
 # generate QML LS integration
@@ -63,6 +63,8 @@ ecm_set_disabled_deprecation_versions(QT 6.5.0
 
 add_definitions(
     -DQT_NO_URL_CAST_FROM_STRING
+    -DQT_NO_KEYWORDS
+    -DQT_NO_FOREACH
 )
 
 # subdirectories to build

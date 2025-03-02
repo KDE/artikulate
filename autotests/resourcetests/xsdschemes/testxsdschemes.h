@@ -16,7 +16,7 @@ class TestXsdSchemes : public QObject
 public:
     TestXsdSchemes();
 
-private slots:
+private Q_SLOTS:
     /**
      * Called before every test case.
      */
