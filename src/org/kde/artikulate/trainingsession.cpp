@@ -113,7 +113,11 @@ void TrainingSession::accept()
     //        phrase->progress()
     //    );
 
-    selectNextPhrase();
+    if (phrase && !phrase->next()) {
+        Q_EMIT completed();
+    } else {
+        selectNextPhrase();
+    }
 }
 
 void TrainingSession::skip()
@@ -133,7 +137,11 @@ void TrainingSession::skip()
     //        phrase->progress()
     //    ); // FIXME
 
-    selectNextPhrase();
+    if (phrase && !phrase->next()) {
+        Q_EMIT completed();
+    } else {
+        selectNextPhrase();
+    }
 }
 
 void TrainingSession::selectNextPhrase()
