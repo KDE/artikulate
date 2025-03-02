@@ -34,7 +34,7 @@ Kirigami.ScrollablePage {
                     columnSpacing: Kirigami.Units.largeSpacing
                     columns: width > Kirigami.Units.gridUnit * 20 ? 4 : 2
                     Kirigami.Icon {
-                        source: "artikulate-language"
+                        source: "languages"
                         Layout.fillHeight: true
                         Layout.maximumHeight: Kirigami.Units.iconSizes.huge
                         Layout.preferredWidth: height
