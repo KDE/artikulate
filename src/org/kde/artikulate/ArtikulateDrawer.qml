@@ -70,7 +70,6 @@ Kirigami.OverlayDrawer {
                         required property string actionText
                         required property int kDescendantLevel
                         required property bool kDescendantExpanded
-                        required property var drawerAction
                         required property int index
                         width: trainingActionScrollView.availableWidth
                         text: actionText

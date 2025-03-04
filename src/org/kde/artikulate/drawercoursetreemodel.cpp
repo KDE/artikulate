@@ -79,15 +79,15 @@ bool DrawerCourseTreeModel::trainingFilter() const
 
 SelectionEntry::SelectionEntry(const QString &text, std::shared_ptr<IUnit> data, std::shared_ptr<SelectionEntry> parent)
     : m_parentItem(parent)
+    , m_text(text)
     , m_unit(data)
-    , m_action(text)
 {
 }
 
 SelectionEntry::SelectionEntry(const QString &text, std::shared_ptr<IPhrase> data, std::shared_ptr<SelectionEntry> parent)
     : m_parentItem(parent)
+    , m_text(text)
     , m_phrase(data)
-    , m_action(text)
 {
 }
 
@@ -132,11 +132,9 @@ QVariant SelectionEntry::data(Qt::ItemDataRole itemRole) const
     const auto role = static_cast<DrawerCourseTreeModel::Roles>(itemRole);
     switch (role) {
     case DrawerCourseTreeModel::Roles::Text:
-        return QVariant::fromValue(m_action.text());
+        return QVariant::fromValue(m_text);
     case DrawerCourseTreeModel::Roles::ToolTip:
-        return QVariant::fromValue(m_action.toolTip());
-    case DrawerCourseTreeModel::Roles::Action:
-        return QVariant::fromValue(&m_action);
+        return QVariant::fromValue(m_toolTip);
     }
     return QVariant();
 }
@@ -144,11 +142,6 @@ QVariant SelectionEntry::data(Qt::ItemDataRole itemRole) const
 std::shared_ptr<SelectionEntry> SelectionEntry::parentItem()
 {
     return m_parentItem.lock();
-}
-
-const QAction *SelectionEntry::action() const
-{
-    return &m_action;
 }
 
 std::shared_ptr<IPhrase> SelectionEntry::phrase()
@@ -161,7 +154,7 @@ std::shared_ptr<IPhrase> SelectionEntry::phrase()
 
 void DrawerCourseTreeModel::rebuildModel()
 {
-    m_rootItem = std::make_unique<SelectionEntry>();
+    m_rootItem = std::unique_ptr<SelectionEntry>(new SelectionEntry);
     if (!m_course) {
         return;
     }
@@ -185,13 +178,6 @@ void DrawerCourseTreeModel::rebuildModel()
             }
             auto phraseEntry = std::make_shared<SelectionEntry>(phrase->text(), phrase, unitEntry);
             unitEntry->appendChild(phraseEntry);
-            connect(phraseEntry->action(), &QAction::triggered, this, [this, phrase]() {
-                if (m_session) {
-                    m_session->setActivePhrase(phrase.get());
-                } else {
-                    qWarning() << "No session set that can be updated with current phrase";
-                }
-            });
         }
     }
 }
@@ -212,7 +198,6 @@ QHash<int, QByteArray> DrawerCourseTreeModel::roleNames() const
     roles[Qt::ItemDataRole::DisplayRole] = "text";
     roles[Qt::ItemDataRole::ToolTipRole] = "tooltip";
     roles[Qt::ItemDataRole::CheckStateRole] = "selected";
-    roles[DrawerCourseTreeModel::Action] = "action";
     return roles;
 }
 
@@ -302,6 +287,17 @@ QModelIndex DrawerCourseTreeModel::next(const QModelIndex &currentIndex) const
         }
     }
     return nextPhrase;
+}
+
+void DrawerCourseTreeModel::trigger(const QModelIndex &index)
+{
+    if (m_session) {
+        auto entry = static_cast<SelectionEntry *>(index.internalPointer());
+        const auto phrase = entry->phrase();
+        if (phrase) {
+            m_session->setActivePhrase(phrase.get());
+        }
+    }
 }
 
 QModelIndex DrawerCourseTreeModel::firstPhraseIndexInUnit(const QModelIndex &currentIndex) const

@@ -32,16 +32,15 @@ public:
     QVariant data(Qt::ItemDataRole role) const;
     int row() const;
     std::shared_ptr<SelectionEntry> parentItem();
-    const QAction *action() const;
     std::shared_ptr<IPhrase> phrase();
 
 private:
     std::vector<std::shared_ptr<SelectionEntry>> m_childItems;
     std::weak_ptr<SelectionEntry> m_parentItem;
     QString m_text; //!< user formatted string
+    QString m_toolTip;
     std::optional<std::shared_ptr<IUnit>> m_unit;
     std::optional<std::shared_ptr<IPhrase>> m_phrase;
-    QAction m_action;
 };
 
 class DrawerCourseTreeModel : public QAbstractItemModel
@@ -58,8 +57,7 @@ public:
     enum Roles {
         Text = Qt::DisplayRole,
         ToolTip = Qt::ToolTipRole,
-        Selected = Qt::CheckStateRole,
-        Action = Qt::UserRole,
+        Selected = Qt::CheckStateRole
     };
     Q_ENUM(Roles)
 
@@ -126,6 +124,11 @@ public:
      * @return next phrase or invalid model index if none exists
      */
     QModelIndex next(const QModelIndex &index) const;
+
+    /**
+     * @brief trigger @p index as active phrase in session, if index points to phrase
+     */
+    void trigger(const QModelIndex &index);
 
 Q_SIGNALS:
     void courseChanged();
