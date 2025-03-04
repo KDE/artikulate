@@ -37,15 +37,11 @@ void DrawerTrainingActions::trigger(int index)
     } else {
         expandSourceIndex(sourceIndex);
     }
-    QVariant data = sourceModel()->data(sourceIndex, DrawerCourseTreeModel::Action);
-    auto action = data.value<QAction *>();
-    if (action) {
-        action->trigger();
-    } else {
-        qCritical() << "invalid cast" << data;
+    DrawerCourseTreeModel *treeModel = qobject_cast<DrawerCourseTreeModel *>(sourceModel());
+    if (treeModel) {
+        treeModel->trigger(sourceIndex);
     }
 
-    // TODO actually respect sessioncontroller info
     Q_EMIT triggerPhraseView();
 }
 
