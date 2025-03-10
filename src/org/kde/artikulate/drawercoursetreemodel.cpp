@@ -197,7 +197,6 @@ QHash<int, QByteArray> DrawerCourseTreeModel::roleNames() const
     QHash<int, QByteArray> roles;
     roles[Qt::ItemDataRole::DisplayRole] = "text";
     roles[Qt::ItemDataRole::ToolTipRole] = "tooltip";
-    roles[Qt::ItemDataRole::CheckStateRole] = "selected";
     return roles;
 }
 
