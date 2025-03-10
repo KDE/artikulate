@@ -57,7 +57,6 @@ public:
     enum Roles {
         Text = Qt::DisplayRole,
         ToolTip = Qt::ToolTipRole,
-        Selected = Qt::CheckStateRole
     };
     Q_ENUM(Roles)
 
