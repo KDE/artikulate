@@ -543,21 +543,23 @@ bool Storage::updateSchema()
     QSqlDatabase db = database();
 
     // check database version format
-    db.exec(
+    QSqlQuery formatQuery(db);
+    formatQuery.exec(
         QLatin1String("CREATE TABLE IF NOT EXISTS metadata ("
                       "key TEXT PRIMARY KEY, "
                       "value TEXT"
                       ")"));
-    if (db.lastError().isValid()) {
-        qCritical() << db.lastError().text();
-        raiseError(db.lastError());
+    if (formatQuery.lastError().isValid()) {
+        qCritical() << formatQuery.lastError().text();
+        raiseError(formatQuery.lastError());
         return false;
     }
 
-    QSqlQuery versionQuery = db.exec(QStringLiteral("SELECT value FROM metadata WHERE key = 'version'"));
-    if (db.lastError().isValid()) {
-        qCritical() << db.lastError().text();
-        raiseError(db.lastError());
+    QSqlQuery versionQuery(db);
+    versionQuery.exec(QStringLiteral("SELECT value FROM metadata WHERE key = 'version'"));
+    if (versionQuery.lastError().isValid()) {
+        qCritical() << versionQuery.lastError().text();
+        raiseError(versionQuery.lastError());
         return false;
     }
 
@@ -574,10 +576,11 @@ bool Storage::updateSchema()
             raiseError(db.lastError());
             return false;
         }
-        db.exec(QStringLiteral("INSERT INTO metadata (key, value) VALUES ('version', '1')"));
-        if (db.lastError().isValid()) {
-            qCritical() << db.lastError().text();
-            raiseError(db.lastError());
+        QSqlQuery insertMetadataQuery(db);
+        versionQuery.exec(QStringLiteral("INSERT INTO metadata (key, value) VALUES ('version', '1')"));
+        if (versionQuery.lastError().isValid()) {
+            qCritical() << versionQuery.lastError().text();
+            raiseError(versionQuery.lastError());
             return false;
         }
         if (!db.commit()) {
@@ -588,47 +591,48 @@ bool Storage::updateSchema()
     }
 
     // table for learner profiles
-    db.exec(
+    QSqlQuery createTableQuery(db);
+    createTableQuery.exec(
         QLatin1String("CREATE TABLE IF NOT EXISTS profiles ("
                       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                       "name TEXT"
                       ")"));
-    if (db.lastError().isValid()) {
-        qCritical() << db.lastError().text();
-        raiseError(db.lastError());
+    if (createTableQuery.lastError().isValid()) {
+        qCritical() << createTableQuery.lastError().text();
+        raiseError(createTableQuery.lastError());
         return false;
     }
 
     // table for registered learning goals
-    db.exec(
+    createTableQuery.exec(
         QLatin1String("CREATE TABLE IF NOT EXISTS goals ("
                       "category INTEGER, " // LearningGoal::Category
                       "identifier TEXT, " // identifier, unique per Category
                       "name TEXT, " // name
                       "PRIMARY KEY ( category, identifier )"
                       ")"));
-    if (db.lastError().isValid()) {
-        qCritical() << db.lastError().text();
-        raiseError(db.lastError());
+    if (createTableQuery.lastError().isValid()) {
+        qCritical() << createTableQuery.lastError().text();
+        raiseError(createTableQuery.lastError());
         return false;
     }
 
     // table for learner - learningGoal relations
-    db.exec(
+    createTableQuery.exec(
         QLatin1String("CREATE TABLE IF NOT EXISTS learner_goals ("
                       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                       "goal_category INTEGER, " // LearningGoal::Category
                       "goal_identifier TEXT, " // LearningGoal::Identifier
                       "profile_id INTEGER " // Learner::Identifier
                       ")"));
-    if (db.lastError().isValid()) {
-        qCritical() << db.lastError().text();
-        raiseError(db.lastError());
+    if (createTableQuery.lastError().isValid()) {
+        qCritical() << createTableQuery.lastError().text();
+        raiseError(createTableQuery.lastError());
         return false;
     }
 
     // table for full progress data log
-    db.exec(
+    createTableQuery.exec(
         QLatin1String("CREATE TABLE IF NOT EXISTS learner_progress_log ("
                       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                       "goal_category INTEGER, " // LearningGoal::Category
@@ -639,14 +643,14 @@ bool Storage::updateSchema()
                       "payload INTEGER, "
                       "date TEXT"
                       ")"));
-    if (db.lastError().isValid()) {
-        qCritical() << db.lastError().text();
-        raiseError(db.lastError());
+    if (createTableQuery.lastError().isValid()) {
+        qCritical() << createTableQuery.lastError().text();
+        raiseError(createTableQuery.lastError());
         return false;
     }
 
     // table for progress data quick access
-    db.exec(
+    createTableQuery.exec(
         QLatin1String("CREATE TABLE IF NOT EXISTS learner_progress_value ("
                       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                       "goal_category INTEGER, " // LearningGoal::Category
@@ -656,9 +660,9 @@ bool Storage::updateSchema()
                       "item TEXT, "
                       "payload INTEGER"
                       ")"));
-    if (db.lastError().isValid()) {
-        qCritical() << db.lastError().text();
-        raiseError(db.lastError());
+    if (createTableQuery.lastError().isValid()) {
+        qCritical() << createTableQuery.lastError().text();
+        raiseError(createTableQuery.lastError());
         return false;
     }
 
