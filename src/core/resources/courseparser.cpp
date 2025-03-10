@@ -40,11 +40,11 @@ QDomDocument CourseParser::loadDomDocument(const QUrl &path, const XmlSchema &sc
         return document;
     }
 
-    QString errorMsg;
     QFile file(path.toLocalFile());
     if (file.open(QIODevice::ReadOnly)) {
-        if (!document.setContent(&file, &errorMsg)) {
-            qCWarning(ARTIKULATE_PARSER()) << errorMsg;
+        const QDomDocument::ParseResult result = document.setContent(&file, QDomDocument::ParseOption::Default);
+        if (!result) {
+            qCWarning(ARTIKULATE_PARSER()) << result.errorMessage;
         }
     } else {
         qCWarning(ARTIKULATE_PARSER()) << "Could not open XML document " << path.toLocalFile() << " for reading, aborting.";
