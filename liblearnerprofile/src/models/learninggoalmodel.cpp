@@ -1,17 +1,14 @@
 /*
     SPDX-FileCopyrightText: 2013-2016 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
 #include "learninggoalmodel.h"
 #include "learner.h"
-#include "profilemanager.h"
-
-#include <QSignalMapper>
-
 #include "liblearner_debug.h"
+#include "profilemanager.h"
 #include <KLocalizedString>
+#include <QSignalMapper>
 
 using namespace LearnerProfile;
 
@@ -68,11 +65,7 @@ LearningGoalModel::LearningGoalModel(QObject *parent)
     : QAbstractListModel(parent)
     , d(new LearningGoalModelPrivate)
 {
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    connect(d->m_signalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &LearningGoalModel::Q_EMITLearningGoalChanged);
-#else
     connect(d->m_signalMapper, &QSignalMapper::mappedInt, this, &LearningGoalModel::emitLearningGoalChanged);
-#endif
 }
 
 LearningGoalModel::~LearningGoalModel()

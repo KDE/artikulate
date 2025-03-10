@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -17,16 +16,8 @@ PhraseModel::PhraseModel(QObject *parent)
     , m_unitSignalMapper(new QSignalMapper)
     , m_phraseSignalMapper(new QSignalMapper)
 {
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    connect(m_unitSignalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &PhraseModel::onUnitChanged);
-#else
     connect(m_unitSignalMapper, &QSignalMapper::mappedInt, this, &PhraseModel::onUnitChanged);
-#endif
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    connect(m_phraseSignalMapper, static_cast<void (QSignalMapper::*)(QObject *)>(&QSignalMapper::mapped), this, &PhraseModel::onPhraseChanged);
-#else
     connect(m_phraseSignalMapper, &QSignalMapper::mappedObject, this, &PhraseModel::onPhraseChanged);
-#endif
 }
 
 QHash<int, QByteArray> PhraseModel::roleNames() const
@@ -108,22 +99,22 @@ QVariant PhraseModel::data(const QModelIndex &index, int role) const
         }
         auto unit = m_course->units().at(index.row());
         switch (role) {
-            case TextRole:
-                return unit->title();
-            case DataRole:
-                return QVariant::fromValue<QObject *>(unit.get());
-            default:
-                return QVariant();
+        case TextRole:
+            return unit->title();
+        case DataRole:
+            return QVariant::fromValue<QObject *>(unit.get());
+        default:
+            return QVariant();
         }
     } else {
         Unit *unit = static_cast<Unit *>(index.internalPointer());
         switch (role) {
-            case TextRole:
-                return unit->phrases().at(index.row())->text();
-            case DataRole:
-                return QVariant::fromValue<QObject *>(unit->phrases().at(index.row()).get());
-            default:
-                return QVariant();
+        case TextRole:
+            return unit->phrases().at(index.row())->text();
+        case DataRole:
+            return QVariant::fromValue<QObject *>(unit->phrases().at(index.row()).get());
+        default:
+            return QVariant();
         }
     }
 }
@@ -196,7 +187,7 @@ QModelIndex PhraseModel::indexUnit(Unit *unit) const
     if (!unit || !m_course) {
         return QModelIndex();
     }
-    int uIndex {-1};
+    int uIndex{-1};
     for (int i = 0; i < m_course->units().size(); ++i) {
         if (m_course->units().at(i)->id() == unit->id()) {
             uIndex = i;
@@ -213,7 +204,7 @@ bool PhraseModel::isUnit(const QModelIndex &index) const
 
 void PhraseModel::onPhraseAboutToBeAdded(std::shared_ptr<IPhrase> phrase, int index)
 {
-    int uIndex {-1};
+    int uIndex{-1};
     for (int i = 0; i < m_course->units().size(); ++i) {
         if (m_course->units().at(i)->id() == phrase->unit()->id()) {
             uIndex = i;
