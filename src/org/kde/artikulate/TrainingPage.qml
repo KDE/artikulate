@@ -71,8 +71,8 @@ Kirigami.Page {
                 horizontalCenterOffset: parent.width / 10
             }
             ShapePath {
-                fillColor: colorTask
-                strokeColor: colorTask
+                fillColor: root.colorTask
+                strokeColor: root.colorTask
                 PathLine { x: 0; y: 0 }
                 PathLine { x: taskTriangle.width; y: taskTriangle.height }
                 PathLine { x: taskTriangle.width; y: 0 }
@@ -99,7 +99,7 @@ Kirigami.Page {
                 horizontalCenter: taskTriangle.right
             }
             text: i18n("Play original")
-            fileUrl: TrainingSession.phrase === null ? "" : TrainingSession.phrase.soundFileUrl
+            source: TrainingSession.phrase === null ? "" : TrainingSession.phrase.sound
         }
     }
 
@@ -140,6 +140,7 @@ Kirigami.Page {
                 horizontalCenter: answerTriangle.left
             }
             text: i18n("Record yourself")
+            outputFileUrl: "file:///tmp/artikulate_training.ogg"
         }
 
         SoundPlayer {
@@ -148,7 +149,7 @@ Kirigami.Page {
                 centerIn: parent
             }
             text: i18n("Play yourself")
-            fileUrl: recorder.outputFileUrl
+            source: "file:///tmp/artikulate_training.ogg"
         }
     }
 }

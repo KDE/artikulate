@@ -3,7 +3,7 @@
 
 import QtQuick
 import QtQuick.Controls
-import org.kde.artikulate
+import QtMultimedia
 
 Item {
     id: root
@@ -15,51 +15,25 @@ Item {
      */
     property string text: i18n("Record")
 
-    /**
-     * the path to the sound file
-     */
-    readonly property string outputFileUrl: recorderBackend.recordingFile
+    property alias outputFileUrl : recorder.outputLocation
+    property alias actualLocation : recorder.actualLocation
 
-    function storeToFile(filePath) {
-        recorderBackend.storeToFile(filePath);
-        phrase.setSoundFileUrl()
+    CaptureSession {
+        audioInput: AudioInput {
+        }
+        recorder: MediaRecorder {
+            id: recorder
+            mediaFormat {
+                audioCodec: MediaFormat.AudioCodec.Vorbis
+            }
+            outputLocation: root.outputFileUrl
+        }
     }
-
-    function clearBuffer() {
-        recorderBackend.clearBuffer()
-    }
-
-    Recorder {
-        id: recorderBackend
-    }
-
     Button {
         id: button
         checkable: false
-        icon.name: "media-record"
+        icon.name: recorder.recorderState === MediaRecorder.RecordingState ? "media-playback-stop" :  "media-record"
         text: root.text
-
-        onClicked: {
-            if (recorderBackend.state === Recorder.RecordingState) {
-                console.log("try to stop recording");
-                recorderBackend.stop();
-                return;
-            }
-            if (recorderBackend.state === Recorder.StoppedState) {
-                console.log("SoundRecorder: start capture");
-                recorderBackend.startCapture();
-                return;
-            }
-        }
+        onClicked: recorder.recorderState === MediaRecorder.RecordingState ? recorder.stop() : recorder.record()
     }
-    states: [
-        State {
-            name: "recording"
-            when: recorderBackend.state === Recorder.RecordingState
-            PropertyChanges {
-                target: button
-                icon.name: "media-playback-stop"
-            }
-        }
-    ]
 }

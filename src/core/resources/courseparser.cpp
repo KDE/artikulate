@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -126,7 +125,7 @@ CourseParser::parseUnit(QXmlStreamReader &xml, const QUrl &path, QVector<std::sh
                 // nothing to do
             } else if (xml.name() == QLatin1String("phrase")) {
                 auto phrase = parsePhrase(xml, path, phonemes, elementOk);
-                if (elementOk && (!skipIncomplete || !phrase->soundFileUrl().isEmpty())) {
+                if (elementOk && (!skipIncomplete || !phrase->sound().isEmpty())) {
                     unit->addPhrase(phrase, unit->phrases().size());
                 }
                 ok &= elementOk;
@@ -294,7 +293,7 @@ QDomDocument CourseParser::serializedDocument(std::shared_ptr<IEditableCourse> c
 
         // construct phrases
         for (auto &phrase : unit->phrases()) {
-            if (trainingExport && phrase->soundFileUrl().isEmpty()) {
+            if (trainingExport && phrase->sound().isEmpty()) {
                 continue;
             }
             unitPhraseListElement.appendChild(serializedPhrase(std::static_pointer_cast<IEditablePhrase>(phrase), document));
@@ -384,8 +383,8 @@ bool CourseParser::exportCourseToGhnsPackage(std::shared_ptr<IEditableCourse> co
 
     for (auto &unit : course->units()) {
         for (auto &phrase : unit->phrases()) {
-            if (QFile::exists(phrase->soundFileUrl())) {
-                tar.addLocalFile(phrase->soundFileUrl(), phrase->id() + QStringLiteral(".ogg"));
+            if (QFile::exists(phrase->sound().toLocalFile())) {
+                tar.addLocalFile(phrase->sound().toLocalFile(), phrase->id() + QStringLiteral(".ogg"));
             }
         }
     }

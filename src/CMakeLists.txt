@@ -52,7 +52,6 @@ generate_export_header(artikulatecore BASE_NAME artikulatecore)
 target_link_libraries(artikulatecore
     PUBLIC
         artikulatelearnerprofile
-        artikulatesound
         Qt::Qml
         Qt::Quick
         KF6::Archive
@@ -105,7 +104,6 @@ add_executable(artikulate ${artikulate_SRCS})
 target_link_libraries(artikulate
     LINK_PUBLIC
         artikulatelearnerprofile
-        artikulatesound
         artikulatecore
         Qt::Qml
         Qt::Quick
@@ -121,7 +119,6 @@ qt6_add_resources(artikulate_editor_SRCS editor.qrc)
 add_executable(artikulate_editor ${artikulate_editor_SRCS})
 target_link_libraries(artikulate_editor
     LINK_PUBLIC
-        artikulatesound
         artikulatecore
         Qt::Qml
         Qt::Quick

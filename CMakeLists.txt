@@ -71,7 +71,6 @@ add_definitions(
 add_subdirectory(doc)
 add_subdirectory(src)
 add_subdirectory(icons)
-add_subdirectory(libsound)
 add_subdirectory(liblearnerprofile)
 add_subdirectory(autotests)
 

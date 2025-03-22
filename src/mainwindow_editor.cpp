@@ -4,7 +4,6 @@
 */
 
 #include "mainwindow_editor.h"
-#include "libsound/src/outputdevicecontroller.h"
 #include "settings.h"
 #include <KAboutData>
 #include <KLocalizedContext>

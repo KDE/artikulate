@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -9,6 +8,7 @@
 
 #include "artikulatecore_export.h"
 #include <QObject>
+#include <QQmlEngine>
 #include <QUrl>
 #include <memory>
 
@@ -22,8 +22,9 @@ class ARTIKULATECORE_EXPORT IPhrase : public QObject
     Q_PROPERTY(QString id READ id NOTIFY idChanged)
     Q_PROPERTY(QString text READ text NOTIFY textChanged)
     Q_PROPERTY(QString i18nText READ i18nText NOTIFY i18nTextChanged)
-    Q_PROPERTY(QString soundFileUrl READ soundFileUrl NOTIFY soundChanged)
+    Q_PROPERTY(QUrl sound READ sound NOTIFY soundChanged)
     Q_PROPERTY(IPhrase::Type type READ type NOTIFY typeChanged)
+    QML_ELEMENT
 
 public:
     enum class Type {
@@ -44,7 +45,6 @@ public:
     virtual std::shared_ptr<IUnit> unit() const = 0;
     virtual IPhrase::Type type() const = 0;
     virtual QString typeString() const = 0;
-    virtual QString soundFileUrl() const = 0;
     virtual QUrl sound() const = 0;
     virtual QVector<Phoneme *> phonemes() const = 0;
     virtual std::shared_ptr<IPhrase> self() const = 0;

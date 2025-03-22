@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2013-2014 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -25,7 +24,6 @@ class ARTIKULATECORE_EXPORT Phrase : public IEditablePhrase
     Q_PROPERTY(QString id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(QString i18nText READ i18nText WRITE seti18nText NOTIFY i18nTextChanged)
-    Q_PROPERTY(QString soundFileUrl READ soundFileUrl NOTIFY soundChanged)
     Q_PROPERTY(IPhrase::Type type READ type WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(Phrase::EditState editState READ editState WRITE setEditState NOTIFY editStateChanged)
     Q_PROPERTY(bool excluded READ isExcluded NOTIFY excludedChanged)
@@ -53,9 +51,8 @@ public:
     QString typeString() const override;
     void setType(IPhrase::Type type) override;
     void setType(const QString &typeString);
-    QString soundFileUrl() const override;
+    Q_INVOKABLE void markSoundRecorded();
     Q_INVOKABLE QString soundFileOutputPath() const;
-    Q_INVOKABLE void setSoundFileUrl() override;
     IEditablePhrase::EditState editState() const override;
     QString editStateString() const override;
     void setEditState(IEditablePhrase::EditState state) override;

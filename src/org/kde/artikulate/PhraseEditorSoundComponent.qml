@@ -31,7 +31,7 @@ Item {
                 text: i18n("Existing Recording:")
             }
             SoundPlayer {
-                fileUrl: root.phrase == null ? "" : phrase.soundFileUrl
+                source: root.phrase == null ? "" : phrase.sound
             }
         }
         Row {
@@ -44,7 +44,7 @@ Item {
                 id: recorder
             }
             SoundPlayer {
-                fileUrl: recorder.outputFileUrl
+                source: recorder.outputFileUrl
             }
         }
         Row {

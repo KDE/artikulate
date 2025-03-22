@@ -3,7 +3,7 @@
 
 import QtQuick
 import QtQuick.Controls
-import org.kde.artikulate
+import QtMultimedia
 
 Item {
     id: root
@@ -18,38 +18,19 @@ Item {
     /**
      * the path to the sound file
      */
-    property string fileUrl
+    property alias source: player.source
 
-    Player {
-        id: playerBackend
-        soundFileUrl: root.fileUrl
+    MediaPlayer {
+        id: player
+        audioOutput: AudioOutput {}
+        onErrorOccurred: (error, errorString) => console.log(`playback error: ${errorString}`)
     }
 
     Button {
         id: button
-        enabled: fileUrl !== ""
+        enabled: player.hasAudio
         text: root.text
-        icon.name: "media-playback-start"
-
-        onClicked: {
-            if (playerBackend.state === Player.PlayingState) {
-                playerBackend.stop();
-                return;
-            }
-            if (playerBackend.state === Player.StoppedState) {
-                playerBackend.playback();
-                return;
-            }
-        }
+        icon.name: player.playing ? "media-playback-stop" : "media-playback-start"
+        onClicked: player.playing ? player.stop() : player.play()
     }
-    states: [
-        State {
-            name: "playing"
-            when: playerBackend.state === Player.PlayingState
-            PropertyChanges {
-                target: button
-                icon.name: "media-playback-stop";
-            }
-        }
-    ]
 }

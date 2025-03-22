@@ -63,7 +63,7 @@ void TestEditableCourseResource::loadCourseResource()
     QCOMPARE(firstPhrase->id(), "1");
     QCOMPARE(firstPhrase->foreignId(), "{3a4c1926-60d7-44c6-80d1-03165a641c75}");
     QCOMPARE(firstPhrase->text(), "Guten Tag.");
-    QCOMPARE(firstPhrase->soundFileUrl(), ":/courses/de_01.ogg");
+    QCOMPARE(firstPhrase->sound().toLocalFile(), ":/courses/de_01.ogg");
     QCOMPARE(firstPhrase->type(), Phrase::Type::Sentence);
     QVERIFY(firstPhrase->phonemes().isEmpty());
 }

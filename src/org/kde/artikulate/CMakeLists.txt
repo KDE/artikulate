@@ -12,12 +12,9 @@ qt_add_qml_module(
         editorsession.cpp
         editorsession.h
         isessionactions.h
-        player.cpp
-        player.h
-        recorder.cpp
-        recorder.h
         trainingsession.cpp
         trainingsession.h
+
         # models
         coursemodel.cpp
         coursemodel.h

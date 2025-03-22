@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -303,11 +302,6 @@ void Phrase::setSound(QUrl soundFile)
     Q_EMIT soundChanged();
 }
 
-QString Phrase::soundFileUrl() const
-{
-    return m_nativeSoundFile.toLocalFile();
-}
-
 QString Phrase::soundFileOutputPath() const
 {
     if (m_nativeSoundFile.isEmpty()) {
@@ -315,11 +309,11 @@ QString Phrase::soundFileOutputPath() const
         // TODO take care that this is proper ASCII
         return outputDir + id() + QStringLiteral(".ogg");
     } else {
-        return soundFileUrl();
+        return m_nativeSoundFile.toLocalFile();
     }
 }
 
-void Phrase::setSoundFileUrl()
+void Phrase::markSoundRecorded()
 {
     if (soundFileOutputPath() != m_nativeSoundFile.toLocalFile()) {
         m_nativeSoundFile = QUrl::fromLocalFile(soundFileOutputPath());

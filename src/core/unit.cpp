@@ -6,12 +6,10 @@
 */
 
 #include "unit.h"
-#include "phrase.h"
-
-#include <QQmlEngine>
-
 #include "artikulate_debug.h"
+#include "phrase.h"
 #include <KLocalizedString>
+#include <QQmlEngine>
 
 Unit::Unit(QObject *parent)
     : IEditableUnit(parent)
