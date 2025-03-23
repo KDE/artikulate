@@ -1,6 +1,5 @@
 /*
-    SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
+    SPDX-FileCopyrightText: 2013-2025 Andreas Cord-Landwehr <cordlandwehr@kde.org>
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -20,11 +19,9 @@ MainWindow::MainWindow()
 {
     rootContext()->setContextObject(new KLocalizedContext(this));
 
-    // set view
-    rootContext()->setContextProperty(QStringLiteral("g_profileManager"), &m_profileManager);
-    rootContext()->setContextProperty(QStringLiteral("g_artikulateAboutData"), QVariant::fromValue(KAboutData::applicationData()));
-
     // set starting screen
+    QVariantMap initialProperties{{"aboutData", QVariant::fromValue(KAboutData::applicationData())}};
+    setInitialProperties(initialProperties);
     load(":/qt/qml/org/kde/artikulate/Main.qml");
 
     // create training profile if none exists:

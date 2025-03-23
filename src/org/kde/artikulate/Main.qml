@@ -5,14 +5,12 @@ import QtQuick
 import org.kde.kirigami as Kirigami
 import org.kde.artikulate
 
+pragma ComponentBehavior: Bound
+
 Kirigami.ApplicationWindow {
     id: root
 
-    function changePage(pageItem) {
-        root.pageStack.clear();
-        root.pageStack.push(pageItem);
-        root.pageStack.push(pageItem);
-    }
+    required property var aboutData
 
     globalDrawer: ArtikulateDrawer {
         width: 300
@@ -31,8 +29,6 @@ Kirigami.ApplicationWindow {
     signal triggerAction(string actionName);
     signal switchMenuBarVisibility();
 
-    property Learner learner: g_profileManager.activeProfile
-
     CourseModel {
         id: availableCourseModel
     }
@@ -40,7 +36,6 @@ Kirigami.ApplicationWindow {
     pageStack.initialPage:[ welcomePageComponent ]
     pageStack.globalToolBar.style: Kirigami.ApplicationHeaderStyle.Titles
 
-    // pages
     Component {
         id: welcomePageComponent
         WelcomePage { }
@@ -49,14 +44,11 @@ Kirigami.ApplicationWindow {
         id: trainingPageComponent
         TrainingPage { }
     }
-    // Component {
-    //     id: profileSettingsPageComponent
-    //     ProfileSettingsPage { }
-    // }
+
     Component {
         id: aboutPageComponent
         Kirigami.AboutPage {
-            aboutData: g_artikulateAboutData
+            aboutData: root.aboutData
         }
     }
 }
