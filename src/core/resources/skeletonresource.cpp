@@ -78,8 +78,8 @@ public:
     QString m_identifier;
     QString m_title;
     QString m_description;
-    bool m_unitsParsed {false};
-    bool m_modified {false};
+    bool m_unitsParsed{false};
+    bool m_modified{false};
 
 protected:
     QVector<std::shared_ptr<Unit>> m_units; ///!< the units variable is loaded lazily and shall never be access directly
@@ -186,9 +186,15 @@ SkeletonResource::SkeletonResource(const QUrl &path, IResourceRepository *reposi
     , d(new SkeletonResourcePrivate(path))
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
-    connect(this, &SkeletonResource::idChanged, this, [=]() { d->m_modified = true; });
-    connect(this, &SkeletonResource::titleChanged, this, [=]() { d->m_modified = true; });
-    connect(this, &SkeletonResource::descriptionChanged, this, [=]() { d->m_modified = true; });
+    connect(this, &SkeletonResource::idChanged, this, [=]() {
+        d->m_modified = true;
+    });
+    connect(this, &SkeletonResource::titleChanged, this, [=]() {
+        d->m_modified = true;
+    });
+    connect(this, &SkeletonResource::descriptionChanged, this, [=]() {
+        d->m_modified = true;
+    });
 
     Q_UNUSED(repository)
 }
@@ -320,9 +326,9 @@ bool SkeletonResource::createPhraseAfter(IPhrase *previousPhrase)
             phraseIds.append(phrase->id());
         }
     }
-    QString id = QUuid::createUuid().toString();
+    QString id = QUuid::createUuid().toString(QUuid::StringFormat::WithoutBraces);
     while (phraseIds.contains(id)) {
-        id = QUuid::createUuid().toString();
+        id = QUuid::createUuid().toString(QUuid::StringFormat::WithoutBraces);
         qCWarning(ARTIKULATE_LOG) << "Phrase id generator has found a collision, recreating id.";
     }
 
