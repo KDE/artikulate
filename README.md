@@ -1,5 +1,5 @@
 <!--
-    Copyright 2013-2019  Andreas Cord-Landwehr <cordlandwehr@kde.org>
+    Copyright 2013-2025  Andreas Cord-Landwehr <cordlandwehr@kde.org>
     SPDX-License-Identifier: CC-BY-SA-4.0
 -->
 
@@ -14,7 +14,7 @@ infrastructure.
 For a detailed explanation how to contribute new languages and/or new courses, please refer to the
 information at techbase: http://techbase.kde.org/Projects/Edu/Artikulate
 
-* contribute: please go to phabricator.kde.org
+* contribute: please go to https://invent.kde.org/education/artikulate
 
 Packaging and Building Information
 ==================================
@@ -30,7 +30,6 @@ Building produces the binary "artikulate" and the following shared libraries, wh
 internally inside Artikulate:
 
 * artikulatelearnerprofile
-* artikuklatesound
 * artikulatecore
 
 
@@ -48,5 +47,5 @@ CMake files are BSD licensed.
 
 # Patches and Bug Reports
 
-Please use the bugs.kde.org or the git.reviewboard.kde.org infrastructure for this.
+Please use the bugs.kde.org or the invent.kde.org infrastructure for this.
 
