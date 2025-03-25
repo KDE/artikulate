@@ -1,0 +1,1171 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Marce Villarino <mvillarino@kde-espana.org>, 2013.
+# Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015, 2016.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2019, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-03-25 00:37+0000\n"
+"PO-Revision-Date: 2023-06-29 08:18+0200\n"
+"Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
+"Language-Team: Galician <proxecto@trasno.gal>\n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.04.2\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Bengalí"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Catalán"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "Alemán"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Holandés"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "Inglés británico"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "Inglés"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "Francés"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Grego"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Hindú"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "Italiano"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Marathi"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Polaco"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "Castelán"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:147
+#, kde-format
+msgctxt "@item:inlistbox unknown learning goal"
+msgid "unknown"
+msgstr "descoñecido"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:212
+#, kde-format
+msgctxt "@title:column"
+msgid "Learning Goal"
+msgstr "Meta da aprendizaxe"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Open Image"
+msgstr "Abrir unha imaxe"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Image Files (*.png *.jpg *.bmp)"
+msgstr "Ficheiros de imaxe (*.png *.jpg *.bmp)"
+
+#: liblearnerprofile/src/storage.cpp:569
+#, kde-format
+msgid "Invalid database version '%1'."
+msgstr "A versión da base de datos, «%1», é incorrecta."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "Se verdadeiro, amósase a barra de menú principal."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"Active esta opción para que os ficheiros de cursos só se lean do repositorio "
+"de colaboración local."
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "Ruta do repositorio de colaboradores local."
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Nome do dispositivo de entrada de son."
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Volume da entrada de son."
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Volume da saída de son."
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Fonte"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"Use «qtmultimediabackend» ou «qtgstreamerbackend», selecciónase en tempo de "
+"execución se está dispoñíbel."
+
+#: src/core/resources/editablecourseresource.cpp:262
+#, kde-format
+msgid "New Unit"
+msgstr "Nova unidade"
+
+#: src/main.cpp:29
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate"
+msgstr "Artikulate"
+
+#: src/main.cpp:31
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Pronunciation Trainer"
+msgstr "Adestrador de pronuncia Artikulate."
+
+#: src/main.cpp:33 src/main_editor.cpp:30
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2022 The Artikulate Developers"
+msgstr "© 2013-2022 Xente desenvolvedora de Artikulate"
+
+#: src/main.cpp:34
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Train your pronunciation in a foreign language."
+msgstr "Adestra a pronuncia nun idioma estranxeiro."
+
+#: src/main.cpp:37 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Andreas Cord-Landwehr"
+msgstr "Andreas Cord-Landwehr"
+
+#: src/main.cpp:38 src/main_editor.cpp:34
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Original Author"
+msgstr "Autoría orixinal."
+
+#: src/main.cpp:41
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Samikshan Bairagya"
+msgstr "Samikshan Bairagya"
+
+#: src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer"
+msgstr "Desenvolvemento."
+
+#: src/main.cpp:45
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Oindrila Gupta"
+msgstr "Oindrila Gupta"
+
+#: src/main.cpp:46 src/main.cpp:50
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer and Course Data"
+msgstr "Desenvolvemento e datos de cursos."
+
+#: src/main.cpp:49
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Magdalena Konkiewicz"
+msgstr "Magdalena Konkiewicz"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Marce Villarino"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "mvillarino@kde-espana.org"
+
+#: src/main_editor.cpp:26
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate Editor"
+msgstr "Editor de Artikulate"
+
+#: src/main_editor.cpp:28
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Course Editor"
+msgstr "Editor de cursor de Artikulate."
+
+#: src/main_editor.cpp:31
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Edit Artikulate course files."
+msgstr "Editar ficheiros de curso de Artikulate."
+
+#: src/mainwindow.cpp:29 src/org/kde/artikulate/ProfileSelector.qml:15
+#, kde-format
+msgid "Unnamed Identity"
+msgstr "Identidade sen nome"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:47
+#, kde-format
+msgid "Training"
+msgstr "Adestramento"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:97
+#: src/org/kde/artikulate/WelcomePage.qml:77
+#, kde-format
+msgid "Download Training"
+msgstr "Descargar o adestramento"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:111
+#: src/org/kde/artikulate/EditorDrawer.qml:132
+#, kde-format
+msgid "About Artikulate"
+msgstr "Sobre Artikulate"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#: src/org/kde/artikulate/EditorDrawer.qml:72
+#, kde-format
+msgid "Course Configuration"
+msgstr "Configuración do curso"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#, kde-format
+msgid "Prototype Configuration"
+msgstr "Configuración do prototipo"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Prototype Description"
+msgstr "Descrición do prototipo"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Course Description"
+msgstr "Descrición do curso"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:21
+#, kde-format
+msgid "Title:"
+msgstr "Título:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:28
+#, kde-format
+msgid "Localized Title:"
+msgstr "Título localizado:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:34
+#, kde-format
+msgid "Description:"
+msgstr "Descrición:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:41
+#, kde-format
+msgid "Language:"
+msgstr "Idioma:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:49
+#, kde-format
+msgid "Prototype"
+msgstr "Prototipo"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:54
+#, kde-format
+msgid "Update from Prototype:"
+msgstr "Actualizar a partir do prototipo:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:57
+#, kde-format
+msgid "Update"
+msgstr "Actualizar"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:62
+#, kde-format
+msgid "Update the course with elements from prototype."
+msgstr "Actualizar o curso con elementos do prototipo."
+
+#: src/org/kde/artikulate/coursemodel.cpp:99
+#: src/org/kde/artikulate/languageresourcemodel.cpp:71
+#: src/org/kde/artikulate/phonememodel.cpp:61
+#: src/org/kde/artikulate/phraselistmodel.cpp:96
+#: src/org/kde/artikulate/profilemodel.cpp:85
+#: src/org/kde/artikulate/skeletonmodel.cpp:96
+#: src/org/kde/artikulate/unitmodel.cpp:84
+#, kde-format
+msgctxt "@item:inlistbox:"
+msgid "unknown"
+msgstr "descoñecido"
+
+#: src/org/kde/artikulate/coursemodel.cpp:158
+#, kde-format
+msgctxt "@title:column"
+msgid "Course"
+msgstr "Curso"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:13
+#, kde-format
+msgid "Edit Course"
+msgstr "Editar o curso"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:22
+#, kde-format
+msgid "Previous"
+msgstr "Anterior"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:23
+#, kde-format
+msgid "Switch to previous phrase."
+msgstr "Cambiar á frase anterior."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:29
+#: src/org/kde/artikulate/TrainingPage.qml:38
+#, kde-format
+msgid "Next"
+msgstr "Seguinte"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:30
+#, kde-format
+msgid "Switch to next phrase."
+msgstr "Cambiar á seguinte frase."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:39
+#: src/org/kde/artikulate/ProfileUserItem.qml:70
+#: src/org/kde/artikulate/ProfileUserItem.qml:167
+#, kde-format
+msgid "Delete"
+msgstr "Eliminar"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:40
+#, kde-format
+msgid "Delete this phrase."
+msgstr "Eliminar esta frase."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:45
+#, kde-format
+msgid "Create Phrase"
+msgstr "Crear unha frase"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:46
+#, kde-format
+msgid "Create phrase after current phrase."
+msgstr "Crear a frase despois da actual."
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:12
+#, kde-format
+msgid "Welcome to Artikulate Course Editor"
+msgstr "Benvida ao editor de cursor de Artikulate"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:43
+#: src/org/kde/artikulate/WelcomePage.qml:45
+#, kde-format
+msgctxt "@title:window language / course name"
+msgid "%1 / %2"
+msgstr "%1 / %2"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Course"
+msgstr "Editar o curso"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:46
+#, kde-format
+msgid "Courses"
+msgstr "Cursos"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:58
+#, kde-format
+msgid "Repository"
+msgstr "Repositorio"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:121
+#, kde-format
+msgid "Save"
+msgstr "Gardar"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:12
+#, kde-format
+msgid "Select Prototype"
+msgstr "Seleccionar o prototipo"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:43
+#, kde-format
+msgctxt "@title:window prototype name"
+msgid "%1"
+msgstr "%1"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Prototype"
+msgstr "Editar o prototipo"
+
+#: src/org/kde/artikulate/languageresourcemodel.cpp:150
+#, kde-format
+msgctxt "@title:column"
+msgid "Language"
+msgstr "Idioma"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:132
+#, kde-format
+msgid "Words"
+msgstr "Palabras"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:134
+#, kde-format
+msgid "Sentences"
+msgstr "Frases"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:136
+#, kde-format
+msgid "Expressions"
+msgstr "Expresións"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:138
+#, kde-format
+msgid "Paragraphs"
+msgstr "Parágrafos"
+
+#: src/org/kde/artikulate/phonemegroupmodel.cpp:153
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Group"
+msgstr "Grupo de fonemas"
+
+#: src/org/kde/artikulate/phonememodel.cpp:123
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme"
+msgstr "Fonema"
+
+#: src/org/kde/artikulate/phonemeunitmodel.cpp:182
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Unit"
+msgstr "Unidade de fonema"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit"
+msgstr "Unidade"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit: "
+msgstr "Unidade: "
+
+#: src/org/kde/artikulate/PhraseEditor.qml:108
+#, kde-format
+msgid "Localized Unit:"
+msgstr "Unidade localizada:"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:119
+#, kde-format
+msgid "Phrase: "
+msgstr "Frase: "
+
+#: src/org/kde/artikulate/PhraseEditor.qml:124
+#, kde-format
+msgid "Localized Phrase:"
+msgstr "Frase localizada:"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:45
+#, kde-format
+msgid "Edit State:"
+msgstr "Editar o estado:"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:55
+#, kde-format
+msgctxt "state"
+msgid "Unknown"
+msgstr "Descoñecido"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:63
+#, kde-format
+msgctxt "state"
+msgid "Translated"
+msgstr "Traducida"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:71
+#, kde-format
+msgctxt "state"
+msgid "Completed"
+msgstr "Completada"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:21
+#, kde-format
+msgid "Native Speaker Recording"
+msgstr "Gravación dun falante nativo"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:31
+#, kde-format
+msgid "Existing Recording:"
+msgstr "Gravación existente:"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:41
+#, kde-format
+msgid "Create New Recording:"
+msgstr "Crear unha gravación nova:"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:57
+#, kde-format
+msgid "Replace Existing Recording"
+msgstr "Substituír unha gravación existente"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:65
+#, kde-format
+msgid "Dismiss"
+msgstr "Descartar"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:48
+#, kde-format
+msgid "Difficulty:"
+msgstr "Dificultade:"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:58
+#, kde-format
+msgid "Word"
+msgstr "Palabra"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:65
+#, kde-format
+msgid "Expression"
+msgstr "Expresión"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:72
+#, kde-format
+msgid "Sentence"
+msgstr "Frase"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:79
+#, kde-format
+msgid "Paragraph"
+msgstr "Parágrafo"
+
+#: src/org/kde/artikulate/phraselistmodel.cpp:172
+#: src/org/kde/artikulate/phrasemodel.cpp:285
+#, kde-format
+msgctxt "@title:column"
+msgid "Phrase"
+msgstr "Frase"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:35
+#, kde-format
+msgid "Learner"
+msgstr "Estudante"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:48
+#, kde-format
+msgid "Favorite Languages"
+msgstr "Idiomas preferidos"
+
+#: src/org/kde/artikulate/profilemodel.cpp:144
+#, kde-format
+msgctxt "@title:column"
+msgid "Profile"
+msgstr "Perfil"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:67
+#, kde-format
+msgid "Create New Learner Identity"
+msgstr "Crear unha nova identidade de estudante"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:100
+#, kde-format
+msgid "Use Selected Identity"
+msgstr "Usar a identidade seleccionada"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:14
+#, kde-format
+msgid "Configure Profile"
+msgstr "Configurar o perfil"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:98
+#: src/org/kde/artikulate/ProfileUserItem.qml:114
+#, kde-format
+msgid "Name"
+msgstr "Nome"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:65
+#, kde-format
+msgid "Edit"
+msgstr "Editar"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:76
+#, kde-format
+msgid "Change Image"
+msgstr "Cambiar a imaxe"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:81
+#, kde-format
+msgid "Clear Image"
+msgstr "Limpar a imaxe"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:120
+#, kde-format
+msgid "Done"
+msgstr "Feito"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:158
+#, kde-format
+msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
+msgstr "Seguro que quere eliminar a identidade «<b>%1</b>»?"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:174
+#, kde-format
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:13
+#, kde-format
+msgid "Repository Configuration"
+msgstr "Configuración do repositorio"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:18
+#, kde-format
+msgid "Select Repository Folder"
+msgstr "Seleccionar o cartafol do repositorio"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:29
+#, kde-format
+msgid "Repository:"
+msgstr "Repositorio:"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:34
+#, kde-format
+msgid "Change Folder"
+msgstr "Cambiar de cartafol"
+
+#: src/org/kde/artikulate/skeletonmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Skeleton"
+msgstr "Esqueleto"
+
+#: src/org/kde/artikulate/SoundPlayer.qml:16
+#, kde-format
+msgid "Play"
+msgstr "Reproducir"
+
+#: src/org/kde/artikulate/SoundRecorder.qml:16
+#, kde-format
+msgid "Record"
+msgstr "Gravar"
+
+#: src/org/kde/artikulate/TrainerCourseStatistics.qml:43
+#, kde-format
+msgid "Attempts"
+msgstr "Intentos"
+
+#: src/org/kde/artikulate/TrainingPage.qml:25
+#, kde-format
+msgid "Category: no category selected"
+msgstr "Categoría: non hai ningunha categoría seleccionada."
+
+#: src/org/kde/artikulate/TrainingPage.qml:28
+#, kde-format
+msgid "Category: %1"
+msgstr "Categoría: %1"
+
+#: src/org/kde/artikulate/TrainingPage.qml:39
+#, kde-format
+msgid "Mark current phrase as completed and proceed with next one."
+msgstr "marcar a frase actual como completada e proceder coa seguinte."
+
+#: src/org/kde/artikulate/TrainingPage.qml:45
+#, kde-format
+msgid "Skip"
+msgstr "Omitir"
+
+#: src/org/kde/artikulate/TrainingPage.qml:46
+#, kde-format
+msgid "Skip current phrase and proceed with next one."
+msgstr "Omitir a frase actual e proceder coa seguinte."
+
+#: src/org/kde/artikulate/TrainingPage.qml:101
+#, kde-format
+msgid "Play original"
+msgstr "Reproducir a orixinal"
+
+#: src/org/kde/artikulate/TrainingPage.qml:142
+#, kde-format
+msgid "Record yourself"
+msgstr "Gravarse"
+
+#: src/org/kde/artikulate/TrainingPage.qml:151
+#, kde-format
+msgid "Play yourself"
+msgstr "Reproducirse"
+
+#: src/org/kde/artikulate/unitmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Unit"
+msgstr "Unidades"
+
+#: src/org/kde/artikulate/WelcomePage.qml:14
+#, kde-format
+msgid "Welcome to Artikulate"
+msgstr "Benvida a Artikulate"
+
+#: src/org/kde/artikulate/WelcomePage.qml:59
+#, kde-format
+msgctxt "@action:button"
+msgid "Start Training"
+msgstr "Iniciar o adestramento"
+
+#: src/org/kde/artikulate/WelcomePage.qml:73
+#, kde-format
+msgid "No trainings found"
+msgstr "Non se atoparon adestramentos."
+
+#~ msgid "Please select a course"
+#~ msgstr "Seleccione un curso"
+
+#~ msgid "About Artikulate Editor"
+#~ msgstr "Sobre o editor de Artikulate"
+
+#~ msgid "Select Image"
+#~ msgstr "Seleccionar unha imaxe"
+
+#~ msgid "Delete User"
+#~ msgstr "Eliminar a persoa usuaria"
+
+#~ msgid "Download Training Material"
+#~ msgstr "Descargar o material de adestramento"
+
+#~ msgctxt "@action:button"
+#~ msgid "Update"
+#~ msgstr "Actualizar"
+
+#~ msgctxt "@action:button"
+#~ msgid "Install"
+#~ msgstr "Instalar"
+
+#~ msgctxt "@action:button"
+#~ msgid "Remove"
+#~ msgstr "Retirar"
+
+#~ msgctxt "default sound device"
+#~ msgid "Default"
+#~ msgstr "Predeterminada"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2019 The Artikulate Developers"
+#~ msgstr "© 2013-2019 Desenvolvedores de Artikulate"
+
+#~ msgid "About"
+#~ msgstr "Sobre"
+
+#, fuzzy
+#~| msgid "Original Phrase: <i>%1</i>"
+#~ msgid "Original Phrase:"
+#~ msgstr "Frase orixinal: <i>%1</i>"
+
+#~ msgid "Unit Title:"
+#~ msgstr "Título da unidade:"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Learner Profile"
+#~ msgstr "Perfil do estudante"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Configure Artikulate"
+#~ msgstr "Configurar Artikulate"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Sound Devices"
+#~ msgstr "Dispositivos de son"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Sound Device Settings"
+#~ msgstr "Configuración do dispositivo de son"
+
+#~ msgid "Export"
+#~ msgstr "Exportar"
+
+#~ msgid "Export Directory"
+#~ msgstr "Exportar o directorio"
+
+#~ msgid "..."
+#~ msgstr "…"
+
+#~ msgid "Configure Microphone"
+#~ msgstr "Configurar o micrófono"
+
+#~ msgid "Input Device"
+#~ msgstr "Dispositivo de entrada"
+
+#~ msgid "Play Test Sound"
+#~ msgstr "Reproducir un son de proba"
+
+#~ msgid "Play test sound."
+#~ msgstr "Reproducir un son de proba."
+
+#~ msgid "Record Test Sound"
+#~ msgstr "Gravar un son de proba"
+
+#~ msgid "Play recorded test sound."
+#~ msgstr "Reproducir o son de proba gravado."
+
+#~ msgid "Record test sound."
+#~ msgstr "Gravar un son de proba."
+
+#~ msgid "Test Sound"
+#~ msgstr "Probar o son"
+
+#~ msgid "Configure Speakers"
+#~ msgstr "Configurar os altofalantes"
+
+#~ msgid "Volume"
+#~ msgstr "Volume"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Fonts"
+#~ msgstr "Tipos de letra"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Training Phrase Font"
+#~ msgstr "Tipo de letra da frase de adestramento"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Export GHNS Files"
+#~ msgstr "Exportar ficheiros GHNS"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Course Resources"
+#~ msgstr "Recursos do curso"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Resource Repository Settings"
+#~ msgstr "Configuración do repositorio de recursos"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "The currently open course contains unsaved changes. Do you want to save "
+#~ "them?"
+#~ msgstr "O curso actual contén cambios non gardados. Quere gardalos?"
+
+#~ msgid "Statistics"
+#~ msgstr "Estatísticas"
+
+#~ msgid "Settings"
+#~ msgstr "Configuración"
+
+#~ msgid "Course Prototype:"
+#~ msgstr "Prototipo do curso:"
+
+#~ msgid "There is no course in the selected language."
+#~ msgstr "Non hai cursos no idioma seleccionado."
+
+#~ msgid "Create Course"
+#~ msgstr "Crear un curso"
+
+#~ msgid "Units & Phrases"
+#~ msgstr "Unidades e frases"
+
+#~ msgid ""
+#~ "This dialog allows advanced settings. It is addressed only to "
+#~ "translators, speakers, and other users of the course editor. Adding a "
+#~ "repository allows you to work on courses and course skeletons in a "
+#~ "structured way. For details please refer to the technical documentation."
+#~ msgstr ""
+#~ "Este diálogo permite configurar opcións avanzadas. Está pensado só para "
+#~ "tradutores, falantes, e outros usuarios do editor de cursos. Engadir un "
+#~ "repositorio permítelle traballar en cursos e esqueletos de cursos dunha "
+#~ "maneira estruturada. Para máis información, consulte a documentación "
+#~ "técnica."
+
+#~ msgid "Path to the contributor repository."
+#~ msgstr "Ruta do repositorio de colaboradores."
+
+#~ msgid ""
+#~ "Use this option only if you are a course contributor and you are working "
+#~ "on a course repository."
+#~ msgstr ""
+#~ "Use esta opción só se é colaborador dun curso e está a traballar nun "
+#~ "repositorio de cursos."
+
+#~ msgid "Use course contributor repository in trainer mode"
+#~ msgstr ""
+#~ "Usar o repositorio de colaboradores de cursos no modo de adestramento."
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2017 The Artikulate Developers"
+#~ msgstr "© 2013-2017 Desenvolvedores de Artikulate"
+
+#~ msgid "Category: "
+#~ msgstr "Categoría: "
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Download New Language Course"
+#~ msgstr "Descargar un novo curso de idioma"
+
+#~ msgid "Prototype Mode"
+#~ msgstr "Modo de prototipo"
+
+#~ msgid "Please download a course"
+#~ msgstr "Descargue un curso"
+
+#~ msgid "Categories"
+#~ msgstr "Categorías"
+
+#~ msgid "File"
+#~ msgstr "Ficheiro"
+
+#~ msgid "Edit User"
+#~ msgstr "Editar o usuario"
+
+#~ msgid "Quit"
+#~ msgstr "Saír"
+
+#~ msgid "Download Courses"
+#~ msgstr "Descargar cursos"
+
+#~ msgid "Configure Artikulate..."
+#~ msgstr "Configurar Artikulate…"
+
+#~ msgid "Show Menubar"
+#~ msgstr "Mostrar a barra do menú"
+
+#~ msgid "Help"
+#~ msgstr "Axuda"
+
+#~ msgid "Artikulate Handbook"
+#~ msgstr "Manual de Artikulate"
+
+#~ msgid "Report Bug"
+#~ msgstr "Informar dun fallo"
+
+#~ msgid "There are no courses installed on this system."
+#~ msgstr "Non hai cursos instalados no sistema."
+
+#~ msgid "You can install them now from the Internet:"
+#~ msgstr "Pode instalalos de internet:"
+
+#~ msgid "User Profile Settings"
+#~ msgstr "Configuración do perfil do usuario"
+
+#~ msgid "Languages"
+#~ msgstr "Idiomas"
+
+#~ msgid "Close"
+#~ msgstr "Pechar"
+
+#~ msgid "Listen"
+#~ msgstr "Escoitar"
+
+#~ msgid "Create New Course"
+#~ msgstr "Crear un curso novo"
+
+#~ msgid "none"
+#~ msgstr "ningunha"
+
+#~ msgid "New Course"
+#~ msgstr "Novo curso"
+
+#~ msgid "Use Skeleton"
+#~ msgstr "Usar o esqueleto"
+
+#~ msgid "Identifier"
+#~ msgstr "Identificador"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2014 The Artikulate Developers"
+#~ msgstr "© 2013-2014 Desenvolvedores de Artikulate"
+
+#, fuzzy
+#~| msgid "Edit Skeletons"
+#~ msgid "Edit Skeleton"
+#~ msgstr "Editar esqueletos"
+
+#, fuzzy
+#~| msgctxt "@item:inmenu"
+#~| msgid "Configure Artikulate"
+#~ msgid "Configure Shortcuts..."
+#~ msgstr "Configurar Artikulate"
+
+#~ msgid "M&ode"
+#~ msgstr "M&odo"
+
+#~ msgid "Learn and practice pronunciation."
+#~ msgstr "Aprender e practicar pronuncia."
+
+#~ msgid "Unselected"
+#~ msgstr "Anular a selección"
+
+#~ msgid "Close Editor"
+#~ msgstr "Pechar o editor"
+
+#~ msgid "OK"
+#~ msgstr "Aceptar"
+
+#~ msgid "Close Course"
+#~ msgstr "Pechar o curso"
+
+#~ msgid "<strong>Skeleton:</strong> %1"
+#~ msgstr "<strong>Esqueleto:</strong> %1"
+
+#~ msgid "Units"
+#~ msgstr "Unidades"
+
+#~ msgid "Add Unit"
+#~ msgstr "Engadir unha unidade"
+
+#~ msgid "No Course Repository Selected"
+#~ msgstr "Non seleccionou un repositorio de cursos"
+
+#~ msgid ""
+#~ "Editor is only available when Artikulate works on a course data "
+#~ "repository. Please see program settings."
+#~ msgstr ""
+#~ "O editor só está dispoñíbel cando Artikulate está a traballar nun "
+#~ "repositorio de datos de cursos. Revise a configuración do programa."
+
+#~ msgid "Select Course Language:"
+#~ msgstr "Escolla o idioma do curso:"
+
+#~ msgid "Language: "
+#~ msgstr "Lingua:"
+
+#~ msgid "unselected"
+#~ msgstr "non seleccionado"
+
+#~ msgid "Select Skeleton:"
+#~ msgstr "Seleccione o esqueleto:"
+
+#~ msgid "Please select a favorite language"
+#~ msgstr "Escolla un idioma preferido"
+
+#~ msgid "Length:"
+#~ msgstr "Lonxitude:"
+
+#~ msgid "Unit: %1"
+#~ msgstr "Unidade: %1"
+
+#~ msgid "Finish Training"
+#~ msgstr "Rematar o adestramento"
+
+#~ msgid "Phrases Grouped by Attempts"
+#~ msgstr "Frases agrupadas por intentos"
+
+#~ msgid "Training Progress"
+#~ msgstr "Progreso do adestramento"
+
+#~ msgid "Create Learner Identity"
+#~ msgstr "Crear unha identidade de estudante"
+
+#~ msgid "Start by creating a learner identity"
+#~ msgstr "Para comezar, cree unha identidade de estudante."
+
+#~ msgid "Native Speaker"
+#~ msgstr "Falante nativo"
+
+#~ msgid "Learner (You)"
+#~ msgstr "Estudante (ti)"
+
+#~ msgid "Add Phrase"
+#~ msgstr "Engadir unha frase"
+
+#, fuzzy
+#~ msgid "<strong>Language:</strong> %1"
+#~ msgstr "Lingua"
+
+#, fuzzy
+#~ msgid "<strong>Course:</strong> %1"
+#~ msgstr "Curso"
+
+#, fuzzy
+#~ msgid "Editor"
+#~ msgstr "Editor"
+
+#, fuzzy
+#~ msgid "Course:"
+#~ msgstr "Curso"
+
+#, fuzzy
+#~ msgid "Welcome to"
+#~ msgstr "Benvido a %1"
+
+#, fuzzy
+#~ msgid "No language selected"
+#~ msgstr "Non se escolleu ningunha linguaxe"

@@ -1,0 +1,807 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: kdeorg\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-03-25 00:37+0000\n"
+"PO-Revision-Date: 2024-04-23 19:30\n"
+"Last-Translator: \n"
+"Language-Team: Chinese Simplified\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: kdeorg\n"
+"X-Crowdin-Project-ID: 269464\n"
+"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-File: /kf6-trunk/messages/artikulate/artikulate.pot\n"
+"X-Crowdin-File-ID: 57357\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "孟加拉文"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "加泰罗尼亚语"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "德语"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "荷兰语"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "英国英语"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "英语"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "法语"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "希腊语"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "印度语"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "意大利语"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "马拉地语"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "波兰语"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "西班牙语"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:147
+#, kde-format
+msgctxt "@item:inlistbox unknown learning goal"
+msgid "unknown"
+msgstr "未知"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:212
+#, kde-format
+msgctxt "@title:column"
+msgid "Learning Goal"
+msgstr "学习目标"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Open Image"
+msgstr "打开图像"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Image Files (*.png *.jpg *.bmp)"
+msgstr "图像文件(*png *.jpg *.bmp)"
+
+#: liblearnerprofile/src/storage.cpp:569
+#, kde-format
+msgid "Invalid database version '%1'."
+msgstr "无效数据库版本“%1”。"
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "如果为 true, 则显示主菜单栏。"
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr "如果此项被启用, 课程文件只从本地贡献者库中读取"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "本地贡献者存储库的路径"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "音频输入设备名"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "音频输入音量"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "音频输出音量"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "字体"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"设置为 \"qtmultimediabackend\" 或 \"qtgstreamerbackend\"，如果可用，则在运行"
+"时选择。"
+
+#: src/core/resources/editablecourseresource.cpp:262
+#, kde-format
+msgid "New Unit"
+msgstr "新单元"
+
+#: src/main.cpp:29
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate"
+msgstr "Artikulate"
+
+#: src/main.cpp:31
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Pronunciation Trainer"
+msgstr "Artikulate 读音训练器"
+
+#: src/main.cpp:33 src/main_editor.cpp:30
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2022 The Artikulate Developers"
+msgstr "(c) 2013-2022 The Artikulate Developers"
+
+#: src/main.cpp:34
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Train your pronunciation in a foreign language."
+msgstr "训练您在某门外语的发音。"
+
+#: src/main.cpp:37 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Andreas Cord-Landwehr"
+msgstr "Andreas Cord-Landwehr"
+
+#: src/main.cpp:38 src/main_editor.cpp:34
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Original Author"
+msgstr "最初作者"
+
+#: src/main.cpp:41
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Samikshan Bairagya"
+msgstr "Samikshan Bairagya"
+
+#: src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer"
+msgstr "开发者"
+
+#: src/main.cpp:45
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Oindrila Gupta"
+msgstr "Oindrila Gupta"
+
+#: src/main.cpp:46 src/main.cpp:50
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer and Course Data"
+msgstr "开发者和课程数据"
+
+#: src/main.cpp:49
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Magdalena Konkiewicz"
+msgstr "Magdalena Konkiewicz"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "KDE 中国"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kde-china@kde.org"
+
+#: src/main_editor.cpp:26
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate Editor"
+msgstr "Artikulate 编辑器"
+
+#: src/main_editor.cpp:28
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Course Editor"
+msgstr "Artikulate 课程编辑器"
+
+#: src/main_editor.cpp:31
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Edit Artikulate course files."
+msgstr "编辑 Artikulate 课程文件。"
+
+#: src/mainwindow.cpp:29 src/org/kde/artikulate/ProfileSelector.qml:15
+#, kde-format
+msgid "Unnamed Identity"
+msgstr "未命名标识"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:47
+#, kde-format
+msgid "Training"
+msgstr "训练"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:97
+#: src/org/kde/artikulate/WelcomePage.qml:77
+#, kde-format
+msgid "Download Training"
+msgstr "下载训练"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:111
+#: src/org/kde/artikulate/EditorDrawer.qml:132
+#, kde-format
+msgid "About Artikulate"
+msgstr "关于 Artikulate"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#: src/org/kde/artikulate/EditorDrawer.qml:72
+#, kde-format
+msgid "Course Configuration"
+msgstr "课程配置"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#, kde-format
+msgid "Prototype Configuration"
+msgstr "模板配置"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Prototype Description"
+msgstr "模板描述"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Course Description"
+msgstr "课程描述"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:21
+#, kde-format
+msgid "Title:"
+msgstr "标题："
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:28
+#, kde-format
+msgid "Localized Title:"
+msgstr "本地化标题："
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:34
+#, kde-format
+msgid "Description:"
+msgstr "描述："
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:41
+#, kde-format
+msgid "Language:"
+msgstr "语言："
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:49
+#, kde-format
+msgid "Prototype"
+msgstr "原型"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:54
+#, kde-format
+msgid "Update from Prototype:"
+msgstr "从仓库更新："
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:57
+#, kde-format
+msgid "Update"
+msgstr "更新"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:62
+#, kde-format
+msgid "Update the course with elements from prototype."
+msgstr "用模板中的元素更新课程"
+
+#: src/org/kde/artikulate/coursemodel.cpp:99
+#: src/org/kde/artikulate/languageresourcemodel.cpp:71
+#: src/org/kde/artikulate/phonememodel.cpp:61
+#: src/org/kde/artikulate/phraselistmodel.cpp:96
+#: src/org/kde/artikulate/profilemodel.cpp:85
+#: src/org/kde/artikulate/skeletonmodel.cpp:96
+#: src/org/kde/artikulate/unitmodel.cpp:84
+#, kde-format
+msgctxt "@item:inlistbox:"
+msgid "unknown"
+msgstr "未知"
+
+#: src/org/kde/artikulate/coursemodel.cpp:158
+#, kde-format
+msgctxt "@title:column"
+msgid "Course"
+msgstr "路线"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:13
+#, kde-format
+msgid "Edit Course"
+msgstr "编辑课程"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:22
+#, kde-format
+msgid "Previous"
+msgstr "上一个"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:23
+#, kde-format
+msgid "Switch to previous phrase."
+msgstr "切换到上个词组。"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:29
+#: src/org/kde/artikulate/TrainingPage.qml:38
+#, kde-format
+msgid "Next"
+msgstr "下一个视图"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:30
+#, kde-format
+msgid "Switch to next phrase."
+msgstr "切换到下个词组。"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:39
+#: src/org/kde/artikulate/ProfileUserItem.qml:70
+#: src/org/kde/artikulate/ProfileUserItem.qml:167
+#, kde-format
+msgid "Delete"
+msgstr "删除"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:40
+#, kde-format
+msgid "Delete this phrase."
+msgstr "删除此词组。"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:45
+#, kde-format
+msgid "Create Phrase"
+msgstr "创建短语"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:46
+#, kde-format
+msgid "Create phrase after current phrase."
+msgstr "在当前词组后创建词组。"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:12
+#, kde-format
+msgid "Welcome to Artikulate Course Editor"
+msgstr "欢迎使用 Artikulate 课程编辑器"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:43
+#: src/org/kde/artikulate/WelcomePage.qml:45
+#, kde-format
+msgctxt "@title:window language / course name"
+msgid "%1 / %2"
+msgstr "%1 / %2"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Course"
+msgstr "编辑课程"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:46
+#, kde-format
+msgid "Courses"
+msgstr "课程"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:58
+#, kde-format
+msgid "Repository"
+msgstr "仓库"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:121
+#, kde-format
+msgid "Save"
+msgstr "保存"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:12
+#, kde-format
+msgid "Select Prototype"
+msgstr "选择模板"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:43
+#, kde-format
+msgctxt "@title:window prototype name"
+msgid "%1"
+msgstr "%1"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Prototype"
+msgstr "编辑模板"
+
+#: src/org/kde/artikulate/languageresourcemodel.cpp:150
+#, kde-format
+msgctxt "@title:column"
+msgid "Language"
+msgstr "语言"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:132
+#, kde-format
+msgid "Words"
+msgstr "单词数"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:134
+#, kde-format
+msgid "Sentences"
+msgstr "句子数"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:136
+#, kde-format
+msgid "Expressions"
+msgstr "短语"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:138
+#, kde-format
+msgid "Paragraphs"
+msgstr "段落"
+
+#: src/org/kde/artikulate/phonemegroupmodel.cpp:153
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Group"
+msgstr "音素组"
+
+#: src/org/kde/artikulate/phonememodel.cpp:123
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme"
+msgstr "音素"
+
+#: src/org/kde/artikulate/phonemeunitmodel.cpp:182
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Unit"
+msgstr "音素单元"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit"
+msgstr "单元"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit: "
+msgstr "单位: "
+
+#: src/org/kde/artikulate/PhraseEditor.qml:108
+#, kde-format
+msgid "Localized Unit:"
+msgstr "本地化单位："
+
+#: src/org/kde/artikulate/PhraseEditor.qml:119
+#, kde-format
+msgid "Phrase: "
+msgstr "词组："
+
+#: src/org/kde/artikulate/PhraseEditor.qml:124
+#, kde-format
+msgid "Localized Phrase:"
+msgstr "本地化词组："
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:45
+#, kde-format
+msgid "Edit State:"
+msgstr "编辑状态："
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:55
+#, kde-format
+msgctxt "state"
+msgid "Unknown"
+msgstr "未知"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:63
+#, kde-format
+msgctxt "state"
+msgid "Translated"
+msgstr "已翻译"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:71
+#, kde-format
+msgctxt "state"
+msgid "Completed"
+msgstr "通关度"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:21
+#, kde-format
+msgid "Native Speaker Recording"
+msgstr "母语录音"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:31
+#, kde-format
+msgid "Existing Recording:"
+msgstr "现有录音"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:41
+#, kde-format
+msgid "Create New Recording:"
+msgstr "创建新录音"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:57
+#, kde-format
+msgid "Replace Existing Recording"
+msgstr "替换现有录音"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:65
+#, kde-format
+msgid "Dismiss"
+msgstr "忽略"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:48
+#, kde-format
+msgid "Difficulty:"
+msgstr "难度："
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:58
+#, kde-format
+msgid "Word"
+msgstr "单词"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:65
+#, kde-format
+msgid "Expression"
+msgstr "表达式"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:72
+#, kde-format
+msgid "Sentence"
+msgstr "句子"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:79
+#, kde-format
+msgid "Paragraph"
+msgstr "段落"
+
+#: src/org/kde/artikulate/phraselistmodel.cpp:172
+#: src/org/kde/artikulate/phrasemodel.cpp:285
+#, kde-format
+msgctxt "@title:column"
+msgid "Phrase"
+msgstr "词组"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:35
+#, kde-format
+msgid "Learner"
+msgstr "学习者"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:48
+#, kde-format
+msgid "Favorite Languages"
+msgstr "最喜欢的语言"
+
+#: src/org/kde/artikulate/profilemodel.cpp:144
+#, kde-format
+msgctxt "@title:column"
+msgid "Profile"
+msgstr "项目"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:67
+#, kde-format
+msgid "Create New Learner Identity"
+msgstr "创建新学习者身份"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:100
+#, kde-format
+msgid "Use Selected Identity"
+msgstr "使用选中的身份"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:14
+#, kde-format
+msgid "Configure Profile"
+msgstr "配置方案"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:98
+#: src/org/kde/artikulate/ProfileUserItem.qml:114
+#, kde-format
+msgid "Name"
+msgstr "文件名"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:65
+#, kde-format
+msgid "Edit"
+msgstr "编辑"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:76
+#, kde-format
+msgid "Change Image"
+msgstr "更改图片"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:81
+#, kde-format
+msgid "Clear Image"
+msgstr "清除图像"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:120
+#, kde-format
+msgid "Done"
+msgstr "完成"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:158
+#, kde-format
+msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
+msgstr "您真的想要删除这个身份 <b>%1</b> 吗？"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:174
+#, kde-format
+msgid "Cancel"
+msgstr "取消"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:13
+#, kde-format
+msgid "Repository Configuration"
+msgstr "仓库配置"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:18
+#, kde-format
+msgid "Select Repository Folder"
+msgstr "选择仓库文件夹"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:29
+#, kde-format
+msgid "Repository:"
+msgstr "仓库："
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:34
+#, kde-format
+msgid "Change Folder"
+msgstr "更改文件夹"
+
+#: src/org/kde/artikulate/skeletonmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Skeleton"
+msgstr "骨骼"
+
+#: src/org/kde/artikulate/SoundPlayer.qml:16
+#, kde-format
+msgid "Play"
+msgstr "玩游戏"
+
+#: src/org/kde/artikulate/SoundRecorder.qml:16
+#, kde-format
+msgid "Record"
+msgstr "捕获"
+
+#: src/org/kde/artikulate/TrainerCourseStatistics.qml:43
+#, kde-format
+msgid "Attempts"
+msgstr "尝试"
+
+#: src/org/kde/artikulate/TrainingPage.qml:25
+#, kde-format
+msgid "Category: no category selected"
+msgstr "分类：未选择分类"
+
+#: src/org/kde/artikulate/TrainingPage.qml:28
+#, kde-format
+msgid "Category: %1"
+msgstr "类别：%1"
+
+#: src/org/kde/artikulate/TrainingPage.qml:39
+#, kde-format
+msgid "Mark current phrase as completed and proceed with next one."
+msgstr "标记当前短语为已完成并继续。"
+
+#: src/org/kde/artikulate/TrainingPage.qml:45
+#, kde-format
+msgid "Skip"
+msgstr "跳过"
+
+#: src/org/kde/artikulate/TrainingPage.qml:46
+#, kde-format
+msgid "Skip current phrase and proceed with next one."
+msgstr "跳过当前短语，继续到下一个。"
+
+#: src/org/kde/artikulate/TrainingPage.qml:101
+#, kde-format
+msgid "Play original"
+msgstr "播放原文"
+
+#: src/org/kde/artikulate/TrainingPage.qml:142
+#, kde-format
+msgid "Record yourself"
+msgstr "记录自身发音"
+
+#: src/org/kde/artikulate/TrainingPage.qml:151
+#, kde-format
+msgid "Play yourself"
+msgstr "播放自身发音"
+
+#: src/org/kde/artikulate/unitmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Unit"
+msgstr "单元"
+
+#: src/org/kde/artikulate/WelcomePage.qml:14
+#, kde-format
+msgid "Welcome to Artikulate"
+msgstr "欢迎使用 Artikulate"
+
+#: src/org/kde/artikulate/WelcomePage.qml:59
+#, kde-format
+msgctxt "@action:button"
+msgid "Start Training"
+msgstr "开始训练"
+
+#: src/org/kde/artikulate/WelcomePage.qml:73
+#, kde-format
+msgid "No trainings found"
+msgstr "没有找到训练"
+
+#~ msgid "Please select a course"
+#~ msgstr "请选择课程"
+
+#~ msgid "About Artikulate Editor"
+#~ msgstr "关于 Artikulate 编辑器"
+
+#~ msgid "Select Image"
+#~ msgstr "选择图像"
+
+#~ msgid "Delete User"
+#~ msgstr "删除用户"

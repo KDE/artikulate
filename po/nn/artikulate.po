@@ -1,0 +1,811 @@
+# Translation of artikulate to Norwegian Nynorsk
+#
+# Karl Ove Hufthammer <karl@huftis.org>, 2016, 2017, 2019, 2020, 2023.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-03-25 00:37+0000\n"
+"PO-Revision-Date: 2023-07-29 12:37+0200\n"
+"Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
+"Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
+"Language: nn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.04.3\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Bengali"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Katalansk"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "Tysk"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Nederlandsk"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "Engelsk (Storbritannia)"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "Engelsk"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "Fransk"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Gresk"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Hindi"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "Italiensk"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Marathi"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Polsk"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "Spansk"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:147
+#, kde-format
+msgctxt "@item:inlistbox unknown learning goal"
+msgid "unknown"
+msgstr "ukjend"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:212
+#, kde-format
+msgctxt "@title:column"
+msgid "Learning Goal"
+msgstr "Læringsmål"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Open Image"
+msgstr "Opna bilete"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Image Files (*.png *.jpg *.bmp)"
+msgstr "Biletfiler (*.png *.jpg *.bmp)"
+
+#: liblearnerprofile/src/storage.cpp:569
+#, kde-format
+msgid "Invalid database version '%1'."
+msgstr "Ugyldig databaseversjon «%1»."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "Viss det er kryssa av her, vert hovudmenylinja vist."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"Viss det er kryssa av her, vert kursfiler berre lesne frå det lokale "
+"kurslageret"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "Adressa til lokalt kurslager"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Namn på lydinneining"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Lydstyrke for lyd inn"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Lydstyrke for lyd ut"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Skrifttype"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"Bruk anten «qtmultimediabackend» eller «qtgstreamerbackend». Vert valt ved "
+"køyring, om tilgjengeleg."
+
+#: src/core/resources/editablecourseresource.cpp:262
+#, kde-format
+msgid "New Unit"
+msgstr "Ny eining"
+
+#: src/main.cpp:29
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate"
+msgstr "Artikulate"
+
+#: src/main.cpp:31
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Pronunciation Trainer"
+msgstr "Artikulate uttaleøving"
+
+#: src/main.cpp:33 src/main_editor.cpp:30
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2022 The Artikulate Developers"
+msgstr "© 2013–2022 Artikulate-utviklarane"
+
+#: src/main.cpp:34
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Train your pronunciation in a foreign language."
+msgstr "Øv på uttale av eit framandspråk."
+
+#: src/main.cpp:37 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Andreas Cord-Landwehr"
+msgstr "Andreas Cord-Landwehr"
+
+#: src/main.cpp:38 src/main_editor.cpp:34
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Original Author"
+msgstr "Opphavleg opphavsperson"
+
+#: src/main.cpp:41
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Samikshan Bairagya"
+msgstr "Samikshan Bairagya"
+
+#: src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer"
+msgstr "Utviklar"
+
+#: src/main.cpp:45
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Oindrila Gupta"
+msgstr "Oindrila Gupta"
+
+#: src/main.cpp:46 src/main.cpp:50
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer and Course Data"
+msgstr "Utviklar og kursdata"
+
+#: src/main.cpp:49
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Magdalena Konkiewicz"
+msgstr "Magdalena Konkiewicz"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Karl Ove Hufthammer"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "karl@huftis.org"
+
+#: src/main_editor.cpp:26
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate Editor"
+msgstr "Artikulate-redigering"
+
+#: src/main_editor.cpp:28
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Course Editor"
+msgstr "Artikulate kursredigering"
+
+#: src/main_editor.cpp:31
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Edit Artikulate course files."
+msgstr "Rediger Artikulate-kursfiler."
+
+#: src/mainwindow.cpp:29 src/org/kde/artikulate/ProfileSelector.qml:15
+#, kde-format
+msgid "Unnamed Identity"
+msgstr "Namnlaus identitet"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:47
+#, kde-format
+msgid "Training"
+msgstr "Øving"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:97
+#: src/org/kde/artikulate/WelcomePage.qml:77
+#, kde-format
+msgid "Download Training"
+msgstr "Lastar ned øvingar"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:111
+#: src/org/kde/artikulate/EditorDrawer.qml:132
+#, kde-format
+msgid "About Artikulate"
+msgstr "Om Artikulate"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#: src/org/kde/artikulate/EditorDrawer.qml:72
+#, kde-format
+msgid "Course Configuration"
+msgstr "Kursoppsett"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#, kde-format
+msgid "Prototype Configuration"
+msgstr "Prototypeoppsett"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Prototype Description"
+msgstr "Prototypeskildring"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Course Description"
+msgstr "Kursskildring"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:21
+#, kde-format
+msgid "Title:"
+msgstr "Tittel:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:28
+#, kde-format
+msgid "Localized Title:"
+msgstr "Omsett tittel:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:34
+#, kde-format
+msgid "Description:"
+msgstr "Skildring:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:41
+#, kde-format
+msgid "Language:"
+msgstr "Språk:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:49
+#, kde-format
+msgid "Prototype"
+msgstr "Prototype"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:54
+#, kde-format
+msgid "Update from Prototype:"
+msgstr "Oppdater frå prototype:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:57
+#, kde-format
+msgid "Update"
+msgstr "Oppdater"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:62
+#, kde-format
+msgid "Update the course with elements from prototype."
+msgstr "Oppdater kurset med element frå prototypen."
+
+#: src/org/kde/artikulate/coursemodel.cpp:99
+#: src/org/kde/artikulate/languageresourcemodel.cpp:71
+#: src/org/kde/artikulate/phonememodel.cpp:61
+#: src/org/kde/artikulate/phraselistmodel.cpp:96
+#: src/org/kde/artikulate/profilemodel.cpp:85
+#: src/org/kde/artikulate/skeletonmodel.cpp:96
+#: src/org/kde/artikulate/unitmodel.cpp:84
+#, kde-format
+msgctxt "@item:inlistbox:"
+msgid "unknown"
+msgstr "ukjend"
+
+#: src/org/kde/artikulate/coursemodel.cpp:158
+#, kde-format
+msgctxt "@title:column"
+msgid "Course"
+msgstr "Kurs"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:13
+#, kde-format
+msgid "Edit Course"
+msgstr "Rediger kurs"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:22
+#, kde-format
+msgid "Previous"
+msgstr "Førre"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:23
+#, kde-format
+msgid "Switch to previous phrase."
+msgstr "Byt til førre frase."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:29
+#: src/org/kde/artikulate/TrainingPage.qml:38
+#, kde-format
+msgid "Next"
+msgstr "Neste"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:30
+#, kde-format
+msgid "Switch to next phrase."
+msgstr "Byt til neste frase."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:39
+#: src/org/kde/artikulate/ProfileUserItem.qml:70
+#: src/org/kde/artikulate/ProfileUserItem.qml:167
+#, kde-format
+msgid "Delete"
+msgstr "Slett"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:40
+#, kde-format
+msgid "Delete this phrase."
+msgstr "Slett denne frasa."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:45
+#, kde-format
+msgid "Create Phrase"
+msgstr "Lag frase"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:46
+#, kde-format
+msgid "Create phrase after current phrase."
+msgstr "Lag ny frase etter gjeldande frase."
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:12
+#, kde-format
+msgid "Welcome to Artikulate Course Editor"
+msgstr "Velkommen til Artikulate kursredigering"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:43
+#: src/org/kde/artikulate/WelcomePage.qml:45
+#, kde-format
+msgctxt "@title:window language / course name"
+msgid "%1 / %2"
+msgstr "%1 / %2"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Course"
+msgstr "Rediger kurs"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:46
+#, kde-format
+msgid "Courses"
+msgstr "Kurs"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:58
+#, kde-format
+msgid "Repository"
+msgstr "Kurslager"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:121
+#, kde-format
+msgid "Save"
+msgstr "Lagra"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:12
+#, kde-format
+msgid "Select Prototype"
+msgstr "Vel prototype"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:43
+#, kde-format
+msgctxt "@title:window prototype name"
+msgid "%1"
+msgstr "%1"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Prototype"
+msgstr "Rediger prototype"
+
+#: src/org/kde/artikulate/languageresourcemodel.cpp:150
+#, kde-format
+msgctxt "@title:column"
+msgid "Language"
+msgstr "Språk"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:132
+#, kde-format
+msgid "Words"
+msgstr "Ord"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:134
+#, kde-format
+msgid "Sentences"
+msgstr "Setningar"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:136
+#, kde-format
+msgid "Expressions"
+msgstr "Uttrykk"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:138
+#, kde-format
+msgid "Paragraphs"
+msgstr "Avsnitt"
+
+#: src/org/kde/artikulate/phonemegroupmodel.cpp:153
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Group"
+msgstr "Fonemgruppe"
+
+#: src/org/kde/artikulate/phonememodel.cpp:123
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme"
+msgstr "Fonem"
+
+#: src/org/kde/artikulate/phonemeunitmodel.cpp:182
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Unit"
+msgstr "Fonemeining"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit"
+msgstr "Eining"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit: "
+msgstr "Eining: "
+
+#: src/org/kde/artikulate/PhraseEditor.qml:108
+#, kde-format
+msgid "Localized Unit:"
+msgstr "Omsett eining:"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:119
+#, kde-format
+msgid "Phrase: "
+msgstr "Frase: "
+
+#: src/org/kde/artikulate/PhraseEditor.qml:124
+#, kde-format
+msgid "Localized Phrase:"
+msgstr "Omsett fraset:"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:45
+#, kde-format
+msgid "Edit State:"
+msgstr "Rediger tilstand:"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:55
+#, kde-format
+msgctxt "state"
+msgid "Unknown"
+msgstr "Ukjend"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:63
+#, kde-format
+msgctxt "state"
+msgid "Translated"
+msgstr "Omsett"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:71
+#, kde-format
+msgctxt "state"
+msgid "Completed"
+msgstr "Fullført"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:21
+#, kde-format
+msgid "Native Speaker Recording"
+msgstr "Opptak frå morsmålstalar"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:31
+#, kde-format
+msgid "Existing Recording:"
+msgstr "Eksisterande opptak:"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:41
+#, kde-format
+msgid "Create New Recording:"
+msgstr "Lag nytt opptak:"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:57
+#, kde-format
+msgid "Replace Existing Recording"
+msgstr "Byt ut eksisterande opptak"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:65
+#, kde-format
+msgid "Dismiss"
+msgstr "Lukk"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:48
+#, kde-format
+msgid "Difficulty:"
+msgstr "Vanskegrad:"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:58
+#, kde-format
+msgid "Word"
+msgstr "Ord"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:65
+#, kde-format
+msgid "Expression"
+msgstr "Uttrykk"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:72
+#, kde-format
+msgid "Sentence"
+msgstr "Setning"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:79
+#, kde-format
+msgid "Paragraph"
+msgstr "Avsnitt"
+
+#: src/org/kde/artikulate/phraselistmodel.cpp:172
+#: src/org/kde/artikulate/phrasemodel.cpp:285
+#, kde-format
+msgctxt "@title:column"
+msgid "Phrase"
+msgstr "Frase"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:35
+#, kde-format
+msgid "Learner"
+msgstr "Elev"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:48
+#, kde-format
+msgid "Favorite Languages"
+msgstr "Favorittspråk"
+
+#: src/org/kde/artikulate/profilemodel.cpp:144
+#, kde-format
+msgctxt "@title:column"
+msgid "Profile"
+msgstr "Profil"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:67
+#, kde-format
+msgid "Create New Learner Identity"
+msgstr "Legg til ny elevidentitet"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:100
+#, kde-format
+msgid "Use Selected Identity"
+msgstr "Bruk vald identitet"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:14
+#, kde-format
+msgid "Configure Profile"
+msgstr "Set opp profil"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:98
+#: src/org/kde/artikulate/ProfileUserItem.qml:114
+#, kde-format
+msgid "Name"
+msgstr "Namn"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:65
+#, kde-format
+msgid "Edit"
+msgstr "Rediger"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:76
+#, kde-format
+msgid "Change Image"
+msgstr "Byt bilete"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:81
+#, kde-format
+msgid "Clear Image"
+msgstr "Fjern bilete"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:120
+#, kde-format
+msgid "Done"
+msgstr "Fullført"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:158
+#, kde-format
+msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
+msgstr "Er du sikker på at du vil sletta identitete <b>%1</b>?"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:174
+#, kde-format
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:13
+#, kde-format
+msgid "Repository Configuration"
+msgstr "Oppsett av kurslager"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:18
+#, kde-format
+msgid "Select Repository Folder"
+msgstr "Vel mappe for kurslager"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:29
+#, kde-format
+msgid "Repository:"
+msgstr "Kurslager:"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:34
+#, kde-format
+msgid "Change Folder"
+msgstr "Byt mappe"
+
+#: src/org/kde/artikulate/skeletonmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Skeleton"
+msgstr "Skjelett"
+
+#: src/org/kde/artikulate/SoundPlayer.qml:16
+#, kde-format
+msgid "Play"
+msgstr "Spel av"
+
+#: src/org/kde/artikulate/SoundRecorder.qml:16
+#, kde-format
+msgid "Record"
+msgstr "Ta opp"
+
+#: src/org/kde/artikulate/TrainerCourseStatistics.qml:43
+#, kde-format
+msgid "Attempts"
+msgstr "Forsøk"
+
+#: src/org/kde/artikulate/TrainingPage.qml:25
+#, kde-format
+msgid "Category: no category selected"
+msgstr "Kategori: ingen kategori vald"
+
+#: src/org/kde/artikulate/TrainingPage.qml:28
+#, kde-format
+msgid "Category: %1"
+msgstr "Kategori: %1"
+
+#: src/org/kde/artikulate/TrainingPage.qml:39
+#, kde-format
+msgid "Mark current phrase as completed and proceed with next one."
+msgstr "Merk gjeldande frase som fullført og gå vidare til neste."
+
+#: src/org/kde/artikulate/TrainingPage.qml:45
+#, kde-format
+msgid "Skip"
+msgstr "Hopp over"
+
+#: src/org/kde/artikulate/TrainingPage.qml:46
+#, kde-format
+msgid "Skip current phrase and proceed with next one."
+msgstr "Hopp over gjeldande frase og gå vidare til neste."
+
+#: src/org/kde/artikulate/TrainingPage.qml:101
+#, kde-format
+msgid "Play original"
+msgstr "Spel av originalklipp"
+
+#: src/org/kde/artikulate/TrainingPage.qml:142
+#, kde-format
+msgid "Record yourself"
+msgstr "Spel inn lydklipp"
+
+#: src/org/kde/artikulate/TrainingPage.qml:151
+#, kde-format
+msgid "Play yourself"
+msgstr "Spel av deg sjølv"
+
+#: src/org/kde/artikulate/unitmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Unit"
+msgstr "Eining"
+
+#: src/org/kde/artikulate/WelcomePage.qml:14
+#, kde-format
+msgid "Welcome to Artikulate"
+msgstr "Velkommen til Artikulate"
+
+#: src/org/kde/artikulate/WelcomePage.qml:59
+#, kde-format
+msgctxt "@action:button"
+msgid "Start Training"
+msgstr "Start øving"
+
+#: src/org/kde/artikulate/WelcomePage.qml:73
+#, kde-format
+msgid "No trainings found"
+msgstr "Fann inga opplæring"
+
+#~ msgid "Please select a course"
+#~ msgstr "Vel eit kurs"
+
+#~ msgid "About Artikulate Editor"
+#~ msgstr "Om Artikulate-redigering"
+
+#~ msgid "Select Image"
+#~ msgstr "Vel bilete"
+
+#~ msgid "Delete User"
+#~ msgstr "Slett brukar"

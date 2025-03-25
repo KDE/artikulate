@@ -1,0 +1,700 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+  <!ENTITY artikulate "Artikulate">
+  <!ENTITY kappname "&artikulate;">
+  <!ENTITY package "artikulate">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Indonesian "INCLUDE">
+]>
+<book id="artikulate" lang="&language;">
+
+<bookinfo>
+<title
+>Buku Panduan &artikulate; </title>
+<authorgroup>
+<author
+><personname
+> <firstname
+>Arivle</firstname
+> </personname
+> <email
+>arivleone@gmail.com</email
+> </author>
+
+<author
+><personname
+> <firstname
+>Ondrila</firstname
+> <surname
+>Gupta</surname
+> </personname
+> <email
+>oindrila.gupta92@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+><firstname
+>Arivle</firstname
+><surname
+>One</surname
+><affiliation
+><address
+><email
+>arivleone@gmail.com</email
+></address
+></affiliation
+><contrib
+>Terjemahan</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright
+><year
+>2014-2015</year
+><holder
+>Pengembang &artikulate;</holder
+></copyright>
+
+<date
+>27-09-2015</date>
+<releaseinfo
+>&artikulate; 0.6.0 (Aplikasi 15.12)</releaseinfo>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<abstract>
+<para
+>&artikulate; adalah sebuah pelatih pelafalan, didesain untuk membantu mengembangkan dan menyempurnakan kemampuan pelafalan. Peserta didik melatih kemampuan pelatihan mereka dengan merekam suara mereka sendiri dan membandingkan dengan rekaman penutur asli. &artikulate; adalah bagian dari proyek edukasi &kde; </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdeedu</keyword>
+<keyword
+>bahasa</keyword>
+<keyword
+>kursus</keyword>
+<keyword
+>unit</keyword>
+<keyword
+>frasa</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Pengantar</title>
+<para
+>&artikulate; adalah pelatih pelafalan untuk mengembangkan dan menyempurnakan kemampuan pelafalan untuk bukan penutur asli. Untuk ini, &artikulate; menyediakan kursus yang diciptakan oleh penutur asli, yang merekam suara mereka sendiri sebagai bahan perbandingan. Peserta didik dapat mengunduh rekaman dalam bentuk kursus dari Internet. Pelatihan kemudian terdiri dari pemutaran berulang-ulang rekaman penutur asli, merekam suara mereka sendiri, dan membandingkan keduanya hingga hasilnya cukup bagus untuk diproses ke bagian selanjutnya </para>
+
+<sect1 id="introduction-concept">
+<title
+>Konsep Pembelajaran</title>
+<para
+>Konsep pembelajaran dari &artikulate; berdasarkan penilaian diri sendiri oleh peserta didik. Peserta melatih beberapa bagian dalam satu sesi latihan Setiap bagian, peserta diperdengarkan rekaman suara penutur asli. Kemudian, setelah membuat rekaman untuk menirukan bagian itu, peserta didik mendapatkan rekaman kedua. Peserta didik dapat membandingkan keduanya, apakah sudah menguasai bagian tersebut atau harus mengulanginya. Materi yang ada menyediakan latihan untuk skenario khusus (seperti memesan makanan di restoran), tetapi dapat juga berfokus pada belajar cara mengucapkan suku kata dan kata-kata yang sulit </para>
+</sect1>
+
+<sect1 id="introduction-first-steps">
+<title
+>Langkah pertama dalam &artikulate;</title>
+<para
+>Bagian ini menjelaskan langkah pertama dari &artikulate; </para>
+
+<sect2>
+<title
+>1. Unduh Kursus Baru</title>
+<para
+>Anda dapat mengunduh kursus melalui <menuchoice
+><guimenu
+>Berkas</guimenu
+> <guimenuitem
+>Unduh Kursus</guimenuitem
+></menuchoice
+>. Jika bilah alat belum diaktifkan, Anda dapat membuka menu <menuchoice
+><guimenu
+>Berkas</guimenu
+></menuchoice
+> dengan klik pada tombol di kanan atas. Sebuah jendela unduh akan muncul, menampilkan bahasa-bahasa yang tersedia oleh komunitas &kde;. Anda dapat mengurutkan menggunakan fungsi urutkan di sebelah kanan. Kami mengunduh kursus Polandia dengan klik <guilabel
+>Unduh</guilabel
+>. </para>
+<screenshot>
+<screeninfo
+>Unduh kursus.</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="first-steps-3-download-course.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
+</sect2>
+
+<sect2>
+<title
+>2. Mulai Latihan</title>
+<para
+>Kursus berisi unit latihan berganda, masing masing berisi satu set bagian berdasarkan skenario. Dapat ditukar dengan menggunakan kotak kombo untuk bahasa dan kursus di bagian atas layar. </para>
+<screenshot>
+<screeninfo
+>Pilih salah satu unit dan mulai latihan</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="first-steps-4-start-training.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
+</sect2>
+
+<sect2>
+<title
+>Selesai Latihan</title>
+<para
+>Latihan dapat diselesaikan kapan saja dengan menutup program </para>
+</sect2>
+</sect1>
+</chapter>
+
+<!--
+<chapter id="screens">
+<title
+>Screens</title>
+<sect1 id="screens-training">
+<title
+>The Training Screen</title>
+<para>
+The training view is the most important view in &artikulate;.
+Whenever starting a training, this view is opened and will be presented until the training of the selected training unit is finished or the student stops the training.
+In the center of this screen, there are controls for playing a native speaker recording, the text of the corresponding phrase, and controls to record and playback the student's own voice.
+When a student judges to be done with training the pronunciation of the current phrase, by clicking <guilabel
+>OK</guilabel
+> the current phrase is marked as done and a next phrase is selected.
+Otherwise, when clicking on <guilabel
+>Retry Later</guilabel
+>, a next phrase is selected but the current phrase will be displayed later again.
+</para>
+
+<para>
+For training the pronunciation of a current phrase, the student shall first play the native speaker's recording by pressing at the <guilabel
+>Playback</guilabel
+> button at the left.
+The next step is to press on the <guilabel
+>Record</guilabel
+> button and read the presented phrase aloud.
+A further press on the <guilabel
+>Record</guilabel
+> button stops the recording and the recording can then be played with the corresponding <guilabel
+>Playback</guilabel
+> button.
+By listening to both recordings, the student shall judge if the phrase was pronounced correctly or not.
+If it was pronounced correctly, clicking on <guilabel
+>OK</guilabel
+> marks the phrase as learned and proceeds with the next phrase.
+Otherwise, if not yet satisfied with the recording, the student either can retry recording by again clicking on <guilabel
+>Record</guilabel
+> or schedule the phrase for later training by clicking on <guilabel
+>Retry Later</guilabel
+>.
+</para>
+
+<para>
+&artikulate;'s units are composed of a list of phrases of different lengths (words, expressions, sentences, and paragraphs).
+A student can see the current learning progress at the bottom when looking at <link linkend="screens-training-progressbar"
+>the progress bar</link
+>.
+The progress bar also allows switching between phrases.
+</para>
+
+<para>
+At any time, the student can choose to stop training by clicking at the <guilabel
+>Finish</guilabel
+> button.
+</para>
+
+<screenshot>
+<screeninfo
+>The Training Screen.</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="screen-training-overview.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase
+>Screenshot of the Training Screen.</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+
+<sect2 id="screens-training-sound-controls">
+<title
+>Sound Controls</title>
+<itemizedlist>
+<listitem
+><para>
+<inlinemediaobject
+><imageobject>
+<imagedata fileref="hi32-action-artikulate-media-record.png" format="PNG"/></imageobject>
+</inlinemediaobject>
+<guilabel
+>Record</guilabel
+>: Record your pronunciation through your microphone. Click again to stop recording.
+</para
+></listitem>
+
+<listitem
+><para>
+<inlinemediaobject
+><imageobject>
+<imagedata fileref="hi32-action-artikulate-media-playback-start.png" format="PNG"/></imageobject>
+</inlinemediaobject>
+<guilabel
+>Playback</guilabel
+>: Play a sound file. If active, click again to stop.
+</para
+></listitem>
+
+</itemizedlist>
+</sect2>
+
+<sect2 id="screens-training-learning-controls">
+<title
+>Learning Controls</title>
+<itemizedlist>
+<listitem
+><para>
+<inlinemediaobject
+><imageobject>
+<imagedata fileref="training-ok.png" format="PNG"/></imageobject>
+</inlinemediaobject>
+<guilabel
+>OK</guilabel
+>: Mark current phrase as learned and continue with next phrase.
+</para
+></listitem>
+
+<listitem
+><para>
+<inlinemediaobject
+><imageobject>
+<imagedata fileref="training-retry.png" format="PNG"/></imageobject>
+</inlinemediaobject>
+<guilabel
+>Retry Later</guilabel
+>: Continue with training next phrase, but try this phrase later again.
+</para
+></listitem>
+
+<listitem
+><para>
+<inlinemediaobject
+><imageobject>
+<imagedata fileref="training-finish.png" format="PNG"/></imageobject>
+</inlinemediaobject>
+<guilabel
+>Stop</guilabel
+>: Stops the training and proceeds to the statistics view. Current training results are saved to training statistics.
+</para
+></listitem>
+</itemizedlist>
+</sect2>
+
+<sect2 id="screens-training-progressbar">
+<title
+>Progress Bar</title>
+<para>
+The progress bar displays the learning progress for the current unit.
+It consists of blocks representing the phrases in the current unit, whereas the color of a block explains the length of the phrase.
+You can hover over these blocks to see the phrases and click on them to switch the currently trained phrase.
+Dark elements are already trained, light ones are untrained.
+</para>
+<screenshot>
+<screeninfo
+>Progress Bar</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="screen-training-progressbar.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase
+>The progress bar for the current unit.</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+<para>
+On top of the progress bar you can see which type of phrases you are currently learning.
+The available types are:
+<itemizedlist>
+    <listitem
+><para
+>word: a single word, letter, or number</para
+></listitem>
+    <listitem
+><para
+>expression: an expression of several words that does not form a complete sentence</para
+></listitem>
+    <listitem
+><para
+>sentence: a complete sentence</para
+></listitem>
+    <listitem
+><para
+>paragraph: several sentences (usually 2-3) </para
+></listitem>
+</itemizedlist>
+</para>
+</sect2>
+</sect1>
+</chapter>
+-->
+<chapter>
+<title
+>Editor</title>
+<para
+>Editor kursus yang terintegrasi adalah sebuah alat mutakhir untuk kontributor kursus bahasa yang memungkinkan kolaborasi dalam membuat kursus bahasa untu &artikulate;. Di satu sisi, memungkinkan untuk membuat kursus bahasa dan merekam suara penutur asli. Di sisi lainnya, dapat mengerjakan kursus yang sudah ada, yang disebut <emphasis
+>kerangka</emphasis
+>, kursus bahasa tersebut dapat diciptakan dari purwarupa yang ada. Editor hanya mengubah berkas diluar paket latihan yang diunduh dari &artikulate;. </para>
+
+<sect1>
+<title
+>Tinjauan</title>
+
+<sect2>
+<title
+>Konsep Editor</title>
+<para
+>Untuk editor kursus kami menggunakan serangkaian istilah tertentu, yang juga digunakan untuk deskripsi berikut. </para>
+<variablelist>
+<varlistentry>
+    <term
+>Bahasa:</term>
+    <listitem>
+    <para
+>Bahasa hanya terdapat pada &artikulate; jika diberikan oleh spesifikasi bahasa. </para>
+    </listitem>
+</varlistentry>
+<varlistentry>
+    <term
+>Kursus:</term>
+    <listitem>
+    <para
+>Sebuah kursus terkait dengan satu bahasa dan berisi serangkaian unit </para>
+    </listitem>
+</varlistentry>
+<varlistentry>
+    <term
+>Unit:</term>
+    <listitem>
+    <para
+>Sebuah unit berisi ucapan yang serupa, sebagai contoh ucapan yang diucapkan saat di restoran atau percakapan di jalan oleh turis yang menanyakan jalan. </para>
+    </listitem>
+</varlistentry>
+<varlistentry>
+    <term
+>Kerangka kursus</term>
+    <listitem>
+    <para
+>Kerangka kursus membentuk purwarupa kursus. Kerangka membantu untuk memudahkan pembuatan kursus dalam beberapa bahasa yang dinyatakan dalam satu set unit dan frasa (dalam bahasa Inggris) yang digunakan sebagai bagan untuk menciptakan kursus baru dalam bahasa baru. Pembaharuan dari kerangka kursus dapat juga diterapkan pada kursus yang dibentuk dari kerangka.  </para>
+    </listitem>
+</varlistentry>
+<varlistentry>
+    <term
+>Frasa:</term>
+    <listitem>
+    <para
+>Frasa berbentuk string teks dan rekaman oleh penutur asli. Kami membagi frasa berdasarkan panjang mereka. Frasa berikut memiliki panjang. <itemizedlist>
+        <listitem>
+        <para
+><inlinemediaobject
+><imageobject>
+        <imagedata fileref="hi32-action-artikulate-word.png" format="PNG"/></imageobject
+></inlinemediaobject
+> kata: sebuah kata tunggal, huruf, atau angka</para>
+        </listitem>
+        <listitem>
+        <para
+><inlinemediaobject
+><imageobject>
+        <imagedata fileref="hi32-action-artikulate-expression.png" format="PNG"/></imageobject
+></inlinemediaobject
+> ekspresi: sebuah ekspresi dari beberapa kata yang tidak membentuk kalimat lengkap</para>
+        </listitem>
+        <listitem>
+        <para
+><inlinemediaobject
+><imageobject>
+        <imagedata fileref="hi32-action-artikulate-sentence.png" format="PNG"/></imageobject
+></inlinemediaobject
+> kalimat: sebuah kalimat lengkap</para>
+        </listitem>
+        <listitem>
+        <para
+><inlinemediaobject
+><imageobject>
+        <imagedata fileref="hi32-action-artikulate-paragraph.png" format="PNG"/></imageobject
+></inlinemediaobject
+> paragraf: beberapa kalimat (biasanya 2-3)</para>
+        </listitem>
+        </itemizedlist>
+    </para>
+    </listitem>
+</varlistentry>
+</variablelist>
+<para
+>Sebuah kursus dikaitkan dengan bahasa tertentu, berisi beberapa unit yang berbeda dan setiap unit terbentuk dari beberapa urutan frasa dalam beberapa ukuran. </para>
+</sect2>
+
+<sect2>
+<title
+>Kumpulan Folder Penyimpan/Repositori Kursus</title>
+<para
+>Editor beroperasi dalam folder terpisah (disebut dengan <emphasis
+>repositori</emphasis
+>, direkomendasikan berada di bawah beberapa sistem pengontrol versi). Dalam folder, editor mencari kursus yang dapat diubah dan berkas kerangka serta menyimpan berkas baru. </para>
+<para
+>Repositori kursus dapat diatur dalam kotak dialog konfigurasi. Dapat diakses pada <menuchoice
+><guimenu
+>Pengaturan</guimenu
+> <guimenuitem
+>Konfigurasi &artikulate;</guimenuitem
+></menuchoice
+> dan pengaturan kursus terdapat pada pilihan menu <guilabel
+>Repositori Kursus</guilabel
+>. </para>
+<screenshot>
+<screeninfo
+>Atur repositori kursus untuk editor</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="editor-set-repository.png" format="PNG"/>
+</imageobject>
+<caption
+><para
+>Atur repositori kursus untuk editor.</para
+></caption>
+</mediaobject>
+</screenshot>
+</sect2>
+</sect1>
+
+<!--<sect1
+>TODO needs complete rewrite
+<title
+>Edit a Course</title>
+<para>
+The editor can be started from the main menu with <menuchoice
+><guimenu
+>Mode</guimenu
+> <guimenuitem
+>Course Editor mode</guimenuitem
+></menuchoice
+>.
+There you have the options to work on existing skeleton files or to create new courses or edit existing ones.
+After selecting a language, you can open an existing course to edit it, or otherwise use <guilabel
+>New Course</guilabel
+> to create a new course for this language.
+In either case, you will be presented the list of units of the course, where you can create new units or open existing ones for edit.
+</para>
+
+<sect2>
+<title
+>Edit a Unit</title>
+<para>
+When opening a unit for editing, you will see the list of its phrases (see below).
+One line of this list contains the following information:
+<orderedlist>
+    <listitem
+><para
+>edit button: open this phrase for edit</para
+></listitem>
+    <listitem
+><para
+>phrase type: icon that denotes the type of this phrase (e.g., word, expression)</para
+></listitem>
+    <listitem
+><para
+>edit state: a colored block that denotes the edit state of this phrase (red: unknown/no state set; orange: translated state; green: completed state)</para
+></listitem>
+    <listitem
+><para
+>the phrase</para
+></listitem>
+    <listitem
+><para
+>exclude button: if course derives from a course skeleton, this button allows excluding the phrase from the unit</para
+></listitem>
+</orderedlist>
+</para>
+<screenshot>
+<screeninfo
+>Editor View: list of phrases within a unit.</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="editor-screenshot-unit.png" format="PNG"/>
+</imageobject>
+<caption
+><para
+>Editor View: list of phrases within a unit.</para
+></caption>
+</mediaobject>
+</screenshot>
+</sect2>
+
+<sect2>
+<title
+>Edit a Phrase</title>
+<para>
+When opening a phrase for editing, you will see the phrase editor as shown below.
+This edit interface contains the following elements:
+</para>
+<itemizedlist>
+    <listitem
+><para
+>the phrase text as it will be shown in the trainer</para
+></listitem>
+    <listitem
+><para
+>the original phrase, if using a course skeleton</para
+></listitem>
+    <listitem
+><para
+>the edit state of the phrase</para
+></listitem>
+    <listitem
+><para
+>the type/length of the phrase</para
+></listitem>
+    <listitem
+><para
+>recording buttons for the native speaker recordings</para
+></listitem>
+    <listitem
+><para
+>buttons to denote interesting phonemes of the phrase (currently not used in training mode)</para
+></listitem>
+</itemizedlist>
+<para>
+You can close the phrase editing interface with
+<inlinemediaobject
+><imageobject>
+<imagedata fileref="editor-apply.png" format="PNG"/></imageobject>
+</inlinemediaobject>
+to accept the changes you did, or with
+<inlinemediaobject
+><imageobject>
+<imagedata fileref="editor-cancel.png" format="PNG"/></imageobject>
+</inlinemediaobject>
+to discard your changes.
+</para>
+<screenshot>
+<screeninfo
+>Editor View: editing view for a phrase.</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="editor-screenshot-editing-phrase.png" format="PNG"/>
+</imageobject>
+<caption
+><para
+>Editor View: editing view for a phrase.</para
+></caption>
+</mediaobject>
+</screenshot>
+</sect2>
+
+<sect2>
+<title
+>Update from Course Prototype</title>
+<para>
+If the currently edited course derives from a skeleton, then the course can be updated from the latest version of the skeleton by using the button <guilabel
+>Update from Course Prototype</guilabel
+> at the top left of the screen.
+This button is deactivated if the course is not derived from a course skeleton.
+</para>
+</sect2>
+</sect1
+>-->
+</chapter>
+
+
+<chapter id="credits">
+<title
+>Penghargaan dan Lisensi</title>
+
+<para
+>&artikulate; </para>
+<para
+>Hak Cipta Program:</para>
+<itemizedlist>
+    <listitem
+><para
+>Hak Cipta 2013-2015 Andreas Cord-Landwehr</para
+></listitem>
+    <listitem
+><para
+>Hak Cipta 2013 Oindrilla Gupta</para
+></listitem>
+    <listitem
+><para
+>Hak Cipta 2013 Magdalena Konkiewitz</para
+></listitem>
+    <listitem
+><para
+>Hak Cipta 2013-2014 Samikshan Bairagya</para
+></listitem>
+</itemizedlist>
+
+<para
+>Dokumentasi Hak Cipta</para>
+<itemizedlist>
+    <listitem
+><para
+>Hak Cipta 2014-2015 Andreas Cord-Landwehr</para
+></listitem>
+</itemizedlist>
+
+<para
+>Arivle<email
+>arivleone@gmail.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+<appendix id="installation">
+<title
+>Pemasangan</title>
+
+<sect1 id="getting-artikulate">
+<title
+>Bagaimana cara mendapatkan &artikulate;</title
+>&install.intro.documentation; </sect1>
+
+<sect1 id="compilation">
+<title
+>Penyusunan dan pemasangan</title
+>&install.compile.documentation; <sect2 id="compilation-details">
+<title
+>&artikulate; Intruksi Khusus</title>
+<para
+>Petunjuk tentang penyusunan &artikulate; lebih lanjut dapat diperoleh di  <ulink url="http://techbase.kde.org/Projects/Edu/Artikulate"
+><citetitle
+>dokumen teknis &artikulate;</citetitle
+></ulink
+> pada TechBase &kde;.  </para>
+</sect2>
+
+</sect1>
+</appendix>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes: nil
+sgml-general-insert-case: lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+-->

@@ -1,0 +1,830 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the artikulate package.
+# Shinjo Park <kde@peremen.name>, 2021, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: artikulate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-03-25 00:37+0000\n"
+"PO-Revision-Date: 2023-07-18 13:16+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 22.12.3\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "벵골어"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "카탈루냐어"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "독일어"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "네덜란드어"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "영국 영어"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "영어"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "프랑스어"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "그리스어"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "힌디어"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "이탈리아어"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "마라티어"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "폴란드어"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "스페인어"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:147
+#, kde-format
+msgctxt "@item:inlistbox unknown learning goal"
+msgid "unknown"
+msgstr "알 수 없음"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:212
+#, kde-format
+msgctxt "@title:column"
+msgid "Learning Goal"
+msgstr "학습 목표"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Open Image"
+msgstr "그림 열기"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Image Files (*.png *.jpg *.bmp)"
+msgstr "그림 파일 (*.png *.jpg *.bmp)"
+
+#: liblearnerprofile/src/storage.cpp:569
+#, kde-format
+msgid "Invalid database version '%1'."
+msgstr "잘못된 데이터베이스 버전 '%1'입니다."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "이 옵션을 사용하면 주 메뉴를 표시합니다."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr "이 옵션을 사용하면 과정 파일을 로컬 기여자 저장소에서만 불러 옵니다"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "로컬 기여자 저장소 경로"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "오디오 입력 장치 이름"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "오디오 입력 음량"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "오디오 출력 음량"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "글꼴"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"'qtmultimediabackend' 또는 'qtgstreamerbackend' 중 하나로 설정하십시오. 사용 "
+"가능한 경우 런타임에서 선택합니다."
+
+#: src/core/resources/editablecourseresource.cpp:262
+#, kde-format
+msgid "New Unit"
+msgstr "새 단위"
+
+#: src/main.cpp:29
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate"
+msgstr "Artikulate"
+
+#: src/main.cpp:31
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Pronunciation Trainer"
+msgstr "Artikulate 발음 타이머"
+
+#: src/main.cpp:33 src/main_editor.cpp:30
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2022 The Artikulate Developers"
+msgstr "(c) 2013-2022 The Artikulate Developers"
+
+#: src/main.cpp:34
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Train your pronunciation in a foreign language."
+msgstr "외국어 발음을 연습할 수 있습니다."
+
+#: src/main.cpp:37 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Andreas Cord-Landwehr"
+msgstr "Andreas Cord-Landwehr"
+
+#: src/main.cpp:38 src/main_editor.cpp:34
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Original Author"
+msgstr "원 작성자"
+
+#: src/main.cpp:41
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Samikshan Bairagya"
+msgstr "Samikshan Bairagya"
+
+#: src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer"
+msgstr "개발자"
+
+#: src/main.cpp:45
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Oindrila Gupta"
+msgstr "Oindrila Gupta"
+
+#: src/main.cpp:46 src/main.cpp:50
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer and Course Data"
+msgstr "개발자 및 코스 데이터"
+
+#: src/main.cpp:49
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Magdalena Konkiewicz"
+msgstr "Magdalena Konkiewicz"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "박신조"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kde@peremen.name"
+
+#: src/main_editor.cpp:26
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate Editor"
+msgstr "Artikulate 편집기"
+
+#: src/main_editor.cpp:28
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Course Editor"
+msgstr "Artikulate 과정 편집기"
+
+#: src/main_editor.cpp:31
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Edit Artikulate course files."
+msgstr "Artikulate 과정 파일을 편집합니다."
+
+#: src/mainwindow.cpp:29 src/org/kde/artikulate/ProfileSelector.qml:15
+#, kde-format
+msgid "Unnamed Identity"
+msgstr "이름 없는 프로필"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:47
+#, kde-format
+msgid "Training"
+msgstr "연습"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:97
+#: src/org/kde/artikulate/WelcomePage.qml:77
+#, kde-format
+msgid "Download Training"
+msgstr "연습 다운로드"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:111
+#: src/org/kde/artikulate/EditorDrawer.qml:132
+#, kde-format
+msgid "About Artikulate"
+msgstr "Artikulate 정보"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#: src/org/kde/artikulate/EditorDrawer.qml:72
+#, kde-format
+msgid "Course Configuration"
+msgstr "과정 설정"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#, kde-format
+msgid "Prototype Configuration"
+msgstr "프로토타입 설정"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Prototype Description"
+msgstr "프로토타입 설명"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Course Description"
+msgstr "과정 설명"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:21
+#, kde-format
+msgid "Title:"
+msgstr "제목:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:28
+#, kde-format
+msgid "Localized Title:"
+msgstr "번역된 제목:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:34
+#, kde-format
+msgid "Description:"
+msgstr "설명:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:41
+#, kde-format
+msgid "Language:"
+msgstr "언어:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:49
+#, kde-format
+msgid "Prototype"
+msgstr "프로토타입"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:54
+#, kde-format
+msgid "Update from Prototype:"
+msgstr "프로토타입에서 업데이트:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:57
+#, kde-format
+msgid "Update"
+msgstr "업데이트"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:62
+#, kde-format
+msgid "Update the course with elements from prototype."
+msgstr "프로토타입에 있는 구성 요소에서 과정을 업데이트합니다."
+
+#: src/org/kde/artikulate/coursemodel.cpp:99
+#: src/org/kde/artikulate/languageresourcemodel.cpp:71
+#: src/org/kde/artikulate/phonememodel.cpp:61
+#: src/org/kde/artikulate/phraselistmodel.cpp:96
+#: src/org/kde/artikulate/profilemodel.cpp:85
+#: src/org/kde/artikulate/skeletonmodel.cpp:96
+#: src/org/kde/artikulate/unitmodel.cpp:84
+#, kde-format
+msgctxt "@item:inlistbox:"
+msgid "unknown"
+msgstr "알 수 없음"
+
+#: src/org/kde/artikulate/coursemodel.cpp:158
+#, kde-format
+msgctxt "@title:column"
+msgid "Course"
+msgstr "과정"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:13
+#, kde-format
+msgid "Edit Course"
+msgstr "과정 편집"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:22
+#, kde-format
+msgid "Previous"
+msgstr "이전"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:23
+#, kde-format
+msgid "Switch to previous phrase."
+msgstr "이전 구문으로 전환합니다."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:29
+#: src/org/kde/artikulate/TrainingPage.qml:38
+#, kde-format
+msgid "Next"
+msgstr "다음"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:30
+#, kde-format
+msgid "Switch to next phrase."
+msgstr "다음 구문으로 전환합니다."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:39
+#: src/org/kde/artikulate/ProfileUserItem.qml:70
+#: src/org/kde/artikulate/ProfileUserItem.qml:167
+#, kde-format
+msgid "Delete"
+msgstr "삭제"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:40
+#, kde-format
+msgid "Delete this phrase."
+msgstr "이 구문을 삭제합니다."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:45
+#, kde-format
+msgid "Create Phrase"
+msgstr "구문 만들기"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:46
+#, kde-format
+msgid "Create phrase after current phrase."
+msgstr "현재 구문 뒤에 새 구문을 만듭니다."
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:12
+#, kde-format
+msgid "Welcome to Artikulate Course Editor"
+msgstr "Artikulate 과정 편집기에 오신 것을 환영합니다"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:43
+#: src/org/kde/artikulate/WelcomePage.qml:45
+#, kde-format
+msgctxt "@title:window language / course name"
+msgid "%1 / %2"
+msgstr "%1 / %2"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Course"
+msgstr "과정 편집"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:46
+#, kde-format
+msgid "Courses"
+msgstr "과정"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:58
+#, kde-format
+msgid "Repository"
+msgstr "저장소"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:121
+#, kde-format
+msgid "Save"
+msgstr "저장"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:12
+#, kde-format
+msgid "Select Prototype"
+msgstr "프로토타입 선택:"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:43
+#, kde-format
+msgctxt "@title:window prototype name"
+msgid "%1"
+msgstr "%1"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Prototype"
+msgstr "프로토타입 편집"
+
+#: src/org/kde/artikulate/languageresourcemodel.cpp:150
+#, kde-format
+msgctxt "@title:column"
+msgid "Language"
+msgstr "언어"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:132
+#, kde-format
+msgid "Words"
+msgstr "단어"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:134
+#, kde-format
+msgid "Sentences"
+msgstr "문장"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:136
+#, kde-format
+msgid "Expressions"
+msgstr "표현"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:138
+#, kde-format
+msgid "Paragraphs"
+msgstr "문단"
+
+#: src/org/kde/artikulate/phonemegroupmodel.cpp:153
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Group"
+msgstr "음소 그룹"
+
+#: src/org/kde/artikulate/phonememodel.cpp:123
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme"
+msgstr "음소"
+
+#: src/org/kde/artikulate/phonemeunitmodel.cpp:182
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Unit"
+msgstr "음소 단위"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit"
+msgstr "단위"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit: "
+msgstr "단위:"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:108
+#, kde-format
+msgid "Localized Unit:"
+msgstr "번역된 단위:"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:119
+#, kde-format
+msgid "Phrase: "
+msgstr "구문: "
+
+#: src/org/kde/artikulate/PhraseEditor.qml:124
+#, kde-format
+msgid "Localized Phrase:"
+msgstr "번역된 구문:"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:45
+#, kde-format
+msgid "Edit State:"
+msgstr "편집 상태:"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:55
+#, kde-format
+msgctxt "state"
+msgid "Unknown"
+msgstr "알 수 없음"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:63
+#, kde-format
+msgctxt "state"
+msgid "Translated"
+msgstr "번역됨"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:71
+#, kde-format
+msgctxt "state"
+msgid "Completed"
+msgstr "완료됨"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:21
+#, kde-format
+msgid "Native Speaker Recording"
+msgstr "원어민 녹음"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:31
+#, kde-format
+msgid "Existing Recording:"
+msgstr "기존 녹음:"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:41
+#, kde-format
+msgid "Create New Recording:"
+msgstr "새로 녹음하기:"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:57
+#, kde-format
+msgid "Replace Existing Recording"
+msgstr "기존 녹음 덮어쓰기"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:65
+#, kde-format
+msgid "Dismiss"
+msgstr "끄기"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:48
+#, kde-format
+msgid "Difficulty:"
+msgstr "난이도:"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:58
+#, kde-format
+msgid "Word"
+msgstr "단어"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:65
+#, kde-format
+msgid "Expression"
+msgstr "표현"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:72
+#, kde-format
+msgid "Sentence"
+msgstr "문장"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:79
+#, kde-format
+msgid "Paragraph"
+msgstr "문단"
+
+#: src/org/kde/artikulate/phraselistmodel.cpp:172
+#: src/org/kde/artikulate/phrasemodel.cpp:285
+#, kde-format
+msgctxt "@title:column"
+msgid "Phrase"
+msgstr "구문"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:35
+#, kde-format
+msgid "Learner"
+msgstr "학습자"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:48
+#, kde-format
+msgid "Favorite Languages"
+msgstr "즐겨찾는 언어"
+
+#: src/org/kde/artikulate/profilemodel.cpp:144
+#, kde-format
+msgctxt "@title:column"
+msgid "Profile"
+msgstr "프로필"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:67
+#, kde-format
+msgid "Create New Learner Identity"
+msgstr "새 언어 학습자 프로필 만들기"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:100
+#, kde-format
+msgid "Use Selected Identity"
+msgstr "선택한 프로필 사용"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:14
+#, kde-format
+msgid "Configure Profile"
+msgstr "프로필 설정"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:98
+#: src/org/kde/artikulate/ProfileUserItem.qml:114
+#, kde-format
+msgid "Name"
+msgstr "이름"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:65
+#, kde-format
+msgid "Edit"
+msgstr "편집"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:76
+#, kde-format
+msgid "Change Image"
+msgstr "그림 변경"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:81
+#, kde-format
+msgid "Clear Image"
+msgstr "그림 삭제"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:120
+#, kde-format
+msgid "Done"
+msgstr "완료"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:158
+#, kde-format
+msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
+msgstr "이 프로필 \"<b>%1</b>\"을(를) 삭제하시겠습니까?"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:174
+#, kde-format
+msgid "Cancel"
+msgstr "취소"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:13
+#, kde-format
+msgid "Repository Configuration"
+msgstr "저장소 설정"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:18
+#, kde-format
+msgid "Select Repository Folder"
+msgstr "저장소 폴더 선택"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:29
+#, kde-format
+msgid "Repository:"
+msgstr "저장소:"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:34
+#, kde-format
+msgid "Change Folder"
+msgstr "폴더 변경"
+
+#: src/org/kde/artikulate/skeletonmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Skeleton"
+msgstr "뼈대"
+
+#: src/org/kde/artikulate/SoundPlayer.qml:16
+#, kde-format
+msgid "Play"
+msgstr "재생"
+
+#: src/org/kde/artikulate/SoundRecorder.qml:16
+#, kde-format
+msgid "Record"
+msgstr "녹음"
+
+#: src/org/kde/artikulate/TrainerCourseStatistics.qml:43
+#, kde-format
+msgid "Attempts"
+msgstr "시도 횟수"
+
+#: src/org/kde/artikulate/TrainingPage.qml:25
+#, kde-format
+msgid "Category: no category selected"
+msgstr "분류: 분류를 선택하지 않았음"
+
+#: src/org/kde/artikulate/TrainingPage.qml:28
+#, kde-format
+msgid "Category: %1"
+msgstr "분류: %1"
+
+#: src/org/kde/artikulate/TrainingPage.qml:39
+#, kde-format
+msgid "Mark current phrase as completed and proceed with next one."
+msgstr "현재 구문을 완료된 것으로 표시하고 다음 구문으로 진행합니다."
+
+#: src/org/kde/artikulate/TrainingPage.qml:45
+#, kde-format
+msgid "Skip"
+msgstr "건너뛰기"
+
+#: src/org/kde/artikulate/TrainingPage.qml:46
+#, kde-format
+msgid "Skip current phrase and proceed with next one."
+msgstr "현재 구문을 건너뛰고 다음 구문으로 진행합니다."
+
+#: src/org/kde/artikulate/TrainingPage.qml:101
+#, kde-format
+msgid "Play original"
+msgstr "원본 재생"
+
+#: src/org/kde/artikulate/TrainingPage.qml:142
+#, kde-format
+msgid "Record yourself"
+msgstr "내 발음 녹음"
+
+#: src/org/kde/artikulate/TrainingPage.qml:151
+#, kde-format
+msgid "Play yourself"
+msgstr "내 발음 재생"
+
+#: src/org/kde/artikulate/unitmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Unit"
+msgstr "단위"
+
+#: src/org/kde/artikulate/WelcomePage.qml:14
+#, kde-format
+msgid "Welcome to Artikulate"
+msgstr "Artikulate에 오신 것을 환영합니다"
+
+#: src/org/kde/artikulate/WelcomePage.qml:59
+#, kde-format
+msgctxt "@action:button"
+msgid "Start Training"
+msgstr "연습 시작"
+
+#: src/org/kde/artikulate/WelcomePage.qml:73
+#, kde-format
+msgid "No trainings found"
+msgstr "연습 자료 없음"
+
+#~ msgid "Please select a course"
+#~ msgstr "과정을 선택하십시오"
+
+#~ msgid "About Artikulate Editor"
+#~ msgstr "Artikulate 편집기 정보"
+
+#~ msgid "Select Image"
+#~ msgstr "그림 선택"
+
+#~ msgid "Delete User"
+#~ msgstr "사용자 삭제"
+
+#~ msgid "Download Training Material"
+#~ msgstr "연습 자료 다운로드"
+
+#~ msgctxt "@action:button"
+#~ msgid "Update"
+#~ msgstr "업데이트"
+
+#~ msgctxt "@action:button"
+#~ msgid "Install"
+#~ msgstr "설치"
+
+#~ msgctxt "@action:button"
+#~ msgid "Remove"
+#~ msgstr "삭제"
+
+#~ msgctxt "default sound device"
+#~ msgid "Default"
+#~ msgstr "기본값"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2019 The Artikulate Developers"
+#~ msgstr "(c) 2013-2019 The Artikulate Developers"

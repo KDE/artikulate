@@ -1,0 +1,1159 @@
+# Slovenian translation of Artikulate
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Andrej Mernik <andrejm@ubuntu.si>, 2014, 2015, 2016, 2017.
+# Matjaž Jeran <matjaz.jeran@amis.net>, 2019, 2020, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: artikulate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-03-25 00:37+0000\n"
+"PO-Revision-Date: 2023-06-28 09:38+0200\n"
+"Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
+"Language-Team: Slovenian <lugos-slo@lugos.si>\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
+"Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
+"X-Generator: Poedit 3.3.1\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Bengalščina"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Katalonščina"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "Nemščina"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Nizozemščina"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "Angleščina (VB)"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "Angleščina"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "Francoščina"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Grščina"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Hindujščina"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "Italijanščina"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Maratščina"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Poljščina"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "Španščina"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:147
+#, kde-format
+msgctxt "@item:inlistbox unknown learning goal"
+msgid "unknown"
+msgstr "neznan"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:212
+#, kde-format
+msgctxt "@title:column"
+msgid "Learning Goal"
+msgstr "Cilj učenja"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Open Image"
+msgstr "Odpri sliko"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Image Files (*.png *.jpg *.bmp)"
+msgstr "Datoteke s sliko (*.png *.jpg *.bmp)"
+
+#: liblearnerprofile/src/storage.cpp:569
+#, kde-format
+msgid "Invalid database version '%1'."
+msgstr "Neveljavna različica podatkovne zbirke '%1'."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "Ali naj bo prikazana glavna menijska vrstica."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"Če je omogočeno, bodo datoteke s tečaji prebrane le iz krajevnega skladišča "
+"s prispevki"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "Pot do krajevnega skladišča s prispevki"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Ime vhodne zvočne naprave"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Glasnost vhoda"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Glasnost izhoda"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Pisava"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"Nastavite na 'qtmultimediabackend' ali 'qtgstreamerbackend', kar bo izbrano "
+"ob zagonu, če bo na voljo."
+
+#: src/core/resources/editablecourseresource.cpp:262
+#, kde-format
+msgid "New Unit"
+msgstr "Nova enota"
+
+#: src/main.cpp:29
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate"
+msgstr "Artikulate"
+
+#: src/main.cpp:31
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Pronunciation Trainer"
+msgstr "Učenje izgovorjave Artikulate"
+
+#: src/main.cpp:33 src/main_editor.cpp:30
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2022 The Artikulate Developers"
+msgstr "(c) 2013-2022, razvijalci Artikulate"
+
+#: src/main.cpp:34
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Train your pronunciation in a foreign language."
+msgstr "Vadite vašo izgovorjavo v tujem jeziku."
+
+#: src/main.cpp:37 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Andreas Cord-Landwehr"
+msgstr "Andreas Cord-Landwehr"
+
+#: src/main.cpp:38 src/main_editor.cpp:34
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Original Author"
+msgstr "Prvotni avtor"
+
+#: src/main.cpp:41
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Samikshan Bairagya"
+msgstr "Samikshan Bairagya"
+
+#: src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer"
+msgstr "Razvijalec"
+
+#: src/main.cpp:45
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Oindrila Gupta"
+msgstr "Oindrila Gupta"
+
+#: src/main.cpp:46 src/main.cpp:50
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer and Course Data"
+msgstr "Razvijalec in podatki tečajev"
+
+#: src/main.cpp:49
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Magdalena Konkiewicz"
+msgstr "Magdalena Konkiewicz"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Andrej Mernik"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "andrejm@ubuntu.si"
+
+#: src/main_editor.cpp:26
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate Editor"
+msgstr "Urejevalnik Artikulate"
+
+#: src/main_editor.cpp:28
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Course Editor"
+msgstr "Urejevalnik tečajev Artikulate"
+
+#: src/main_editor.cpp:31
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Edit Artikulate course files."
+msgstr "Uredite datoteke s tečaji Artikulate."
+
+#: src/mainwindow.cpp:29 src/org/kde/artikulate/ProfileSelector.qml:15
+#, kde-format
+msgid "Unnamed Identity"
+msgstr "Neimenovana istovetnost"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:47
+#, kde-format
+msgid "Training"
+msgstr "Vaja"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:97
+#: src/org/kde/artikulate/WelcomePage.qml:77
+#, kde-format
+msgid "Download Training"
+msgstr "Naloži vaje"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:111
+#: src/org/kde/artikulate/EditorDrawer.qml:132
+#, kde-format
+msgid "About Artikulate"
+msgstr "O programu Artikulate"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#: src/org/kde/artikulate/EditorDrawer.qml:72
+#, kde-format
+msgid "Course Configuration"
+msgstr "Nastavitve tečajev"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#, kde-format
+msgid "Prototype Configuration"
+msgstr "Prototip nastavitve"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Prototype Description"
+msgstr "Opis prototipa"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Course Description"
+msgstr "Opis tečaja"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:21
+#, kde-format
+msgid "Title:"
+msgstr "Naslov:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:28
+#, kde-format
+msgid "Localized Title:"
+msgstr "Preveden naslov:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:34
+#, kde-format
+msgid "Description:"
+msgstr "Opis:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:41
+#, kde-format
+msgid "Language:"
+msgstr "Jezik:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:49
+#, kde-format
+msgid "Prototype"
+msgstr "Prototip"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:54
+#, kde-format
+msgid "Update from Prototype:"
+msgstr "Osveži iz prototipa:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:57
+#, kde-format
+msgid "Update"
+msgstr "Osveži"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:62
+#, kde-format
+msgid "Update the course with elements from prototype."
+msgstr "Posodobi tečaj s predmeti iz prototipa."
+
+#: src/org/kde/artikulate/coursemodel.cpp:99
+#: src/org/kde/artikulate/languageresourcemodel.cpp:71
+#: src/org/kde/artikulate/phonememodel.cpp:61
+#: src/org/kde/artikulate/phraselistmodel.cpp:96
+#: src/org/kde/artikulate/profilemodel.cpp:85
+#: src/org/kde/artikulate/skeletonmodel.cpp:96
+#: src/org/kde/artikulate/unitmodel.cpp:84
+#, kde-format
+msgctxt "@item:inlistbox:"
+msgid "unknown"
+msgstr "neznano"
+
+#: src/org/kde/artikulate/coursemodel.cpp:158
+#, kde-format
+msgctxt "@title:column"
+msgid "Course"
+msgstr "Tečaj"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:13
+#, kde-format
+msgid "Edit Course"
+msgstr "Uredi tečaj"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:22
+#, kde-format
+msgid "Previous"
+msgstr "Prejšnji"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:23
+#, kde-format
+msgid "Switch to previous phrase."
+msgstr "Preklopi na prejšnjo frazo."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:29
+#: src/org/kde/artikulate/TrainingPage.qml:38
+#, kde-format
+msgid "Next"
+msgstr "Naslednje"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:30
+#, kde-format
+msgid "Switch to next phrase."
+msgstr "Preklopi na naslednjo frazo."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:39
+#: src/org/kde/artikulate/ProfileUserItem.qml:70
+#: src/org/kde/artikulate/ProfileUserItem.qml:167
+#, kde-format
+msgid "Delete"
+msgstr "Izbriši"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:40
+#, kde-format
+msgid "Delete this phrase."
+msgstr "Izbriši to frazo."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:45
+#, kde-format
+msgid "Create Phrase"
+msgstr "Ustvari frazo"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:46
+#, kde-format
+msgid "Create phrase after current phrase."
+msgstr "Ustvari frazo za trenutno frazo."
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:12
+#, kde-format
+msgid "Welcome to Artikulate Course Editor"
+msgstr "Dobrodošli v urejevalnik tečajev Artikulate"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:43
+#: src/org/kde/artikulate/WelcomePage.qml:45
+#, kde-format
+msgctxt "@title:window language / course name"
+msgid "%1 / %2"
+msgstr "%1 / %2"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Course"
+msgstr "Uredi tečaj"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:46
+#, kde-format
+msgid "Courses"
+msgstr "Tečaji"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:58
+#, kde-format
+msgid "Repository"
+msgstr "Skladišče"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:121
+#, kde-format
+msgid "Save"
+msgstr "Shrani"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:12
+#, kde-format
+msgid "Select Prototype"
+msgstr "Izberi prototip"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:43
+#, kde-format
+msgctxt "@title:window prototype name"
+msgid "%1"
+msgstr "%1"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Prototype"
+msgstr "Uredi prototip"
+
+#: src/org/kde/artikulate/languageresourcemodel.cpp:150
+#, kde-format
+msgctxt "@title:column"
+msgid "Language"
+msgstr "Jezik"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:132
+#, kde-format
+msgid "Words"
+msgstr "Besede"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:134
+#, kde-format
+msgid "Sentences"
+msgstr "Stavki"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:136
+#, kde-format
+msgid "Expressions"
+msgstr "Izrazi"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:138
+#, kde-format
+msgid "Paragraphs"
+msgstr "Odstavki"
+
+#: src/org/kde/artikulate/phonemegroupmodel.cpp:153
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Group"
+msgstr "Skupina fonemov"
+
+#: src/org/kde/artikulate/phonememodel.cpp:123
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme"
+msgstr "Fonem"
+
+#: src/org/kde/artikulate/phonemeunitmodel.cpp:182
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Unit"
+msgstr "Enota fonema"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit"
+msgstr "Enota"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit: "
+msgstr "Enota: "
+
+#: src/org/kde/artikulate/PhraseEditor.qml:108
+#, kde-format
+msgid "Localized Unit:"
+msgstr "Prirejena enota:"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:119
+#, kde-format
+msgid "Phrase: "
+msgstr "Fraza: "
+
+#: src/org/kde/artikulate/PhraseEditor.qml:124
+#, kde-format
+msgid "Localized Phrase:"
+msgstr "Prirejena fraza:"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:45
+#, kde-format
+msgid "Edit State:"
+msgstr "Stanje urejanja:"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:55
+#, kde-format
+msgctxt "state"
+msgid "Unknown"
+msgstr "Neznan"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:63
+#, kde-format
+msgctxt "state"
+msgid "Translated"
+msgstr "Prevedeno"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:71
+#, kde-format
+msgctxt "state"
+msgid "Completed"
+msgstr "Zaključeno"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:21
+#, kde-format
+msgid "Native Speaker Recording"
+msgstr "Posnetek maternega govorca"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:31
+#, kde-format
+msgid "Existing Recording:"
+msgstr "Obstoječ posnetek:"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:41
+#, kde-format
+msgid "Create New Recording:"
+msgstr "Ustvari nov posnetek:"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:57
+#, kde-format
+msgid "Replace Existing Recording"
+msgstr "Zamenjaj obstoječ posnetek"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:65
+#, kde-format
+msgid "Dismiss"
+msgstr "Opusti"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:48
+#, kde-format
+msgid "Difficulty:"
+msgstr "Težavnost:"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:58
+#, kde-format
+msgid "Word"
+msgstr "Beseda"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:65
+#, kde-format
+msgid "Expression"
+msgstr "Izraz"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:72
+#, kde-format
+msgid "Sentence"
+msgstr "Stavek"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:79
+#, kde-format
+msgid "Paragraph"
+msgstr "Odstavek"
+
+#: src/org/kde/artikulate/phraselistmodel.cpp:172
+#: src/org/kde/artikulate/phrasemodel.cpp:285
+#, kde-format
+msgctxt "@title:column"
+msgid "Phrase"
+msgstr "Fraza"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:35
+#, kde-format
+msgid "Learner"
+msgstr "Učenec"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:48
+#, kde-format
+msgid "Favorite Languages"
+msgstr "Priljubljeni jeziki"
+
+#: src/org/kde/artikulate/profilemodel.cpp:144
+#, kde-format
+msgctxt "@title:column"
+msgid "Profile"
+msgstr "Profil"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:67
+#, kde-format
+msgid "Create New Learner Identity"
+msgstr "Ustvari novo istovetnost učenca"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:100
+#, kde-format
+msgid "Use Selected Identity"
+msgstr "Uporabi izbrano istovetnost"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:14
+#, kde-format
+msgid "Configure Profile"
+msgstr "Nastavi profil"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:98
+#: src/org/kde/artikulate/ProfileUserItem.qml:114
+#, kde-format
+msgid "Name"
+msgstr "Ime"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:65
+#, kde-format
+msgid "Edit"
+msgstr "Uredi"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:76
+#, kde-format
+msgid "Change Image"
+msgstr "Spremeni sliko"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:81
+#, kde-format
+msgid "Clear Image"
+msgstr "Počisti sliko"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:120
+#, kde-format
+msgid "Done"
+msgstr "Končano"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:158
+#, kde-format
+msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
+msgstr "Ali resnično želite izbrisati to istovetnost \"<b>%1</b>\"?"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:174
+#, kde-format
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:13
+#, kde-format
+msgid "Repository Configuration"
+msgstr "Nastavi skladišče"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:18
+#, kde-format
+msgid "Select Repository Folder"
+msgstr "Izberi mapo skladišča"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:29
+#, kde-format
+msgid "Repository:"
+msgstr "Skladišče:"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:34
+#, kde-format
+msgid "Change Folder"
+msgstr "Spremeni mapo"
+
+#: src/org/kde/artikulate/skeletonmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Skeleton"
+msgstr "Ogrodje"
+
+#: src/org/kde/artikulate/SoundPlayer.qml:16
+#, kde-format
+msgid "Play"
+msgstr "Predvajaj"
+
+#: src/org/kde/artikulate/SoundRecorder.qml:16
+#, kde-format
+msgid "Record"
+msgstr "Zajemi"
+
+#: src/org/kde/artikulate/TrainerCourseStatistics.qml:43
+#, kde-format
+msgid "Attempts"
+msgstr "Poskusi"
+
+#: src/org/kde/artikulate/TrainingPage.qml:25
+#, kde-format
+msgid "Category: no category selected"
+msgstr "Kategorija: ni izbrane kategorije"
+
+#: src/org/kde/artikulate/TrainingPage.qml:28
+#, kde-format
+msgid "Category: %1"
+msgstr "Kategorija: %1"
+
+#: src/org/kde/artikulate/TrainingPage.qml:39
+#, kde-format
+msgid "Mark current phrase as completed and proceed with next one."
+msgstr "Označi trenutno frazo kot zaključeno in nadaljuj z naslednjo."
+
+#: src/org/kde/artikulate/TrainingPage.qml:45
+#, kde-format
+msgid "Skip"
+msgstr "Preskoči"
+
+#: src/org/kde/artikulate/TrainingPage.qml:46
+#, kde-format
+msgid "Skip current phrase and proceed with next one."
+msgstr "Preskoči trenutno frazo in nadaljuj z naslednjo."
+
+#: src/org/kde/artikulate/TrainingPage.qml:101
+#, kde-format
+msgid "Play original"
+msgstr "Predvajaj izvirnik"
+
+#: src/org/kde/artikulate/TrainingPage.qml:142
+#, kde-format
+msgid "Record yourself"
+msgstr "Posnemi sebe"
+
+#: src/org/kde/artikulate/TrainingPage.qml:151
+#, kde-format
+msgid "Play yourself"
+msgstr "Predvajaj sebe"
+
+#: src/org/kde/artikulate/unitmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Unit"
+msgstr "Enota"
+
+#: src/org/kde/artikulate/WelcomePage.qml:14
+#, kde-format
+msgid "Welcome to Artikulate"
+msgstr "Dobrodošli v Artikulate"
+
+#: src/org/kde/artikulate/WelcomePage.qml:59
+#, kde-format
+msgctxt "@action:button"
+msgid "Start Training"
+msgstr "Začni vadbo"
+
+#: src/org/kde/artikulate/WelcomePage.qml:73
+#, kde-format
+msgid "No trainings found"
+msgstr "Ni najdenih treningov"
+
+#~ msgid "Please select a course"
+#~ msgstr "Izberite tečaj"
+
+#~ msgid "About Artikulate Editor"
+#~ msgstr "O urejevalniku Artikulate"
+
+#~ msgid "Select Image"
+#~ msgstr "Izberi sliko"
+
+#~ msgid "Delete User"
+#~ msgstr "Izbriši uporabnika"
+
+#~ msgid "Download Training Material"
+#~ msgstr "Naloži učne materiale"
+
+#~ msgctxt "@action:button"
+#~ msgid "Update"
+#~ msgstr "Osveži"
+
+#~ msgctxt "@action:button"
+#~ msgid "Install"
+#~ msgstr "Namesti"
+
+#~ msgctxt "@action:button"
+#~ msgid "Remove"
+#~ msgstr "Odstrani"
+
+#~ msgctxt "default sound device"
+#~ msgid "Default"
+#~ msgstr "Privzeta"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2019 The Artikulate Developers"
+#~ msgstr "(c) 2013-2019, razvijalci Artikulate"
+
+#~ msgid "About"
+#~ msgstr "O artikulate"
+
+#~ msgid "Original Phrase:"
+#~ msgstr "Izvirna fraza:"
+
+#~ msgid "Unit Title:"
+#~ msgstr "Naslov enote:"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Learner Profile"
+#~ msgstr "Učni profil"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Configure Artikulate"
+#~ msgstr "Nastavi Artikulate"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Sound Devices"
+#~ msgstr "Zvočne naprave"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Sound Device Settings"
+#~ msgstr "Nastavitve zvočne naprave"
+
+#~ msgid "Export"
+#~ msgstr "Izvozi"
+
+#~ msgid "Export Directory"
+#~ msgstr "Izvozi mapo"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "Configure Microphone"
+#~ msgstr "Nastavi mikrofon"
+
+#~ msgid "Input Device"
+#~ msgstr "Vhodna naprava"
+
+#~ msgid "Play Test Sound"
+#~ msgstr "Predvajaj preizkusni zvok"
+
+#~ msgid "Play test sound."
+#~ msgstr "Predvajaj preizkusni zvok."
+
+#~ msgid "Record Test Sound"
+#~ msgstr "Zajemi preizkusni zvok"
+
+#~ msgid "Play recorded test sound."
+#~ msgstr "Predvajaj zajet preizkusni zvok."
+
+#~ msgid "Record test sound."
+#~ msgstr "Zajemi preizkusni zvok."
+
+#~ msgid "Test Sound"
+#~ msgstr "Preizkusi zvok"
+
+#~ msgid "Configure Speakers"
+#~ msgstr "Nastavi zvočnike"
+
+#~ msgid "Volume"
+#~ msgstr "Glasnost"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Fonts"
+#~ msgstr "Pisave"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Training Phrase Font"
+#~ msgstr "Pisava za učno frazo"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Export GHNS Files"
+#~ msgstr "Izvozi datoteke GHNS"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Course Resources"
+#~ msgstr "Viri tečajev"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Resource Repository Settings"
+#~ msgstr "Nastavitve skladišča z viri"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "The currently open course contains unsaved changes. Do you want to save "
+#~ "them?"
+#~ msgstr ""
+#~ "Trenutno odprt tečaj vsebuje neshranjene spremembe. Ali jih želite "
+#~ "shraniti?"
+
+#~ msgid "Settings"
+#~ msgstr "Nastavitve"
+
+#~ msgid "Course Prototype:"
+#~ msgstr "Prototip tečaja:"
+
+#~ msgid "There is no course in the selected language."
+#~ msgstr "Za izbran jezik ni tečajev."
+
+#~ msgid "Create Course"
+#~ msgstr "Ustvari tečaj"
+
+#~ msgid "Units & Phrases"
+#~ msgstr "Enote in fraze"
+
+#~ msgid ""
+#~ "This dialog allows advanced settings. It is addressed only to "
+#~ "translators, speakers, and other users of the course editor. Adding a "
+#~ "repository allows you to work on courses and course skeletons in a "
+#~ "structured way. For details please refer to the technical documentation."
+#~ msgstr ""
+#~ "To pogovorno okno omogoča napredno nastavljanje. Namenjeno je le "
+#~ "prevajalcem, govorcem in drugim uporabnikom urejevalnika tečajev. "
+#~ "Dodajanje skladišča vam omogoča strukturirano delo na tečajih in ogrodjih "
+#~ "tečajev. Za podrobnosti si oglejte tehnično dokumentacijo."
+
+#~ msgid "Path to the contributor repository."
+#~ msgstr "Pot do skladišča s prispevki."
+
+#~ msgid ""
+#~ "Use this option only if you are a course contributor and you are working "
+#~ "on a course repository."
+#~ msgstr ""
+#~ "Uporabite to možnost le, če prispevate k tečajem in delate na skladišču s "
+#~ "tečaji."
+
+#~ msgid "Use course contributor repository in trainer mode"
+#~ msgstr "Uporabi skladišče s prispevki tečajev v načinu učitelja"
+
+#, fuzzy
+#~| msgctxt "@info:credit"
+#~| msgid "(c) 2013-2016 The Artikulate Developers"
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2017 The Artikulate Developers"
+#~ msgstr "(C) 2013-2016, razvijalci Artikulate"
+
+#~ msgid "Category: "
+#~ msgstr "Kategorija: "
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Download New Language Course"
+#~ msgstr "Prejmi nov jezikovni tečaj"
+
+#~ msgid "Prototype Mode"
+#~ msgstr "Način prototipa"
+
+#~ msgid "Please download a course"
+#~ msgstr "Prejmite tečaj"
+
+#~ msgid "Categories"
+#~ msgstr "Kategorije"
+
+#~ msgid "File"
+#~ msgstr "Datoteka"
+
+#~ msgid "Edit User"
+#~ msgstr "Uredi uporabnika"
+
+#~ msgid "Quit"
+#~ msgstr "Končaj"
+
+#~ msgid "Download Courses"
+#~ msgstr "Prejmi tečaje"
+
+#~ msgid "Configure Artikulate..."
+#~ msgstr "Nastavi Artikulate ..."
+
+#~ msgid "Show Menubar"
+#~ msgstr "Pokaži menijsko vrstico"
+
+#~ msgid "Help"
+#~ msgstr "Pomoč"
+
+#~ msgid "Artikulate Handbook"
+#~ msgstr "Priročnik za Artikulate"
+
+#~ msgid "Report Bug"
+#~ msgstr "Poročaj o hrošču"
+
+#~ msgid "There are no courses installed on this system."
+#~ msgstr "Na tem sistemu ni nameščenih tečajev."
+
+#~ msgid "You can install them now from the Internet:"
+#~ msgstr "Sedaj jih lahko namestite z interneta:"
+
+#~ msgid "User Profile Settings"
+#~ msgstr "Nastavitve uporabniškega profila"
+
+#~ msgid "Languages"
+#~ msgstr "Jeziki"
+
+#~ msgid "Close"
+#~ msgstr "Zapri"
+
+#~ msgid "Listen"
+#~ msgstr "Poslušaj"
+
+#~ msgid "Create New Course"
+#~ msgstr "Ustvari nov tečaj"
+
+#~ msgid "none"
+#~ msgstr "brez"
+
+#~ msgid "New Course"
+#~ msgstr "Nov tečaj"
+
+#~ msgid "Use Skeleton"
+#~ msgstr "Uporabi ogrodje"
+
+#~ msgid "Identifier"
+#~ msgstr "Določilnik"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2014 The Artikulate Developers"
+#~ msgstr "(C) 2013-2014, razvijalci Artikulate"
+
+#, fuzzy
+#~| msgid "Edit Skeletons"
+#~ msgid "Edit Skeleton"
+#~ msgstr "Uredi ogrodja"
+
+#, fuzzy
+#~| msgctxt "@item:inmenu"
+#~| msgid "Configure Artikulate"
+#~ msgid "Configure Shortcuts..."
+#~ msgstr "Nastavi Artikulate"
+
+#~ msgid "M&ode"
+#~ msgstr "Nač&in"
+
+#~ msgid "Learn and practice pronunciation."
+#~ msgstr "Naučite se in vadite izgovorjavo."
+
+#~ msgid "Unselected"
+#~ msgstr "Ni izbrano"
+
+#~ msgid "OK"
+#~ msgstr "V redu"
+
+#~ msgid "Close Course"
+#~ msgstr "Zapri tečaj"
+
+#~ msgid "<strong>Skeleton:</strong> %1"
+#~ msgstr "<strong>Ogrodje:</strong> %1"
+
+#~ msgid "Units"
+#~ msgstr "Enote"
+
+#~ msgid "Add Unit"
+#~ msgstr "Dodaj enoto"
+
+#~ msgid "No Course Repository Selected"
+#~ msgstr "Ni izbranega skladišča s tečaji"
+
+#~ msgid ""
+#~ "Editor is only available when Artikulate works on a course data "
+#~ "repository. Please see program settings."
+#~ msgstr ""
+#~ "Urejevalnik je na voljo le, ko Artikulate dela na skladišču s podatki "
+#~ "tečajev. Oglejte si nastavitve programa."
+
+#~ msgid "Select Course Language:"
+#~ msgstr "Izberite jezik tečaja:"
+
+#~ msgid "Language: "
+#~ msgstr "Jezik: "
+
+#~ msgid "unselected"
+#~ msgstr "ni izbran"
+
+#~ msgid "Select Skeleton:"
+#~ msgstr "Izberite ogrodje:"
+
+#~ msgid "Please select a favorite language"
+#~ msgstr "Izberite priljubljen jezik"
+
+#~ msgid "Length:"
+#~ msgstr "Dolžina:"
+
+#~ msgid "Unit: %1"
+#~ msgstr "Enota: %1"
+
+#~ msgid "Finish Training"
+#~ msgstr "Končaj z učenjem"
+
+#~ msgid "Phrases Grouped by Attempts"
+#~ msgstr "Fraze združene po poskusih"
+
+#~ msgid "Training Progress"
+#~ msgstr "Učni napredek"
+
+#~ msgid "Create Learner Identity"
+#~ msgstr "Ustvari istovetnost učenca"
+
+#~ msgid "Start by creating a learner identity"
+#~ msgstr "Začnite tako da ustvarite istovetnost učenca"
+
+#~ msgid "Native Speaker"
+#~ msgstr "Materni govorec"
+
+#~ msgid "Learner (You)"
+#~ msgstr "Učenec (vi)"
+
+#~ msgid "Add Phrase"
+#~ msgstr "Dodaj frazo"
+
+#~ msgid "<strong>Language:</strong> %1"
+#~ msgstr "<strong>Jezik:</strong> %1"
+
+#~ msgid "<strong>Course:</strong> %1"
+#~ msgstr "<strong>Tečaj:</strong> %1"
+
+#~ msgid "Editor"
+#~ msgstr "Urejevalnik"
+
+#~ msgid "Course Skeleton:"
+#~ msgstr "Ogrodje tečaja:"
+
+#~ msgid "Course:"
+#~ msgstr "Tečaj:"

@@ -1,0 +1,1134 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# SPDX-FileCopyrightText: 2014, 2015, 2016, 2017, 2019, 2020, 2022, 2024 Steve Allewell <steve.allewell@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-03-25 00:37+0000\n"
+"PO-Revision-Date: 2024-05-24 17:30+0100\n"
+"Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
+"Language-Team: British English\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 24.02.2\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Bengali"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Catalan"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "German"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Dutch"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "British English"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "English"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "French"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Greek"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Hindi"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "Italian"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Marathi"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Polish"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "Spanish"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:147
+#, kde-format
+msgctxt "@item:inlistbox unknown learning goal"
+msgid "unknown"
+msgstr "unknown"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:212
+#, kde-format
+msgctxt "@title:column"
+msgid "Learning Goal"
+msgstr "Learning Goal"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Open Image"
+msgstr "Open Image"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Image Files (*.png *.jpg *.bmp)"
+msgstr "Image Files (*.png *.jpg *.bmp)"
+
+#: liblearnerprofile/src/storage.cpp:569
+#, kde-format
+msgid "Invalid database version '%1'."
+msgstr "Invalid database version '%1'."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "If true, the main menu bar is shown."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"If enabled, course files are only read from the local contributor repository"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "Path to local contributor repository"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Name of audio input device"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Audio input volume"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Audio output volume"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Font"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+
+#: src/core/resources/editablecourseresource.cpp:262
+#, kde-format
+msgid "New Unit"
+msgstr "New Unit"
+
+#: src/main.cpp:29
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate"
+msgstr "Artikulate"
+
+#: src/main.cpp:31
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Pronunciation Trainer"
+msgstr "Artikulate Pronunciation Trainer"
+
+#: src/main.cpp:33 src/main_editor.cpp:30
+#, kde-format
+msgctxt "@info:credit"
+msgid "(c) 2013-2022 The Artikulate Developers"
+msgstr "(c) 2013-2022 The Artikulate Developers"
+
+#: src/main.cpp:34
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Train your pronunciation in a foreign language."
+msgstr "Train your pronunciation in a foreign language."
+
+#: src/main.cpp:37 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Andreas Cord-Landwehr"
+msgstr "Andreas Cord-Landwehr"
+
+#: src/main.cpp:38 src/main_editor.cpp:34
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Original Author"
+msgstr "Original Author"
+
+#: src/main.cpp:41
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Samikshan Bairagya"
+msgstr "Samikshan Bairagya"
+
+#: src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer"
+msgstr "Developer"
+
+#: src/main.cpp:45
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Oindrila Gupta"
+msgstr "Oindrila Gupta"
+
+#: src/main.cpp:46 src/main.cpp:50
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer and Course Data"
+msgstr "Developer and Course Data"
+
+#: src/main.cpp:49
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Magdalena Konkiewicz"
+msgstr "Magdalena Konkiewicz"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Steve Allewell"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "steve.allewell@gmail.com"
+
+#: src/main_editor.cpp:26
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate Editor"
+msgstr "Artikulate Editor"
+
+#: src/main_editor.cpp:28
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Course Editor"
+msgstr "Artikulate Course Editor"
+
+#: src/main_editor.cpp:31
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Edit Artikulate course files."
+msgstr "Edit Artikulate course files."
+
+#: src/mainwindow.cpp:29 src/org/kde/artikulate/ProfileSelector.qml:15
+#, kde-format
+msgid "Unnamed Identity"
+msgstr "Unnamed Identity"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:47
+#, kde-format
+msgid "Training"
+msgstr "Training"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:97
+#: src/org/kde/artikulate/WelcomePage.qml:77
+#, kde-format
+msgid "Download Training"
+msgstr "Download Training"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:111
+#: src/org/kde/artikulate/EditorDrawer.qml:132
+#, kde-format
+msgid "About Artikulate"
+msgstr "About Artikulate"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#: src/org/kde/artikulate/EditorDrawer.qml:72
+#, kde-format
+msgid "Course Configuration"
+msgstr "Course Configuration"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#, kde-format
+msgid "Prototype Configuration"
+msgstr "Prototype Configuration"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Prototype Description"
+msgstr "Prototype Description"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Course Description"
+msgstr "Course Description"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:21
+#, kde-format
+msgid "Title:"
+msgstr "Title:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:28
+#, kde-format
+msgid "Localized Title:"
+msgstr "Localised Title:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:34
+#, kde-format
+msgid "Description:"
+msgstr "Description:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:41
+#, kde-format
+msgid "Language:"
+msgstr "Language:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:49
+#, kde-format
+msgid "Prototype"
+msgstr "Prototype"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:54
+#, kde-format
+msgid "Update from Prototype:"
+msgstr "Update from Prototype:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:57
+#, kde-format
+msgid "Update"
+msgstr "Update"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:62
+#, kde-format
+msgid "Update the course with elements from prototype."
+msgstr "Update the course with elements from prototype."
+
+#: src/org/kde/artikulate/coursemodel.cpp:99
+#: src/org/kde/artikulate/languageresourcemodel.cpp:71
+#: src/org/kde/artikulate/phonememodel.cpp:61
+#: src/org/kde/artikulate/phraselistmodel.cpp:96
+#: src/org/kde/artikulate/profilemodel.cpp:85
+#: src/org/kde/artikulate/skeletonmodel.cpp:96
+#: src/org/kde/artikulate/unitmodel.cpp:84
+#, kde-format
+msgctxt "@item:inlistbox:"
+msgid "unknown"
+msgstr "unknown"
+
+#: src/org/kde/artikulate/coursemodel.cpp:158
+#, kde-format
+msgctxt "@title:column"
+msgid "Course"
+msgstr "Course"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:13
+#, kde-format
+msgid "Edit Course"
+msgstr "Edit Course"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:22
+#, kde-format
+msgid "Previous"
+msgstr "Previous"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:23
+#, kde-format
+msgid "Switch to previous phrase."
+msgstr "Switch to previous phrase."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:29
+#: src/org/kde/artikulate/TrainingPage.qml:38
+#, kde-format
+msgid "Next"
+msgstr "Next"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:30
+#, kde-format
+msgid "Switch to next phrase."
+msgstr "Switch to next phrase."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:39
+#: src/org/kde/artikulate/ProfileUserItem.qml:70
+#: src/org/kde/artikulate/ProfileUserItem.qml:167
+#, kde-format
+msgid "Delete"
+msgstr "Delete"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:40
+#, kde-format
+msgid "Delete this phrase."
+msgstr "Delete this phrase."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:45
+#, kde-format
+msgid "Create Phrase"
+msgstr "Create Phrase"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:46
+#, kde-format
+msgid "Create phrase after current phrase."
+msgstr "Create phrase after current phrase."
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:12
+#, kde-format
+msgid "Welcome to Artikulate Course Editor"
+msgstr "Welcome to Artikulate Course Editor"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:43
+#: src/org/kde/artikulate/WelcomePage.qml:45
+#, kde-format
+msgctxt "@title:window language / course name"
+msgid "%1 / %2"
+msgstr "%1 / %2"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Course"
+msgstr "Edit Course"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:46
+#, kde-format
+msgid "Courses"
+msgstr "Courses"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:58
+#, kde-format
+msgid "Repository"
+msgstr "Repository"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:121
+#, kde-format
+msgid "Save"
+msgstr "Save"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:12
+#, kde-format
+msgid "Select Prototype"
+msgstr "Select Prototype"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:43
+#, kde-format
+msgctxt "@title:window prototype name"
+msgid "%1"
+msgstr "%1"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Prototype"
+msgstr "Edit Prototype"
+
+#: src/org/kde/artikulate/languageresourcemodel.cpp:150
+#, kde-format
+msgctxt "@title:column"
+msgid "Language"
+msgstr "Language"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:132
+#, kde-format
+msgid "Words"
+msgstr "Words"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:134
+#, kde-format
+msgid "Sentences"
+msgstr "Sentences"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:136
+#, kde-format
+msgid "Expressions"
+msgstr "Expressions"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:138
+#, kde-format
+msgid "Paragraphs"
+msgstr "Paragraphs"
+
+#: src/org/kde/artikulate/phonemegroupmodel.cpp:153
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Group"
+msgstr "Phoneme Group"
+
+#: src/org/kde/artikulate/phonememodel.cpp:123
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme"
+msgstr "Phoneme"
+
+#: src/org/kde/artikulate/phonemeunitmodel.cpp:182
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Unit"
+msgstr "Phoneme Unit"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit"
+msgstr "Unit"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit: "
+msgstr "Unit: "
+
+#: src/org/kde/artikulate/PhraseEditor.qml:108
+#, kde-format
+msgid "Localized Unit:"
+msgstr "Localised Unit:"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:119
+#, kde-format
+msgid "Phrase: "
+msgstr "Phrase: "
+
+#: src/org/kde/artikulate/PhraseEditor.qml:124
+#, kde-format
+msgid "Localized Phrase:"
+msgstr "Localised Phrase:"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:45
+#, kde-format
+msgid "Edit State:"
+msgstr "Edit State:"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:55
+#, kde-format
+msgctxt "state"
+msgid "Unknown"
+msgstr "Unknown"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:63
+#, kde-format
+msgctxt "state"
+msgid "Translated"
+msgstr "Translated"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:71
+#, kde-format
+msgctxt "state"
+msgid "Completed"
+msgstr "Completed"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:21
+#, kde-format
+msgid "Native Speaker Recording"
+msgstr "Native Speaker Recording"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:31
+#, kde-format
+msgid "Existing Recording:"
+msgstr "Existing Recording:"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:41
+#, kde-format
+msgid "Create New Recording:"
+msgstr "Create New Recording:"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:57
+#, kde-format
+msgid "Replace Existing Recording"
+msgstr "Replace Existing Recording"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:65
+#, kde-format
+msgid "Dismiss"
+msgstr "Dismiss"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:48
+#, kde-format
+msgid "Difficulty:"
+msgstr "Difficulty:"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:58
+#, kde-format
+msgid "Word"
+msgstr "Word"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:65
+#, kde-format
+msgid "Expression"
+msgstr "Expression"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:72
+#, kde-format
+msgid "Sentence"
+msgstr "Sentence"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:79
+#, kde-format
+msgid "Paragraph"
+msgstr "Paragraph"
+
+#: src/org/kde/artikulate/phraselistmodel.cpp:172
+#: src/org/kde/artikulate/phrasemodel.cpp:285
+#, kde-format
+msgctxt "@title:column"
+msgid "Phrase"
+msgstr "Phrase"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:35
+#, kde-format
+msgid "Learner"
+msgstr "Learner"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:48
+#, kde-format
+msgid "Favorite Languages"
+msgstr "Favorite Languages"
+
+#: src/org/kde/artikulate/profilemodel.cpp:144
+#, kde-format
+msgctxt "@title:column"
+msgid "Profile"
+msgstr "Profile"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:67
+#, kde-format
+msgid "Create New Learner Identity"
+msgstr "Create New Learner Identity"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:100
+#, kde-format
+msgid "Use Selected Identity"
+msgstr "Use Selected Identity"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:14
+#, kde-format
+msgid "Configure Profile"
+msgstr "Configure Profile"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:98
+#: src/org/kde/artikulate/ProfileUserItem.qml:114
+#, kde-format
+msgid "Name"
+msgstr "Name"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:65
+#, kde-format
+msgid "Edit"
+msgstr "Edit"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:76
+#, kde-format
+msgid "Change Image"
+msgstr "Change Image"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:81
+#, kde-format
+msgid "Clear Image"
+msgstr "Clear Image"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:120
+#, kde-format
+msgid "Done"
+msgstr "Done"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:158
+#, kde-format
+msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
+msgstr "Do you really want to delete this identity \"<b>%1</b>\"?"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:174
+#, kde-format
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:13
+#, kde-format
+msgid "Repository Configuration"
+msgstr "Repository Configuration"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:18
+#, kde-format
+msgid "Select Repository Folder"
+msgstr "Select Repository Folder"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:29
+#, kde-format
+msgid "Repository:"
+msgstr "Repository:"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:34
+#, kde-format
+msgid "Change Folder"
+msgstr "Change Folder"
+
+#: src/org/kde/artikulate/skeletonmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Skeleton"
+msgstr "Skeleton"
+
+#: src/org/kde/artikulate/SoundPlayer.qml:16
+#, kde-format
+msgid "Play"
+msgstr "Play"
+
+#: src/org/kde/artikulate/SoundRecorder.qml:16
+#, kde-format
+msgid "Record"
+msgstr "Record"
+
+#: src/org/kde/artikulate/TrainerCourseStatistics.qml:43
+#, kde-format
+msgid "Attempts"
+msgstr "Attempts"
+
+#: src/org/kde/artikulate/TrainingPage.qml:25
+#, kde-format
+msgid "Category: no category selected"
+msgstr "Category: no category selected"
+
+#: src/org/kde/artikulate/TrainingPage.qml:28
+#, kde-format
+msgid "Category: %1"
+msgstr "Category: %1"
+
+#: src/org/kde/artikulate/TrainingPage.qml:39
+#, kde-format
+msgid "Mark current phrase as completed and proceed with next one."
+msgstr "Mark current phrase as completed and proceed with next one."
+
+#: src/org/kde/artikulate/TrainingPage.qml:45
+#, kde-format
+msgid "Skip"
+msgstr "Skip"
+
+#: src/org/kde/artikulate/TrainingPage.qml:46
+#, kde-format
+msgid "Skip current phrase and proceed with next one."
+msgstr "Skip current phrase and proceed with next one."
+
+#: src/org/kde/artikulate/TrainingPage.qml:101
+#, kde-format
+msgid "Play original"
+msgstr "Play original"
+
+#: src/org/kde/artikulate/TrainingPage.qml:142
+#, kde-format
+msgid "Record yourself"
+msgstr "Record yourself"
+
+#: src/org/kde/artikulate/TrainingPage.qml:151
+#, kde-format
+msgid "Play yourself"
+msgstr "Play yourself"
+
+#: src/org/kde/artikulate/unitmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Unit"
+msgstr "Unit"
+
+#: src/org/kde/artikulate/WelcomePage.qml:14
+#, kde-format
+msgid "Welcome to Artikulate"
+msgstr "Welcome to Artikulate"
+
+#: src/org/kde/artikulate/WelcomePage.qml:59
+#, kde-format
+msgctxt "@action:button"
+msgid "Start Training"
+msgstr "Start Training"
+
+#: src/org/kde/artikulate/WelcomePage.qml:73
+#, kde-format
+msgid "No trainings found"
+msgstr "No training found"
+
+#~ msgid "Please select a course"
+#~ msgstr "Please select a course"
+
+#~ msgid "About Artikulate Editor"
+#~ msgstr "About Artikulate Editor"
+
+#~ msgid "Select Image"
+#~ msgstr "Select Image"
+
+#~ msgid "Delete User"
+#~ msgstr "Delete User"
+
+#~ msgid "Download Training Material"
+#~ msgstr "Download Training Material"
+
+#~ msgctxt "@action:button"
+#~ msgid "Update"
+#~ msgstr "Update"
+
+#~ msgctxt "@action:button"
+#~ msgid "Install"
+#~ msgstr "Install"
+
+#~ msgctxt "@action:button"
+#~ msgid "Remove"
+#~ msgstr "Remove"
+
+#~ msgctxt "default sound device"
+#~ msgid "Default"
+#~ msgstr "Default"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2019 The Artikulate Developers"
+#~ msgstr "(c) 2013-2019 The Artikulate Developers"
+
+#~ msgid "About"
+#~ msgstr "About"
+
+#~ msgid "Original Phrase:"
+#~ msgstr "Original Phrase:"
+
+#~ msgid "Unit Title:"
+#~ msgstr "Unit Title:"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Learner Profile"
+#~ msgstr "Learner Profile"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Configure Artikulate"
+#~ msgstr "Configure Artikulate"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Sound Devices"
+#~ msgstr "Sound Devices"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Sound Device Settings"
+#~ msgstr "Sound Device Settings"
+
+#~ msgid "Export"
+#~ msgstr "Export"
+
+#~ msgid "Export Directory"
+#~ msgstr "Export Directory"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "Configure Microphone"
+#~ msgstr "Configure Microphone"
+
+#~ msgid "Input Device"
+#~ msgstr "Input Device"
+
+#~ msgid "Play Test Sound"
+#~ msgstr "Play Test Sound"
+
+#~ msgid "Play test sound."
+#~ msgstr "Play test sound."
+
+#~ msgid "Record Test Sound"
+#~ msgstr "Record Test Sound"
+
+#~ msgid "Play recorded test sound."
+#~ msgstr "Play recorded test sound."
+
+#~ msgid "Record test sound."
+#~ msgstr "Record test sound."
+
+#~ msgid "Test Sound"
+#~ msgstr "Test Sound"
+
+#~ msgid "Configure Speakers"
+#~ msgstr "Configure Speakers"
+
+#~ msgid "Volume"
+#~ msgstr "Volume"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Fonts"
+#~ msgstr "Fonts"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Training Phrase Font"
+#~ msgstr "Training Phrase Font"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Export GHNS Files"
+#~ msgstr "Export GHNS Files"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Course Resources"
+#~ msgstr "Course Resources"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Resource Repository Settings"
+#~ msgstr "Resource Repository Settings"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "The currently open course contains unsaved changes. Do you want to save "
+#~ "them?"
+#~ msgstr ""
+#~ "The currently open course contains unsaved changes. Do you want to save "
+#~ "them?"
+
+#~ msgid "Statistics"
+#~ msgstr "Statistics"
+
+#~ msgid "Settings"
+#~ msgstr "Settings"
+
+#~ msgid "Course Prototype:"
+#~ msgstr "Course Prototype:"
+
+#~ msgid "There is no course in the selected language."
+#~ msgstr "There is no course in the selected language."
+
+#~ msgid "Create Course"
+#~ msgstr "Create Course"
+
+#~ msgid "Units & Phrases"
+#~ msgstr "Units & Phrases"
+
+#~ msgid ""
+#~ "This dialog allows advanced settings. It is addressed only to "
+#~ "translators, speakers, and other users of the course editor. Adding a "
+#~ "repository allows you to work on courses and course skeletons in a "
+#~ "structured way. For details please refer to the technical documentation."
+#~ msgstr ""
+#~ "This dialogue allows advanced settings. It is addressed only to "
+#~ "translators, speakers, and other users of the course editor. Adding a "
+#~ "repository allows you to work on courses and course skeletons in a "
+#~ "structured way. For details please refer to the technical documentation."
+
+#~ msgid "Path to the contributor repository."
+#~ msgstr "Path to the contributor repository."
+
+#~ msgid ""
+#~ "Use this option only if you are a course contributor and you are working "
+#~ "on a course repository."
+#~ msgstr ""
+#~ "Use this option only if you are a course contributor and you are working "
+#~ "on a course repository."
+
+#~ msgid "Use course contributor repository in trainer mode"
+#~ msgstr "Use course contributor repository in trainer mode"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2017 The Artikulate Developers"
+#~ msgstr "(c) 2013-2017 The Artikulate Developers"
+
+#~ msgid "Category: "
+#~ msgstr "Category: "
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Download New Language Course"
+#~ msgstr "Download New Language Course"
+
+#~ msgid "Prototype Mode"
+#~ msgstr "Prototype Mode"
+
+#~ msgid "Please download a course"
+#~ msgstr "Please download a course"
+
+#~ msgid "Categories"
+#~ msgstr "Categories"
+
+#~ msgid "File"
+#~ msgstr "File"
+
+#~ msgid "Edit User"
+#~ msgstr "Edit User"
+
+#~ msgid "Quit"
+#~ msgstr "Quit"
+
+#~ msgid "Download Courses"
+#~ msgstr "Download Courses"
+
+#~ msgid "Configure Artikulate..."
+#~ msgstr "Configure Artikulate..."
+
+#~ msgid "Show Menubar"
+#~ msgstr "Show Menubar"
+
+#~ msgid "Help"
+#~ msgstr "Help"
+
+#~ msgid "Artikulate Handbook"
+#~ msgstr "Artikulate Handbook"
+
+#~ msgid "Report Bug"
+#~ msgstr "Report Bug"
+
+#~ msgid "There are no courses installed on this system."
+#~ msgstr "There are no courses installed on this system."
+
+#~ msgid "You can install them now from the Internet:"
+#~ msgstr "You can install them now from the Internet:"
+
+#~ msgid "User Profile Settings"
+#~ msgstr "User Profile Settings"
+
+#~ msgid "Languages"
+#~ msgstr "Languages"
+
+#~ msgid "Close"
+#~ msgstr "Close"
+
+#~ msgid "Listen"
+#~ msgstr "Listen"
+
+#~ msgid "Create New Course"
+#~ msgstr "Create New Course"
+
+#~ msgid "none"
+#~ msgstr "none"
+
+#~ msgid "New Course"
+#~ msgstr "New Course"
+
+#~ msgid "Use Skeleton"
+#~ msgstr "Use Skeleton"
+
+#~ msgid "Identifier"
+#~ msgstr "Identifier"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2014 The Artikulate Developers"
+#~ msgstr "(c) 2013-2014 The Artikulate Developers"
+
+#~ msgid "Edit Skeleton"
+#~ msgstr "Edit Skeleton"
+
+#~ msgid "Configure Shortcuts..."
+#~ msgstr "Configure Shortcuts..."
+
+#~ msgid "M&ode"
+#~ msgstr "M&ode"
+
+#~ msgid "Learn and practice pronunciation."
+#~ msgstr "Learn and practice pronunciation."
+
+#~ msgid "Unselected"
+#~ msgstr "Unselected"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Close Course"
+#~ msgstr "Close Course"
+
+#~ msgid "<strong>Skeleton:</strong> %1"
+#~ msgstr "<strong>Skeleton:</strong> %1"
+
+#~ msgid "Units"
+#~ msgstr "Units"
+
+#~ msgid "Add Unit"
+#~ msgstr "Add Unit"
+
+#~ msgid "No Course Repository Selected"
+#~ msgstr "No Course Repository Selected"
+
+#~ msgid ""
+#~ "Editor is only available when Artikulate works on a course data "
+#~ "repository. Please see program settings."
+#~ msgstr ""
+#~ "Editor is only available when Artikulate works on a course data "
+#~ "repository. Please see program settings."
+
+#~ msgid "Select Course Language:"
+#~ msgstr "Select Course Language:"
+
+#~ msgid "Language: "
+#~ msgstr "Language: "
+
+#~ msgid "unselected"
+#~ msgstr "unselected"
+
+#~ msgid "Select Skeleton:"
+#~ msgstr "Select Skeleton:"
+
+#~ msgid "Please select a favorite language"
+#~ msgstr "Please select a favorite language"
+
+#~ msgid "Length:"
+#~ msgstr "Length:"
+
+#~ msgid "Unit: %1"
+#~ msgstr "Unit: %1"
+
+#~ msgid "Finish Training"
+#~ msgstr "Finish Training"
+
+#~ msgid "Phrases Grouped by Attempts"
+#~ msgstr "Phrases Grouped by Attempts"
+
+#~ msgid "Training Progress"
+#~ msgstr "Training Progress"
+
+#~ msgid "Create Learner Identity"
+#~ msgstr "Create Learner Identity"
+
+#~ msgid "Start by creating a learner identity"
+#~ msgstr "Start by creating a learner identity"
+
+#~ msgid "Native Speaker"
+#~ msgstr "Native Speaker"
+
+#~ msgid "Learner (You)"
+#~ msgstr "Learner (You)"
+
+#~ msgid "Add Phrase"
+#~ msgstr "Add Phrase"

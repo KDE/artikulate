@@ -1,0 +1,1139 @@
+# translation of artikulate.po to Slovak
+# Roman Paholik <wizzardsk@gmail.com>, 2013, 2014, 2015, 2016, 2017, 2022.
+# Matej Mrenica <matejm98mthw@gmail.com>, 2019.
+msgid ""
+msgstr ""
+"Project-Id-Version: artikulate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-03-25 00:37+0000\n"
+"PO-Revision-Date: 2022-04-07 18:00+0200\n"
+"Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
+"Language-Team: Slovak <kde-sk@linux.sk>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 21.12.3\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Bengálčina"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Katalánčina"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "Nemčina"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Holandčina"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "Britská angličtina"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "Angličtina"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "Francúzština"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Gréčtina"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Hindčina"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "Taliančina"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Maráthčina"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Poľština"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "Španielčina"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:147
+#, kde-format
+msgctxt "@item:inlistbox unknown learning goal"
+msgid "unknown"
+msgstr "neznáme"
+
+#: liblearnerprofile/src/models/learninggoalmodel.cpp:212
+#, kde-format
+msgctxt "@title:column"
+msgid "Learning Goal"
+msgstr "Cieľ učenia"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Open Image"
+msgstr "Otvoriť obrázok"
+
+#: liblearnerprofile/src/profilemanager.cpp:146
+#, kde-format
+msgid "Image Files (*.png *.jpg *.bmp)"
+msgstr "Súbory obrázkov (*.png *.jpg *.bmp)"
+
+#: liblearnerprofile/src/storage.cpp:569
+#, kde-format
+msgid "Invalid database version '%1'."
+msgstr "Neplatná verzia databázy '%1'."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "Ak je nastavené, zobrazí sa hlavná ponuka."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"Ak je povolené, súbory kurzu sa načítajú iba z miestneho repozitára "
+"prispievateľa"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "Cesta k miestnemu repozitáru prispievateľa"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Názov zvukového vstupného zariadenia"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Hlasitosť vstupného zvuku"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Hlasitosť výstupného zvuku"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Písmo"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"Nastavte buď na 'qtmultimediabackend' alebo 'qtgstreamerbackend', vybrané na "
+"runtime, ak je dostupné."
+
+#: src/core/resources/editablecourseresource.cpp:262
+#, kde-format
+msgid "New Unit"
+msgstr "Nová jednotka"
+
+#: src/main.cpp:29
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate"
+msgstr "Artikulate"
+
+#: src/main.cpp:31
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Pronunciation Trainer"
+msgstr "Tréner výslovnosti Artikulate"
+
+#: src/main.cpp:33 src/main_editor.cpp:30
+#, fuzzy, kde-format
+#| msgctxt "@info:credit"
+#| msgid "(c) 2013-2020 The Artikulate Developers"
+msgctxt "@info:credit"
+msgid "(c) 2013-2022 The Artikulate Developers"
+msgstr "(c) 2013-2020 Vývojári Artikulate"
+
+#: src/main.cpp:34
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Train your pronunciation in a foreign language."
+msgstr "Tréning výslovnosti v cudzom jazyku."
+
+#: src/main.cpp:37 src/main_editor.cpp:33
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Andreas Cord-Landwehr"
+msgstr "Andreas Cord-Landwehr"
+
+#: src/main.cpp:38 src/main_editor.cpp:34
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Original Author"
+msgstr "Pôvodný autor"
+
+#: src/main.cpp:41
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Samikshan Bairagya"
+msgstr "Samikshan Bairagya"
+
+#: src/main.cpp:42
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer"
+msgstr "Vývojár"
+
+#: src/main.cpp:45
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Oindrila Gupta"
+msgstr "Oindrila Gupta"
+
+#: src/main.cpp:46 src/main.cpp:50
+#, kde-format
+msgctxt "@info:credit Role"
+msgid "Developer and Course Data"
+msgstr "Vývojár a údaje kurzu"
+
+#: src/main.cpp:49
+#, kde-format
+msgctxt "@info:credit Developer name"
+msgid "Magdalena Konkiewicz"
+msgstr "Magdalena Konkiewicz"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Roman Paholík"
+
+#: src/main.cpp:53
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "wizzardsk@gmail.com"
+
+#: src/main_editor.cpp:26
+#, kde-format
+msgctxt "@title Displayed program name"
+msgid "Artikulate Editor"
+msgstr "Editor Artikulate"
+
+#: src/main_editor.cpp:28
+#, kde-format
+msgctxt "@title KAboutData: short program description"
+msgid "Artikulate Course Editor"
+msgstr "Editor kurzov Artikulate"
+
+#: src/main_editor.cpp:31
+#, kde-format
+msgctxt "@title Short program description"
+msgid "Edit Artikulate course files."
+msgstr "Upraviť súbory kurzov Artikulate."
+
+#: src/mainwindow.cpp:29 src/org/kde/artikulate/ProfileSelector.qml:15
+#, kde-format
+msgid "Unnamed Identity"
+msgstr "Nepomenovaná identita"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:47
+#, kde-format
+msgid "Training"
+msgstr "Tréning"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:97
+#: src/org/kde/artikulate/WelcomePage.qml:77
+#, kde-format
+msgid "Download Training"
+msgstr "Stiahnuť tréning"
+
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:111
+#: src/org/kde/artikulate/EditorDrawer.qml:132
+#, kde-format
+msgid "About Artikulate"
+msgstr "O programe Artikulate"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#: src/org/kde/artikulate/EditorDrawer.qml:72
+#, kde-format
+msgid "Course Configuration"
+msgstr "Nastavenia kurzu"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:12
+#, kde-format
+msgid "Prototype Configuration"
+msgstr "Nastavenia prototypu"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Prototype Description"
+msgstr "Popis prototypu:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:17
+#, kde-format
+msgid "Course Description"
+msgstr "Popis kurzu:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:21
+#, kde-format
+msgid "Title:"
+msgstr "Názov:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:28
+#, kde-format
+msgid "Localized Title:"
+msgstr "Preložený názov:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:34
+#, kde-format
+msgid "Description:"
+msgstr "Popis:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:41
+#, kde-format
+msgid "Language:"
+msgstr "Jazyk:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:49
+#, kde-format
+msgid "Prototype"
+msgstr "Prototyp"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:54
+#, kde-format
+msgid "Update from Prototype:"
+msgstr "Aktualizovať z prototypu:"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:57
+#, kde-format
+msgid "Update"
+msgstr "Aktualizovať"
+
+#: src/org/kde/artikulate/CourseConfigurationPage.qml:62
+#, kde-format
+msgid "Update the course with elements from prototype."
+msgstr "Aktualizovať kurz s prvkami z prototypu."
+
+#: src/org/kde/artikulate/coursemodel.cpp:99
+#: src/org/kde/artikulate/languageresourcemodel.cpp:71
+#: src/org/kde/artikulate/phonememodel.cpp:61
+#: src/org/kde/artikulate/phraselistmodel.cpp:96
+#: src/org/kde/artikulate/profilemodel.cpp:85
+#: src/org/kde/artikulate/skeletonmodel.cpp:96
+#: src/org/kde/artikulate/unitmodel.cpp:84
+#, kde-format
+msgctxt "@item:inlistbox:"
+msgid "unknown"
+msgstr "neznáme"
+
+#: src/org/kde/artikulate/coursemodel.cpp:158
+#, kde-format
+msgctxt "@title:column"
+msgid "Course"
+msgstr "Ihrisko"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:13
+#, kde-format
+msgid "Edit Course"
+msgstr "Upraviť kurz"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:22
+#, kde-format
+msgid "Previous"
+msgstr "Predchádzajúci"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:23
+#, kde-format
+msgid "Switch to previous phrase."
+msgstr "Prepnúť na predchádzajúcu frázu."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:29
+#: src/org/kde/artikulate/TrainingPage.qml:38
+#, kde-format
+msgid "Next"
+msgstr "Nasledujúci"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:30
+#, kde-format
+msgid "Switch to next phrase."
+msgstr "Prepnúť na ďalšiu frázu."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:39
+#: src/org/kde/artikulate/ProfileUserItem.qml:70
+#: src/org/kde/artikulate/ProfileUserItem.qml:167
+#, kde-format
+msgid "Delete"
+msgstr "Vymazať"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:40
+#, kde-format
+msgid "Delete this phrase."
+msgstr "Odstrániť túto frázu."
+
+#: src/org/kde/artikulate/EditCoursePage.qml:45
+#, kde-format
+msgid "Create Phrase"
+msgstr "Vytvoriť frázu"
+
+#: src/org/kde/artikulate/EditCoursePage.qml:46
+#, kde-format
+msgid "Create phrase after current phrase."
+msgstr "Vytvoriť frázu po aktuálnej fráze"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:12
+#, kde-format
+msgid "Welcome to Artikulate Course Editor"
+msgstr "Vitajte v Artikulate editore kurzov"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:43
+#: src/org/kde/artikulate/WelcomePage.qml:45
+#, kde-format
+msgctxt "@title:window language / course name"
+msgid "%1 / %2"
+msgstr "%1 / %2"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Course"
+msgstr "Upraviť kurz"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:46
+#, kde-format
+msgid "Courses"
+msgstr "Kurzy"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:58
+#, kde-format
+msgid "Repository"
+msgstr "Repozitár"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:121
+#, kde-format
+msgid "Save"
+msgstr "Uložiť"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:12
+#, kde-format
+msgid "Select Prototype"
+msgstr "Vybrať prototyp"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:43
+#, kde-format
+msgctxt "@title:window prototype name"
+msgid "%1"
+msgstr "%1"
+
+#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:57
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Prototype"
+msgstr "Upraviť prototyp"
+
+#: src/org/kde/artikulate/languageresourcemodel.cpp:150
+#, kde-format
+msgctxt "@title:column"
+msgid "Language"
+msgstr "Jazyk"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:132
+#, kde-format
+msgid "Words"
+msgstr "Slová"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:134
+#, kde-format
+msgid "Sentences"
+msgstr "Vety"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:136
+#, kde-format
+msgid "Expressions"
+msgstr "Výrazy"
+
+#: src/org/kde/artikulate/learningprogressmodel.cpp:138
+#, kde-format
+msgid "Paragraphs"
+msgstr "Odseky"
+
+#: src/org/kde/artikulate/phonemegroupmodel.cpp:153
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Group"
+msgstr "Skupina foném"
+
+#: src/org/kde/artikulate/phonememodel.cpp:123
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme"
+msgstr "Fonéma"
+
+#: src/org/kde/artikulate/phonemeunitmodel.cpp:182
+#, kde-format
+msgctxt "@title:column"
+msgid "Phoneme Unit"
+msgstr "Jednotky fonémy"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit"
+msgstr "Jednotka"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:103
+#, kde-format
+msgid "Unit: "
+msgstr "Jednotka: "
+
+#: src/org/kde/artikulate/PhraseEditor.qml:108
+#, kde-format
+msgid "Localized Unit:"
+msgstr "Preložená jednotka:"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:119
+#, kde-format
+msgid "Phrase: "
+msgstr "Fráza: "
+
+#: src/org/kde/artikulate/PhraseEditor.qml:124
+#, kde-format
+msgid "Localized Phrase:"
+msgstr "Preložená fráza:"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:45
+#, kde-format
+msgid "Edit State:"
+msgstr "Upraviť stav:"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:55
+#, kde-format
+msgctxt "state"
+msgid "Unknown"
+msgstr "Neznáme"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:63
+#, kde-format
+msgctxt "state"
+msgid "Translated"
+msgstr "Preložené"
+
+#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:71
+#, kde-format
+msgctxt "state"
+msgid "Completed"
+msgstr "Dokončené"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:21
+#, kde-format
+msgid "Native Speaker Recording"
+msgstr "Nahrávka rodeného hovorcu"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:31
+#, kde-format
+msgid "Existing Recording:"
+msgstr "Existujúca nahrávka:"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:41
+#, kde-format
+msgid "Create New Recording:"
+msgstr "Vytvoriť novú nahrávku:"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:57
+#, kde-format
+msgid "Replace Existing Recording"
+msgstr "Nahradiť existujúcu nahrávku"
+
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:65
+#, kde-format
+msgid "Dismiss"
+msgstr "Zamietnuť"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:48
+#, kde-format
+msgid "Difficulty:"
+msgstr "Obtiažnosť:"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:58
+#, kde-format
+msgid "Word"
+msgstr "Slovo"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:65
+#, kde-format
+msgid "Expression"
+msgstr "Výraz"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:72
+#, kde-format
+msgid "Sentence"
+msgstr "Veta"
+
+#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:79
+#, kde-format
+msgid "Paragraph"
+msgstr "Odstavec"
+
+#: src/org/kde/artikulate/phraselistmodel.cpp:172
+#: src/org/kde/artikulate/phrasemodel.cpp:285
+#, kde-format
+msgctxt "@title:column"
+msgid "Phrase"
+msgstr "Fráza"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:35
+#, kde-format
+msgid "Learner"
+msgstr "Učiaci"
+
+#: src/org/kde/artikulate/ProfileDetailsItem.qml:48
+#, kde-format
+msgid "Favorite Languages"
+msgstr "Obľúbené jazyky"
+
+#: src/org/kde/artikulate/profilemodel.cpp:144
+#, kde-format
+msgctxt "@title:column"
+msgid "Profile"
+msgstr "Profil"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:67
+#, kde-format
+msgid "Create New Learner Identity"
+msgstr "Vytvoriť novú identitu učiaceho"
+
+#: src/org/kde/artikulate/ProfileSelector.qml:100
+#, kde-format
+msgid "Use Selected Identity"
+msgstr "Použiť vybranú identitu"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:14
+#, kde-format
+msgid "Configure Profile"
+msgstr "Nastaviť profil"
+
+#: src/org/kde/artikulate/ProfileSettingsPage.qml:98
+#: src/org/kde/artikulate/ProfileUserItem.qml:114
+#, kde-format
+msgid "Name"
+msgstr "Názov"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:65
+#, kde-format
+msgid "Edit"
+msgstr "Upraviť"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:76
+#, kde-format
+msgid "Change Image"
+msgstr "Zmeniť obrázok"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:81
+#, kde-format
+msgid "Clear Image"
+msgstr "Vyčistiť obrázok"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:120
+#, kde-format
+msgid "Done"
+msgstr "Hotovo"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:158
+#, kde-format
+msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
+msgstr "Naozaj chcete vymazať túto identitu \"<b>%1</b>\"?"
+
+#: src/org/kde/artikulate/ProfileUserItem.qml:174
+#, kde-format
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:13
+#, kde-format
+msgid "Repository Configuration"
+msgstr "Nastavenie repozitára"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:18
+#, kde-format
+msgid "Select Repository Folder"
+msgstr "Vybrať adresár repozitára"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:29
+#, kde-format
+msgid "Repository:"
+msgstr "Repozitár:"
+
+#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:34
+#, kde-format
+msgid "Change Folder"
+msgstr "Zmeniť priečinok"
+
+#: src/org/kde/artikulate/skeletonmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Skeleton"
+msgstr "Kostra"
+
+#: src/org/kde/artikulate/SoundPlayer.qml:16
+#, kde-format
+msgid "Play"
+msgstr "Prehrať"
+
+#: src/org/kde/artikulate/SoundRecorder.qml:16
+#, kde-format
+msgid "Record"
+msgstr "Nahrať"
+
+#: src/org/kde/artikulate/TrainerCourseStatistics.qml:43
+#, kde-format
+msgid "Attempts"
+msgstr "Pokusy"
+
+#: src/org/kde/artikulate/TrainingPage.qml:25
+#, kde-format
+msgid "Category: no category selected"
+msgstr "Kategória: žiadna kategória"
+
+#: src/org/kde/artikulate/TrainingPage.qml:28
+#, kde-format
+msgid "Category: %1"
+msgstr "Kategória: %1"
+
+#: src/org/kde/artikulate/TrainingPage.qml:39
+#, kde-format
+msgid "Mark current phrase as completed and proceed with next one."
+msgstr "Označiť aktuálnu frázu ako dokončenú a pokračovať ďalšou."
+
+#: src/org/kde/artikulate/TrainingPage.qml:45
+#, kde-format
+msgid "Skip"
+msgstr "Preskočiť"
+
+#: src/org/kde/artikulate/TrainingPage.qml:46
+#, kde-format
+msgid "Skip current phrase and proceed with next one."
+msgstr "Vynechať aktuálnu frázu a pokračovať ďalšou."
+
+#: src/org/kde/artikulate/TrainingPage.qml:101
+#, kde-format
+msgid "Play original"
+msgstr "Prehrať pôvodné"
+
+#: src/org/kde/artikulate/TrainingPage.qml:142
+#, kde-format
+msgid "Record yourself"
+msgstr "Nahrať seba"
+
+#: src/org/kde/artikulate/TrainingPage.qml:151
+#, kde-format
+msgid "Play yourself"
+msgstr "Prehrať seba"
+
+#: src/org/kde/artikulate/unitmodel.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Unit"
+msgstr "Jednotka"
+
+#: src/org/kde/artikulate/WelcomePage.qml:14
+#, kde-format
+msgid "Welcome to Artikulate"
+msgstr "Vitajte v Artikulate!"
+
+#: src/org/kde/artikulate/WelcomePage.qml:59
+#, kde-format
+msgctxt "@action:button"
+msgid "Start Training"
+msgstr "Spustiť tréning"
+
+#: src/org/kde/artikulate/WelcomePage.qml:73
+#, kde-format
+msgid "No trainings found"
+msgstr ""
+
+#~ msgid "Please select a course"
+#~ msgstr "Prosím vyberte kurz"
+
+#~ msgid "About Artikulate Editor"
+#~ msgstr "O editore Artikulate"
+
+#~ msgid "Select Image"
+#~ msgstr "Vybrať obrázok"
+
+#~ msgid "Delete User"
+#~ msgstr "Odstrániť používateľa"
+
+#~ msgid "Download Training Material"
+#~ msgstr "Stiahnuť tréningový materiál"
+
+#~ msgctxt "@action:button"
+#~ msgid "Update"
+#~ msgstr "Aktualizovať"
+
+#~ msgctxt "@action:button"
+#~ msgid "Install"
+#~ msgstr "Inštalovať"
+
+#~ msgctxt "@action:button"
+#~ msgid "Remove"
+#~ msgstr "Odstrániť"
+
+#~ msgctxt "default sound device"
+#~ msgid "Default"
+#~ msgstr "Predvolené"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2019 The Artikulate Developers"
+#~ msgstr "(c) 2013-2019 Vývojári Artikulate"
+
+#~ msgid "About"
+#~ msgstr "O programe"
+
+#~ msgid "Original Phrase:"
+#~ msgstr "Pôvodná fráza:"
+
+#~ msgid "Unit Title:"
+#~ msgstr "Názov jednotky:"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Learner Profile"
+#~ msgstr "Profil učiaceho"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Configure Artikulate"
+#~ msgstr "Nastaviť Artikulate"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Sound Devices"
+#~ msgstr "Zvukové zariadenia"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Sound Device Settings"
+#~ msgstr "Nastavenia zvukového zariadenia"
+
+#~ msgid "Export"
+#~ msgstr "Exportovať"
+
+#~ msgid "Export Directory"
+#~ msgstr "Exportovať adresár"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "Configure Microphone"
+#~ msgstr "Nastaviť mikrofón"
+
+#~ msgid "Input Device"
+#~ msgstr "Vstupné zariadenie"
+
+#~ msgid "Play Test Sound"
+#~ msgstr "Prehrať testovací zvuk."
+
+#~ msgid "Play test sound."
+#~ msgstr "Prehrať testovací zvuk."
+
+#~ msgid "Record Test Sound"
+#~ msgstr "Prehrať testovací zvuk"
+
+#~ msgid "Play recorded test sound."
+#~ msgstr "Prehrať nahraný testovací zvuk."
+
+#~ msgid "Record test sound."
+#~ msgstr "Prehrať testovací zvuk."
+
+#~ msgid "Test Sound"
+#~ msgstr "Testovací zvuk"
+
+#~ msgid "Configure Speakers"
+#~ msgstr "Nastaviť reproduktory"
+
+#~ msgid "Volume"
+#~ msgstr "Hlasitosť"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Fonts"
+#~ msgstr "Písma"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Training Phrase Font"
+#~ msgstr "Písmo tréningovej fázy"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Export GHNS Files"
+#~ msgstr "Exportovať súbory GHNS"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Course Resources"
+#~ msgstr "Zdroje kurzov"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Resource Repository Settings"
+#~ msgstr "Nastavenia repozitára zdrojov"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "The currently open course contains unsaved changes. Do you want to save "
+#~ "them?"
+#~ msgstr "Aktuálne otvorený kurz obsahuje neuložené zmeny. Chcete ich uložiť?"
+
+#~ msgid "Statistics"
+#~ msgstr "Štatistika"
+
+#~ msgid "Settings"
+#~ msgstr "Nastavenia"
+
+#~ msgid "Course Prototype:"
+#~ msgstr "Prototypu kurzu:"
+
+#~ msgid "There is no course in the selected language."
+#~ msgstr "Nie sú žiadne kurzy pre vybraný jazyk."
+
+#~ msgid "Create Course"
+#~ msgstr "Vytvoriť kurz"
+
+#~ msgid "Units & Phrases"
+#~ msgstr "Jednotky a frázy"
+
+#~ msgid ""
+#~ "This dialog allows advanced settings. It is addressed only to "
+#~ "translators, speakers, and other users of the course editor. Adding a "
+#~ "repository allows you to work on courses and course skeletons in a "
+#~ "structured way. For details please refer to the technical documentation."
+#~ msgstr ""
+#~ "Tento dialóg umožňuje pokročilé nastavenie. Je určený iba pre "
+#~ "prekladateľov, hovorcov a iných používateľov editora kurzov. Pridanie "
+#~ "repozitára vám umožní pracovať na kurzoch a kostrách kurzov v "
+#~ "štruktúrovanom režime. Pre podrobnosti prosím preštudujte technickú "
+#~ "dokumentáciu."
+
+#~ msgid "Path to the contributor repository."
+#~ msgstr "Cesta k repozitáru prispievateľa."
+
+#~ msgid ""
+#~ "Use this option only if you are a course contributor and you are working "
+#~ "on a course repository."
+#~ msgstr ""
+#~ "Použite túto voľbu, iba ak ste prispievateľ kurzu a pracujete na "
+#~ "repozitári kurzu."
+
+#~ msgid "Use course contributor repository in trainer mode"
+#~ msgstr "Použiť repozitár prispievateľa kurzu v tréningovom režime"
+
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2017 The Artikulate Developers"
+#~ msgstr "(c) 2013-2017 Vývojári Artikulate"
+
+#~ msgid "Category: "
+#~ msgstr "Kategória: "
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Download New Language Course"
+#~ msgstr "Stiahnuť nový jazykový kurz"
+
+#~ msgid "Prototype Mode"
+#~ msgstr "Režim prototypu"
+
+#~ msgid "Please download a course"
+#~ msgstr "Prosím, stiahnite si kurz"
+
+#~ msgid "Categories"
+#~ msgstr "Kategórie"
+
+#~ msgid "File"
+#~ msgstr "Súbor"
+
+#~ msgid "Edit User"
+#~ msgstr "Upraviť používateľa"
+
+#~ msgid "Quit"
+#~ msgstr "Ukončiť"
+
+#~ msgid "Download Courses"
+#~ msgstr "Stiahnuť kurzy"
+
+#~ msgid "Configure Artikulate..."
+#~ msgstr "Nastaviť Artikulate..."
+
+#~ msgid "Show Menubar"
+#~ msgstr "Zobraziť menu"
+
+#~ msgid "Help"
+#~ msgstr "Pomocník"
+
+#~ msgid "Artikulate Handbook"
+#~ msgstr "Príručka Artikulate"
+
+#~ msgid "Report Bug"
+#~ msgstr "Nahlásiť chybu"
+
+#~ msgid "There are no courses installed on this system."
+#~ msgstr "Nie sú nainštalované žiadne kurzy v systéme."
+
+#~ msgid "You can install them now from the Internet:"
+#~ msgstr "Môžete si ich nainštalovať teraz z Internetu:"
+
+#~ msgid "User Profile Settings"
+#~ msgstr "Nastavenie profilu používateľa"
+
+#~ msgid "Languages"
+#~ msgstr "Jazyky"
+
+#~ msgid "Close"
+#~ msgstr "Zavrieť"
+
+#~ msgid "Listen"
+#~ msgstr "Počúvanie"
+
+#~ msgid "Create New Course"
+#~ msgstr "Vytvoriť nový kurz"
+
+#~ msgid "none"
+#~ msgstr "žiadne"
+
+#~ msgid "New Course"
+#~ msgstr "Nový kurz"
+
+#~ msgid "Use Skeleton"
+#~ msgstr "Použiť kostru"
+
+#~ msgid "Identifier"
+#~ msgstr "Identifikátor"
+
+#, fuzzy
+#~| msgid "Copyright (C) 2013-2014, The Artikulate Developers"
+#~ msgctxt "@info:credit"
+#~ msgid "(c) 2013-2014 The Artikulate Developers"
+#~ msgstr "Copyright (C) 2013-2014, Vývojári Artikulate"
+
+#, fuzzy
+#~| msgid "Edit Skeletons"
+#~ msgid "Edit Skeleton"
+#~ msgstr "Upraviť kostry"
+
+#~ msgid "Configure Shortcuts..."
+#~ msgstr "Nastaviť skratky..."
+
+#~ msgid "M&ode"
+#~ msgstr "Režim"
+
+#~ msgid "Learn and practice pronunciation."
+#~ msgstr "Výučba a tréning výslovnosti."
+
+#~ msgid "Unselected"
+#~ msgstr "Nevybrané"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Close Course"
+#~ msgstr "Zatvoriť kurz"
+
+#~ msgid "<strong>Skeleton:</strong> %1"
+#~ msgstr "<strong>Kostra:</strong> %1"
+
+#~ msgid "Units"
+#~ msgstr "Jednotky"
+
+#~ msgid "Add Unit"
+#~ msgstr "Pridať jednotku"
+
+#~ msgid "No Course Repository Selected"
+#~ msgstr "Nevybraný repozitár kurzov"
+
+#~ msgid ""
+#~ "Editor is only available when Artikulate works on a course data "
+#~ "repository. Please see program settings."
+#~ msgstr ""
+#~ "Editor je dostupný, iba ak Artikulate pracuje na repozitári údajov kurzu. "
+#~ "Prosím pozrite natavenia programu."
+
+#~ msgid "Select Course Language:"
+#~ msgstr "Vyberte jazyk kurzu:"
+
+#~ msgid "Language: "
+#~ msgstr "Jazyk:"
+
+#~ msgid "unselected"
+#~ msgstr "nevybrané"
+
+#~ msgid "Select Skeleton:"
+#~ msgstr "Vybrať kostru:"
+
+#~ msgid "Please select a favorite language"
+#~ msgstr "Prosím vyberte obľúbený jazyk"
+
+#~ msgid "Length:"
+#~ msgstr "Dĺžka:"
+
+#~ msgid "Unit: %1"
+#~ msgstr "Jednotka: %1"
+
+#~ msgid "Finish Training"
+#~ msgstr "Ukončiť tréning"
+
+#~ msgid "Phrases Grouped by Attempts"
+#~ msgstr "Frázy zoskupené podľa pokusov"
+
+#~ msgid "Training Progress"
+#~ msgstr "Postup tréningu"
+
+#~ msgid "Create Learner Identity"
+#~ msgstr "Vytvoriť identitu učiaceho"
+
+#~ msgid "Start by creating a learner identity"
+#~ msgstr "Začať vytvorením identity učiaceho"
+
+#~ msgid "Native Speaker"
+#~ msgstr "Rodený hovorca"
+
+#~ msgid "Learner (You)"
+#~ msgstr "Učiaci (vy)"
+
+#~ msgid "Add Phrase"
+#~ msgstr "Pridať frázu"
