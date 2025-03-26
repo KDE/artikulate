@@ -3,13 +3,13 @@
 #
 # Translators:
 # Volkan Gezer <volkangezer@gmail.com>, 2014, 2017.
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-25 00:37+0000\n"
-"PO-Revision-Date: 2024-09-23 15:28+0300\n"
+"PO-Revision-Date: 2025-03-25 21:01+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 25.07.70\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -117,12 +117,12 @@ msgstr "Görsel Aç"
 #: liblearnerprofile/src/profilemanager.cpp:146
 #, kde-format
 msgid "Image Files (*.png *.jpg *.bmp)"
-msgstr "Görsel Dosyaları (*.png *.jpg *.bmp)"
+msgstr "Görsel dosyaları (*.png *.jpg *.bmp)"
 
 #: liblearnerprofile/src/storage.cpp:569
 #, kde-format
 msgid "Invalid database version '%1'."
-msgstr "Geçersiz veritabanı sürümü '%1'."
+msgstr "Geçersiz veritabanı sürümü “%1”."
 
 #. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
 #: src/artikulate.kcfg:13
@@ -175,8 +175,8 @@ msgid ""
 "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
 "runtime if available."
 msgstr ""
-"Kullanılabilir durumdaysa çalışma zamanında seçilen 'qtmultimediabackend' "
-"veya 'qtgstreamerbackend' olarak ayarlanır."
+"Kullanılabilir durumdaysa çalışma zamanında seçilen “qtmultimediabackend” "
+"veya “qtgstreamerbackend” olarak ayarlanır."
 
 #: src/core/resources/editablecourseresource.cpp:262
 #, kde-format
@@ -211,7 +211,7 @@ msgstr "Yabancı dil sesletiminizi geliştirin."
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Andreas Cord-Landwehr"
-msgstr "Andreas Cord-Landwehr"
+msgstr "Andreas Cord–Landwehr"
 
 #: src/main.cpp:38 src/main_editor.cpp:34
 #, kde-format
@@ -330,7 +330,7 @@ msgstr "Başlık:"
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:28
 #, kde-format
 msgid "Localized Title:"
-msgstr "Yerelleştirilmiş Başlık:"
+msgstr "Yerelleştirilmiş başlık:"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:34
 #, kde-format
@@ -350,7 +350,7 @@ msgstr "Prototip"
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:54
 #, kde-format
 msgid "Update from Prototype:"
-msgstr "Prototipten Güncelleme Var:"
+msgstr "Prototipten güncelleme var:"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:57
 #, kde-format
@@ -535,7 +535,7 @@ msgstr "Ünite: "
 #: src/org/kde/artikulate/PhraseEditor.qml:108
 #, kde-format
 msgid "Localized Unit:"
-msgstr "Yerelleştirilmiş Birim:"
+msgstr "Yerelleştirilmiş ünite:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:119
 #, kde-format
@@ -545,12 +545,12 @@ msgstr "Deyiş: "
 #: src/org/kde/artikulate/PhraseEditor.qml:124
 #, kde-format
 msgid "Localized Phrase:"
-msgstr "Özgün Deyiş:"
+msgstr "Yerelleştirilmiş deyiş:"
 
 #: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:45
 #, kde-format
 msgid "Edit State:"
-msgstr "Durumu Düzenle:"
+msgstr "Durumu düzenle:"
 
 #: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:55
 #, kde-format
@@ -578,12 +578,12 @@ msgstr "Ana Dilde Konuşan Kaydı"
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:31
 #, kde-format
 msgid "Existing Recording:"
-msgstr "Var Olan Kayıt:"
+msgstr "Var olan kayıt:"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:41
 #, kde-format
 msgid "Create New Recording:"
-msgstr "Yeni Kayıt Oluştur:"
+msgstr "Yeni kayıt oluştur:"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:57
 #, kde-format
@@ -687,7 +687,7 @@ msgstr "Tamam"
 #: src/org/kde/artikulate/ProfileUserItem.qml:158
 #, kde-format
 msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
-msgstr "\"<b>%1</b>\" kimliğini gerçekten silmek istiyor musunuz?"
+msgstr "“<b>%1</b>” kimliğini silmeyi gerçekten istiyor musunuz?"
 
 #: src/org/kde/artikulate/ProfileUserItem.qml:174
 #, kde-format
