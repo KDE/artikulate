@@ -793,15 +793,3 @@ msgstr "开始训练"
 #, kde-format
 msgid "No trainings found"
 msgstr "没有找到训练"
-
-#~ msgid "Please select a course"
-#~ msgstr "请选择课程"
-
-#~ msgid "About Artikulate Editor"
-#~ msgstr "关于 Artikulate 编辑器"
-
-#~ msgid "Select Image"
-#~ msgstr "选择图像"
-
-#~ msgid "Delete User"
-#~ msgstr "删除用户"
