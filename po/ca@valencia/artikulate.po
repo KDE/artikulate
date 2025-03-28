@@ -1,5 +1,5 @@
 # Translation of artikulate.po to Catalan (Valencian)
-# Copyright (C) 2014-2023 This_file_is_part_of_KDE
+# Copyright (C) 2014-2025 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
@@ -800,15 +800,3 @@ msgstr "Inicia l'entrenament"
 #, kde-format
 msgid "No trainings found"
 msgstr "No s'ha trobat cap entrenament"
-
-#~ msgid "Please select a course"
-#~ msgstr "Seleccioneu un curs"
-
-#~ msgid "About Artikulate Editor"
-#~ msgstr "Quant a l'editor d'Artikulate"
-
-#~ msgid "Select Image"
-#~ msgstr "Seleccioneu una imatge"
-
-#~ msgid "Delete User"
-#~ msgstr "Suprimix l'usuari"

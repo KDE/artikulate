@@ -797,15 +797,3 @@ msgstr "Start øving"
 #, kde-format
 msgid "No trainings found"
 msgstr "Fann inga opplæring"
-
-#~ msgid "Please select a course"
-#~ msgstr "Vel eit kurs"
-
-#~ msgid "About Artikulate Editor"
-#~ msgstr "Om Artikulate-redigering"
-
-#~ msgid "Select Image"
-#~ msgstr "Vel bilete"
-
-#~ msgid "Delete User"
-#~ msgstr "Slett brukar"
