@@ -16,7 +16,6 @@ apps:
         command: usr/bin/artikulate
         command-chain:
         - bin/artikulate-launch
-        - snap/command-chain/desktop-launch6
 slots:
     session-dbus-interface:
         interface: dbus
@@ -32,6 +31,8 @@ parts:
         parse-info:
         - usr/share/metainfo/org.kde.artikulate.appdata.xml
         plugin: cmake
+        build-packages:
+          - libxml2-dev
         source: .
         source-type: local
         cmake-parameters:
@@ -51,6 +52,7 @@ parts:
         - -DCMAKE_INSTALL_LIBDIR=lib/$CRAFT_ARCH_TRIPLET
         - --log-level=STATUS
         - -DCMAKE_LIBRARY_PATH=lib/$CRAFT_ARCH_TRIPLET
+        - -DCMAKE_FIND_ROOT_PATH="$CRAFT_STAGE;/snap/ffmpeg-2404-sdk/current;/snap/kde-qt6-core24-sdk/current;/snap/kf6-core24-sdk/current"
         prime:
         - -usr/lib/*/cmake/*
         - -usr/include/*
