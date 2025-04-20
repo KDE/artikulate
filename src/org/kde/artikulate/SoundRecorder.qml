@@ -15,9 +15,6 @@ Item {
      */
     property string text: i18n("Record")
 
-    property alias outputFileUrl : recorder.outputLocation
-    property alias actualLocation : recorder.actualLocation
-
     CaptureSession {
         audioInput: AudioInput {
         }
@@ -26,7 +23,7 @@ Item {
             mediaFormat {
                 audioCodec: MediaFormat.AudioCodec.Vorbis
             }
-            outputLocation: root.outputFileUrl
+            outputLocation: TrainingSoundFile.path
         }
     }
     Button {
@@ -34,6 +31,15 @@ Item {
         checkable: false
         icon.name: recorder.recorderState === MediaRecorder.RecordingState ? "media-playback-stop" :  "media-record"
         text: root.text
-        onClicked: recorder.recorderState === MediaRecorder.RecordingState ? recorder.stop() : recorder.record()
+        onClicked: {
+            if (recorder.recorderState === MediaRecorder.RecordingState) {
+                recorder.stop()
+                TrainingSoundFile.soundAvailable = true
+            }
+            else {
+                TrainingSoundFile.iterate()
+                recorder.record()
+            }
+        }
     }
 }

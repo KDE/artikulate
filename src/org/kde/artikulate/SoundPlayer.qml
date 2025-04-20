@@ -18,7 +18,7 @@ Item {
     /**
      * the path to the sound file
      */
-    property alias source: player.source
+    property url source
 
     MediaPlayer {
         id: player
@@ -28,9 +28,16 @@ Item {
 
     Button {
         id: button
-        enabled: player.hasAudio
+        enabled: root.source !== undefined
         text: root.text
         icon.name: player.playing ? "media-playback-stop" : "media-playback-start"
-        onClicked: player.playing ? player.stop() : player.play()
+        onClicked: {
+            if (player.playing) {
+                player.stop()
+            } else {
+                player.source = root.source
+                player.play()
+            }
+        }
     }
 }

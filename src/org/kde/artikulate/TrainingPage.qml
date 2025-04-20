@@ -14,6 +14,13 @@ Kirigami.Page {
     readonly property color colorTask: "#1dbf4e"
     readonly property color colorAnswer: "#7e48a5"
 
+    Connections {
+        target: TrainingSession
+        function onPhraseChanged() {
+            TrainingSoundFile.iterate()
+        }
+    }
+
     background: Rectangle {
         color: Kirigami.Theme.backgroundColor
         Kirigami.Theme.colorSet: Kirigami.Theme.View
@@ -140,7 +147,6 @@ Kirigami.Page {
                 horizontalCenter: answerTriangle.left
             }
             text: i18n("Record yourself")
-            outputFileUrl: "file:///tmp/artikulate_training.ogg"
         }
 
         SoundPlayer {
@@ -149,7 +155,8 @@ Kirigami.Page {
                 centerIn: parent
             }
             text: i18n("Play yourself")
-            source: "file:///tmp/artikulate_training.ogg"
+            enabled: TrainingSoundFile.soundAvailable
+            source: TrainingSoundFile.path
         }
     }
 }

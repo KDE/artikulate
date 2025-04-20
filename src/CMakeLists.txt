@@ -18,7 +18,9 @@ kconfig_add_kcfg_files(artikulatecore settings.kcfgc)
 # set the source code files from which Artikulate is compiled
 target_sources(artikulatecore PRIVATE
     application.cpp
+    application.h
     artikulate_debug.cpp
+    artikulate_debug.h
     core/xmlschema.cpp
     core/xmlschema.h
     core/xmlschemavalidator.cpp
@@ -33,12 +35,19 @@ target_sources(artikulatecore PRIVATE
     core/iunit.h
     core/iresourcerepository.h
     core/resourcerepository.cpp
+    core/resourcerepository.h
     core/contributorrepository.cpp
+    core/contributorrepository.h
     core/language.cpp
+    core/language.h
     core/phrase.cpp
+    core/phrase.h
     core/phoneme.cpp
+    core/phoneme.h
     core/phonemegroup.cpp
+    core/phonemegroup.h
     core/unit.cpp
+    core/unit.h
     core/resources/courseparser.cpp
     core/resources/courseresource.cpp
     core/resources/editablecourseresource.cpp

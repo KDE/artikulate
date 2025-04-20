@@ -14,6 +14,8 @@ qt_add_qml_module(
         isessionactions.h
         trainingsession.cpp
         trainingsession.h
+        trainingsoundfile.cpp
+        trainingsoundfile.h
 
         # models
         coursemodel.cpp
