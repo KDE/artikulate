@@ -58,6 +58,7 @@ Kirigami.OverlayDrawer {
             }
             QQC2.ScrollView {
                 id: trainingActionScrollView
+                clip: true
                 width: parent.width
                 height: root.height - topContent.height - bottomContent.height
                 ListView {
