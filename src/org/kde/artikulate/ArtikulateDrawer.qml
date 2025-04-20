@@ -18,6 +18,16 @@ Kirigami.OverlayDrawer {
     modal: false
     handleVisible: false
 
+    // course change always means that training shall be started
+    Connections {
+        target: TrainingSession
+        function onTrainingStarted() {
+            if (root.pageStack.layers.depth < 2) {
+                root.pageStack.layers.push(trainingPageComponent)
+            }
+        }
+    }
+
     DrawerCourseTreeModel {
         id: drawerCourseTreeModel
         course: TrainingSession.course
@@ -29,8 +39,9 @@ Kirigami.OverlayDrawer {
         id: sessionActions
         model: drawerCourseTreeModel
         onTriggerPhraseView: {
-            root.pageStack.clear();
-            root.pageStack.push(trainingPageComponent);
+            if (root.pageStack.layers.depth < 2) {
+                root.pageStack.layers.push(trainingPageComponent)
+            }
         }
         onCurrentIndexChanged: (index) => {
             phraseActionListView.currentIndex = index
@@ -47,8 +58,7 @@ Kirigami.OverlayDrawer {
                         text: i18n("Training")
                         icon.name: "artikulate"
                         onTriggered: {
-                            root.pageStack.clear();
-                            root.pageStack.push(welcomePageComponent);
+                            root.pageStack.layers.clear();
                         }
                     }
                 }
@@ -112,7 +122,7 @@ Kirigami.OverlayDrawer {
                         text: i18n("About Artikulate")
                         icon.name: "help-about"
                         onTriggered: {
-                            if (root.pageStack.layers.depth < 2) {
+                            if (root.pageStack.layers.depth < 3) {
                                 root.pageStack.layers.push(aboutPageComponent)
                             }
                         }

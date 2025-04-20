@@ -56,6 +56,10 @@ Q_SIGNALS:
      */
     void completed();
     void closeUnit();
+    /**
+     * @brief emitted when the training view shall be loaded
+     */
+    void trainingStarted();
 
 private:
     Q_DISABLE_COPY(TrainingSession)

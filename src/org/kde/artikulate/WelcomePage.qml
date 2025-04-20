@@ -60,6 +60,7 @@ Kirigami.ScrollablePage {
                         onClicked: {
                             showPassiveNotification("Starting training session for course " + model.title + ".");
                             TrainingSession.course = model.dataRole
+                            TrainingSession.trainingStarted()
                         }
                     }
                 }

@@ -10,6 +10,12 @@ pragma ComponentBehavior: Bound
 Kirigami.ApplicationWindow {
     id: root
 
+    // - layer 0: welcome page
+    // - layer 1: training page
+    // - layer 2: any additional page
+    pageStack.initialPage:[ welcomePageComponent ]
+    pageStack.globalToolBar.style: Kirigami.ApplicationHeaderStyle.Titles
+
     required property var aboutData
 
     globalDrawer: ArtikulateDrawer {
@@ -32,9 +38,6 @@ Kirigami.ApplicationWindow {
     CourseModel {
         id: availableCourseModel
     }
-
-    pageStack.initialPage:[ welcomePageComponent ]
-    pageStack.globalToolBar.style: Kirigami.ApplicationHeaderStyle.Titles
 
     Component {
         id: welcomePageComponent
