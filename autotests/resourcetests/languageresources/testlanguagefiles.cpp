@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2013 Oindrila Gupta <oindrila.gupta92@gmail.com>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -11,15 +10,12 @@
 #include "core/phrase.h"
 #include "core/resources/courseparser.h"
 #include "core/unit.h"
-
 #include <QDebug>
 #include <QDirIterator>
 #include <QTest>
 #include <QUrl>
 
-TestLanguageFiles::TestLanguageFiles()
-{
-}
+TestLanguageFiles::TestLanguageFiles() = default;
 
 void TestLanguageFiles::init()
 {
@@ -33,7 +29,7 @@ void TestLanguageFiles::cleanup()
 
 void TestLanguageFiles::loadGerman()
 {
-    QUrl file = QUrl::fromLocalFile(":/artikulate/languages/de.xml");
+    const QUrl file = QUrl::fromLocalFile(":/artikulate/data/languages/de.xml");
     auto language = Language::create(file);
 
     QCOMPARE(language->id(), "de");
@@ -66,7 +62,7 @@ void TestLanguageFiles::loadGerman()
 
 void TestLanguageFiles::checkIdUniqueness()
 {
-    QDirIterator iter(QDir(":/artikulate/languages/"));
+    QDirIterator iter(QDir(":/artikulate/data/languages/"));
     while (iter.hasNext()) {
         const QString &file = iter.next();
         qDebug() << "File being parsed: " << file;

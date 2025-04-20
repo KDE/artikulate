@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2013-2019 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
@@ -39,7 +38,7 @@ void ContributorRepository::loadLanguageResources()
 {
     // load language resources
     // all other resources are only loaded on demand
-    QDir dir(QStringLiteral(":/artikulate/languages/"));
+    QDir dir(QStringLiteral(":/artikulate/data/languages/"));
     dir.setFilter(QDir::Files | QDir::NoSymLinks);
     QFileInfoList list = dir.entryInfoList();
     for (int i = 0; i < list.size(); ++i) {

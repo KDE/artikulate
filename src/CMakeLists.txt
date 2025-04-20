@@ -13,8 +13,10 @@ include_directories(
     ${artikulate_SOURCE_DIR}
 )
 
+add_library(artikulatecore SHARED ${artikulateCore_SRCS})
+kconfig_add_kcfg_files(artikulatecore settings.kcfgc)
 # set the source code files from which Artikulate is compiled
-set(artikulateCore_SRCS
+target_sources(artikulatecore PRIVATE
     application.cpp
     artikulate_debug.cpp
     core/xmlschema.cpp
@@ -46,8 +48,6 @@ set(artikulateCore_SRCS
     qmlcontrols/managedtexturenode.cpp
 )
 
-kconfig_add_kcfg_files (artikulateCore_SRCS settings.kcfgc)
-add_library(artikulatecore SHARED ${artikulateCore_SRCS})
 generate_export_header(artikulatecore BASE_NAME artikulatecore)
 target_link_libraries(artikulatecore
     PUBLIC
@@ -68,9 +68,7 @@ set_target_properties(
     VERSION ${GENERIC_LIB_VERSION}
     SOVERSION ${GENERIC_LIB_SOVERSION}
 )
-target_include_directories(artikulatecore PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-)
+target_include_directories(artikulatecore PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
 install(
     TARGETS artikulatecore
     LIBRARY NAMELINK_SKIP
@@ -78,29 +76,41 @@ install(
 )
 install(FILES artikulate.knsrc DESTINATION ${KDE_INSTALL_KNSRCDIR})
 
+# QML backend
 add_subdirectory(org/kde/artikulate)
 
-# set the source code files from which Artikulate is compiled
-set(artikulate_SRCS
+# artikulate app
+add_executable(artikulate)
+target_sources(artikulate PRIVATE
     main.cpp
     mainwindow.cpp
     artikulate_debug.cpp
 )
-qt_add_resources(artikulate_SRCS resources.qrc)
-qt_add_resources(artikulate_SRCS ../data/languages.qrc)
-kconfig_add_kcfg_files (artikulate_SRCS settings.kcfgc)
-
-set(artikulate_editor_SRCS
-    main_editor.cpp
-    mainwindow_editor.cpp
-    artikulate_debug.cpp
+qt_add_resources(artikulate "knewstuffconfig"
+    PREFIX "/artikulate/config"
+    FILES artikulate.knsrc
 )
-qt_add_resources(artikulate_editor_SRCS resources.qrc)
-qt_add_resources(artikulate_editor_SRCS ../data/languages.qrc)
-kconfig_add_kcfg_files (artikulate_editor_SRCS settings.kcfgc)
-
-# executables
-add_executable(artikulate ${artikulate_SRCS})
+qt_add_resources(artikulate "languages"
+    PREFIX "/artikulate/"
+    FILES
+        ../data/languages/ba.xml
+        ../data/languages/ca.xml
+        ../data/languages/de.xml
+        ../data/languages/du.xml
+        ../data/languages/en_BE.xml
+        ../data/languages/en_US.xml
+        ../data/languages/fr.xml
+        ../data/languages/gr.xml
+        ../data/languages/hi.xml
+        ../data/languages/it.xml
+        ../data/languages/mr.xml
+        ../data/languages/sp.xml
+        ../data/languages/pl.xml
+        ../data/schemes/course.xsd
+        ../data/schemes/language.xsd
+        ../data/schemes/skeleton.xsd
+)
+kconfig_add_kcfg_files(artikulate settings.kcfgc)
 target_link_libraries(artikulate
     LINK_PUBLIC
         artikulatelearnerprofile
@@ -115,8 +125,39 @@ target_link_libraries(artikulate
         artikluate_backingplugin
 )
 
+# editor app
 qt6_add_resources(artikulate_editor_SRCS editor.qrc)
-add_executable(artikulate_editor ${artikulate_editor_SRCS})
+add_executable(artikulate_editor)
+target_sources(artikulate_editor PRIVATE
+    main_editor.cpp
+    mainwindow_editor.cpp
+    artikulate_debug.cpp
+)
+qt_add_resources(artikulate "knewstuffconfig"
+    PREFIX "/artikulate/config"
+    FILES artikulate.knsrc
+)
+qt_add_resources(artikulate_editor "languages"
+    PREFIX "/artikulate/"
+    FILES
+        ../data/languages/ba.xml
+        ../data/languages/ca.xml
+        ../data/languages/de.xml
+        ../data/languages/du.xml
+        ../data/languages/en_BE.xml
+        ../data/languages/en_US.xml
+        ../data/languages/fr.xml
+        ../data/languages/gr.xml
+        ../data/languages/hi.xml
+        ../data/languages/it.xml
+        ../data/languages/mr.xml
+        ../data/languages/sp.xml
+        ../data/languages/pl.xml
+        ../data/schemes/course.xsd
+        ../data/schemes/language.xsd
+        ../data/schemes/skeleton.xsd
+)
+kconfig_add_kcfg_files(artikulate_editor settings.kcfgc)
 target_link_libraries(artikulate_editor
     LINK_PUBLIC
         artikulatecore

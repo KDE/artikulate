@@ -1,18 +1,15 @@
 /*
     SPDX-FileCopyrightText: 2013 Oindrila Gupta <oindrila.gupta92@gmail.com>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "testxsdschemes.h"
 
+#include "core/xmlschema.h"
 #include <QTest>
 #include <QUrl>
-#include "core/xmlschema.h"
 
-TestXsdSchemes::TestXsdSchemes()
-{
-}
+TestXsdSchemes::TestXsdSchemes() = default;
 
 void TestXsdSchemes::init()
 {
@@ -26,7 +23,7 @@ void TestXsdSchemes::cleanup()
 
 void TestXsdSchemes::languageSchemeValidationTest()
 {
-    QUrl languageFile = QUrl::fromLocalFile(":/artikulate/schemes/language.xsd");
+    const QUrl languageFile = QUrl::fromLocalFile(":/artikulate/data/schemes/language.xsd");
     XmlSchema languageSchema;
     QVERIFY(languageSchema.load(languageFile));
     QVERIFY(languageSchema.isValid());
@@ -34,7 +31,7 @@ void TestXsdSchemes::languageSchemeValidationTest()
 
 void TestXsdSchemes::courseSchemeValidationTest()
 {
-    QUrl schemeFile = QUrl::fromLocalFile(":/artikulate/schemes/course.xsd");
+    const QUrl schemeFile = QUrl::fromLocalFile(":/artikulate/data/schemes/course.xsd");
     XmlSchema courseSchema;
     QVERIFY(courseSchema.load(schemeFile));
     QVERIFY(courseSchema.isValid());
@@ -42,7 +39,7 @@ void TestXsdSchemes::courseSchemeValidationTest()
 
 void TestXsdSchemes::schemeValidationTest()
 {
-    QUrl skeletonFile = QUrl::fromLocalFile(":/artikulate/schemes/skeleton.xsd");
+    const QUrl skeletonFile = QUrl::fromLocalFile(":/artikulate/data/schemes/skeleton.xsd");
     XmlSchema skeletonScheme;
     QVERIFY(skeletonScheme.load(skeletonFile));
     QVERIFY(skeletonScheme.isValid());

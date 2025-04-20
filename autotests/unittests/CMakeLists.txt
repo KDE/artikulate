@@ -16,9 +16,12 @@ file(COPY ../testdata/contributorrepository/ DESTINATION ${CMAKE_CURRENT_BINARY_
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
 # repository tests
-set(TestResourceRepository_SRCS resourcerepository/test_resourcerepository.cpp)
-qt6_add_resources(TestResourceRepository_SRCS ../../data/languages.qrc)
-add_executable(test_resourcerepository ${TestResourceRepository_SRCS})
+add_executable(test_resourcerepository)
+target_sources(test_resourcerepository PRIVATE
+    resourcerepository/test_resourcerepository.cpp
+    resourcerepository/test_resourcerepository.h
+)
+add_language_resources(test_resourcerepository)
 target_link_libraries(test_resourcerepository
     artikulatecore
     Qt::Test
@@ -31,6 +34,7 @@ ecm_mark_as_test(test_resourcerepository)
 add_executable(test_trainingsession)
 target_sources(test_trainingsession PUBLIC
     trainingsession/test_trainingsession.cpp
+    trainingsession/test_trainingsession.h
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/editorsession.cpp
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/isessionactions.h
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingsession.cpp
@@ -54,6 +58,7 @@ target_sources(test_editorsession PUBLIC
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/trainingsession.cpp
     ${CMAKE_SOURCE_DIR}/src/artikulate_debug.cpp
     editorsession/test_editorsession.cpp
+    editorsession/test_editorsession.h
     ../mocks/editablerepositorystub.cpp
     ../mocks/editablecoursestub.cpp
     ../mocks/languagestub.cpp
@@ -67,13 +72,14 @@ ecm_mark_as_test(test_editorsession)
 
 
 # test course resource class
-set(TestCourseResource_SRCS
+add_executable(test_courseresource)
+target_sources(test_courseresource PRIVATE
     courseresource/test_courseresource.cpp
+    courseresource/test_courseresource.h
     ../mocks/resourcerepositorystub.cpp
     ../mocks/languagestub.cpp
 )
-qt6_add_resources(TestCourseResource_SRCS ../../data/languages.qrc)
-add_executable(test_courseresource ${TestCourseResource_SRCS} )
+add_language_resources(test_courseresource)
 target_link_libraries(test_courseresource
     artikulatecore
     Qt::Test
@@ -83,13 +89,14 @@ ecm_mark_as_test(test_courseresource)
 
 
 # test skeleton resource class
-set(TestSkeletonResource_SRCS
+add_executable(test_skeletonresource)
+target_sources(test_skeletonresource PRIVATE
     skeletonresource/test_skeletonresource.cpp
+    skeletonresource/test_skeletonresource.h
     ../mocks/resourcerepositorystub.cpp
     ../mocks/languagestub.cpp
 )
-qt6_add_resources(TestSkeletonResource_SRCS ../../data/languages.qrc)
-add_executable(test_skeletonresource ${TestSkeletonResource_SRCS} )
+add_language_resources(test_skeletonresource)
 target_link_libraries(test_skeletonresource
     artikulatecore
     Qt::Test
@@ -99,11 +106,12 @@ ecm_mark_as_test(test_skeletonresource)
 
 
 # test course resource class
-set(TestUnit_SRCS
+add_executable(test_unit)
+target_sources(test_unit PRIVATE
     unit/test_unit.cpp
+    unit/test_unit.h
 )
-qt6_add_resources(TestUnit_SRCS ../../data/languages.qrc)
-add_executable(test_unit ${TestUnit_SRCS} )
+add_language_resources(test_unit)
 target_link_libraries(test_unit
     artikulatecore
     Qt::Test
@@ -113,15 +121,16 @@ ecm_mark_as_test(test_unit)
 
 
 # test editable course resource class
-set(TestEditableCourseResource_SRCS
+add_executable(test_editablecourseresource)
+target_sources(test_editablecourseresource PRIVATE
     editablecourseresource/test_editablecourseresource.cpp
+    editablecourseresource/test_editablecourseresource.h
     ../mocks/resourcerepositorystub.cpp
     ../mocks/coursestub.cpp
     ../mocks/languagestub.cpp
 )
-qt6_add_resources(TestEditableCourseResource_SRCS ../../data/languages.qrc)
-qt6_add_resources(TestEditableCourseResource_SRCS ../testdata/testdata.qrc)
-add_executable(test_editablecourseresource ${TestEditableCourseResource_SRCS} )
+add_language_resources(test_editablecourseresource)
+add_testdata_resources(test_editablecourseresource)
 target_link_libraries(test_editablecourseresource
     artikulatecore
     Qt::Test
@@ -131,17 +140,18 @@ ecm_mark_as_test(test_editablecourseresource)
 
 
 # test course model class
-set(TestCourseModel_SRCS
+add_executable(test_coursemodel)
+target_sources(test_coursemodel PRIVATE
     coursemodel/test_coursemodel.cpp
+    coursemodel/test_coursemodel.h
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/coursemodel.cpp
     ${CMAKE_SOURCE_DIR}/src/artikulate_debug.cpp
     ../mocks/resourcerepositorystub.cpp
     ../mocks/coursestub.cpp
     ../mocks/languagestub.cpp
 )
-qt6_add_resources(TestCourseModel_SRCS ../../data/languages.qrc)
-qt6_add_resources(TestCourseModel_SRCS ../testdata/testdata.qrc)
-add_executable(test_coursemodel ${TestCourseModel_SRCS})
+add_language_resources(test_coursemodel)
+add_testdata_resources(test_coursemodel)
 target_link_libraries(test_coursemodel
     artikulatecore
     Qt::Test
@@ -151,16 +161,17 @@ ecm_mark_as_test(test_coursemodel)
 
 
 # test skeleton model class
-set(TestSkeletonModel_SRCS
+add_executable(test_skeletonmodel)
+target_sources(test_skeletonmodel PRIVATE
     skeletonmodel/test_skeletonmodel.cpp
+    skeletonmodel/test_skeletonmodel.h
     ${CMAKE_SOURCE_DIR}/src/org/kde/artikulate/skeletonmodel.cpp
     ../mocks/editablerepositorystub.cpp
     ../mocks/editablecoursestub.cpp
     ../mocks/languagestub.cpp
 )
-qt6_add_resources(TestSkeletonModel_SRCS ../../data/languages.qrc)
-qt6_add_resources(TestSkeletonModel_SRCS ../testdata/testdata.qrc)
-add_executable(test_skeletonmodel ${TestSkeletonModel_SRCS})
+add_language_resources(test_skeletonmodel)
+add_testdata_resources(test_skeletonmodel)
 target_link_libraries(test_skeletonmodel
     artikulatecore
     Qt::Test

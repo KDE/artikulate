@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/artikulate/config">
-        <file>artikulate.knsrc</file>
-    </qresource>
-</RCC>

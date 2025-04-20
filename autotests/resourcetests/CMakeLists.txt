@@ -10,11 +10,12 @@ include_directories(
 )
 
 # basic tests language resource conformance with XSD
-set(TestLanguageFiles_SRCS
+add_executable(test_languageresources)
+target_sources(test_languageresources PRIVATE
     languageresources/testlanguagefiles.cpp
+    languageresources/testlanguagefiles.h
 )
-qt6_add_resources(TestLanguageFiles_SRCS ../../data/languages.qrc)
-add_executable(test_languageresources ${TestLanguageFiles_SRCS} )
+add_language_resources(test_languageresources)
 target_link_libraries(test_languageresources
     artikulatecore
     Qt::Test
@@ -24,11 +25,12 @@ ecm_mark_as_test(test_languageresources)
 
 
 # test correctness of XSD files
-set(TestXsdSchemes_SRCS
+add_executable(test_xsdschemes)
+target_sources(test_xsdschemes PRIVATE
     xsdschemes/testxsdschemes.cpp
+    xsdschemes/testxsdschemes.h
 )
-qt6_add_resources(TestXsdSchemes_SRCS ../../data/languages.qrc)
-add_executable(test_xsdschemes ${TestXsdSchemes_SRCS} )
+add_language_resources(test_xsdschemes)
 target_link_libraries(test_xsdschemes
     artikulatecore
     Qt::Test

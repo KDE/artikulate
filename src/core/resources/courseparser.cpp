@@ -20,7 +20,7 @@
 
 XmlSchema CourseParser::loadXmlSchema(const QString &schemeName)
 {
-    QString relPath = QStringLiteral(":/artikulate/schemes/%1.xsd").arg(schemeName);
+    QString relPath = QStringLiteral(":/artikulate/data/schemes/%1.xsd").arg(schemeName);
     QUrl file = QUrl::fromLocalFile(relPath);
 
     XmlSchema schema;
