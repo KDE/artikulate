@@ -1,15 +1,13 @@
 /*
     SPDX-FileCopyrightText: 2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
     SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "application.h"
+#include "artikulate_debug.h"
 #include "core/contributorrepository.h"
 #include "mainwindow_editor.h"
 #include "version.h"
-
-#include "artikulate_debug.h"
 #include <KAboutData>
 #include <KCrash>
 #include <KLocalizedString>

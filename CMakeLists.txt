@@ -42,6 +42,7 @@ find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Qml
     Quick
     Test
+    Xml
 )
 qt_policy(SET QTP0001 NEW)
 qt_policy(SET QTP0004 NEW)
@@ -54,7 +55,6 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     ItemModels
     NewStuff
     Kirigami
-    XmlGui
 )
 
 ecm_set_disabled_deprecation_versions(QT 6.5.0

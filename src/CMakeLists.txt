@@ -57,7 +57,6 @@ target_link_libraries(artikulatecore
         KF6::Archive
         KF6::ConfigGui
         LibXml2::LibXml2
-    PRIVATE
         Qt::Xml
 )
 # internal library without any API or ABI guarantee
@@ -119,14 +118,12 @@ target_link_libraries(artikulate
         Qt::Quick
         KF6::Crash
         KF6::NewStuffCore
-        KF6::XmlGui
     LINK_PRIVATE
         artikluate_backing
         artikluate_backingplugin
 )
 
 # editor app
-qt6_add_resources(artikulate_editor_SRCS editor.qrc)
 add_executable(artikulate_editor)
 target_sources(artikulate_editor PRIVATE
     main_editor.cpp
