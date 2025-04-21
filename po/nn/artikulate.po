@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-25 00:37+0000\n"
+"POT-Creation-Date: 2025-04-21 00:37+0000\n"
 "PO-Revision-Date: 2023-07-29 12:37+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -196,7 +196,7 @@ msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate uttaleøving"
 
-#: src/main.cpp:33 src/main_editor.cpp:30
+#: src/main.cpp:33 src/main_editor.cpp:28
 #, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
@@ -208,13 +208,13 @@ msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
 msgstr "Øv på uttale av eit framandspråk."
 
-#: src/main.cpp:37 src/main_editor.cpp:33
+#: src/main.cpp:37 src/main_editor.cpp:31
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Andreas Cord-Landwehr"
 msgstr "Andreas Cord-Landwehr"
 
-#: src/main.cpp:38 src/main_editor.cpp:34
+#: src/main.cpp:38 src/main_editor.cpp:32
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Original Author"
@@ -262,19 +262,19 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "karl@huftis.org"
 
-#: src/main_editor.cpp:26
+#: src/main_editor.cpp:24
 #, kde-format
 msgctxt "@title Displayed program name"
 msgid "Artikulate Editor"
 msgstr "Artikulate-redigering"
 
-#: src/main_editor.cpp:28
+#: src/main_editor.cpp:26
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Course Editor"
 msgstr "Artikulate kursredigering"
 
-#: src/main_editor.cpp:31
+#: src/main_editor.cpp:29
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Edit Artikulate course files."
@@ -285,18 +285,18 @@ msgstr "Rediger Artikulate-kursfiler."
 msgid "Unnamed Identity"
 msgstr "Namnlaus identitet"
 
-#: src/org/kde/artikulate/ArtikulateDrawer.qml:47
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:58
 #, kde-format
 msgid "Training"
 msgstr "Øving"
 
-#: src/org/kde/artikulate/ArtikulateDrawer.qml:97
-#: src/org/kde/artikulate/WelcomePage.qml:77
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:108
+#: src/org/kde/artikulate/WelcomePage.qml:78
 #, kde-format
 msgid "Download Training"
 msgstr "Lastar ned øvingar"
 
-#: src/org/kde/artikulate/ArtikulateDrawer.qml:111
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:122
 #: src/org/kde/artikulate/EditorDrawer.qml:132
 #, kde-format
 msgid "About Artikulate"
@@ -397,7 +397,7 @@ msgid "Switch to previous phrase."
 msgstr "Byt til førre frase."
 
 #: src/org/kde/artikulate/EditCoursePage.qml:29
-#: src/org/kde/artikulate/TrainingPage.qml:38
+#: src/org/kde/artikulate/TrainingPage.qml:45
 #, kde-format
 msgid "Next"
 msgstr "Neste"
@@ -736,42 +736,42 @@ msgstr "Ta opp"
 msgid "Attempts"
 msgstr "Forsøk"
 
-#: src/org/kde/artikulate/TrainingPage.qml:25
+#: src/org/kde/artikulate/TrainingPage.qml:32
 #, kde-format
 msgid "Category: no category selected"
 msgstr "Kategori: ingen kategori vald"
 
-#: src/org/kde/artikulate/TrainingPage.qml:28
+#: src/org/kde/artikulate/TrainingPage.qml:35
 #, kde-format
 msgid "Category: %1"
 msgstr "Kategori: %1"
 
-#: src/org/kde/artikulate/TrainingPage.qml:39
+#: src/org/kde/artikulate/TrainingPage.qml:46
 #, kde-format
 msgid "Mark current phrase as completed and proceed with next one."
 msgstr "Merk gjeldande frase som fullført og gå vidare til neste."
 
-#: src/org/kde/artikulate/TrainingPage.qml:45
+#: src/org/kde/artikulate/TrainingPage.qml:52
 #, kde-format
 msgid "Skip"
 msgstr "Hopp over"
 
-#: src/org/kde/artikulate/TrainingPage.qml:46
+#: src/org/kde/artikulate/TrainingPage.qml:53
 #, kde-format
 msgid "Skip current phrase and proceed with next one."
 msgstr "Hopp over gjeldande frase og gå vidare til neste."
 
-#: src/org/kde/artikulate/TrainingPage.qml:101
+#: src/org/kde/artikulate/TrainingPage.qml:108
 #, kde-format
 msgid "Play original"
 msgstr "Spel av originalklipp"
 
-#: src/org/kde/artikulate/TrainingPage.qml:142
+#: src/org/kde/artikulate/TrainingPage.qml:149
 #, kde-format
 msgid "Record yourself"
 msgstr "Spel inn lydklipp"
 
-#: src/org/kde/artikulate/TrainingPage.qml:151
+#: src/org/kde/artikulate/TrainingPage.qml:157
 #, kde-format
 msgid "Play yourself"
 msgstr "Spel av deg sjølv"
@@ -793,7 +793,7 @@ msgctxt "@action:button"
 msgid "Start Training"
 msgstr "Start øving"
 
-#: src/org/kde/artikulate/WelcomePage.qml:73
+#: src/org/kde/artikulate/WelcomePage.qml:74
 #, kde-format
 msgid "No trainings found"
 msgstr "Fann inga opplæring"

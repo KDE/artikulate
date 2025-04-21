@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-25 00:37+0000\n"
+"POT-Creation-Date: 2025-04-21 00:37+0000\n"
 "PO-Revision-Date: 2023-07-18 13:16+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -192,7 +192,7 @@ msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate 발음 타이머"
 
-#: src/main.cpp:33 src/main_editor.cpp:30
+#: src/main.cpp:33 src/main_editor.cpp:28
 #, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
@@ -204,13 +204,13 @@ msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
 msgstr "외국어 발음을 연습할 수 있습니다."
 
-#: src/main.cpp:37 src/main_editor.cpp:33
+#: src/main.cpp:37 src/main_editor.cpp:31
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Andreas Cord-Landwehr"
 msgstr "Andreas Cord-Landwehr"
 
-#: src/main.cpp:38 src/main_editor.cpp:34
+#: src/main.cpp:38 src/main_editor.cpp:32
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Original Author"
@@ -258,19 +258,19 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde@peremen.name"
 
-#: src/main_editor.cpp:26
+#: src/main_editor.cpp:24
 #, kde-format
 msgctxt "@title Displayed program name"
 msgid "Artikulate Editor"
 msgstr "Artikulate 편집기"
 
-#: src/main_editor.cpp:28
+#: src/main_editor.cpp:26
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Course Editor"
 msgstr "Artikulate 과정 편집기"
 
-#: src/main_editor.cpp:31
+#: src/main_editor.cpp:29
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Edit Artikulate course files."
@@ -281,18 +281,18 @@ msgstr "Artikulate 과정 파일을 편집합니다."
 msgid "Unnamed Identity"
 msgstr "이름 없는 프로필"
 
-#: src/org/kde/artikulate/ArtikulateDrawer.qml:47
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:58
 #, kde-format
 msgid "Training"
 msgstr "연습"
 
-#: src/org/kde/artikulate/ArtikulateDrawer.qml:97
-#: src/org/kde/artikulate/WelcomePage.qml:77
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:108
+#: src/org/kde/artikulate/WelcomePage.qml:78
 #, kde-format
 msgid "Download Training"
 msgstr "연습 다운로드"
 
-#: src/org/kde/artikulate/ArtikulateDrawer.qml:111
+#: src/org/kde/artikulate/ArtikulateDrawer.qml:122
 #: src/org/kde/artikulate/EditorDrawer.qml:132
 #, kde-format
 msgid "About Artikulate"
@@ -393,7 +393,7 @@ msgid "Switch to previous phrase."
 msgstr "이전 구문으로 전환합니다."
 
 #: src/org/kde/artikulate/EditCoursePage.qml:29
-#: src/org/kde/artikulate/TrainingPage.qml:38
+#: src/org/kde/artikulate/TrainingPage.qml:45
 #, kde-format
 msgid "Next"
 msgstr "다음"
@@ -732,42 +732,42 @@ msgstr "녹음"
 msgid "Attempts"
 msgstr "시도 횟수"
 
-#: src/org/kde/artikulate/TrainingPage.qml:25
+#: src/org/kde/artikulate/TrainingPage.qml:32
 #, kde-format
 msgid "Category: no category selected"
 msgstr "분류: 분류를 선택하지 않았음"
 
-#: src/org/kde/artikulate/TrainingPage.qml:28
+#: src/org/kde/artikulate/TrainingPage.qml:35
 #, kde-format
 msgid "Category: %1"
 msgstr "분류: %1"
 
-#: src/org/kde/artikulate/TrainingPage.qml:39
+#: src/org/kde/artikulate/TrainingPage.qml:46
 #, kde-format
 msgid "Mark current phrase as completed and proceed with next one."
 msgstr "현재 구문을 완료된 것으로 표시하고 다음 구문으로 진행합니다."
 
-#: src/org/kde/artikulate/TrainingPage.qml:45
+#: src/org/kde/artikulate/TrainingPage.qml:52
 #, kde-format
 msgid "Skip"
 msgstr "건너뛰기"
 
-#: src/org/kde/artikulate/TrainingPage.qml:46
+#: src/org/kde/artikulate/TrainingPage.qml:53
 #, kde-format
 msgid "Skip current phrase and proceed with next one."
 msgstr "현재 구문을 건너뛰고 다음 구문으로 진행합니다."
 
-#: src/org/kde/artikulate/TrainingPage.qml:101
+#: src/org/kde/artikulate/TrainingPage.qml:108
 #, kde-format
 msgid "Play original"
 msgstr "원본 재생"
 
-#: src/org/kde/artikulate/TrainingPage.qml:142
+#: src/org/kde/artikulate/TrainingPage.qml:149
 #, kde-format
 msgid "Record yourself"
 msgstr "내 발음 녹음"
 
-#: src/org/kde/artikulate/TrainingPage.qml:151
+#: src/org/kde/artikulate/TrainingPage.qml:157
 #, kde-format
 msgid "Play yourself"
 msgstr "내 발음 재생"
@@ -789,7 +789,7 @@ msgctxt "@action:button"
 msgid "Start Training"
 msgstr "연습 시작"
 
-#: src/org/kde/artikulate/WelcomePage.qml:73
+#: src/org/kde/artikulate/WelcomePage.qml:74
 #, kde-format
 msgid "No trainings found"
 msgstr "연습 자료 없음"
