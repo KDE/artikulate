@@ -1,5 +1,5 @@
 # Spanish translations for artikulate.po package.
-# Copyright (C) 2014-2025 This_file_is_part_of_KDE
+# Copyright (C) 2014-2025 This file is copyright:
 # This file is distributed under the same license as the artikulate package.
 #
 # SPDX-FileCopyrightText: 2014, 2015, 2016, 2017, 2019, 2020, 2022, 2023, 2025 Eloy Cuadra <ecuadra@eloihr.net>
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-21 00:37+0000\n"
-"PO-Revision-Date: 2025-03-24 02:28+0100\n"
+"PO-Revision-Date: 2025-05-04 01:35+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -797,15 +797,3 @@ msgstr "Empezar la práctica"
 #, kde-format
 msgid "No trainings found"
 msgstr "No se han encontrado prácticas"
-
-#~ msgid "Please select a course"
-#~ msgstr "Seleccione un curso"
-
-#~ msgid "About Artikulate Editor"
-#~ msgstr "Acerca del editor de Artikulate"
-
-#~ msgid "Select Image"
-#~ msgstr "Seleccionar imagen"
-
-#~ msgid "Delete User"
-#~ msgstr "Borrar usuario"
