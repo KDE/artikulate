@@ -793,12 +793,3 @@ msgstr "Spustit procvičování"
 #, kde-format
 msgid "No trainings found"
 msgstr "Nebyla nalezena žádná cvičení"
-
-#~ msgid "About Artikulate Editor"
-#~ msgstr "O Editoru Artikulate"
-
-#~ msgid "Select Image"
-#~ msgstr "Vybrat obrázek"
-
-#~ msgid "Delete User"
-#~ msgstr "Odstranit uživatele"
