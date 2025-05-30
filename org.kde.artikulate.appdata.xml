@@ -38,6 +38,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="it">Artikulate</name>
   <name xml:lang="ka">Artikulate</name>
   <name xml:lang="ko">Artikulate</name>
+  <name xml:lang="lv">Artikulate</name>
   <name xml:lang="nds">Artikulate</name>
   <name xml:lang="nl">Artikulate</name>
   <name xml:lang="nn">Artikulate</name>
@@ -79,6 +80,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="it">Allenatore di pronuncia Artikulate</summary>
   <summary xml:lang="ka">Artikulate - გამოთქმის მასწავლებელი</summary>
   <summary xml:lang="ko">Artikulate 발음 타이머</summary>
+  <summary xml:lang="lv">„Artikulate“ izrunas trenēšanas programma</summary>
   <summary xml:lang="nds">Utspraak-Lehrer Artikulate</summary>
   <summary xml:lang="nl">Artikulate Trainingsprogramma voor uitspraak</summary>
   <summary xml:lang="nn">Artikulate uttaleøvar</summary>
@@ -120,6 +122,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="it">Artikulate è un allenatore di pronuncia, che ti aiuta a migliorare e a perfezionare l'abilità di pronuncia in una lingua straniera. Fornisce dei corsi con registrazioni di madrelingua per diverse lingue da studiare. Il principiante scarica quei corsi, seleziona una categoria di frasi su cui allenarsi, quindi inizia la registrazione della propria voce mentre dice le frasi, infine confronta i risultati con le registrazioni del madrelingua. Adattando e ripetendo la propria pronuncia, lo studente può migliorare la sua abilità.</p>
     <p xml:lang="ka">Artikulate გამოთქმების მასწავლებელია, რომელიც მსწავლელს გამოთქმასა და მი დახვეწას ასწავლის უცხო ენებისთვის. მას აქვს კურსები რამდენიმე ენისა, რომლებიც მათ მიერაა ჩაწერილი, ვისთვისაც ეს ენა დედაენაა. მსწავლელი იწერს ამ კურსებს, ირჩევს სამეცადინო ფრაზების კატეგორიას, შემდეგ კი იწყებს თავისი ხმის ჩაწერას, როცა ამ ფრაზებს იძახის და შეადარებს ჩაწერილ ხმებს, ორივეს მოსმენის გზით. გამოთქმის გასწორებისა და გამეორების გზით მსწავლელს თავისი შესაძლებლობების გაფართოება შეუძლია.</p>
     <p xml:lang="ko">Artikulate는 외국어 학습자의 발음을 개선하는 연습 도구입니다. 여러 언어의 원어민 발음이 녹음된 과정을 제공합니다. 학습자는 해당 과정을 다운로드한 다음 연습할 분류를 선택하고 자신의 목소리를 녹음한 다음 원어민 발음과 동시에 들으면서 비교합니다. 이를 통해서 자신의 발음을 교정할 수 있으며 발음 능력을 향상시킬 수 있습니다.</p>
+    <p xml:lang="lv">„Artikulate“ ir programma izrunas trenēšanai, lai pilnveidotu izrunu, mācoties svešvalodu. Tā piedāvā apmācības ar audio ierakstiem, kuru autori ir cilvēki, kuriem attiecīgā svešvaloda ir dzimtā valoda. Programmas lietotājs lejupielādē vēlamos kursus, atlasa frāžu kategoriju un sāk ar savas balss ierakstīšanu, izrunājot norādītās frāzes, bet tad noklausās savu izrunu un to salīdzina ar dzimtajā valodā runājošu cilvēku ierakstiem.Savas izrunas koriģēšana at atkārtošana ļauj uzlabot valodas izrunu.</p>
     <p xml:lang="nds">Artikulate is en Utspraak-Lehrprogramm dat dor bi hölpen schall, de Utspraak vun en Schöler to verbetern. Dat höllt Lexen mit Opnahmen vun Moderspraaklers för en Reeg vun Spraken praat. De Schöler laadt de Lexen daal, söcht en Kategorie vun Utdrück ut, de he lehren will, nimmt sien egen Stimm op, wenn he de Utdrück weddergifft un vergliekt dat mit de Opnahmen vun de Moderspraaklers. So kann he sien egen Utspraak verbetern.</p>
     <p xml:lang="nl">Artikulate is een trainingsprogramma voor uitspraak dat helpt om het uitspreken van een vreemde taal van een leerling te verbeteren en te perfectioneren. Het biedt lessen met opnamen van sprekers in de eigen taal voor training in verschillende talen. De leerling downloadt deze lessen, selecteert een categorie van te leren frasen, start daarna met het opnemen van haar/zijn eigen stem bij het uitspreken van de frasen en vergelijkt de resultaten met die van de opnamen van de spreker in de eigen taal door naar beiden te luisteren. Door de eigen uitspraak aan te passen en te herhalen, kan de leerling zijn/haar prestaties verbeteren.</p>
     <p xml:lang="nn">Artikulate er ein uttale­øvar som hjelper deg å betra uttalen din av framand­språk. Det inneheld fleire kurs med opptak av personar som har framandspråket som morsmål. Du lastar ned eit kurs, vel ein kategori for ord/uttrykk og lagar eit opptak av deg sjølv når du prøver å uttala orda/uttrykka. Du kan så lytta til både deg sjølv og morsmåls­talaren, og samanlikna uttalen. Ved å gjenta og justera på eigen uttale, kan du forbetra korleis du uttalar framandspråket.</p>
@@ -166,6 +169,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="it">Allenamento in Artikulate</caption>
       <caption xml:lang="ka">ვარჯიში Artikulate-ში</caption>
       <caption xml:lang="ko">Artikulate로 연습하기</caption>
+      <caption xml:lang="lv">Mācīšanās ar „Artikulate“</caption>
       <caption xml:lang="nl">Oefening in Artikulate</caption>
       <caption xml:lang="nn">Øving i Artikulate</caption>
       <caption xml:lang="pl">Ćwiczenie w Artikulate</caption>
