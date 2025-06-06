@@ -62,9 +62,9 @@ qt_add_qml_module(
         Main.qml
         PhonemeUnitSelector.qml
         PhraseEditor.qml
-        PhraseEditorEditStateComponent.qml
+
         PhraseEditorSoundComponent.qml
-        PhraseEditorTypeComponent.qml
+
         ProfileDetailsItem.qml
         ProfileSelector.qml
         ProfileSettingsPage.qml

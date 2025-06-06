@@ -37,11 +37,6 @@ Item {
                 width: parent.width
                 spacing: 5
 
-                PhraseEditorTypeComponent {
-                    id: phraseTypeSetter
-                    phrase: root.phrase
-                }
-
                 PhraseEditorSoundComponent {
                     id: phraseRecorder
                     visible: !root.isSkeletonPhrase
@@ -80,17 +75,6 @@ Item {
                         }
                     delegate: phonemeItem
                 }
-                RowLayout {
-                    id: controls
-                    PhraseEditorEditStateComponent {
-                        id: phraseEditStateSetter
-                        visible: !root.isSkeletonPhrase
-                        phrase: root.phrase
-                    }
-                    Label { // dummy
-                        Layout.fillWidth: true
-                    }
-                }
             }
         }
     }
@@ -99,6 +83,7 @@ Item {
         id: phraseRow
 
         Kirigami.FormLayout {
+            Layout.fillWidth: true
             Kirigami.Separator {
                 Kirigami.FormData.label: EditorSession.unit.i18nTitle === "" ? i18n("Unit") : i18n("Unit: ") + EditorSession.unit.i18nTitle
                 Kirigami.FormData.isSection: true
@@ -131,11 +116,37 @@ Item {
                     onPhraseChanged: i18nPhrase.text = Qt.binding(function() { return root.phrase.i18nText })
                 }
             }
+            ComboBox {
+                Kirigami.FormData.label: i18n("Complexity:")
+                textRole: "text"
+                valueRole: "value"
+                onActivated: root.phrase.type = currentValue
+                Component.onCompleted: currentIndex = indexOfValue(root.phrase.type)
+                model: [
+                    { value: Phrase.Word, text: i18n("Word") },
+                    { value: Phrase.Expression, text: i18n("Expression") },
+                    { value: Phrase.Sentence, text: i18n("Sentence") },
+                    { value: Phrase.Paragraph, text: i18n("Paragraph") }
+                ]
+            }
+            ComboBox {
+                visible: !root.isSkeletonPhrase
+                Kirigami.FormData.label: i18n("Translation State:")
+                textRole: "text"
+                valueRole: "value"
+                onActivated: root.phrase.editState = currentValue
+                Component.onCompleted: currentIndex = indexOfValue(root.phrase.editState)
+                model: [
+                    { value: Phrase.Unknown, text: i18nc("state", "Unknown") },
+                    { value: Phrase.Translated, text: i18nc("state", "Translated") },
+                    { value: Phrase.Completed, text: i18nc("state", "Completed") }
+                ]
+            }
         }
 
         Loader {
             id: editLoader
-            sourceComponent: (phrase != null) ? editComponent : undefined
+            sourceComponent: (phrase !== null) ? editComponent : undefined
             onSourceComponentChanged: {
                 if (sourceComponent == undefined) height = 0
                 else height = editComponent.height

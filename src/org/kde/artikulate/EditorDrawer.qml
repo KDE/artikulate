@@ -84,6 +84,7 @@ Kirigami.OverlayDrawer {
                 id: courseActionScrollView
                 width: parent.width
                 height: root.height - topContent.height - bottomContent.height
+                clip: true
                 ListView {
                     id: phraseActionListView
                     model: sessionActions
