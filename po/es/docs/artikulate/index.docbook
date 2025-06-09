@@ -1,4 +1,9 @@
 <?xml version="1.0" ?>
+<!--
+  SPDX-FileCopyrightText: 2015 Andreas Cord-Lsandwehr <cordlandwehr@kde.org>
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
 
   <!ENTITY artikulate "Artikulate">
@@ -676,32 +681,6 @@ This button is deactivated if the course is not derived from a course skeleton.
 >ecuadra@eloihr.net</email
 >.</para
 > &underFDL; &underGPL; </chapter>
-
-<appendix id="installation">
-<title
->Instalación</title>
-
-<sect1 id="getting-artikulate">
-<title
->Cómo obtener &artikulate;</title
->&install.intro.documentation; </sect1>
-
-<sect1 id="compilation">
-<title
->Compilación e instalación</title
->&install.compile.documentation; <sect2 id="compilation-details">
-<title
->Instrucciones específicas para &artikulate;</title>
-<para
->Hay más información sobre como compilar &artikulate; en la <ulink url="http://techbase.kde.org/Projects/Edu/Artikulate"
-><citetitle
->documetnación técnica de &artikulate;</citetitle
-></ulink
-> en &kde; TechBase. </para>
-</sect2>
-
-</sect1>
-</appendix>
 
 &documentation.index;
 </book>
