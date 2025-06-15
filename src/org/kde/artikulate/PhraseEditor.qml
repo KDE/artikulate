@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2013-2015 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-FileCopyrightText: 2013-2025 Andreas Cord-Landwehr <cordlandwehr@kde.org>
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 import QtQuick
@@ -7,31 +7,52 @@ import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
 import org.kde.artikulate
 
-Item {
+ScrollView {
     id: root
 
-    property Phrase phrase
-    property bool isSkeletonPhrase: false
+    required property Phrase phrase
+    required property bool isSkeletonPhrase
 
-    // use for saving
-    property int __changedPhraseType
-    property string __changedPhraseText
-
-    width: 500
-    height: editLoader.height
-
-    Component {
-        id: editComponent
+    ColumnLayout {
+        Kirigami.FormLayout {
+            TextField {
+                id: i18nPhrase
+                Kirigami.FormData.label: i18n("Localized Phrase:")
+                text: root.phrase.text
+                onEditingFinished: {
+                    root.phrase.text = text
+                }
+            }
+            ComboBox {
+                Kirigami.FormData.label: i18n("Complexity:")
+                textRole: "text"
+                valueRole: "value"
+                onActivated: root.phrase.type = currentValue
+                Component.onCompleted: currentIndex = indexOfValue(root.phrase.type)
+                model: [
+                    { value: Phrase.Word, text: i18n("Word") },
+                    { value: Phrase.Expression, text: i18n("Expression") },
+                    { value: Phrase.Sentence, text: i18n("Sentence") },
+                    { value: Phrase.Paragraph, text: i18n("Paragraph") }
+                ]
+            }
+            ComboBox {
+                visible: !root.isSkeletonPhrase
+                Kirigami.FormData.label: i18n("Translation State:")
+                textRole: "text"
+                valueRole: "value"
+                onActivated: root.phrase.editState = currentValue
+                Component.onCompleted: currentIndex = indexOfValue(root.phrase.editState)
+                model: [
+                    { value: Phrase.Unknown, text: i18nc("state", "Unknown") },
+                    { value: Phrase.Translated, text: i18nc("state", "Translated") },
+                    { value: Phrase.Completed, text: i18nc("state", "Completed") }
+                ]
+            }
+        }
 
         Row {
             width: root.width
-            height: {
-                if (!root.isSkeletonPhrase)
-                    textEdit.height + phonemeGrid.height + phraseEditStateSetter.height + phraseRecorder.height + phraseTypeSetter.height;
-                else { // height if only editing skeleton
-                    textEdit.height + phraseTypeSetter.height;
-                }
-            }
             Column {
                 id: textEdit
                 width: parent.width
@@ -69,87 +90,11 @@ Item {
                     height: 30 * count / columns + 60
                     cellWidth: 100
                     cellHeight: 30
-                    model:
-                        PhonemeModel {
-                            language: EditorSession.language
-                        }
+                    model: PhonemeModel {
+                        language: EditorSession.language
+                    }
                     delegate: phonemeItem
                 }
-            }
-        }
-    }
-
-    ColumnLayout {
-        id: phraseRow
-
-        Kirigami.FormLayout {
-            Layout.fillWidth: true
-            Kirigami.Separator {
-                Kirigami.FormData.label: EditorSession.unit.i18nTitle === "" ? i18n("Unit") : i18n("Unit: ") + EditorSession.unit.i18nTitle
-                Kirigami.FormData.isSection: true
-            }
-            TextField {
-                id: i18nUnit
-                Kirigami.FormData.label: i18n("Localized Unit:")
-                text: EditorSession.unit.title
-                onEditingFinished: {
-                    EditorSession.unit.title = text
-                }
-                Connections {
-                    target: root
-                    onPhraseChanged: i18nUnit.text = Qt.binding(function() { return EditorSession.unit.title })
-                }
-            }
-            Kirigami.Separator {
-                Kirigami.FormData.label: i18n("Phrase: ") + root.phrase.i18nText
-                Kirigami.FormData.isSection: true
-            }
-            TextField {
-                id: i18nPhrase
-                Kirigami.FormData.label: i18n("Localized Phrase:")
-                text: root.phrase.text
-                onEditingFinished: {
-                    root.phrase.text = text
-                }
-                Connections {
-                    target: root
-                    onPhraseChanged: i18nPhrase.text = Qt.binding(function() { return root.phrase.i18nText })
-                }
-            }
-            ComboBox {
-                Kirigami.FormData.label: i18n("Complexity:")
-                textRole: "text"
-                valueRole: "value"
-                onActivated: root.phrase.type = currentValue
-                Component.onCompleted: currentIndex = indexOfValue(root.phrase.type)
-                model: [
-                    { value: Phrase.Word, text: i18n("Word") },
-                    { value: Phrase.Expression, text: i18n("Expression") },
-                    { value: Phrase.Sentence, text: i18n("Sentence") },
-                    { value: Phrase.Paragraph, text: i18n("Paragraph") }
-                ]
-            }
-            ComboBox {
-                visible: !root.isSkeletonPhrase
-                Kirigami.FormData.label: i18n("Translation State:")
-                textRole: "text"
-                valueRole: "value"
-                onActivated: root.phrase.editState = currentValue
-                Component.onCompleted: currentIndex = indexOfValue(root.phrase.editState)
-                model: [
-                    { value: Phrase.Unknown, text: i18nc("state", "Unknown") },
-                    { value: Phrase.Translated, text: i18nc("state", "Translated") },
-                    { value: Phrase.Completed, text: i18nc("state", "Completed") }
-                ]
-            }
-        }
-
-        Loader {
-            id: editLoader
-            sourceComponent: (phrase !== null) ? editComponent : undefined
-            onSourceComponentChanged: {
-                if (sourceComponent == undefined) height = 0
-                else height = editComponent.height
             }
         }
     }

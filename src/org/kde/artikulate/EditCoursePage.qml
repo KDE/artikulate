@@ -7,7 +7,7 @@ import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
 import org.kde.artikulate
 
-Kirigami.ScrollablePage {
+Kirigami.Page {
     id: root
     title: i18n("Edit Course")
 
@@ -48,12 +48,22 @@ Kirigami.ScrollablePage {
         }
     ]
 
-    ColumnLayout {
+    Component {
+        id: phraseEditorComponent
         PhraseEditor {
-            visible: EditorSession.phrase !== null
             phrase: EditorSession.phrase
             isSkeletonPhrase: EditorSession.skeletonMode
-            Layout.fillHeight: true
         }
+    }
+    Component {
+        id: unitEditorComponent
+        UnitEditor {
+            unit: EditorSession.unit
+        }
+    }
+
+    Loader {
+        anchors.fill: parent
+        sourceComponent: EditorSession.phrase === null ? unitEditorComponent : phraseEditorComponent
     }
 }

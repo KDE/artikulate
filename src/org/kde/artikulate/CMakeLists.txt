@@ -58,19 +58,16 @@ qt_add_qml_module(
         Editor.qml
         EditorCourseSelectionPage.qml
         EditorDrawer.qml
-
         Main.qml
         PhonemeUnitSelector.qml
         PhraseEditor.qml
-
         PhraseEditorSoundComponent.qml
-
+        UnitEditor.qml
         ProfileDetailsItem.qml
         ProfileSelector.qml
         ProfileSettingsPage.qml
         ProfileUserImageItem.qml
         ProfileUserItem.qml
-
         SoundPlayer.qml
         SoundRecorder.qml
         TrainerCourseStatistics.qml
