@@ -58,7 +58,7 @@ qt_add_qml_module(
         Editor.qml
         EditorCourseSelectionPage.qml
         EditorDrawer.qml
-        EditorSkeletonSelectionPage.qml
+
         Main.qml
         PhonemeUnitSelector.qml
         PhraseEditor.qml
@@ -70,7 +70,7 @@ qt_add_qml_module(
         ProfileSettingsPage.qml
         ProfileUserImageItem.qml
         ProfileUserItem.qml
-        RepositoryConfigurationPage.qml
+
         SoundPlayer.qml
         SoundRecorder.qml
         TrainerCourseStatistics.qml
