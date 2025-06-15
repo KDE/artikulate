@@ -23,7 +23,7 @@ Kirigami.ApplicationWindow {
         id: mainFlickable //ID is workaround for Kirigami's assumption that this is the name of the drawer's main flickable
     }
 
-    pageStack.initialPage: [ editorCourseSelectionPage, editorSkeletonSelectionPage ]
+    pageStack.initialPage: [ editorCourseSelectionPage ]
     pageStack.globalToolBar.style: pageStack.depth > 1 ? Kirigami.ApplicationHeaderStyle.TabBar :Kirigami.ApplicationHeaderStyle.Titles
 
     // pages
@@ -32,20 +32,12 @@ Kirigami.ApplicationWindow {
         EditorCourseSelectionPage { }
     }
     Component {
-        id: editorSkeletonSelectionPage
-        EditorSkeletonSelectionPage { }
-    }
-    Component {
         id: editCoursePageComponent
         EditCoursePage { }
     }
     Component {
         id: courseConfigurationPageComponent
         CourseConfigurationPage { }
-    }
-    Component {
-        id: repositoryPageComponent
-        RepositoryConfigurationPage { }
     }
     Component {
         id: aboutPageComponent

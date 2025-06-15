@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 import QtQuick
-import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 import org.kde.artikulate
@@ -48,18 +47,6 @@ Kirigami.OverlayDrawer {
                         onTriggered: {
                             root.pageStack.clear();
                             root.pageStack.push(editorCourseSelectionPage);
-                            root.pageStack.push(editorSkeletonSelectionPage);
-                        }
-                    }
-                }
-                ActionListItem {
-                    width: root.contentItem.width
-                    action: QQC2.Action {
-                        text: i18n("Repository")
-                        icon.name: "folder-sync"
-                        onTriggered: {
-                            root.pageStack.clear();
-                            root.pageStack.push(repositoryPageComponent);
                         }
                     }
                 }

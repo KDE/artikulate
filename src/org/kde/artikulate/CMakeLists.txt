@@ -58,7 +58,7 @@ qt_add_qml_module(
         Editor.qml
         EditorCourseSelectionPage.qml
         EditorDrawer.qml
-        EditorSkeletonSelectionPage.qml
+
         Main.qml
         PhonemeUnitSelector.qml
         PhraseEditor.qml
