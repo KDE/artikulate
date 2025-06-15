@@ -18,7 +18,6 @@ QUrl TrainingSoundFile::path() const
         return QUrl();
     }
     const auto path = QUrl::fromLocalFile(QDir::tempPath() + '/' + m_soundFile->fileName());
-    qDebug() << "new path" << path;
     return path;
 }
 

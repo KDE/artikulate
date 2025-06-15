@@ -4,7 +4,6 @@
 */
 
 #include "application.h"
-#include "artikulate_debug.h"
 #include "core/contributorrepository.h"
 #include "mainwindow_editor.h"
 #include "version.h"
@@ -25,7 +24,7 @@ int main(int argc, char **argv)
                          ARTIKULATE_VERSION_STRING,
                          ki18nc("@title KAboutData: short program description", "Artikulate Course Editor").toString(),
                          KAboutLicense::GPL_V2,
-                         ki18nc("@info:credit", "(c) 2013-2022 The Artikulate Developers").toString(),
+                         ki18nc("@info:credit", "(c) 2013-2025 The Artikulate Developers").toString(),
                          ki18nc("@title Short program description", "Edit Artikulate course files.").toString());
 
     aboutData.addAuthor(ki18nc("@info:credit Developer name", "Andreas Cord-Landwehr").toString(),
