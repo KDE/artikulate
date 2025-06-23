@@ -3,70 +3,96 @@
 
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
+import QtMultimedia
 import org.kde.artikulate
 
-Item {
+RowLayout {
     id: root
 
     property Phrase phrase
 
-    width: mediaController.width
-    height: mediaController.height
+    MediaPlayer {
+        id: storedRecordingPlayer
+        audioOutput: AudioOutput {}
+        onErrorOccurred: (error, errorString) => console.log(`playback error: ${errorString}`)
+    }
+    MediaPlayer {
+        id: newRecordingPlayer
+        audioOutput: AudioOutput {}
+        onErrorOccurred: (error, errorString) => console.log(`playback error: ${errorString}`)
+    }
 
-    Column {
-        id: mediaController
-
-        Text {
-            id: componentTitle
-            text: i18n("Native Speaker Recording")
-            font.pointSize: 14;
-        }
-
-        Row {
-            anchors { left: componentTitle.left; leftMargin: 30 }
-
-            height: 48
-            Text {
-                anchors.verticalCenter: parent.verticalCenter
-                text: i18n("Existing Recording:")
-            }
-            SoundPlayer {
-                source: root.phrase == null ? "" : phrase.sound
-            }
-        }
-        Row {
-            anchors { left: componentTitle.left; leftMargin: 30 }
-            Text {
-                anchors.verticalCenter: parent.verticalCenter
-                text: i18n("Create New Recording:")
-            }
-            SoundRecorder {
-                id: recorder
-            }
-            SoundPlayer {
-                source: recorder.outputFileUrl
+    Button {
+        id: playButton
+        enabled: phrase.sound !== undefined
+        text: i18nc("@action:button", "Play stored recording")
+        icon.name: storedRecordingPlayer.playing ? "media-playback-stop" : "media-playback-start"
+        onClicked: {
+            if (storedRecordingPlayer.playing) {
+                storedRecordingPlayer.stop()
+            } else {
+                storedRecordingPlayer.source = phrase.sound
+                storedRecordingPlayer.play()
             }
         }
-        Row {
-            anchors { left: componentTitle.left; leftMargin: 30 }
-            visible: recorder.outputFileUrl != ""
+    }
 
-            ToolButton {
-                anchors.verticalCenter: parent.verticalCenter
-                icon.name: "dialog-ok-apply"
-                text: i18n("Replace Existing Recording")
-                onClicked: {
-                    recorder.storeToFile(phrase.soundFileOutputPath())
-                }
+    Item { // space
+        Layout.preferredWidth: 20
+    }
+
+    Button {
+        id: recordButton
+        checkable: false
+        icon.name: recorder.recorderState === MediaRecorder.RecordingState ? "media-playback-stop" :  "media-record"
+        text: i18nc("@action:button", "Record new")
+        onClicked: {
+            if (recorder.recorderState === MediaRecorder.RecordingState) {
+                recorder.stop()
+                TemporaryRecordingFile.soundAvailable = true
             }
-            ToolButton {
-                anchors.verticalCenter: parent.verticalCenter
-                icon.name: "dialog-cancel"
-                text: i18n("Dismiss")
-                onClicked: {
-                    recorder.clearBuffer()
-                }
+            else {
+                TemporaryRecordingFile.iterate()
+                recorder.record()
             }
+        }
+    }
+    Button {
+        id: playNewButton
+        enabled: TemporaryRecordingFile.path
+        text: i18nc("@action:button", "Play new recording")
+        icon.name: newRecordingPlayer.playing ? "media-playback-stop" : "media-playback-start"
+        onClicked: {
+            if (newRecordingPlayer.playing) {
+                newRecordingPlayer.stop()
+            } else {
+                newRecordingPlayer.source = TemporaryRecordingFile.path
+                newRecordingPlayer.play()
+            }
+        }
+    }
+    Button {
+        id: applyButton
+        checkable: false
+        enabled: TemporaryRecordingFile.soundAvailable
+        icon.name: "document-replace"
+        text: i18nc("@action:button", "Take new recording")
+        onClicked: {
+            TemporaryRecordingFile.saveAs(root.phrase.soundFileOutputPath())
+            root.phrase.markSoundRecorded()
+        }
+    }
+
+    CaptureSession {
+        audioInput: AudioInput {
+        }
+        recorder: MediaRecorder {
+            id: recorder
+            mediaFormat {
+                audioCodec: MediaFormat.AudioCodec.Vorbis
+            }
+            outputLocation: TemporaryRecordingFile.path
         }
     }
 }

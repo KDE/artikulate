@@ -347,7 +347,7 @@ IEditableCourse *ContributorRepository::createCourse(std::shared_ptr<ILanguage> 
     auto course = EditableCourseResource::create(QUrl::fromLocalFile(path), this);
 
     Q_ASSERT(course);
-    course->setId(QUuid::createUuid().toString());
+    course->setId(QUuid::createUuid().toString(QUuid::StringFormat::WithoutBraces));
     course->setTitle(skeleton->title());
     course->setDescription(skeleton->description());
     course->setLanguage(language);

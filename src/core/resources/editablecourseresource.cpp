@@ -205,7 +205,9 @@ void EditableCourseResource::updateFrom(std::shared_ptr<ICourse> skeleton)
     for (auto skeletonUnit : skeleton->units()) {
         // find matching unit or create one
         std::shared_ptr<Unit> matchingUnit;
-        auto it = std::find_if(m_course->units().cbegin(), m_course->units().cend(), [skeletonUnit](std::shared_ptr<Unit> compareUnit) { return compareUnit->foreignId() == skeletonUnit->id(); });
+        auto it = std::find_if(m_course->units().cbegin(), m_course->units().cend(), [skeletonUnit](std::shared_ptr<Unit> compareUnit) {
+            return compareUnit->foreignId() == skeletonUnit->id();
+        });
         if (it == m_course->units().cend()) {
             // import complete unit
             auto importUnit = Unit::create();
@@ -219,7 +221,9 @@ void EditableCourseResource::updateFrom(std::shared_ptr<ICourse> skeleton)
 
         // import phrases
         for (auto skeletonPhrase : skeletonUnit->phrases()) {
-            auto it = std::find_if(matchingUnit->phrases().cbegin(), matchingUnit->phrases().cend(), [skeletonPhrase](std::shared_ptr<IPhrase> comparePhrase) { return comparePhrase->foreignId() == skeletonPhrase->id(); });
+            auto it = std::find_if(matchingUnit->phrases().cbegin(), matchingUnit->phrases().cend(), [skeletonPhrase](std::shared_ptr<IPhrase> comparePhrase) {
+                return comparePhrase->foreignId() == skeletonPhrase->id();
+            });
             if (it == matchingUnit->phrases().cend()) {
                 // import complete Phrase
                 std::shared_ptr<Phrase> importPhrase = Phrase::create();
@@ -249,9 +253,9 @@ Unit *EditableCourseResource::createUnit()
     for (auto unit : m_course->units()) {
         unitIds.append(unit->id());
     }
-    QString id = QUuid::createUuid().toString();
+    QString id = QUuid::createUuid().toString(QUuid::StringFormat::WithoutBraces);
     while (unitIds.contains(id)) {
-        id = QUuid::createUuid().toString();
+        id = QUuid::createUuid().toString(QUuid::StringFormat::WithoutBraces);
         qCWarning(ARTIKULATE_LOG) << "Unit id generator has found a collision, recreating id.";
     }
 
@@ -293,9 +297,9 @@ bool EditableCourseResource::createPhraseAfter(IPhrase *previousPhrase)
             phraseIds.append(phrase->id());
         }
     }
-    QString id = QUuid::createUuid().toString();
+    QString id = QUuid::createUuid().toString(QUuid::StringFormat::WithoutBraces);
     while (phraseIds.contains(id)) {
-        id = QUuid::createUuid().toString();
+        id = QUuid::createUuid().toString(QUuid::StringFormat::WithoutBraces);
         qCWarning(ARTIKULATE_LOG) << "Phrase id generator has found a collision, recreating id.";
     }
 

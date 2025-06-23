@@ -1,15 +1,15 @@
 // SPDX-FileCopyrightText: 2025 Andreas Cord-Landwehr <cordlandwehr@kde.org>
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-#ifndef TRAININGSOUNDFILE_H
-#define TRAININGSOUNDFILE_H
+#ifndef TEMPORARYRECORDINGFILE_H
+#define TEMPORARYRECORDINGFILE_H
 
 #include <QObject>
 #include <QQmlEngine>
 #include <QTemporaryFile>
 #include <memory>
 
-class TrainingSoundFile : public QObject
+class TemporaryRecordingFile : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
@@ -19,7 +19,7 @@ class TrainingSoundFile : public QObject
     Q_PROPERTY(bool soundAvailable READ isSoundAvailable WRITE setSoundAvailable NOTIFY soundAvailableChanged FINAL)
 
 public:
-    explicit TrainingSoundFile(QObject *parent = nullptr);
+    explicit TemporaryRecordingFile(QObject *parent = nullptr);
     QUrl path() const;
     bool isSoundAvailable() const;
     void setSoundAvailable(bool available);
@@ -29,6 +29,11 @@ public Q_SLOTS:
      * @brief clears the current file and creates a new one to be used
      */
     void iterate();
+    /**
+     * @brief save a copy of the temporary file at given location
+     * @param path local file path
+     */
+    void saveAs(const QString &path);
 
 Q_SIGNALS:
     void fileChanged();
@@ -39,4 +44,4 @@ private:
     bool m_soundAvailable{false};
 };
 
-#endif // TRAININGSOUNDFILE_H
+#endif // TEMPORARYRECORDINGFILE_H

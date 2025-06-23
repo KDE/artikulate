@@ -17,7 +17,7 @@ Kirigami.Page {
     Connections {
         target: TrainingSession
         function onPhraseChanged() {
-            TrainingSoundFile.iterate()
+            TemporaryRecordingFile.iterate()
         }
     }
 
@@ -155,8 +155,8 @@ Kirigami.Page {
                 centerIn: parent
             }
             text: i18n("Play yourself")
-            enabled: TrainingSoundFile.soundAvailable
-            source: TrainingSoundFile.path
+            enabled: TemporaryRecordingFile.soundAvailable
+            source: TemporaryRecordingFile.path
         }
     }
 }

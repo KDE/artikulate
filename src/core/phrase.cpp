@@ -7,6 +7,7 @@
 #include "artikulate_debug.h"
 #include "icourse.h"
 #include "unit.h"
+#include <QFileInfo>
 #include <QQmlEngine>
 
 Phrase::Phrase()
@@ -305,9 +306,8 @@ void Phrase::setSound(QUrl soundFile)
 QString Phrase::soundFileOutputPath() const
 {
     if (m_nativeSoundFile.isEmpty()) {
-        QString outputDir = m_unit.lock()->course()->file().path() + QLatin1Char('/');
-        // TODO take care that this is proper ASCII
-        return outputDir + id() + QStringLiteral(".ogg");
+        const QFileInfo info(m_unit.lock()->course()->file().path());
+        return info.absolutePath() + '/' + id() + QStringLiteral(".ogg");
     } else {
         return m_nativeSoundFile.toLocalFile();
     }
