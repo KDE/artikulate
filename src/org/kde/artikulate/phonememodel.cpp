@@ -1,24 +1,19 @@
-/*
-    SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "phonememodel.h"
+#include "artikulate_debug.h"
 #include "core/language.h"
 #include "core/phoneme.h"
-
-#include <QSignalMapper>
-
-#include "artikulate_debug.h"
 #include <KLocalizedString>
+#include <QSignalMapper>
 
 PhonemeModel::PhonemeModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_language(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITPhonemeChanged(int)));
+    connect(m_signalMapper, &QSignalMapper::mappedInt, this, &PhonemeModel::onPhonemeChanged);
 }
 
 QHash<int, QByteArray> PhonemeModel::roleNames() const
@@ -54,21 +49,21 @@ QVariant PhonemeModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    auto phoneme = m_language->phonemes().at(index.row());
+    const auto phoneme = m_language->phonemes().at(index.row());
 
     switch (role) {
-        case Qt::DisplayRole:
-            return !phoneme->title().isEmpty() ? QVariant(phoneme->title()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
-        case Qt::ToolTipRole:
-            return QVariant(phoneme->title());
-        case TitleRole:
-            return phoneme->title();
-        case IdRole:
-            return phoneme->id();
-        case DataRole:
-            return QVariant::fromValue<QObject *>(phoneme.get());
-        default:
-            return QVariant();
+    case Qt::DisplayRole:
+        return !phoneme->title().isEmpty() ? QVariant(phoneme->title()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
+    case Qt::ToolTipRole:
+        return QVariant(phoneme->title());
+    case TitleRole:
+        return phoneme->title();
+    case IdRole:
+        return phoneme->id();
+    case DataRole:
+        return QVariant::fromValue<QObject *>(phoneme.get());
+    default:
+        return QVariant();
     }
 }
 
@@ -86,7 +81,7 @@ int PhonemeModel::rowCount(const QModelIndex &parent) const
 
 void PhonemeModel::onPhonemeAboutToBeAdded(Phoneme *phoneme, int index)
 {
-    connect(phoneme, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
+    connect(phoneme, &Phoneme::titleChanged, m_signalMapper, qOverload<>(&QSignalMapper::map));
     beginInsertRows(QModelIndex(), index, index);
 }
 
@@ -106,7 +101,7 @@ void PhonemeModel::onPhonemesRemoved()
     endRemoveRows();
 }
 
-void PhonemeModel::Q_EMITPhonemeChanged(int row)
+void PhonemeModel::onPhonemeChanged(int row)
 {
     Q_EMIT phonemeChanged(row);
     Q_EMIT dataChanged(index(row, 0), index(row, 0));

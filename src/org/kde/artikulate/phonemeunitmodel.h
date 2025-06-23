@@ -1,7 +1,5 @@
-/*
-    SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef PHONEMEUNITMODEL_H
 #define PHONEMEUNITMODEL_H
@@ -58,7 +56,7 @@ private Q_SLOTS:
     void onUnitAdded();
     void onUnitsAboutToBeRemoved(int first, int last);
     void onUnitsRemoved();
-    void Q_EMITUnitChanged(int row);
+    void onUnitChanged(int row);
 
 private:
     void updateMappings();

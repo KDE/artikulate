@@ -1,7 +1,5 @@
-/*
-    SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "profilemodel.h"
 #include "artikulate_debug.h"
@@ -17,7 +15,7 @@ ProfileModel::ProfileModel(QObject *parent)
     , m_profileManager(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITProfileChanged(int)));
+    connect(m_signalMapper, &QSignalMapper::mappedInt, this, &ProfileModel::onProfileChanged);
 }
 
 QHash<int, QByteArray> ProfileModel::roleNames() const
@@ -110,8 +108,8 @@ int ProfileModel::rowCount(const QModelIndex &parent) const
 
 void ProfileModel::onProfileAdded(Learner *learner, int index)
 {
-    connect(learner, SIGNAL(nameChanged()), m_signalMapper, SLOT(map()));
-    connect(learner, SIGNAL(identifierChanged()), m_signalMapper, SLOT(map()));
+    connect(learner, &Learner::nameChanged, m_signalMapper, qOverload<>(&QSignalMapper::map));
+    connect(learner, &Learner::identifierChanged, m_signalMapper, qOverload<>(&QSignalMapper::map));
     beginInsertRows(QModelIndex(), index, index);
     updateMappings();
     endInsertRows();
@@ -123,7 +121,7 @@ void ProfileModel::onProfileAboutToBeRemoved(int index)
     endRemoveRows();
 }
 
-void ProfileModel::Q_EMITProfileChanged(int row)
+void ProfileModel::onProfileChanged(int row)
 {
     beginResetModel();
     endResetModel();

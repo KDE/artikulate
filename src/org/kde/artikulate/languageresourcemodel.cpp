@@ -1,15 +1,11 @@
-/*
-    SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "languageresourcemodel.h"
 #include "application.h"
+#include "artikulate_debug.h"
 #include "core/iresourcerepository.h"
 #include "core/language.h"
-
-#include "artikulate_debug.h"
 #include <KLocalizedString>
 #include <QSignalMapper>
 
@@ -19,7 +15,7 @@ LanguageResourceModel::LanguageResourceModel(QObject *parent)
     , m_view(LanguageModel::NonEmptyGhnsOnlyLanguages)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITLanguageChanged(int)));
+    connect(m_signalMapper, &QSignalMapper::mappedInt, this, &LanguageResourceModel::onLanguageChanged);
     setResourceRepository(artikulateApp->resourceRepository());
 }
 
@@ -67,22 +63,22 @@ QVariant LanguageResourceModel::data(const QModelIndex &index, int role) const
 
     ILanguage *const language = m_languages.at(index.row());
     switch (role) {
-        case Qt::DisplayRole:
-            return !language->title().isEmpty() ? QVariant(language->title()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
-        case Qt::ToolTipRole:
-            return QVariant(language->title());
-        case TitleRole:
-            return language->title();
-        case I18nTitleRole:
-            return language->i18nTitle();
-        case IdRole:
-            return language->id();
-        case DataRole:
-            return QVariant::fromValue<QObject *>(language);
-        case CourseNumberRole:
-            return m_languages.count();
-        default:
-            return QVariant();
+    case Qt::DisplayRole:
+        return !language->title().isEmpty() ? QVariant(language->title()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
+    case Qt::ToolTipRole:
+        return QVariant(language->title());
+    case TitleRole:
+        return language->title();
+    case I18nTitleRole:
+        return language->i18nTitle();
+    case IdRole:
+        return language->id();
+    case DataRole:
+        return QVariant::fromValue<QObject *>(language);
+    case CourseNumberRole:
+        return m_languages.count();
+    default:
+        return QVariant();
     }
 }
 
@@ -99,9 +95,9 @@ void LanguageResourceModel::onLanguageAboutToBeAdded(Language *language, int ind
     beginInsertRows(QModelIndex(), index, index);
     m_languages.append(language);
 
-    connect(language, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
-    connect(language, SIGNAL(phonemesChanged()), m_signalMapper, SLOT(map()));
-    connect(language, SIGNAL(phonemeGroupsChanged()), m_signalMapper, SLOT(map()));
+    connect(language, &Language::titleChanged, m_signalMapper, qOverload<>(&QSignalMapper::map));
+    connect(language, &Language::phonemesChanged, m_signalMapper, qOverload<>(&QSignalMapper::map));
+    connect(language, &Language::phonemeGroupsChanged, m_signalMapper, qOverload<>(&QSignalMapper::map));
 }
 
 void LanguageResourceModel::onLanguageAdded()
@@ -133,7 +129,7 @@ void LanguageResourceModel::onLanguageRemoved()
     endRemoveRows();
 }
 
-void LanguageResourceModel::Q_EMITLanguageChanged(int row)
+void LanguageResourceModel::onLanguageChanged(int row)
 {
     Q_EMIT languageChanged(row);
     Q_EMIT dataChanged(index(row, 0), index(row, 0));

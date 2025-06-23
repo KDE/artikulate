@@ -1,7 +1,5 @@
-/*
-    SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "phraselistmodel.h"
 #include "core/phrase.h"
@@ -14,7 +12,7 @@ PhraseListModel::PhraseListModel(QObject *parent)
     , m_unit(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITPhraseChanged(int)));
+    connect(m_signalMapper, &QSignalMapper::mappedInt, this, &PhraseListModel::onPhraseChanged);
 
     // connect all phrase number operations to single signal
     connect(this, &PhraseListModel::typeChanged, this, &PhraseListModel::countChanged);
@@ -127,9 +125,9 @@ int PhraseListModel::rowCount(const QModelIndex &parent) const
 
 void PhraseListModel::onPhraseAboutToBeAdded(std::shared_ptr<IPhrase> phrase, int index)
 {
-    connect(phrase.get(), SIGNAL(textChanged()), m_signalMapper, SLOT(map()));
-    connect(phrase.get(), SIGNAL(typeChanged()), m_signalMapper, SLOT(map()));
-    connect(phrase.get(), SIGNAL(excludedChanged()), m_signalMapper, SLOT(map()));
+    connect(phrase.get(), &Phrase::textChanged, m_signalMapper, qOverload<>(&QSignalMapper::map));
+    connect(phrase.get(), &Phrase::typeChanged, m_signalMapper, qOverload<>(&QSignalMapper::map));
+    connect(phrase.get(), &Phrase::soundChanged, m_signalMapper, qOverload<>(&QSignalMapper::map));
     beginInsertRows(QModelIndex(), index, index);
 }
 
@@ -151,7 +149,7 @@ void PhraseListModel::onPhrasesRemoved()
     Q_EMIT countChanged();
 }
 
-void PhraseListModel::Q_EMITPhraseChanged(int row)
+void PhraseListModel::onPhraseChanged(int row)
 {
     beginResetModel();
     endResetModel();

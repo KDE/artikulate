@@ -61,7 +61,7 @@ private Q_SLOTS:
     void onPhraseAdded();
     void onPhraseAboutToBeRemoved(int index);
     void onPhrasesRemoved();
-    void Q_EMITPhraseChanged(int row);
+    void onPhraseChanged(int row);
 
 private:
     void updateMappings();

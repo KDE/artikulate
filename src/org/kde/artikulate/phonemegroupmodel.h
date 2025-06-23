@@ -47,7 +47,7 @@ private Q_SLOTS:
     void onPhonemeGroupAdded();
     void onPhonemeGroupsAboutToBeRemoved(int first, int last);
     void onPhonemeGroupsRemoved();
-    void Q_EMITPhonemeGroupChanged(int row);
+    void onPhonemeGroupChanged(int row);
 
 private:
     void updateMappings();

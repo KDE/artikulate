@@ -1,25 +1,20 @@
-/*
-    SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "phonemegroupmodel.h"
+#include "artikulate_debug.h"
 #include "core/icourse.h"
 #include "core/phonemegroup.h"
 #include "core/unit.h"
-
-#include <QSignalMapper>
-
-#include "artikulate_debug.h"
 #include <KLocalizedString>
+#include <QSignalMapper>
 
 PhonemeGroupModel::PhonemeGroupModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_course(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITPhonemeGroupChanged(int)));
+    connect(m_signalMapper, &QSignalMapper::mappedInt, this, &PhonemeGroupModel::onPhonemeGroupChanged);
 }
 
 QHash<int, QByteArray> PhonemeGroupModel::roleNames() const
@@ -115,7 +110,7 @@ int PhonemeGroupModel::rowCount(const QModelIndex &parent) const
 
 void PhonemeGroupModel::onPhonemeGroupAboutToBeAdded(PhonemeGroup *phonemeGroup, int index)
 {
-    connect(phonemeGroup, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
+    connect(phonemeGroup, &PhonemeGroup::titleChanged, m_signalMapper, qOverload<>(&QSignalMapper::map));
     // TODO add missing signals
     beginInsertRows(QModelIndex(), index, index);
 }
@@ -136,7 +131,7 @@ void PhonemeGroupModel::onPhonemeGroupsRemoved()
     endRemoveRows();
 }
 
-void PhonemeGroupModel::Q_EMITPhonemeGroupChanged(int row)
+void PhonemeGroupModel::onPhonemeGroupChanged(int row)
 {
     Q_EMIT phonemeGroupChanged(row);
     Q_EMIT dataChanged(index(row, 0), index(row, 0));

@@ -1,18 +1,13 @@
-/*
-    SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2013 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "phonemeunitmodel.h"
+#include "artikulate_debug.h"
 #include "core/icourse.h"
 #include "core/phonemegroup.h"
 #include "core/unit.h"
-
-#include <QSignalMapper>
-
-#include "artikulate_debug.h"
 #include <KLocalizedString>
+#include <QSignalMapper>
 
 PhonemeUnitModel::PhonemeUnitModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -20,7 +15,7 @@ PhonemeUnitModel::PhonemeUnitModel(QObject *parent)
     , m_phonemeGroup(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITUnitChanged(int)));
+    connect(m_signalMapper, &QSignalMapper::mappedInt, this, &PhonemeUnitModel::onUnitChanged);
     connect(this, &PhonemeUnitModel::phonemeGroupChanged, this, &PhonemeUnitModel::countChanged);
     connect(this, &PhonemeUnitModel::courseChanged, this, &PhonemeUnitModel::countChanged);
 }
@@ -142,7 +137,7 @@ int PhonemeUnitModel::rowCount(const QModelIndex &parent) const
 
 void PhonemeUnitModel::onUnitAboutToBeAdded(PhonemeGroup *phonemeGroup, int index)
 {
-    connect(phonemeGroup, SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
+    connect(phonemeGroup, &PhonemeGroup::titleChanged, m_signalMapper, qOverload<>(&QSignalMapper::map));
     // TODO add missing signals
     beginInsertRows(QModelIndex(), index, index);
 }
@@ -165,7 +160,7 @@ void PhonemeUnitModel::onUnitsRemoved()
     Q_EMIT countChanged();
 }
 
-void PhonemeUnitModel::Q_EMITUnitChanged(int row)
+void PhonemeUnitModel::onUnitChanged(int row)
 {
     Q_EMIT unitChanged(row);
     Q_EMIT dataChanged(index(row, 0), index(row, 0));

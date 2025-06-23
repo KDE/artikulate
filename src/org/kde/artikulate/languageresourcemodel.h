@@ -1,7 +1,5 @@
-/*
-    SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2013-2024 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef LANGUAGERESOURCEMODEL_H
 #define LANGUAGERESOURCEMODEL_H
@@ -52,7 +50,7 @@ private Q_SLOTS:
     void onLanguageAdded();
     void onLanguageAboutToBeRemoved(int index);
     void onLanguageRemoved();
-    void Q_EMITLanguageChanged(int row);
+    void onLanguageChanged(int row);
     void updateDisplayedLanguages();
 
 private:

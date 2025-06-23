@@ -1,26 +1,21 @@
-/*
-    SPDX-FileCopyrightText: 2013-2014 Andreas Cord-Landwehr <cordlandwehr@kde.org>
-
-    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2013-2014 Andreas Cord-Landwehr <cordlandwehr@kde.org>
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "unitmodel.h"
+#include "artikulate_debug.h"
 #include "core/icourse.h"
 #include "core/language.h"
 #include "core/phrase.h"
 #include "core/unit.h"
-
-#include <QSignalMapper>
-
-#include "artikulate_debug.h"
 #include <KLocalizedString>
+#include <QSignalMapper>
 
 UnitModel::UnitModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_course(nullptr)
     , m_signalMapper(new QSignalMapper(this))
 {
-    connect(m_signalMapper, SIGNAL(mapped(int)), SLOT(Q_EMITUnitChanged(int)));
+    connect(m_signalMapper, &QSignalMapper::mappedInt, this, &UnitModel::onUnitChanged);
 }
 
 QHash<int, QByteArray> UnitModel::roleNames() const
@@ -80,25 +75,25 @@ QVariant UnitModel::data(const QModelIndex &index, int role) const
     auto unit = m_course->units().at(index.row());
 
     switch (role) {
-        case Qt::DisplayRole:
-            return !unit->title().isEmpty() ? QVariant(unit->title()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
-        case Qt::ToolTipRole:
-            return QVariant(unit->title());
-        case TitleRole:
-            return unit->title();
-        case ContainsTrainingData:
-            for (const auto &phrase : unit->phrases()) {
-                //            if (phrase->editState() == Phrase::Completed) { //TODO introduce editablephrase
-                //                return true;
-                //            }
-            }
-            return false;
-        case IdRole:
-            return unit->id();
-        case DataRole:
-            return QVariant::fromValue<QObject *>(unit.get());
-        default:
-            return QVariant();
+    case Qt::DisplayRole:
+        return !unit->title().isEmpty() ? QVariant(unit->title()) : QVariant(i18nc("@item:inlistbox:", "unknown"));
+    case Qt::ToolTipRole:
+        return QVariant(unit->title());
+    case TitleRole:
+        return unit->title();
+    case ContainsTrainingData:
+        // for (const auto &phrase : unit->phrases()) {
+        //             if (phrase->editState() == Phrase::Completed) { //TODO introduce editablephrase
+        //                 return true;
+        //             }
+        //}
+        return false;
+    case IdRole:
+        return unit->id();
+    case DataRole:
+        return QVariant::fromValue<QObject *>(unit.get());
+    default:
+        return QVariant();
     }
 }
 
@@ -117,7 +112,7 @@ int UnitModel::rowCount(const QModelIndex &parent) const
 
 void UnitModel::onUnitAboutToBeAdded(std::shared_ptr<Unit> unit, int index)
 {
-    connect(unit.get(), SIGNAL(titleChanged()), m_signalMapper, SLOT(map()));
+    connect(unit.get(), &Unit::titleChanged, m_signalMapper, qOverload<>(&QSignalMapper::map));
     // TODO add missing signals
     beginInsertRows(QModelIndex(), index, index);
 }
@@ -138,7 +133,7 @@ void UnitModel::onUnitsRemoved()
     endRemoveRows();
 }
 
-void UnitModel::Q_EMITUnitChanged(int row)
+void UnitModel::onUnitChanged(int row)
 {
     Q_EMIT unitChanged(row);
     Q_EMIT dataChanged(index(row, 0), index(row, 0));
