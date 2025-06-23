@@ -33,6 +33,7 @@ public:
     int row() const;
     std::shared_ptr<SelectionEntry> parentItem();
     std::shared_ptr<IPhrase> phrase();
+    std::shared_ptr<IUnit> unit();
 
 private:
     std::vector<std::shared_ptr<SelectionEntry>> m_childItems;

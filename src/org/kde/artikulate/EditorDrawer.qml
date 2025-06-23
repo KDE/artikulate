@@ -30,7 +30,7 @@ Kirigami.OverlayDrawer {
             root.pageStack.push(editCoursePageComponent);
         }
         onCurrentIndexChanged: (index) => {
-            phraseActionListView.currentIndex = index
+            actionListView.currentIndex = index
         }
     }
 
@@ -73,12 +73,12 @@ Kirigami.OverlayDrawer {
                 height: root.height - topContent.height - bottomContent.height
                 clip: true
                 ListView {
-                    id: phraseActionListView
+                    id: actionListView
                     model: sessionActions
                     //highlightRangeMode: ListView.ApplyRange
                     highlightFollowsCurrentItem: true
                     delegate: ActionListItem {
-                        id: phraseAction
+                        id: action
                         required property string actionText
                         required property int kDescendantLevel
                         required property bool kDescendantExpanded
@@ -86,12 +86,12 @@ Kirigami.OverlayDrawer {
                         width: courseActionScrollView.availableWidth
                         text: actionText
                         leftPadding: kDescendantLevel * 20
-                        highlighted: phraseAction.index === phraseActionListView.currentIndex
+                        highlighted: action.index === actionListView.currentIndex
                         action: QQC2.Action {
                             checkable: false
                             onTriggered: {
-                                sessionActions.trigger(phraseAction.index)
-                                phraseActionListView.currentIndex = phraseAction.index
+                                sessionActions.trigger(action.index)
+                                actionListView.currentIndex = action.index
                             }
                         }
                     }

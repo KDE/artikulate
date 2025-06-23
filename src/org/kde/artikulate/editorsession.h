@@ -79,6 +79,7 @@ private:
     bool m_editSkeleton{false};
     IEditableCourse *m_course{nullptr};
     IPhrase *m_phrase{nullptr};
+    IUnit *m_unit{nullptr};
 };
 
 #endif

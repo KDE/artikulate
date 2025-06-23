@@ -5,6 +5,7 @@
 #include "core/icourse.h"
 #include "core/phrase.h"
 #include "core/unit.h"
+#include "editorsession.h"
 #include <KLocalizedString>
 #include <QList>
 
@@ -152,6 +153,14 @@ std::shared_ptr<IPhrase> SelectionEntry::phrase()
     return std::shared_ptr<IPhrase>();
 }
 
+std::shared_ptr<IUnit> SelectionEntry::unit()
+{
+    if (m_unit.has_value()) {
+        return m_unit.value();
+    }
+    return std::shared_ptr<IUnit>();
+}
+
 void DrawerCourseTreeModel::rebuildModel()
 {
     m_rootItem = std::unique_ptr<SelectionEntry>(new SelectionEntry);
@@ -295,6 +304,12 @@ void DrawerCourseTreeModel::trigger(const QModelIndex &index)
         const auto phrase = entry->phrase();
         if (phrase) {
             m_session->setActivePhrase(phrase.get());
+        } else {
+            const auto unit = entry->unit();
+            auto editorSession = qobject_cast<EditorSession *>(m_session);
+            if (unit && editorSession) {
+                editorSession->setActiveUnit(unit.get());
+            }
         }
     }
 }

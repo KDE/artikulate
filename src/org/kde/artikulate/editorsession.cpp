@@ -61,7 +61,7 @@ void EditorSession::setCourse(IEditableCourse *course)
     m_course = course;
 
     if (m_course && m_course->units().count() > 0) {
-        setActiveUnit(m_course->units().first().get());
+        setActiveUnit(m_course->units().at(0).get());
     }
     Q_EMIT languageChanged();
     Q_EMIT courseChanged();
@@ -69,30 +69,23 @@ void EditorSession::setCourse(IEditableCourse *course)
 
 IUnit *EditorSession::activeUnit() const
 {
-    if (auto phrase = activePhrase()) {
-        return phrase->unit().get();
-    }
-    return nullptr;
+    return m_unit;
 }
 
 void EditorSession::setActiveUnit(IUnit *unit)
 {
-    // TODO also set unit without phrases
-    if (!unit) {
-        return;
-    }
-    for (const auto &phrase : unit->phrases()) {
-        if (!phrase->sound().isEmpty()) {
-            setActivePhrase(phrase.get());
-            return;
-        }
-    }
+    m_unit = unit;
+    setActivePhrase(nullptr);
+    Q_EMIT unitChanged();
 }
 
 void EditorSession::setActivePhrase(IPhrase *phrase)
 {
     if (phrase == m_phrase) {
         return;
+    }
+    if (phrase && m_unit != phrase->unit().get()) {
+        setActiveUnit(phrase->unit().get());
     }
     m_phrase = phrase;
     Q_EMIT phraseChanged();
