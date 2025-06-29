@@ -23,7 +23,7 @@ Item {
             mediaFormat {
                 audioCodec: MediaFormat.AudioCodec.Vorbis
             }
-            outputLocation: TrainingSoundFile.path
+            outputLocation: TemporaryRecordingFile.path
         }
     }
     Button {
@@ -34,10 +34,10 @@ Item {
         onClicked: {
             if (recorder.recorderState === MediaRecorder.RecordingState) {
                 recorder.stop()
-                TrainingSoundFile.soundAvailable = true
+                TemporaryRecordingFile.soundAvailable = true
             }
             else {
-                TrainingSoundFile.iterate()
+                TemporaryRecordingFile.iterate()
                 recorder.record()
             }
         }
