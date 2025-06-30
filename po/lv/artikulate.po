@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-21 00:37+0000\n"
+"POT-Creation-Date: 2025-06-30 00:37+0000\n"
 "PO-Revision-Date: 2025-05-28 16:48+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -178,7 +178,7 @@ msgstr ""
 "Izvēlieties starp „qtmultimediabackend“ un „qtgstreamerbackend“. Ja "
 "pieejams, atlasiet izpildlaikā."
 
-#: src/core/resources/editablecourseresource.cpp:262
+#: src/core/resources/editablecourseresource.cpp:266
 #, kde-format
 msgid "New Unit"
 msgstr "Jauna vienība"
@@ -195,7 +195,7 @@ msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
 msgstr "„Artikulate“ izrunas trenēšanas programma"
 
-#: src/main.cpp:33 src/main_editor.cpp:28
+#: src/main.cpp:33
 #, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
@@ -207,13 +207,13 @@ msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
 msgstr "Trenējiet savu svešvalodas izrunu"
 
-#: src/main.cpp:37 src/main_editor.cpp:31
+#: src/main.cpp:37 src/main_editor.cpp:30
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Andreas Cord-Landwehr"
 msgstr "Andreas Cord-Landwehr"
 
-#: src/main.cpp:38 src/main_editor.cpp:32
+#: src/main.cpp:38 src/main_editor.cpp:31
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Original Author"
@@ -261,19 +261,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "toms.trasuns@posteo.net"
 
-#: src/main_editor.cpp:24
+#: src/main_editor.cpp:23
 #, kde-format
 msgctxt "@title Displayed program name"
 msgid "Artikulate Editor"
 msgstr "„Artikulate“ redaktors"
 
-#: src/main_editor.cpp:26
+#: src/main_editor.cpp:25
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Course Editor"
 msgstr "„Artikulate“ kursu redaktors"
 
-#: src/main_editor.cpp:29
+#: src/main_editor.cpp:27
+#, fuzzy, kde-format
+#| msgctxt "@info:credit"
+#| msgid "(c) 2013-2022 The Artikulate Developers"
+msgctxt "@info:credit"
+msgid "(c) 2013-2025 The Artikulate Developers"
+msgstr "(c) 2013—2022 „Artikulate“ izstrādātāji"
+
+#: src/main_editor.cpp:28
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Edit Artikulate course files."
@@ -296,13 +304,13 @@ msgid "Download Training"
 msgstr "Lejupielādēt apmācību"
 
 #: src/org/kde/artikulate/ArtikulateDrawer.qml:122
-#: src/org/kde/artikulate/EditorDrawer.qml:132
+#: src/org/kde/artikulate/EditorDrawer.qml:120
 #, kde-format
 msgid "About Artikulate"
 msgstr "Par „Artikulate“"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:12
-#: src/org/kde/artikulate/EditorDrawer.qml:72
+#: src/org/kde/artikulate/EditorDrawer.qml:59
 #, kde-format
 msgid "Course Configuration"
 msgstr "Kursa konfigurācija"
@@ -363,12 +371,12 @@ msgid "Update the course with elements from prototype."
 msgstr "Atjaunināt kursu ar elementiem no prototipa."
 
 #: src/org/kde/artikulate/coursemodel.cpp:99
-#: src/org/kde/artikulate/languageresourcemodel.cpp:71
-#: src/org/kde/artikulate/phonememodel.cpp:61
-#: src/org/kde/artikulate/phraselistmodel.cpp:96
-#: src/org/kde/artikulate/profilemodel.cpp:85
+#: src/org/kde/artikulate/languageresourcemodel.cpp:67
+#: src/org/kde/artikulate/phonememodel.cpp:56
+#: src/org/kde/artikulate/phraselistmodel.cpp:94
+#: src/org/kde/artikulate/profilemodel.cpp:83
 #: src/org/kde/artikulate/skeletonmodel.cpp:96
-#: src/org/kde/artikulate/unitmodel.cpp:84
+#: src/org/kde/artikulate/unitmodel.cpp:79
 #, kde-format
 msgctxt "@item:inlistbox:"
 msgid "unknown"
@@ -380,105 +388,112 @@ msgctxt "@title:column"
 msgid "Course"
 msgstr "Kurss"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:13
+#: src/org/kde/artikulate/EditCoursePage.qml:12
 #, kde-format
 msgid "Edit Course"
 msgstr "Rediģēt kursu"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:22
+#: src/org/kde/artikulate/EditCoursePage.qml:21
 #, kde-format
 msgid "Previous"
 msgstr "Iepriekšējā"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:23
+#: src/org/kde/artikulate/EditCoursePage.qml:22
 #, kde-format
 msgid "Switch to previous phrase."
 msgstr "Pārslēgties uz iepriekšējo frāzi."
 
-#: src/org/kde/artikulate/EditCoursePage.qml:29
+#: src/org/kde/artikulate/EditCoursePage.qml:28
 #: src/org/kde/artikulate/TrainingPage.qml:45
 #, kde-format
 msgid "Next"
 msgstr "Nākamā"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:30
+#: src/org/kde/artikulate/EditCoursePage.qml:29
 #, kde-format
 msgid "Switch to next phrase."
 msgstr "Pārslēgties uz nākamo frāzi."
 
-#: src/org/kde/artikulate/EditCoursePage.qml:39
+#: src/org/kde/artikulate/EditCoursePage.qml:38
 #: src/org/kde/artikulate/ProfileUserItem.qml:70
 #: src/org/kde/artikulate/ProfileUserItem.qml:167
 #, kde-format
 msgid "Delete"
 msgstr "Dzēst"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:40
+#: src/org/kde/artikulate/EditCoursePage.qml:39
 #, kde-format
 msgid "Delete this phrase."
 msgstr "Dzēst šo frāzi."
 
-#: src/org/kde/artikulate/EditCoursePage.qml:45
+#: src/org/kde/artikulate/EditCoursePage.qml:44
 #, kde-format
 msgid "Create Phrase"
 msgstr "Izveidot frāzi"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:46
+#: src/org/kde/artikulate/EditCoursePage.qml:45
 #, kde-format
 msgid "Create phrase after current phrase."
 msgstr "Izveidot frāzi pēc pašreizējās frāzes."
 
-#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:12
-#, kde-format
-msgid "Welcome to Artikulate Course Editor"
-msgstr "Laipni lūgti „Artikulate“ kursu redaktorā"
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
+#, fuzzy, kde-format
+#| msgid "Repository Configuration"
+msgctxt "@title:page"
+msgid "Repository and course selection"
+msgstr "Krātuves konfigurācija"
 
-#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:43
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
+#, kde-format
+msgid "Repository:"
+msgstr "Krātuve:"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:28
+#, kde-format
+msgid "Change Folder"
+msgstr "Mainīt mapi"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:34
+#, kde-format
+msgid "Select Repository Folder"
+msgstr "Atlasiet krātuves mapi"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:85
 #: src/org/kde/artikulate/WelcomePage.qml:45
 #, kde-format
 msgctxt "@title:window language / course name"
 msgid "%1 / %2"
 msgstr "%1 / %2"
 
-#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:57
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Course"
 msgstr "Rediģēt kursu"
 
-#: src/org/kde/artikulate/EditorDrawer.qml:46
-#, kde-format
-msgid "Courses"
-msgstr "Kursi"
-
-#: src/org/kde/artikulate/EditorDrawer.qml:58
-#, kde-format
-msgid "Repository"
-msgstr "Krātuve"
-
-#: src/org/kde/artikulate/EditorDrawer.qml:121
-#, kde-format
-msgid "Save"
-msgstr "Saglabāt"
-
-#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:12
-#, kde-format
-msgid "Select Prototype"
-msgstr "Atlasīt prototipu"
-
-#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:43
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:145
 #, kde-format
 msgctxt "@title:window prototype name"
 msgid "%1"
 msgstr "%1"
 
-#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:57
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:159
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Prototype"
 msgstr "Rediģēt prototipu"
 
-#: src/org/kde/artikulate/languageresourcemodel.cpp:150
+#: src/org/kde/artikulate/EditorDrawer.qml:45
+#, kde-format
+msgid "Courses"
+msgstr "Kursi"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:109
+#, kde-format
+msgid "Save"
+msgstr "Saglabāt"
+
+#: src/org/kde/artikulate/languageresourcemodel.cpp:146
 #, kde-format
 msgctxt "@title:column"
 msgid "Language"
@@ -504,123 +519,109 @@ msgstr "Izteicieni"
 msgid "Paragraphs"
 msgstr "Rindkopas"
 
-#: src/org/kde/artikulate/phonemegroupmodel.cpp:153
+#: src/org/kde/artikulate/phonemegroupmodel.cpp:148
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme Group"
 msgstr "Fonēmu grupa"
 
-#: src/org/kde/artikulate/phonememodel.cpp:123
+#: src/org/kde/artikulate/phonememodel.cpp:118
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme"
 msgstr "Fonēma"
 
-#: src/org/kde/artikulate/phonemeunitmodel.cpp:182
+#: src/org/kde/artikulate/phonemeunitmodel.cpp:177
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme Unit"
 msgstr "Fonēmu vienība"
 
-#: src/org/kde/artikulate/PhraseEditor.qml:103
-#, kde-format
-msgid "Unit"
-msgstr "Vienība"
-
-#: src/org/kde/artikulate/PhraseEditor.qml:103
-#, kde-format
-msgid "Unit: "
-msgstr "Vienība: "
-
-#: src/org/kde/artikulate/PhraseEditor.qml:108
-#, kde-format
-msgid "Localized Unit:"
-msgstr "Lokalizēta vienība:"
-
-#: src/org/kde/artikulate/PhraseEditor.qml:119
-#, kde-format
-msgid "Phrase: "
-msgstr "Frāze: "
-
-#: src/org/kde/artikulate/PhraseEditor.qml:124
+#: src/org/kde/artikulate/PhraseEditor.qml:20
 #, kde-format
 msgid "Localized Phrase:"
 msgstr "Lokalizēta frāze:"
 
-#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:45
-#, kde-format
-msgid "Edit State:"
-msgstr "Rediģēšanas stāvoklis:"
+#: src/org/kde/artikulate/PhraseEditor.qml:27
+#, fuzzy, kde-format
+#| msgctxt "state"
+#| msgid "Completed"
+msgid "Complexity:"
+msgstr "Pabeigts"
 
-#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:55
+#: src/org/kde/artikulate/PhraseEditor.qml:33
+#, kde-format
+msgid "Word"
+msgstr "Vārds"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:34
+#, kde-format
+msgid "Expression"
+msgstr "Izteiciens"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:35
+#, kde-format
+msgid "Sentence"
+msgstr "Teikums"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:36
+#, kde-format
+msgid "Paragraph"
+msgstr "Rindkopa"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:41
+#, fuzzy, kde-format
+#| msgctxt "state"
+#| msgid "Translated"
+msgid "Translation State:"
+msgstr "Iztulkots"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
 msgctxt "state"
 msgid "Unknown"
 msgstr "Nezināms"
 
-#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:63
+#: src/org/kde/artikulate/PhraseEditor.qml:48
 #, kde-format
 msgctxt "state"
 msgid "Translated"
 msgstr "Iztulkots"
 
-#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:71
+#: src/org/kde/artikulate/PhraseEditor.qml:49
 #, kde-format
 msgctxt "state"
 msgid "Completed"
 msgstr "Pabeigts"
 
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:21
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:29
 #, kde-format
-msgid "Native Speaker Recording"
-msgstr "Dzimtā runātāja ieraksts"
+msgctxt "@action:button"
+msgid "Play stored recording"
+msgstr ""
 
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:31
-#, kde-format
-msgid "Existing Recording:"
-msgstr "Esošais ieraksts:"
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
+#, fuzzy, kde-format
+#| msgid "Record"
+msgctxt "@action:button"
+msgid "Record new"
+msgstr "Ierakstīt"
 
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:41
-#, kde-format
-msgid "Create New Recording:"
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
+#, fuzzy, kde-format
+#| msgid "Create New Recording:"
+msgctxt "@action:button"
+msgid "Play new recording"
 msgstr "Izveidot jaunu ierakstu:"
 
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:57
-#, kde-format
-msgid "Replace Existing Recording"
-msgstr "Aizstāt esošo ierakstu"
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
+#, fuzzy, kde-format
+#| msgid "Create New Recording:"
+msgctxt "@action:button"
+msgid "Take new recording"
+msgstr "Izveidot jaunu ierakstu:"
 
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:65
-#, kde-format
-msgid "Dismiss"
-msgstr "Noraidīt"
-
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:48
-#, kde-format
-msgid "Difficulty:"
-msgstr "Grūtības pakāpe:"
-
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:58
-#, kde-format
-msgid "Word"
-msgstr "Vārds"
-
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:65
-#, kde-format
-msgid "Expression"
-msgstr "Izteiciens"
-
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:72
-#, kde-format
-msgid "Sentence"
-msgstr "Teikums"
-
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:79
-#, kde-format
-msgid "Paragraph"
-msgstr "Rindkopa"
-
-#: src/org/kde/artikulate/phraselistmodel.cpp:172
+#: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
 #, kde-format
 msgctxt "@title:column"
@@ -637,7 +638,7 @@ msgstr "Izglītojamais"
 msgid "Favorite Languages"
 msgstr "Iecienītākās valodas"
 
-#: src/org/kde/artikulate/profilemodel.cpp:144
+#: src/org/kde/artikulate/profilemodel.cpp:142
 #, kde-format
 msgctxt "@title:column"
 msgid "Profile"
@@ -693,26 +694,6 @@ msgstr "Vai tiešām vēlaties dzēst šo identitāti „<b>%1</b>“?"
 #, kde-format
 msgid "Cancel"
 msgstr "Atcelt"
-
-#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:13
-#, kde-format
-msgid "Repository Configuration"
-msgstr "Krātuves konfigurācija"
-
-#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:18
-#, kde-format
-msgid "Select Repository Folder"
-msgstr "Atlasiet krātuves mapi"
-
-#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:29
-#, kde-format
-msgid "Repository:"
-msgstr "Krātuve:"
-
-#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:34
-#, kde-format
-msgid "Change Folder"
-msgstr "Mainīt mapi"
 
 #: src/org/kde/artikulate/skeletonmodel.cpp:155
 #, kde-format
@@ -775,7 +756,12 @@ msgstr "Ierakstīt sevi"
 msgid "Play yourself"
 msgstr "Atskaņot sevi"
 
-#: src/org/kde/artikulate/unitmodel.cpp:155
+#: src/org/kde/artikulate/UnitEditor.qml:18
+#, kde-format
+msgid "Localized Unit:"
+msgstr "Lokalizēta vienība:"
+
+#: src/org/kde/artikulate/unitmodel.cpp:150
 #, kde-format
 msgctxt "@title:column"
 msgid "Unit"
@@ -796,3 +782,39 @@ msgstr "Sākt apmācību"
 #, kde-format
 msgid "No trainings found"
 msgstr "Nav atrasta neviena apmācība"
+
+#~ msgid "Welcome to Artikulate Course Editor"
+#~ msgstr "Laipni lūgti „Artikulate“ kursu redaktorā"
+
+#~ msgid "Repository"
+#~ msgstr "Krātuve"
+
+#~ msgid "Select Prototype"
+#~ msgstr "Atlasīt prototipu"
+
+#~ msgid "Unit"
+#~ msgstr "Vienība"
+
+#~ msgid "Unit: "
+#~ msgstr "Vienība: "
+
+#~ msgid "Phrase: "
+#~ msgstr "Frāze: "
+
+#~ msgid "Edit State:"
+#~ msgstr "Rediģēšanas stāvoklis:"
+
+#~ msgid "Native Speaker Recording"
+#~ msgstr "Dzimtā runātāja ieraksts"
+
+#~ msgid "Existing Recording:"
+#~ msgstr "Esošais ieraksts:"
+
+#~ msgid "Replace Existing Recording"
+#~ msgstr "Aizstāt esošo ierakstu"
+
+#~ msgid "Dismiss"
+#~ msgstr "Noraidīt"
+
+#~ msgid "Difficulty:"
+#~ msgstr "Grūtības pakāpe:"

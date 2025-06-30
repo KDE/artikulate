@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-21 00:37+0000\n"
+"POT-Creation-Date: 2025-06-30 00:37+0000\n"
 "PO-Revision-Date: 2014-06-27 01:03+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-doc@kde.org>\n"
@@ -180,7 +180,7 @@ msgstr ""
 "Op \"qtmultimediabackend\" oder \"qtgstreamerbackend\" setten, wenn to de "
 "Looptiet verföögbor"
 
-#: src/core/resources/editablecourseresource.cpp:262
+#: src/core/resources/editablecourseresource.cpp:266
 #, kde-format
 msgid "New Unit"
 msgstr "Nieg Eenheit"
@@ -200,7 +200,7 @@ msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate - Utspraak öven"
 
-#: src/main.cpp:33 src/main_editor.cpp:28
+#: src/main.cpp:33
 #, fuzzy, kde-format
 #| msgid "Copyright (C) 2013-2014, The Artikulate Developers"
 msgctxt "@info:credit"
@@ -213,14 +213,14 @@ msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
 msgstr ""
 
-#: src/main.cpp:37 src/main_editor.cpp:31
+#: src/main.cpp:37 src/main_editor.cpp:30
 #, fuzzy, kde-format
 #| msgid "Andreas Cord-Landwehr"
 msgctxt "@info:credit Developer name"
 msgid "Andreas Cord-Landwehr"
 msgstr "Andreas Cord-Landwehr"
 
-#: src/main.cpp:38 src/main_editor.cpp:32
+#: src/main.cpp:38 src/main_editor.cpp:31
 #, fuzzy, kde-format
 #| msgid "Original Author"
 msgctxt "@info:credit Role"
@@ -274,14 +274,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "m.j.wiese@web.de"
 
-#: src/main_editor.cpp:24
+#: src/main_editor.cpp:23
 #, fuzzy, kde-format
 #| msgid "Close Editor"
 msgctxt "@title Displayed program name"
 msgid "Artikulate Editor"
 msgstr "Editor tomaken"
 
-#: src/main_editor.cpp:26
+#: src/main_editor.cpp:25
 #, fuzzy, kde-format
 #| msgctxt "@option:check"
 #| msgid "Course Editor mode"
@@ -289,7 +289,14 @@ msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Course Editor"
 msgstr "Lex-Editor-Bedrief"
 
-#: src/main_editor.cpp:29
+#: src/main_editor.cpp:27
+#, fuzzy, kde-format
+#| msgid "Copyright (C) 2013-2014, The Artikulate Developers"
+msgctxt "@info:credit"
+msgid "(c) 2013-2025 The Artikulate Developers"
+msgstr "Copyright © 2013-2014: De Schrieverslüüd vun \"Artikulate\""
+
+#: src/main_editor.cpp:28
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Edit Artikulate course files."
@@ -314,7 +321,7 @@ msgid "Download Training"
 msgstr "Lehren anfangen"
 
 #: src/org/kde/artikulate/ArtikulateDrawer.qml:122
-#: src/org/kde/artikulate/EditorDrawer.qml:132
+#: src/org/kde/artikulate/EditorDrawer.qml:120
 #, fuzzy, kde-format
 #| msgctxt "@item:inmenu"
 #| msgid "Configure Artikulate"
@@ -322,7 +329,7 @@ msgid "About Artikulate"
 msgstr "Artikulate instellen"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:12
-#: src/org/kde/artikulate/EditorDrawer.qml:72
+#: src/org/kde/artikulate/EditorDrawer.qml:59
 #, fuzzy, kde-format
 #| msgid "Course Contributor Repository:"
 msgid "Course Configuration"
@@ -388,12 +395,12 @@ msgid "Update the course with elements from prototype."
 msgstr ""
 
 #: src/org/kde/artikulate/coursemodel.cpp:99
-#: src/org/kde/artikulate/languageresourcemodel.cpp:71
-#: src/org/kde/artikulate/phonememodel.cpp:61
-#: src/org/kde/artikulate/phraselistmodel.cpp:96
-#: src/org/kde/artikulate/profilemodel.cpp:85
+#: src/org/kde/artikulate/languageresourcemodel.cpp:67
+#: src/org/kde/artikulate/phonememodel.cpp:56
+#: src/org/kde/artikulate/phraselistmodel.cpp:94
+#: src/org/kde/artikulate/profilemodel.cpp:83
 #: src/org/kde/artikulate/skeletonmodel.cpp:96
-#: src/org/kde/artikulate/unitmodel.cpp:84
+#: src/org/kde/artikulate/unitmodel.cpp:79
 #, kde-format
 msgctxt "@item:inlistbox:"
 msgid "unknown"
@@ -405,73 +412,89 @@ msgctxt "@title:column"
 msgid "Course"
 msgstr "Lex"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:13
+#: src/org/kde/artikulate/EditCoursePage.qml:12
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Course"
 msgid "Edit Course"
 msgstr "Lex"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:22
+#: src/org/kde/artikulate/EditCoursePage.qml:21
 #, kde-format
 msgid "Previous"
 msgstr ""
 
-#: src/org/kde/artikulate/EditCoursePage.qml:23
+#: src/org/kde/artikulate/EditCoursePage.qml:22
 #, kde-format
 msgid "Switch to previous phrase."
 msgstr ""
 
-#: src/org/kde/artikulate/EditCoursePage.qml:29
+#: src/org/kde/artikulate/EditCoursePage.qml:28
 #: src/org/kde/artikulate/TrainingPage.qml:45
 #, kde-format
 msgid "Next"
 msgstr ""
 
-#: src/org/kde/artikulate/EditCoursePage.qml:30
+#: src/org/kde/artikulate/EditCoursePage.qml:29
 #, kde-format
 msgid "Switch to next phrase."
 msgstr ""
 
-#: src/org/kde/artikulate/EditCoursePage.qml:39
+#: src/org/kde/artikulate/EditCoursePage.qml:38
 #: src/org/kde/artikulate/ProfileUserItem.qml:70
 #: src/org/kde/artikulate/ProfileUserItem.qml:167
 #, kde-format
 msgid "Delete"
 msgstr "Wegmaken"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:40
+#: src/org/kde/artikulate/EditCoursePage.qml:39
 #, fuzzy, kde-format
 #| msgid "Delete"
 msgid "Delete this phrase."
 msgstr "Wegmaken"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:45
+#: src/org/kde/artikulate/EditCoursePage.qml:44
 #, fuzzy, kde-format
 #| msgid "Create New Course"
 msgid "Create Phrase"
 msgstr "Nieg Lex opstellen"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:46
+#: src/org/kde/artikulate/EditCoursePage.qml:45
 #, kde-format
 msgid "Create phrase after current phrase."
 msgstr ""
 
-#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:12
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Course Editor mode"
-msgid "Welcome to Artikulate Course Editor"
-msgstr "Lex-Editor-Bedrief"
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
+#, kde-format
+msgctxt "@title:page"
+msgid "Repository and course selection"
+msgstr ""
 
-#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:43
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
+#, fuzzy, kde-format
+#| msgid "Course Contributor Repository:"
+msgid "Repository:"
+msgstr "Lex-Bidreger-Archiev:"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:28
+#, fuzzy, kde-format
+#| msgid "Change Image"
+msgid "Change Folder"
+msgstr "Bild ännern"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:34
+#, kde-format
+msgid "Select Repository Folder"
+msgstr ""
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:85
 #: src/org/kde/artikulate/WelcomePage.qml:45
 #, kde-format
 msgctxt "@title:window language / course name"
 msgid "%1 / %2"
 msgstr ""
 
-#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:57
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:99
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Course"
@@ -479,44 +502,32 @@ msgctxt "@action:button"
 msgid "Edit Course"
 msgstr "Lex"
 
-#: src/org/kde/artikulate/EditorDrawer.qml:46
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Course"
-msgid "Courses"
-msgstr "Lex"
-
-#: src/org/kde/artikulate/EditorDrawer.qml:58
-#, fuzzy, kde-format
-#| msgid "No Course Repository Selected"
-msgid "Repository"
-msgstr "Keen Lex-Archiev utsöcht"
-
-#: src/org/kde/artikulate/EditorDrawer.qml:121
-#, kde-format
-msgid "Save"
-msgstr ""
-
-#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:12
-#, fuzzy, kde-format
-#| msgid "Edit State:"
-msgid "Select Prototype"
-msgstr "Bewerkentostand:"
-
-#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:43
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:145
 #, kde-format
 msgctxt "@title:window prototype name"
 msgid "%1"
 msgstr ""
 
-#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:57
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:159
 #, fuzzy, kde-format
 #| msgid "Edit State:"
 msgctxt "@action:button"
 msgid "Edit Prototype"
 msgstr "Bewerkentostand:"
 
-#: src/org/kde/artikulate/languageresourcemodel.cpp:150
+#: src/org/kde/artikulate/EditorDrawer.qml:45
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Course"
+msgid "Courses"
+msgstr "Lex"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:109
+#, kde-format
+msgid "Save"
+msgstr ""
+
+#: src/org/kde/artikulate/languageresourcemodel.cpp:146
 #, kde-format
 msgctxt "@title:column"
 msgid "Language"
@@ -542,132 +553,110 @@ msgstr "Utdrück"
 msgid "Paragraphs"
 msgstr "Afsnitten"
 
-#: src/org/kde/artikulate/phonemegroupmodel.cpp:153
+#: src/org/kde/artikulate/phonemegroupmodel.cpp:148
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme Group"
 msgstr "Phoneem-Koppel"
 
-#: src/org/kde/artikulate/phonememodel.cpp:123
+#: src/org/kde/artikulate/phonememodel.cpp:118
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme"
 msgstr "Phoneem"
 
-#: src/org/kde/artikulate/phonemeunitmodel.cpp:182
+#: src/org/kde/artikulate/phonemeunitmodel.cpp:177
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme Unit"
 msgstr "Phoneem-Eenheit"
 
-#: src/org/kde/artikulate/PhraseEditor.qml:103
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Unit"
-msgid "Unit"
-msgstr "Eenheit"
-
-#: src/org/kde/artikulate/PhraseEditor.qml:103
-#, kde-format
-msgid "Unit: "
-msgstr "Eenheit: "
-
-#: src/org/kde/artikulate/PhraseEditor.qml:108
-#, kde-format
-msgid "Localized Unit:"
-msgstr ""
-
-#: src/org/kde/artikulate/PhraseEditor.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Phrase"
-msgid "Phrase: "
-msgstr "Seggwies"
-
-#: src/org/kde/artikulate/PhraseEditor.qml:124
+#: src/org/kde/artikulate/PhraseEditor.qml:20
 #, fuzzy, kde-format
 #| msgid "Original Phrase:"
 msgid "Localized Phrase:"
 msgstr "Orginaaltext:"
 
-#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:45
-#, kde-format
-msgid "Edit State:"
-msgstr "Bewerkentostand:"
+#: src/org/kde/artikulate/PhraseEditor.qml:27
+#, fuzzy, kde-format
+#| msgid "Completed"
+msgid "Complexity:"
+msgstr "Afslaten"
 
-#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:55
+#: src/org/kde/artikulate/PhraseEditor.qml:33
+#, kde-format
+msgid "Word"
+msgstr "Woort"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:34
+#, kde-format
+msgid "Expression"
+msgstr "Utdruck"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:35
+#, kde-format
+msgid "Sentence"
+msgstr "Satz"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:36
+#, kde-format
+msgid "Paragraph"
+msgstr "Afsnitt"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:41
+#, fuzzy, kde-format
+#| msgid "Translated"
+msgid "Translation State:"
+msgstr "Översett"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:47
 #, fuzzy, kde-format
 #| msgid "Unknown"
 msgctxt "state"
 msgid "Unknown"
 msgstr "Nich begäng"
 
-#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:63
+#: src/org/kde/artikulate/PhraseEditor.qml:48
 #, fuzzy, kde-format
 #| msgid "Translated"
 msgctxt "state"
 msgid "Translated"
 msgstr "Översett"
 
-#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:71
+#: src/org/kde/artikulate/PhraseEditor.qml:49
 #, fuzzy, kde-format
 #| msgid "Completed"
 msgctxt "state"
 msgid "Completed"
 msgstr "Afslaten"
 
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:21
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:29
 #, kde-format
-msgid "Native Speaker Recording"
-msgstr "Moderspraak-Opnahm"
-
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:31
-#, kde-format
-msgid "Existing Recording:"
-msgstr "Vörhannen Opnahm:"
-
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:41
-#, kde-format
-msgid "Create New Recording:"
-msgstr "Nieg Opnahm opstellen:"
-
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:57
-#, fuzzy, kde-format
-#| msgid "Replace existing recording"
-msgid "Replace Existing Recording"
-msgstr "Vörhannen Opnahm utwesseln"
-
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:65
-#, kde-format
-msgid "Dismiss"
-msgstr "Wegdoon"
-
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:48
-#, kde-format
-msgid "Difficulty:"
+msgctxt "@action:button"
+msgid "Play stored recording"
 msgstr ""
 
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:58
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
 #, kde-format
-msgid "Word"
-msgstr "Woort"
+msgctxt "@action:button"
+msgid "Record new"
+msgstr ""
 
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:65
-#, kde-format
-msgid "Expression"
-msgstr "Utdruck"
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
+#, fuzzy, kde-format
+#| msgid "Create New Recording:"
+msgctxt "@action:button"
+msgid "Play new recording"
+msgstr "Nieg Opnahm opstellen:"
 
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:72
-#, kde-format
-msgid "Sentence"
-msgstr "Satz"
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
+#, fuzzy, kde-format
+#| msgid "Create New Recording:"
+msgctxt "@action:button"
+msgid "Take new recording"
+msgstr "Nieg Opnahm opstellen:"
 
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:79
-#, kde-format
-msgid "Paragraph"
-msgstr "Afsnitt"
-
-#: src/org/kde/artikulate/phraselistmodel.cpp:172
+#: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
 #, kde-format
 msgctxt "@title:column"
@@ -684,7 +673,7 @@ msgstr "Bruker"
 msgid "Favorite Languages"
 msgstr "Vörtrocken Spraken"
 
-#: src/org/kde/artikulate/profilemodel.cpp:144
+#: src/org/kde/artikulate/profilemodel.cpp:142
 #, kde-format
 msgctxt "@title:column"
 msgid "Profile"
@@ -743,28 +732,6 @@ msgstr "Wullt Du de Identiteet \"<b>%1</b>\" redig wegdoon?"
 #, kde-format
 msgid "Cancel"
 msgstr "Afbreken"
-
-#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:13
-#, kde-format
-msgid "Repository Configuration"
-msgstr ""
-
-#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:18
-#, kde-format
-msgid "Select Repository Folder"
-msgstr ""
-
-#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:29
-#, fuzzy, kde-format
-#| msgid "Course Contributor Repository:"
-msgid "Repository:"
-msgstr "Lex-Bidreger-Archiev:"
-
-#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:34
-#, fuzzy, kde-format
-#| msgid "Change Image"
-msgid "Change Folder"
-msgstr "Bild ännern"
 
 #: src/org/kde/artikulate/skeletonmodel.cpp:155
 #, kde-format
@@ -827,7 +794,12 @@ msgstr ""
 msgid "Play yourself"
 msgstr ""
 
-#: src/org/kde/artikulate/unitmodel.cpp:155
+#: src/org/kde/artikulate/UnitEditor.qml:18
+#, kde-format
+msgid "Localized Unit:"
+msgstr ""
+
+#: src/org/kde/artikulate/unitmodel.cpp:150
 #, kde-format
 msgctxt "@title:column"
 msgid "Unit"
@@ -851,6 +823,54 @@ msgstr "Lehren anfangen"
 #, kde-format
 msgid "No trainings found"
 msgstr ""
+
+#, fuzzy
+#~| msgctxt "@option:check"
+#~| msgid "Course Editor mode"
+#~ msgid "Welcome to Artikulate Course Editor"
+#~ msgstr "Lex-Editor-Bedrief"
+
+#, fuzzy
+#~| msgid "No Course Repository Selected"
+#~ msgid "Repository"
+#~ msgstr "Keen Lex-Archiev utsöcht"
+
+#, fuzzy
+#~| msgid "Edit State:"
+#~ msgid "Select Prototype"
+#~ msgstr "Bewerkentostand:"
+
+#, fuzzy
+#~| msgctxt "@title:column"
+#~| msgid "Unit"
+#~ msgid "Unit"
+#~ msgstr "Eenheit"
+
+#~ msgid "Unit: "
+#~ msgstr "Eenheit: "
+
+#, fuzzy
+#~| msgctxt "@title:column"
+#~| msgid "Phrase"
+#~ msgid "Phrase: "
+#~ msgstr "Seggwies"
+
+#~ msgid "Edit State:"
+#~ msgstr "Bewerkentostand:"
+
+#~ msgid "Native Speaker Recording"
+#~ msgstr "Moderspraak-Opnahm"
+
+#~ msgid "Existing Recording:"
+#~ msgstr "Vörhannen Opnahm:"
+
+#, fuzzy
+#~| msgid "Replace existing recording"
+#~ msgid "Replace Existing Recording"
+#~ msgstr "Vörhannen Opnahm utwesseln"
+
+#~ msgid "Dismiss"
+#~ msgstr "Wegdoon"
 
 #, fuzzy
 #~| msgid "Please select a language."

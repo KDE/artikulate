@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-21 00:37+0000\n"
+"POT-Creation-Date: 2025-06-30 00:37+0000\n"
 "PO-Revision-Date: 2023-12-26 22:05+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -178,7 +178,7 @@ msgstr ""
 "執行期可以選擇的話，請設定為 'qtmultimediabackend' 或是 "
 "'qtgstreamerbackend'。"
 
-#: src/core/resources/editablecourseresource.cpp:262
+#: src/core/resources/editablecourseresource.cpp:266
 #, kde-format
 msgid "New Unit"
 msgstr "新單位"
@@ -195,7 +195,7 @@ msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate 發音訓練師"
 
-#: src/main.cpp:33 src/main_editor.cpp:28
+#: src/main.cpp:33
 #, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
@@ -207,13 +207,13 @@ msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
 msgstr "訓練您的外語發音。"
 
-#: src/main.cpp:37 src/main_editor.cpp:31
+#: src/main.cpp:37 src/main_editor.cpp:30
 #, kde-format
 msgctxt "@info:credit Developer name"
 msgid "Andreas Cord-Landwehr"
 msgstr "Andreas Cord-Landwehr"
 
-#: src/main.cpp:38 src/main_editor.cpp:32
+#: src/main.cpp:38 src/main_editor.cpp:31
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Original Author"
@@ -261,19 +261,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "franklin@nospam.goodhorse.idv.tw"
 
-#: src/main_editor.cpp:24
+#: src/main_editor.cpp:23
 #, kde-format
 msgctxt "@title Displayed program name"
 msgid "Artikulate Editor"
 msgstr "Artikulate 編輯器"
 
-#: src/main_editor.cpp:26
+#: src/main_editor.cpp:25
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Course Editor"
 msgstr "Artikulate 課程編輯器"
 
-#: src/main_editor.cpp:29
+#: src/main_editor.cpp:27
+#, fuzzy, kde-format
+#| msgctxt "@info:credit"
+#| msgid "(c) 2013-2022 The Artikulate Developers"
+msgctxt "@info:credit"
+msgid "(c) 2013-2025 The Artikulate Developers"
+msgstr "(c) 2013-2022 Artikulate 開發團隊"
+
+#: src/main_editor.cpp:28
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Edit Artikulate course files."
@@ -296,13 +304,13 @@ msgid "Download Training"
 msgstr "下載訓練課程"
 
 #: src/org/kde/artikulate/ArtikulateDrawer.qml:122
-#: src/org/kde/artikulate/EditorDrawer.qml:132
+#: src/org/kde/artikulate/EditorDrawer.qml:120
 #, kde-format
 msgid "About Artikulate"
 msgstr "關於 Artikulate"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:12
-#: src/org/kde/artikulate/EditorDrawer.qml:72
+#: src/org/kde/artikulate/EditorDrawer.qml:59
 #, kde-format
 msgid "Course Configuration"
 msgstr "課程設定"
@@ -363,12 +371,12 @@ msgid "Update the course with elements from prototype."
 msgstr "從原型的元素更新課程。"
 
 #: src/org/kde/artikulate/coursemodel.cpp:99
-#: src/org/kde/artikulate/languageresourcemodel.cpp:71
-#: src/org/kde/artikulate/phonememodel.cpp:61
-#: src/org/kde/artikulate/phraselistmodel.cpp:96
-#: src/org/kde/artikulate/profilemodel.cpp:85
+#: src/org/kde/artikulate/languageresourcemodel.cpp:67
+#: src/org/kde/artikulate/phonememodel.cpp:56
+#: src/org/kde/artikulate/phraselistmodel.cpp:94
+#: src/org/kde/artikulate/profilemodel.cpp:83
 #: src/org/kde/artikulate/skeletonmodel.cpp:96
-#: src/org/kde/artikulate/unitmodel.cpp:84
+#: src/org/kde/artikulate/unitmodel.cpp:79
 #, kde-format
 msgctxt "@item:inlistbox:"
 msgid "unknown"
@@ -380,105 +388,112 @@ msgctxt "@title:column"
 msgid "Course"
 msgstr "課程"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:13
+#: src/org/kde/artikulate/EditCoursePage.qml:12
 #, kde-format
 msgid "Edit Course"
 msgstr "編輯課程"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:22
+#: src/org/kde/artikulate/EditCoursePage.qml:21
 #, kde-format
 msgid "Previous"
 msgstr "上一個"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:23
+#: src/org/kde/artikulate/EditCoursePage.qml:22
 #, kde-format
 msgid "Switch to previous phrase."
 msgstr "切換到上一個片語。"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:29
+#: src/org/kde/artikulate/EditCoursePage.qml:28
 #: src/org/kde/artikulate/TrainingPage.qml:45
 #, kde-format
 msgid "Next"
 msgstr "下一個"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:30
+#: src/org/kde/artikulate/EditCoursePage.qml:29
 #, kde-format
 msgid "Switch to next phrase."
 msgstr "切換到下一個片語。"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:39
+#: src/org/kde/artikulate/EditCoursePage.qml:38
 #: src/org/kde/artikulate/ProfileUserItem.qml:70
 #: src/org/kde/artikulate/ProfileUserItem.qml:167
 #, kde-format
 msgid "Delete"
 msgstr "刪除"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:40
+#: src/org/kde/artikulate/EditCoursePage.qml:39
 #, kde-format
 msgid "Delete this phrase."
 msgstr "刪除此片語。"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:45
+#: src/org/kde/artikulate/EditCoursePage.qml:44
 #, kde-format
 msgid "Create Phrase"
 msgstr "建立片語"
 
-#: src/org/kde/artikulate/EditCoursePage.qml:46
+#: src/org/kde/artikulate/EditCoursePage.qml:45
 #, kde-format
 msgid "Create phrase after current phrase."
 msgstr "在目前片語後方建立新片語。"
 
-#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:12
-#, kde-format
-msgid "Welcome to Artikulate Course Editor"
-msgstr "歡迎來到 Artikulate 課程編輯器"
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
+#, fuzzy, kde-format
+#| msgid "Repository Configuration"
+msgctxt "@title:page"
+msgid "Repository and course selection"
+msgstr "儲存庫設定"
 
-#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:43
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
+#, kde-format
+msgid "Repository:"
+msgstr "儲存庫："
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:28
+#, kde-format
+msgid "Change Folder"
+msgstr "變更資料夾"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:34
+#, kde-format
+msgid "Select Repository Folder"
+msgstr "選擇儲存庫資料夾"
+
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:85
 #: src/org/kde/artikulate/WelcomePage.qml:45
 #, kde-format
 msgctxt "@title:window language / course name"
 msgid "%1 / %2"
 msgstr "%1/%2"
 
-#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:57
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Course"
 msgstr "編輯課程"
 
-#: src/org/kde/artikulate/EditorDrawer.qml:46
-#, kde-format
-msgid "Courses"
-msgstr "課程"
-
-#: src/org/kde/artikulate/EditorDrawer.qml:58
-#, kde-format
-msgid "Repository"
-msgstr "儲存庫"
-
-#: src/org/kde/artikulate/EditorDrawer.qml:121
-#, kde-format
-msgid "Save"
-msgstr "儲存"
-
-#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:12
-#, kde-format
-msgid "Select Prototype"
-msgstr "選擇原型"
-
-#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:43
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:145
 #, kde-format
 msgctxt "@title:window prototype name"
 msgid "%1"
 msgstr "%1"
 
-#: src/org/kde/artikulate/EditorSkeletonSelectionPage.qml:57
+#: src/org/kde/artikulate/EditorCourseSelectionPage.qml:159
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Prototype"
 msgstr "編輯原型"
 
-#: src/org/kde/artikulate/languageresourcemodel.cpp:150
+#: src/org/kde/artikulate/EditorDrawer.qml:45
+#, kde-format
+msgid "Courses"
+msgstr "課程"
+
+#: src/org/kde/artikulate/EditorDrawer.qml:109
+#, kde-format
+msgid "Save"
+msgstr "儲存"
+
+#: src/org/kde/artikulate/languageresourcemodel.cpp:146
 #, kde-format
 msgctxt "@title:column"
 msgid "Language"
@@ -504,123 +519,109 @@ msgstr "表示式"
 msgid "Paragraphs"
 msgstr "段落"
 
-#: src/org/kde/artikulate/phonemegroupmodel.cpp:153
+#: src/org/kde/artikulate/phonemegroupmodel.cpp:148
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme Group"
 msgstr "音位群組"
 
-#: src/org/kde/artikulate/phonememodel.cpp:123
+#: src/org/kde/artikulate/phonememodel.cpp:118
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme"
 msgstr "音位"
 
-#: src/org/kde/artikulate/phonemeunitmodel.cpp:182
+#: src/org/kde/artikulate/phonemeunitmodel.cpp:177
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme Unit"
 msgstr "音位單位"
 
-#: src/org/kde/artikulate/PhraseEditor.qml:103
-#, kde-format
-msgid "Unit"
-msgstr "單元"
-
-#: src/org/kde/artikulate/PhraseEditor.qml:103
-#, kde-format
-msgid "Unit: "
-msgstr "單元："
-
-#: src/org/kde/artikulate/PhraseEditor.qml:108
-#, kde-format
-msgid "Localized Unit:"
-msgstr "翻譯後單元："
-
-#: src/org/kde/artikulate/PhraseEditor.qml:119
-#, kde-format
-msgid "Phrase: "
-msgstr "片語："
-
-#: src/org/kde/artikulate/PhraseEditor.qml:124
+#: src/org/kde/artikulate/PhraseEditor.qml:20
 #, kde-format
 msgid "Localized Phrase:"
 msgstr "翻譯後片語："
 
-#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:45
-#, kde-format
-msgid "Edit State:"
-msgstr "編輯模式："
+#: src/org/kde/artikulate/PhraseEditor.qml:27
+#, fuzzy, kde-format
+#| msgctxt "state"
+#| msgid "Completed"
+msgid "Complexity:"
+msgstr "已完成"
 
-#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:55
+#: src/org/kde/artikulate/PhraseEditor.qml:33
+#, kde-format
+msgid "Word"
+msgstr "單字"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:34
+#, kde-format
+msgid "Expression"
+msgstr "表示式"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:35
+#, kde-format
+msgid "Sentence"
+msgstr "句子"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:36
+#, kde-format
+msgid "Paragraph"
+msgstr "段落"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:41
+#, fuzzy, kde-format
+#| msgctxt "state"
+#| msgid "Translated"
+msgid "Translation State:"
+msgstr "已翻譯"
+
+#: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
 msgctxt "state"
 msgid "Unknown"
 msgstr "未知"
 
-#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:63
+#: src/org/kde/artikulate/PhraseEditor.qml:48
 #, kde-format
 msgctxt "state"
 msgid "Translated"
 msgstr "已翻譯"
 
-#: src/org/kde/artikulate/PhraseEditorEditStateComponent.qml:71
+#: src/org/kde/artikulate/PhraseEditor.qml:49
 #, kde-format
 msgctxt "state"
 msgid "Completed"
 msgstr "已完成"
 
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:21
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:29
 #, kde-format
-msgid "Native Speaker Recording"
-msgstr "原生講者錄音"
+msgctxt "@action:button"
+msgid "Play stored recording"
+msgstr ""
 
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:31
-#, kde-format
-msgid "Existing Recording:"
-msgstr "現有的錄音："
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
+#, fuzzy, kde-format
+#| msgid "Record"
+msgctxt "@action:button"
+msgid "Record new"
+msgstr "紀錄"
 
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:41
-#, kde-format
-msgid "Create New Recording:"
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
+#, fuzzy, kde-format
+#| msgid "Create New Recording:"
+msgctxt "@action:button"
+msgid "Play new recording"
 msgstr "建立新錄音："
 
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:57
-#, kde-format
-msgid "Replace Existing Recording"
-msgstr "取代現有的錄音"
+#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
+#, fuzzy, kde-format
+#| msgid "Create New Recording:"
+msgctxt "@action:button"
+msgid "Take new recording"
+msgstr "建立新錄音："
 
-#: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:65
-#, kde-format
-msgid "Dismiss"
-msgstr "解除"
-
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:48
-#, kde-format
-msgid "Difficulty:"
-msgstr "困難度："
-
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:58
-#, kde-format
-msgid "Word"
-msgstr "單字"
-
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:65
-#, kde-format
-msgid "Expression"
-msgstr "表示式"
-
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:72
-#, kde-format
-msgid "Sentence"
-msgstr "句子"
-
-#: src/org/kde/artikulate/PhraseEditorTypeComponent.qml:79
-#, kde-format
-msgid "Paragraph"
-msgstr "段落"
-
-#: src/org/kde/artikulate/phraselistmodel.cpp:172
+#: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
 #, kde-format
 msgctxt "@title:column"
@@ -637,7 +638,7 @@ msgstr "學生"
 msgid "Favorite Languages"
 msgstr "最喜愛的語言"
 
-#: src/org/kde/artikulate/profilemodel.cpp:144
+#: src/org/kde/artikulate/profilemodel.cpp:142
 #, kde-format
 msgctxt "@title:column"
 msgid "Profile"
@@ -693,26 +694,6 @@ msgstr "您確定要刪除此身份 <b>%1</b> 嗎？"
 #, kde-format
 msgid "Cancel"
 msgstr "取消"
-
-#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:13
-#, kde-format
-msgid "Repository Configuration"
-msgstr "儲存庫設定"
-
-#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:18
-#, kde-format
-msgid "Select Repository Folder"
-msgstr "選擇儲存庫資料夾"
-
-#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:29
-#, kde-format
-msgid "Repository:"
-msgstr "儲存庫："
-
-#: src/org/kde/artikulate/RepositoryConfigurationPage.qml:34
-#, kde-format
-msgid "Change Folder"
-msgstr "變更資料夾"
 
 #: src/org/kde/artikulate/skeletonmodel.cpp:155
 #, kde-format
@@ -775,7 +756,12 @@ msgstr "自己錄音"
 msgid "Play yourself"
 msgstr "自己遊玩"
 
-#: src/org/kde/artikulate/unitmodel.cpp:155
+#: src/org/kde/artikulate/UnitEditor.qml:18
+#, kde-format
+msgid "Localized Unit:"
+msgstr "翻譯後單元："
+
+#: src/org/kde/artikulate/unitmodel.cpp:150
 #, kde-format
 msgctxt "@title:column"
 msgid "Unit"
@@ -796,6 +782,42 @@ msgstr "開始訓練"
 #, kde-format
 msgid "No trainings found"
 msgstr "找不到訓練課程"
+
+#~ msgid "Welcome to Artikulate Course Editor"
+#~ msgstr "歡迎來到 Artikulate 課程編輯器"
+
+#~ msgid "Repository"
+#~ msgstr "儲存庫"
+
+#~ msgid "Select Prototype"
+#~ msgstr "選擇原型"
+
+#~ msgid "Unit"
+#~ msgstr "單元"
+
+#~ msgid "Unit: "
+#~ msgstr "單元："
+
+#~ msgid "Phrase: "
+#~ msgstr "片語："
+
+#~ msgid "Edit State:"
+#~ msgstr "編輯模式："
+
+#~ msgid "Native Speaker Recording"
+#~ msgstr "原生講者錄音"
+
+#~ msgid "Existing Recording:"
+#~ msgstr "現有的錄音："
+
+#~ msgid "Replace Existing Recording"
+#~ msgstr "取代現有的錄音"
+
+#~ msgid "Dismiss"
+#~ msgstr "解除"
+
+#~ msgid "Difficulty:"
+#~ msgstr "困難度："
 
 #~ msgid "Please select a course"
 #~ msgstr "請選擇課程"
