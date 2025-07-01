@@ -783,39 +783,3 @@ msgstr "Start øving"
 #, kde-format
 msgid "No trainings found"
 msgstr "Fann inga opplæring"
-
-#~ msgid "Welcome to Artikulate Course Editor"
-#~ msgstr "Velkommen til Artikulate kursredigering"
-
-#~ msgid "Repository"
-#~ msgstr "Kurslager"
-
-#~ msgid "Select Prototype"
-#~ msgstr "Vel prototype"
-
-#~ msgid "Unit"
-#~ msgstr "Eining"
-
-#~ msgid "Unit: "
-#~ msgstr "Eining: "
-
-#~ msgid "Phrase: "
-#~ msgstr "Frase: "
-
-#~ msgid "Edit State:"
-#~ msgstr "Rediger tilstand:"
-
-#~ msgid "Native Speaker Recording"
-#~ msgstr "Opptak frå morsmålstalar"
-
-#~ msgid "Existing Recording:"
-#~ msgstr "Eksisterande opptak:"
-
-#~ msgid "Replace Existing Recording"
-#~ msgstr "Byt ut eksisterande opptak"
-
-#~ msgid "Dismiss"
-#~ msgstr "Lukk"
-
-#~ msgid "Difficulty:"
-#~ msgstr "Vanskegrad:"

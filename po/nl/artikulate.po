@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Freek de Kruijf <freek@opensuse.org>, 2014, 2015, 2016, 2017, 2019, 2020, 2022, 2023.
+# SPDX-FileCopyrightText: 2014, 2015, 2016, 2017, 2019, 2020, 2022, 2023, 2025 Freek de Kruijf <freek@opensuse.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:37+0000\n"
-"PO-Revision-Date: 2023-06-28 10:15+0200\n"
+"PO-Revision-Date: 2025-06-30 18:11+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -273,12 +273,10 @@ msgid "Artikulate Course Editor"
 msgstr "Artikulate lessenbewerker"
 
 #: src/main_editor.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2022 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr "(C) 2013-2022, de ontwikkelaars van Artikulate"
+msgstr "(C) 2013-2025, de ontwikkelaars van Artikulate"
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -436,11 +434,10 @@ msgid "Create phrase after current phrase."
 msgstr "Uitdrukking aanmaken na huidige uitdrukking."
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Repository Configuration"
+#, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr "Configuratie van opslagruimte"
+msgstr "Opslagruimte en selectie van cursus"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -542,11 +539,9 @@ msgid "Localized Phrase:"
 msgstr "Frase in eigen taal:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "Voltooid"
+msgstr "Complexiteit:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -569,11 +564,9 @@ msgid "Paragraph"
 msgstr "Paragraaf"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "Vertaald"
+msgstr "Status van vertaling:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -597,28 +590,25 @@ msgstr "Voltooid"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play stored recording"
-msgstr ""
+msgstr "Opgeslagen opname afspelen"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
-#, fuzzy, kde-format
-#| msgid "Record"
+#, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr "Opnemen"
+msgstr "Nieuwe opnemen"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr "Nieuwe opname maken:"
+msgstr "Nieuwe opname afspelen"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr "Nieuwe opname maken:"
+msgstr "Nieuwe opname maken"
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285

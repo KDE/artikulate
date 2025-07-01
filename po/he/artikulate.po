@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:37+0000\n"
-"PO-Revision-Date: 2025-05-27 14:56+0300\n"
+"PO-Revision-Date: 2025-06-30 09:13+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.04.1\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -272,12 +272,10 @@ msgid "Artikulate Course Editor"
 msgstr "עורך שיעורי Artikulate"
 
 #: src/main_editor.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2022 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr "(c) 2013‏-2022 מפתחי Artikulate"
+msgstr "(c) 2013‏-2025 מפתחי Artikulate"
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -435,11 +433,10 @@ msgid "Create phrase after current phrase."
 msgstr "יצירת משפט אחרי המשפט הנוכחי."
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Repository Configuration"
+#, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr "הגדרות מאגר"
+msgstr "בחירת מאגר ושיעור"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -541,11 +538,9 @@ msgid "Localized Phrase:"
 msgstr "משפט בשפה המקומית:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "שלם"
+msgstr "סיבוכיות:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -568,11 +563,9 @@ msgid "Paragraph"
 msgstr "פסקה"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "מתורגם"
+msgstr "מצב תרגום:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -596,28 +589,25 @@ msgstr "שלם"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play stored recording"
-msgstr ""
+msgstr "נגינת הקלטה מאוחסנת"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
-#, fuzzy, kde-format
-#| msgid "Record"
+#, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr "הקלטה"
+msgstr "הקלטה חדשה"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr "יצירת הקלטה חדשה:"
+msgstr "השמעת ההקלטה החדשה"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr "יצירת הקלטה חדשה:"
+msgstr "הקלטה מחדש"
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:37+0000\n"
-"PO-Revision-Date: 2025-03-24 12:37+0100\n"
+"PO-Revision-Date: 2025-06-30 09:17+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -278,12 +278,10 @@ msgid "Artikulate Course Editor"
 msgstr "Editor de cursos de l'Artikulate"
 
 #: src/main_editor.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2022 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr "(c) 2013-2022 Els desenvolupadors de l'Artikulate"
+msgstr "(c) 2013-2025 Els desenvolupadors de l'Artikulate"
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -441,11 +439,10 @@ msgid "Create phrase after current phrase."
 msgstr "Crea una frase després de la frase actual."
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Repository Configuration"
+#, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr "Configuració del repositori"
+msgstr "Selecció del repositori i curs"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -547,11 +544,9 @@ msgid "Localized Phrase:"
 msgstr "Frase traduïda:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "Completada"
+msgstr "Complexitat:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -574,11 +569,9 @@ msgid "Paragraph"
 msgstr "Paràgraf"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "Traduïda"
+msgstr "Estat de traducció:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -602,28 +595,25 @@ msgstr "Completada"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play stored recording"
-msgstr ""
+msgstr "Reprodueix un enregistrament emmagatzemat"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
-#, fuzzy, kde-format
-#| msgid "Record"
+#, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr "Enregistra"
+msgstr "Enregistra nou"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr "Crea un enregistrament nou:"
+msgstr "Reprodueix un enregistrament nou"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr "Crea un enregistrament nou:"
+msgstr "Fes un enregistrament nou"
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285

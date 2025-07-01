@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:37+0000\n"
-"PO-Revision-Date: 2025-05-04 01:35+0100\n"
+"PO-Revision-Date: 2025-06-30 12:26+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -275,12 +275,10 @@ msgid "Artikulate Course Editor"
 msgstr "Editor de cursos de Artikulate"
 
 #: src/main_editor.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2022 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr "© 2013-2022, los desarrolladores de Artikulate"
+msgstr "© 2013-2025, los desarrolladores de Artikulate"
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -438,11 +436,10 @@ msgid "Create phrase after current phrase."
 msgstr "Crear frase tras la frase actual."
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Repository Configuration"
+#, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr "Configuración del repositorio"
+msgstr "Repositorio y selección de curso"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -544,11 +541,9 @@ msgid "Localized Phrase:"
 msgstr "Frase traducida:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "Completado"
+msgstr "Complejidad:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -571,11 +566,9 @@ msgid "Paragraph"
 msgstr "Párrafo"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "Traducido"
+msgstr "Estado de traducción:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -599,28 +592,25 @@ msgstr "Completado"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play stored recording"
-msgstr ""
+msgstr "Reproducir grabación guardada"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
-#, fuzzy, kde-format
-#| msgid "Record"
+#, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr "Grabar"
+msgstr "Grabar nuevo"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr "Crear nueva grabación:"
+msgstr "Reproducir nueva grabación"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr "Crear nueva grabación:"
+msgstr "Crear nueva grabación"
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
@@ -783,39 +773,3 @@ msgstr "Empezar la práctica"
 #, kde-format
 msgid "No trainings found"
 msgstr "No se han encontrado prácticas"
-
-#~ msgid "Welcome to Artikulate Course Editor"
-#~ msgstr "Bienvenido al editor de cursos de Artikulate"
-
-#~ msgid "Repository"
-#~ msgstr "Repositorio"
-
-#~ msgid "Select Prototype"
-#~ msgstr "Seleccionar prototipo"
-
-#~ msgid "Unit"
-#~ msgstr "Unidad"
-
-#~ msgid "Unit: "
-#~ msgstr "Unidad: "
-
-#~ msgid "Phrase: "
-#~ msgstr "Frase: "
-
-#~ msgid "Edit State:"
-#~ msgstr "Editar estado:"
-
-#~ msgid "Native Speaker Recording"
-#~ msgstr "Grabación de hablante nativo"
-
-#~ msgid "Existing Recording:"
-#~ msgstr "Grabaciones existentes:"
-
-#~ msgid "Replace Existing Recording"
-#~ msgstr "Sustituir grabación existente"
-
-#~ msgid "Dismiss"
-#~ msgstr "Descartar"
-
-#~ msgid "Difficulty:"
-#~ msgstr "Dificultad:"
