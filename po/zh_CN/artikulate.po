@@ -271,12 +271,10 @@ msgid "Artikulate Course Editor"
 msgstr "Artikulate 课程编辑器"
 
 #: src/main_editor.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2022 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr "(c) 2013-2022 The Artikulate Developers"
+msgstr ""
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -434,11 +432,10 @@ msgid "Create phrase after current phrase."
 msgstr "在当前词组后创建词组。"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Repository Configuration"
+#, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr "仓库配置"
+msgstr ""
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -540,11 +537,9 @@ msgid "Localized Phrase:"
 msgstr "本地化词组："
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "通关度"
+msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -567,11 +562,9 @@ msgid "Paragraph"
 msgstr "段落"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "已翻译"
+msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -598,25 +591,22 @@ msgid "Play stored recording"
 msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
-#, fuzzy, kde-format
-#| msgid "Record"
+#, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr "捕获"
+msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr "创建新录音"
+msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr "创建新录音"
+msgstr ""
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
@@ -779,39 +769,3 @@ msgstr "开始训练"
 #, kde-format
 msgid "No trainings found"
 msgstr "没有找到训练"
-
-#~ msgid "Welcome to Artikulate Course Editor"
-#~ msgstr "欢迎使用 Artikulate 课程编辑器"
-
-#~ msgid "Repository"
-#~ msgstr "仓库"
-
-#~ msgid "Select Prototype"
-#~ msgstr "选择模板"
-
-#~ msgid "Unit"
-#~ msgstr "单元"
-
-#~ msgid "Unit: "
-#~ msgstr "单位: "
-
-#~ msgid "Phrase: "
-#~ msgstr "词组："
-
-#~ msgid "Edit State:"
-#~ msgstr "编辑状态："
-
-#~ msgid "Native Speaker Recording"
-#~ msgstr "母语录音"
-
-#~ msgid "Existing Recording:"
-#~ msgstr "现有录音"
-
-#~ msgid "Replace Existing Recording"
-#~ msgstr "替换现有录音"
-
-#~ msgid "Dismiss"
-#~ msgstr "忽略"
-
-#~ msgid "Difficulty:"
-#~ msgstr "难度："
