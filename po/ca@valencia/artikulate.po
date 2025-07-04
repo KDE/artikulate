@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:37+0000\n"
-"PO-Revision-Date: 2025-03-24 12:37+0100\n"
+"PO-Revision-Date: 2025-06-30 09:17+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -278,12 +278,10 @@ msgid "Artikulate Course Editor"
 msgstr "Editor de cursos d'Artikulate"
 
 #: src/main_editor.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2022 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr "(c) 2013-2022 Els desenvolupadors d'Artikulate"
+msgstr "(c) 2013-2025 Els desenvolupadors d'Artikulate"
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -441,11 +439,10 @@ msgid "Create phrase after current phrase."
 msgstr "Crea una frase després de la frase actual."
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Repository Configuration"
+#, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr "Configureu el repositori"
+msgstr "Seleccioneu el repositori i curs"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -547,11 +544,9 @@ msgid "Localized Phrase:"
 msgstr "Frase traduïda:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "Completada"
+msgstr "Complexitat:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -574,11 +569,9 @@ msgid "Paragraph"
 msgstr "Paràgraf"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "Traduïda"
+msgstr "Estat de traducció:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -602,28 +595,25 @@ msgstr "Completada"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play stored recording"
-msgstr ""
+msgstr "Reproduïx una gravació emmagatzemat"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
-#, fuzzy, kde-format
-#| msgid "Record"
+#, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr "Grava"
+msgstr "Grava nou"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr "Crea una gravació nova:"
+msgstr "Reproduïx una gravació nova"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr "Crea una gravació nova:"
+msgstr "Fes una gravació nova"
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
@@ -786,39 +776,3 @@ msgstr "Inicia l'entrenament"
 #, kde-format
 msgid "No trainings found"
 msgstr "No s'ha trobat cap entrenament"
-
-#~ msgid "Welcome to Artikulate Course Editor"
-#~ msgstr "Us donem la benvinguda a l'editor de cursos d'Artikulate"
-
-#~ msgid "Repository"
-#~ msgstr "Repositori"
-
-#~ msgid "Select Prototype"
-#~ msgstr "Seleccioneu el prototip"
-
-#~ msgid "Unit"
-#~ msgstr "Unitat"
-
-#~ msgid "Unit: "
-#~ msgstr "Unitat: "
-
-#~ msgid "Phrase: "
-#~ msgstr "Frase: "
-
-#~ msgid "Edit State:"
-#~ msgstr "Edita l'estat:"
-
-#~ msgid "Native Speaker Recording"
-#~ msgstr "Gravació d'un parlant nadiu"
-
-#~ msgid "Existing Recording:"
-#~ msgstr "Gravació existent:"
-
-#~ msgid "Replace Existing Recording"
-#~ msgstr "Substituïx la gravació existent"
-
-#~ msgid "Dismiss"
-#~ msgstr "Descarta"
-
-#~ msgid "Difficulty:"
-#~ msgstr "Dificultat:"

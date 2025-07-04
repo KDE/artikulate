@@ -4,13 +4,13 @@
 # Franklin Weng <franklin at goodhorse dot idv dot tw>, 2014, 2017.
 # Jeff Huang <s8321414@gmail.com>, 2016.
 # pan93412 <pan93412@gmail.com>, 2019.
-# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
+# SPDX-FileCopyrightText: 2023, 2025 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:37+0000\n"
-"PO-Revision-Date: 2023-12-26 22:05+0900\n"
+"PO-Revision-Date: 2025-07-03 23:08+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.01.85\n"
+"X-Generator: Lokalize 25.07.70\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -30,7 +30,7 @@ msgstr "孟加拉語"
 #, kde-format
 msgctxt "Language Title"
 msgid "Catalan"
-msgstr "加泰羅尼亞語"
+msgstr "加泰隆尼亞語"
 
 #: data/languages/de.xml:9
 #, kde-format
@@ -84,7 +84,7 @@ msgstr "義大利文"
 #, kde-format
 msgctxt "Language Title"
 msgid "Marathi"
-msgstr "Marathi"
+msgstr "馬拉提語"
 
 #: data/languages/pl.xml:9
 #, kde-format
