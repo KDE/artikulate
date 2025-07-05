@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:22+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2024-09-23 15:28+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -18,84 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 24.11.70\n"
-
-#: data/languages/ba.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Bengali"
-msgstr "Bengalce"
-
-#: data/languages/ca.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Catalan"
-msgstr "Katalanca"
-
-#: data/languages/de.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "German"
-msgstr "Almanca"
-
-#: data/languages/du.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Dutch"
-msgstr "Hollandaca"
-
-#: data/languages/en_BE.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "British English"
-msgstr "Britanya İngilizcesi"
-
-#: data/languages/en_US.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "English"
-msgstr "İngilizce"
-
-#: data/languages/fr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "French"
-msgstr "Fransızca"
-
-#: data/languages/gr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Greek"
-msgstr "Yunanca"
-
-#: data/languages/hi.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Hindi"
-msgstr "Hintçe"
-
-#: data/languages/it.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Italian"
-msgstr "İtalyanca"
-
-#: data/languages/mr.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "Marathi"
-msgstr "Marati Dili"
-
-#: data/languages/pl.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Polish"
-msgstr "Lehçe"
-
-#: data/languages/sp.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Spanish"
-msgstr "İspanyolca"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -123,60 +45,6 @@ msgstr "Görsel Dosyaları (*.png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "Geçersiz veritabanı sürümü '%1'."
-
-#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
-#: src/artikulate.kcfg:13
-#, kde-format
-msgid "If true, the main menu bar is shown."
-msgstr "Etkinse ana menü çubuğu gösterilir."
-
-#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
-#: src/artikulate.kcfg:17
-#, kde-format
-msgid ""
-"If enabled, course files are only read from the local contributor repository"
-msgstr ""
-"Etkin olduğunda, kurs dosyaları yalnızca yerel katkıcı deposundan okunur"
-
-#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
-#: src/artikulate.kcfg:21
-#, kde-format
-msgid "Path to local contributor repository"
-msgstr "Yerel katkıcı depo yolu"
-
-#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
-#: src/artikulate.kcfg:24
-#, kde-format
-msgid "Name of audio input device"
-msgstr "Ses giriş aygıt adı"
-
-#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
-#: src/artikulate.kcfg:27
-#, kde-format
-msgid "Audio input volume"
-msgstr "Ses giriş düzeyi"
-
-#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
-#: src/artikulate.kcfg:31
-#, kde-format
-msgid "Audio output volume"
-msgstr "Ses çıkış düzeyi"
-
-#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
-#: src/artikulate.kcfg:35
-#, kde-format
-msgid "Font"
-msgstr "Yazıtipi"
-
-#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
-#: src/artikulate.kcfg:42
-#, kde-format
-msgid ""
-"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-"runtime if available."
-msgstr ""
-"Kullanılabilir durumdaysa çalışma zamanında seçilen 'qtmultimediabackend' "
-"veya 'qtgstreamerbackend' olarak ayarlanır."
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -805,6 +673,89 @@ msgstr "Eğitimi Başlat"
 #, kde-format
 msgid "No trainings found"
 msgstr "Eğitim bulunamadı"
+
+#~ msgctxt "Language Title"
+#~ msgid "Bengali"
+#~ msgstr "Bengalce"
+
+#~ msgctxt "Language Title"
+#~ msgid "Catalan"
+#~ msgstr "Katalanca"
+
+#~ msgctxt "Language Title"
+#~ msgid "German"
+#~ msgstr "Almanca"
+
+#~ msgctxt "Language Title"
+#~ msgid "Dutch"
+#~ msgstr "Hollandaca"
+
+#~ msgctxt "Language Title"
+#~ msgid "British English"
+#~ msgstr "Britanya İngilizcesi"
+
+#~ msgctxt "Language Title"
+#~ msgid "English"
+#~ msgstr "İngilizce"
+
+#~ msgctxt "Language Title"
+#~ msgid "French"
+#~ msgstr "Fransızca"
+
+#~ msgctxt "Language Title"
+#~ msgid "Greek"
+#~ msgstr "Yunanca"
+
+#~ msgctxt "Language Title"
+#~ msgid "Hindi"
+#~ msgstr "Hintçe"
+
+#~ msgctxt "Language Title"
+#~ msgid "Italian"
+#~ msgstr "İtalyanca"
+
+#~ msgctxt "Language Title"
+#~ msgid "Marathi"
+#~ msgstr "Marati Dili"
+
+#~ msgctxt "Language Title"
+#~ msgid "Polish"
+#~ msgstr "Lehçe"
+
+#~ msgctxt "Language Title"
+#~ msgid "Spanish"
+#~ msgstr "İspanyolca"
+
+#~ msgid "If true, the main menu bar is shown."
+#~ msgstr "Etkinse ana menü çubuğu gösterilir."
+
+#~ msgid ""
+#~ "If enabled, course files are only read from the local contributor "
+#~ "repository"
+#~ msgstr ""
+#~ "Etkin olduğunda, kurs dosyaları yalnızca yerel katkıcı deposundan okunur"
+
+#~ msgid "Path to local contributor repository"
+#~ msgstr "Yerel katkıcı depo yolu"
+
+#~ msgid "Name of audio input device"
+#~ msgstr "Ses giriş aygıt adı"
+
+#~ msgid "Audio input volume"
+#~ msgstr "Ses giriş düzeyi"
+
+#~ msgid "Audio output volume"
+#~ msgstr "Ses çıkış düzeyi"
+
+#~ msgid "Font"
+#~ msgstr "Yazıtipi"
+
+#~ msgid ""
+#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+#~ "runtime if available."
+#~ msgstr ""
+#~ "Kullanılabilir durumdaysa çalışma zamanında seçilen 'qtmultimediabackend' "
+#~ "veya 'qtgstreamerbackend' olarak ayarlanır."
 
 #~ msgid "Download Training Material"
 #~ msgstr "Eğitim Materyali İndir"

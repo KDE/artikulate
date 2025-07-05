@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:22+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2023-07-25 00:13+0300\n"
 "Last-Translator: George Stefanakis <george.stefanakis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-doc@kde.org>\n"
@@ -18,84 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 23.04.3\n"
-
-#: data/languages/ba.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Bengali"
-msgstr "Μπενγκάλι"
-
-#: data/languages/ca.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Catalan"
-msgstr "Καταλανικά"
-
-#: data/languages/de.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "German"
-msgstr "Γερμανικά"
-
-#: data/languages/du.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Dutch"
-msgstr "Ολλανδικά"
-
-#: data/languages/en_BE.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "British English"
-msgstr "Αγγλικά Βρετανίας"
-
-#: data/languages/en_US.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "English"
-msgstr "Αγγλικά"
-
-#: data/languages/fr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "French"
-msgstr "Γαλλικά"
-
-#: data/languages/gr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Greek"
-msgstr "Ελληνικά"
-
-#: data/languages/hi.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Hindi"
-msgstr "Χίντι"
-
-#: data/languages/it.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Italian"
-msgstr "Ιταλικά"
-
-#: data/languages/mr.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "Marathi"
-msgstr "Μαράτι"
-
-#: data/languages/pl.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Polish"
-msgstr "Πολωνικά"
-
-#: data/languages/sp.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Spanish"
-msgstr "Ισπανικά"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -123,61 +45,6 @@ msgstr "Αρχεία εικόνων (*.png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "Μη έγκυρη έκδοση '%1' βάσης δεδομένων."
-
-#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
-#: src/artikulate.kcfg:13
-#, kde-format
-msgid "If true, the main menu bar is shown."
-msgstr "Αν είναι αληθές, εμφανίζεται η γραμμή του κύριου μενού."
-
-#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
-#: src/artikulate.kcfg:17
-#, kde-format
-msgid ""
-"If enabled, course files are only read from the local contributor repository"
-msgstr ""
-"Εφόσον ενεργοποιηθεί, τα αρχεία των μαθημάτων διαβάζονται μόνο από το τοπικό "
-"αποθετήριο του συνεισφέροντος"
-
-#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
-#: src/artikulate.kcfg:21
-#, kde-format
-msgid "Path to local contributor repository"
-msgstr "Διαδρομή για το τοπικό αποθετήριο του συνεισφέροντος"
-
-#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
-#: src/artikulate.kcfg:24
-#, kde-format
-msgid "Name of audio input device"
-msgstr "Όνομα της συσκευής εισόδου ήχου"
-
-#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
-#: src/artikulate.kcfg:27
-#, kde-format
-msgid "Audio input volume"
-msgstr "Ένταση ήχου εισόδου"
-
-#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
-#: src/artikulate.kcfg:31
-#, kde-format
-msgid "Audio output volume"
-msgstr "Ένταση ήχου εξόδου"
-
-#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
-#: src/artikulate.kcfg:35
-#, kde-format
-msgid "Font"
-msgstr "Γραμματοσειρά"
-
-#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
-#: src/artikulate.kcfg:42
-#, kde-format
-msgid ""
-"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-"runtime if available."
-msgstr ""
-"Τίθεται σε 'qtmultimediabackend' ή 'qtgstreamerbackend', επιλέγεται κατά την "
-"εκτέλεση εφόσον είναι διαθέσιμο."
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -807,6 +674,90 @@ msgstr "Έναρξη εκπαίδευσης"
 #, kde-format
 msgid "No trainings found"
 msgstr "Δεν βρέθηκαν εκπαιδεύσεις"
+
+#~ msgctxt "Language Title"
+#~ msgid "Bengali"
+#~ msgstr "Μπενγκάλι"
+
+#~ msgctxt "Language Title"
+#~ msgid "Catalan"
+#~ msgstr "Καταλανικά"
+
+#~ msgctxt "Language Title"
+#~ msgid "German"
+#~ msgstr "Γερμανικά"
+
+#~ msgctxt "Language Title"
+#~ msgid "Dutch"
+#~ msgstr "Ολλανδικά"
+
+#~ msgctxt "Language Title"
+#~ msgid "British English"
+#~ msgstr "Αγγλικά Βρετανίας"
+
+#~ msgctxt "Language Title"
+#~ msgid "English"
+#~ msgstr "Αγγλικά"
+
+#~ msgctxt "Language Title"
+#~ msgid "French"
+#~ msgstr "Γαλλικά"
+
+#~ msgctxt "Language Title"
+#~ msgid "Greek"
+#~ msgstr "Ελληνικά"
+
+#~ msgctxt "Language Title"
+#~ msgid "Hindi"
+#~ msgstr "Χίντι"
+
+#~ msgctxt "Language Title"
+#~ msgid "Italian"
+#~ msgstr "Ιταλικά"
+
+#~ msgctxt "Language Title"
+#~ msgid "Marathi"
+#~ msgstr "Μαράτι"
+
+#~ msgctxt "Language Title"
+#~ msgid "Polish"
+#~ msgstr "Πολωνικά"
+
+#~ msgctxt "Language Title"
+#~ msgid "Spanish"
+#~ msgstr "Ισπανικά"
+
+#~ msgid "If true, the main menu bar is shown."
+#~ msgstr "Αν είναι αληθές, εμφανίζεται η γραμμή του κύριου μενού."
+
+#~ msgid ""
+#~ "If enabled, course files are only read from the local contributor "
+#~ "repository"
+#~ msgstr ""
+#~ "Εφόσον ενεργοποιηθεί, τα αρχεία των μαθημάτων διαβάζονται μόνο από το "
+#~ "τοπικό αποθετήριο του συνεισφέροντος"
+
+#~ msgid "Path to local contributor repository"
+#~ msgstr "Διαδρομή για το τοπικό αποθετήριο του συνεισφέροντος"
+
+#~ msgid "Name of audio input device"
+#~ msgstr "Όνομα της συσκευής εισόδου ήχου"
+
+#~ msgid "Audio input volume"
+#~ msgstr "Ένταση ήχου εισόδου"
+
+#~ msgid "Audio output volume"
+#~ msgstr "Ένταση ήχου εξόδου"
+
+#~ msgid "Font"
+#~ msgstr "Γραμματοσειρά"
+
+#~ msgid ""
+#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+#~ "runtime if available."
+#~ msgstr ""
+#~ "Τίθεται σε 'qtmultimediabackend' ή 'qtgstreamerbackend', επιλέγεται κατά "
+#~ "την εκτέλεση εφόσον είναι διαθέσιμο."
 
 #~ msgid "Download Training Material"
 #~ msgstr "Λήψη εκπαιδευτικού υλικού"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:22+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2024-04-23 19:30\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -16,84 +16,6 @@ msgstr ""
 "X-Crowdin-Language: zh-CN\n"
 "X-Crowdin-File: /kf5-trunk/messages/artikulate/artikulate.pot\n"
 "X-Crowdin-File-ID: 5116\n"
-
-#: data/languages/ba.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Bengali"
-msgstr "孟加拉文"
-
-#: data/languages/ca.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Catalan"
-msgstr "加泰罗尼亚语"
-
-#: data/languages/de.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "German"
-msgstr "德语"
-
-#: data/languages/du.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Dutch"
-msgstr "荷兰语"
-
-#: data/languages/en_BE.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "British English"
-msgstr "英国英语"
-
-#: data/languages/en_US.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "English"
-msgstr "英语"
-
-#: data/languages/fr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "French"
-msgstr "法语"
-
-#: data/languages/gr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Greek"
-msgstr "希腊语"
-
-#: data/languages/hi.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Hindi"
-msgstr "印度语"
-
-#: data/languages/it.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Italian"
-msgstr "意大利语"
-
-#: data/languages/mr.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "Marathi"
-msgstr "马拉地语"
-
-#: data/languages/pl.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Polish"
-msgstr "波兰语"
-
-#: data/languages/sp.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Spanish"
-msgstr "西班牙语"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -121,59 +43,6 @@ msgstr "图像文件(*png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "无效数据库版本“%1”。"
-
-#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
-#: src/artikulate.kcfg:13
-#, kde-format
-msgid "If true, the main menu bar is shown."
-msgstr "如果为 true, 则显示主菜单栏。"
-
-#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
-#: src/artikulate.kcfg:17
-#, kde-format
-msgid ""
-"If enabled, course files are only read from the local contributor repository"
-msgstr "如果此项被启用, 课程文件只从本地贡献者库中读取"
-
-#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
-#: src/artikulate.kcfg:21
-#, kde-format
-msgid "Path to local contributor repository"
-msgstr "本地贡献者存储库的路径"
-
-#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
-#: src/artikulate.kcfg:24
-#, kde-format
-msgid "Name of audio input device"
-msgstr "音频输入设备名"
-
-#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
-#: src/artikulate.kcfg:27
-#, kde-format
-msgid "Audio input volume"
-msgstr "音频输入音量"
-
-#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
-#: src/artikulate.kcfg:31
-#, kde-format
-msgid "Audio output volume"
-msgstr "音频输出音量"
-
-#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
-#: src/artikulate.kcfg:35
-#, kde-format
-msgid "Font"
-msgstr "字体"
-
-#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
-#: src/artikulate.kcfg:42
-#, kde-format
-msgid ""
-"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-"runtime if available."
-msgstr ""
-"设置为 \"qtmultimediabackend\" 或 \"qtgstreamerbackend\"，如果可用，则在运行"
-"时选择。"
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -802,3 +671,85 @@ msgstr "开始训练"
 #, kde-format
 msgid "No trainings found"
 msgstr "没有找到训练"
+
+#~ msgctxt "Language Title"
+#~ msgid "Bengali"
+#~ msgstr "孟加拉文"
+
+#~ msgctxt "Language Title"
+#~ msgid "Catalan"
+#~ msgstr "加泰罗尼亚语"
+
+#~ msgctxt "Language Title"
+#~ msgid "German"
+#~ msgstr "德语"
+
+#~ msgctxt "Language Title"
+#~ msgid "Dutch"
+#~ msgstr "荷兰语"
+
+#~ msgctxt "Language Title"
+#~ msgid "British English"
+#~ msgstr "英国英语"
+
+#~ msgctxt "Language Title"
+#~ msgid "English"
+#~ msgstr "英语"
+
+#~ msgctxt "Language Title"
+#~ msgid "French"
+#~ msgstr "法语"
+
+#~ msgctxt "Language Title"
+#~ msgid "Greek"
+#~ msgstr "希腊语"
+
+#~ msgctxt "Language Title"
+#~ msgid "Hindi"
+#~ msgstr "印度语"
+
+#~ msgctxt "Language Title"
+#~ msgid "Italian"
+#~ msgstr "意大利语"
+
+#~ msgctxt "Language Title"
+#~ msgid "Marathi"
+#~ msgstr "马拉地语"
+
+#~ msgctxt "Language Title"
+#~ msgid "Polish"
+#~ msgstr "波兰语"
+
+#~ msgctxt "Language Title"
+#~ msgid "Spanish"
+#~ msgstr "西班牙语"
+
+#~ msgid "If true, the main menu bar is shown."
+#~ msgstr "如果为 true, 则显示主菜单栏。"
+
+#~ msgid ""
+#~ "If enabled, course files are only read from the local contributor "
+#~ "repository"
+#~ msgstr "如果此项被启用, 课程文件只从本地贡献者库中读取"
+
+#~ msgid "Path to local contributor repository"
+#~ msgstr "本地贡献者存储库的路径"
+
+#~ msgid "Name of audio input device"
+#~ msgstr "音频输入设备名"
+
+#~ msgid "Audio input volume"
+#~ msgstr "音频输入音量"
+
+#~ msgid "Audio output volume"
+#~ msgstr "音频输出音量"
+
+#~ msgid "Font"
+#~ msgstr "字体"
+
+#~ msgid ""
+#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+#~ "runtime if available."
+#~ msgstr ""
+#~ "设置为 \"qtmultimediabackend\" 或 \"qtgstreamerbackend\"，如果可用，则在运"
+#~ "行时选择。"

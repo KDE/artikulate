@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:22+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2023-06-29 06:21+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -17,84 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.3.2\n"
-
-#: data/languages/ba.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Bengali"
-msgstr "ბენგალური"
-
-#: data/languages/ca.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Catalan"
-msgstr "კატალანური"
-
-#: data/languages/de.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "German"
-msgstr "გერმანული"
-
-#: data/languages/du.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Dutch"
-msgstr "ჰოლანდიური"
-
-#: data/languages/en_BE.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "British English"
-msgstr "ბრიტანული ინგლისური"
-
-#: data/languages/en_US.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "English"
-msgstr "ინგლისური"
-
-#: data/languages/fr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "French"
-msgstr "ფრანგული"
-
-#: data/languages/gr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Greek"
-msgstr "ბერძნული"
-
-#: data/languages/hi.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Hindi"
-msgstr "ინდური"
-
-#: data/languages/it.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Italian"
-msgstr "იტალიური"
-
-#: data/languages/mr.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "Marathi"
-msgstr "მარათი"
-
-#: data/languages/pl.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Polish"
-msgstr "პოლონური"
-
-#: data/languages/sp.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Spanish"
-msgstr "ესპანური"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -122,61 +44,6 @@ msgstr "გამოსახულების ფაილები (*.png *.j
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "ბაზის არასწორი ვერსია '%1'."
-
-#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
-#: src/artikulate.kcfg:13
-#, kde-format
-msgid "If true, the main menu bar is shown."
-msgstr "თუ ჩართულია, მთავარი მენიუ ნაპოვნია."
-
-#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
-#: src/artikulate.kcfg:17
-#, kde-format
-msgid ""
-"If enabled, course files are only read from the local contributor repository"
-msgstr ""
-"თუ ჩართულია, კურსის ფაილები მხოლოდ ლოკალური შემომწირავის რეპოზიტორიიდან "
-"წაიკითხება"
-
-#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
-#: src/artikulate.kcfg:21
-#, kde-format
-msgid "Path to local contributor repository"
-msgstr "ბილიკი ლოკალური შემომწირავის რეპოზიტორიამდე"
-
-#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
-#: src/artikulate.kcfg:24
-#, kde-format
-msgid "Name of audio input device"
-msgstr "აუდიოს შეყვანის მოწყობილობის სახელი"
-
-#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
-#: src/artikulate.kcfg:27
-#, kde-format
-msgid "Audio input volume"
-msgstr "აუდიოს შეყვანის ხმა"
-
-#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
-#: src/artikulate.kcfg:31
-#, kde-format
-msgid "Audio output volume"
-msgstr "აუდიოს გამოტანის ხმა"
-
-#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
-#: src/artikulate.kcfg:35
-#, kde-format
-msgid "Font"
-msgstr "შრიფტი"
-
-#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
-#: src/artikulate.kcfg:42
-#, kde-format
-msgid ""
-"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-"runtime if available."
-msgstr ""
-"დააყენეთ ან 'qtmultimediabackend', ან 'qtgstreamerbackend', გააჩნია, რომელს "
-"იყენებთ."
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -805,6 +672,90 @@ msgstr "გაკვეთილების დაწყება"
 #, kde-format
 msgid "No trainings found"
 msgstr "ტრენინგები აღმოჩენილი არაა"
+
+#~ msgctxt "Language Title"
+#~ msgid "Bengali"
+#~ msgstr "ბენგალური"
+
+#~ msgctxt "Language Title"
+#~ msgid "Catalan"
+#~ msgstr "კატალანური"
+
+#~ msgctxt "Language Title"
+#~ msgid "German"
+#~ msgstr "გერმანული"
+
+#~ msgctxt "Language Title"
+#~ msgid "Dutch"
+#~ msgstr "ჰოლანდიური"
+
+#~ msgctxt "Language Title"
+#~ msgid "British English"
+#~ msgstr "ბრიტანული ინგლისური"
+
+#~ msgctxt "Language Title"
+#~ msgid "English"
+#~ msgstr "ინგლისური"
+
+#~ msgctxt "Language Title"
+#~ msgid "French"
+#~ msgstr "ფრანგული"
+
+#~ msgctxt "Language Title"
+#~ msgid "Greek"
+#~ msgstr "ბერძნული"
+
+#~ msgctxt "Language Title"
+#~ msgid "Hindi"
+#~ msgstr "ინდური"
+
+#~ msgctxt "Language Title"
+#~ msgid "Italian"
+#~ msgstr "იტალიური"
+
+#~ msgctxt "Language Title"
+#~ msgid "Marathi"
+#~ msgstr "მარათი"
+
+#~ msgctxt "Language Title"
+#~ msgid "Polish"
+#~ msgstr "პოლონური"
+
+#~ msgctxt "Language Title"
+#~ msgid "Spanish"
+#~ msgstr "ესპანური"
+
+#~ msgid "If true, the main menu bar is shown."
+#~ msgstr "თუ ჩართულია, მთავარი მენიუ ნაპოვნია."
+
+#~ msgid ""
+#~ "If enabled, course files are only read from the local contributor "
+#~ "repository"
+#~ msgstr ""
+#~ "თუ ჩართულია, კურსის ფაილები მხოლოდ ლოკალური შემომწირავის რეპოზიტორიიდან "
+#~ "წაიკითხება"
+
+#~ msgid "Path to local contributor repository"
+#~ msgstr "ბილიკი ლოკალური შემომწირავის რეპოზიტორიამდე"
+
+#~ msgid "Name of audio input device"
+#~ msgstr "აუდიოს შეყვანის მოწყობილობის სახელი"
+
+#~ msgid "Audio input volume"
+#~ msgstr "აუდიოს შეყვანის ხმა"
+
+#~ msgid "Audio output volume"
+#~ msgstr "აუდიოს გამოტანის ხმა"
+
+#~ msgid "Font"
+#~ msgstr "შრიფტი"
+
+#~ msgid ""
+#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+#~ "runtime if available."
+#~ msgstr ""
+#~ "დააყენეთ ან 'qtmultimediabackend', ან 'qtgstreamerbackend', გააჩნია, "
+#~ "რომელს იყენებთ."
 
 #~ msgid "Download Training Material"
 #~ msgstr "გაკვეთილის მასალების გადმოწერა"

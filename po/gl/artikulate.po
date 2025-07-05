@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:22+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2023-06-29 08:18+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -18,84 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 23.04.2\n"
-
-#: data/languages/ba.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Bengali"
-msgstr "Bengalí"
-
-#: data/languages/ca.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Catalan"
-msgstr "Catalán"
-
-#: data/languages/de.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "German"
-msgstr "Alemán"
-
-#: data/languages/du.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Dutch"
-msgstr "Holandés"
-
-#: data/languages/en_BE.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "British English"
-msgstr "Inglés británico"
-
-#: data/languages/en_US.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "English"
-msgstr "Inglés"
-
-#: data/languages/fr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "French"
-msgstr "Francés"
-
-#: data/languages/gr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Greek"
-msgstr "Grego"
-
-#: data/languages/hi.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Hindi"
-msgstr "Hindú"
-
-#: data/languages/it.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Italian"
-msgstr "Italiano"
-
-#: data/languages/mr.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "Marathi"
-msgstr "Marathi"
-
-#: data/languages/pl.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Polish"
-msgstr "Polaco"
-
-#: data/languages/sp.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Spanish"
-msgstr "Castelán"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -123,61 +45,6 @@ msgstr "Ficheiros de imaxe (*.png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "A versión da base de datos, «%1», é incorrecta."
-
-#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
-#: src/artikulate.kcfg:13
-#, kde-format
-msgid "If true, the main menu bar is shown."
-msgstr "Se verdadeiro, amósase a barra de menú principal."
-
-#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
-#: src/artikulate.kcfg:17
-#, kde-format
-msgid ""
-"If enabled, course files are only read from the local contributor repository"
-msgstr ""
-"Active esta opción para que os ficheiros de cursos só se lean do repositorio "
-"de colaboración local."
-
-#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
-#: src/artikulate.kcfg:21
-#, kde-format
-msgid "Path to local contributor repository"
-msgstr "Ruta do repositorio de colaboradores local."
-
-#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
-#: src/artikulate.kcfg:24
-#, kde-format
-msgid "Name of audio input device"
-msgstr "Nome do dispositivo de entrada de son."
-
-#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
-#: src/artikulate.kcfg:27
-#, kde-format
-msgid "Audio input volume"
-msgstr "Volume da entrada de son."
-
-#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
-#: src/artikulate.kcfg:31
-#, kde-format
-msgid "Audio output volume"
-msgstr "Volume da saída de son."
-
-#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
-#: src/artikulate.kcfg:35
-#, kde-format
-msgid "Font"
-msgstr "Fonte"
-
-#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
-#: src/artikulate.kcfg:42
-#, kde-format
-msgid ""
-"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-"runtime if available."
-msgstr ""
-"Use «qtmultimediabackend» ou «qtgstreamerbackend», selecciónase en tempo de "
-"execución se está dispoñíbel."
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -806,6 +673,90 @@ msgstr "Iniciar o adestramento"
 #, kde-format
 msgid "No trainings found"
 msgstr "Non se atoparon adestramentos."
+
+#~ msgctxt "Language Title"
+#~ msgid "Bengali"
+#~ msgstr "Bengalí"
+
+#~ msgctxt "Language Title"
+#~ msgid "Catalan"
+#~ msgstr "Catalán"
+
+#~ msgctxt "Language Title"
+#~ msgid "German"
+#~ msgstr "Alemán"
+
+#~ msgctxt "Language Title"
+#~ msgid "Dutch"
+#~ msgstr "Holandés"
+
+#~ msgctxt "Language Title"
+#~ msgid "British English"
+#~ msgstr "Inglés británico"
+
+#~ msgctxt "Language Title"
+#~ msgid "English"
+#~ msgstr "Inglés"
+
+#~ msgctxt "Language Title"
+#~ msgid "French"
+#~ msgstr "Francés"
+
+#~ msgctxt "Language Title"
+#~ msgid "Greek"
+#~ msgstr "Grego"
+
+#~ msgctxt "Language Title"
+#~ msgid "Hindi"
+#~ msgstr "Hindú"
+
+#~ msgctxt "Language Title"
+#~ msgid "Italian"
+#~ msgstr "Italiano"
+
+#~ msgctxt "Language Title"
+#~ msgid "Marathi"
+#~ msgstr "Marathi"
+
+#~ msgctxt "Language Title"
+#~ msgid "Polish"
+#~ msgstr "Polaco"
+
+#~ msgctxt "Language Title"
+#~ msgid "Spanish"
+#~ msgstr "Castelán"
+
+#~ msgid "If true, the main menu bar is shown."
+#~ msgstr "Se verdadeiro, amósase a barra de menú principal."
+
+#~ msgid ""
+#~ "If enabled, course files are only read from the local contributor "
+#~ "repository"
+#~ msgstr ""
+#~ "Active esta opción para que os ficheiros de cursos só se lean do "
+#~ "repositorio de colaboración local."
+
+#~ msgid "Path to local contributor repository"
+#~ msgstr "Ruta do repositorio de colaboradores local."
+
+#~ msgid "Name of audio input device"
+#~ msgstr "Nome do dispositivo de entrada de son."
+
+#~ msgid "Audio input volume"
+#~ msgstr "Volume da entrada de son."
+
+#~ msgid "Audio output volume"
+#~ msgstr "Volume da saída de son."
+
+#~ msgid "Font"
+#~ msgstr "Fonte"
+
+#~ msgid ""
+#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+#~ "runtime if available."
+#~ msgstr ""
+#~ "Use «qtmultimediabackend» ou «qtgstreamerbackend», selecciónase en tempo "
+#~ "de execución se está dispoñíbel."
 
 #~ msgid "Download Training Material"
 #~ msgstr "Descargar o material de adestramento"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:22+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2023-12-26 22:05+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -19,84 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 24.01.85\n"
-
-#: data/languages/ba.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Bengali"
-msgstr "孟加拉語"
-
-#: data/languages/ca.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Catalan"
-msgstr "加泰羅尼亞語"
-
-#: data/languages/de.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "German"
-msgstr "德文"
-
-#: data/languages/du.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Dutch"
-msgstr "荷蘭語"
-
-#: data/languages/en_BE.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "British English"
-msgstr "（英式）英語"
-
-#: data/languages/en_US.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "English"
-msgstr "英語"
-
-#: data/languages/fr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "French"
-msgstr "法文"
-
-#: data/languages/gr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Greek"
-msgstr "希臘文"
-
-#: data/languages/hi.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Hindi"
-msgstr "北印度語"
-
-#: data/languages/it.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Italian"
-msgstr "義大利文"
-
-#: data/languages/mr.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "Marathi"
-msgstr "Marathi"
-
-#: data/languages/pl.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Polish"
-msgstr "波蘭語"
-
-#: data/languages/sp.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Spanish"
-msgstr "西班牙文"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -124,59 +46,6 @@ msgstr "影像檔 (*.png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "無效的資料庫版本 '%1'。"
-
-#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
-#: src/artikulate.kcfg:13
-#, kde-format
-msgid "If true, the main menu bar is shown."
-msgstr "若開啟此選項則會顯示主選單列。"
-
-#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
-#: src/artikulate.kcfg:17
-#, kde-format
-msgid ""
-"If enabled, course files are only read from the local contributor repository"
-msgstr "若開啟此選項，課程檔案只會從本地端貢獻者的儲存庫讀取。"
-
-#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
-#: src/artikulate.kcfg:21
-#, kde-format
-msgid "Path to local contributor repository"
-msgstr "本地端貢獻者儲存庫的路徑"
-
-#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
-#: src/artikulate.kcfg:24
-#, kde-format
-msgid "Name of audio input device"
-msgstr "音效輸入裝置名稱"
-
-#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
-#: src/artikulate.kcfg:27
-#, kde-format
-msgid "Audio input volume"
-msgstr "音效輸入音量"
-
-#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
-#: src/artikulate.kcfg:31
-#, kde-format
-msgid "Audio output volume"
-msgstr "音效輸出音量"
-
-#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
-#: src/artikulate.kcfg:35
-#, kde-format
-msgid "Font"
-msgstr "字型"
-
-#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
-#: src/artikulate.kcfg:42
-#, kde-format
-msgid ""
-"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-"runtime if available."
-msgstr ""
-"執行期可以選擇的話，請設定為 'qtmultimediabackend' 或是 "
-"'qtgstreamerbackend'。"
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -805,6 +674,88 @@ msgstr "開始訓練"
 #, kde-format
 msgid "No trainings found"
 msgstr "找不到訓練課程"
+
+#~ msgctxt "Language Title"
+#~ msgid "Bengali"
+#~ msgstr "孟加拉語"
+
+#~ msgctxt "Language Title"
+#~ msgid "Catalan"
+#~ msgstr "加泰羅尼亞語"
+
+#~ msgctxt "Language Title"
+#~ msgid "German"
+#~ msgstr "德文"
+
+#~ msgctxt "Language Title"
+#~ msgid "Dutch"
+#~ msgstr "荷蘭語"
+
+#~ msgctxt "Language Title"
+#~ msgid "British English"
+#~ msgstr "（英式）英語"
+
+#~ msgctxt "Language Title"
+#~ msgid "English"
+#~ msgstr "英語"
+
+#~ msgctxt "Language Title"
+#~ msgid "French"
+#~ msgstr "法文"
+
+#~ msgctxt "Language Title"
+#~ msgid "Greek"
+#~ msgstr "希臘文"
+
+#~ msgctxt "Language Title"
+#~ msgid "Hindi"
+#~ msgstr "北印度語"
+
+#~ msgctxt "Language Title"
+#~ msgid "Italian"
+#~ msgstr "義大利文"
+
+#~ msgctxt "Language Title"
+#~ msgid "Marathi"
+#~ msgstr "Marathi"
+
+#~ msgctxt "Language Title"
+#~ msgid "Polish"
+#~ msgstr "波蘭語"
+
+#~ msgctxt "Language Title"
+#~ msgid "Spanish"
+#~ msgstr "西班牙文"
+
+#~ msgid "If true, the main menu bar is shown."
+#~ msgstr "若開啟此選項則會顯示主選單列。"
+
+#~ msgid ""
+#~ "If enabled, course files are only read from the local contributor "
+#~ "repository"
+#~ msgstr "若開啟此選項，課程檔案只會從本地端貢獻者的儲存庫讀取。"
+
+#~ msgid "Path to local contributor repository"
+#~ msgstr "本地端貢獻者儲存庫的路徑"
+
+#~ msgid "Name of audio input device"
+#~ msgstr "音效輸入裝置名稱"
+
+#~ msgid "Audio input volume"
+#~ msgstr "音效輸入音量"
+
+#~ msgid "Audio output volume"
+#~ msgstr "音效輸出音量"
+
+#~ msgid "Font"
+#~ msgstr "字型"
+
+#~ msgid ""
+#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+#~ "runtime if available."
+#~ msgstr ""
+#~ "執行期可以選擇的話，請設定為 'qtmultimediabackend' 或是 "
+#~ "'qtgstreamerbackend'。"
 
 #~ msgctxt "@action:button"
 #~ msgid "Update"

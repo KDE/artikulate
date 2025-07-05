@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:22+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2023-08-20 22:44+0200\n"
 "Last-Translator: Valentin Poupon <valentin.poupon@gmail.com>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -26,84 +26,6 @@ msgstr ""
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
-
-#: data/languages/ba.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Bengali"
-msgstr "Bengali"
-
-#: data/languages/ca.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Catalan"
-msgstr "Catalan"
-
-#: data/languages/de.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "German"
-msgstr "Allemand"
-
-#: data/languages/du.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Dutch"
-msgstr "Néerlandais"
-
-#: data/languages/en_BE.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "British English"
-msgstr "Anglais britannique"
-
-#: data/languages/en_US.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "English"
-msgstr "Anglais"
-
-#: data/languages/fr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "French"
-msgstr "Français"
-
-#: data/languages/gr.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Greek"
-msgstr "Grec"
-
-#: data/languages/hi.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Hindi"
-msgstr "Hindi"
-
-#: data/languages/it.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Italian"
-msgstr "Italien"
-
-#: data/languages/mr.xml:10
-#, kde-format
-msgctxt "Language Title"
-msgid "Marathi"
-msgstr "Marathi"
-
-#: data/languages/pl.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Polish"
-msgstr "Polonais"
-
-#: data/languages/sp.xml:9
-#, kde-format
-msgctxt "Language Title"
-msgid "Spanish"
-msgstr "Espagnol"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -131,61 +53,6 @@ msgstr "Fichiers d'image (*.png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "Version de base de donnée non valable « %1 »."
-
-#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
-#: src/artikulate.kcfg:13
-#, kde-format
-msgid "If true, the main menu bar is shown."
-msgstr "Si validé, la barre principale est affichée."
-
-#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
-#: src/artikulate.kcfg:17
-#, kde-format
-msgid ""
-"If enabled, course files are only read from the local contributor repository"
-msgstr ""
-"Si cette option est sélectionnée, les fichiers de cours ne sont lus que "
-"depuis le dépôt local des contributeurs"
-
-#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
-#: src/artikulate.kcfg:21
-#, kde-format
-msgid "Path to local contributor repository"
-msgstr "Emplacement du dépôt local des contributeurs"
-
-#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
-#: src/artikulate.kcfg:24
-#, kde-format
-msgid "Name of audio input device"
-msgstr "Nom du périphérique d'entrée audio"
-
-#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
-#: src/artikulate.kcfg:27
-#, kde-format
-msgid "Audio input volume"
-msgstr "Volume d'entrée audio"
-
-#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
-#: src/artikulate.kcfg:31
-#, kde-format
-msgid "Audio output volume"
-msgstr "Volume de sortie audio"
-
-#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
-#: src/artikulate.kcfg:35
-#, kde-format
-msgid "Font"
-msgstr "Police"
-
-#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
-#: src/artikulate.kcfg:42
-#, kde-format
-msgid ""
-"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-"runtime if available."
-msgstr ""
-"Définissez « qtmultimediabackend » ou bien « qtgstreamerbackend », "
-"sélectionné à l'exécution si disponible."
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -814,6 +681,90 @@ msgstr "Démarrer la formation"
 #, kde-format
 msgid "No trainings found"
 msgstr "Aucune formation trouvée"
+
+#~ msgctxt "Language Title"
+#~ msgid "Bengali"
+#~ msgstr "Bengali"
+
+#~ msgctxt "Language Title"
+#~ msgid "Catalan"
+#~ msgstr "Catalan"
+
+#~ msgctxt "Language Title"
+#~ msgid "German"
+#~ msgstr "Allemand"
+
+#~ msgctxt "Language Title"
+#~ msgid "Dutch"
+#~ msgstr "Néerlandais"
+
+#~ msgctxt "Language Title"
+#~ msgid "British English"
+#~ msgstr "Anglais britannique"
+
+#~ msgctxt "Language Title"
+#~ msgid "English"
+#~ msgstr "Anglais"
+
+#~ msgctxt "Language Title"
+#~ msgid "French"
+#~ msgstr "Français"
+
+#~ msgctxt "Language Title"
+#~ msgid "Greek"
+#~ msgstr "Grec"
+
+#~ msgctxt "Language Title"
+#~ msgid "Hindi"
+#~ msgstr "Hindi"
+
+#~ msgctxt "Language Title"
+#~ msgid "Italian"
+#~ msgstr "Italien"
+
+#~ msgctxt "Language Title"
+#~ msgid "Marathi"
+#~ msgstr "Marathi"
+
+#~ msgctxt "Language Title"
+#~ msgid "Polish"
+#~ msgstr "Polonais"
+
+#~ msgctxt "Language Title"
+#~ msgid "Spanish"
+#~ msgstr "Espagnol"
+
+#~ msgid "If true, the main menu bar is shown."
+#~ msgstr "Si validé, la barre principale est affichée."
+
+#~ msgid ""
+#~ "If enabled, course files are only read from the local contributor "
+#~ "repository"
+#~ msgstr ""
+#~ "Si cette option est sélectionnée, les fichiers de cours ne sont lus que "
+#~ "depuis le dépôt local des contributeurs"
+
+#~ msgid "Path to local contributor repository"
+#~ msgstr "Emplacement du dépôt local des contributeurs"
+
+#~ msgid "Name of audio input device"
+#~ msgstr "Nom du périphérique d'entrée audio"
+
+#~ msgid "Audio input volume"
+#~ msgstr "Volume d'entrée audio"
+
+#~ msgid "Audio output volume"
+#~ msgstr "Volume de sortie audio"
+
+#~ msgid "Font"
+#~ msgstr "Police"
+
+#~ msgid ""
+#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+#~ "runtime if available."
+#~ msgstr ""
+#~ "Définissez « qtmultimediabackend » ou bien « qtgstreamerbackend », "
+#~ "sélectionné à l'exécution si disponible."
 
 #~ msgid "Download Training Material"
 #~ msgstr "Télécharger du contenu de formation"
