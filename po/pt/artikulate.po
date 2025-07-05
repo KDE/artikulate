@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2023-07-02 02:24+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -20,6 +20,84 @@ msgstr ""
 "X-POFile-IgnoreConsistency: Words\n"
 "X-POFile-IgnoreConsistency: Name\n"
 "X-POFile-IgnoreConsistency: _: @title:column\\nLanguage\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Bengali"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Catalão"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "Alemão"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Holandês"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "Inglês (GB)"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "Inglês"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "Francês"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Grego"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Hindu"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "Italiano"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Marathi"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Polaco"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "Espanhol"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -47,6 +125,61 @@ msgstr "Ficheiros de Imagens (*.png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "A versão da base de dados '%1' é inválida."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "Se for verdadeiro, a barra principal do menu fica visível."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"Se estiver activo, os ficheiros de exercícios só são lidos do repositório "
+"local de contribuições"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "Localização do repositório local de contribuições"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Nome do dispositivo de áudio de entrada"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Volume de entrada do áudio"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Volume de saída do áudio"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Tipo de Letra"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"Mude para 'qtmultimediabackend' ou 'qtgstreamerbackend'; seleccionado "
+"durante a execução, se disponível."
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -675,87 +808,3 @@ msgstr "Iniciar o Treino"
 #, kde-format
 msgid "No trainings found"
 msgstr "Sem treinos encontrados"
-
-#~ msgctxt "Language Title"
-#~ msgid "Bengali"
-#~ msgstr "Bengali"
-
-#~ msgctxt "Language Title"
-#~ msgid "Catalan"
-#~ msgstr "Catalão"
-
-#~ msgctxt "Language Title"
-#~ msgid "German"
-#~ msgstr "Alemão"
-
-#~ msgctxt "Language Title"
-#~ msgid "Dutch"
-#~ msgstr "Holandês"
-
-#~ msgctxt "Language Title"
-#~ msgid "British English"
-#~ msgstr "Inglês (GB)"
-
-#~ msgctxt "Language Title"
-#~ msgid "English"
-#~ msgstr "Inglês"
-
-#~ msgctxt "Language Title"
-#~ msgid "French"
-#~ msgstr "Francês"
-
-#~ msgctxt "Language Title"
-#~ msgid "Greek"
-#~ msgstr "Grego"
-
-#~ msgctxt "Language Title"
-#~ msgid "Hindi"
-#~ msgstr "Hindu"
-
-#~ msgctxt "Language Title"
-#~ msgid "Italian"
-#~ msgstr "Italiano"
-
-#~ msgctxt "Language Title"
-#~ msgid "Marathi"
-#~ msgstr "Marathi"
-
-#~ msgctxt "Language Title"
-#~ msgid "Polish"
-#~ msgstr "Polaco"
-
-#~ msgctxt "Language Title"
-#~ msgid "Spanish"
-#~ msgstr "Espanhol"
-
-#~ msgid "If true, the main menu bar is shown."
-#~ msgstr "Se for verdadeiro, a barra principal do menu fica visível."
-
-#~ msgid ""
-#~ "If enabled, course files are only read from the local contributor "
-#~ "repository"
-#~ msgstr ""
-#~ "Se estiver activo, os ficheiros de exercícios só são lidos do repositório "
-#~ "local de contribuições"
-
-#~ msgid "Path to local contributor repository"
-#~ msgstr "Localização do repositório local de contribuições"
-
-#~ msgid "Name of audio input device"
-#~ msgstr "Nome do dispositivo de áudio de entrada"
-
-#~ msgid "Audio input volume"
-#~ msgstr "Volume de entrada do áudio"
-
-#~ msgid "Audio output volume"
-#~ msgstr "Volume de saída do áudio"
-
-#~ msgid "Font"
-#~ msgstr "Tipo de Letra"
-
-#~ msgid ""
-#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-#~ "runtime if available."
-#~ msgstr ""
-#~ "Mude para 'qtmultimediabackend' ou 'qtgstreamerbackend'; seleccionado "
-#~ "durante a execução, se disponível."

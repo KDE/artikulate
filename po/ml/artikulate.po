@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2019-12-12 21:34+0000\n"
 "Last-Translator: Vivek KJ Pazhedath <vivekkj2004@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -17,6 +17,84 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "ബംഗാളി"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "കറ്റാലൻ"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "ജർമൻ "
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "ഡച്ച് "
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "ബ്രിട്ടീഷ് ഇംഗ്ലീഷ് "
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "ഇംഗ്ലീഷ്"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "ഫ്രഞ്ച് "
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "ഗ്രീക്ക്"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "ഹിന്ദി "
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "ഇറ്റാലിയന്‍"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "മറാത്തി"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "പോളിഷ്"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "സ്പാനിഷ്"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, fuzzy, kde-format
@@ -45,6 +123,57 @@ msgstr "ചിത്രം അടങ്ങുന്ന ഫയലുകൾ "
 #: liblearnerprofile/src/storage.cpp:567
 #, kde-format
 msgid "Invalid database version '%1'."
+msgstr ""
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr ""
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr ""
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr ""
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr ""
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr ""
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "അക്ഷരസഞ്ചയം:"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
 msgstr ""
 
 #: src/core/drawertrainingactions.cpp:15
@@ -690,61 +819,6 @@ msgstr ""
 #, kde-format
 msgid "No trainings found"
 msgstr ""
-
-#~ msgctxt "Language Title"
-#~ msgid "Bengali"
-#~ msgstr "ബംഗാളി"
-
-#~ msgctxt "Language Title"
-#~ msgid "Catalan"
-#~ msgstr "കറ്റാലൻ"
-
-#~ msgctxt "Language Title"
-#~ msgid "German"
-#~ msgstr "ജർമൻ "
-
-#~ msgctxt "Language Title"
-#~ msgid "Dutch"
-#~ msgstr "ഡച്ച് "
-
-#~ msgctxt "Language Title"
-#~ msgid "British English"
-#~ msgstr "ബ്രിട്ടീഷ് ഇംഗ്ലീഷ് "
-
-#~ msgctxt "Language Title"
-#~ msgid "English"
-#~ msgstr "ഇംഗ്ലീഷ്"
-
-#~ msgctxt "Language Title"
-#~ msgid "French"
-#~ msgstr "ഫ്രഞ്ച് "
-
-#~ msgctxt "Language Title"
-#~ msgid "Greek"
-#~ msgstr "ഗ്രീക്ക്"
-
-#~ msgctxt "Language Title"
-#~ msgid "Hindi"
-#~ msgstr "ഹിന്ദി "
-
-#~ msgctxt "Language Title"
-#~ msgid "Italian"
-#~ msgstr "ഇറ്റാലിയന്‍"
-
-#~ msgctxt "Language Title"
-#~ msgid "Marathi"
-#~ msgstr "മറാത്തി"
-
-#~ msgctxt "Language Title"
-#~ msgid "Polish"
-#~ msgstr "പോളിഷ്"
-
-#~ msgctxt "Language Title"
-#~ msgid "Spanish"
-#~ msgstr "സ്പാനിഷ്"
-
-#~ msgid "Font"
-#~ msgstr "അക്ഷരസഞ്ചയം:"
 
 #~ msgctxt "@item:inmenu"
 #~ msgid "Sound Devices"

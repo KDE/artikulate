@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2021-11-24 13:21+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -18,6 +18,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 21.08.3\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Bengáli"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Katalán"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "Német"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Holland"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "Brit angol"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "Angol"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "Francia"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Görög"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Hindi"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "Olasz"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Marathi"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Lengyel"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "Spanyol"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -45,6 +123,57 @@ msgstr "Képfájlok (*.png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "Érvénytelen adatbázisverzió: „%1”."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "Ha igaz, a fő menüsor megjelenik."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr ""
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Bemeneti hangeszköz neve"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Bemeneti hangerő"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Kimeneti hangerő"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Betűkészlet"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -675,73 +804,6 @@ msgstr "Gyakorlás elkezdése"
 #, kde-format
 msgid "No trainings found"
 msgstr ""
-
-#~ msgctxt "Language Title"
-#~ msgid "Bengali"
-#~ msgstr "Bengáli"
-
-#~ msgctxt "Language Title"
-#~ msgid "Catalan"
-#~ msgstr "Katalán"
-
-#~ msgctxt "Language Title"
-#~ msgid "German"
-#~ msgstr "Német"
-
-#~ msgctxt "Language Title"
-#~ msgid "Dutch"
-#~ msgstr "Holland"
-
-#~ msgctxt "Language Title"
-#~ msgid "British English"
-#~ msgstr "Brit angol"
-
-#~ msgctxt "Language Title"
-#~ msgid "English"
-#~ msgstr "Angol"
-
-#~ msgctxt "Language Title"
-#~ msgid "French"
-#~ msgstr "Francia"
-
-#~ msgctxt "Language Title"
-#~ msgid "Greek"
-#~ msgstr "Görög"
-
-#~ msgctxt "Language Title"
-#~ msgid "Hindi"
-#~ msgstr "Hindi"
-
-#~ msgctxt "Language Title"
-#~ msgid "Italian"
-#~ msgstr "Olasz"
-
-#~ msgctxt "Language Title"
-#~ msgid "Marathi"
-#~ msgstr "Marathi"
-
-#~ msgctxt "Language Title"
-#~ msgid "Polish"
-#~ msgstr "Lengyel"
-
-#~ msgctxt "Language Title"
-#~ msgid "Spanish"
-#~ msgstr "Spanyol"
-
-#~ msgid "If true, the main menu bar is shown."
-#~ msgstr "Ha igaz, a fő menüsor megjelenik."
-
-#~ msgid "Name of audio input device"
-#~ msgstr "Bemeneti hangeszköz neve"
-
-#~ msgid "Audio input volume"
-#~ msgstr "Bemeneti hangerő"
-
-#~ msgid "Audio output volume"
-#~ msgstr "Kimeneti hangerő"
-
-#~ msgid "Font"
-#~ msgstr "Betűkészlet"
 
 #~ msgctxt "@action:button"
 #~ msgid "Update"

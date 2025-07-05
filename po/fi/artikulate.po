@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2023-08-28 19:40+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -16,6 +16,84 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "bengali"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "katalaani"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "saksa"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "hollanti"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "brittienglanti"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "englanti"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "ranska"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "kreikka"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "hindi"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "italia"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "marathi"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "puola"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "espanja"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -43,6 +121,61 @@ msgstr "Kuvatiedostot (*.png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "Virheellinen tietokannan versio ”%1”."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "Jos tosi, päävalikkorivi näytetään."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"Jos käytössä, kurssitiedostoja luetaan vain paikallisesta tekijöiden "
+"tietovarastosta."
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "Polku paikalliseen tekijöiden tietovarastoon"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Äänityslaitteen nimi"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Äänitulon äänenvoimakkuus"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Äänilähdön äänenvoimakkuus"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Fontti"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"Aseta joko arvoon ”qtmultimediabackend” tai ”qtgstreamerbackend”. Valitaan "
+"suorituksen aikana, jos saatavilla."
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -673,90 +806,6 @@ msgstr "Aloita harjoitus"
 #, kde-format
 msgid "No trainings found"
 msgstr "Harjoituksia ei löytynyt"
-
-#~ msgctxt "Language Title"
-#~ msgid "Bengali"
-#~ msgstr "bengali"
-
-#~ msgctxt "Language Title"
-#~ msgid "Catalan"
-#~ msgstr "katalaani"
-
-#~ msgctxt "Language Title"
-#~ msgid "German"
-#~ msgstr "saksa"
-
-#~ msgctxt "Language Title"
-#~ msgid "Dutch"
-#~ msgstr "hollanti"
-
-#~ msgctxt "Language Title"
-#~ msgid "British English"
-#~ msgstr "brittienglanti"
-
-#~ msgctxt "Language Title"
-#~ msgid "English"
-#~ msgstr "englanti"
-
-#~ msgctxt "Language Title"
-#~ msgid "French"
-#~ msgstr "ranska"
-
-#~ msgctxt "Language Title"
-#~ msgid "Greek"
-#~ msgstr "kreikka"
-
-#~ msgctxt "Language Title"
-#~ msgid "Hindi"
-#~ msgstr "hindi"
-
-#~ msgctxt "Language Title"
-#~ msgid "Italian"
-#~ msgstr "italia"
-
-#~ msgctxt "Language Title"
-#~ msgid "Marathi"
-#~ msgstr "marathi"
-
-#~ msgctxt "Language Title"
-#~ msgid "Polish"
-#~ msgstr "puola"
-
-#~ msgctxt "Language Title"
-#~ msgid "Spanish"
-#~ msgstr "espanja"
-
-#~ msgid "If true, the main menu bar is shown."
-#~ msgstr "Jos tosi, päävalikkorivi näytetään."
-
-#~ msgid ""
-#~ "If enabled, course files are only read from the local contributor "
-#~ "repository"
-#~ msgstr ""
-#~ "Jos käytössä, kurssitiedostoja luetaan vain paikallisesta tekijöiden "
-#~ "tietovarastosta."
-
-#~ msgid "Path to local contributor repository"
-#~ msgstr "Polku paikalliseen tekijöiden tietovarastoon"
-
-#~ msgid "Name of audio input device"
-#~ msgstr "Äänityslaitteen nimi"
-
-#~ msgid "Audio input volume"
-#~ msgstr "Äänitulon äänenvoimakkuus"
-
-#~ msgid "Audio output volume"
-#~ msgstr "Äänilähdön äänenvoimakkuus"
-
-#~ msgid "Font"
-#~ msgstr "Fontti"
-
-#~ msgid ""
-#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-#~ "runtime if available."
-#~ msgstr ""
-#~ "Aseta joko arvoon ”qtmultimediabackend” tai ”qtgstreamerbackend”. "
-#~ "Valitaan suorituksen aikana, jos saatavilla."
 
 #~ msgid "Download Training Material"
 #~ msgstr "Lataa harjoitusaineisto"

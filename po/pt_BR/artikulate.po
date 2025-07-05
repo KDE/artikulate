@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2023-07-04 14:24-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -18,6 +18,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 22.12.3\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Bengali"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Catalão"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "Alemão"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Holandês"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "Inglês britânico"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "Inglês"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "Francês"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Grego"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Hindi"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "Italiano"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Marata"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Polonês"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "Espanhol"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -45,6 +123,61 @@ msgstr "Arquivos de imagem (*.png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "A versão do banco de dados '%1' é inválida."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "Se for verdadeiro, a barra de menus principal fica visível."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"Se estiver ativo, os arquivos de exercício só são lidos a partir do "
+"repositório local de contribuições"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "Localização do repositório local de contribuições"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Nome do dispositivo de entrada de áudio"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Volume de entrada do áudio"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Volume de saída do áudio"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Fonte"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"Mude para 'qtmultimediabackend' ou 'qtgstreamerbackend', selecionado durante "
+"a execução, se disponível."
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -673,90 +806,6 @@ msgstr "Iniciar treino"
 #, kde-format
 msgid "No trainings found"
 msgstr "Nenhum treinamento encontrado"
-
-#~ msgctxt "Language Title"
-#~ msgid "Bengali"
-#~ msgstr "Bengali"
-
-#~ msgctxt "Language Title"
-#~ msgid "Catalan"
-#~ msgstr "Catalão"
-
-#~ msgctxt "Language Title"
-#~ msgid "German"
-#~ msgstr "Alemão"
-
-#~ msgctxt "Language Title"
-#~ msgid "Dutch"
-#~ msgstr "Holandês"
-
-#~ msgctxt "Language Title"
-#~ msgid "British English"
-#~ msgstr "Inglês britânico"
-
-#~ msgctxt "Language Title"
-#~ msgid "English"
-#~ msgstr "Inglês"
-
-#~ msgctxt "Language Title"
-#~ msgid "French"
-#~ msgstr "Francês"
-
-#~ msgctxt "Language Title"
-#~ msgid "Greek"
-#~ msgstr "Grego"
-
-#~ msgctxt "Language Title"
-#~ msgid "Hindi"
-#~ msgstr "Hindi"
-
-#~ msgctxt "Language Title"
-#~ msgid "Italian"
-#~ msgstr "Italiano"
-
-#~ msgctxt "Language Title"
-#~ msgid "Marathi"
-#~ msgstr "Marata"
-
-#~ msgctxt "Language Title"
-#~ msgid "Polish"
-#~ msgstr "Polonês"
-
-#~ msgctxt "Language Title"
-#~ msgid "Spanish"
-#~ msgstr "Espanhol"
-
-#~ msgid "If true, the main menu bar is shown."
-#~ msgstr "Se for verdadeiro, a barra de menus principal fica visível."
-
-#~ msgid ""
-#~ "If enabled, course files are only read from the local contributor "
-#~ "repository"
-#~ msgstr ""
-#~ "Se estiver ativo, os arquivos de exercício só são lidos a partir do "
-#~ "repositório local de contribuições"
-
-#~ msgid "Path to local contributor repository"
-#~ msgstr "Localização do repositório local de contribuições"
-
-#~ msgid "Name of audio input device"
-#~ msgstr "Nome do dispositivo de entrada de áudio"
-
-#~ msgid "Audio input volume"
-#~ msgstr "Volume de entrada do áudio"
-
-#~ msgid "Audio output volume"
-#~ msgstr "Volume de saída do áudio"
-
-#~ msgid "Font"
-#~ msgstr "Fonte"
-
-#~ msgid ""
-#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-#~ "runtime if available."
-#~ msgstr ""
-#~ "Mude para 'qtmultimediabackend' ou 'qtgstreamerbackend', selecionado "
-#~ "durante a execução, se disponível."
 
 #~ msgid "Download Training Material"
 #~ msgstr "Baixar material de treinamento"

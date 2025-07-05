@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2023-07-18 13:16+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -16,6 +16,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 22.12.3\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "벵골어"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "카탈루냐어"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "독일어"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "네덜란드어"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "영국 영어"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "영어"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "프랑스어"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "그리스어"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "힌디어"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "이탈리아어"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "마라티어"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "폴란드어"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "스페인어"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -43,6 +121,59 @@ msgstr "그림 파일 (*.png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "잘못된 데이터베이스 버전 '%1'입니다."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "이 옵션을 사용하면 주 메뉴를 표시합니다."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr "이 옵션을 사용하면 과정 파일을 로컬 기여자 저장소에서만 불러 옵니다"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "로컬 기여자 저장소 경로"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "오디오 입력 장치 이름"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "오디오 입력 음량"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "오디오 출력 음량"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "글꼴"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"'qtmultimediabackend' 또는 'qtgstreamerbackend' 중 하나로 설정하십시오. 사용 "
+"가능한 경우 런타임에서 선택합니다."
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -671,88 +802,6 @@ msgstr "연습 시작"
 #, kde-format
 msgid "No trainings found"
 msgstr "연습 자료 없음"
-
-#~ msgctxt "Language Title"
-#~ msgid "Bengali"
-#~ msgstr "벵골어"
-
-#~ msgctxt "Language Title"
-#~ msgid "Catalan"
-#~ msgstr "카탈루냐어"
-
-#~ msgctxt "Language Title"
-#~ msgid "German"
-#~ msgstr "독일어"
-
-#~ msgctxt "Language Title"
-#~ msgid "Dutch"
-#~ msgstr "네덜란드어"
-
-#~ msgctxt "Language Title"
-#~ msgid "British English"
-#~ msgstr "영국 영어"
-
-#~ msgctxt "Language Title"
-#~ msgid "English"
-#~ msgstr "영어"
-
-#~ msgctxt "Language Title"
-#~ msgid "French"
-#~ msgstr "프랑스어"
-
-#~ msgctxt "Language Title"
-#~ msgid "Greek"
-#~ msgstr "그리스어"
-
-#~ msgctxt "Language Title"
-#~ msgid "Hindi"
-#~ msgstr "힌디어"
-
-#~ msgctxt "Language Title"
-#~ msgid "Italian"
-#~ msgstr "이탈리아어"
-
-#~ msgctxt "Language Title"
-#~ msgid "Marathi"
-#~ msgstr "마라티어"
-
-#~ msgctxt "Language Title"
-#~ msgid "Polish"
-#~ msgstr "폴란드어"
-
-#~ msgctxt "Language Title"
-#~ msgid "Spanish"
-#~ msgstr "스페인어"
-
-#~ msgid "If true, the main menu bar is shown."
-#~ msgstr "이 옵션을 사용하면 주 메뉴를 표시합니다."
-
-#~ msgid ""
-#~ "If enabled, course files are only read from the local contributor "
-#~ "repository"
-#~ msgstr "이 옵션을 사용하면 과정 파일을 로컬 기여자 저장소에서만 불러 옵니다"
-
-#~ msgid "Path to local contributor repository"
-#~ msgstr "로컬 기여자 저장소 경로"
-
-#~ msgid "Name of audio input device"
-#~ msgstr "오디오 입력 장치 이름"
-
-#~ msgid "Audio input volume"
-#~ msgstr "오디오 입력 음량"
-
-#~ msgid "Audio output volume"
-#~ msgstr "오디오 출력 음량"
-
-#~ msgid "Font"
-#~ msgstr "글꼴"
-
-#~ msgid ""
-#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-#~ "runtime if available."
-#~ msgstr ""
-#~ "'qtmultimediabackend' 또는 'qtgstreamerbackend' 중 하나로 설정하십시오. 사"
-#~ "용 가능한 경우 런타임에서 선택합니다."
 
 #~ msgid "Download Training Material"
 #~ msgstr "연습 자료 다운로드"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2013-10-05 15:06+0300\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -16,6 +16,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Bengaleză"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Catalană"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "Germană"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Olandeză"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "Engleză britanică"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "Engleză"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "Franceză"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Greacă"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Hindi"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "Italiană"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Marathi"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Poloneză"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "Spaniolă"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, fuzzy, kde-format
@@ -45,6 +123,57 @@ msgstr ""
 #: liblearnerprofile/src/storage.cpp:567
 #, kde-format
 msgid "Invalid database version '%1'."
+msgstr ""
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr ""
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr ""
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Denumirea dispozitivului de intrare a sunetului"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Volumul intrării sunetului"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Volumul ieșirii sunetului"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Font"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
 msgstr ""
 
 #: src/core/drawertrainingactions.cpp:15
@@ -739,70 +868,6 @@ msgstr "Progresul antrenamentului"
 #, kde-format
 msgid "No trainings found"
 msgstr ""
-
-#~ msgctxt "Language Title"
-#~ msgid "Bengali"
-#~ msgstr "Bengaleză"
-
-#~ msgctxt "Language Title"
-#~ msgid "Catalan"
-#~ msgstr "Catalană"
-
-#~ msgctxt "Language Title"
-#~ msgid "German"
-#~ msgstr "Germană"
-
-#~ msgctxt "Language Title"
-#~ msgid "Dutch"
-#~ msgstr "Olandeză"
-
-#~ msgctxt "Language Title"
-#~ msgid "British English"
-#~ msgstr "Engleză britanică"
-
-#~ msgctxt "Language Title"
-#~ msgid "English"
-#~ msgstr "Engleză"
-
-#~ msgctxt "Language Title"
-#~ msgid "French"
-#~ msgstr "Franceză"
-
-#~ msgctxt "Language Title"
-#~ msgid "Greek"
-#~ msgstr "Greacă"
-
-#~ msgctxt "Language Title"
-#~ msgid "Hindi"
-#~ msgstr "Hindi"
-
-#~ msgctxt "Language Title"
-#~ msgid "Italian"
-#~ msgstr "Italiană"
-
-#~ msgctxt "Language Title"
-#~ msgid "Marathi"
-#~ msgstr "Marathi"
-
-#~ msgctxt "Language Title"
-#~ msgid "Polish"
-#~ msgstr "Poloneză"
-
-#~ msgctxt "Language Title"
-#~ msgid "Spanish"
-#~ msgstr "Spaniolă"
-
-#~ msgid "Name of audio input device"
-#~ msgstr "Denumirea dispozitivului de intrare a sunetului"
-
-#~ msgid "Audio input volume"
-#~ msgstr "Volumul intrării sunetului"
-
-#~ msgid "Audio output volume"
-#~ msgstr "Volumul ieșirii sunetului"
-
-#~ msgid "Font"
-#~ msgstr "Font"
 
 #, fuzzy
 #~| msgctxt "@item:inlistbox default sound device"

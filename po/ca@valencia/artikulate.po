@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2023-06-28 10:15+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -21,6 +21,84 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 "X-Generator: Lokalize 22.12.3\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Bengalí"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Català"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "Alemany"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Neerlandés"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "Anglés britànic"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "Anglés"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "Francés"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Grec"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Hindi"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "Italià"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Marathi"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Polonés"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "Espanyol"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -48,6 +126,61 @@ msgstr "Fitxers d'imatge (*png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "Versió «%1» de la base de dades no vàlida."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "Si és cert, es mostra la barra de menús principal."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"Si està habilitada, els fitxers del curs només es llegiran des del "
+"repositori de col·laboració local"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "Camí cap al repositori de col·laboració local"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Nom del dispositiu d'entrada de l'àudio"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Volum de l'entrada de l'àudio"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Volum de l'eixida de l'àudio"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Tipus de lletra"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"Ajusteu a «qtmultimediabackend» o «qtgstreamerbackend», seleccionat en temps "
+"d'execució, si està disponible."
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -676,87 +809,3 @@ msgstr "Inicia l'entrenament"
 #, kde-format
 msgid "No trainings found"
 msgstr "No s'ha trobat cap entrenament"
-
-#~ msgctxt "Language Title"
-#~ msgid "Bengali"
-#~ msgstr "Bengalí"
-
-#~ msgctxt "Language Title"
-#~ msgid "Catalan"
-#~ msgstr "Català"
-
-#~ msgctxt "Language Title"
-#~ msgid "German"
-#~ msgstr "Alemany"
-
-#~ msgctxt "Language Title"
-#~ msgid "Dutch"
-#~ msgstr "Neerlandés"
-
-#~ msgctxt "Language Title"
-#~ msgid "British English"
-#~ msgstr "Anglés britànic"
-
-#~ msgctxt "Language Title"
-#~ msgid "English"
-#~ msgstr "Anglés"
-
-#~ msgctxt "Language Title"
-#~ msgid "French"
-#~ msgstr "Francés"
-
-#~ msgctxt "Language Title"
-#~ msgid "Greek"
-#~ msgstr "Grec"
-
-#~ msgctxt "Language Title"
-#~ msgid "Hindi"
-#~ msgstr "Hindi"
-
-#~ msgctxt "Language Title"
-#~ msgid "Italian"
-#~ msgstr "Italià"
-
-#~ msgctxt "Language Title"
-#~ msgid "Marathi"
-#~ msgstr "Marathi"
-
-#~ msgctxt "Language Title"
-#~ msgid "Polish"
-#~ msgstr "Polonés"
-
-#~ msgctxt "Language Title"
-#~ msgid "Spanish"
-#~ msgstr "Espanyol"
-
-#~ msgid "If true, the main menu bar is shown."
-#~ msgstr "Si és cert, es mostra la barra de menús principal."
-
-#~ msgid ""
-#~ "If enabled, course files are only read from the local contributor "
-#~ "repository"
-#~ msgstr ""
-#~ "Si està habilitada, els fitxers del curs només es llegiran des del "
-#~ "repositori de col·laboració local"
-
-#~ msgid "Path to local contributor repository"
-#~ msgstr "Camí cap al repositori de col·laboració local"
-
-#~ msgid "Name of audio input device"
-#~ msgstr "Nom del dispositiu d'entrada de l'àudio"
-
-#~ msgid "Audio input volume"
-#~ msgstr "Volum de l'entrada de l'àudio"
-
-#~ msgid "Audio output volume"
-#~ msgstr "Volum de l'eixida de l'àudio"
-
-#~ msgid "Font"
-#~ msgstr "Tipus de lletra"
-
-#~ msgid ""
-#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-#~ "runtime if available."
-#~ msgstr ""
-#~ "Ajusteu a «qtmultimediabackend» o «qtgstreamerbackend», seleccionat en "
-#~ "temps d'execució, si està disponible."

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2022-04-07 18:00+0200\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -15,6 +15,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Bengálčina"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Katalánčina"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "Nemčina"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Holandčina"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "Britská angličtina"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "Angličtina"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "Francúzština"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Gréčtina"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Hindčina"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "Taliančina"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Maráthčina"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Poľština"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "Španielčina"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -42,6 +120,61 @@ msgstr "Súbory obrázkov (*.png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "Neplatná verzia databázy '%1'."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "Ak je nastavené, zobrazí sa hlavná ponuka."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"Ak je povolené, súbory kurzu sa načítajú iba z miestneho repozitára "
+"prispievateľa"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "Cesta k miestnemu repozitáru prispievateľa"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Názov zvukového vstupného zariadenia"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Hlasitosť vstupného zvuku"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Hlasitosť výstupného zvuku"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Písmo"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"Nastavte buď na 'qtmultimediabackend' alebo 'qtgstreamerbackend', vybrané na "
+"runtime, ak je dostupné."
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -672,90 +805,6 @@ msgstr "Spustiť tréning"
 #, kde-format
 msgid "No trainings found"
 msgstr ""
-
-#~ msgctxt "Language Title"
-#~ msgid "Bengali"
-#~ msgstr "Bengálčina"
-
-#~ msgctxt "Language Title"
-#~ msgid "Catalan"
-#~ msgstr "Katalánčina"
-
-#~ msgctxt "Language Title"
-#~ msgid "German"
-#~ msgstr "Nemčina"
-
-#~ msgctxt "Language Title"
-#~ msgid "Dutch"
-#~ msgstr "Holandčina"
-
-#~ msgctxt "Language Title"
-#~ msgid "British English"
-#~ msgstr "Britská angličtina"
-
-#~ msgctxt "Language Title"
-#~ msgid "English"
-#~ msgstr "Angličtina"
-
-#~ msgctxt "Language Title"
-#~ msgid "French"
-#~ msgstr "Francúzština"
-
-#~ msgctxt "Language Title"
-#~ msgid "Greek"
-#~ msgstr "Gréčtina"
-
-#~ msgctxt "Language Title"
-#~ msgid "Hindi"
-#~ msgstr "Hindčina"
-
-#~ msgctxt "Language Title"
-#~ msgid "Italian"
-#~ msgstr "Taliančina"
-
-#~ msgctxt "Language Title"
-#~ msgid "Marathi"
-#~ msgstr "Maráthčina"
-
-#~ msgctxt "Language Title"
-#~ msgid "Polish"
-#~ msgstr "Poľština"
-
-#~ msgctxt "Language Title"
-#~ msgid "Spanish"
-#~ msgstr "Španielčina"
-
-#~ msgid "If true, the main menu bar is shown."
-#~ msgstr "Ak je nastavené, zobrazí sa hlavná ponuka."
-
-#~ msgid ""
-#~ "If enabled, course files are only read from the local contributor "
-#~ "repository"
-#~ msgstr ""
-#~ "Ak je povolené, súbory kurzu sa načítajú iba z miestneho repozitára "
-#~ "prispievateľa"
-
-#~ msgid "Path to local contributor repository"
-#~ msgstr "Cesta k miestnemu repozitáru prispievateľa"
-
-#~ msgid "Name of audio input device"
-#~ msgstr "Názov zvukového vstupného zariadenia"
-
-#~ msgid "Audio input volume"
-#~ msgstr "Hlasitosť vstupného zvuku"
-
-#~ msgid "Audio output volume"
-#~ msgstr "Hlasitosť výstupného zvuku"
-
-#~ msgid "Font"
-#~ msgstr "Písmo"
-
-#~ msgid ""
-#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-#~ "runtime if available."
-#~ msgstr ""
-#~ "Nastavte buď na 'qtmultimediabackend' alebo 'qtgstreamerbackend', vybrané "
-#~ "na runtime, ak je dostupné."
 
 #~ msgid "Download Training Material"
 #~ msgstr "Stiahnuť tréningový materiál"

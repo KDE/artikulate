@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:53+0000\n"
 "PO-Revision-Date: 2023-07-22 14:39+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -23,6 +23,84 @@ msgstr ""
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
+
+#: data/languages/ba.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Bengali"
+msgstr "Бенгальский"
+
+#: data/languages/ca.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Catalan"
+msgstr "Каталонский"
+
+#: data/languages/de.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "German"
+msgstr "Немецкий"
+
+#: data/languages/du.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Dutch"
+msgstr "Голландский"
+
+#: data/languages/en_BE.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "British English"
+msgstr "Английский (Великобритания)"
+
+#: data/languages/en_US.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "English"
+msgstr "Английский (США)"
+
+#: data/languages/fr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "French"
+msgstr "Французский"
+
+#: data/languages/gr.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Greek"
+msgstr "Греческий"
+
+#: data/languages/hi.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Hindi"
+msgstr "Хинди"
+
+#: data/languages/it.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Italian"
+msgstr "Итальянский"
+
+#: data/languages/mr.xml:10
+#, kde-format
+msgctxt "Language Title"
+msgid "Marathi"
+msgstr "Маратхи"
+
+#: data/languages/pl.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Polish"
+msgstr "Польский"
+
+#: data/languages/sp.xml:9
+#, kde-format
+msgctxt "Language Title"
+msgid "Spanish"
+msgstr "Испанский"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:154
 #, kde-format
@@ -50,6 +128,61 @@ msgstr "Файлы изображений (*.png *.jpg *.bmp)"
 #, kde-format
 msgid "Invalid database version '%1'."
 msgstr "Неверная версия базы данных '%1'."
+
+#. i18n: ectx: label, entry (ShowMenuBar), group (artikulate)
+#: src/artikulate.kcfg:13
+#, kde-format
+msgid "If true, the main menu bar is shown."
+msgstr "Если этот параметр включён, отображается строка главного меню."
+
+#. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
+#: src/artikulate.kcfg:17
+#, kde-format
+msgid ""
+"If enabled, course files are only read from the local contributor repository"
+msgstr ""
+"Если этот параметр включён, программа читает файлы курсов только из "
+"локального хранилища разработчика"
+
+#. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
+#: src/artikulate.kcfg:21
+#, kde-format
+msgid "Path to local contributor repository"
+msgstr "Путь к локальному хранилищу разработчика"
+
+#. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
+#: src/artikulate.kcfg:24
+#, kde-format
+msgid "Name of audio input device"
+msgstr "Название входного аудиоустройства"
+
+#. i18n: ectx: label, entry (AudioInputVolume), group (artikulate)
+#: src/artikulate.kcfg:27
+#, kde-format
+msgid "Audio input volume"
+msgstr "Громкость входного звука"
+
+#. i18n: ectx: label, entry (AudioOutputVolume), group (artikulate)
+#: src/artikulate.kcfg:31
+#, kde-format
+msgid "Audio output volume"
+msgstr "Громкость выходного звука"
+
+#. i18n: ectx: label, entry (TrainingPhraseFont), group (artikulate)
+#: src/artikulate.kcfg:35
+#, kde-format
+msgid "Font"
+msgstr "Шрифт"
+
+#. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
+#: src/artikulate.kcfg:42
+#, kde-format
+msgid ""
+"Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
+"runtime if available."
+msgstr ""
+"Установите в значение «qtmultimediabackend» или «qtgstreamerbackend». "
+"Выбирается при выполнении, если доступно."
 
 #: src/core/drawertrainingactions.cpp:15
 #, kde-format
@@ -678,90 +811,6 @@ msgstr "Начать тренировку"
 #, kde-format
 msgid "No trainings found"
 msgstr "Не найдено ни одной тренировки"
-
-#~ msgctxt "Language Title"
-#~ msgid "Bengali"
-#~ msgstr "Бенгальский"
-
-#~ msgctxt "Language Title"
-#~ msgid "Catalan"
-#~ msgstr "Каталонский"
-
-#~ msgctxt "Language Title"
-#~ msgid "German"
-#~ msgstr "Немецкий"
-
-#~ msgctxt "Language Title"
-#~ msgid "Dutch"
-#~ msgstr "Голландский"
-
-#~ msgctxt "Language Title"
-#~ msgid "British English"
-#~ msgstr "Английский (Великобритания)"
-
-#~ msgctxt "Language Title"
-#~ msgid "English"
-#~ msgstr "Английский (США)"
-
-#~ msgctxt "Language Title"
-#~ msgid "French"
-#~ msgstr "Французский"
-
-#~ msgctxt "Language Title"
-#~ msgid "Greek"
-#~ msgstr "Греческий"
-
-#~ msgctxt "Language Title"
-#~ msgid "Hindi"
-#~ msgstr "Хинди"
-
-#~ msgctxt "Language Title"
-#~ msgid "Italian"
-#~ msgstr "Итальянский"
-
-#~ msgctxt "Language Title"
-#~ msgid "Marathi"
-#~ msgstr "Маратхи"
-
-#~ msgctxt "Language Title"
-#~ msgid "Polish"
-#~ msgstr "Польский"
-
-#~ msgctxt "Language Title"
-#~ msgid "Spanish"
-#~ msgstr "Испанский"
-
-#~ msgid "If true, the main menu bar is shown."
-#~ msgstr "Если этот параметр включён, отображается строка главного меню."
-
-#~ msgid ""
-#~ "If enabled, course files are only read from the local contributor "
-#~ "repository"
-#~ msgstr ""
-#~ "Если этот параметр включён, программа читает файлы курсов только из "
-#~ "локального хранилища разработчика"
-
-#~ msgid "Path to local contributor repository"
-#~ msgstr "Путь к локальному хранилищу разработчика"
-
-#~ msgid "Name of audio input device"
-#~ msgstr "Название входного аудиоустройства"
-
-#~ msgid "Audio input volume"
-#~ msgstr "Громкость входного звука"
-
-#~ msgid "Audio output volume"
-#~ msgstr "Громкость выходного звука"
-
-#~ msgid "Font"
-#~ msgstr "Шрифт"
-
-#~ msgid ""
-#~ "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
-#~ "runtime if available."
-#~ msgstr ""
-#~ "Установите в значение «qtmultimediabackend» или «qtgstreamerbackend». "
-#~ "Выбирается при выполнении, если доступно."
 
 #~ msgid "Download Training Material"
 #~ msgstr "Загрузить материалы для тренировки"
