@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the artikulate package.
 #
-# Giovanni Sora <g.sora@tiscali.it>, 2020, 2022, 2023.
+# SPDX-FileCopyrightText: 2020, 2022, 2023, 2025 Giovanni Sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:37+0000\n"
-"PO-Revision-Date: 2023-07-06 11:57+0200\n"
+"PO-Revision-Date: 2025-07-07 12:32+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -273,12 +273,10 @@ msgid "Artikulate Course Editor"
 msgstr "Editor de curso Artikulate"
 
 #: src/main_editor.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2022 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr "(c) 2013-2022 Le Disveloppatores de Artikulate"
+msgstr "(c) 2013-2025 Le Disveloppatores de Artikulate"
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -436,11 +434,10 @@ msgid "Create phrase after current phrase."
 msgstr "Crea phrase post phrase currente"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Repository Configuration"
+#, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr "Configuration de repositorio"
+msgstr "Repositorio eselection de curso"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -542,11 +539,9 @@ msgid "Localized Phrase:"
 msgstr "Phrase Localisate:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "Completate"
+msgstr "Complexitate:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -569,11 +564,9 @@ msgid "Paragraph"
 msgstr "Paragrapho"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "Traducite"
+msgstr "Stato de Traduction:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -597,28 +590,25 @@ msgstr "Completate"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play stored recording"
-msgstr ""
+msgstr "Exeque registration immagazinate"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
-#, fuzzy, kde-format
-#| msgid "Record"
+#, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr "Registra"
+msgstr "Registra nove"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr "Crea nove registration:"
+msgstr "Exeque nove registration"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr "Crea nove registration:"
+msgstr "Prende nove registration"
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
