@@ -274,7 +274,7 @@ msgstr "Artikulate 课程编辑器"
 #, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr ""
+msgstr "(c) 2013-2025 The Artikulate Developers"
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -435,7 +435,7 @@ msgstr "在当前词组后创建词组。"
 #, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr ""
+msgstr "仓库与课程选择"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -539,7 +539,7 @@ msgstr "本地化词组："
 #: src/org/kde/artikulate/PhraseEditor.qml:27
 #, kde-format
 msgid "Complexity:"
-msgstr ""
+msgstr "复杂度："
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -564,7 +564,7 @@ msgstr "段落"
 #: src/org/kde/artikulate/PhraseEditor.qml:41
 #, kde-format
 msgid "Translation State:"
-msgstr ""
+msgstr "翻译状态："
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -588,25 +588,25 @@ msgstr "通关度"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play stored recording"
-msgstr ""
+msgstr "播放存储的录音"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
 #, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr ""
+msgstr "新记录"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
 #, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr ""
+msgstr "播放新录音"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
 #, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr ""
+msgstr "进行新录音"
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
