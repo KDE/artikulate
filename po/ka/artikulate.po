@@ -838,7 +838,7 @@ msgstr "ტრენინგები აღმოჩენილი არა�
 
 #~ msgctxt "default sound device"
 #~ msgid "Default"
-#~ msgstr "ნაგულისხმები"
+#~ msgstr "ნაგულისხმევი"
 
 #~ msgctxt "@info:credit"
 #~ msgid "(c) 2013-2019 The Artikulate Developers"
