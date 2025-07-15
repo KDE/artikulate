@@ -1,7 +1,7 @@
 # Translation for artikulate.po to Euskara/Basque (eu).
 # Copyright (C) 2021-2023 This file is copyright:
 # This file is distributed under the same license as the artikulate package.
-# KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
+# SPDX-FileCopyrightText: 2025 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
 # Iñigo Salvador Azurmendi <xalba@ni.eus>, 2021, 2022, 2023.
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:37+0000\n"
-"PO-Revision-Date: 2023-07-20 23:12+0200\n"
+"PO-Revision-Date: 2025-07-14 08:51+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -276,12 +276,10 @@ msgid "Artikulate Course Editor"
 msgstr "Artikulate ikastaro editorea"
 
 #: src/main_editor.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2022 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr "(c) 2013-2023 Artikulate-ren garatzaileak"
+msgstr "(c) 2013-2025 Artikulate garatzaileak"
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -439,11 +437,10 @@ msgid "Create phrase after current phrase."
 msgstr "Sortu esamoldea esamolde honen ondoren."
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Repository Configuration"
+#, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr "Gordetegiaren konfigurazioa"
+msgstr "Gordetegia eta ikastaroaren hautaketa"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -545,11 +542,9 @@ msgid "Localized Phrase:"
 msgstr "Lekututako esamoldea:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "Osatuta"
+msgstr "Konplexutasuna:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -572,11 +567,9 @@ msgid "Paragraph"
 msgstr "Paragrafoa"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "Itzulita"
+msgstr "Itzulpenaren egoera:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -600,28 +593,25 @@ msgstr "Osatuta"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play stored recording"
-msgstr ""
+msgstr "Jo gordetako grabazioa"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
-#, fuzzy, kde-format
-#| msgid "Record"
+#, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr "Grabatu"
+msgstr "Grabatu berria"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr "Sortu grabaketa berria:"
+msgstr "Jo grabazio berria"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr "Sortu grabaketa berria:"
+msgstr "Hartu grabazio berria"
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
@@ -751,12 +741,12 @@ msgstr "Jo jatorrizkoa"
 #: src/org/kde/artikulate/TrainingPage.qml:149
 #, kde-format
 msgid "Record yourself"
-msgstr "Grabatu zeure ahotsa"
+msgstr "Grabatu zeure burua"
 
 #: src/org/kde/artikulate/TrainingPage.qml:157
 #, kde-format
 msgid "Play yourself"
-msgstr "Jo zeure grabaketa"
+msgstr "Jo zeure grabazioa"
 
 #: src/org/kde/artikulate/UnitEditor.qml:18
 #, kde-format
