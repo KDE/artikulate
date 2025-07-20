@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the artikulate package.
-# Shinjo Park <kde@peremen.name>, 2021, 2023.
+# SPDX-FileCopyrightText: 2021, 2023, 2025 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:37+0000\n"
-"PO-Revision-Date: 2023-07-18 13:16+0200\n"
+"PO-Revision-Date: 2025-07-20 00:50+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -238,7 +238,7 @@ msgstr "Oindrila Gupta"
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer and Course Data"
-msgstr "개발자 및 코스 데이터"
+msgstr "개발자 및 과정 데이터"
 
 #: src/main.cpp:49
 #, kde-format
@@ -271,12 +271,10 @@ msgid "Artikulate Course Editor"
 msgstr "Artikulate 과정 편집기"
 
 #: src/main_editor.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2022 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr "(c) 2013-2022 The Artikulate Developers"
+msgstr "(c) 2013-2025 The Artikulate Developers"
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -434,11 +432,10 @@ msgid "Create phrase after current phrase."
 msgstr "현재 구문 뒤에 새 구문을 만듭니다."
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Repository Configuration"
+#, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr "저장소 설정"
+msgstr "저장소와 과정 선택"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -540,11 +537,9 @@ msgid "Localized Phrase:"
 msgstr "번역된 구문:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "완료됨"
+msgstr "난이도:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -567,11 +562,9 @@ msgid "Paragraph"
 msgstr "문단"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "번역됨"
+msgstr "번역 상태:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -595,28 +588,25 @@ msgstr "완료됨"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play stored recording"
-msgstr ""
+msgstr "저장된 녹음 재생"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
-#, fuzzy, kde-format
-#| msgid "Record"
+#, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr "녹음"
+msgstr "새로 녹음"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr "새로 녹음하기:"
+msgstr "새 녹음 재생"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr "새로 녹음하기:"
+msgstr "새로 녹음하기"
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
