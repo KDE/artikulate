@@ -3,13 +3,13 @@
 #
 # Balázs Úr <urbalazs@gmail.com>, 2013, 2014.
 # Kristóf Kiszel <ulysses@kubuntu.org>, 2014, 2020.
-# Kristof Kiszel <ulysses@fsf.hu>, 2021.
+# SPDX-FileCopyrightText: 2021, 2025 Kristof Kiszel <ulysses@fsf.hu>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:37+0000\n"
-"PO-Revision-Date: 2021-11-24 13:21+0100\n"
+"PO-Revision-Date: 2025-08-06 22:57+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.08.3\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -136,12 +136,14 @@ msgstr "Ha igaz, a fő menüsor megjelenik."
 msgid ""
 "If enabled, course files are only read from the local contributor repository"
 msgstr ""
+"Ha engedélyezve van, a kurzusfájlok csak a helyi közreműködői tárolóból "
+"lesznek beolvasva"
 
 #. i18n: ectx: label, entry (CourseRepositoryPath), group (artikulate)
 #: src/artikulate.kcfg:21
 #, kde-format
 msgid "Path to local contributor repository"
-msgstr ""
+msgstr "Helyi közreműködői tároló elérési útja"
 
 #. i18n: ectx: label, entry (AudioInputDevice), group (artikulate)
 #: src/artikulate.kcfg:24
@@ -174,6 +176,8 @@ msgid ""
 "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
 "runtime if available."
 msgstr ""
+"Beállítás „qtmultimediabackend”-re, vagy „qtgstreamerbackend”-re, "
+"futásidőben kiválasztva, ha elérhető."
 
 #: src/core/resources/editablecourseresource.cpp:266
 #, kde-format
@@ -193,18 +197,16 @@ msgid "Artikulate Pronunciation Trainer"
 msgstr "Artikulate kiejtés oktató"
 
 #: src/main.cpp:33
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2020 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2022 The Artikulate Developers"
-msgstr "© Az Artikulate fejlesztői, 2013-2020."
+msgstr "© Az Artikulate fejlesztői, 2013-2022."
 
 #: src/main.cpp:34
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
-msgstr ""
+msgstr "Gyakorolja a kiejtést idegen nyelven."
 
 #: src/main.cpp:37 src/main_editor.cpp:30
 #, kde-format
@@ -273,12 +275,10 @@ msgid "Artikulate Course Editor"
 msgstr "Artikulate kurzusszerkesztő"
 
 #: src/main_editor.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2020 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr "© Az Artikulate fejlesztői, 2013-2020."
+msgstr "© Az Artikulate fejlesztői, 2013-2025."
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -294,13 +294,13 @@ msgstr "Névtelen identitás"
 #: src/org/kde/artikulate/ArtikulateDrawer.qml:58
 #, kde-format
 msgid "Training"
-msgstr ""
+msgstr "Gyakorlat"
 
 #: src/org/kde/artikulate/ArtikulateDrawer.qml:108
 #: src/org/kde/artikulate/WelcomePage.qml:78
 #, kde-format
 msgid "Download Training"
-msgstr ""
+msgstr "Gyakorlat letöltése"
 
 #: src/org/kde/artikulate/ArtikulateDrawer.qml:122
 #: src/org/kde/artikulate/EditorDrawer.qml:120
@@ -317,7 +317,7 @@ msgstr "Kurzusbeállítás"
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:12
 #, kde-format
 msgid "Prototype Configuration"
-msgstr ""
+msgstr "Prototípus beállítás"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:17
 #, kde-format
@@ -337,7 +337,7 @@ msgstr "Cím:"
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:28
 #, kde-format
 msgid "Localized Title:"
-msgstr ""
+msgstr "Honosított cím:"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:34
 #, kde-format
@@ -367,7 +367,7 @@ msgstr "Frissítés"
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:62
 #, kde-format
 msgid "Update the course with elements from prototype."
-msgstr ""
+msgstr "Kurzus frissítése a prototípus elemeivel."
 
 #: src/org/kde/artikulate/coursemodel.cpp:99
 #: src/org/kde/artikulate/languageresourcemodel.cpp:67
@@ -400,7 +400,7 @@ msgstr "Előző"
 #: src/org/kde/artikulate/EditCoursePage.qml:22
 #, kde-format
 msgid "Switch to previous phrase."
-msgstr ""
+msgstr "Váltás az előző kifejezésre."
 
 #: src/org/kde/artikulate/EditCoursePage.qml:28
 #: src/org/kde/artikulate/TrainingPage.qml:45
@@ -411,7 +411,7 @@ msgstr "Következő"
 #: src/org/kde/artikulate/EditCoursePage.qml:29
 #, kde-format
 msgid "Switch to next phrase."
-msgstr ""
+msgstr "Váltás a következő kifejezésre."
 
 #: src/org/kde/artikulate/EditCoursePage.qml:38
 #: src/org/kde/artikulate/ProfileUserItem.qml:70
@@ -433,13 +433,13 @@ msgstr "Kifejezés létrehozása"
 #: src/org/kde/artikulate/EditCoursePage.qml:45
 #, kde-format
 msgid "Create phrase after current phrase."
-msgstr ""
+msgstr "Kifejezés létrehozása a jelenlegi kifejezés után."
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
 #, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr ""
+msgstr "Tároló- és kurzusválasztás"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -454,7 +454,7 @@ msgstr "Mappa módosítása"
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:34
 #, kde-format
 msgid "Select Repository Folder"
-msgstr ""
+msgstr "Tárolómappa kiválasztása"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:85
 #: src/org/kde/artikulate/WelcomePage.qml:45
@@ -541,11 +541,9 @@ msgid "Localized Phrase:"
 msgstr "Lokalizált kifejezés:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "Befejezve"
+msgstr "Bonyolultság:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -568,11 +566,9 @@ msgid "Paragraph"
 msgstr "Bekezdés"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "Lefordítva"
+msgstr "Fordítás állapota:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -596,28 +592,25 @@ msgstr "Befejezve"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play stored recording"
-msgstr ""
+msgstr "Tárolt felvétel lejátszása"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
-#, fuzzy, kde-format
-#| msgid "Record"
+#, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr "Felvétel"
+msgstr "Új felvétele"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr "Új felvétel létrehozása:"
+msgstr "Új felvétel lejátszása"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr "Új felvétel létrehozása:"
+msgstr "Új felvétel készítése"
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
@@ -629,7 +622,7 @@ msgstr "Kifejezés"
 #: src/org/kde/artikulate/ProfileDetailsItem.qml:35
 #, kde-format
 msgid "Learner"
-msgstr ""
+msgstr "Tanuló"
 
 #: src/org/kde/artikulate/ProfileDetailsItem.qml:48
 #, kde-format
@@ -645,12 +638,12 @@ msgstr "Profil"
 #: src/org/kde/artikulate/ProfileSelector.qml:67
 #, kde-format
 msgid "Create New Learner Identity"
-msgstr ""
+msgstr "Új tanulóazonosító létrehozása"
 
 #: src/org/kde/artikulate/ProfileSelector.qml:100
 #, kde-format
 msgid "Use Selected Identity"
-msgstr ""
+msgstr "Kiválasztott azonosító használata"
 
 #: src/org/kde/artikulate/ProfileSettingsPage.qml:14
 #, kde-format
@@ -671,12 +664,12 @@ msgstr "Szerkesztés"
 #: src/org/kde/artikulate/ProfileUserItem.qml:76
 #, kde-format
 msgid "Change Image"
-msgstr ""
+msgstr "Kép módosítása"
 
 #: src/org/kde/artikulate/ProfileUserItem.qml:81
 #, kde-format
 msgid "Clear Image"
-msgstr ""
+msgstr "Kép törlése"
 
 #: src/org/kde/artikulate/ProfileUserItem.qml:120
 #, kde-format
@@ -686,18 +679,18 @@ msgstr "Kész"
 #: src/org/kde/artikulate/ProfileUserItem.qml:158
 #, kde-format
 msgid "Do you really want to delete this identity \"<b>%1</b>\"?"
-msgstr ""
+msgstr "Biztosan törli a(z) „<b>%1</b>” azonosítót?"
 
 #: src/org/kde/artikulate/ProfileUserItem.qml:174
 #, kde-format
 msgid "Cancel"
-msgstr "Mégsem"
+msgstr "Mégse"
 
 #: src/org/kde/artikulate/skeletonmodel.cpp:155
 #, kde-format
 msgctxt "@title:column"
 msgid "Skeleton"
-msgstr ""
+msgstr "Váz"
 
 #: src/org/kde/artikulate/SoundPlayer.qml:16
 #, kde-format
@@ -717,7 +710,7 @@ msgstr "Próbálkozások"
 #: src/org/kde/artikulate/TrainingPage.qml:32
 #, kde-format
 msgid "Category: no category selected"
-msgstr ""
+msgstr "Kategória: nincs kiválasztva kategória"
 
 #: src/org/kde/artikulate/TrainingPage.qml:35
 #, kde-format
@@ -728,6 +721,7 @@ msgstr "Kategória: %1"
 #, kde-format
 msgid "Mark current phrase as completed and proceed with next one."
 msgstr ""
+"Jelenlegi kifejezés megjelölése befejezettként, és folytatás a következővel."
 
 #: src/org/kde/artikulate/TrainingPage.qml:52
 #, kde-format
@@ -737,27 +731,27 @@ msgstr "Kihagyás"
 #: src/org/kde/artikulate/TrainingPage.qml:53
 #, kde-format
 msgid "Skip current phrase and proceed with next one."
-msgstr ""
+msgstr "Jelenlegi kifejezés kihagyása, és folytatás a következővel."
 
 #: src/org/kde/artikulate/TrainingPage.qml:108
 #, kde-format
 msgid "Play original"
-msgstr ""
+msgstr "Eredeti lejátszása"
 
 #: src/org/kde/artikulate/TrainingPage.qml:149
 #, kde-format
 msgid "Record yourself"
-msgstr ""
+msgstr "Saját rögzítése"
 
 #: src/org/kde/artikulate/TrainingPage.qml:157
 #, kde-format
 msgid "Play yourself"
-msgstr ""
+msgstr "Saját lejátszása"
 
 #: src/org/kde/artikulate/UnitEditor.qml:18
 #, kde-format
 msgid "Localized Unit:"
-msgstr ""
+msgstr "Honosított egység:"
 
 #: src/org/kde/artikulate/unitmodel.cpp:150
 #, kde-format
@@ -779,7 +773,7 @@ msgstr "Gyakorlás elkezdése"
 #: src/org/kde/artikulate/WelcomePage.qml:74
 #, kde-format
 msgid "No trainings found"
-msgstr ""
+msgstr "Nem találhatók gyakorlatok"
 
 #~ msgid "Welcome to Artikulate Course Editor"
 #~ msgstr "Üdvözli az Artikulate kurzusszerkesztő"
