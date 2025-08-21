@@ -12,3 +12,6 @@ Dependencies:
     'frameworks/kitemmodels': '@stable-kf6'
     'frameworks/knewstuff': '@stable-kf6'
     'frameworks/kirigami': '@stable-kf6'
+
+Options:
+ run-qmllint: true
