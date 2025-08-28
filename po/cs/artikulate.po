@@ -271,12 +271,10 @@ msgid "Artikulate Course Editor"
 msgstr "Editor kurzů Artikulate"
 
 #: src/main_editor.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "@info:credit"
-#| msgid "(c) 2013-2022 The Artikulate Developers"
+#, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr "(c) 2013-2022 Vývojáři Artikulate"
+msgstr ""
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -434,11 +432,10 @@ msgid "Create phrase after current phrase."
 msgstr "Vytvořit frázi po současné frázi."
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Repository Configuration"
+#, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr "Nastavení repozitáře"
+msgstr ""
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -540,11 +537,9 @@ msgid "Localized Phrase:"
 msgstr "Lokalizované fráze:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "Dokončeno"
+msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -567,11 +562,9 @@ msgid "Paragraph"
 msgstr "Odstavec"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "Přeloženo"
+msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -598,25 +591,22 @@ msgid "Play stored recording"
 msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
-#, fuzzy, kde-format
-#| msgid "Record"
+#, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr "Nahrávat"
+msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr "Vytvořit novou nahrávku"
+msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr "Vytvořit novou nahrávku"
+msgstr ""
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
@@ -779,30 +769,3 @@ msgstr "Spustit procvičování"
 #, kde-format
 msgid "No trainings found"
 msgstr "Nebyla nalezena žádná cvičení"
-
-#~ msgid "Repository"
-#~ msgstr "Repozitář"
-
-#~ msgid "Unit"
-#~ msgstr "Jednotka"
-
-#~ msgid "Unit: "
-#~ msgstr "Jednotka: "
-
-#~ msgid "Phrase: "
-#~ msgstr "Fráze: "
-
-#~ msgid "Edit State:"
-#~ msgstr "Upravit stav:"
-
-#~ msgid "Native Speaker Recording"
-#~ msgstr "Nahrávka rodilého mluvčího"
-
-#~ msgid "Existing Recording:"
-#~ msgstr "Existující nahrávka:"
-
-#~ msgid "Dismiss"
-#~ msgstr "Zahodit"
-
-#~ msgid "Difficulty:"
-#~ msgstr "Obtížnost:"
