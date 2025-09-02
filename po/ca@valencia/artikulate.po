@@ -179,7 +179,7 @@ msgid ""
 "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
 "runtime if available."
 msgstr ""
-"Ajusteu a «qtmultimediabackend» o «qtgstreamerbackend», seleccionat en temps "
+"Ajusteu a «qtmultimediabackend» o «qtgstreamerbackend», triat en temps "
 "d'execució, si està disponible."
 
 #: src/core/resources/editablecourseresource.cpp:266
@@ -442,7 +442,7 @@ msgstr "Crea una frase després de la frase actual."
 #, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr "Seleccioneu el repositori i curs"
+msgstr "Trieu el repositori i curs"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -457,7 +457,7 @@ msgstr "Canvia la carpeta"
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:34
 #, kde-format
 msgid "Select Repository Folder"
-msgstr "Seleccioneu la carpeta del repositori"
+msgstr "Trieu la carpeta del repositori"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:85
 #: src/org/kde/artikulate/WelcomePage.qml:45
