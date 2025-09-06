@@ -159,7 +159,7 @@ void TestEditorSession::iterateCourse()
 
     // session assumed to initialize with first units's first phrase
     QCOMPARE(session.activeUnit(), unitA.get());
-    // activating a unit shall not automatially select a phrase
+    // activating a unit shall not automatically select a phrase
     QVERIFY(session.activePhrase() == nullptr);
     QVERIFY(course.get() == session.course());
 

@@ -17,7 +17,7 @@ class ILanguage;
 /**
  * \class IEditableRepository
  * This interface provides a generic interface that provides just the methods and signals needed
- * to integrade a repository into the editing part of Artikulate.
+ * to integrate a repository into the editing part of Artikulate.
  */
 class ARTIKULATECORE_EXPORT IEditableRepository : public IResourceRepository
 {

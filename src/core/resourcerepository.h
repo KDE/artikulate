@@ -22,8 +22,8 @@ class LanguageResource;
 /**
  * @class ResourceRepository
  *
- * This class provides data handling of all downloaded trainingdata of a user. It dervies from the repository interface
- * to provide a generalized access to the data.
+ * This class provides data handling of all downloaded trainingdata of a user. It derives from the
+ * repository interface to provide a generalized access to the data.
  */
 class ARTIKULATECORE_EXPORT ResourceRepository : public IResourceRepository
 {
@@ -35,7 +35,7 @@ public:
     ~ResourceRepository() override;
 
     /**
-     * @brief Construtor for ResourceRepository object with explicitly set course folder
+     * @brief Constructor for ResourceRepository object with explicitly set course folder
      *
      * @param storageLocation relative or absolute path to courses/ folder (including that directory)
      */

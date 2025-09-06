@@ -44,7 +44,7 @@ TECHNICAL CONSIDERATIONS
 Language Specification Files
 ----------------------------
 For each language we need a specification file that states
-  - TAGs for specific prononciation patterns
+  - TAGs for specific pronunciation patterns
   - links to further language education material
   - possible groups of tags (e.g. in French the group of all "nasal"-sounds)
 

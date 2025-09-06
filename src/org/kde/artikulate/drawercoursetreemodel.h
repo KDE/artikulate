@@ -82,7 +82,7 @@ public:
     /**
      * @brief training filter controls if empty units/phrases shall be hidden
      *
-     * @note by chaning the training filter the model is rebuild. also an enabled
+     * @note by changing the training filter the model is rebuilt. Also an enabled
      *       training filter does not react to unit phrase data being changed.
      * @param trainingFilter the boolean value
      */
@@ -135,7 +135,7 @@ Q_SIGNALS:
     void sessionChanged();
     void trainingFilterChanged();
     /**
-     * \brief forwarded signal of underlaying session that requests a changed currentIndex \p index
+     * \brief forwarded signal of underlying session that requests a changed currentIndex \p index
      */
     void currentIndexChanged(QModelIndex index);
 
