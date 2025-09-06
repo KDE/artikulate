@@ -14,4 +14,5 @@ Dependencies:
     'frameworks/kirigami': '@stable-kf6'
 
 Options:
+ require-passing-tests-on: ['@all']
  run-qmllint: true
