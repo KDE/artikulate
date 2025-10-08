@@ -417,32 +417,32 @@ The available types are:
         <para
 ><inlinemediaobject
 ><imageobject>
-        <imagedata fileref="hi32-action-artikulate-word.png" format="PNG"/></imageobject>
-</inlinemediaobject
+        <imagedata fileref="hi32-action-artikulate-word.png" format="PNG"/></imageobject
+></inlinemediaobject
 > слово: окреме слово, літера або число</para>
         </listitem>
         <listitem>
         <para
 ><inlinemediaobject
 ><imageobject>
-        <imagedata fileref="hi32-action-artikulate-expression.png" format="PNG"/></imageobject>
-</inlinemediaobject
+        <imagedata fileref="hi32-action-artikulate-expression.png" format="PNG"/></imageobject
+></inlinemediaobject
 > вираз: вираз з декількох слів, який не є цілим реченням;</para>
         </listitem>
         <listitem>
         <para
 ><inlinemediaobject
 ><imageobject>
-        <imagedata fileref="hi32-action-artikulate-sentence.png" format="PNG"/></imageobject>
-</inlinemediaobject
+        <imagedata fileref="hi32-action-artikulate-sentence.png" format="PNG"/></imageobject
+></inlinemediaobject
 > речення: завершене речення;</para>
         </listitem>
         <listitem>
         <para
 ><inlinemediaobject
 ><imageobject>
-        <imagedata fileref="hi32-action-artikulate-paragraph.png" format="PNG"/></imageobject>
-</inlinemediaobject
+        <imagedata fileref="hi32-action-artikulate-paragraph.png" format="PNG"/></imageobject
+></inlinemediaobject
 > абзац: декілька речень (зазвичай, 2-3).</para>
         </listitem>
         </itemizedlist>
@@ -666,8 +666,7 @@ This button is deactivated if the course is not derived from a course skeleton.
 >Переклад українською: Юрій Чорноіван <email
 >yurchor@ukr.net</email
 ></para
-> 
-&underFDL; &underGPL; </chapter>
+> &underFDL; &underGPL; </chapter>
 
 &documentation.index;
 </book>
