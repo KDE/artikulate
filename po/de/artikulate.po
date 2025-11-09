@@ -1,13 +1,13 @@
-# SPDX-FileCopyrightText: 2024 Alois Spitzbart <spitz234@hotmail.com>
 # SPDX-FileCopyrightText: 2013, 2014, 2015, 2016, 2017, 2019, 2020 Burkhard Lück <lueck@hube-lueck.de>
 # SPDX-FileCopyrightText: 2014, 2016, 2023 Frederik Schwarzer <schwarzer@kde.org>
 # SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
+# SPDX-FileCopyrightText: 2024, 2025 Alois Spitzbart <spitz234@hotmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:37+0000\n"
-"PO-Revision-Date: 2024-06-12 22:32+0200\n"
+"PO-Revision-Date: 2025-10-29 22:25+0100\n"
 "Last-Translator: Alois Spitzbart <spitz234@hotmail.com>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.05.0\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -434,11 +434,10 @@ msgid "Create phrase after current phrase."
 msgstr "Redewendung nach der aktuellen Redewendung erstellen."
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Repository Configuration"
+#, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr "Archiveinstellungen"
+msgstr "Archiv- und Übungsauswahl"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -540,11 +539,9 @@ msgid "Localized Phrase:"
 msgstr "Lokalisierte Redewendung:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "Abgeschlossen"
+msgstr "Komplexität:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -567,11 +564,9 @@ msgid "Paragraph"
 msgstr "Absatz"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgctxt "state"
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "Übersetzt"
+msgstr "Übersetzungsstatus:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -595,25 +590,22 @@ msgstr "Abgeschlossen"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play stored recording"
-msgstr ""
+msgstr "Gespeicherte Aufnahme wiedergeben"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
-#, fuzzy, kde-format
-#| msgid "Record"
+#, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr "Aufnehmen"
+msgstr "Neu aufnehmen"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr "Neue Aufnahme erstellen"
+msgstr "Neue Aufnahme wiedergeben"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
-#, fuzzy, kde-format
-#| msgid "Create New Recording:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
 msgstr "Neue Aufnahme erstellen"
