@@ -776,39 +776,3 @@ msgstr "Inicia l'entrenament"
 #, kde-format
 msgid "No trainings found"
 msgstr "No s'ha trobat cap entrenament"
-
-#~ msgid "Welcome to Artikulate Course Editor"
-#~ msgstr "Us donem la benvinguda a l'editor de cursos de l'Artikulate"
-
-#~ msgid "Repository"
-#~ msgstr "Repositori"
-
-#~ msgid "Select Prototype"
-#~ msgstr "Selecció del prototip"
-
-#~ msgid "Unit"
-#~ msgstr "Unitat"
-
-#~ msgid "Unit: "
-#~ msgstr "Unitat: "
-
-#~ msgid "Phrase: "
-#~ msgstr "Frase: "
-
-#~ msgid "Edit State:"
-#~ msgstr "Edita l'estat:"
-
-#~ msgid "Native Speaker Recording"
-#~ msgstr "Enregistrament d'un parlant nadiu"
-
-#~ msgid "Existing Recording:"
-#~ msgstr "Enregistrament existent:"
-
-#~ msgid "Replace Existing Recording"
-#~ msgstr "Substitueix l'enregistrament existent"
-
-#~ msgid "Dismiss"
-#~ msgstr "Descarta"
-
-#~ msgid "Difficulty:"
-#~ msgstr "Dificultat:"
