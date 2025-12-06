@@ -6,12 +6,12 @@
     "command": "artikulate",
     "rename-icon": "artikulate",
     "finish-args": [
-        "--share=network",
+        "--device=dri",
         "--share=ipc",
+        "--share=network",
         "--socket=fallback-x11",
-        "--socket=wayland",
         "--socket=pulseaudio",
-        "--device=dri"
+        "--socket=wayland"
     ],
     "modules": [
         {
