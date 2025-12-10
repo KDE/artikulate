@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Vit Pelcak <vit@pelcak.org>, 2013, 2014, 2015, 2016, 2017, 2019, 2020, 2023.
+# SPDX-FileCopyrightText: 2013, 2014, 2015, 2016, 2017, 2019, 2020, 2023, 2025 Vit Pelcak <vit@pelcak.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:38+0000\n"
-"PO-Revision-Date: 2023-06-28 14:12+0200\n"
+"PO-Revision-Date: 2025-12-05 10:31+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -274,7 +274,7 @@ msgstr "Editor kurzů Artikulate"
 #, kde-format
 msgctxt "@info:credit"
 msgid "(c) 2013-2025 The Artikulate Developers"
-msgstr ""
+msgstr "(c) 2013-2025 Vývojáři Artikulate"
 
 #: src/main_editor.cpp:28
 #, kde-format
@@ -435,7 +435,7 @@ msgstr "Vytvořit frázi po současné frázi."
 #, kde-format
 msgctxt "@title:page"
 msgid "Repository and course selection"
-msgstr ""
+msgstr "Výběr repozitáře a kurzu"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:20
 #, kde-format
@@ -539,7 +539,7 @@ msgstr "Lokalizované fráze:"
 #: src/org/kde/artikulate/PhraseEditor.qml:27
 #, kde-format
 msgid "Complexity:"
-msgstr ""
+msgstr "Komplexita:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -564,7 +564,7 @@ msgstr "Odstavec"
 #: src/org/kde/artikulate/PhraseEditor.qml:41
 #, kde-format
 msgid "Translation State:"
-msgstr ""
+msgstr "Stav překladu:"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
 #, kde-format
@@ -588,25 +588,25 @@ msgstr "Dokončeno"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play stored recording"
-msgstr ""
+msgstr "Přehrát uloženou nahrávku"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:49
 #, kde-format
 msgctxt "@action:button"
 msgid "Record new"
-msgstr ""
+msgstr "Zaznamenat nové"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:64
 #, kde-format
 msgctxt "@action:button"
 msgid "Play new recording"
-msgstr ""
+msgstr "Přehrát novou nahrávku"
 
 #: src/org/kde/artikulate/PhraseEditorSoundComponent.qml:80
 #, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr ""
+msgstr "Pořídit novou nahrávku"
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
