@@ -1,21 +1,22 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # SPDX-FileCopyrightText: 2013, 2014, 2015, 2016, 2017, 2019, 2020, 2023, 2025 Vit Pelcak <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2026 Libor Filípek <filipek.libor@protonmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:48+0000\n"
-"PO-Revision-Date: 2025-12-05 10:31+0100\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
-"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2026-04-13 18:55+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
+"Language-Team: \n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 25.08.3\n"
+"X-Generator: Poedit 3.8\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -126,7 +127,7 @@ msgstr "Neplatná verze databáze '%1'."
 #: src/artikulate.kcfg:13
 #, kde-format
 msgid "If true, the main menu bar is shown."
-msgstr ""
+msgstr "Je-li to pravda, zobrazí se hlavní panel nabídek."
 
 #. i18n: ectx: label, entry (UseCourseRepository), group (artikulate)
 #: src/artikulate.kcfg:17
@@ -174,6 +175,8 @@ msgid ""
 "Set either to 'qtmultimediabackend' or 'qtgstreamerbackend', selected on "
 "runtime if available."
 msgstr ""
+"Nastavte na hodnotu 'qtmultimediabackend' nebo 'qtgstreamerbackend'; při "
+"spuštění se vybere ten, který je k dispozici."
 
 #: src/core/resources/editablecourseresource.cpp:266
 #, kde-format
@@ -202,7 +205,7 @@ msgstr "(c) 2013-2022 Vývojáři Artikulate"
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Train your pronunciation in a foreign language."
-msgstr ""
+msgstr "Procvičujte si výslovnost v cizím jazyce."
 
 #: src/main.cpp:37 src/main_editor.cpp:30
 #, kde-format
@@ -250,13 +253,13 @@ msgstr "Magdalena Konkiewicz"
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Vít Pelčák"
+msgstr "Vít Pelčák,Libor Filípek"
 
 #: src/main.cpp:53
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "vit@pelcak.org"
+msgstr "vit@pelcak.org,libor.filipek@gmail.com"
 
 #: src/main_editor.cpp:23
 #, kde-format
@@ -280,7 +283,7 @@ msgstr "(c) 2013-2025 Vývojáři Artikulate"
 #, kde-format
 msgctxt "@title Short program description"
 msgid "Edit Artikulate course files."
-msgstr ""
+msgstr "Upravit soubory kurzu Artikulate."
 
 #: src/mainwindow.cpp:29 src/org/kde/artikulate/ProfileSelector.qml:15
 #, kde-format
@@ -296,7 +299,7 @@ msgstr "Procvičování"
 #: src/org/kde/artikulate/WelcomePage.qml:78
 #, kde-format
 msgid "Download Training"
-msgstr ""
+msgstr "Stáhnout procvičování"
 
 #: src/org/kde/artikulate/ArtikulateDrawer.qml:122
 #: src/org/kde/artikulate/EditorDrawer.qml:120
@@ -308,22 +311,22 @@ msgstr "O Artikulate"
 #: src/org/kde/artikulate/EditorDrawer.qml:59
 #, kde-format
 msgid "Course Configuration"
-msgstr ""
+msgstr "Nastavení kurzu"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:12
 #, kde-format
 msgid "Prototype Configuration"
-msgstr ""
+msgstr "Nastavení prototypu"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:17
 #, kde-format
 msgid "Prototype Description"
-msgstr ""
+msgstr "Popis prototypu"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:17
 #, kde-format
 msgid "Course Description"
-msgstr ""
+msgstr "Popis kurzu"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:21
 #, kde-format
@@ -333,7 +336,7 @@ msgstr "Název:"
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:28
 #, kde-format
 msgid "Localized Title:"
-msgstr ""
+msgstr "Lokalizovaný název:"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:34
 #, kde-format
@@ -363,7 +366,7 @@ msgstr "Aktualizovat"
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:62
 #, kde-format
 msgid "Update the course with elements from prototype."
-msgstr ""
+msgstr "Aktualizujte kurz o prvky z prototypu."
 
 #: src/org/kde/artikulate/coursemodel.cpp:99
 #: src/org/kde/artikulate/languageresourcemodel.cpp:67
@@ -396,7 +399,7 @@ msgstr "Předchozí"
 #: src/org/kde/artikulate/EditCoursePage.qml:22
 #, kde-format
 msgid "Switch to previous phrase."
-msgstr ""
+msgstr "Přejít na předchozí frázi."
 
 #: src/org/kde/artikulate/EditCoursePage.qml:28
 #: src/org/kde/artikulate/TrainingPage.qml:45
@@ -407,7 +410,7 @@ msgstr "Následující"
 #: src/org/kde/artikulate/EditCoursePage.qml:29
 #, kde-format
 msgid "Switch to next phrase."
-msgstr ""
+msgstr "Přejít na další frázi."
 
 #: src/org/kde/artikulate/EditCoursePage.qml:38
 #: src/org/kde/artikulate/ProfileUserItem.qml:70
@@ -424,7 +427,7 @@ msgstr "Smazat tuto frázi."
 #: src/org/kde/artikulate/EditCoursePage.qml:44
 #, kde-format
 msgid "Create Phrase"
-msgstr ""
+msgstr "Vytvořit frázi"
 
 #: src/org/kde/artikulate/EditCoursePage.qml:45
 #, kde-format
@@ -450,7 +453,7 @@ msgstr "Změnit složku"
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:34
 #, kde-format
 msgid "Select Repository Folder"
-msgstr ""
+msgstr "Vybrat složku úložiště"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:85
 #: src/org/kde/artikulate/WelcomePage.qml:45
@@ -475,7 +478,7 @@ msgstr "%1"
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Prototype"
-msgstr "Upravit prototyp:"
+msgstr "Upravit prototyp"
 
 #: src/org/kde/artikulate/EditorDrawer.qml:45
 #, kde-format
@@ -517,19 +520,19 @@ msgstr "Odstavců"
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme Group"
-msgstr ""
+msgstr "Skupina fonémů"
 
 #: src/org/kde/artikulate/phonememodel.cpp:118
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme"
-msgstr ""
+msgstr "Fonémy"
 
 #: src/org/kde/artikulate/phonemeunitmodel.cpp:177
 #, kde-format
 msgctxt "@title:column"
 msgid "Phoneme Unit"
-msgstr ""
+msgstr "Jednotky fonémů"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:20
 #, kde-format
@@ -644,7 +647,7 @@ msgstr "Použít zvolenou identitu"
 #: src/org/kde/artikulate/ProfileSettingsPage.qml:14
 #, kde-format
 msgid "Configure Profile"
-msgstr ""
+msgstr "Nastavit profil"
 
 #: src/org/kde/artikulate/ProfileSettingsPage.qml:98
 #: src/org/kde/artikulate/ProfileUserItem.qml:114
@@ -706,7 +709,7 @@ msgstr "Pokusy"
 #: src/org/kde/artikulate/TrainingPage.qml:32
 #, kde-format
 msgid "Category: no category selected"
-msgstr ""
+msgstr "Kategorie: není vybrána žádná kategorie"
 
 #: src/org/kde/artikulate/TrainingPage.qml:35
 #, kde-format
@@ -716,7 +719,7 @@ msgstr "Kategorie: %1"
 #: src/org/kde/artikulate/TrainingPage.qml:46
 #, kde-format
 msgid "Mark current phrase as completed and proceed with next one."
-msgstr ""
+msgstr "Označit aktuální frázi jako dokončenou a pokračovat další."
 
 #: src/org/kde/artikulate/TrainingPage.qml:52
 #, kde-format
@@ -726,22 +729,22 @@ msgstr "Přeskočit"
 #: src/org/kde/artikulate/TrainingPage.qml:53
 #, kde-format
 msgid "Skip current phrase and proceed with next one."
-msgstr ""
+msgstr "Přeskočit aktuální frázi a pokračovat k další."
 
 #: src/org/kde/artikulate/TrainingPage.qml:108
 #, kde-format
 msgid "Play original"
-msgstr ""
+msgstr "Přehrát originál"
 
 #: src/org/kde/artikulate/TrainingPage.qml:149
 #, kde-format
 msgid "Record yourself"
-msgstr ""
+msgstr "Nahrát vlastní"
 
 #: src/org/kde/artikulate/TrainingPage.qml:157
 #, kde-format
 msgid "Play yourself"
-msgstr ""
+msgstr "Přehrát vlastní"
 
 #: src/org/kde/artikulate/UnitEditor.qml:18
 #, kde-format
@@ -757,7 +760,7 @@ msgstr "Jednotka"
 #: src/org/kde/artikulate/WelcomePage.qml:14
 #, kde-format
 msgid "Welcome to Artikulate"
-msgstr ""
+msgstr "Vítejte v Artikulate"
 
 #: src/org/kde/artikulate/WelcomePage.qml:59
 #, kde-format
