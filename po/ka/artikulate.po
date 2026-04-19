@@ -166,7 +166,7 @@ msgstr "აუდიოს გამოტანის ხმა"
 #: src/artikulate.kcfg:35
 #, kde-format
 msgid "Font"
-msgstr "შრიფტი"
+msgstr "ფონტი"
 
 #. i18n: ectx: label, entry (RecordingBackend), group (artikulate)
 #: src/artikulate.kcfg:42
