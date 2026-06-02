@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: artikulate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:48+0000\n"
-"PO-Revision-Date: 2013-09-08 07:05+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-05-28 17:05-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
@@ -96,11 +97,10 @@ msgid "Spanish"
 msgstr "ئىسپانچە"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:147
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "@item:inlistbox unknown learning goal"
 msgid "unknown"
-msgstr "نامەلۇم"
+msgstr "يوچۇن"
 
 #: liblearnerprofile/src/models/learninggoalmodel.cpp:212
 #, kde-format
@@ -111,7 +111,7 @@ msgstr ""
 #: liblearnerprofile/src/profilemanager.cpp:146
 #, kde-format
 msgid "Open Image"
-msgstr ""
+msgstr "سۈرەت ئاچ"
 
 #: liblearnerprofile/src/profilemanager.cpp:146
 #, kde-format
@@ -183,13 +183,13 @@ msgstr "يېڭى بىرلىك"
 #, kde-format
 msgctxt "@title Displayed program name"
 msgid "Artikulate"
-msgstr ""
+msgstr "Artikulate"
 
 #: src/main.cpp:31
 #, kde-format
 msgctxt "@title KAboutData: short program description"
 msgid "Artikulate Pronunciation Trainer"
-msgstr ""
+msgstr "Artikulate تاۋۇش مەشقلەندۈرگۈچ"
 
 #: src/main.cpp:33
 #, kde-format
@@ -210,11 +210,10 @@ msgid "Andreas Cord-Landwehr"
 msgstr ""
 
 #: src/main.cpp:38 src/main_editor.cpp:31
-#, fuzzy, kde-format
-#| msgid "Original Author"
+#, kde-format
 msgctxt "@info:credit Role"
 msgid "Original Author"
-msgstr "ئەسلى ئاپتور"
+msgstr "ئەسلى يازغۇچى"
 
 #: src/main.cpp:41
 #, kde-format
@@ -226,7 +225,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:credit Role"
 msgid "Developer"
-msgstr ""
+msgstr "ئىجادكار"
 
 #: src/main.cpp:45
 #, kde-format
@@ -250,13 +249,13 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "ئابدۇقادىر ئابلىز, غەيرەت كەنجى"
+msgstr "ئابدۇقادىر ئابلىز، غەيرەت كەنجى"
 
 #: src/main.cpp:53
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
+msgstr "sahranbay@gmail.com, gheyret@gmail.com"
 
 #: src/main_editor.cpp:23
 #, kde-format
@@ -290,7 +289,7 @@ msgstr ""
 #: src/org/kde/artikulate/ArtikulateDrawer.qml:58
 #, kde-format
 msgid "Training"
-msgstr ""
+msgstr "مەشىق"
 
 #: src/org/kde/artikulate/ArtikulateDrawer.qml:108
 #: src/org/kde/artikulate/WelcomePage.qml:78
@@ -316,16 +315,14 @@ msgid "Prototype Configuration"
 msgstr ""
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:17
-#, fuzzy, kde-format
-#| msgid "Description:"
+#, kde-format
 msgid "Prototype Description"
-msgstr "چۈشەندۈرۈش:"
+msgstr ""
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:17
-#, fuzzy, kde-format
-#| msgid "Description:"
+#, kde-format
 msgid "Course Description"
-msgstr "چۈشەندۈرۈش:"
+msgstr ""
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:21
 #, kde-format
@@ -360,7 +357,7 @@ msgstr ""
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:57
 #, kde-format
 msgid "Update"
-msgstr ""
+msgstr "يېڭىلا"
 
 #: src/org/kde/artikulate/CourseConfigurationPage.qml:62
 #, kde-format
@@ -374,11 +371,10 @@ msgstr ""
 #: src/org/kde/artikulate/profilemodel.cpp:83
 #: src/org/kde/artikulate/skeletonmodel.cpp:96
 #: src/org/kde/artikulate/unitmodel.cpp:79
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "@item:inlistbox:"
 msgid "unknown"
-msgstr "نامەلۇم"
+msgstr "يوچۇن"
 
 #: src/org/kde/artikulate/coursemodel.cpp:158
 #, kde-format
@@ -394,7 +390,7 @@ msgstr ""
 #: src/org/kde/artikulate/EditCoursePage.qml:21
 #, kde-format
 msgid "Previous"
-msgstr ""
+msgstr "ئالدىنقى"
 
 #: src/org/kde/artikulate/EditCoursePage.qml:22
 #, kde-format
@@ -405,7 +401,7 @@ msgstr ""
 #: src/org/kde/artikulate/TrainingPage.qml:45
 #, kde-format
 msgid "Next"
-msgstr ""
+msgstr "كېيىنكى"
 
 #: src/org/kde/artikulate/EditCoursePage.qml:29
 #, kde-format
@@ -417,7 +413,7 @@ msgstr ""
 #: src/org/kde/artikulate/ProfileUserItem.qml:167
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "ئۆچۈر"
 
 #: src/org/kde/artikulate/EditCoursePage.qml:39
 #, kde-format
@@ -460,7 +456,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window language / course name"
 msgid "%1 / %2"
-msgstr ""
+msgstr "%1 / %2"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:99
 #, kde-format
@@ -472,7 +468,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window prototype name"
 msgid "%1"
-msgstr ""
+msgstr "%1"
 
 #: src/org/kde/artikulate/EditorCourseSelectionPage.qml:159
 #, kde-format
@@ -488,38 +484,33 @@ msgstr ""
 #: src/org/kde/artikulate/EditorDrawer.qml:109
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "ساقلا"
 
 #: src/org/kde/artikulate/languageresourcemodel.cpp:146
-#, fuzzy, kde-format
-#| msgid "Language:"
+#, kde-format
 msgctxt "@title:column"
 msgid "Language"
-msgstr "تىل:"
+msgstr "تىل"
 
 #: src/org/kde/artikulate/learningprogressmodel.cpp:132
-#, fuzzy, kde-format
-#| msgid "Word"
+#, kde-format
 msgid "Words"
-msgstr "خەت"
+msgstr "سۆزلەر"
 
 #: src/org/kde/artikulate/learningprogressmodel.cpp:134
-#, fuzzy, kde-format
-#| msgid "Sentence"
+#, kde-format
 msgid "Sentences"
-msgstr "جۈملە"
+msgstr "جۈملىلەر"
 
 #: src/org/kde/artikulate/learningprogressmodel.cpp:136
-#, fuzzy, kde-format
-#| msgid "Expression"
+#, kde-format
 msgid "Expressions"
-msgstr "ئىپادە"
+msgstr ""
 
 #: src/org/kde/artikulate/learningprogressmodel.cpp:138
-#, fuzzy, kde-format
-#| msgid "Paragraph"
+#, kde-format
 msgid "Paragraphs"
-msgstr "ئابزاس"
+msgstr ""
 
 #: src/org/kde/artikulate/phonemegroupmodel.cpp:148
 #, kde-format
@@ -534,23 +525,20 @@ msgid "Phoneme"
 msgstr ""
 
 #: src/org/kde/artikulate/phonemeunitmodel.cpp:177
-#, fuzzy, kde-format
-#| msgid "New Unit"
+#, kde-format
 msgctxt "@title:column"
 msgid "Phoneme Unit"
-msgstr "يېڭى بىرلىك"
+msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditor.qml:20
-#, fuzzy, kde-format
-#| msgid "Original Author"
+#, kde-format
 msgid "Localized Phrase:"
-msgstr "ئەسلى ئاپتور"
+msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditor.qml:27
-#, fuzzy, kde-format
-#| msgid "Completed"
+#, kde-format
 msgid "Complexity:"
-msgstr "تاماملاندى"
+msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditor.qml:33
 #, kde-format
@@ -573,28 +561,24 @@ msgid "Paragraph"
 msgstr "ئابزاس"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:41
-#, fuzzy, kde-format
-#| msgid "Translated"
+#, kde-format
 msgid "Translation State:"
-msgstr "تەرجىمە قىلىنغان"
+msgstr ""
 
 #: src/org/kde/artikulate/PhraseEditor.qml:47
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "state"
 msgid "Unknown"
-msgstr "نامەلۇم"
+msgstr "يوچۇن"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:48
-#, fuzzy, kde-format
-#| msgid "Translated"
+#, kde-format
 msgctxt "state"
 msgid "Translated"
 msgstr "تەرجىمە قىلىنغان"
 
 #: src/org/kde/artikulate/PhraseEditor.qml:49
-#, fuzzy, kde-format
-#| msgid "Completed"
+#, kde-format
 msgctxt "state"
 msgid "Completed"
 msgstr "تاماملاندى"
@@ -628,7 +612,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:column"
 msgid "Phrase"
-msgstr ""
+msgstr "ئىبارە"
 
 #: src/org/kde/artikulate/ProfileDetailsItem.qml:35
 #, kde-format
@@ -636,16 +620,15 @@ msgid "Learner"
 msgstr ""
 
 #: src/org/kde/artikulate/ProfileDetailsItem.qml:48
-#, fuzzy, kde-format
-#| msgid "Language:"
+#, kde-format
 msgid "Favorite Languages"
-msgstr "تىل:"
+msgstr ""
 
 #: src/org/kde/artikulate/profilemodel.cpp:142
 #, kde-format
 msgctxt "@title:column"
 msgid "Profile"
-msgstr ""
+msgstr "سەپلىمە ھۆججەت"
 
 #: src/org/kde/artikulate/ProfileSelector.qml:67
 #, kde-format
@@ -666,12 +649,12 @@ msgstr ""
 #: src/org/kde/artikulate/ProfileUserItem.qml:114
 #, kde-format
 msgid "Name"
-msgstr ""
+msgstr "ئاتى"
 
 #: src/org/kde/artikulate/ProfileUserItem.qml:65
 #, kde-format
 msgid "Edit"
-msgstr ""
+msgstr "تەھرىر"
 
 #: src/org/kde/artikulate/ProfileUserItem.qml:76
 #, kde-format
@@ -686,7 +669,7 @@ msgstr ""
 #: src/org/kde/artikulate/ProfileUserItem.qml:120
 #, kde-format
 msgid "Done"
-msgstr ""
+msgstr "تامام"
 
 #: src/org/kde/artikulate/ProfileUserItem.qml:158
 #, kde-format
@@ -696,7 +679,7 @@ msgstr ""
 #: src/org/kde/artikulate/ProfileUserItem.qml:174
 #, kde-format
 msgid "Cancel"
-msgstr "ئەمەلدىن قالدۇر"
+msgstr "ۋاز كەچ"
 
 #: src/org/kde/artikulate/skeletonmodel.cpp:155
 #, kde-format
@@ -707,12 +690,12 @@ msgstr ""
 #: src/org/kde/artikulate/SoundPlayer.qml:16
 #, kde-format
 msgid "Play"
-msgstr ""
+msgstr "ياڭرات"
 
 #: src/org/kde/artikulate/SoundRecorder.qml:16
 #, kde-format
 msgid "Record"
-msgstr ""
+msgstr "خاتىرە"
 
 #: src/org/kde/artikulate/TrainerCourseStatistics.qml:43
 #, kde-format
@@ -737,7 +720,7 @@ msgstr ""
 #: src/org/kde/artikulate/TrainingPage.qml:52
 #, kde-format
 msgid "Skip"
-msgstr ""
+msgstr "ئاتلا"
 
 #: src/org/kde/artikulate/TrainingPage.qml:53
 #, kde-format
@@ -765,11 +748,10 @@ msgid "Localized Unit:"
 msgstr ""
 
 #: src/org/kde/artikulate/unitmodel.cpp:150
-#, fuzzy, kde-format
-#| msgid "Units"
+#, kde-format
 msgctxt "@title:column"
 msgid "Unit"
-msgstr "بىرلىكى"
+msgstr "بىرلىك"
 
 #: src/org/kde/artikulate/WelcomePage.qml:14
 #, kde-format
@@ -787,7 +769,6 @@ msgstr ""
 msgid "No trainings found"
 msgstr ""
 
-#, fuzzy
 #~| msgid "Units"
 #~ msgid "Unit"
 #~ msgstr "بىرلىكى"
@@ -798,13 +779,11 @@ msgstr ""
 #~ msgid "Dismiss"
 #~ msgstr "تاشلىۋەت"
 
-#, fuzzy
 #~| msgid "Default"
 #~ msgctxt "default sound device"
 #~ msgid "Default"
 #~ msgstr "كۆڭۈلدىكى"
 
-#, fuzzy
 #~| msgid "Title:"
 #~ msgid "Unit Title:"
 #~ msgstr "ماۋزۇ:"
@@ -825,7 +804,6 @@ msgstr ""
 #~ msgid "Settings"
 #~ msgstr "تەڭشەكلەر"
 
-#, fuzzy
 #~| msgid "Language:"
 #~ msgid "Languages"
 #~ msgstr "تىل:"
@@ -851,7 +829,6 @@ msgstr ""
 #~ msgid "Length:"
 #~ msgstr "ئۇزۇنلۇق:"
 
-#, fuzzy
 #~| msgid "Title"
 #~ msgctxt "@title:column"
 #~ msgid "Title"
