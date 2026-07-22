@@ -13,7 +13,7 @@ include_directories(
     ${artikulate_SOURCE_DIR}
 )
 
-add_library(artikulatecore SHARED ${artikulateCore_SRCS})
+add_library(artikulatecore SHARED)
 kconfig_add_kcfg_files(artikulatecore settings.kcfgc)
 # set the source code files from which Artikulate is compiled
 target_sources(artikulatecore PRIVATE
