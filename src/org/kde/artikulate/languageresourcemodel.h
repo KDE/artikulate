@@ -4,11 +4,11 @@
 #ifndef LANGUAGERESOURCEMODEL_H
 #define LANGUAGERESOURCEMODEL_H
 
+#include "core/iresourcerepository.h"
 #include "languagemodel.h"
 #include <QAbstractListModel>
 #include <QQmlEngine>
 
-class IResourceRepository;
 class ILanguage;
 class QSignalMapper;
 
