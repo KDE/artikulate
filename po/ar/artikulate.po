@@ -608,7 +608,7 @@ msgstr "شغّل التسجيل الجديد"
 #, kde-format
 msgctxt "@action:button"
 msgid "Take new recording"
-msgstr "خذ تسجيلاً جديدًا"
+msgstr "خذ تسجيلًا جديدًا"
 
 #: src/org/kde/artikulate/phraselistmodel.cpp:170
 #: src/org/kde/artikulate/phrasemodel.cpp:285
