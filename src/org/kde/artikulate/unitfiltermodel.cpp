@@ -45,3 +45,5 @@ bool UnitFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceP
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
     return sourceModel()->data(index, UnitModel::ContainsTrainingData).toBool();
 }
+
+#include "moc_unitfiltermodel.cpp"

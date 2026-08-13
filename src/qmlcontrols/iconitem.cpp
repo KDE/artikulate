@@ -150,3 +150,5 @@ void IconItem::geometryChange(const QRectF &newGeometry, const QRectF &oldGeomet
     }
     QQuickItem::geometryChange(newGeometry, oldGeometry);
 }
+
+#include "moc_iconitem.cpp"

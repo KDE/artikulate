@@ -102,3 +102,5 @@ std::shared_ptr<Phoneme> PhonemeGroup::addPhoneme(const QString &identifier, con
     newPhoneme->setTitle(title);
     return addPhoneme(std::move(newPhoneme));
 }
+
+#include "moc_phonemegroup.cpp"

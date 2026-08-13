@@ -61,3 +61,5 @@ QVariant LanguageModel::language(int row) const
 {
     return data(index(row, 0), LanguageResourceModel::DataRole);
 }
+
+#include "moc_languagemodel.cpp"

@@ -157,3 +157,5 @@ void UnitModel::updateMappings()
         m_signalMapper->setMapping(m_course->units().at(i).get(), i);
     }
 }
+
+#include "moc_unitmodel.cpp"

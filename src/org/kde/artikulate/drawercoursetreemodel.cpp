@@ -324,3 +324,5 @@ QModelIndex DrawerCourseTreeModel::firstPhraseIndexInUnit(const QModelIndex &cur
         return QModelIndex();
     }
 }
+
+#include "moc_drawercoursetreemodel.cpp"

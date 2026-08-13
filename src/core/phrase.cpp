@@ -402,3 +402,5 @@ void Phrase::removePhoneme(Phoneme *phoneme)
         // FIXME tell Unit to also send corresponding signal!
     }
 }
+
+#include "moc_phrase.cpp"

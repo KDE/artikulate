@@ -328,3 +328,5 @@ void PhraseModel::updatePhraseMappings()
         }
     }
 }
+
+#include "moc_phrasemodel.cpp"

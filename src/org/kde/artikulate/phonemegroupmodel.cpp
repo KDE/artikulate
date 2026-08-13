@@ -155,3 +155,5 @@ void PhonemeGroupModel::updateMappings()
     //        m_signalMapper->setMapping(m_course->phonemeGroupList().at(i), i);
     //    }
 }
+
+#include "moc_phonemegroupmodel.cpp"

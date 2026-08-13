@@ -188,3 +188,5 @@ void PhraseListModel::updateMappings()
         m_signalMapper->setMapping(m_unit->phrases().at(i).get(), i);
     }
 }
+
+#include "moc_phraselistmodel.cpp"

@@ -179,3 +179,5 @@ void TrainingSession::updateGoal()
     learner->addGoal(goal);
     learner->setActiveGoal(goal);
 }
+
+#include "moc_trainingsession.cpp"

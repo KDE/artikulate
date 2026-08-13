@@ -60,3 +60,5 @@ void TemporaryRecordingFile::saveAs(const QString &path)
         qWarning() << "Copy operation failed:" << QDir::tempPath() + '/' + m_soundFile->fileName() << "->" << path;
     }
 }
+
+#include "moc_temporaryrecordingfile.cpp"

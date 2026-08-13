@@ -270,3 +270,5 @@ QUrl CourseResource::file() const
 {
     return d->m_file;
 }
+
+#include "moc_courseresource.cpp"

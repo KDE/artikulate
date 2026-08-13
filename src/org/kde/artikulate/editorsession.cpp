@@ -136,3 +136,5 @@ void EditorSession::updateCourseFromSkeleton()
     }
     m_repository->updateCourseFromSkeleton(m_course->self());
 }
+
+#include "moc_editorsession.cpp"

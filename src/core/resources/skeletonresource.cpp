@@ -416,3 +416,5 @@ QUrl SkeletonResource::file() const
 {
     return d->m_path;
 }
+
+#include "moc_skeletonresource.cpp"

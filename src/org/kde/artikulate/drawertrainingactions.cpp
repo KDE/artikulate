@@ -55,3 +55,5 @@ QHash<int, QByteArray> DrawerTrainingActions::roleNames() const
     roles[DrawerTrainingActions::Action] = "drawerAction";
     return roles;
 }
+
+#include "moc_drawertrainingactions.cpp"

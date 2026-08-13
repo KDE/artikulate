@@ -147,3 +147,5 @@ void LearningProgressModel::updateResults()
     // nothing to do
     endResetModel();
 }
+
+#include "moc_learningprogressmodel.cpp"

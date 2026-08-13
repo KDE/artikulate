@@ -61,3 +61,5 @@ bool MainWindow::queryClose()
     // FIXME make sure all learner data is written to database
     return true;
 }
+
+#include "moc_mainwindow.cpp"

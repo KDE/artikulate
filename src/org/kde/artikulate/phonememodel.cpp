@@ -129,3 +129,5 @@ void PhonemeModel::updateMappings()
         m_signalMapper->setMapping(m_language->phonemes().at(i).get(), i);
     }
 }
+
+#include "moc_phonememodel.cpp"

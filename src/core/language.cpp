@@ -140,3 +140,5 @@ QVector<std::shared_ptr<PhonemeGroup>> Language::phonemeGroups() const
 {
     return m_phonemeGroups;
 }
+
+#include "moc_language.cpp"

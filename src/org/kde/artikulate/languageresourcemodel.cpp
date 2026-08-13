@@ -181,3 +181,5 @@ void LanguageResourceModel::updateMappings()
         m_signalMapper->setMapping(m_languages.at(i), i);
     }
 }
+
+#include "moc_languageresourcemodel.cpp"
