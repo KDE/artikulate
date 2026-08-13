@@ -338,3 +338,5 @@ void EditableCourseResource::markModified()
         Q_EMIT modifiedChanged(true);
     }
 }
+
+#include "moc_editablecourseresource.cpp"

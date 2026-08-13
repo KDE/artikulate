@@ -94,3 +94,5 @@ bool PhraseFilterModel::filterAcceptsRow(int source_row, const QModelIndex &sour
     }
     return result;
 }
+
+#include "moc_phrasefiltermodel.cpp"

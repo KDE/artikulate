@@ -194,3 +194,5 @@ void PhonemeUnitModel::updateMappings()
     //        m_signalMapper->setMapping(m_course->phonemeUnitList(m_phonemeGroup).at(i), i);
     //    }
 }
+
+#include "moc_phonemeunitmodel.cpp"

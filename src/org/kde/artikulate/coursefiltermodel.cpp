@@ -75,3 +75,5 @@ QVariant CourseFilterModel::course(int row) const
 {
     return m_courseModel->data(m_courseModel->index(row, 0), CourseModel::DataRole);
 }
+
+#include "moc_coursefiltermodel.cpp"

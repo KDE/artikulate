@@ -399,3 +399,5 @@ QVector<std::shared_ptr<IEditableCourse>> ContributorRepository::skeletons() con
     }
     return skeletonList;
 }
+
+#include "moc_contributorrepository.cpp"

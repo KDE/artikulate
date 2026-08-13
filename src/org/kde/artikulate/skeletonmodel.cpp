@@ -159,3 +159,5 @@ QVariant SkeletonModel::skeleton(int row) const
 {
     return data(index(row, 0), SkeletonModel::DataRole);
 }
+
+#include "moc_skeletonmodel.cpp"

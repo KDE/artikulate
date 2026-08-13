@@ -37,3 +37,5 @@ void Phoneme::setTitle(const QString &title)
         Q_EMIT titleChanged();
     }
 }
+
+#include "moc_phoneme.cpp"

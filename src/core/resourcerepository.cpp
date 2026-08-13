@@ -143,3 +143,5 @@ bool ResourceRepository::loadLanguage(const QString &resourceFile)
     m_languages.insert(language->id(), language);
     return true;
 }
+
+#include "moc_resourcerepository.cpp"

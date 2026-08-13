@@ -96,3 +96,5 @@ void MainWindowEditor::quit()
 //        return false;
 //    }
 //}
+
+#include "moc_mainwindow_editor.cpp"

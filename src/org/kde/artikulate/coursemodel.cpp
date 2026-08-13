@@ -162,3 +162,5 @@ QVariant CourseModel::course(int row) const
 {
     return data(index(row, 0), CourseModel::DataRole);
 }
+
+#include "moc_coursemodel.cpp"

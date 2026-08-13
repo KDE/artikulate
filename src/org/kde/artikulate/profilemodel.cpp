@@ -152,3 +152,5 @@ void ProfileModel::updateMappings()
         m_signalMapper->setMapping(m_profileManager->profiles().at(i), i);
     }
 }
+
+#include "moc_profilemodel.cpp"

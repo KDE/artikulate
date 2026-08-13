@@ -156,3 +156,5 @@ void Unit::emitPhrasesChanged(std::shared_ptr<IEditableUnit> unit)
 {
     Q_EMIT phrasesChanged(unit);
 }
+
+#include "moc_unit.cpp"

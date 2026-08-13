@@ -83,3 +83,5 @@ void Application::registerQmlTypes()
     qmlRegisterType<Phoneme>(uri.data(), 1, 0, "Phoneme");
     qmlRegisterType<PhonemeGroup>(uri.data(), 1, 0, "PhonemeGroup");
 }
+
+#include "moc_application.cpp"
