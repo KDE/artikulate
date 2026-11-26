@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/artikulate/artikulate.pot\n"
-"X-Crowdin-File-ID: 57357\n"
+"X-Crowdin-File: /kf6-stable/messages/artikulate/artikulate.pot\n"
+"X-Crowdin-File-ID: 58266\n"
 
 #: data/languages/ba.xml:9
 #, kde-format
